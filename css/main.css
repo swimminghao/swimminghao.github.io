@@ -1283,6 +1283,11 @@ pre code {
   border: 1px solid #eee;
   max-width: 120px;
   padding: 2px;
+  border-radius: 50%;
+  transition: transform 1s ease-out;
+}
+.site-author-image:hover {
+  transform: rotateZ(360deg);
 }
 .site-author-name {
   color: var(--text-color);
@@ -1682,6 +1687,14 @@ pre code {
   margin-top: 40px;
   text-align: center;
 }
+.post-body p a {
+  color: #0593d3;
+  border-bottom: none;
+}
+.post-body p a:hover {
+  color: #ff106c;
+  text-decoration: underline;
+}
 .use-motion .post-block {
   margin-top: 60px;
   margin-bottom: 60px;
@@ -1689,6 +1702,10 @@ pre code {
   background: rgba(255,255,255,0.4) none repeat scroll !important;
   -webkit-box-shadow: 0 0 5px rgba(202,203,203,0.5);
   -moz-box-shadow: 0 0 5px rgba(202,203,204,0.5);
+}
+.use-motion .pagination,
+.use-motion .comments {
+  opacity: 0;
 }
 .use-motion .post-header {
   visibility: hidden;
@@ -2066,6 +2083,13 @@ pre code {
 }
 .post-block:last-of-type .post-eof {
   display: none;
+}
+.post-copyright ul {
+  list-style: none;
+  padding: 0.5em 1em;
+  background: var(--card-bg-color);
+  border-left: 3px solid #ff2a2a;
+  margin: 1em 0 0;
 }
 .post-tags {
   margin-top: 40px;
@@ -2741,23 +2765,26 @@ mark.search-keyword {
     margin-bottom: 10px;
   }
 }
-body {
+body::before {
   background: url("https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/01/20220301112534.jpg");
   background-repeat: no-repeat;
-  background-attachment: fixed;
+  background-size: cover;
   background-position: 50% 50%;
-  background-size: 100% 100%;
+  content: " ";
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: -2;
 }
 .main-inner {
-  opacity: 0.9;
+  opacity: 0.8;
 }
 .sidebar {
-  opacity: 0.7;
-}
-.header-inner {
-  opacity: 0.7;
+  opacity: 0.8;
 }
 .footer-inner {
   color: #000;
-  opacity: 0.7;
+  opacity: 0.8;
 }
