@@ -219,6 +219,11 @@
 	</div>
 	<ul class="links-of-blogroll-list recent-posts-list">
 	        <li class="my-links-of-blogroll-item">
+		    <a href="/posts/a1cb1a5b/" title="1、【对线面试官】今天来聊聊Java注解.md" target="">
+		    1、【对线面试官】今天来聊聊Java注解.md
+		    </a>
+		</li>
+	        <li class="my-links-of-blogroll-item">
 		    <a href="/posts/c30e6297/" title="Hexo博客文章加密" target="">
 		    Hexo博客文章加密
 		    </a>
@@ -236,11 +241,6 @@
 	        <li class="my-links-of-blogroll-item">
 		    <a href="/posts/hello-world/" title="Hello World" target="">
 		    Hello World
-		    </a>
-		</li>
-	        <li class="my-links-of-blogroll-item">
-		    <a href="/posts/75999130/" title="Hexo-Next 主题博客个性化配置(2022年更新版本)" target="">
-		    Hexo-Next 主题博客个性化配置(2022年更新版本)
 		    </a>
 		</li>
 	</ul>
@@ -267,6 +267,161 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/759e745e/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lion.png">
+      <meta itemprop="name" content="swimminghao">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="swimminghao's blog">
+      <meta itemprop="description" content="swimminghao的学习博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | swimminghao's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/759e745e/" class="post-title-link" itemprop="url">6、【对线面试官】CAS</a>
+        </h2>
+
+        <div class="post-meta-container">
+
+          
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-03-10 09:48:07" itemprop="dateModified" datetime="2022-03-10T09:48:07+08:00">2022-03-10</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/posts/759e745e/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/759e745e/" data-xid="/posts/759e745e/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>1k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>1 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="6、【对线面试官】CAS"><a href="#6、【对线面试官】CAS" class="headerlink" title="6、【对线面试官】CAS"></a>6、【对线面试官】CAS</h1><h2 id="今天我们来聊聊CAS吧？你对CAS了解多少？"><a href="#今天我们来聊聊CAS吧？你对CAS了解多少？" class="headerlink" title="今天我们来聊聊CAS吧？你对CAS了解多少？"></a>今天我们来聊聊CAS吧？你对CAS了解多少？</h2><ol>
+<li>CAS的全称为compare and swap，比较并交换</li>
+<li>虽然翻译过来是「比较并交换」，但它是一个原子性的操作，对应到CPU指令为cmpxchg</li>
+<li>cpu指令你都知道？-&gt;这没什么，都是背的。</li>
+<li>回到CAS上吧，CAS的操作其实非常简单。</li>
+<li>CAS有三个操作数：当前值A、内存值V、要修改的新值B</li>
+<li>假设当前值A跟内存值V相等，那就将内存值V改成B</li>
+<li>假设当前值A跟内存值V不相等，要么就重试，要么就放弃更新</li>
+<li>将当前值与内存值进行对比，判断是否有被修改过，这就是CAS的核心</li>
+</ol>
+<h2 id="确实，那为什么要用CAS呢？"><a href="#确实，那为什么要用CAS呢？" class="headerlink" title="确实，那为什么要用CAS呢？"></a>确实，那为什么要用CAS呢？</h2><ol>
+<li>嗯，要讲到CAS就不得不说synchronized锁了，它是Java锁..然后..</li>
+<li>ok，其实就是synchronized锁每次只会让一个线程去操作共享资源</li>
+<li>而CAS相当于没有加锁，多个线程都可以直接操作共享资源，在实际去修改的时候才去判断能否修改成功</li>
+<li>在很多的情况下会synchronized锁要高效很多</li>
+<li>比如，对一个值进行累加，就没必要使用synchronized锁，使用juc包下的Atomic类就足以。</li>
+</ol>
+<h2 id="了解，那你知道CAS会有什么缺点吗？"><a href="#了解，那你知道CAS会有什么缺点吗？" class="headerlink" title="了解，那你知道CAS会有什么缺点吗？"></a>了解，那你知道CAS会有什么缺点吗？</h2><ol>
+<li>CAS有个缺点就是会带来ABA的问题</li>
+<li>从CAS更新的时候，我们可以发现它只比对当前值和内存值是否相等，这会带来个问题，下面我举例说明下：</li>
+<li>假设线程A读到当前值是10，可能线程B把值修改为100，然后线程C又把值修改为10。</li>
+<li>等到线程A拿到执行权时，因为当前值和内存值是一致的，线程A是可以修改的！</li>
+<li>站在线程A的角度来说，这个值是从未被修改的（：</li>
+<li>这是不合理的，因为我们从上帝的角度来看，这个变量已经被线程B和线程C修改过了。</li>
+<li>这就是所谓的ABA问题</li>
+<li>要解决ABA的问题，Java也提供了AtomicStampedReference类供我们用，说白了就是加了个版本，比对的就是内存值+版本是否一致</li>
+</ol>
+<h2 id="阿里巴巴开发手册提及到推荐使用LongAdder对象，比AtomicLong性能更好（减少乐观锁的重试次数）"><a href="#阿里巴巴开发手册提及到推荐使用LongAdder对象，比AtomicLong性能更好（减少乐观锁的重试次数）" class="headerlink" title="阿里巴巴开发手册提及到推荐使用LongAdder对象，比AtomicLong性能更好（减少乐观锁的重试次数）"></a>阿里巴巴开发手册提及到推荐使用LongAdder对象，比AtomicLong性能更好（减少乐观锁的重试次数）</h2><ol>
+<li>AtomicLong做累加的时候实际上就是多个线程操作同一个目标资源</li>
+<li>在高并发时，只有一个线程是执行成功的，其他的线程都会失败，不断自旋（重试），自旋会成为瓶颈</li>
+<li>而LongAdder的思想就是把要操作的目标资源「分散」到数组Cell中</li>
+<li>每个线程对自己的Cell变量的value进行原子操作，大大降低了失败的次数</li>
+<li>这就是为什么在高并发场景下，推荐使用LongAdder的原因</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>l
+
+
+
 
     
 
@@ -315,7 +470,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-10 09:43:48" itemprop="dateModified" datetime="2022-03-10T09:43:48+08:00">2022-03-10</time>
+      <time title="修改时间：2022-03-10 09:48:07" itemprop="dateModified" datetime="2022-03-10T09:48:07+08:00">2022-03-10</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -481,7 +636,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-10 09:43:39" itemprop="dateModified" datetime="2022-03-10T09:43:39+08:00">2022-03-10</time>
+      <time title="修改时间：2022-03-10 09:48:07" itemprop="dateModified" datetime="2022-03-10T09:48:07+08:00">2022-03-10</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -673,7 +828,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-10 09:42:55" itemprop="dateModified" datetime="2022-03-10T09:42:55+08:00">2022-03-10</time>
+      <time title="修改时间：2022-03-10 09:48:07" itemprop="dateModified" datetime="2022-03-10T09:48:07+08:00">2022-03-10</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -842,7 +997,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-10 09:32:21" itemprop="dateModified" datetime="2022-03-10T09:32:21+08:00">2022-03-10</time>
+      <time title="修改时间：2022-03-10 09:48:07" itemprop="dateModified" datetime="2022-03-10T09:48:07+08:00">2022-03-10</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -1017,186 +1172,6 @@
 <li><a target="_blank" rel="noopener" href="https://design-patterns.readthedocs.io/zh_CN/latest/behavioral_patterns/observer.html">https://design-patterns.readthedocs.io/zh_CN/latest/behavioral_patterns/observer.html</a></li>
 <li><a target="_blank" rel="noopener" href="https://juejin.im/post/5a8eb261f265da4e9e307230">https://juejin.im/post/5a8eb261f265da4e9e307230</a></li>
 <li><a target="_blank" rel="noopener" href="https://juejin.im/post/5ba28986f265da0abc2b6084">https://juejin.im/post/5ba28986f265da0abc2b6084</a></li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>l
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/a1cb1a5b/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/lion.png">
-      <meta itemprop="name" content="swimminghao">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="swimminghao's blog">
-      <meta itemprop="description" content="swimminghao的学习博客">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | swimminghao's blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/a1cb1a5b/" class="post-title-link" itemprop="url">什么是注解？</a>
-        </h2>
-
-        <div class="post-meta-container">
-
-          
-
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-01-06 09:18:27" itemprop="dateCreated datePublished" datetime="2022-01-06T09:18:27+08:00">2022-01-06</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-08 13:06:52" itemprop="dateModified" datetime="2022-03-08T13:06:52+08:00">2022-03-08</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="far fa-comment"></i>
-    </span>
-    <span class="post-meta-item-text">Waline：</span>
-  
-    <a title="waline" href="/posts/a1cb1a5b/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/a1cb1a5b/" data-xid="/posts/a1cb1a5b/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>3k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>3 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h2 id="什么是注解？"><a href="#什么是注解？" class="headerlink" title="什么是注解？"></a>什么是注解？</h2><ul>
-<li>注解在我的理解下，就是代码中的特殊标记，这些标记可以在编译、类加载、运行时被读取，并执行相对应的处理。</li>
-</ul>
-<h2 id="开发中用到的注"><a href="#开发中用到的注" class="headerlink" title="开发中用到的注"></a>开发中用到的注</h2><ol>
-<li>注解其实在开发中是非常常见的，比如我们在使用各种框架时（像我们Java程序员接触最多的还是Spring框架一套） ，就会用到非常多的注解，@Controller I@Param &#x2F; @Select等等</li>
-<li>一些项目也用到lombok的注解，@SIf4j&#x2F;@Data等等</li>
-<li>除了框架实现的注解，Java原生也有@ Overried、 @Deprecated、 @Functional Interface等基本注解</li>
-<li>不过Java原生的基本注解大多数用于「标记」和「检查」<ul>
-<li>原生Java除了这些提供基本注解之外，还有一种叫做元Annotation（元注解），所谓的元Annotation就是用来修饰注解的</li>
-<li>常用的元Annotation有@Retention和@Target</li>
-<li>@Retention注解可以简单理解为设置注解的生命周期，而@Target表示这个注解可以修饰哪些地方（比如方法、还是成员变量、还是包等等）</li>
-</ul>
-</li>
-</ol>
-<h2 id="自己定义过的注解，在项目里边用的"><a href="#自己定义过的注解，在项目里边用的" class="headerlink" title="自己定义过的注解，在项目里边用的"></a>自己定义过的注解，在项目里边用的</h2><ol>
-<li>嗯，写过的。背景是这样的：我司有个监控告警系统，对外提供了客户端供我们自己使用。监控一般的指标就是QPS、RT和错误嘛。</li>
-<li>原生的客户端需要在代码里指定上报这会导致这种监控的代码会跟业务代码混合，比较恶心。</li>
-</ol>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">send</span><span class="params">(String userName)</span> &#123;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="comment">// qps 上报</span></span><br><span class="line">    qps(params);</span><br><span class="line">    <span class="type">long</span> <span class="variable">startTime</span> <span class="operator">=</span> System.currentTimeMillis();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 构建上下文(模拟业务代码）</span></span><br><span class="line">    <span class="type">ProcessContext</span> <span class="variable">processContext</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ProcessContext</span>();</span><br><span class="line">    <span class="type">UserModel</span> <span class="variable">userModel</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">UserModel</span>();</span><br><span class="line">    userModel.setAge(<span class="string">&quot;22&quot;</span>);</span><br><span class="line">    userModel.setName(userName);</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// rt 上报</span></span><br><span class="line">    <span class="type">long</span> <span class="variable">endTime</span> <span class="operator">=</span> System.currentTimeMillis();</span><br><span class="line">    rt(endTime - startTime);</span><br><span class="line">  &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 出错上报</span></span><br><span class="line">    error(params);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol>
-<li><p>其实这种基础的监控信息，显然都可以通过AOP切面的方式去处理掉（可以看到都是方法级的）。而再用注解这个载体配置相关的信息，配合AOP解析就会比较优雅</p>
-</li>
-<li><p>要写自定义的注解，首先考虑我们是在什么时候解析这个注解。这就需要用到前面所说的@Retention注解，这个注解会修饰我们自定义注解生命周期。</p>
-</li>
-<li><p>@Retention注解传入的是RetentionPolic y枚举，该枚举有三个常量，分别是SOU RCE、 CLASS和RUNTIME</p>
-</li>
-<li><p>理解这块就得了解从.java文件到class文件再到class被jvm加载的过程了。下面的图描述着从.java文件到编译为class文件的过程</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/lW9KUH_20211025142411.png"></p>
-</li>
-<li><p>从上面的图可以发现有个「注解抽象语法树」，这里其实就会去解析注解，然后做处理的逻辑。</p>
-</li>
-<li><p>所以重点来了，如果你想要在编译期间处理注解相关的逻辑，你需要继承AbstractProcessor并实现process方法。比如可以看到lombok就用AnnotationProcessor继承了AbstractProcessor。</p>
-</li>
-<li><p>一般来说，只要自定义的注解中@Retention注解设置为SOURCE和CLASS这俩个级别，那么就需要继承并实现</p>
-</li>
-<li><p>因为SOURCE和CLASS这俩个级别等加载到jvm的时候，注解就被抹除了</p>
-</li>
-<li><p>从这里又引申出：lombok的实现原理就是在这（为什么使用了个@Data这样的注解就能有set&#x2F;get等方法了，就是在这里加上去的）</p>
-</li>
-</ol>
-<h2 id="自定义注解的级别"><a href="#自定义注解的级别" class="headerlink" title="自定义注解的级别"></a>自定义注解的级别</h2><ol>
-<li>一般来说，我们自己定义的注解都是RUNTIME级别的，因为大多数情况我们是根据运行时环境去做一些处理。</li>
-<li>我们现实在开发的过程中写自定义注解需要配合反射来使用</li>
-<li>因为反射是Java获取运行时的信息的重要手段</li>
-<li>所以，我当时就用了自定义注解，在SpringAOP的逻辑处理中，判断是否带有自定义注解，如果有则将监控的逻辑写在方法的前后</li>
-<li>这样，只要在方法上加上我的注解，那就可以有对方法监控的效果（RT、QPS、ERROR)</li>
-</ol>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Around(&quot;@annotation(com.sanwai.service.openapi.monitor.Monitor)&quot;)</span></span><br><span class="line"><span class="keyword">public</span> Object <span class="title function_">antispan</span><span class="params">(ProceedingJoinPoint pjp)</span> <span class="keyword">throws</span> Throwable &#123;</span><br><span class="line"></span><br><span class="line">    <span class="type">String</span> <span class="variable">functionName</span> <span class="operator">=</span> pjp.getSignature().getName();</span><br><span class="line">    Map&lt;String, String&gt; tags = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line"></span><br><span class="line">    logger.info(functionName);</span><br><span class="line"></span><br><span class="line">    tags.put(<span class="string">&quot;functionName&quot;</span>, functionName);</span><br><span class="line">    tags.put(<span class="string">&quot;flag&quot;</span>, <span class="string">&quot;done&quot;</span>);</span><br><span class="line"></span><br><span class="line">    monitor.sum(functionName, <span class="string">&quot;start&quot;</span>, <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//方法执行开始时间</span></span><br><span class="line">    <span class="type">long</span> <span class="variable">startTime</span> <span class="operator">=</span> System.currentTimeMillis();</span><br><span class="line"></span><br><span class="line">    <span class="type">Object</span> <span class="variable">o</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        o = pjp.proceed();</span><br><span class="line">    &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">        <span class="comment">//方法执行结束时间</span></span><br><span class="line">        <span class="type">long</span> <span class="variable">endTime</span> <span class="operator">=</span> System.currentTimeMillis();</span><br><span class="line"></span><br><span class="line">        tags.put(<span class="string">&quot;flag&quot;</span>, <span class="string">&quot;fail&quot;</span>);</span><br><span class="line">        monitor.avg(<span class="string">&quot;rt&quot;</span>, tags, endTime - startTime);</span><br><span class="line"></span><br><span class="line">        monitor.sum(functionName, <span class="string">&quot;fail&quot;</span>, <span class="number">1</span>);</span><br><span class="line">        <span class="keyword">throw</span> e;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//方法执行结束时间</span></span><br><span class="line">    <span class="type">long</span> <span class="variable">endTime</span> <span class="operator">=</span> System.currentTimeMillis();</span><br><span class="line"></span><br><span class="line">    monitor.avg(<span class="string">&quot;rt&quot;</span>, tags, endTime - startTime);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (<span class="literal">null</span> != o) &#123;</span><br><span class="line">        monitor.sum(functionName, <span class="string">&quot;done&quot;</span>, <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> o;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ol>
-<li>注解是代码的特殊标记，可以在编译、类加载、运行时被读取</li>
-<li>其实对应的就是RetentionPolicy枚举三种级别</li>
-<li>SOURCE和CLASS级别需要继承AbstractProcessor，实现process方法去处理我们自定义的注解</li>
-<li>而RUNTIME级别是我们日常开发用得最多了，配合Java反射机制可以在很多场景优化我们的代码</li>
-</ol>
-<h2 id="展示态度（嗯，总体来看，你对注解这块基础还是扎实的。）"><a href="#展示态度（嗯，总体来看，你对注解这块基础还是扎实的。）" class="headerlink" title="展示态度（嗯，总体来看，你对注解这块基础还是扎实的。）"></a>展示态度（嗯，总体来看，你对注解这块基础还是扎实的。）</h2><ul>
-<li>主要是在工作中遇到注解的时候就多看看原理是怎么实现的，然后遇到业务机会，还是会写写，优化优化下代码</li>
 </ul>
 
       
