@@ -102,9 +102,9 @@
   <ul class="main-menu menu">
         <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
         <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
-        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">18</span></a></li>
-        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">5</span></a></li>
-        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">83</span></a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">26</span></a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">7</span></a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">124</span></a></li>
         <li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
@@ -176,18 +176,18 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">83</span>
+          <span class="site-state-item-count">124</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-count">7</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-count">26</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -276,7 +276,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/3c567306/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/c988e95f/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/lion.png">
@@ -294,7 +294,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/3c567306/" class="post-title-link" itemprop="url">8、【对线面试官】AQS & ReentrantLock</a>
+          <a href="/posts/c988e95f/" class="post-title-link" itemprop="url">上线流程-DESKTOP-J06DG54</a>
         </h2>
 
         <div class="post-meta-container">
@@ -315,7 +315,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-10 09:48:07" itemprop="dateModified" datetime="2022-03-10T09:48:07+08:00">2022-03-10</time>
+      <time title="修改时间：2022-03-13 12:55:53" itemprop="dateModified" datetime="2022-03-13T12:55:53+08:00">2022-03-13</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -336,8 +336,8 @@
     </span>
     <span class="post-meta-item-text">Waline：</span>
   
-    <a title="waline" href="/posts/3c567306/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/3c567306/" data-xid="/posts/3c567306/" itemprop="commentCount"></span>
+    <a title="waline" href="/posts/c988e95f/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/c988e95f/" data-xid="/posts/c988e95f/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -348,14 +348,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>2.4k</span>
+      <span>786</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>2 分钟</span>
+      <span>1 分钟</span>
     </span>
 </div>
 
@@ -366,77 +366,284 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="8、【对线面试官】AQS-amp-ReentrantLock"><a href="#8、【对线面试官】AQS-amp-ReentrantLock" class="headerlink" title="8、【对线面试官】AQS &amp; ReentrantLock"></a>8、【对线面试官】AQS &amp; ReentrantLock</h1><h2 id="今天我们来聊聊lock锁吧？"><a href="#今天我们来聊聊lock锁吧？" class="headerlink" title="今天我们来聊聊lock锁吧？"></a>今天我们来聊聊lock锁吧？</h2><h2 id="你知道什么叫做公平和非公平锁吗"><a href="#你知道什么叫做公平和非公平锁吗" class="headerlink" title="你知道什么叫做公平和非公平锁吗"></a>你知道什么叫做公平和非公平锁吗</h2><ol>
-<li>公平锁指的就是：在竞争环境下，先到临界区的线程比后到的线程一定更快地获取得到锁</li>
-<li>那非公平就很好理解了：先到临界区的线程未必比后到的线程更快地获取得到锁</li>
-</ol>
-<h2 id="如果让你实现的话，你怎么实现公平和非公平锁？"><a href="#如果让你实现的话，你怎么实现公平和非公平锁？" class="headerlink" title="如果让你实现的话，你怎么实现公平和非公平锁？"></a>如果让你实现的话，你怎么实现公平和非公平锁？</h2><ol>
-<li>公平锁可以把竞争的线程放在一个先进先出的队列上</li>
-<li>只要持有锁的线程执行完了，唤醒队列的下一个线程去获取锁就好了</li>
-<li>非公平锁的概念上面已经提到了：后到的线程可能比前到临界区的线程获取得到锁</li>
-<li>那实现也很简单，线程先尝试能不能获取得到锁，如果获取得到锁了就执行同步代码了</li>
-<li>如果获取不到锁，那就再把这个线程放到队列呗</li>
-<li>所以公平和非公平的区别就是：线程执行同步代码块时，是否会去尝试获取锁。</li>
-<li>如果会尝试获取锁，那就是非公平的。如果不会尝试获取锁，直接进队列，再等待唤醒，那就是公平的。</li>
-</ol>
-<h2 id="为什么要进队列呢？线程一直尝试获取锁不就行了么？"><a href="#为什么要进队列呢？线程一直尝试获取锁不就行了么？" class="headerlink" title="为什么要进队列呢？线程一直尝试获取锁不就行了么？"></a>为什么要进队列呢？线程一直尝试获取锁不就行了么？</h2><ol>
-<li>一直尝试获取锁，专业点就叫做自旋，需要耗费资源的。</li>
-<li>多个线程一直在自旋，而且大多数都是竞争失败的，哪有人会这样实现的</li>
-<li>不会吧，不会吧，你不会就是这样实现的吧</li>
-</ol>
-<h2 id="那上次面试所问的synchronized锁是公平的还是非公平的？"><a href="#那上次面试所问的synchronized锁是公平的还是非公平的？" class="headerlink" title="那上次面试所问的synchronized锁是公平的还是非公平的？"></a>那上次面试所问的synchronized锁是公平的还是非公平的？</h2><ol>
-<li>非公平的。</li>
-<li>偏向锁很好理解，如果当前线程ID与markword存储的不相等，则CAS尝试更换线程ID，CAS成功就获取得到锁了</li>
-<li>CAS失败则升级为轻量级锁</li>
-<li>轻量级锁实际上也是通过CAS来抢占锁资源（只不过多了拷贝Mark Word到Lock Record的过程）</li>
-<li>抢占成功到锁就归属给该线程了，但自旋失败一定次数后升级重量级锁</li>
-<li>重量级锁通过monitor对象中的队列存储线程，但线程进入队列前，还是会先尝试获取得到锁，如果能获取不到才进入线程等待队列中</li>
-<li>综上所述，synchronized无论处理哪种锁，都是先尝试获取，获取不到才升级||放到队列上的，所以是非公平的</li>
-</ol>
-<h2 id="嗯，讲得挺仔细的。AQS你了解吗？"><a href="#嗯，讲得挺仔细的。AQS你了解吗？" class="headerlink" title="嗯，讲得挺仔细的。AQS你了解吗？"></a>嗯，讲得挺仔细的。AQS你了解吗？</h2><ol>
-<li>嗯嗯，AQS全称叫做AbstractQueuedSynchronizer</li>
-<li>是可以给我们实现锁的一个 「框架」，内部实现的关键就是维护了一个先进先出的队列以及state状态变量</li>
-<li>先进先出队列存储的载体叫做Node节点，该节点标识着当前的状态值、是独占还是共享模式以及它的前驱和后继节点等等信息</li>
-<li>简单理解就是：AQS定义了模板，具体实现由各个子类完成。</li>
-<li>总体的流程可以总结为：会把需要等待的线程以Node的形式放到这个先进先出的队列上，state变量则表示为当前锁的状态。</li>
-<li>像ReentrantLock、 ReentrantReadWrite Lock、 CountDownLatch、 Semaphore 这些常用的实现类都是基于AQS实现的</li>
-<li>AQS支持两种模式：独占（锁只会被一个线程独占）和共享（多个线程可同时执行）</li>
-</ol>
-<h2 id="你以ReentrantLock来讲讲加锁和解锁的过程呗"><a href="#你以ReentrantLock来讲讲加锁和解锁的过程呗" class="headerlink" title="你以ReentrantLock来讲讲加锁和解锁的过程呗"></a>你以ReentrantLock来讲讲加锁和解锁的过程呗</h2><ul>
-<li>以非公平锁为了，我们在外界调用lock方法的时候，源码是这样实现的<ol>
-<li>CAS尝试获取锁，获取成功则可以执行同步代码</li>
-<li>CAS获取失败，则调用acquire方法acquire方法实际上就是AQS的模板方法</li>
-<li>acquire首先会调用子类的tryAcquire 方法（又回到了ReentrantLock中）</li>
-<li>tryAcquire方法实际上会判断当前的state是否等于0，等于0说明没有线程持有锁，则又尝试CAS直接获取锁</li>
-<li>如果CAS获取成功，则可以执行同步代码</li>
-<li>如果CAS获取失败，那判断当前线程是否就持有锁，如果是持有的锁，那更新state的值，获取得到锁（这里其实就是处理可重入的逻辑）</li>
-<li>CAS失败&amp;&amp;非重入的情况，则回到try Acquire方法执行「入队列」的操作</li>
-<li>将节点入队列之后，会判断「前驱节点」是不是头节点，如果是头结点又会用CAS尝试获取锁</li>
-<li>如果是「前驱节点」是头节点并获取得到锁，则把当前节点设置为头结点，并且将前驱节点置空（实际上就是原有的头节点已经释放锁了）</li>
-<li>没获取得到锁，则判断前驱节点的状态是否为SIGNAL，如果不是，则找到合法的前驱节点，并使用CAS将状态设置为SIGNAL</li>
-<li>最后调用park将当前线程挂起</li>
-</ol>
-</li>
-</ul>
-<h2 id="你说了一大堆，麻烦使用压缩算法压缩下加锁的过程。"><a href="#你说了一大堆，麻烦使用压缩算法压缩下加锁的过程。" class="headerlink" title="你说了一大堆，麻烦使用压缩算法压缩下加锁的过程。"></a>你说了一大堆，麻烦使用压缩算法压缩下加锁的过程。</h2><p>压缩后：当线程CAS获取锁失败，将当前线程入队列，把前驱节点状态设置为SIGNAL状态，并将自己挂起。</p>
-<h2 id="为什么要设置前驱节点为-SIGNAL状态，有啥用？"><a href="#为什么要设置前驱节点为-SIGNAL状态，有啥用？" class="headerlink" title="为什么要设置前驱节点为 SIGNAL状态，有啥用？"></a>为什么要设置前驱节点为 SIGNAL状态，有啥用？</h2><ol>
-<li>其实就是表示后继节点需要被唤醒,你咋啥都不知道啊？跟你沟通有点烦.我先把解锁的过程说下吧<ul>
-<li>外界调用unlock方法时，实际上会调用AQS的release方法，而release方法会调用子类tryRelease方法（又回到了ReentrantLock中）</li>
-<li>tryRelease会把state一直减（锁重入可使state&gt;1），直至到0，说明当前线程已经把锁释放了</li>
-<li>随后从队尾往前找节点状态需要&lt;0，并离头节点最近的节点进行唤醒</li>
-</ul>
-</li>
-<li>唤醒之后，被唤醒的线程则尝试使用CAS获取锁，假设获取锁得到则把头节点给干掉，把自己设置为头节点成</li>
-<li>解锁的逻辑非常简单哈</li>
-<li>压缩一下：把state置0，唤醒头结点下一个合法的节点，被唤醒的节点线程自然就会去获取锁</li>
-<li>回到上一个问题，为什么要设置前驱节点为SIGNAL状态</li>
-<li>其实归终结底就是为了判断节点的状态，去做些处理。</li>
-<li>Node中节点的状态有4种，分别是：CA NCELLED(1)、 SIGNAL(-1)、 CONDITI ON（-2）、 PROPAGATE（-3）和0。</li>
-<li>在ReentrantLock解锁的时候，会判断节点的状态是否小于0，小于等于0才说明需要被唤醒</li>
-<li>另外一提的是：公平锁的实现与非公平锁是很像的，只不过在获取锁时不会直接尝试使用CAS来获取锁。</li>
-<li>只有当队列没节点并且state为0时才会去获取锁，不然都会把当前线程放到队列中</li>
-</ol>
-<h2 id="流程图"><a href="#流程图" class="headerlink" title="流程图"></a>流程图</h2><p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/eK7qe3_20211027174549.png"></p>
+          这是一篇加密文章，需要密码才能继续阅读。
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/posts/c988e95f/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>l
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/16b3e53b/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lion.png">
+      <meta itemprop="name" content="swimminghao">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="swimminghao's blog">
+      <meta itemprop="description" content="swimminghao的学习博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | swimminghao's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/16b3e53b/" class="post-title-link" itemprop="url">上线流程</a>
+        </h2>
+
+        <div class="post-meta-container">
+
+          
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-03-13 12:55:53" itemprop="dateModified" datetime="2022-03-13T12:55:53+08:00">2022-03-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/posts/16b3e53b/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/16b3e53b/" data-xid="/posts/16b3e53b/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>820</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>1 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          这是一篇加密文章，需要密码才能继续阅读。
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/posts/16b3e53b/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>l
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/565f63a6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lion.png">
+      <meta itemprop="name" content="swimminghao">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="swimminghao's blog">
+      <meta itemprop="description" content="swimminghao的学习博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | swimminghao's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/565f63a6/" class="post-title-link" itemprop="url">法拍房</a>
+        </h2>
+
+        <div class="post-meta-container">
+
+          
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-03-11 11:12:36" itemprop="dateModified" datetime="2022-03-11T11:12:36+08:00">2022-03-11</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8C%A3%E9%92%B1/" itemprop="url" rel="index"><span itemprop="name">挣钱</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/posts/565f63a6/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/565f63a6/" data-xid="/posts/565f63a6/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>997</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>1 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="法拍房"><a href="#法拍房" class="headerlink" title="法拍房"></a>法拍房</h1><p>以前玩过法拍房。</p>
+<p>答案是：买卖不破租赁，没辙儿。</p>
+<p>而且存在租赁的情况法院必然会在拍卖前告知，可能你冲动之下不看仔细就瞎jb拍了。人家租赁合同估计做得也没啥原则性的漏洞（正常情况下房主计划断供之前就准备好一切了，还能等到拍卖完了才想起来临时抱佛脚？），否则你也不会跑来知乎问问题。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/QYXpiS_20220218115144.png" alt="img"><img src="https://pic1.zhimg.com/80/v2-f9c3fc9a2e3b9fb55e4d44eb4ac8ccfc_1440w.jpg?source=1940ef5c" alt="img">知乎懂哥太多了，民法典上写得清清楚楚的东西还要来杠</p>
+<p>给想玩法拍房的人一个建议。</p>
+<p>以前我玩法拍房，都是先找银行的熟人把银行的不良贷款列一份名单给我。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/in9h58_20220218115220.png" alt="img"></p>
+<p>看上哪套房子，就联系银行把该房的债权买下来，（银行-〉有资质的第三方机构-〉个人，具体步骤结尾有补充）（即房主欠银行的钱变成房主欠我的钱）。银行本来就不是拍卖机构，拍卖周期又可能比较长，银行一般急着回笼资金节约流程巴不得有人把债权买走，还会打折卖。之后自己成了债权人，就可以在拍卖信息上把联系电话留成自己的。</p>
+<p>有买家想了解这套房，就会打我的电话，这时我会告诉买家这套房有一些问题，比如就存在题主说的“有超长租赁合同”之类的。买家一听这房子藏雷，就不打算买了。</p>
+<p>最后想买的买家全都被我劝退，没有任何人和我竞争，这时我再让合伙人出手竞拍（债权人不能买，所以需要一个合伙人），于是这套房子就被我以起拍价买下来了。</p>
+<p>你们要买<a target="_blank" rel="noopener" href="https://www.zhihu.com/search?q=%E6%B3%95%E6%8B%8D%E6%88%BF&search_source=Entity&hybrid_search_source=Entity&hybrid_search_extra=%7B%22sourceType%22:%22answer%22,%22sourceId%22:2336153412%7D">法拍房</a>的可以参考这个方法。</p>
+<hr>
+<h3 id="没想到这里还有杠精，是因为我把这路子免费分享出来，知道的人多了会挡你财路？"><a href="#没想到这里还有杠精，是因为我把这路子免费分享出来，知道的人多了会挡你财路？" class="headerlink" title="没想到这里还有杠精，是因为我把这路子免费分享出来，知道的人多了会挡你财路？"></a>没想到这里还有杠精，是因为我把这路子免费分享出来，知道的人多了会挡你财路？</h3><h3 id="补充细节："><a href="#补充细节：" class="headerlink" title="补充细节："></a>补充细节：</h3><p>1，债权不能直接从银行到个人，需要经手有资质的第三方机构，比如拍卖行。具体步骤：挑好房子谈好折扣——打款到拍卖行——和银行签债转协议——银行债转公示——<a target="_blank" rel="noopener" href="https://www.zhihu.com/search?q=%E5%85%AC%E8%AF%81%E5%A4%84&search_source=Entity&hybrid_search_source=Entity&hybrid_search_extra=%7B%22sourceType%22:%22answer%22,%22sourceId%22:2336153412%7D">公证处</a>债权公证——法院出债转文书——诉讼主体变更——接手债权。</p>
+<p>2，法拍房如果出现意外情况，处理较繁琐。我以前只出资投债权赚差价，不沾房子本身。不认识熟人的散户建议联系专门的拍卖中介机构，不会多收你几个钱。中介也是按上面说的这些流程走的。</p>
+<hr>
+<p>最后声明：</p>
+<p>知乎杠精太多了。</p>
+<p>我回答这个问题仅仅只是因为关注动态里蹦出来了这个问题，而我正好以前在这个领域玩过一段时间，所以顺手答一下。我本人是原神和vtb领域的答主，对金融方面的流量不感兴趣，更何况还是知乎这种公认变现价值低的劣质流量。</p>
+<p>另外本人自前年底去年初住建部全国巡视指导发政策后就不再玩房了，不打广告不为自己引流（当然你可以去b站关注一下嘉然），也不接受网友任何投资与资金往来。答主绝不可能以任何形式问你要钱、拉你进任何形式的群聊、让你注册任何形式的账号等等。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/oXAOjg_20220218115620.png" alt="img"><img src="https://pic3.zhimg.com/80/v2-dc62303b7e3ec727fb12e80bcb36d58d_1440w.jpg?source=1940ef5c" alt="img"></p>
 
       
     </div>
@@ -468,7 +675,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/ac3dc3bf/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/2d4446ad/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/lion.png">
@@ -486,7 +693,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/ac3dc3bf/" class="post-title-link" itemprop="url">9、【对线面试官】线程池</a>
+          <a href="/posts/2d4446ad/" class="post-title-link" itemprop="url">10、【对线面试官】TreadLocal</a>
         </h2>
 
         <div class="post-meta-container">
@@ -528,8 +735,161 @@
     </span>
     <span class="post-meta-item-text">Waline：</span>
   
-    <a title="waline" href="/posts/ac3dc3bf/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/ac3dc3bf/" data-xid="/posts/ac3dc3bf/" itemprop="commentCount"></span>
+    <a title="waline" href="/posts/2d4446ad/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/2d4446ad/" data-xid="/posts/2d4446ad/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>982</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>1 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="10、【对线面试官】TreadLocal"><a href="#10、【对线面试官】TreadLocal" class="headerlink" title="10、【对线面试官】TreadLocal"></a>10、【对线面试官】TreadLocal</h1><h2 id="今天要不来聊聊ThreadLocal吧？"><a href="#今天要不来聊聊ThreadLocal吧？" class="headerlink" title="今天要不来聊聊ThreadLocal吧？"></a>今天要不来聊聊ThreadLocal吧？</h2><ol>
+<li>我个人对ThreadLocal理解就是</li>
+<li>它能够提供了线程的局部变量让每个线程都可以通过set&#x2F;get来对这个局部变量进行操作</li>
+<li>不会和其他线程的局部变量进行冲突，实现了线程的数据隔离</li>
+</ol>
+<h2 id="你在工作中有用到过ThreadLocal吗？"><a href="#你在工作中有用到过ThreadLocal吗？" class="headerlink" title="你在工作中有用到过ThreadLocal吗？"></a>你在工作中有用到过ThreadLocal吗？</h2><ol>
+<li>这块是真不多，不过还是有一处的。就是我们项目有个的DateUtils工具类</li>
+<li>这个工具类主要是对时间进行格式化</li>
+<li>格式化&#x2F;转化的实现是用的SimpleDateFormat</li>
+<li>但众所周知SimpleDateFormat不是线程安全的 ，所以我们就用ThreadLocal来让每个线程装载着自己的SimpleDateFormat对象</li>
+<li>以达到在格式化时间时，线程安全的目的</li>
+<li>在方法上创建SimpleDateFormat对象也没问题，但每调用一次就创建一次有点不优雅</li>
+<li>在工作中ThreadLocal的应用场景确实不多，但要不我给你讲讲Spring是怎么用的？</li>
+</ol>
+<h2 id="spring中的应用"><a href="#spring中的应用" class="headerlink" title="spring中的应用"></a>spring中的应用</h2><ol>
+<li>Spring提供了事务相关的操作，而我们知道事务是得保证一组操作同时成功或失败的</li>
+<li>这意味着我们一次事务的所有操作需要在同一个数据库连接上</li>
+<li>但是在我们日常写代码的时候是不需要关注这点的</li>
+<li>Spring就是用的ThreadLocal来实现，Th readLocal存储的类型是一个Map</li>
+<li>Map中的key是DataSource，value是C onnection（为了应对多数据源的情况，所以是一个Map）</li>
+<li>用了ThreadLocal保证了同一个线程获取一个Connection对象，从而保证一次事务的所有操作需要在同一个数据库连接上</li>
+</ol>
+<h2 id="你知道ThreadLocal内存泄露这个知识点吗？"><a href="#你知道ThreadLocal内存泄露这个知识点吗？" class="headerlink" title="你知道ThreadLocal内存泄露这个知识点吗？"></a>你知道ThreadLocal内存泄露这个知识点吗？</h2><ol>
+<li>了解的，要不我先来讲讲ThreadLocal的原理？<ul>
+<li>ThreadLocal是一个壳子，真正的存储结构是ThreadLocal里有ThreadLocalMap这么个内部类</li>
+<li>而有趣的是，ThreadLocalMap的引用是在Thread上定义的</li>
+<li>ThreadLocal本身并不存储值，它只是作为key来让线程从ThreadLocalMap获取value</li>
+<li>所以，得出的结论就是ThreadLocalMap该结构本身就在Thread下定义，而ThreadLocal只是作为key，存储set到ThreadLocalMap的变量当然是线程私有的咯</li>
+</ul>
+</li>
+</ol>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/NxSnnq_20211029171330.png"></p>
+
+      
+    </div>
+
+    
+    
+    
+
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>l
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/58f7b356/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lion.png">
+      <meta itemprop="name" content="swimminghao">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="swimminghao's blog">
+      <meta itemprop="description" content="swimminghao的学习博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | swimminghao's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/58f7b356/" class="post-title-link" itemprop="url">11、【对线面试官】CountDownLatch和CyclicBarrier</a>
+        </h2>
+
+        <div class="post-meta-container">
+
+          
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-03-10 09:48:07" itemprop="dateModified" datetime="2022-03-10T09:48:07+08:00">2022-03-10</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/posts/58f7b356/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/58f7b356/" data-xid="/posts/58f7b356/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -558,53 +918,45 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="9、【对线面试官】线程池"><a href="#9、【对线面试官】线程池" class="headerlink" title="9、【对线面试官】线程池"></a>9、【对线面试官】线程池</h1><h2 id="今天来聊聊线程池呗，你对Java线程池了解多少？"><a href="#今天来聊聊线程池呗，你对Java线程池了解多少？" class="headerlink" title="今天来聊聊线程池呗，你对Java线程池了解多少？"></a>今天来聊聊线程池呗，你对Java线程池了解多少？</h2><h2 id="或者换个问法：为什么需要线程池？"><a href="#或者换个问法：为什么需要线程池？" class="headerlink" title="或者换个问法：为什么需要线程池？"></a>或者换个问法：为什么需要线程池？</h2><ol>
-<li>JVM在HotSpot的线程模型下，Java线程会一对一映射为内核线程</li>
-<li>这意味着，在Java中每次创建以及回收线程都会去内核创建以及回收</li>
-<li>这就有可能导致：创建和销毁线程所花费的时间和资源可能比处理的任务花费的时间和资源要更多</li>
-<li>线程池的出现是为了提高线程的复用性以及固定线程的数量！！！</li>
+          <h1 id="11、【对线面试官】CountDownLatch和CyclicBarrier"><a href="#11、【对线面试官】CountDownLatch和CyclicBarrier" class="headerlink" title="11、【对线面试官】CountDownLatch和CyclicBarrier"></a>11、【对线面试官】CountDownLatch和CyclicBarrier</h1><h2 id="我现在有个场景：现在我有50个任务，这50个任务在完成之后，才能执行下一个「函数」，要是你，你怎么设计？"><a href="#我现在有个场景：现在我有50个任务，这50个任务在完成之后，才能执行下一个「函数」，要是你，你怎么设计？" class="headerlink" title="我现在有个场景：现在我有50个任务，这50个任务在完成之后，才能执行下一个「函数」，要是你，你怎么设计？"></a>我现在有个场景：现在我有50个任务，这50个任务在完成之后，才能执行下一个「函数」，要是你，你怎么设计？</h2><ol>
+<li>可以用JDK给我们提供的线程工具类，CountDownLatch和CyclicBarrier都可以完成这个需求。</li>
+<li>这两个类都可以等到线程完成之后，才去执行某些操作</li>
 </ol>
-<h2 id="你在项目中用到了线程池吗？"><a href="#你在项目中用到了线程池吗？" class="headerlink" title="你在项目中用到了线程池吗？"></a>你在项目中用到了线程池吗？</h2><ol>
-<li>嗯，用到的。我先说下背景吧</li>
-<li>我所负责的项目是消息管理平台，提供其中一个功能就是：运营会圈定人群，然后群发消息</li>
-<li>主要流程大致就是：创建模板-》定时-》群发消息-》用户收到消息</li>
-<li>运营圈定的人群实际上在模板上只是一个ID，我这边要通过ID去获取到HDFS文件</li>
-<li>对HDFS文件进行遍历，然后继续往下发</li>
-<li>「接收到定时任务，再对HDFS进行遍历」这里的处理，我用的就是线程池处理</li>
+<h2 id="那既然都能实现的话？那CountDownLatch和CyclicBarrier有什么什么区别呢？"><a href="#那既然都能实现的话？那CountDownLatch和CyclicBarrier有什么什么区别呢？" class="headerlink" title="那既然都能实现的话？那CountDownLatch和CyclicBarrier有什么什么区别呢？"></a>那既然都能实现的话？那CountDownLatch和CyclicBarrier有什么什么区别呢？</h2><ul>
+<li>主要的区别就是CountDownLatch用完了，就结束了，没法复用。而CyclicBarrier不一样，它可以复用。</li>
+<li>比如说，你得给我解释：CountDownLatch和CyclicBarrier都是线程同步的工具类<br>od</li>
+<li>CountDownLatch允许一个或多个线程一直等待，直到这些线程完成它们的操作</li>
+<li>而CyclicBarrier不一样，它往往是当线程到达某状态后，暂停下来等待其他线程等到所有线程均到达以后，才继续执行</li>
+<li>可以发现这两者的等待主体是不一样的。</li>
+<li>CountDownLatch调用await（）通常是主线程&#x2F;调用线程，而CyclicBarrier调用await（）是在任务线程调用的</li>
+<li>所以，CyclicBarrier中的阻塞的是任务的线程，而主线程是不受影响的</li>
+<li>简单叙述完这些基本概念后，可以特意抛出这两个类都是基于AQS实现的</li>
+<li>countDownLatch<ol>
+<li>前面提到了CountDownLatch也是基于AQS实现的，它的实现机制很简单</li>
+<li>当我们在构建CountDownLatch对象时，传入的值其实就会赋值给AQS的关键变量state</li>
+<li>执行countDown方法时，其实就是利用CAS将state-1<br>执行await方法时，其实就是判断state是否为0，不为0则加入到队列中，将该线程阻塞掉（除了头结点）</li>
+<li>因为头节点会一直自旋等待state为0，当state为0时，头节点把剩余的在队列中阻塞的节点也一并唤醒</li>
 </ol>
-<h2 id="为什么选择用线程池呢？"><a href="#为什么选择用线程池呢？" class="headerlink" title="为什么选择用线程池呢？"></a>为什么选择用线程池呢？</h2><ol>
-<li>HDFS遍历其实就是IO的操作，我把这个过程给异步化，为了提高系统的吞吐量，于是我这里用的线程池。</li>
-<li>即便遍历HDFS出现问题，我这边都有完备的监控和告警可以及时发现。</li>
-</ol>
-<h2 id="那你是怎么用线程池的呢？用Executors去创建的吗？"><a href="#那你是怎么用线程池的呢？用Executors去创建的吗？" class="headerlink" title="那你是怎么用线程池的呢？用Executors去创建的吗？"></a>那你是怎么用线程池的呢？用Executors去创建的吗？</h2><ol>
-<li>不是的，我这边用的ThreadPoolExecutor去创建线程池</li>
-<li>其实看阿里巴巴开发手册就有提到，不要使用Executors去创建线程。</li>
-<li>最主要的目的就是：使用ThreadPoolExecutor创建的线程你是更能了解线程池运行的规则，避免资源耗尽的风险</li>
-<li>ThreadPoolExecutor在构造的时候有几个重要的参数，分别是：<br>corePoolSize （核心线程数量） 、maxim umPoolSize（最大线程数量）、keepAli veTime（线程空余时间） 、workQueue（阻塞队列）、handler（任务拒绝策略）</li>
-<li>这几个参数应该很好理解哈，我就说下任务提交的流程，分别对应着几个参数的作用吧。<ul>
-<li>首先会判断运行线程数是否小于corePoolSize，如果小于，则直接创建新的线程执行任务</li>
-<li>如果大于corePoolSize，判断workQueue阻塞队列是否已满，如果还没满，则将任务放到阻塞队列中</li>
-<li>如果workQueue阻塞队列已经满了，则判断当前线程数是否大于maximumPoolSize，如果没大于则创建新的线程执行任务</li>
-<li>如果大于maximumPoolSize，则执行任务拒绝策略（具体就是你自己实现的handler)</li>
-</ul>
 </li>
-<li>这里有个点需要注意下，就是workQueu e阻塞队列满了，但当前线程数小于maximumPoolSize，这时候会创建新的线程执行任务</li>
-<li>源码就是这样实现的</li>
-<li>不过一般我们都是将corePoolSize和maximumPoolSize设置相同数量</li>
-<li>keepAliveTime指的就是，当前运行的线程数大于核心线程数了，只要空闲时间达到了，就会对线程进行回收</li>
+<li>CycllicBarrier<ol>
+<li>从源码不难发现的是，它没有像CountDo wnLatch和ReentrantLock使用AQS的stat e变量，而CyclicBarrier是直接借助ReentrantLock加上Condition等待唤醒的功能进而实现的</li>
+<li>在构建CyclicBarrier时，传入的值会赋值给CyclicBarrier内部维护count变量，也会赋值给parties变量（这是可以复用的关键）</li>
+<li>每次调用await时，会将count-1，操作count值是直接使用ReentrantLock来保证线程安全性</li>
+<li>如果count不为0，则添加则condition队列中</li>
+<li>如果count等于0时，则把节点从condition队列添加至AQS的队列中进行全部唤醒，并且将parties的值重新赋值为count的值（实现复用）</li>
 </ol>
-<h2 id="那我再问一个问题，你创建线程池肯定会指定线程数的嘛，你这块是怎么考量的。"><a href="#那我再问一个问题，你创建线程池肯定会指定线程数的嘛，你这块是怎么考量的。" class="headerlink" title="那我再问一个问题，你创建线程池肯定会指定线程数的嘛，你这块是怎么考量的。"></a>那我再问一个问题，你创建线程池肯定会指定线程数的嘛，你这块是怎么考量的。</h2><ol>
-<li>线程池指定线程数这块，首先要考量自己的业务是什么样的</li>
-<li>是cpu密集型的还是io密集型的，假设运行应用的机器CPU核心数是N</li>
-<li>那cpu密集型的可以先给到N+1，io密集型的可以给到2N去试试</li>
-<li>上面这个只是一个常见的经验做法，具体究竟开多少线程，需要压测才能比较准确地定下来</li>
-<li>线程不是说越大越好，在之前的面试我也提到过，多线程是为了充分利用CPU的资源</li>
-<li>如果设置的线程过多，线程大量有上下文切换，这一部分也会带来系统的开销，这就得不偿失了</li>
+</li>
+</ul>
+<h2 id="那如果是这样的话，那我多次用CountDownLatch不也可以解决问题吗？"><a href="#那如果是这样的话，那我多次用CountDownLatch不也可以解决问题吗？" class="headerlink" title="那如果是这样的话，那我多次用CountDownLatch不也可以解决问题吗？"></a>那如果是这样的话，那我多次用CountDownLatch不也可以解决问题吗？</h2><ol>
+<li>是这样的，我提出了个场景，它确实很像可以用CountDownLatch和CyclicBarrier解决</li>
+<li>但是，作为面试者的你可以尝试向我获取更多的信息</li>
+<li>我可没说一个任务就用一个线程处理哦</li>
+<li>放一步讲，即便我是想考察CountDownLatch和CyclicBarrier的知识，但是过程也是很重要的。我会看你在这个过程中思考的以及沟通</li>
 </ol>
-<h2 id="ThreadPoolExecutor你看过源码吗？"><a href="#ThreadPoolExecutor你看过源码吗？" class="headerlink" title="ThreadPoolExecutor你看过源码吗？"></a>ThreadPoolExecutor你看过源码吗？</h2><ol>
-<li>看过的，其实上面说的ThreadPoolExecutor几个参数，在源码的顶部注释都有</li>
-<li>在执行的时候，重点就在于它维护了一个ctl参数，这个ctl参数的用高3位表示线程池的状态，低29位来表示线程的数量</li>
-<li>里边用到了大量的位运算符操作，具体细节我就忘了，但是流程还是上面所讲的</li>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ol>
+<li>CountDownlatch基于AQS实现，会将构造CountDownLatch的入参传递至state，countDown（）就是在利用CAS将state减- 1，await（）实际就是让头节点一直在等待s tate为0时，释放所有等待的线程</li>
+<li>而CyclicBarrier则利用ReentrantLock和Condition，自身维护了count和parties变量。每次调用await将count-1，并将线程加入到condition队列上。等到count为0时，则将condition队列的节点移交至AQS队列，并全部释放。</li>
+<li></li>
 </ol>
 
       
@@ -637,7 +989,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/eb551b6f/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/31fa5cf/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/lion.png">
@@ -655,7 +1007,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/eb551b6f/" class="post-title-link" itemprop="url">面试官“谈谈Spring中都用到了那些设计模式”。</a>
+          <a href="/posts/31fa5cf/" class="post-title-link" itemprop="url">12、【对线面试官】List</a>
         </h2>
 
         <div class="post-meta-container">
@@ -697,8 +1049,8 @@
     </span>
     <span class="post-meta-item-text">Waline：</span>
   
-    <a title="waline" href="/posts/eb551b6f/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/eb551b6f/" data-xid="/posts/eb551b6f/" itemprop="commentCount"></span>
+    <a title="waline" href="/posts/31fa5cf/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/31fa5cf/" data-xid="/posts/31fa5cf/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -709,14 +1061,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>10k</span>
+      <span>2k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>9 分钟</span>
+      <span>2 分钟</span>
     </span>
 </div>
 
@@ -727,131 +1079,70 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="面试官-“谈谈Spring中都用到了那些设计模式-”。"><a href="#面试官-“谈谈Spring中都用到了那些设计模式-”。" class="headerlink" title="面试官:“谈谈Spring中都用到了那些设计模式?”。"></a>面试官:“谈谈Spring中都用到了那些设计模式?”。</h1><p>JDK 中用到了那些设计模式?Spring 中用到了那些设计模式?这两个问题，在面试中比较常见。我在网上搜索了一下关于 Spring 中设计模式的讲解几乎都是千篇一律，而且大部分都年代久远。所以，花了几天时间自己总结了一下，由于我的个人能力有限，文中如有任何错误各位都可以指出。另外，文章篇幅有限，对于设计模式以及一些源码的解读我只是一笔带过，这篇文章的主要目的是回顾一下 Spring 中的常见的设计模式。</p>
-<p>Design Patterns(设计模式) 表示面向对象软件开发中最好的计算机编程实践。 Spring 框架中广泛使用了不同类型的设计模式，下面我们来看看到底有哪些设计模式?</p>
-<h2 id="控制反转-IoC-和依赖注入-DI"><a href="#控制反转-IoC-和依赖注入-DI" class="headerlink" title="控制反转(IoC)和依赖注入(DI)"></a>控制反转(IoC)和依赖注入(DI)</h2><p><strong>IoC(Inversion of Control,控制翻转)</strong> 是Spring 中一个非常非常重要的概念，它不是什么技术，而是一种解耦的设计思想。它的主要目的是借助于“第三方”(Spring 中的 IOC 容器) 实现具有依赖关系的对象之间的解耦(IOC容易管理对象，你只管使用即可)，从而降低代码之间的耦合度。<strong>IOC 是一个原则，而不是一个模式，以下模式（但不限于）实现了IoC原则。</strong></p>
-<p><img src="https://mmbiz.qpic.cn/mmbiz_png/iaIdQfEric9TwBuibJ4N5OTyAvJibFj8b7zhiaTcnFwmnfLqQQWwlWv2uNMZyiabexkUSuW24WAWAuL6cvzguu8JyYzw/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="图片"></p>
-<center>ioc-patterns</center>
-
-<p><strong>Spring IOC 容器就像是一个工厂一样，当我们需要创建一个对象的时候，只需要配置好配置文件&#x2F;注解即可，完全不用考虑对象是如何被创建出来的。</strong> IOC 容器负责创建对象，将对象连接在一起，配置这些对象，并从创建中处理这些对象的整个生命周期，直到它们被完全销毁。</p>
-<p>在实际项目中一个 Service 类如果有几百甚至上千个类作为它的底层，我们需要实例化这个 Service，你可能要每次都要搞清这个 Service 所有底层类的构造函数，这可能会把人逼疯。如果利用 IOC 的话，你只需要配置好，然后在需要的地方引用就行了，这大大增加了项目的可维护性且降低了开发难度。关于Spring IOC 的理解，推荐看这一下知乎的一个回答：<a target="_blank" rel="noopener" href="https://www.zhihu.com/question/23277575/answer/169698662">https://www.zhihu.com/question/23277575/answer/169698662</a> ，非常不错。</p>
-<p><strong>控制翻转怎么理解呢?</strong> 举个例子：”对象a 依赖了对象 b，当对象 a 需要使用 对象 b的时候必须自己去创建。但是当系统引入了 IOC 容器后， 对象a 和对象 b 之前就失去了直接的联系。这个时候，当对象 a 需要使用 对象 b的时候， 我们可以指定 IOC 容器去创建一个对象b注入到对象 a 中”。 对象 a 获得依赖对象 b 的过程,由主动行为变为了被动行为，控制权翻转，这就是控制反转名字的由来。</p>
-<p><strong>DI(Dependecy Inject,依赖注入)是实现控制反转的一种设计模式，依赖注入就是将实例变量传入到一个对象中去。</strong></p>
-<h2 id="工厂设计模式"><a href="#工厂设计模式" class="headerlink" title="工厂设计模式"></a>工厂设计模式</h2><p>Spring使用工厂模式可以通过 <code>BeanFactory</code> 或 <code>ApplicationContext</code> 创建 bean 对象。</p>
-<p><strong>两者对比：</strong></p>
-<ul>
-<li><code>BeanFactory</code> ：延迟注入(使用到某个 bean 的时候才会注入),相比于<code>BeanFactory</code>来说会占用更少的内存，程序启动速度更快。</li>
-<li><code>ApplicationContext</code> ：容器启动的时候，不管你用没用到，一次性创建所有 bean 。<code>BeanFactory</code> 仅提供了最基本的依赖注入支持，<code>ApplicationContext</code> 扩展了 <code>BeanFactory</code> ,除了有<code>BeanFactory</code>的功能还有额外更多功能，所以一般开发人员使用<code>ApplicationContext</code>会更多。</li>
-</ul>
-<p>ApplicationContext的三个实现类：</p>
-<ol>
-<li><code>ClassPathXmlApplication</code>：把上下文文件当成类路径资源。</li>
-<li><code>FileSystemXmlApplication</code>：从文件系统中的 XML 文件载入上下文定义信息。</li>
-<li><code>XmlWebApplicationContext</code>：从Web系统中的XML文件载入上下文定义信息。</li>
+          <h1 id="12、【对线面试官】List"><a href="#12、【对线面试官】List" class="headerlink" title="12、【对线面试官】List"></a>12、【对线面试官】List</h1><h2 id="要不今天来讲讲Java的List吧，你对List了解多少？"><a href="#要不今天来讲讲Java的List吧，你对List了解多少？" class="headerlink" title="要不今天来讲讲Java的List吧，你对List了解多少？"></a>要不今天来讲讲Java的List吧，你对List了解多少？</h2><ol>
+<li>List在Java里边是一个接口，常见的实现类有ArrayList和LinkedList，在开发中用得最多的是ArrayList</li>
+<li>ArrayList的底层数据结构是数组，Linked List底层数据结构是链表。</li>
 </ol>
-<p>Example:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.springframework.context.ApplicationContext;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.support.FileSystemXmlApplicationContext;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">App</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">ApplicationContext</span> <span class="variable">context</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FileSystemXmlApplicationContext</span>(</span><br><span class="line">                <span class="string">&quot;C:/work/IOC Containers/springframework.applicationcontext/src/main/resources/bean-factory-config.xml&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="type">HelloApplicationContext</span> <span class="variable">obj</span> <span class="operator">=</span> (HelloApplicationContext) context.getBean(<span class="string">&quot;helloApplicationContext&quot;</span>);</span><br><span class="line">        obj.getMsg();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="单例设计模式"><a href="#单例设计模式" class="headerlink" title="单例设计模式"></a>单例设计模式</h2><p>在我们的系统中，有一些对象其实我们只需要一个，比如说：线程池、缓存、对话框、注册表、日志对象、充当打印机、显卡等设备驱动程序的对象。事实上，这一类对象只能有一个实例，如果制造出多个实例就可能会导致一些问题的产生，比如：程序的行为异常、资源使用过量、或者不一致性的结果。</p>
-<p><strong>使用单例模式的好处:</strong></p>
-<ul>
-<li>对于频繁使用的对象，可以省略创建对象所花费的时间，这对于那些重量级对象而言，是非常可观的一笔系统开销；</li>
-<li>由于 new 操作的次数减少，因而对系统内存的使用频率也会降低，这将减轻 GC 压力，缩短 GC 停顿时间。</li>
-</ul>
-<p><strong>Spring 中 bean 的默认作用域就是 singleton(单例)的。</strong> 除了 singleton 作用域，Spring 中 bean 还有下面几种作用域：</p>
-<ul>
-<li>prototype : 每次请求都会创建一个新的 bean 实例。</li>
-<li>request : 每一次HTTP请求都会产生一个新的bean，该bean仅在当前HTTP request内有效。</li>
-<li>session : 每一次HTTP请求都会产生一个新的 bean，该bean仅在当前 HTTP session 内有效。</li>
-<li>global-session： 全局session作用域，仅仅在基于portlet的web应用中才有意义，Spring5已经没有了。Portlet是能够生成语义代码(例如：HTML)片段的小型Java Web插件。它们基于portlet容器，可以像servlet一样处理HTTP请求。但是，与 servlet 不同，每个 portlet 都有不同的会话</li>
-</ul>
-<p><strong>Spring 实现单例的方式：</strong></p>
-<ul>
-<li>xml:<bean id="userService" class="top.snailclimb.UserService" scope="singleton"/>&#96;&#96;</li>
-<li>注解：<code>@Scope(value = &quot;singleton&quot;)</code></li>
-</ul>
-<p>Spring 通过 <code>ConcurrentHashMap</code> 实现单例注册表的特殊方式实现单例模式。Spring 实现单例的核心代码如下：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 通过 ConcurrentHashMap（线程安全） 实现单例注册表</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">final</span> Map&lt;String, Object&gt; singletonObjects = <span class="keyword">new</span> <span class="title class_">ConcurrentHashMap</span>&lt;String, Object&gt;(<span class="number">64</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> Object <span class="title function_">getSingleton</span><span class="params">(String beanName, ObjectFactory&lt;?&gt; singletonFactory)</span> &#123;</span><br><span class="line">        Assert.notNull(beanName, <span class="string">&quot;&#x27;beanName&#x27; must not be null&quot;</span>);</span><br><span class="line">        <span class="keyword">synchronized</span> (<span class="built_in">this</span>.singletonObjects) &#123;</span><br><span class="line">            <span class="comment">// 检查缓存中是否存在实例  </span></span><br><span class="line">            <span class="type">Object</span> <span class="variable">singletonObject</span> <span class="operator">=</span> <span class="built_in">this</span>.singletonObjects.get(beanName);</span><br><span class="line">            <span class="keyword">if</span> (singletonObject == <span class="literal">null</span>) &#123;</span><br><span class="line">                <span class="comment">//...省略了很多代码</span></span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    singletonObject = singletonFactory.getObject();</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="comment">//...省略了很多代码</span></span><br><span class="line">                <span class="comment">// 如果实例对象在不存在，我们注册到单例注册表中。</span></span><br><span class="line">                addSingleton(beanName, singletonObject);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> (singletonObject != NULL_OBJECT ? singletonObject : <span class="literal">null</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//将对象添加到单例注册表</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">addSingleton</span><span class="params">(String beanName, Object singletonObject)</span> &#123;</span><br><span class="line">            <span class="keyword">synchronized</span> (<span class="built_in">this</span>.singletonObjects) &#123;</span><br><span class="line">                <span class="built_in">this</span>.singletonObjects.put(beanName, (singletonObject != <span class="literal">null</span> ? singletonObject : NULL_OBJECT));</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="代理设计模式"><a href="#代理设计模式" class="headerlink" title="代理设计模式"></a>代理设计模式</h2><h3 id="代理模式在-AOP-中的应用"><a href="#代理模式在-AOP-中的应用" class="headerlink" title="代理模式在 AOP 中的应用"></a>代理模式在 AOP 中的应用</h3><p>AOP(Aspect-Oriented Programming:面向切面编程)能够将那些与业务无关，却为业务模块所共同调用的逻辑或责任（例如事务处理、日志管理、权限控制等）封装起来，便于减少系统的重复代码，降低模块间的耦合度，并有利于未来的可拓展性和可维护性。</p>
-<p><strong>Spring AOP 就是基于动态代理的</strong>，如果要代理的对象，实现了某个接口，那么Spring AOP会使用<strong>JDK Proxy</strong>，去创建代理对象，而对于没有实现接口的对象，就无法使用 JDK Proxy 去进行代理了，这时候Spring AOP会使用<strong>Cglib</strong> ，这时候Spring AOP会使用 <strong>Cglib</strong> 生成一个被代理对象的子类来作为代理，如下图所示：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/16qDep_20210809142649.png" alt="图片"></p>
-<center>SpringAOPProcess</center>
-
-<p>当然你也可以使用 AspectJ ,Spring AOP 已经集成了AspectJ ，AspectJ 应该算的上是 Java 生态系统中最完整的 AOP 框架了。</p>
-<p>使用 AOP 之后我们可以把一些通用功能抽象出来，在需要用到的地方直接使用即可，这样大大简化了代码量。我们需要增加新功能时也方便，这样也提高了系统扩展性。日志功能、事务管理等等场景都用到了 AOP 。</p>
-<h3 id="Spring-AOP-和-AspectJ-AOP-有什么区别"><a href="#Spring-AOP-和-AspectJ-AOP-有什么区别" class="headerlink" title="Spring AOP 和 AspectJ AOP 有什么区别?"></a>Spring AOP 和 AspectJ AOP 有什么区别?</h3><p><strong>Spring AOP 属于运行时增强，而 AspectJ 是编译时增强。</strong> Spring AOP 基于代理(Proxying)，而 AspectJ 基于字节码操作(Bytecode Manipulation)。</p>
-<p>Spring AOP 已经集成了 AspectJ ，AspectJ 应该算的上是 Java 生态系统中最完整的 AOP 框架了。AspectJ 相比于 Spring AOP 功能更加强大，但是 Spring AOP 相对来说更简单，</p>
-<p>如果我们的切面比较少，那么两者性能差异不大。但是，当切面太多的话，最好选择 AspectJ ，它比Spring AOP 快很多。</p>
-<h2 id="模板方法"><a href="#模板方法" class="headerlink" title="模板方法"></a>模板方法</h2><p>模板方法模式是一种行为设计模式，它定义一个操作中的算法的骨架，而将一些步骤延迟到子类中。 模板方法使得子类可以不改变一个算法的结构即可重定义该算法的某些特定步骤的实现方式。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/7MhBrj_20210809142855.png" alt="图片"></p>
-<center>模板方法UML图</center>
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title class_">Template</span> &#123;</span><br><span class="line">    <span class="comment">//这是我们的模板方法</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title function_">TemplateMethod</span><span class="params">()</span>&#123;</span><br><span class="line">        PrimitiveOperation1();  </span><br><span class="line">        PrimitiveOperation2();</span><br><span class="line">        PrimitiveOperation3();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">void</span>  <span class="title function_">PrimitiveOperation1</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="comment">//当前类实现</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//被子类实现的方法</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title function_">PrimitiveOperation2</span><span class="params">()</span>;</span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title function_">PrimitiveOperation3</span><span class="params">()</span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TemplateImpl</span> <span class="keyword">extends</span> <span class="title class_">Template</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">PrimitiveOperation2</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="comment">//当前类实现</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">PrimitiveOperation3</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="comment">//当前类实现</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>Spring 中 <code>jdbcTemplate</code>、<code>hibernateTemplate</code> 等以 Template 结尾的对数据库操作的类，它们就使用到了模板模式。一般情况下，我们都是使用继承的方式来实现模板模式，但是 Spring 并没有使用这种方式，而是使用Callback 模式与模板方法模式配合，既达到了代码复用的效果，同时增加了灵活性。</p>
-<h2 id="观察者模式"><a href="#观察者模式" class="headerlink" title="观察者模式"></a>观察者模式</h2><p>观察者模式是一种对象行为型模式。它表示的是一种对象与对象之间具有依赖关系，当一个对象发生改变的时候，这个对象所依赖的对象也会做出反应。Spring 事件驱动模型就是观察者模式很经典的一个应用。Spring 事件驱动模型非常有用，在很多场景都可以解耦我们的代码。比如我们每次添加商品的时候都需要重新更新商品索引，这个时候就可以利用观察者模式来解决这个问题。</p>
-<h3 id="Spring-事件驱动模型中的三种角色"><a href="#Spring-事件驱动模型中的三种角色" class="headerlink" title="Spring 事件驱动模型中的三种角色"></a>Spring 事件驱动模型中的三种角色</h3><h4 id="事件角色"><a href="#事件角色" class="headerlink" title="事件角色"></a>事件角色</h4><p><code>ApplicationEvent</code> (<code>org.springframework.context</code>包下)充当事件的角色,这是一个抽象类，它继承了<code>java.util.EventObject</code>并实现了 <code>java.io.Serializable</code>接口。</p>
-<p>Spring 中默认存在以下事件，他们都是对 <code>ApplicationContextEvent</code> 的实现(继承自<code>ApplicationContextEvent</code>)：</p>
-<ul>
-<li><code>ContextStartedEvent</code>：<code>ApplicationContext</code> 启动后触发的事件;</li>
-<li><code>ContextStoppedEvent</code>：<code>ApplicationContext</code> 停止后触发的事件;</li>
-<li><code>ContextRefreshedEvent</code>：<code>ApplicationContext</code> 初始化或刷新完成后触发的事件;</li>
-<li><code>ContextClosedEvent</code>：<code>ApplicationContext</code> 关闭后触发的事件。</li>
-</ul>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/tKwbDY_20210809143054.png" alt="图片"></p>
-<center>ApplicationEvent-Subclass</center>
-
-<h4 id="事件监听者角色"><a href="#事件监听者角色" class="headerlink" title="事件监听者角色"></a>事件监听者角色</h4><p><code>ApplicationListener</code> 充当了事件监听者角色，它是一个接口，里面只定义了一个 <code>onApplicationEvent（）</code>方法来处理<code>ApplicationEvent</code>。<code>ApplicationListener</code>接口类源码如下，可以看出接口定义看出接口中的事件只要实现了 <code>ApplicationEvent</code>就可以了。所以，在 Spring中我们只要实现 <code>ApplicationListener</code> 接口实现 <code>onApplicationEvent()</code> 方法即可完成监听事件</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> org.springframework.context;</span><br><span class="line"><span class="keyword">import</span> java.util.EventListener;</span><br><span class="line"><span class="meta">@FunctionalInterface</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">ApplicationListener</span>&lt;E <span class="keyword">extends</span> <span class="title class_">ApplicationEvent</span>&gt; <span class="keyword">extends</span> <span class="title class_">EventListener</span> &#123;</span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">onApplicationEvent</span><span class="params">(E var1)</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h4 id="事件发布者角色"><a href="#事件发布者角色" class="headerlink" title="事件发布者角色"></a>事件发布者角色</h4><p><code>ApplicationEventPublisher</code> 充当了事件的发布者，它也是一个接口。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@FunctionalInterface</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">ApplicationEventPublisher</span> &#123;</span><br><span class="line">    <span class="keyword">default</span> <span class="keyword">void</span> <span class="title function_">publishEvent</span><span class="params">(ApplicationEvent event)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.publishEvent((Object)event);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">publishEvent</span><span class="params">(Object var1)</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><code>ApplicationEventPublisher</code> 接口的<code>publishEvent（）</code>这个方法在<code>AbstractApplicationContext</code>类中被实现，阅读这个方法的实现，你会发现实际上事件真正是通过<code>ApplicationEventMulticaster</code>来广播出去的。具体内容过多，就不在这里分析了，后面可能会单独写一篇文章提到。</p>
-<h3 id="Spring-的事件流程总结"><a href="#Spring-的事件流程总结" class="headerlink" title="Spring 的事件流程总结"></a>Spring 的事件流程总结</h3><ol>
-<li>定义一个事件: 实现一个继承自 <code>ApplicationEvent</code>，并且写相应的构造函数；</li>
-<li>定义一个事件监听者：实现 <code>ApplicationListener</code> 接口，重写 <code>onApplicationEvent()</code> 方法；</li>
-<li>使用事件发布者发布消息: 可以通过 <code>ApplicationEventPublisher</code> 的 <code>publishEvent()</code> 方法发布消息。</li>
+<h2 id="那Java本身就有数组了，为什么要用ArrayList呢？"><a href="#那Java本身就有数组了，为什么要用ArrayList呢？" class="headerlink" title="那Java本身就有数组了，为什么要用ArrayList呢？"></a>那Java本身就有数组了，为什么要用ArrayList呢？</h2><ol>
+<li>原生的数组会有一个特点：你在使用的时候必须要为它创建大小，而ArrayList不用。</li>
+<li>在日常开发的时候，往往我们是不知道要给数组分配多大（不固定）</li>
+<li>如果数组的大小指定多了，内存浪费；如果数组大小指定少了，装不下。</li>
+<li>假设我们给定数组的大小是10，要往这个数组里边填充元素，我们只能添加10个元素。</li>
+<li>而ArrayList不一样，ArrayList我们在使用的时候可以往里边添加20个，30个，甚至更多的元素</li>
+<li>因为ArrayList是实现了动态扩容的<ol>
+<li>当我们new ArrayList（）的时候，默认会有一个空的Object数组，大小为0。</li>
+<li>当我们第一次add添加数据的时候，会给这个数组初始化一个大小，这个大小默认值为10</li>
+<li>使用ArrayList在每一次add的时候，它都会先去计算这个数组够不够空间</li>
+<li>如果空间是够的，那直接追加上去就好了。如果不够，那就得扩容</li>
 </ol>
-<p>Example:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 定义一个事件,继承自ApplicationEvent并且写相应的构造函数</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">DemoEvent</span> <span class="keyword">extends</span> <span class="title class_">ApplicationEvent</span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">long</span> <span class="variable">serialVersionUID</span> <span class="operator">=</span> <span class="number">1L</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String message;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">DemoEvent</span><span class="params">(Object source,String message)</span>&#123;</span><br><span class="line">        <span class="built_in">super</span>(source);</span><br><span class="line">        <span class="built_in">this</span>.message = message;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getMessage</span><span class="params">()</span> &#123;</span><br><span class="line">         <span class="keyword">return</span> message;</span><br><span class="line">          &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 定义一个事件监听者,实现ApplicationListener接口，重写 onApplicationEvent() 方法；</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">DemoListener</span> <span class="keyword">implements</span> <span class="title class_">ApplicationListener</span>&lt;DemoEvent&gt;&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//使用onApplicationEvent接收消息</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">onApplicationEvent</span><span class="params">(DemoEvent event)</span> &#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">msg</span> <span class="operator">=</span> event.getMessage();</span><br><span class="line">        System.out.println(<span class="string">&quot;接收到的信息是：&quot;</span>+msg);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 发布事件，可以通过ApplicationEventPublisher  的 publishEvent() 方法发布消息。</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">DemoPublisher</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    ApplicationContext applicationContext;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">publish</span><span class="params">(String message)</span>&#123;</span><br><span class="line">        <span class="comment">//发布事件</span></span><br><span class="line">        applicationContext.publishEvent(<span class="keyword">new</span> <span class="title class_">DemoEvent</span>(<span class="built_in">this</span>, message));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>当调用 <code>DemoPublisher</code> 的 <code>publish()</code> 方法的时候，比如 <code>demoPublisher.publish(&quot;你好&quot;)</code> ，控制台就会打印出:<code>接收到的信息是：你好</code> 。</p>
-<h2 id="适配器模式"><a href="#适配器模式" class="headerlink" title="适配器模式"></a>适配器模式</h2><p>适配器模式(Adapter Pattern) 将一个接口转换成客户希望的另一个接口，适配器模式使接口不兼容的那些类可以一起工作，其别名为包装器(Wrapper)。</p>
-<h3 id="spring-AOP中的适配器模式"><a href="#spring-AOP中的适配器模式" class="headerlink" title="spring AOP中的适配器模式"></a>spring AOP中的适配器模式</h3><p>我们知道 Spring AOP 的实现是基于代理模式，但是 Spring AOP 的增强或通知(Advice)使用到了适配器模式，与之相关的接口是<code>AdvisorAdapter</code> 。Advice 常用的类型有：<code>BeforeAdvice</code>（目标方法调用前,前置通知）、<code>AfterAdvice</code>（目标方法调用后,后置通知）、<code>AfterReturningAdvice</code>(目标方法执行结束后，return之前)等等。每个类型Advice（通知）都有对应的拦截器:<code>MethodBeforeAdviceInterceptor</code>、<code>AfterReturningAdviceAdapter</code>、<code>AfterReturningAdviceInterceptor</code>。Spring预定义的通知要通过对应的适配器，适配成 <code>MethodInterceptor</code>接口(方法拦截器)类型的对象（如：<code>MethodBeforeAdviceInterceptor</code> 负责适配 <code>MethodBeforeAdvice</code>）。</p>
-<h3 id="spring-MVC中的适配器模式"><a href="#spring-MVC中的适配器模式" class="headerlink" title="spring MVC中的适配器模式"></a>spring MVC中的适配器模式</h3><p>在Spring MVC中，<code>DispatcherServlet</code> 根据请求信息调用 <code>HandlerMapping</code>，解析请求对应的 <code>Handler</code>。解析到对应的 <code>Handler</code>（也就是我们平常说的 <code>Controller</code> 控制器）后，开始由<code>HandlerAdapter</code> 适配器处理。<code>HandlerAdapter</code> 作为期望接口，具体的适配器实现类用于对目标类进行适配，<code>Controller</code> 作为需要适配的类。</p>
-<p><strong>为什么要在 Spring MVC 中使用适配器模式？</strong> Spring MVC 中的 <code>Controller</code> 种类众多，不同类型的 <code>Controller</code> 通过不同的方法来对请求进行处理。如果不利用适配器模式的话，<code>DispatcherServlet</code> 直接获取对应类型的 <code>Controller</code>，需要的自行来判断，像下面这段代码一样：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(mappedHandler.getHandler() <span class="keyword">instanceof</span> MultiActionController)&#123;  </span><br><span class="line">   ((MultiActionController)mappedHandler.getHandler()).xxx  </span><br><span class="line">&#125;<span class="keyword">else</span> <span class="keyword">if</span>(mappedHandler.getHandler() <span class="keyword">instanceof</span> XXX)&#123;  </span><br><span class="line">    ...  </span><br><span class="line">&#125;<span class="keyword">else</span> <span class="keyword">if</span>(...)&#123;  </span><br><span class="line">   ...  </span><br><span class="line">&#125;  </span><br></pre></td></tr></table></figure>
-
-<p>假如我们再增加一个 <code>Controller</code>类型就要在上面代码中再加入一行 判断语句，这种形式就使得程序难以维护，也违反了设计模式中的开闭原则 – 对扩展开放，对修改关闭。</p>
-<h2 id="装饰者模式"><a href="#装饰者模式" class="headerlink" title="装饰者模式"></a>装饰者模式</h2><p>装饰者模式可以动态地给对象添加一些额外的属性或行为。相比于使用继承，装饰者模式更加灵活。简单点儿说就是当我们需要修改原有的功能，但我们又不愿直接去修改原有的代码时，设计一个Decorator套在原有代码外面。其实在 JDK 中就有很多地方用到了装饰者模式，比如 <code>InputStream</code>家族，<code>InputStream</code> 类下有 <code>FileInputStream</code> (读取文件)、<code>BufferedInputStream</code> (增加缓存,使读取文件速度大大提升)等子类都在不修改<code>InputStream</code> 代码的情况下扩展了它的功能。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/TRTmlJ_20210809143212.png" alt="图片"></p>
-<center>
-  装饰者模式示意图
-</center>
-
-<p>Spring 中配置 DataSource 的时候，DataSource 可能是不同的数据库和数据源。我们能否根据客户的需求在少修改原有类的代码下动态切换不同的数据源？这个时候就要用到装饰者模式(这一点我自己还没太理解具体原理)。Spring 中用到的包装器模式在类名上含有 <code>Wrapper</code>或者 <code>Decorator</code>。这些类基本上都是动态地给一个对象添加一些额外的职责</p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>Spring 框架中用到了哪些设计模式：</p>
-<ul>
-<li><strong>工厂设计模式</strong> : Spring使用工厂模式通过 <code>BeanFactory</code>、<code>ApplicationContext</code> 创建 bean 对象。</li>
-<li><strong>代理设计模式</strong> : Spring AOP 功能的实现。</li>
-<li><strong>单例设计模式</strong> : Spring 中的 Bean 默认都是单例的。</li>
-<li><strong>模板方法模式</strong> : Spring 中 <code>jdbcTemplate</code>、<code>hibernateTemplate</code> 等以 Template 结尾的对数据库操作的类，它们就使用到了模板模式。</li>
-<li><strong>包装器设计模式</strong> : 我们的项目需要连接多个数据库，而且不同的客户在每次访问中根据需要会去访问不同的数据库。这种模式让我们可以根据客户的需求能够动态切换不同的数据源。</li>
-<li><strong>观察者模式:</strong> Spring 事件驱动模型就是观察者模式很经典的一个应用。</li>
-<li><strong>适配器模式</strong> :Spring AOP 的增强或通知(Advice)使用到了适配器模式、spring MVC 中也是用到了适配器模式适配<code>Controller</code>。</li>
-<li>……</li>
-</ul>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
-<li>《Spring技术内幕》</li>
-<li><a target="_blank" rel="noopener" href="https://blog.eduonix.com/java-programming-2/learn-design-patterns-used-spring-framework/">https://blog.eduonix.com/java-programming-2/learn-design-patterns-used-spring-framework/</a></li>
-<li><a target="_blank" rel="noopener" href="http://blog.yeamin.top/2018/03/27/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F-Spring%E5%8D%95%E4%BE%8B%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/">http://blog.yeamin.top/2018/03/27/单例模式-Spring单例实现原理分析/</a></li>
-<li><a target="_blank" rel="noopener" href="https://www.tutorialsteacher.com/ioc/inversion-of-control">https://www.tutorialsteacher.com/ioc/inversion-of-control</a></li>
-<li><a target="_blank" rel="noopener" href="https://design-patterns.readthedocs.io/zh_CN/latest/behavioral_patterns/observer.html">https://design-patterns.readthedocs.io/zh_CN/latest/behavioral_patterns/observer.html</a></li>
-<li><a target="_blank" rel="noopener" href="https://juejin.im/post/5a8eb261f265da4e9e307230">https://juejin.im/post/5a8eb261f265da4e9e307230</a></li>
-<li><a target="_blank" rel="noopener" href="https://juejin.im/post/5ba28986f265da0abc2b6084">https://juejin.im/post/5ba28986f265da0abc2b6084</a></li>
-</ul>
+</li>
+</ol>
+<h2 id="那怎么扩容？一次扩多少？"><a href="#那怎么扩容？一次扩多少？" class="headerlink" title="那怎么扩容？一次扩多少？"></a>那怎么扩容？一次扩多少？</h2><ol>
+<li>在源码里边，有个grow方法，每一次扩原来的1.5倍。比如说，初始化的值是10嘛。</li>
+<li>现在我第11个元素要进来了，发现这个数组的空间不够了，所以会扩到15</li>
+<li>空间扩完容之后，会调用arraycopy来对数组进行拷贝</li>
+</ol>
+<h2 id="我又想问问，为什么你在前面提到，在日常开发中用得最多的是ArrayList呢？"><a href="#我又想问问，为什么你在前面提到，在日常开发中用得最多的是ArrayList呢？" class="headerlink" title="我又想问问，为什么你在前面提到，在日常开发中用得最多的是ArrayList呢？"></a>我又想问问，为什么你在前面提到，在日常开发中用得最多的是ArrayList呢？</h2><ol>
+<li>是由底层的数据结构来决定的，在日常开发中，遍历的需求比增删要多，即便是增删也是往往在List的尾部添加就OK了。</li>
+<li>像在尾部添加元素，ArrayList的时间复杂度也就O（1）</li>
+<li>另外的是，ArrayList的增删底层调用的copyOf（）被优化过</li>
+<li>现代CPU对内存可以块操作，ArrayList的增删一点儿也不会比LinkedList慢</li>
+</ol>
+<h2 id="了解，Vector你知道这个吗？"><a href="#了解，Vector你知道这个吗？" class="headerlink" title="了解，Vector你知道这个吗？"></a>了解，Vector你知道这个吗？</h2><ol>
+<li>嗯，Vector是底层结构是数组，一般现在我们已经很少用了。</li>
+<li>相对于ArrayList，它是线程安全的，在扩容的时候它是直接扩容两倍的</li>
+<li>比如现在有10个元素，要扩容的时候，就会将数组的大小增长到20</li>
+</ol>
+<h2 id="嗯，那如果我们不用Vector，线程安全的List还有什么？"><a href="#嗯，那如果我们不用Vector，线程安全的List还有什么？" class="headerlink" title="嗯，那如果我们不用Vector，线程安全的List还有什么？"></a>嗯，那如果我们不用Vector，线程安全的List还有什么？</h2><ol>
+<li>首先，我们也可以用Collections来将ArayList来包装一下，变成线程安全。&#96;</li>
+<li>在java.util.concurrent包下还有一个类，叫做CopyOnWriteArrayList</li>
+<li>要讲CopyOnWriteArrayList之前，我还是想说说copy-on-write这个意思，下面我会简称为cow</li>
+<li>比如说在Linux中，我们知道所有的进程都是init进程fork出来的</li>
+<li>除了进程号之外，fork出来的子进程，默认跟父进程是一模一样的。</li>
+<li>当使用了cow机制；子进程在被fork之后exec之前，两个进程用的是相同的内存空间的</li>
+<li>这意味着子进程的代码段、数据段、堆栈都是指向父进程的物理空间</li>
+<li>当父子进程中有更改的行为发生时，再为子进程分配相应物理空间。</li>
+<li>这样做的好处就是，等到真正发生修改的时候，才去分配资源，可以减少分配或者复制大量资源时带来的瞬间延时。</li>
+<li>简单来说，就可以理解为我们的懒加载，或者说单例模式的懒汉式。等真正用到的时候再分配</li>
+<li>在文件系统中，其实也有cow的机制。</li>
+<li>文件系统的cow就是在修改数据的时候，不会直接在原来的数据位置上进行操作，而是重新找个位置修改。</li>
+<li>比如说：要修改数据块A的内容，先把A读出来，写到B块里面去。</li>
+<li>如果这时候断电了，原来A的内容还在。这样做的好处就是可以保证数据的完整性，瞬间挂掉了容易恢复。</li>
+</ol>
+<h2 id="你还是回到CopyOnWriteArrayList上吧；你说的cow机制我了解了"><a href="#你还是回到CopyOnWriteArrayList上吧；你说的cow机制我了解了" class="headerlink" title="你还是回到CopyOnWriteArrayList上吧；你说的cow机制我了解了"></a>你还是回到CopyOnWriteArrayList上吧；你说的cow机制我了解了</h2><ol>
+<li>额。CopyOnWriteArrayList是一个线程安全的List，底层是通过复制数组的方式来实现的。</li>
+<li>要不我来简单说说它的add（）方法的实现吧</li>
+<li>在add（）方法的实现里，首先他会加lock锁锁住然后会复制出一个新的数组，往新的数组里边add真正的元素最后把 array的指向改变为新的数组</li>
+<li>get（）方法又或是size（）方法只是获取array所指向的数组的元素或者大小</li>
+<li>可以发现的是， CopyOnWriteArrayList</li>
+<li>跟文件系统的COW机制是很像的</li>
+</ol>
+<h2 id="那你能说说CopyOnWriteArrayList有什么缺点吗？"><a href="#那你能说说CopyOnWriteArrayList有什么缺点吗？" class="headerlink" title="那你能说说CopyOnWriteArrayList有什么缺点吗？"></a>那你能说说CopyOnWriteArrayList有什么缺点吗？</h2><ol>
+<li>很显然， CopyOnWriteArrayList是很耗费内存的，每次set（）add（）都会复制一个数组出来</li>
+<li>另外就是 Copy On WriteArrayList只能保证数据的最终一致性，不能保证数据的实时一致性。</li>
+<li>假设两个线程，线程A去读 CopyOnWri取 teArrayList的数据，还没读完</li>
+<li>现在线程B把这个List给清空了，线程A此时还是可以把剩余的数据给读出来。</li>
+</ol>
 
       
     </div>
@@ -883,7 +1174,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/513a500a/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/f78aff48/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/lion.png">
@@ -901,7 +1192,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/513a500a/" class="post-title-link" itemprop="url">算法中文手册</a>
+          <a href="/posts/f78aff48/" class="post-title-link" itemprop="url">13、【对线面试官】Map</a>
         </h2>
 
         <div class="post-meta-container">
@@ -922,7 +1213,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-03 17:25:22" itemprop="dateModified" datetime="2022-03-03T17:25:22+08:00">2022-03-03</time>
+      <time title="修改时间：2022-03-10 09:48:07" itemprop="dateModified" datetime="2022-03-10T09:48:07+08:00">2022-03-10</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -943,8 +1234,8 @@
     </span>
     <span class="post-meta-item-text">Waline：</span>
   
-    <a title="waline" href="/posts/513a500a/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/513a500a/" data-xid="/posts/513a500a/" itemprop="commentCount"></span>
+    <a title="waline" href="/posts/f78aff48/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/f78aff48/" data-xid="/posts/f78aff48/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -955,7 +1246,197 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>1.2k</span>
+      <span>2.7k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>2 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="13、【对线面试官】Map"><a href="#13、【对线面试官】Map" class="headerlink" title="13、【对线面试官】Map"></a>13、【对线面试官】Map</h1><h2 id="今天来讲讲Map吧，你对Map了解多少？就讲JDK1-8就好咯"><a href="#今天来讲讲Map吧，你对Map了解多少？就讲JDK1-8就好咯" class="headerlink" title="今天来讲讲Map吧，你对Map了解多少？就讲JDK1.8就好咯"></a>今天来讲讲Map吧，你对Map了解多少？就讲JDK1.8就好咯</h2><ul>
+<li>Map在Java里边是一个接口，常见的实现类有HashMap、 LinkedHashMap、TreeMap和ConcurrentHashMap</li>
+</ul>
+<ol>
+<li>在Java里边，哈希表的实现由数组+链表所组成</li>
+<li>HashMap底层数据结构是数组+链表&#x2F;红黑树</li>
+<li>LinkedHashMap底层数据结构是数组+链表+双向链表</li>
+<li>TreeMap底层数据结构是红黑树</li>
+<li>而ConcurrentHashMap底层数据结构也是数组+链表&#x2F;红黑树</li>
+</ol>
+<h2 id="我们先以HashMap开始吧，你能讲讲当你new一个HashMap的时候，会发生什么吗？"><a href="#我们先以HashMap开始吧，你能讲讲当你new一个HashMap的时候，会发生什么吗？" class="headerlink" title="我们先以HashMap开始吧，你能讲讲当你new一个HashMap的时候，会发生什么吗？"></a>我们先以HashMap开始吧，你能讲讲当你new一个HashMap的时候，会发生什么吗？</h2><ol>
+<li>如果我们不指定，默认HashMap的大小为16，负载因子的大小为0.75</li>
+<li>还有就是：HashMap的大小只能是2次幂的，假设你传一个10进去，实际上最终HashMap的大小是16，你传一个7进去，HashMap最终的大小是8，具体的实现在tableSizeFor可以看到。</li>
+<li>我们把元素放进HashMap的时候，需要算出这个元素所在的位置（hash）</li>
+<li>在HashMap里用的是位运算来代替取模，能够更加高效地算出该元素所在的位置</li>
+<li>为什么HashMap的大小只能是2次幂，因为只有大小为2次幂时，才能合理用位运算替代取模。</li>
+<li>而负载因子的大小决定着哈希表的扩容和哈希冲突。</li>
+<li>比如现在我默认的HashMap大小为16，负载因子为0.75，这意味着数组最多只能放12个元素，一旦超过12个元素，则哈希表需要扩容</li>
+<li>怎么算出是12呢？很简单，就是16*0.7 5。每次put元素进去的时候，都会检查HashMap的大小有没有超过这个阈值，如果有，则需要扩容。</li>
+<li>鉴于上面的说法（HashMap的大小只能是2次幂），所以扩容的时候时候默认是扩原来的2倍</li>
+<li>还有就是扩容这个操作肯定是耗时的，那能不能把负载因子调高一点，比如我要调至为1，那我的HashMap就等到16个元素的时候才扩容呢。</li>
+<li>当然是可以的，但是不推荐。负载因子调高了，这意味着哈希冲突的概率会增高，哈希冲突概率增高，同样会耗时（因为查找的速度变慢了）</li>
+</ol>
+<h2 id="算了。我还想继续问下，在put元素的时候，传递的Key是怎么算哈希值的？"><a href="#算了。我还想继续问下，在put元素的时候，传递的Key是怎么算哈希值的？" class="headerlink" title="算了。我还想继续问下，在put元素的时候，传递的Key是怎么算哈希值的？"></a>算了。我还想继续问下，在put元素的时候，传递的Key是怎么算哈希值的？</h2><ol>
+<li>实现就在hash方法上，可以发现的是，它是先算出正常的哈希值，然后与高16位做异或运算，产生最终的哈希值。</li>
+<li>这样做的好处可以增加了随机性，减少了碰撞冲突的可能性。</li>
+</ol>
+<h2 id="你简单再说下put和get方法的实现吧"><a href="#你简单再说下put和get方法的实现吧" class="headerlink" title="你简单再说下put和get方法的实现吧"></a>你简单再说下put和get方法的实现吧</h2><ol>
+<li>在put的时候，首先对key做hash运算，计算出该key所在的index。</li>
+<li>如果没碰撞，直接放到数组中，如果碰撞了，需要判断目前数据结构是链表还是红黑树，根据不同的情况来进行插入。</li>
+<li>假设key是相同的，则替换到原来的值。最后判断哈希表是否满了（当前哈希表大小*负载因子），如果满了，则扩容</li>
+<li>在get的时候，还是对key做hash运算，计算出该key所在的index，然后判断是否有hash冲突</li>
+<li>假设没有冲突直接返回，假设有冲突则判断当前数据结构是链表还是红黑树，分别从不同的数据结构中取出。</li>
+</ol>
+<h2 id="那在HashMap中是怎么判断一个元素是否相同的呢？"><a href="#那在HashMap中是怎么判断一个元素是否相同的呢？" class="headerlink" title="那在HashMap中是怎么判断一个元素是否相同的呢？"></a>那在HashMap中是怎么判断一个元素是否相同的呢？</h2><ol>
+<li>首先会比较hash值，随后会用&#x3D;&#x3D;运算符和equals（）来判断该元素是否相同。</li>
+<li>说白了就是：如果只有hash值相同，那说明该元素哈希冲突了，如果hash值和equals（）|| &#x3D;&#x3D;都相同，那说明该元素是同个。</li>
+</ol>
+<h2 id="你说HashMap的数据结构是数组-链表-x2F-红黑树，那什么情况拿下才会用到红黑树呢？"><a href="#你说HashMap的数据结构是数组-链表-x2F-红黑树，那什么情况拿下才会用到红黑树呢？" class="headerlink" title="你说HashMap的数据结构是数组+链表&#x2F;红黑树，那什么情况拿下才会用到红黑树呢？"></a>你说HashMap的数据结构是数组+链表&#x2F;红黑树，那什么情况拿下才会用到红黑树呢？</h2><ol>
+<li>当数组的大小大于64且链表的大小大于8的时候才会将链表改为红黑树，当红黑树大小为6时，会退化为链表。</li>
+<li>这里转红黑树退化为链表的操作主要出于查询和插入时对性能的考量。</li>
+<li>链表查询时间复杂度O（N），插入时间复杂度O（1），红黑树查询和插入时间复杂度O（logN）</li>
+</ol>
+<h2 id="你在日常开始中LinkedHashMap用的多吗？"><a href="#你在日常开始中LinkedHashMap用的多吗？" class="headerlink" title="你在日常开始中LinkedHashMap用的多吗？"></a>你在日常开始中LinkedHashMap用的多吗？</h2><ol>
+<li>在前面也提到了，LinkedHashMap底层结构是数组+链表+双向链表，实际上它继承了HashMap，在HashMap的基础上维护了一个双向链表</li>
+<li>有了这个双向链表，我们的插入可以是有序的，这里的有序不是指大小有序而是插入有序</li>
+<li>LinkedHashMap在遍历的时候实际用的是双向链表来遍历的，所以LinkedHashMap的大小不会影响到遍历的性能</li>
+</ol>
+<h2 id="那TreeMap呢？"><a href="#那TreeMap呢？" class="headerlink" title="那TreeMap呢？"></a>那TreeMap呢？</h2><ol>
+<li>TreeMap在现实开发中用得也不多，Tre eMap的底层数据结构是红黑树</li>
+<li>TreeMap的key不能为null（如果为null，那还怎么排序呢），TreeMap有序是通过Comparator来进行比较的，如果comparator为null，那么就使用自然顺序</li>
+</ol>
+<h2 id="再来讲讲线程安全的Map吧？-HashMap是线程安全的吗？"><a href="#再来讲讲线程安全的Map吧？-HashMap是线程安全的吗？" class="headerlink" title="再来讲讲线程安全的Map吧？ HashMap是线程安全的吗？"></a>再来讲讲线程安全的Map吧？ HashMap是线程安全的吗？</h2><ol>
+<li>HashMap不是线程安全的，在多线程环境下，HashMap有可能会有数据丢失和获取不了最新数据的问题，比如说：线程Aput进去了，线程Bget不出来。</li>
+<li>想要线程安全，一般使用ConcurrentHashMap</li>
+<li>ConcurrentHashMap是线程安全的Map 实现类，它在juc包下的。</li>
+<li>线程安全的Map实现类除了ConcurrentHashMap还有一个叫做Hashtable。</li>
+<li>当然了，也可以使用Collections来包装出一个线程安全的Map。</li>
+<li>但无论是Hashtable还是Collections包装出来的都比较低效（因为是直接在外层套synchronize），所以我们一般有线程安全问题考量的，都使用ConcurrentHashMap</li>
+<li>ConcurrentHashMap的底层数据结构是数组+链表&#x2F;红黑树，它能支持高并发的访问和更新，是线程安全的。</li>
+<li>ConcurrentHashMap通过在部分加锁和利用CAS算法来实现同步，在get的时候没有加锁，Node都用了volatile给修饰。</li>
+<li>在扩容时，会给每个线程分配对应的区间，并且为了防止putVal导致数据不一致，会给线程的所负责的区间加锁</li>
+</ol>
+<h2 id="嗯，你可以给我讲讲JDK7和JDK8中HashMap和ConcurrentHashMap的区别吗？"><a href="#嗯，你可以给我讲讲JDK7和JDK8中HashMap和ConcurrentHashMap的区别吗？" class="headerlink" title="嗯，你可以给我讲讲JDK7和JDK8中HashMap和ConcurrentHashMap的区别吗？"></a>嗯，你可以给我讲讲JDK7和JDK8中HashMap和ConcurrentHashMap的区别吗？</h2><ol>
+<li>我在学习的时候也看过JDK7的HashMap和ConcurrentHashMap，其实还是有很多不一样的地方</li>
+<li>比如JDK7的HashMap在扩容时是头插法，在JDK8就变成了尾插法，在JDK7的HashMap还没有引入红黑树</li>
+<li>ConcurrentHashMap在JDK7还是使用分段锁的方式来实现，而JDK8就又不一样了。但JDK7细节我大多数都忘了。</li>
+<li>我就没用过JDK7的API，我想着现在最低应该也是用JDK8了吧？所以我就没去仔细看了。</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>l
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/c2bf7fb6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lion.png">
+      <meta itemprop="name" content="swimminghao">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="swimminghao's blog">
+      <meta itemprop="description" content="swimminghao的学习博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | swimminghao's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/c2bf7fb6/" class="post-title-link" itemprop="url">14、【对线面试官】SpringMVC</a>
+        </h2>
+
+        <div class="post-meta-container">
+
+          
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-03-10 09:48:07" itemprop="dateModified" datetime="2022-03-10T09:48:07+08:00">2022-03-10</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/posts/c2bf7fb6/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/c2bf7fb6/" data-xid="/posts/c2bf7fb6/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>1.4k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -973,8 +1454,61 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>[toc]</p>
-<h3 id="开篇词"><a href="#开篇词" class="headerlink" title="开篇词"></a>开篇词</h3><h2 id="第零章、必读系列"><a href="#第零章、必读系列" class="headerlink" title="第零章、必读系列"></a>第零章、必读系列</h2><h3 id="学习算法和刷题的框架思维"><a href="#学习算法和刷题的框架思维" class="headerlink" title="学习算法和刷题的框架思维"></a>学习算法和刷题的框架思维</h3><h3 id="动态规划解题套路框架"><a href="#动态规划解题套路框架" class="headerlink" title="动态规划解题套路框架"></a>动态规划解题套路框架</h3><h3 id="回溯算法解题套路框架"><a href="#回溯算法解题套路框架" class="headerlink" title="回溯算法解题套路框架"></a>回溯算法解题套路框架</h3><h3 id="BFS-算法解题套路框架"><a href="#BFS-算法解题套路框架" class="headerlink" title="BFS 算法解题套路框架"></a>BFS 算法解题套路框架</h3><h3 id="我写了首诗，让你闭着眼睛也能写对二分搜索"><a href="#我写了首诗，让你闭着眼睛也能写对二分搜索" class="headerlink" title="我写了首诗，让你闭着眼睛也能写对二分搜索"></a>我写了首诗，让你闭着眼睛也能写对二分搜索</h3><h3 id="我写了首诗，把滑动窗口算法算法变成了默写题"><a href="#我写了首诗，把滑动窗口算法算法变成了默写题" class="headerlink" title="我写了首诗，把滑动窗口算法算法变成了默写题"></a>我写了首诗，把滑动窗口算法算法变成了默写题</h3><h3 id="一个方法团灭-LeetCode-股票买卖问题"><a href="#一个方法团灭-LeetCode-股票买卖问题" class="headerlink" title="一个方法团灭 LeetCode 股票买卖问题"></a>一个方法团灭 LeetCode 股票买卖问题</h3><h3 id="一个方法团灭-LeetCode-打家劫舍问题"><a href="#一个方法团灭-LeetCode-打家劫舍问题" class="headerlink" title="一个方法团灭 LeetCode 打家劫舍问题"></a>一个方法团灭 LeetCode 打家劫舍问题</h3><h3 id="一个方法团灭-nSum-问题"><a href="#一个方法团灭-nSum-问题" class="headerlink" title="一个方法团灭 nSum 问题"></a>一个方法团灭 nSum 问题</h3><h3 id="经典动态规划-高楼扔鸡蛋"><a href="#经典动态规划-高楼扔鸡蛋" class="headerlink" title="经典动态规划:高楼扔鸡蛋"></a>经典动态规划:高楼扔鸡蛋</h3><h3 id="经典动态规划-子集背包问题"><a href="#经典动态规划-子集背包问题" class="headerlink" title="经典动态规划:子集背包问题"></a>经典动态规划:子集背包问题</h3><h3 id="经典动态规划-完全背包问题"><a href="#经典动态规划-完全背包问题" class="headerlink" title="经典动态规划:完全背包问题"></a>经典动态规划:完全背包问题</h3><h3 id="表达式求值算法-实现计算器"><a href="#表达式求值算法-实现计算器" class="headerlink" title="表达式求值算法:实现计算器"></a>表达式求值算法:实现计算器</h3><h2 id="第一章、动态规划系列"><a href="#第一章、动态规划系列" class="headerlink" title="第一章、动态规划系列"></a>第一章、动态规划系列</h2><h3 id="动态规划解题套路框架-1"><a href="#动态规划解题套路框架-1" class="headerlink" title="动态规划解题套路框架"></a>动态规划解题套路框架</h3><h3 id="动态规划答疑篇"><a href="#动态规划答疑篇" class="headerlink" title="动态规划答疑篇"></a>动态规划答疑篇</h3><h3 id="动态规划和回溯算法到底谁是谁爹"><a href="#动态规划和回溯算法到底谁是谁爹" class="headerlink" title="动态规划和回溯算法到底谁是谁爹?"></a>动态规划和回溯算法到底谁是谁爹?</h3><h3 id="动态规划设计-最⻓递增子序列"><a href="#动态规划设计-最⻓递增子序列" class="headerlink" title="动态规划设计:最⻓递增子序列"></a>动态规划设计:最⻓递增子序列</h3><h3 id="动态规划设计-最大子数组"><a href="#动态规划设计-最大子数组" class="headerlink" title="动态规划设计:最大子数组"></a>动态规划设计:最大子数组</h3><h3 id="经典动态规划-0-1-背包问题"><a href="#经典动态规划-0-1-背包问题" class="headerlink" title="经典动态规划:0-1 背包问题"></a>经典动态规划:0-1 背包问题</h3><h3 id="经典动态规划-子集背包问题-1"><a href="#经典动态规划-子集背包问题-1" class="headerlink" title="经典动态规划:子集背包问题"></a>经典动态规划:子集背包问题</h3><h3 id="经典动态规划-完全背包问题-1"><a href="#经典动态规划-完全背包问题-1" class="headerlink" title="经典动态规划:完全背包问题"></a>经典动态规划:完全背包问题</h3><h3 id="经典动态规划-编辑距离"><a href="#经典动态规划-编辑距离" class="headerlink" title="经典动态规划:编辑距离"></a>经典动态规划:编辑距离</h3><h3 id="经典动态规划-高楼扔鸡蛋-1"><a href="#经典动态规划-高楼扔鸡蛋-1" class="headerlink" title="经典动态规划:高楼扔鸡蛋"></a>经典动态规划:高楼扔鸡蛋</h3><h3 id="经典动态规划-高楼扔鸡蛋-进阶"><a href="#经典动态规划-高楼扔鸡蛋-进阶" class="headerlink" title="经典动态规划:高楼扔鸡蛋(进阶)"></a>经典动态规划:高楼扔鸡蛋(进阶)</h3><h3 id="经典动态规划-戳气球"><a href="#经典动态规划-戳气球" class="headerlink" title="经典动态规划:戳气球"></a>经典动态规划:戳气球</h3><h3 id="经典动态规划-最⻓公共子序列"><a href="#经典动态规划-最⻓公共子序列" class="headerlink" title="经典动态规划:最⻓公共子序列"></a>经典动态规划:最⻓公共子序列</h3><h3 id="动态规划之子序列问题解题模板"><a href="#动态规划之子序列问题解题模板" class="headerlink" title="动态规划之子序列问题解题模板"></a>动态规划之子序列问题解题模板</h3><h3 id="动态规划之博弈问题"><a href="#动态规划之博弈问题" class="headerlink" title="动态规划之博弈问题"></a>动态规划之博弈问题</h3><h3 id="动态规划之正则表达"><a href="#动态规划之正则表达" class="headerlink" title="动态规划之正则表达"></a>动态规划之正则表达</h3><h3 id="动态规划之四键键盘"><a href="#动态规划之四键键盘" class="headerlink" title="动态规划之四键键盘"></a>动态规划之四键键盘</h3><h3 id="动态规划之KMP字符匹配算法"><a href="#动态规划之KMP字符匹配算法" class="headerlink" title="动态规划之KMP字符匹配算法"></a>动态规划之KMP字符匹配算法</h3><h3 id="贪心算法之区间调度问题"><a href="#贪心算法之区间调度问题" class="headerlink" title="贪心算法之区间调度问题"></a>贪心算法之区间调度问题</h3><h3 id="团灭-LeetCode-股票买卖问题"><a href="#团灭-LeetCode-股票买卖问题" class="headerlink" title="团灭 LeetCode 股票买卖问题"></a>团灭 LeetCode 股票买卖问题</h3><h3 id="团灭-LeetCode-打家劫舍问题"><a href="#团灭-LeetCode-打家劫舍问题" class="headerlink" title="团灭 LeetCode 打家劫舍问题"></a>团灭 LeetCode 打家劫舍问题</h3><h2 id="第二章、数据结构系列"><a href="#第二章、数据结构系列" class="headerlink" title="第二章、数据结构系列"></a>第二章、数据结构系列</h2><h3 id="学习数据结构和算法读什么书"><a href="#学习数据结构和算法读什么书" class="headerlink" title="学习数据结构和算法读什么书"></a>学习数据结构和算法读什么书</h3><h3 id="算法学习之路"><a href="#算法学习之路" class="headerlink" title="算法学习之路"></a>算法学习之路</h3><h3 id="二叉堆详解实现优先级队列"><a href="#二叉堆详解实现优先级队列" class="headerlink" title="二叉堆详解实现优先级队列"></a>二叉堆详解实现优先级队列</h3><h3 id="LRU算法详解"><a href="#LRU算法详解" class="headerlink" title="LRU算法详解"></a>LRU算法详解</h3><h3 id="二叉搜索树操作集锦"><a href="#二叉搜索树操作集锦" class="headerlink" title="二叉搜索树操作集锦"></a>二叉搜索树操作集锦</h3><h3 id="如何计算完全二叉树的节点数"><a href="#如何计算完全二叉树的节点数" class="headerlink" title="如何计算完全二叉树的节点数"></a>如何计算完全二叉树的节点数</h3><h3 id="特殊数据结构-单调栈"><a href="#特殊数据结构-单调栈" class="headerlink" title="特殊数据结构:单调栈"></a>特殊数据结构:单调栈</h3><h3 id="特殊数据结构-单调队列"><a href="#特殊数据结构-单调队列" class="headerlink" title="特殊数据结构:单调队列"></a>特殊数据结构:单调队列</h3><h3 id="设计Twitter-递归反转链表的一部分"><a href="#设计Twitter-递归反转链表的一部分" class="headerlink" title="设计Twitter 递归反转链表的一部分"></a>设计Twitter 递归反转链表的一部分</h3><h3 id="队列实现栈-栈实现队列"><a href="#队列实现栈-栈实现队列" class="headerlink" title="队列实现栈|栈实现队列"></a>队列实现栈|栈实现队列</h3><h2 id="第三章、算法思维系列"><a href="#第三章、算法思维系列" class="headerlink" title="第三章、算法思维系列"></a>第三章、算法思维系列</h2><h3 id="学习算法和刷题的思路指南"><a href="#学习算法和刷题的思路指南" class="headerlink" title="学习算法和刷题的思路指南"></a>学习算法和刷题的思路指南</h3><h3 id="回溯算法解题套路框架-1"><a href="#回溯算法解题套路框架-1" class="headerlink" title="回溯算法解题套路框架"></a>回溯算法解题套路框架</h3><h3 id="回溯算法团灭子集、排列、组合问题"><a href="#回溯算法团灭子集、排列、组合问题" class="headerlink" title="回溯算法团灭子集、排列、组合问题"></a>回溯算法团灭子集、排列、组合问题</h3><h3 id="回溯算法最佳实践-解数独"><a href="#回溯算法最佳实践-解数独" class="headerlink" title="回溯算法最佳实践:解数独"></a>回溯算法最佳实践:解数独</h3><h3 id="回溯算法最佳实践-括号生成"><a href="#回溯算法最佳实践-括号生成" class="headerlink" title="回溯算法最佳实践:括号生成"></a>回溯算法最佳实践:括号生成</h3><h3 id="二分查找详解"><a href="#二分查找详解" class="headerlink" title="二分查找详解"></a>二分查找详解</h3><h3 id="双指针技巧总结"><a href="#双指针技巧总结" class="headerlink" title="双指针技巧总结"></a>双指针技巧总结</h3><h3 id="滑动窗口技巧"><a href="#滑动窗口技巧" class="headerlink" title="滑动窗口技巧"></a>滑动窗口技巧</h3><h3 id="twoSum问题的核心思想"><a href="#twoSum问题的核心思想" class="headerlink" title="twoSum问题的核心思想"></a>twoSum问题的核心思想</h3><h3 id="常用的位操作"><a href="#常用的位操作" class="headerlink" title="常用的位操作"></a>常用的位操作</h3><h3 id="拆解复杂问题-实现计算器"><a href="#拆解复杂问题-实现计算器" class="headerlink" title="拆解复杂问题:实现计算器"></a>拆解复杂问题:实现计算器</h3><h3 id="烧饼排序"><a href="#烧饼排序" class="headerlink" title="烧饼排序"></a>烧饼排序</h3><h3 id="前缀和技巧"><a href="#前缀和技巧" class="headerlink" title="前缀和技巧"></a>前缀和技巧</h3><h3 id="字符串乘法"><a href="#字符串乘法" class="headerlink" title="字符串乘法"></a>字符串乘法</h3><h3 id="FloodFill算法详解及应用"><a href="#FloodFill算法详解及应用" class="headerlink" title="FloodFill算法详解及应用"></a>FloodFill算法详解及应用</h3><h3 id="区间调度之区间合并问题"><a href="#区间调度之区间合并问题" class="headerlink" title="区间调度之区间合并问题"></a>区间调度之区间合并问题</h3><h3 id="区间调度之区间交集问题"><a href="#区间调度之区间交集问题" class="headerlink" title="区间调度之区间交集问题"></a>区间调度之区间交集问题</h3><h3 id="信封嵌套问题"><a href="#信封嵌套问题" class="headerlink" title="信封嵌套问题"></a>信封嵌套问题</h3><h3 id="几个反直觉的概率问题"><a href="#几个反直觉的概率问题" class="headerlink" title="几个反直觉的概率问题"></a>几个反直觉的概率问题</h3><h2 id="第四章、高频面试系列"><a href="#第四章、高频面试系列" class="headerlink" title="第四章、高频面试系列"></a>第四章、高频面试系列</h2><h3 id="如何实现LRU算法"><a href="#如何实现LRU算法" class="headerlink" title="如何实现LRU算法"></a>如何实现LRU算法</h3><h3 id="如何用-BFS-算法秒杀各种智力题"><a href="#如何用-BFS-算法秒杀各种智力题" class="headerlink" title="如何用 BFS 算法秒杀各种智力题"></a>如何用 BFS 算法秒杀各种智力题</h3><h3 id="如何高效寻找素数"><a href="#如何高效寻找素数" class="headerlink" title="如何高效寻找素数"></a>如何高效寻找素数</h3><h3 id="如何高效进行模幂运算"><a href="#如何高效进行模幂运算" class="headerlink" title="如何高效进行模幂运算"></a>如何高效进行模幂运算</h3><h3 id="如何计算编辑距离"><a href="#如何计算编辑距离" class="headerlink" title="如何计算编辑距离"></a>如何计算编辑距离</h3><h3 id="如何运用二分查找算法"><a href="#如何运用二分查找算法" class="headerlink" title="如何运用二分查找算法"></a>如何运用二分查找算法</h3><h3 id="如何高效解决接雨水问题"><a href="#如何高效解决接雨水问题" class="headerlink" title="如何高效解决接雨水问题"></a>如何高效解决接雨水问题</h3><h3 id="如何去除有序数组的重复元素"><a href="#如何去除有序数组的重复元素" class="headerlink" title="如何去除有序数组的重复元素"></a>如何去除有序数组的重复元素</h3><h3 id="如何寻找最⻓回文子串"><a href="#如何寻找最⻓回文子串" class="headerlink" title="如何寻找最⻓回文子串"></a>如何寻找最⻓回文子串</h3><h3 id="如何运用贪心思想玩跳跃游戏"><a href="#如何运用贪心思想玩跳跃游戏" class="headerlink" title="如何运用贪心思想玩跳跃游戏"></a>如何运用贪心思想玩跳跃游戏</h3><h3 id="如何k个一组反转链表"><a href="#如何k个一组反转链表" class="headerlink" title="如何k个一组反转链表"></a>如何k个一组反转链表</h3><h3 id="如何判定括号合法性"><a href="#如何判定括号合法性" class="headerlink" title="如何判定括号合法性"></a>如何判定括号合法性</h3><h3 id="如何寻找缺失的元素"><a href="#如何寻找缺失的元素" class="headerlink" title="如何寻找缺失的元素"></a>如何寻找缺失的元素</h3><h3 id="如何同时寻找缺失和重复的元素"><a href="#如何同时寻找缺失和重复的元素" class="headerlink" title="如何同时寻找缺失和重复的元素"></a>如何同时寻找缺失和重复的元素</h3><h3 id="如何判断回文链表"><a href="#如何判断回文链表" class="headerlink" title="如何判断回文链表"></a>如何判断回文链表</h3><h3 id="如何在无限序列中随机抽取元素"><a href="#如何在无限序列中随机抽取元素" class="headerlink" title="如何在无限序列中随机抽取元素"></a>如何在无限序列中随机抽取元素</h3><h3 id="如何调度考生的座位"><a href="#如何调度考生的座位" class="headerlink" title="如何调度考生的座位"></a>如何调度考生的座位</h3><h3 id="Union-Find算法详解"><a href="#Union-Find算法详解" class="headerlink" title="Union-Find算法详解"></a>Union-Find算法详解</h3><h3 id="Union-Find算法应用"><a href="#Union-Find算法应用" class="headerlink" title="Union-Find算法应用"></a>Union-Find算法应用</h3><h3 id="一行代码就能解决的算法题"><a href="#一行代码就能解决的算法题" class="headerlink" title="一行代码就能解决的算法题"></a>一行代码就能解决的算法题</h3><h3 id="二分查找高效判定子序列"><a href="#二分查找高效判定子序列" class="headerlink" title="二分查找高效判定子序列"></a>二分查找高效判定子序列</h3><h2 id="第五章、技术文章系列"><a href="#第五章、技术文章系列" class="headerlink" title="第五章、技术文章系列"></a>第五章、技术文章系列</h2><h3 id="Linux的进程、线程、文件描述符是什么"><a href="#Linux的进程、线程、文件描述符是什么" class="headerlink" title="Linux的进程、线程、文件描述符是什么"></a>Linux的进程、线程、文件描述符是什么</h3><h3 id="关于-Linux-shell-你必须知道的"><a href="#关于-Linux-shell-你必须知道的" class="headerlink" title="关于 Linux shell 你必须知道的"></a>关于 Linux shell 你必须知道的</h3><h3 id="Linux-shell-的实用小技巧"><a href="#Linux-shell-的实用小技巧" class="headerlink" title="Linux shell 的实用小技巧"></a>Linux shell 的实用小技巧</h3><h3 id="一文看懂-session-和-cookie"><a href="#一文看懂-session-和-cookie" class="headerlink" title="一文看懂 session 和 cookie"></a>一文看懂 session 和 cookie</h3><h3 id="加密算法的前身今世"><a href="#加密算法的前身今世" class="headerlink" title="加密算法的前身今世"></a>加密算法的前身今世</h3><h3 id="我用四个命令概括了-Git-的所有套路"><a href="#我用四个命令概括了-Git-的所有套路" class="headerlink" title="我用四个命令概括了 Git 的所有套路"></a>我用四个命令概括了 Git 的所有套路</h3><h3 id="Git-x2F-SQL-x2F-正则表达式的在线练习平台"><a href="#Git-x2F-SQL-x2F-正则表达式的在线练习平台" class="headerlink" title="Git&#x2F;SQL&#x2F;正则表达式的在线练习平台"></a>Git&#x2F;SQL&#x2F;正则表达式的在线练习平台</h3>
+          <h1 id="14、【对线面试官】SpringMVC"><a href="#14、【对线面试官】SpringMVC" class="headerlink" title="14、【对线面试官】SpringMVC"></a>14、【对线面试官】SpringMVC</h1><h2 id="今天要不来聊聊SpringMVC吧？"><a href="#今天要不来聊聊SpringMVC吧？" class="headerlink" title="今天要不来聊聊SpringMVC吧？"></a>今天要不来聊聊SpringMVC吧？</h2><ol>
+<li>我先简单说下我对SpringMVC的理解哈</li>
+<li>SpringMVC我觉得它是对Servlet的封装，屏蔽掉Servlet很多的细节卫</li>
+<li>接下来我举几个例子</li>
+<li>可能我们刚学Servlet的时候，要获取参数需要不断的getParameter</li>
+<li>现在只要在SpringMVC方法定义对应的J avaBean，只要属性名与参数名一致，SpringMVC就可以帮我们实现「将参数封装到JavaBean」上了</li>
+<li>又比如，以前使用Servlet 「上传文件」，需要处理各种细节，写一大堆处理的逻辑（还得导入对应的jar）</li>
+<li>现在一个在SpringMVC的方法上定义出MultipartFile接口，又可以屏蔽掉上传文件的细节了。</li>
+<li>例子还有很多，我就不赘述了。</li>
+</ol>
+<h2 id="既然你说SpringMVC是对Servlet的封装，你了解SpringMVC请求处理的流程吗？"><a href="#既然你说SpringMVC是对Servlet的封装，你了解SpringMVC请求处理的流程吗？" class="headerlink" title="既然你说SpringMVC是对Servlet的封装，你了解SpringMVC请求处理的流程吗？"></a>既然你说SpringMVC是对Servlet的封装，你了解SpringMVC请求处理的流程吗？</h2><ol>
+<li>总体流程大概是这样的<ul>
+<li>首先有个统一处理请求的入口</li>
+<li>随后根据请求路径找到对应的映射器</li>
+<li>找到处理请求的适配器</li>
+<li>4）：拦截器前置处理</li>
+<li>5）：真实处理请求（也就是调用真正的代码）</li>
+<li>6）：视图解析器处理</li>
+<li>7）：拦截器后置处理</li>
+</ul>
+</li>
+</ol>
+<h2 id="嗯，了解，可以再稍微深入点吗？"><a href="#嗯，了解，可以再稍微深入点吗？" class="headerlink" title="嗯，了解，可以再稍微深入点吗？"></a>嗯，了解，可以再稍微深入点吗？</h2><ol>
+<li>统一的处理入口，对应SpringMVC下的源码是在DispatcherServlet下实现的</li>
+<li>该对象在初始化就会把映射器、适配器、视图解析器、异常处理器、文件处理器等等给初始化掉</li>
+<li>至于会初始化哪些具体实例，看下DispatcherServlet.properties就知道了，都配置在那了</li>
+<li>所有的请求其实都会被doService方法处理，里边最主要就是调用doDispatch方法</li>
+<li>通过doDispatch方法我们就可以看到整个SpringMVC处理的流程</li>
+<li>查找映射器的时候实际就是找到「最佳匹配」的路径，具体方法实现我记得好像是在lookupHandlerMethod方法上</li>
+<li>从源码可以看到「查找映射器」实际返回的是HandlerExecutionChain，里边有映射器Handler+拦截器List</li>
+<li>前面提到的拦截器前置处理和后置处理就是用的HandlerExecutionChain中的拦截器List</li>
+<li>获取得到HandlerExecutionChain后，就会去获取适配器，一般我们获取得到的就是RequestMappingHandlerAdapter</li>
+<li>在代码里边可以看到的是，经常用到的@ResponseBody和@Requestbody的解析器</li>
+<li>就会在初始化的时候加到参数解析器List中</li>
+<li>得到适配器之后，就会执行拦截器前置处理</li>
+<li>拦截器前置处理执行完后，就会调用适配器对象实例的hanlde方法执行真正的代码逻辑处理</li>
+<li>核心的处理逻辑在invokeAndHandle方法中，会获取得到请求的参数并调用，处理返回值</li>
+<li>参数的封装以及处理会被适配器的参数解析器进行处理，具体的处理逻辑取决于HttpMessageConverter的实例对象</li>
+</ol>
+<h2 id="嗯，了解了。要不你再压缩下关键的信息"><a href="#嗯，了解了。要不你再压缩下关键的信息" class="headerlink" title="嗯，了解了。要不你再压缩下关键的信息"></a>嗯，了解了。要不你再压缩下关键的信息</h2><ol>
+<li><p>DispatcherServlet （入口）</p>
+</li>
+<li><p>DispatcherServlet.properties（会初始化的对象）</p>
+</li>
+<li><p>HandlerMapping （映射器，</p>
+</li>
+<li><p>HandlerExecutionChain（映射器最终实例+拦截器List）</p>
+</li>
+<li><p>HttpRequestHandlerAdapter（适配器</p>
+</li>
+<li><p>HttpMessageConverter（数据转换</p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/ERUrGo_20211029183808.png"></p>
+</li>
+</ol>
+
       
     </div>
 
@@ -1005,7 +1539,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/88317e3e/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/51360fe0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/lion.png">
@@ -1023,7 +1557,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/88317e3e/" class="post-title-link" itemprop="url">设计模式2</a>
+          <a href="/posts/51360fe0/" class="post-title-link" itemprop="url">15、【对线面试官】Spring基础</a>
         </h2>
 
         <div class="post-meta-container">
@@ -1044,7 +1578,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-11 10:52:31" itemprop="dateModified" datetime="2022-03-11T10:52:31+08:00">2022-03-11</time>
+      <time title="修改时间：2022-03-10 09:48:07" itemprop="dateModified" datetime="2022-03-10T09:48:07+08:00">2022-03-10</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -1065,8 +1599,8 @@
     </span>
     <span class="post-meta-item-text">Waline：</span>
   
-    <a title="waline" href="/posts/88317e3e/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/88317e3e/" data-xid="/posts/88317e3e/" itemprop="commentCount"></span>
+    <a title="waline" href="/posts/51360fe0/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/51360fe0/" data-xid="/posts/51360fe0/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -1077,7 +1611,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>1.9k</span>
+      <span>2k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -1095,346 +1629,77 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="设计模式2"><a href="#设计模式2" class="headerlink" title="设计模式2"></a>设计模式2</h1><h2 id="1-观察者模式"><a href="#1-观察者模式" class="headerlink" title="1.观察者模式"></a>1.观察者模式</h2><ul>
-<li>定义：在对象之间定义了一对多的依赖，这样的话，当一个对象改变状态，依赖他的对象会受到通知并自动更新。（其实就是发布订阅模式：发布者发布信息，订阅者获取信息，订阅了就能收到消息，没订阅的就收不到消息）</li>
-</ul>
-<h2 id="2-访问者模式"><a href="#2-访问者模式" class="headerlink" title="2.访问者模式"></a>2.访问者模式</h2><ul>
-<li>定义：封装作用于某种数据结构中各元素的操作，它可在不改变数据结构的前提下定义作用于这些元素的新的操作。</li>
-</ul>
-<h2 id="3-命令模式"><a href="#3-命令模式" class="headerlink" title="3.命令模式"></a>3.命令模式</h2><ul>
-<li>定义：发送者和接收者之间引入了一个命令对象，将发送者的请求封装在命令对象中，再通过命令对象来调用接受者的方法。</li>
-<li>spring框架：spring是怎么做的，view、controller、service是怎么连在一起的：spring是控制反转、依赖注入，解决了数据数据初始化一些问题，能够吧代码写得很简洁，然后脱颖而出，核心是怎么做的，数据初始化是怎么做的。面向切面的编程可以用在什么地方，spring的一般框架是mvc<br>：层是controller、中间层是service、底层是dao。为什么这么分？他比其他的区别是什么？对一些request包装了<br>   找spring一两点深入研究：我不仅仅是用了spring，我还研究了他某一个组件，他是怎么实现的？讲讲(闪光点）</li>
-<li>velocity（模板语言）<br> 我用了velocity，我发现了velocity里的很多东西和我学的java、c++都是一样的，他这个框架他把一些公用的都提取出来，前面的spring boot是个java框架，为什么要用velocity，因为我要前后端分离，view和后面的数据要分离，data是怎么传过来的，怎么解析的，他支持什么东西？（不仅仅用了这个东西，还有思想，解耦）<h2 id="3-mybatis"><a href="#3-mybatis" class="headerlink" title="3.mybatis"></a>3.mybatis</h2></li>
-<li>怎么把数据库的一些前后的读取给做了，怎么把xml里的多重条件，怎么做文法的解析，然后把这些条件给处理掉。<h2 id="4-登录-x2F-注册"><a href="#4-登录-x2F-注册" class="headerlink" title="4.登录&#x2F;注册"></a>4.登录&#x2F;注册</h2></li>
-<li>网站安全（salt）：密码为什么加了一个salt就变得安全？</li>
-<li>通过拦截器来实现的：拦截器的思想、框架，留好接口;拦截器实现登录注册：我在cookie里放了一个token，token怎么处理用户登录注册的：在用户登录注册的时候，会下发一个token，把token与用户信息关联起来，关联起来之后我为了优化token信息，把token放到数据库里（redis），设计一个分布式的统一登录系统，现在的互联网产品都是统一登录的，比如，登录qq之后，登录网页就不需要登录了，qq登录过的token直接注入到网页上去。这是个ssension共享问题：、</li>
-<li>保证数据安全：验证（邮件激活）<h2 id="5-前缀树"><a href="#5-前缀树" class="headerlink" title="5.前缀树"></a>5.前缀树</h2></li>
-<li>构造一个前缀树，通过一个有限状态机来实现一传文本是不是包含敏感词，繁杂度是多少 很重要：优点有哪些？为什么不用kmp，文本查找算法：<br>可以很快的加一些词汇过来；有扩展性，以及性能更提高<h2 id="6-redis"><a href="#6-redis" class="headerlink" title="6.redis"></a>6.redis</h2></li>
-<li>数据结构：跳列表，哈希，优先队列，list：我了解redis底层是怎么实现的，为什么他的效率很高，他的字符串是怎么保存的，做这个工程的时候我用在的异步队列上、排序上、异步框架<h2 id="7-异步框架"><a href="#7-异步框架" class="headerlink" title="7.异步框架"></a>7.异步框架</h2></li>
-</ul>
-<p>*思路：我这个网站附带的每一步操作可能附带的操作都非常多，为了更快的吧结果返回给用户，所以采用异步框架，自己写的，数据结构：使用redis的队列，因为redis能够保证线程同步；除了用队列，我还想过用有优先队列，这样我的异步框架能够把紧急的任务线处理掉。我这个异步框架：有消息的发射，消息的处理，事件的模型定义以及具体执行的eventhandle，我定义了一些公共接口把这些实现了。</p>
-<h2 id="8-邮件（smtp协议）"><a href="#8-邮件（smtp协议）" class="headerlink" title="8.邮件（smtp协议）"></a>8.邮件（smtp协议）</h2><ul>
-<li>做了一个简单邮件，怎么连接上服务器，我当时做这个的时候，ssl问题<br>，ssl理解，服务器需要ssl链接，为了安全服务器是怎么做的；java sdk 1.7 1.8的问题，1.8是需要换一个jar包的</li>
-<li>豆瓣电影排序：好的问题能挑选出来，互动越多，时间越新，评分越高。<h2 id="9-timeline（时间轴）"><a href="#9-timeline（时间轴）" class="headerlink" title="9.timeline（时间轴）"></a>9.timeline（时间轴）</h2></li>
-<li>肯定会问：为什么用推拉模式，用推实时性高能让好友快速得到消息，用拉能节省僵尸号、不是活跃用户的存储空间。怎么区分？最后把timeline组合起来‘timeline模板系统，每个新鲜事展向不一样，和velocity结合起来，后台存储的都是核心数据，每个数据对应的是一个模板，我把模板结合起来，我就能快速的把时间轴展示出来。<h2 id="10-爬虫"><a href="#10-爬虫" class="headerlink" title="10.爬虫"></a>10.爬虫</h2><h2 id="11-solr搜索"><a href="#11-solr搜索" class="headerlink" title="11.solr搜索"></a>11.solr搜索</h2></li>
-<li>搜索去重：对比相似度，敏感哈希算法，哈希算法：两个字符串稍微有一点点不一样，结构就是不一样的。可能头尾是不一样的，内容一样：采用敏感哈希算法把相似度求出来，区别：敏感哈希算法两个文档相似度很高，他生成的哈希值的比例是很相似的。<h2 id="12-单元测试-x2F-部署"><a href="#12-单元测试-x2F-部署" class="headerlink" title="12.单元测试&#x2F;部署"></a>12.单元测试&#x2F;部署</h2></li>
-<li>部署：运维，llinux nigix反向代理，与正向对比。负载均衡：为什么要负载均衡。</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>l
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/364ea8cc/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/lion.png">
-      <meta itemprop="name" content="swimminghao">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="swimminghao's blog">
-      <meta itemprop="description" content="swimminghao的学习博客">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | swimminghao's blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/364ea8cc/" class="post-title-link" itemprop="url">设计模式</a>
-        </h2>
-
-        <div class="post-meta-container">
-
-          
-
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-03 17:24:19" itemprop="dateModified" datetime="2022-03-03T17:24:19+08:00">2022-03-03</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="far fa-comment"></i>
-    </span>
-    <span class="post-meta-item-text">Waline：</span>
-  
-    <a title="waline" href="/posts/364ea8cc/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/364ea8cc/" data-xid="/posts/364ea8cc/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>1.9k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>2 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="设计模式"><a href="#设计模式" class="headerlink" title="设计模式"></a>设计模式</h1><h2 id="1-观察者模式"><a href="#1-观察者模式" class="headerlink" title="1.观察者模式"></a>1.观察者模式</h2><ul>
-<li>定义：在对象之间定义了一对多的依赖，这样的话，当一个对象改变状态，依赖他的对象会受到通知并自动更新。（其实就是发布订阅模式：发布者发布信息，订阅者获取信息，订阅了就能收到消息，没订阅的就收不到消息）</li>
-</ul>
-<h2 id="2-访问者模式"><a href="#2-访问者模式" class="headerlink" title="2.访问者模式"></a>2.访问者模式</h2><ul>
-<li>定义：封装作用于某种数据结构中各元素的操作，它可在不改变数据结构的前提下定义作用于这些元素的新的操作。</li>
-</ul>
-<h2 id="3-命令模式"><a href="#3-命令模式" class="headerlink" title="3.命令模式"></a>3.命令模式</h2><ul>
-<li>定义：发送者和接收者之间引入了一个命令对象，将发送者的请求封装在命令对象中，再通过命令对象来调用接受者的方法。</li>
-<li>spring框架：spring是怎么做的，view、controller、service是怎么连在一起的：spring是控制反转、依赖注入，解决了数据数据初始化一些问题，能够吧代码写得很简洁，然后脱颖而出，核心是怎么做的，数据初始化是怎么做的。面向切面的编程可以用在什么地方，spring的一般框架是mvc<br>：层是controller、中间层是service、底层是dao。为什么这么分？他比其他的区别是什么？对一些request包装了<br>   找spring一两点深入研究：我不仅仅是用了spring，我还研究了他某一个组件，他是怎么实现的？讲讲(闪光点）</li>
-<li>velocity（模板语言）<br> 我用了velocity，我发现了velocity里的很多东西和我学的java、c++都是一样的，他这个框架他把一些公用的都提取出来，前面的spring boot是个java框架，为什么要用velocity，因为我要前后端分离，view和后面的数据要分离，data是怎么传过来的，怎么解析的，他支持什么东西？（不仅仅用了这个东西，还有思想，解耦）</li>
-</ul>
-<h2 id="3-mybatis"><a href="#3-mybatis" class="headerlink" title="3.mybatis"></a>3.mybatis</h2><ul>
-<li>怎么把数据库的一些前后的读取给做了，怎么把xml里的多重条件，怎么做文法的解析，然后把这些条件给处理掉。</li>
-</ul>
-<h2 id="4-登录-x2F-注册"><a href="#4-登录-x2F-注册" class="headerlink" title="4.登录&#x2F;注册"></a>4.登录&#x2F;注册</h2><ul>
-<li>网站安全（salt）：密码为什么加了一个salt就变得安全？</li>
-<li>通过拦截器来实现的：拦截器的思想、框架，留好接口;拦截器实现登录注册：我在cookie里放了一个token，token怎么处理用户登录注册的：在用户登录注册的时候，会下发一个token，把token与用户信息关联起来，关联起来之后我为了优化token信息，把token放到数据库里（redis），设计一个分布式的统一登录系统，现在的互联网产品都是统一登录的，比如，登录qq之后，登录网页就不需要登录了，qq登录过的token直接注入到网页上去。这是个ssension共享问题：、</li>
-<li>保证数据安全：验证（邮件激活）</li>
-</ul>
-<h2 id="5-前缀树"><a href="#5-前缀树" class="headerlink" title="5.前缀树"></a>5.前缀树</h2><ul>
-<li>构造一个前缀树，通过一个有限状态机来实现一传文本是不是包含敏感词，繁杂度是多少 很重要：优点有哪些？为什么不用kmp，文本查找算法：<br>可以很快的加一些词汇过来；有扩展性，以及性能更提高</li>
-</ul>
-<h2 id="6-redis"><a href="#6-redis" class="headerlink" title="6.redis"></a>6.redis</h2><ul>
-<li>数据结构：跳列表，哈希，优先队列，list：我了解redis底层是怎么实现的，为什么他的效率很高，他的字符串是怎么保存的，做这个工程的时候我用在的异步队列上、排序上、异步框架</li>
-</ul>
-<h2 id="7-异步框架"><a href="#7-异步框架" class="headerlink" title="7.异步框架"></a>7.异步框架</h2><p>*思路：我这个网站附带的每一步操作可能附带的操作都非常多，为了更快的吧结果返回给用户，所以采用异步框架，自己写的，数据结构：使用redis的队列，因为redis能够保证线程同步；除了用队列，我还想过用有优先队列，这样我的异步框架能够把紧急的任务线处理掉。我这个异步框架：有消息的发射，消息的处理，事件的模型定义以及具体执行的eventhandle，我定义了一些公共接口把这些实现了。</p>
-<h2 id="8-邮件（smtp协议）"><a href="#8-邮件（smtp协议）" class="headerlink" title="8.邮件（smtp协议）"></a>8.邮件（smtp协议）</h2><ul>
-<li>做了一个简单邮件，怎么连接上服务器，我当时做这个的时候，ssl问题<br>，ssl理解，服务器需要ssl链接，为了安全服务器是怎么做的；java sdk 1.7 1.8的问题，1.8是需要换一个jar包的</li>
-<li>豆瓣电影排序：好的问题能挑选出来，互动越多，时间越新，评分越高。</li>
-</ul>
-<h2 id="9-timeline（时间轴）"><a href="#9-timeline（时间轴）" class="headerlink" title="9.timeline（时间轴）"></a>9.timeline（时间轴）</h2><ul>
-<li>肯定会问：为什么用推拉模式，用推实时性高能让好友快速得到消息，用拉能节省僵尸号、不是活跃用户的存储空间。怎么区分？最后把timeline组合起来‘timeline模板系统，每个新鲜事展向不一样，和velocity结合起来，后台存储的都是核心数据，每个数据对应的是一个模板，我把模板结合起来，我就能快速的把时间轴展示出来。</li>
-</ul>
-<h2 id="10-爬虫"><a href="#10-爬虫" class="headerlink" title="10.爬虫"></a>10.爬虫</h2><h2 id="11-solr搜索"><a href="#11-solr搜索" class="headerlink" title="11.solr搜索"></a>11.solr搜索</h2><ul>
-<li>搜索去重：对比相似度，敏感哈希算法，哈希算法：两个字符串稍微有一点点不一样，结构就是不一样的。可能头尾是不一样的，内容一样：采用敏感哈希算法把相似度求出来，区别：敏感哈希算法两个文档相似度很高，他生成的哈希值的比例是很相似的。</li>
-</ul>
-<h2 id="12-单元测试-x2F-部署"><a href="#12-单元测试-x2F-部署" class="headerlink" title="12.单元测试&#x2F;部署"></a>12.单元测试&#x2F;部署</h2><ul>
-<li>部署：运维，llinux nigix反向代理，与正向对比。负载均衡：为什么要负载均衡。</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>l
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/ca06b5a9/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/lion.png">
-      <meta itemprop="name" content="swimminghao">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="swimminghao's blog">
-      <meta itemprop="description" content="swimminghao的学习博客">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | swimminghao's blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/ca06b5a9/" class="post-title-link" itemprop="url">问答系统总结1</a>
-        </h2>
-
-        <div class="post-meta-container">
-
-          
-
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-11 10:41:30" itemprop="dateModified" datetime="2022-03-11T10:41:30+08:00">2022-03-11</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">学习</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="far fa-comment"></i>
-    </span>
-    <span class="post-meta-item-text">Waline：</span>
-  
-    <a title="waline" href="/posts/ca06b5a9/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/ca06b5a9/" data-xid="/posts/ca06b5a9/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>1.9k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>2 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="问答系统总结"><a href="#问答系统总结" class="headerlink" title="问答系统总结"></a>问答系统总结</h1><h2 id="1-开发工具GIt，idea"><a href="#1-开发工具GIt，idea" class="headerlink" title="1.开发工具GIt，idea"></a>1.开发工具GIt，idea</h2><ul>
-<li>我是把代码放到github上的，以便于代码版本管理，不能拷贝来拷贝去</li>
-<li>java语言&#x2F;规范最基础，要研究jvm，垃圾回收算法思路，根据什么样的规则，怎么回收申请的一些对象；参数可以配置，怎么配置，对应的后台运行又是怎么样的<h2 id="2-Spring-Boot，Velocity"><a href="#2-Spring-Boot，Velocity" class="headerlink" title="2.Spring Boot，Velocity"></a>2.Spring Boot，Velocity</h2></li>
-</ul>
+          <h1 id="15、【对线面试官】Spring基础"><a href="#15、【对线面试官】Spring基础" class="headerlink" title="15、【对线面试官】Spring基础"></a>15、【对线面试官】Spring基础</h1><h2 id="要不你来讲讲Spring的IOC和AOP你是怎么理解的呗？"><a href="#要不你来讲讲Spring的IOC和AOP你是怎么理解的呗？" class="headerlink" title="要不你来讲讲Spring的IOC和AOP你是怎么理解的呗？"></a>要不你来讲讲Spring的IOC和AOP你是怎么理解的呗？</h2><ol>
+<li>我个人理解下：SpringIOC解决的是对象管理和对象依赖的问题。</li>
+<li>本来是我们自己手动new出来的对象，现在则把对象交给Spring的IOC容器管理</li>
+<li>IOC容器可以理解为一个对象工厂，我们都把该对象交给工厂，工厂管理这些对象的创建以及依赖关系</li>
+<li>等我们需要用对象的时候，从工厂里边获取就好了</li>
+</ol>
+<h2 id="哦，你说的就是「控制反转」和「注入依赖」吧？"><a href="#哦，你说的就是「控制反转」和「注入依赖」吧？" class="headerlink" title="哦，你说的就是「控制反转」和「注入依赖」吧？"></a>哦，你说的就是「控制反转」和「注入依赖」吧？</h2><ol>
+<li>我认为「控制反转」指的就是：把原有自己掌控的事交给别人去处理</li>
+<li>它更多的是一种思想或者可以理解为设计模式</li>
+<li>比如：本来由我们自己new出来的对象，现在交由IOC容器，把对象的控制权交给它方了.</li>
+<li>而「依赖注入」在我的理解下，它其实是「控制反转」的实现方式</li>
+<li>对象无需自行创建或者管理它的依赖关系，依赖关系将被「自动注入」到需要它们的对象当中去</li>
+</ol>
+<h2 id="嗯，那我想问问，用SpringIOC有什么好处吗？"><a href="#嗯，那我想问问，用SpringIOC有什么好处吗？" class="headerlink" title="嗯，那我想问问，用SpringIOC有什么好处吗？"></a>嗯，那我想问问，用SpringIOC有什么好处吗？</h2><h2 id="或者换个问法：本来我可以new出来的对象，为什么我要交由Spring-IOC容器管理呢？"><a href="#或者换个问法：本来我可以new出来的对象，为什么我要交由Spring-IOC容器管理呢？" class="headerlink" title="或者换个问法：本来我可以new出来的对象，为什么我要交由Spring IOC容器管理呢？"></a>或者换个问法：本来我可以new出来的对象，为什么我要交由Spring IOC容器管理呢？</h2><ol>
+<li>主要的好处在于「将对象集中统一管理」并且「降低耦合度」</li>
+<li>如果面试官理解了「工厂模式」，那就知道为什么我们不直接new对象</li>
+<li>要说理由的话，可以举很多例子，比如说：</li>
+<li>我用SpringIOC可以方便单元测试、对象创建复杂、对象依赖复杂、单例等等的，什么都可以交给Spring IOC</li>
+<li>理论上自己new出来的都可以解决上面的问题，Spring在各种场景组合下有可能不是最优解</li>
+<li>但new出来的你要自己管理，可能你得自己写工厂，得实现一大套的东西才能满足需求</li>
+<li>写着写着有可能还是Spring的那一套</li>
+<li>但现在Spring现在已经帮你实现了啊！</li>
+<li>如果项目里的对象都是就new下就完事了，没有多个实现类，那没事，不用Spring也没啥问题</li>
+<li>并且Spring核心不仅仅IOC啊，除了把对象创建出来，还有一整套的Bean生命周期管理</li>
+<li>比如说你要实现对象增强，AOP不就有了吗？不然你还得自己创建代理</li>
+</ol>
+<h2 id="那你继续来聊下Spring-AOP呗？"><a href="#那你继续来聊下Spring-AOP呗？" class="headerlink" title="那你继续来聊下Spring AOP呗？"></a>那你继续来聊下Spring AOP呗？</h2><ol>
+<li>Spring AOP解决的是非业务代码抽取的问题</li>
+<li>AOP底层的技术是动态代理，在Spring 内实现依赖的是BeanPostProcessor</li>
+<li>比如我们需要在方法上注入些「重复性」的非业务代码，就可以利用Spring AOP</li>
+<li>所谓的「面向切面编程」在我理解下其实就是在方法前后增加非业务代码</li>
+</ol>
+<h2 id="那你在工作中实际用到过AOP去优化你的代码吗？"><a href="#那你在工作中实际用到过AOP去优化你的代码吗？" class="headerlink" title="那你在工作中实际用到过AOP去优化你的代码吗？"></a>那你在工作中实际用到过AOP去优化你的代码吗？</h2><ol>
+<li>·有的。当时我用AOP来对我们公司现有的监控客户端进行封装</li>
+<li>一个系统离不开监控，监控基本的指标有QPS、RT、ERROR等等</li>
+<li>对外暴露的监控客户端只能在代码里写对应的上报信息（灵活，但会与业务代码掺杂在一起）</li>
+<li>于是我利用注解+AOP的方式封装了一把，只要方法&#x2F;类上带有我自定义的注解</li>
+<li>方法被调用时，就会上报AQS、RT等信息实现了非业务代码与业务代码分离的效果</li>
+</ol>
+<h2 id="了解，你们项目一般是怎么把对象交给IOC容器管理的？"><a href="#了解，你们项目一般是怎么把对象交给IOC容器管理的？" class="headerlink" title="了解，你们项目一般是怎么把对象交给IOC容器管理的？"></a>了解，你们项目一般是怎么把对象交给IOC容器管理的？</h2><h2 id="换个问法：一般是怎么定义Bean的？"><a href="#换个问法：一般是怎么定义Bean的？" class="headerlink" title="换个问法：一般是怎么定义Bean的？"></a>换个问法：一般是怎么定义Bean的？</h2><ol>
+<li>Spring提供了4种方式，分别是：<br>1）：注解2）：XML3）：JavaConfig 4）：基于Groovy 的DSL配置</li>
+<li>一般项目我们用注解或XML比较多，少部分用JavaConfig</li>
+<li>日常写业务代码一般用注解来定义各种对象，责任链这种一般配置在XML「注解」解决不了的就用JavaConfig</li>
+<li>总体而言，还是得看项目的代码风格吧</li>
+<li>反正就是定义元数据，能给到Spring解析就好了</li>
+</ol>
+<h2 id="要不来聊聊你使用Spring的感受？"><a href="#要不来聊聊你使用Spring的感受？" class="headerlink" title="要不来聊聊你使用Spring的感受？"></a>要不来聊聊你使用Spring的感受？</h2><ol>
+<li>当我还是初学Spring的时候，我觉得Spring很麻烦，需要有一大堆的配置信息才能跑起来</li>
+<li>光是搭建环境就需要耗费我好长的时间</li>
+<li>毕竟版本冲突，依赖冲突什么的就可能个下午就过去了</li>
+<li>但毕竟一个系统环境只搭一次嘛，所以还好（后来用上了SpringBoot这又更方便了）</li>
+<li>回来，IOC和AOP在工作用的时候还是很爽的</li>
+<li>毕竟搞个注解什么的，配置下就可以把对象交给Spring管理了</li>
+<li>配合Spring的生态，@Transactional注解什么的，都好用得飞起</li>
+<li>不过，Spring给我们封装得太好了</li>
+<li>经常就会有奇奇怪怪的”bug”出现，也踩过很多的坑了</li>
+<li>Bean经常没办法创建成功，导致项目启动失败..</li>
+<li>对象的循环依赖问题.</li>
+<li>同一个接口，多个实现，识别不出我要创建哪个对象.</li>
+<li>为什么catch了异常，Spring事务为什么还会自动回滚..</li>
+<li>等等等</li>
+</ol>
+<h2 id="循环以来"><a href="#循环以来" class="headerlink" title="循环以来"></a>循环以来</h2><ol>
+<li><p>到这里，Spring整个解决循环依赖问题的实现思路已经比较清楚了。对于整体过程，读者朋友只要理解两点：</p>
 <ul>
-<li><p>spring框架：spring是怎么做的，view、controller、service是怎么连在一起的：spring是控制反转、依赖注入，解决了数据数据初始化一些问题，能够吧代码写得很简洁，然后脱颖而出，核心是怎么做的，数据初始化是怎么做的。面向切面的编程可以用在什么地方，spring的一般框架是mvc<br>：层是controller、中间层是service、底层是dao。为什么这么分？他比其他的区别是什么？对一些request包装了<br>   找spring一两点深入研究：我不仅仅是用了spring，我还研究了他某一个组件，他是怎么实现的？讲讲(闪光点）</p>
-</li>
-<li><p>velocity（模板语言）<br> 我用了velocity，我发现了velocity里的很多东西和我学的java、c++都是一样的，他这个框架他把一些公用的都提取出来，前面的spring boot是个java框架，为什么要用velocity，因为我要前后端分离，view和后面的数据要分离，data是怎么传过来的，怎么解析的，他支持什么东西？（不仅仅用了这个东西，还有思想，解耦）</p>
-<h2 id="3-mybatis"><a href="#3-mybatis" class="headerlink" title="3.mybatis"></a>3.mybatis</h2></li>
-<li><p>怎么把数据库的一些前后的读取给做了，怎么把xml里的多重条件，怎么做文法的解析，然后把这些条件给处理掉。</p>
-<h2 id="4-登录-x2F-注册"><a href="#4-登录-x2F-注册" class="headerlink" title="4.登录&#x2F;注册"></a>4.登录&#x2F;注册</h2></li>
-<li><p>网站安全（salt）：密码为什么加了一个salt就变得安全？</p>
-</li>
-<li><p>通过拦截器来实现的：拦截器的思想、框架，留好接口;拦截器实现登录注册：我在cookie里放了一个token，token怎么处理用户登录注册的：在用户登录注册的时候，会下发一个token，把token与用户信息关联起来，关联起来之后我为了优化token信息，把token放到数据库里（redis），设计一个分布式的统一登录系统，现在的互联网产品都是统一登录的，比如，登录qq之后，登录网页就不需要登录了，qq登录过的token直接注入到网页上去。这是个ssension共享问题：、</p>
-</li>
-<li><p>保证数据安全：验证（邮件激活）</p>
-<h2 id="5-前缀树"><a href="#5-前缀树" class="headerlink" title="5.前缀树"></a>5.前缀树</h2></li>
-<li><p>构造一个前缀树，通过一个有限状态机来实现一传文本是不是包含敏感词，繁杂度是多少 很重要：优点有哪些？为什么不用kmp，文本查找算法：<br>可以很快的加一些词汇过来；有扩展性，以及性能更提高</p>
-<h2 id="6-redis"><a href="#6-redis" class="headerlink" title="6.redis"></a>6.redis</h2></li>
-<li><p>数据结构：跳列表，哈希，优先队列，list：我了解redis底层是怎么实现的，为什么他的效率很高，他的字符串是怎么保存的，做这个工程的时候我用在的异步队列上、排序上、异步框架</p>
-<h2 id="7-异步框架"><a href="#7-异步框架" class="headerlink" title="7.异步框架"></a>7.异步框架</h2></li>
-<li><p>思路：我这个网站附带的每一步操作可能附带的操作都非常多，为了更快的吧结果返回给用户，所以采用异步框架，自己写的，数据结构：使用redis的队列，因为redis能够保证线程同步；除了用队列，我还想过用有优先队列，这样我的异步框架能够把紧急的任务线处理掉。我这个异步框架：有消息的发射，消息的处理，事件的模型定义以及具体执行的eventhandle，我定义了一些公共接口把这些实现了。</p>
-<h2 id="8-邮件（smtp协议）"><a href="#8-邮件（smtp协议）" class="headerlink" title="8.邮件（smtp协议）"></a>8.邮件（smtp协议）</h2></li>
-<li><p>做了一个简单邮件，怎么连接上服务器，我当时做这个的时候，ssl问题<br>，ssl理解，服务器需要ssl链接，为了安全服务器是怎么做的；java sdk 1.7 1.8的问题，1.8是需要换一个jar包的</p>
-</li>
-<li><p>豆瓣电影排序：好的问题能挑选出来，互动越多，时间越新，评分越高。</p>
-<h2 id="9-timeline（时间轴）"><a href="#9-timeline（时间轴）" class="headerlink" title="9.timeline（时间轴）"></a>9.timeline（时间轴）</h2></li>
-<li><p>肯定会问：为什么用推拉模式，用推实时性高能让好友快速得到消息，用拉能节省僵尸号、不是活跃用户的存储空间。怎么区分？最后把timeline组合起来‘timeline模板系统，每个新鲜事展向不一样，和velocity结合起来，后台存储的都是核心数据，每个数据对应的是一个模板，我把模板结合起来，我就能快速的把时间轴展示出来。</p>
-<h2 id="10-爬虫"><a href="#10-爬虫" class="headerlink" title="10.爬虫"></a>10.爬虫</h2><h2 id="11-solr搜索"><a href="#11-solr搜索" class="headerlink" title="11.solr搜索"></a>11.solr搜索</h2></li>
-<li><p>搜索去重：对比相似度，敏感哈希算法，哈希算法：两个字符串稍微有一点点不一样，结构就是不一样的。可能头尾是不一样的，内容一样：采用敏感哈希算法把相似度求出来，区别：敏感哈希算法两个文档相似度很高，他生成的哈希值的比例是很相似的。</p>
-<h2 id="12-单元测试-x2F-部署"><a href="#12-单元测试-x2F-部署" class="headerlink" title="12.单元测试&#x2F;部署"></a>12.单元测试&#x2F;部署</h2></li>
-<li><p>部署：运维，llinux nigix反向代理，与正向对比。负载均衡：为什么要负载均衡。</p>
-</li>
+<li>Spring是通过递归的方式获取目标bean及其所依赖的bean的；</li>
+<li>Spring实例化一个bean的时候，是分两步进行的，首先实例化目标bean，然后为其注入属性。</li>
 </ul>
+<p>结合这两点，也就是说，Spring在实例化一个bean的时候，是首先递归的实例化其所依赖的所有bean，直到某个bean没有依赖其他bean，此时就会将该实例返回，然后反递归的将获取到的bean设置为各个上层bean的属性的。</p>
+</li>
+</ol>
 
       
     </div>
@@ -1466,7 +1731,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/530fe413/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/32e97c2c/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/lion.png">
@@ -1484,7 +1749,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/530fe413/" class="post-title-link" itemprop="url">问答系统总结2</a>
+          <a href="/posts/32e97c2c/" class="post-title-link" itemprop="url">16、【对线面试官】SpringBean生命周期</a>
         </h2>
 
         <div class="post-meta-container">
@@ -1505,148 +1770,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-11 10:41:30" itemprop="dateModified" datetime="2022-03-11T10:41:30+08:00">2022-03-11</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">学习</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="far fa-comment"></i>
-    </span>
-    <span class="post-meta-item-text">Waline：</span>
-  
-    <a title="waline" href="/posts/530fe413/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/530fe413/" data-xid="/posts/530fe413/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>1.9k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>2 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="问答系统总结2"><a href="#问答系统总结2" class="headerlink" title="问答系统总结2"></a>问答系统总结2</h1><h2 id="1-开发工具GIt，idea"><a href="#1-开发工具GIt，idea" class="headerlink" title="1.开发工具GIt，idea"></a>1.开发工具GIt，idea</h2><ul>
-<li>我是把代码放到github上的，以便于代码版本管理，不能拷贝来拷贝去</li>
-<li>java语言&#x2F;规范最基础，要研究jvm，垃圾回收算法思路，根据什么样的规则，怎么回收申请的一些对象；参数可以配置，怎么配置，对应的后台运行又是怎么样的<h2 id="2-Spring-Boot，Velocity"><a href="#2-Spring-Boot，Velocity" class="headerlink" title="2.Spring Boot，Velocity"></a>2.Spring Boot，Velocity</h2></li>
-<li>spring框架：spring是怎么做的，view、controller、service是怎么连在一起的：spring是控制反转、依赖注入，解决了数据数据初始化一些问题，能够吧代码写得很简洁，然后脱颖而出，核心是怎么做的，数据初始化是怎么做的。面向切面的编程可以用在什么地方，spring的一般框架是mvc<br>：层是controller、中间层是service、底层是dao。为什么这么分？他比其他的区别是什么？对一些request包装了<br>   找spring一两点深入研究：我不仅仅是用了spring，我还研究了他某一个组件，他是怎么实现的？讲讲(闪光点）</li>
-<li>velocity（模板语言）<br> 我用了velocity，我发现了velocity里的很多东西和我学的java、c++都是一样的，他这个框架他把一些公用的都提取出来，前面的spring boot是个java框架，为什么要用velocity，因为我要前后端分离，view和后面的数据要分离，data是怎么传过来的，怎么解析的，他支持什么东西？（不仅仅用了这个东西，还有思想，解耦）<h2 id="3-mybatis"><a href="#3-mybatis" class="headerlink" title="3.mybatis"></a>3.mybatis</h2></li>
-<li>怎么把数据库的一些前后的读取给做了，怎么把xml里的多重条件，怎么做文法的解析，然后把这些条件给处理掉。<h2 id="4-登录-x2F-注册"><a href="#4-登录-x2F-注册" class="headerlink" title="4.登录&#x2F;注册"></a>4.登录&#x2F;注册</h2></li>
-<li>网站安全（salt）：密码为什么加了一个salt就变得安全？</li>
-<li>通过拦截器来实现的：拦截器的思想、框架，留好接口;拦截器实现登录注册：我在cookie里放了一个token，token怎么处理用户登录注册的：在用户登录注册的时候，会下发一个token，把token与用户信息关联起来，关联起来之后我为了优化token信息，把token放到数据库里（redis），设计一个分布式的统一登录系统，现在的互联网产品都是统一登录的，比如，登录qq之后，登录网页就不需要登录了，qq登录过的token直接注入到网页上去。这是个ssension共享问题：、</li>
-<li>保证数据安全：验证（邮件激活）<h2 id="5-前缀树"><a href="#5-前缀树" class="headerlink" title="5.前缀树"></a>5.前缀树</h2></li>
-<li>构造一个前缀树，通过一个有限状态机来实现一传文本是不是包含敏感词，繁杂度是多少 很重要：优点有哪些？为什么不用kmp，文本查找算法：<br>可以很快的加一些词汇过来；有扩展性，以及性能更提高<h2 id="6-redis"><a href="#6-redis" class="headerlink" title="6.redis"></a>6.redis</h2></li>
-<li>数据结构：跳列表，哈希，优先队列，list：我了解redis底层是怎么实现的，为什么他的效率很高，他的字符串是怎么保存的，做这个工程的时候我用在的异步队列上、排序上、异步框架<h2 id="7-异步框架"><a href="#7-异步框架" class="headerlink" title="7.异步框架"></a>7.异步框架</h2></li>
-</ul>
-<p>*思路：我这个网站附带的每一步操作可能附带的操作都非常多，为了更快的吧结果返回给用户，所以采用异步框架，自己写的，数据结构：使用redis的队列，因为redis能够保证线程同步；除了用队列，我还想过用有优先队列，这样我的异步框架能够把紧急的任务线处理掉。我这个异步框架：有消息的发射，消息的处理，事件的模型定义以及具体执行的eventhandle，我定义了一些公共接口把这些实现了。</p>
-<h2 id="8-邮件（smtp协议）"><a href="#8-邮件（smtp协议）" class="headerlink" title="8.邮件（smtp协议）"></a>8.邮件（smtp协议）</h2><ul>
-<li>做了一个简单邮件，怎么连接上服务器，我当时做这个的时候，ssl问题<br>，ssl理解，服务器需要ssl链接，为了安全服务器是怎么做的；java sdk 1.7 1.8的问题，1.8是需要换一个jar包的</li>
-<li>豆瓣电影排序：好的问题能挑选出来，互动越多，时间越新，评分越高。<h2 id="9-timeline（时间轴）"><a href="#9-timeline（时间轴）" class="headerlink" title="9.timeline（时间轴）"></a>9.timeline（时间轴）</h2></li>
-<li>肯定会问：为什么用推拉模式，用推实时性高能让好友快速得到消息，用拉能节省僵尸号、不是活跃用户的存储空间。怎么区分？最后把timeline组合起来‘timeline模板系统，每个新鲜事展向不一样，和velocity结合起来，后台存储的都是核心数据，每个数据对应的是一个模板，我把模板结合起来，我就能快速的把时间轴展示出来。<h2 id="10-爬虫"><a href="#10-爬虫" class="headerlink" title="10.爬虫"></a>10.爬虫</h2><h2 id="11-solr搜索"><a href="#11-solr搜索" class="headerlink" title="11.solr搜索"></a>11.solr搜索</h2></li>
-<li>搜索去重：对比相似度，敏感哈希算法，哈希算法：两个字符串稍微有一点点不一样，结构就是不一样的。可能头尾是不一样的，内容一样：采用敏感哈希算法把相似度求出来，区别：敏感哈希算法两个文档相似度很高，他生成的哈希值的比例是很相似的。<h2 id="12-单元测试-x2F-部署"><a href="#12-单元测试-x2F-部署" class="headerlink" title="12.单元测试&#x2F;部署"></a>12.单元测试&#x2F;部署</h2></li>
-<li>部署：运维，llinux nigix反向代理，与正向对比。负载均衡：为什么要负载均衡。</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>l
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/995671e7/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/lion.png">
-      <meta itemprop="name" content="swimminghao">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="swimminghao's blog">
-      <meta itemprop="description" content="swimminghao的学习博客">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | swimminghao's blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/995671e7/" class="post-title-link" itemprop="url">动态规划答疑篇</a>
-        </h2>
-
-        <div class="post-meta-container">
-
-          
-
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-11 10:11:17" itemprop="dateModified" datetime="2022-03-11T10:11:17+08:00">2022-03-11</time>
+      <time title="修改时间：2022-03-10 09:48:07" itemprop="dateModified" datetime="2022-03-10T09:48:07+08:00">2022-03-10</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -1667,8 +1791,8 @@
     </span>
     <span class="post-meta-item-text">Waline：</span>
   
-    <a title="waline" href="/posts/995671e7/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/995671e7/" data-xid="/posts/995671e7/" itemprop="commentCount"></span>
+    <a title="waline" href="/posts/32e97c2c/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/32e97c2c/" data-xid="/posts/32e97c2c/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -1679,7 +1803,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>3.1k</span>
+      <span>3.5k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -1697,233 +1821,103 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="动态规划答疑篇"><a href="#动态规划答疑篇" class="headerlink" title="动态规划答疑篇"></a>动态规划答疑篇</h1><h2 id="预计阅读时间：7-分钟"><a href="#预计阅读时间：7-分钟" class="headerlink" title="预计阅读时间：7 分钟"></a>预计阅读时间：7 分钟</h2><p>这篇文章就给你讲明白两个读者问得最多的问题：</p>
-<p>1、到底什么才叫「最优子结构」，和动态规划什么关系。</p>
-<p>2、为什么动态规划遍历<code>dp</code>数组的方式五花八门，有的正着遍历，有的倒着遍历，有的斜着遍历，有的无论咋遍历都是对的。</p>
-<h2 id="一、最优子结构详解"><a href="#一、最优子结构详解" class="headerlink" title="一、最优子结构详解"></a>一、最优子结构详解</h2><p>「最优子结构」是某些问题的一种特定性质，并不是动态规划问题专有的。也就是说，很多问题其实都具有最优子结构，只是其中大部分不具有重叠子问题，所以我们不把它们归为动态规划系列问题而已。</p>
-<p>我先举个很容易理解的例子：假设你们学校有 10 个班，你已经计算出了每个班的最高考试成绩。那么现在我要求你计算全校最高的成绩，你会不会算？当然会，而且你不用重新遍历全校学生的分数进行比较，而是只要在这 10 个最高成绩中取最大的就是全校的最高成绩。</p>
-<p>我给你提出的这个问题就<strong>符合最优子结构</strong>：可以从子问题的最优结果推出更大规模问题的最优结果。让你算<strong>每个班</strong>的最优成绩就是子问题，你知道所有子问题的答案后，就可以借此推出<strong>全校</strong>学生的最优成绩这个规模更大的问题的答案。</p>
-<p>你看，这么简单的问题都有最优子结构性质，只是因为显然没有重叠子问题，所以我们简单地求最值肯定用不出动态规划。</p>
-<p>再举个例子：假设你们学校有 10 个班，你已知每个班的最大分数差（最高分和最低分的差值）。那么现在我让你计算全校学生中的最大分数差，你会不会算？可以想办法算，但是肯定不能通过已知的这 10 个班的最大分数差推到出来。因为这 10 个班的最大分数差不一定就包含全校学生的最大分数差，比如全校的最大分数差可能是 3 班的最高分和 6 班的最低分之差。</p>
-<p>这次我给你提出的问题就<strong>不符合最优子结构</strong>，因为你没办通过每个班的最优值推出全校的最优值，没办法通过子问题的最优值推出规模更大的问题的最优值。前文 <a target="_blank" rel="noopener" href="http://mp.weixin.qq.com/s?__biz=MzAxODQxMDM0Mw==&mid=2247484731&idx=1&sn=f1db6dee2c8e70c42240aead9fd224e6&chksm=9bd7fb33aca07225bee0b23a911c30295e0b90f393af75eca377caa4598ffb203549e1768336&scene=21#wechat_redirect">动态规划详解</a> 说过，想满足最优子结，子问题之间必须互相独立。全校的最大分数差可能出现在两个班之间，显然子问题不独立，所以这个问题本身不符合最优子结构。</p>
-<p><strong>那么遇到这种最优子结构失效情况，怎么办？策略是：改造问题</strong>。对于最大分数差这个问题，我们不是没办法利用已知的每个班的分数差吗，那我只能这样写一段暴力代码：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="variable">result</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line"><span class="keyword">for</span> (Student a : school) &#123;</span><br><span class="line">    <span class="keyword">for</span> (Student b : school) &#123;</span><br><span class="line">        <span class="keyword">if</span> (a is b) <span class="keyword">continue</span>;</span><br><span class="line">        result = max(result, |a.score - b.score|);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> result;</span><br></pre></td></tr></table></figure>
-
-<p>改造问题，也就是把问题等价转化：最大分数差，不就等价于最高分数和最低分数的差么，那不就是要求最高和最低分数么，不就是我们讨论的第一个问题么，不就具有最优子结构了么？那现在改变思路，借助最优子结构解决最值问题，再回过头解决最大分数差问题，是不是就高效多了？</p>
-<p>当然，上面这个例子太简单了，不过请读者回顾一下，我们做动态规划问题，是不是一直在求各种最值，本质跟我们举的例子没啥区别，无非需要处理一下重叠子问题。</p>
-<p>前文 <a target="_blank" rel="noopener" href="http://mp.weixin.qq.com/s?__biz=MzAxODQxMDM0Mw==&mid=2247484469&idx=1&sn=e8d321c8ad62483874a997e9dd72da8f&chksm=9bd7fa3daca0732b316aa0afa58e70357e1cb7ab1fe0855d06bc4a852abb1b434c01c7dd19d6&scene=21#wechat_redirect">动态规划：不同的定义产生不同的解法</a> 和 <a target="_blank" rel="noopener" href="http://mp.weixin.qq.com/s?__biz=MzAxODQxMDM0Mw==&mid=2247484690&idx=1&sn=eea075701a5d96dd5c6e3dc6a993cac5&chksm=9bd7fb1aaca0720c58c9d9e02a8b9211a289bcea359633a95886d7808d2846898d489ce98078&scene=21#wechat_redirect">经典动态规划：高楼扔鸡蛋（进阶篇）</a> 就展示了如何改造问题，不同的最优子结构，可能导致不同的解法和效率。</p>
-<p>再举个常见但也十分简单的例子，求一棵二叉树的最大值，不难吧（简单起见，假设节点中的值都是非负数）：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">maxVal</span><span class="params">(TreeNode root)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (root == <span class="literal">null</span>)</span><br><span class="line">        <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">    <span class="type">int</span> <span class="variable">left</span> <span class="operator">=</span> maxVal(root.left);</span><br><span class="line">    <span class="type">int</span> <span class="variable">right</span> <span class="operator">=</span> maxVal(root.right);</span><br><span class="line">    <span class="keyword">return</span> max(root.val, left, right);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>你看这个问题也符合最优子结构，以<code>root</code>为根的树的最大值，可以通过两边子树（子问题）的最大值推导出来，结合刚才学校和班级的例子，很容易理解吧。</p>
-<p>当然这也不是动态规划问题，旨在说明，最优子结构并不是动态规划独有的一种性质，能求最值的问题大部分都具有这个性质；<strong>但反过来，最优子结构性质作为动态规划问题的必要条件，一定是让你求最值的</strong>，以后碰到那种恶心人的最值题，思路往动态规划想就对了，这就是套路。</p>
-<p>动态规划不就是从最简单的 base case 往后推导吗，可以想象成一个链式反应，不断以小博大。但只有符合最优子结构的问题，才有发生这种链式反应的性质。</p>
-<p>找最优子结构的过程，其实就是证明状态转移方程正确性的过程，方程符合最优子结构就可以写暴力解了，写出暴力解就可以看出有没有重叠子问题了，有则优化，无则 OK。这也是套路，经常刷题的朋友应该能体会。</p>
-<p>这里就不举那些正宗动态规划的例子了，读者可以翻翻历史文章，看看状态转移是如何遵循最优子结构的，这个话题就聊到这，下面再来看另外个动态规划迷惑行为。</p>
-<h3 id="二、dp-数组的遍历方向"><a href="#二、dp-数组的遍历方向" class="headerlink" title="二、dp 数组的遍历方向"></a>二、dp 数组的遍历方向</h3><p>我相信读者做动态规划问题时，肯定会对<code>dp</code>数组的遍历顺序有些头疼。我们拿二维<code>dp</code>数组来举例，有时候我们是正向遍历：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span>[][] dp = <span class="keyword">new</span> <span class="title class_">int</span>[m][n];</span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; m; i++)</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">0</span>; j &lt; n; j++)</span><br><span class="line">        <span class="comment">// 计算 dp[i][j]</span></span><br></pre></td></tr></table></figure>
-
-<p>有时候我们反向遍历：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> m - <span class="number">1</span>; i &gt;= <span class="number">0</span>; i--)</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> n - <span class="number">1</span>; j &gt;= <span class="number">0</span>; j--)</span><br><span class="line">        <span class="comment">// 计算 dp[i][j]</span></span><br></pre></td></tr></table></figure>
-
-<p>有时候可能会斜向遍历：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 斜着遍历数组</span></span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> <span class="variable">l</span> <span class="operator">=</span> <span class="number">2</span>; l &lt;= n; l++) &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt;= n - l; i++) &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> l + i - <span class="number">1</span>;</span><br><span class="line">        <span class="comment">// 计算 dp[i][j]</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>甚至更让人迷惑的是，有时候发现正向反向遍历都可以得到正确答案，比如我们在 <a target="_blank" rel="noopener" href="http://mp.weixin.qq.com/s?__biz=MzAxODQxMDM0Mw==&mid=2247484508&idx=1&sn=42cae6e7c5ccab1f156a83ea65b00b78&chksm=9bd7fa54aca07342d12ae149dac3dfa76dc42bcdd55df2c71e78f92dedbbcbdb36dec56ac13b&scene=21#wechat_redirect">团灭 LeetCode 股票买卖问题</a> 中有的地方就正反皆可。</p>
-<p>那么，如果仔细观察的话可以发现其中的原因的。你只要把住两点就行了：</p>
-<p><strong>1、遍历的过程中，所需的状态必须是已经计算出来的</strong>。</p>
-<p><strong>2、遍历的终点必须是存储结果的那个位置</strong>。</p>
-<p>下面来具体解释上面两个原则是什么意思。</p>
-<p>比如编辑距离这个经典的问题，详解见前文 <a target="_blank" rel="noopener" href="http://mp.weixin.qq.com/s?__biz=MzAxODQxMDM0Mw==&mid=2247484484&idx=1&sn=74594297022c84952162a68b7f739133&chksm=9bd7fa4caca0735a1364dd13901311ecd6ec4913c8db05a1ff6cae8f069627eebe8d651bbeb1&scene=21#wechat_redirect">经典动态规划：编辑距离</a>，我们通过对<code>dp</code>数组的定义，确定了 base case 是<code>dp[..][0]</code>和<code>dp[0][..]</code>，最终答案是<code>dp[m][n]</code>；而且我们通过状态转移方程知道<code>dp[i][j]</code>需要从<code>dp[i-1][j]</code>,<code>dp[i][j-1]</code>,<code>dp[i-1][j-1]</code>转移而来，如下图：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/H23fMQ_20210507174659.png" alt="图片"></p>
-<p>那么，参考刚才说的两条原则，你该怎么遍历<code>dp</code>数组？肯定是正向遍历：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span>; i &lt; m; i++)</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">1</span>; j &lt; n; j++)</span><br><span class="line">        <span class="comment">// 通过 dp[i-1][j], dp[i][j - 1], dp[i-1][j-1]</span></span><br><span class="line">        <span class="comment">// 计算 dp[i][j]</span></span><br></pre></td></tr></table></figure>
-
-<p><strong>因为，这样每一步迭代的左边、上边、左上边的位置都是 base case 或者之前计算过的，而且最终结束在我们想要的答案<code>dp[m][n]</code>。</strong></p>
-<p>再举一例，回文子序列问题，详见前文 <a target="_blank" rel="noopener" href="http://mp.weixin.qq.com/s?__biz=MzAxODQxMDM0Mw==&mid=2247484666&idx=1&sn=e3305be9513eaa16f7f1568c0892a468&chksm=9bd7faf2aca073e4f08332a706b7c10af877fee3993aac4dae86d05783d3d0df31844287104e&scene=21#wechat_redirect">子序列解题模板：最长回文子序列</a>，我们通过过对<code>dp</code>数组的定义，确定了 base case 处在中间的对角线，<code>dp[i][j]</code>需要从<code>dp[i+1][j]</code>,<code>dp[i][j-1]</code>,<code>dp[i+1][j-1]</code>转移而来，想要求的最终答案是<code>dp[0][n-1]</code>，如下图：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/L4hOYZ_20210507174734.png" alt="图片"></p>
-<p>这种情况根据刚才的两个原则，就可以有两种正确的遍历方式：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/UGCkQ2_20210507174820.png" alt="图片"></p>
-<p><strong>要么从左至右斜着遍历，要么从下向上从左到右遍历，这样才能保证每次<code>dp[i][j]</code>的左边、下边、左下边已经计算完毕，最终得到正确结果。</strong></p>
-<p>现在，你应该理解了这两个原则，主要就是看 base case 和最终结果的存储位置，保证遍历过程中使用的数据都是计算完毕的就行，有时候确实存在多种方法可以得到正确答案，可根据个人口味自行选择。</p>
-
-      
-    </div>
-
-    
-    
-    
-
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>l
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/117b65dd/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/lion.png">
-      <meta itemprop="name" content="swimminghao">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="swimminghao's blog">
-      <meta itemprop="description" content="swimminghao的学习博客">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | swimminghao's blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/117b65dd/" class="post-title-link" itemprop="url">动态规划设计之最长递增子序列</a>
-        </h2>
-
-        <div class="post-meta-container">
-
-          
-
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-10 11:51:52" itemprop="dateModified" datetime="2022-03-10T11:51:52+08:00">2022-03-10</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="far fa-comment"></i>
-    </span>
-    <span class="post-meta-item-text">Waline：</span>
-  
-    <a title="waline" href="/posts/117b65dd/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/117b65dd/" data-xid="/posts/117b65dd/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>2.5k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>2 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="动态规划设计之最长递增子序列"><a href="#动态规划设计之最长递增子序列" class="headerlink" title="动态规划设计之最长递增子序列"></a>动态规划设计之最长递增子序列</h1><h2 id="预计阅读时间：-9-分钟"><a href="#预计阅读时间：-9-分钟" class="headerlink" title="预计阅读时间： 9 分钟"></a>预计阅读时间： 9 分钟</h2><p>很多读者反应，就算看了前文 <a target="_blank" rel="noopener" href="http://mp.weixin.qq.com/s?__biz=MzU0MDg5OTYyOQ==&mid=2247483818&idx=1&sn=6035f861d1b2bfd0178e842f26ac4836&chksm=fb3361e8cc44e8fe331154bfd32bd7b3b4f159bfad5d38d4a6b0b9f0d7e3485b93b828ee72cc&scene=21#wechat_redirect">动态规划详解</a>，了解了动态规划的套路，也不会写状态转移方程，没有思路，怎么办？本文就借助「最长递增子序列」来讲一种设计动态规划的通用技巧：数学归纳思想。</p>
-<p>最长递增子序列（Longest Increasing Subsequence，简写 LIS）是比较经典的一个问题，比较容易想到的是动态规划解法，时间复杂度 O(N^2)，我们借这个问题来由浅入深讲解如何写动态规划。</p>
-<p>比较难想到的是利用二分查找，时间复杂度是 O(NlogN)，我们通过一种简单的纸牌游戏来辅助理解这种巧妙的解法。</p>
-<p>先看一下题目，很容易理解：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/MEAMGr_20210715222744.png" alt="图片"></p>
-<p>注意「子序列」和「子串」这两个名词的区别，子串一定是连续的，而子序列不一定是连续的。下面先来一步一步设计动态规划算法解决这个问题。</p>
-<h2 id="一、动态规划解法"><a href="#一、动态规划解法" class="headerlink" title="一、动态规划解法"></a>一、动态规划解法</h2><p><strong>动态规划的核心设计思想是数学归纳法。</strong></p>
-<p>相信大家对数学归纳法都不陌生，高中就学过，而且思路很简单。比如我们想证明一个数学结论，那么我们先假设这个结论在 k&lt;n 时成立，然后想办法证明 k&#x3D;<em>n</em> 的时候此结论也成立。如果能够证明出来，那么就说明这个结论对于 k 等于任何数都成立。</p>
-<p>类似的，我们设计动态规划算法，不是需要一个 dp 数组吗？我们可以假设 <em>dp</em>[0…<em>i</em>−1] 都已经被算出来了，然后问自己：怎么通过这些结果算出<em>dp[i] ?</em></p>
-<p>直接拿最长递增子序列这个问题举例你就明白了。不过，首先要定义清楚 dp 数组的含义，即 dp[i] 的值到底代表着什么？</p>
-<p><strong>我们的定义是这样的：****dp[i] 表示以 nums[i] 这个数结尾的最长递增子序列的长度。</strong></p>
-<p>举个例子：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/S9DvIE_20210715222829.png" alt="图片"></p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/vrYoH4_20210715222841.png" alt="图片"></p>
-<p>算法演进的过程是这样的：<img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/640_20210715222950.gif" alt="图片"></p>
-<p>根据这个定义，我们的最终结果（子序列的最大长度）应该是 dp 数组中的最大值。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="variable">res</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; dp.length; i++) &#123;</span><br><span class="line">    res = Math.max(res, dp[i]);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> res;</span><br></pre></td></tr></table></figure>
-
-
-
-<p>读者也许会问，刚才这个过程中每个 dp[i] 的结果是我们肉眼看出来的，我们应该怎么设计算法逻辑来正确计算每个 dp[i] 呢？</p>
-<p>这就是动态规划的重头戏了，要思考如何进行状态转移，这里就可以使用数学归纳的思想：</p>
-<p>我们已经知道了 <em>d**p</em>[0…4] 的所有结果，我们如何通过这些已知结果推出 <em>d**p</em>[5] 呢？</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/xpC5LY_20210715223016.png" alt="图片"></p>
-<p>根据刚才我们对 dp 数组的定义，现在想求 dp[5] 的值，也就是想求以 nums[5] 为结尾的最长递增子序列。</p>
-<p>nums[5] &#x3D; 3，既然是递增子序列，我们只要找到前面那些结尾比 3 小的子序列，然后把 3 接到最后，就可以形成一个新的递增子序列，而且这个新的子序列长度加一。</p>
-<p>当然，可能形成很多种新的子序列，但是我们只要最长的，把最长子序列的长度作为 dp[5] 的值即可。</p>
-<p>![图片](<a target="_blank" rel="noopener" href="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/640">https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/640</a> (1)_20210715223303.gif)</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/QksgN5_20210715223039.png" alt="图片"></p>
-<p>这段代码的逻辑就可以算出 dp[5]。到这里，这道算法题我们就基本做完了。读者也许会问，我们刚才只是算了 dp[5] 呀，dp[4], dp[3] 这些怎么算呢？</p>
-<p>类似数学归纳法，你已经可以通过 dp[0…4] 算出 dp[5] 了，那么任意 dp[i] 你肯定都可以算出来：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/9CYook_20210715223056.png" alt="图片"></p>
-<p>还有一个细节问题，就是 base case。dp 数组应该全部初始化为 1，因为子序列最少也要包含自己，所以长度最小为 1。下面我们看一下完整代码：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/image-20210715223113307_20210715223113.png" alt="图片"></p>
-<p>至此，这道题就解决了，时间复杂度 O(N^2)。总结一下动态规划的设计流程：</p>
-<p>首先明确 dp 数组所存数据的含义。这步很重要，如果不得当或者不够清晰，会阻碍之后的步骤。</p>
-<p>然后根据 dp 数组的定义，运用数学归纳法的思想，假设 <em>d**p</em>[0…<em>i</em>−1] 都已知，想办法求出 <em>d**p</em>[<em>i</em>]，一旦这一步完成，整个题目基本就解决了。</p>
-<p>但如果无法完成这一步，很可能就是 dp 数组的定义不够恰当，需要重新定义 dp 数组的含义；或者可能是 dp 数组存储的信息还不够，不足以推出下一步的答案，需要把 dp 数组扩大成二维数组甚至三维数组。</p>
-<h2 id="二、二分查找解法"><a href="#二、二分查找解法" class="headerlink" title="二、二分查找解法"></a>二、二分查找解法</h2><p>这个解法的时间复杂度会将为 O(NlogN)，但是说实话，正常人基本想不到这种解法（也许玩过某些纸牌游戏的人可以想出来）。所以如果大家了解一下就好，正常情况下能够给出动态规划解法就已经很不错了。</p>
-<p>根据题目的意思，我都很难想象这个问题竟然能和二分查找扯上关系。其实最长递增子序列和一种叫做 patience game 的纸牌游戏有关，甚至有一种排序方法就叫做 patience sorting（耐心排序）。</p>
-<p>为了简单起见，后文跳过所有数学证明，通过一个简化的例子来理解一下思路。</p>
-<p>首先，给你一排扑克牌，我们像遍历数组那样从左到右一张一张处理这些扑克牌，最终要把这些牌分成若干堆。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/DFBLV6_20210715223123.png" alt="图片"></p>
-<p>处理这些扑克牌要遵循以下规则：</p>
-<p>只能把点数小的牌压到点数比它大的牌上。如果当前牌点数较大没有可以放置的堆，则新建一个堆，把这张牌放进去。如果当前牌有多个堆可供选择，则选择最左边的堆放置。</p>
-<p>比如说上述的扑克牌最终会被分成这样 5 堆（我们认为 A 的值是最大的，而不是 1）。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/image-20210715223138612_20210715223138.png" alt="图片"></p>
-<p>为什么遇到多个可选择堆的时候要放到最左边的堆上呢？因为这样可以保证牌堆顶的牌有序（2, 4, 7, 8, Q），证明略。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/Cnd9HF_20210715223145.png" alt="图片"></p>
-<p>按照上述规则执行，可以算出最长递增子序列，牌的堆数就是我们想求的最长递增子序列的长度，证明略。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/8SHDGY_20210715223158.png" alt="图片"></p>
-<p>我们只要把处理扑克牌的过程编程写出来即可。每次处理一张扑克牌不是要找一个合适的牌堆顶来放吗，牌堆顶的牌不是有序吗，这就能用到二分查找了：用二分查找来搜索当前牌应放置的位置。</p>
-<p>PS：旧文 <a target="_blank" rel="noopener" href="http://mp.weixin.qq.com/s?__biz=MzU0MDg5OTYyOQ==&mid=2247484090&idx=1&sn=5635cf1c4fd8a8570b63c7ae9b4304c2&chksm=fb3362f8cc44ebee0a19a4cfba7f2e13923e05f47e15f2e99a1f42b01aeee83b946aceac3d4c&scene=21#wechat_redirect">二分查找算法详解</a> 详细介绍了二分查找的细节及变体，这里就完美应用上了。如果没读过强烈建议阅读。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/f6Golz_20210715223219.png" alt="图片"></p>
-<p>至此，二分查找的解法也讲解完毕。</p>
-<p>这个解法确实很难想到。首先涉及数学证明，谁能想到按照这些规则执行，就能得到最长递增子序列呢？其次还有二分查找的运用，要是对二分查找的细节不清楚，给了思路也很难写对。</p>
-<p>所以，这个方法作为思维拓展好了。但动态规划的设计方法应该完全理解：假设之前的答案已知，利用数学归纳的思想正确进行状态的推演转移，最终得到答案。</p>
+          <h1 id="16、【对线面试官】SpringBean生命周期"><a href="#16、【对线面试官】SpringBean生命周期" class="headerlink" title="16、【对线面试官】SpringBean生命周期"></a>16、【对线面试官】SpringBean生命周期</h1><h2 id="今天要不来聊聊Spring对Bean的生命周期管理？"><a href="#今天要不来聊聊Spring对Bean的生命周期管理？" class="headerlink" title="今天要不来聊聊Spring对Bean的生命周期管理？"></a>今天要不来聊聊Spring对Bean的生命周期管理？</h2><ol>
+<li>嗯，没问题的。</li>
+<li>很早之前我就看过源码，但Spring源码的实现类都太长了</li>
+<li>我也记不得很清楚某些实现类的名字</li>
+<li>要不我大概来说下流程？</li>
+<li>首先要知道的是：普通Java对象和Spring.所管理的Bean实例化的过程是有些区别的<br>在普通Java环境下创建对象简要的步骤可以分为以下几步：<ul>
+<li>java源码被编译为被编译为class文件</li>
+<li>等到类需要被初始化时（比如说new、反射等）</li>
+<li>class文件被虚拟机通过类加载器加载到JVM</li>
+<li>初始化对象供我们使用</li>
+</ul>
+</li>
+<li>简单来说，可以理解为它是用Class对象作为「模板」进而创建出具体的实例</li>
+<li>而Spring所管理的Bean不同的是，除了Class.对象之外，还会使用BeanDefinition的实例来描述对象的信息</li>
+<li>比如说，我们可以在Spring.所管理的Bean有一系列的描述：@Scope、@Lazy、@DependsOn等等</li>
+<li>可以理解为：Class只描述了类的信息，而BeanDefinition：描述了对象的信息</li>
+</ol>
+<h2 id="你就是想告诉我，Spring有BeanDefinition来存储着我们日常给Spring-Bean定义的元数据（-Scope、-Lazy、-DependsOn等等），对吧？"><a href="#你就是想告诉我，Spring有BeanDefinition来存储着我们日常给Spring-Bean定义的元数据（-Scope、-Lazy、-DependsOn等等），对吧？" class="headerlink" title="你就是想告诉我，Spring有BeanDefinition来存储着我们日常给Spring Bean定义的元数据（@Scope、@Lazy、@DependsOn等等），对吧？"></a>你就是想告诉我，Spring有BeanDefinition来存储着我们日常给Spring Bean定义的元数据（@Scope、@Lazy、@DependsOn等等），对吧？</h2><ol>
+<li>Spring在启动的时候需要「扫描」在XML&#x2F;注解&#x2F;JavaConfig中需要被Spring管理的Bean信息</li>
+<li>随后，会将这些信息封装成BeanDefinition，最后会把这些信息放到一个beanDefinitionMap中</li>
+<li>我记得这个Map的key应该是beanName，value则是BeanDefinition.对象</li>
+<li>到这里其实就是把定义的元数据加载起来，目前真实对象还没实例化</li>
+<li>接着会遍历这个beanDefinitionMap，执行BeanFactoryPostProcessor这个Bean工厂后置处理器的逻辑</li>
+<li>比如说，我们平时定义的占位符信息，就是通过BeanFactoryPostProcessor的子类PropertyPlaceholderConfigurer进行注入进去</li>
+<li>当然了，这里我们也可以自定义BeanFactoryPostProcessor来对我们定义好的Bean元数据进行获取或者修改。只是一般我们不会这样干，实际上也很有少的使用场景。</li>
+<li>BeanFactoryPostProcessor&#x2F;后置处理器执行完了以后，就到了实例化对象啦</li>
+<li>在Spring.里边是通过反射来实现的，一般情况下会通过反射选择合适的构造器来把对象实例化</li>
+<li>但这里把对象实例化，只是把对象给创建出来，而对象具体的属性是还没注入的。</li>
+<li>比如我的对象是UserService，而UserService对象依赖着SendService对象，这时候的SendService还是null的</li>
+<li>所以，下一步就是把对象的相关属性给注入</li>
+<li>相关属性注入完之后，往下接着就是初始化的工作了</li>
+<li>首先判断该Bean是否实现了Aware相关的接口，如果存在则填充相关的资源<br>比如我这边在项目用到的：我希望通过代码程序的方式去获取指定的Spring Bean</li>
+<li>我们这边会抽取成一个工具类，去实现ApplicationContextAware接口，来获取ApplicationContexti对象进而获取Spring Bean</li>
+<li>Aware相关的接口处理完之后，就会到BeanPostProcessor后置处理器啦</li>
+<li>BeanPostProcessor后置处理器有两个方法，一个是before，一个是after。<br>（那肯定是before先执行、after）后执行）</li>
+<li>这个BeanPostProcessor）后置处理器是AOP实现的关键<br>关键子类AnnotationAwareAspectJAutoProxyCreator</li>
+<li>所以，执行完Aware相关的接口就会执行，BeanPostProcessor相关子类的before方法。</li>
+<li>BeanPostProcessor相关子类的before方法执行完，则执行init相关的方法，比如说@PostConstruct、实现了InitializingBean接口、定义的init-method方法</li>
+<li>当时我还去官网去看他们的被调用「执行顺序」分别是：@PostConstruct、实现了InitializingBean：接口以及init-nethod方法</li>
+<li>这些都是Spring：给我们的「扩展」，像@PostConstruct我就经常用到</li>
+<li>比如说：对象实例化后，我要做些初始化的相关工作或者就启个线程去Kafka拉取数据</li>
+<li>等到init方法执行完之后，就会执行BeanPostProcessor的after方法</li>
+<li>基本重要的流程已经走完了，我们就可以获取到对象去使用了</li>
+<li>销毁的时候就看有没有配置相关的destroy方法，执行就完事了</li>
+</ol>
+<h2 id="你看过Spring：是怎么解决循环依赖的吗？如果现在有个A对象，它的属性是B对象，而B对象的属性也是A对象说白了就是A依赖B，而B又依赖A，Spring是怎么做的？"><a href="#你看过Spring：是怎么解决循环依赖的吗？如果现在有个A对象，它的属性是B对象，而B对象的属性也是A对象说白了就是A依赖B，而B又依赖A，Spring是怎么做的？" class="headerlink" title="你看过Spring：是怎么解决循环依赖的吗？如果现在有个A对象，它的属性是B对象，而B对象的属性也是A对象说白了就是A依赖B，而B又依赖A，Spring是怎么做的？"></a>你看过Spring：是怎么解决循环依赖的吗？如果现在有个A对象，它的属性是B对象，而B对象的属性也是A对象说白了就是A依赖B，而B又依赖A，Spring是怎么做的？</h2><ol>
+<li>从上面我们可以知道，对象属性的注入在对象实例化之后的嘛。</li>
+<li>它的大致过程是这样的：首先A对象实例化，然后对属性进行注入，发现依赖B对象<br>B对象此时还没创建出来，所以转头去实例化B对象</li>
+<li>B对象实例化之后，发现需要依赖A对象，那A对象已经实例化了嘛，所以B对<br>象最终能完成创建</li>
+<li>B对象返回到A对象的属性注入的方法上，A对象最终完成创建。这就是大致的过程。</li>
+</ol>
+<h2 id="哦？听起来你还会原理哦？"><a href="#哦？听起来你还会原理哦？" class="headerlink" title="哦？听起来你还会原理哦？"></a>哦？听起来你还会原理哦？</h2><ol>
+<li>至于原理，其实就是用到了三级的缓存</li>
+<li>所谓的三级缓存其实就是三个Map.…首先明确一定，我对这里的三级缓存定义是这样的：<br>singletonObjects（一级，日常实际获取Bean的地方）；</li>
+<li>earlySingletonObjects（二级，已实例化，但还没进行属性注入，由三级缓存放进来）；</li>
+<li>singletonFactories（三级，Value：是一个对象工厂）；</li>
+<li>再回到刚才讲述的过程中，A对象实例化之后，属性注入之前，其实会把A对象放入三级缓存中</li>
+<li>key是BeanName，Value：是ObjectFactory</li>
+<li>等到A对象属性注入时，发现依赖B，又去实例化B时</li>
+<li>B属性注入需要去获取A对象，这里就是从三级缓存里拿出ObjectFactory，从ObjectFactory得到对应的Bean（就是对象A)</li>
+<li>把三级缓存的A记录给干掉，然后放到二级缓存中</li>
+<li>显然，二级缓存存储的key是BeanName，value就是Bean（这里的Bean还没做完属性注入相关的工作）</li>
+<li>等到完全初始化之后，就会把二级缓存给remove掉，塞到一级缓存中</li>
+<li>我们自己去getBean的时候，实际上拿到的是一级缓存的</li>
+<li>大致的过程就是这样</li>
+</ol>
+<h2 id="那我想问一下，为什么是三级缓存？"><a href="#那我想问一下，为什么是三级缓存？" class="headerlink" title="那我想问一下，为什么是三级缓存？"></a>那我想问一下，为什么是三级缓存？</h2><ol>
+<li>首先从第三级缓存说起（就是key是BeanName，Value为ObjectFactory）</li>
+<li>我们的对象是单例的，有可能A对象依赖的B对象是有AOP的（B对象需要代理）</li>
+<li>假设没有第三级缓存，只有第二级缓存（Value存对象，而不是工厂对象）</li>
+<li>那如果有AOP的情况下，岂不是在存入第二级缓存之前都需要先去做AOP代理？这不合适嘛</li>
+<li>这里肯定是需要考虑代理的情况的，比如A对象是一个被AOP增量的对象，B依赖A时，得到的A肯定是代理对象的</li>
+<li>所以，三级缓存的Value是ObjectFactory，可以从里边拿到代理对象</li>
+<li>而二级缓存存在的必要就是为了性能，从三级缓存的工厂里创建出对象，再扔到二级缓存（这样就不用每次都要从工厂里拿）</li>
+</ol>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ol>
+<li><p>首先是Spring Bean的生命周期过程，Sprng使用BeanDefinition：来装载着我们给Bean定义的元数据</p>
+</li>
+<li><p>实例化Bean的时候会遍历BeanDefinitionMap</p>
+</li>
+<li><p>Springl的Bean实例化和属性赋值是分开两步来做的</p>
+</li>
+<li><p>在Spring Beanl的生命周期，Spring预留了很多的hook给我们去扩展</p>
+<p>1）：Bean实例化之前有BeanFactoryPostProcessor<br>2）：Bean实例化之后，初始化时，有相关的Aware接口供我们去拿到Context相关信息<br>3）：环绕着初始化阶段，有BeanPostProcessor（AOP的关键）<br>4）：在初始化阶段，有各种的init方法供我们去自定义</p>
+</li>
+<li><p>而循环依赖的解决主要通过三级的缓存</p>
+</li>
+<li><p>在实例化后，会把自己扔到三级缓存（此时的key是BeanName，Value是ObjectFactory)</p>
+</li>
+<li><p>在注入属性时，发现需要依赖B，也会走B的实例化过程，B属性注入依赖A，从三级缓存找到A</p>
+</li>
+<li><p>删掉三级缓存，放到二级缓存</p>
+</li>
+</ol>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/q5B8nQ_20211228115227.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/ldYlbE_20211228115337.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/czgjnh_20211228115425.png"></p>
 
       
     </div>
@@ -1948,7 +1942,7 @@
 
 
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/6/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/8/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/6/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><a class="extend next" rel="next" href="/page/8/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 </div>
@@ -1971,13 +1965,13 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">308k</span>
+    <span title="站点总字数">838k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">4:40</span>
+    <span title="站点阅读时长">12:41</span>
   </span>
 </div>
 
