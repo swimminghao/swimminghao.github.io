@@ -276,7 +276,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/98b63d5c/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/43d73074/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/lion.png">
@@ -294,7 +294,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/98b63d5c/" class="post-title-link" itemprop="url">shell效率</a>
+          <a href="/posts/43d73074/" class="post-title-link" itemprop="url">JAVA基础</a>
         </h2>
 
         <div class="post-meta-container">
@@ -315,392 +315,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-13 12:51:42" itemprop="dateModified" datetime="2022-03-13T12:51:42+08:00">2022-03-13</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">工具</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="far fa-comment"></i>
-    </span>
-    <span class="post-meta-item-text">Waline：</span>
-  
-    <a title="waline" href="/posts/98b63d5c/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/98b63d5c/" data-xid="/posts/98b63d5c/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>3.3k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>3 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="§1效率"><a href="#§1效率" class="headerlink" title="§1效率"></a>§1效率</h1><h2 id="输入相似文件名太麻烦"><a href="#输入相似文件名太麻烦" class="headerlink" title="输入相似文件名太麻烦"></a><strong>输入相似文件名太麻烦</strong></h2><p>用花括号括起来的字符串用逗号连接，可以自动扩展，非常有用，直接看例子:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">echo</span> &#123;one,two,three&#125;file</span><br><span class="line">onefile twofile threefile</span><br><span class="line">$ <span class="built_in">echo</span> &#123;one,two,three&#125;&#123;1,2,3&#125;</span><br><span class="line">one1 one2 one3 two1 two2 two3 three1 three2 three3</span><br></pre></td></tr></table></figure>
-
-<p>你看，花括号中的每个字符都可以和之后(或之前)的字符串进行组合拼 接，<strong>注意花括号和其中的逗号不可以用空格分隔，否则会被认为是普通的字 符串对待</strong>。</p>
-<p>这个技巧有什么实际用处呢?最简单有用的就是给 cp , mv , rm 等命令扩 展参数:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cp</span> /very/long/path/file&#123;,.bak&#125;</span><br><span class="line">==&gt; <span class="built_in">cp</span> /very/long/path/file /very/long/path/file.bak</span><br><span class="line"><span class="comment"># 给 file 复制一个叫做 file.bak 的副本</span></span><br><span class="line"></span><br><span class="line">$ <span class="built_in">rm</span> file&#123;1,3,5&#125;.txt</span><br><span class="line"><span class="comment"># 删除 file1.txt file3.txt file5.txt</span></span><br><span class="line"></span><br><span class="line">$ <span class="built_in">mv</span> *.&#123;c,cpp&#125; src/</span><br><span class="line"><span class="comment"># 将所有 .c 和 .cpp 为后缀的文件移入 src 文件夹</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="输入路径名称太麻烦"><a href="#输入路径名称太麻烦" class="headerlink" title="输入路径名称太麻烦"></a><strong>输入路径名称太麻烦</strong></h2><ul>
-<li><strong>用</strong> <strong>cd -</strong> <strong>返回刚才呆的目录</strong>，直接看例子吧:</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">pwd</span></span><br><span class="line"> /very/long/path</span><br><span class="line"> $ <span class="built_in">cd</span> <span class="comment"># 回到家目录瞅瞅</span></span><br><span class="line"> $ <span class="built_in">pwd</span></span><br><span class="line"> /home/labuladong</span><br><span class="line"> $ <span class="built_in">cd</span> - <span class="comment"># 再返回刚才那个目录 $ pwd</span></span><br><span class="line"> /very/long/path</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><strong>特殊命令</strong> <strong>!$</strong> <strong>会替换成上一次输入的命令最后的路径</strong>，直接看例子:</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#没有加可执行权限</span></span><br><span class="line">$ /usr/bin/script.sh</span><br><span class="line">zsh: permission denied: /usr/bin/script.sh</span><br><span class="line"></span><br><span class="line">$ <span class="built_in">chmod</span> +x !$</span><br><span class="line"><span class="built_in">chmod</span> +x /usr/bin/script.sh</span><br><span class="line"><span class="built_in">export</span> lessCharset-uft8</span><br></pre></td></tr></table></figure>
-
-<p><strong>特殊命令</strong> <strong>!*</strong> <strong>会替换成上一次命令输入的所有文件路径</strong>，直接看例子:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建了三个脚本文件</span></span><br><span class="line">$ file script1.sh script2.sh script3.sh</span><br><span class="line"></span><br><span class="line"><span class="comment"># 给它们全部加上可执行权限</span></span><br><span class="line">$ <span class="built_in">chmod</span> +x !*</span><br><span class="line"><span class="built_in">chmod</span> +x script1.sh script2.sh script3.sh</span><br></pre></td></tr></table></figure>
-
-<p><strong>可以在环境变量</strong> <strong>CDPATH</strong> <strong>中加入你常用的工作目录</strong>，当 cd 命令在当前目 录中找不到你指定的文件&#x2F;目录时，会自动到 CDPATH 中的目录中寻找。</p>
-<p>比如说我常去 &#x2F;var&#x2F;log 目录找日志，可以执行如下命令:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">export</span> CDPATH=<span class="string">&#x27;~:/var/log&#x27;</span></span><br><span class="line"><span class="comment"># cd 命令将会在 〜 目录和 /var/log 目录扩展搜索$ pwd</span></span><br><span class="line">/home/labuladong/musics</span><br><span class="line">$ <span class="built_in">cd</span> mysql</span><br><span class="line"><span class="built_in">cd</span> /var/log/mysql</span><br><span class="line">$ <span class="built_in">pwd</span></span><br><span class="line">/var/log/mysql</span><br><span class="line">$ <span class="built_in">cd</span> my_pictures</span><br><span class="line"><span class="built_in">cd</span> /home/labuladong/my_pictures</span><br></pre></td></tr></table></figure>
-
-<p>这个技巧是十分好用的，这样就免了经常写完整的路径名称，节约不少时间。</p>
-<p>需要注意的是，以上操作是 bash 支持的，其他主流 shell 解释器当然都支持 扩展 cd 命令的搜索目录，但可能不是修改 CDPATH 这个变量，具体的设 置方法可以自行搜索。</p>
-<h2 id="输入重复命令太麻烦"><a href="#输入重复命令太麻烦" class="headerlink" title="输入重复命令太麻烦"></a>输入重复命令太麻烦</h2><p>** <strong>使用特殊命令</strong> <strong>!!</strong> <strong>，可以自动替换成上一次使用的命令</strong>:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ apt install net-tools</span><br><span class="line"> E: Could not open lock file - open (13: Permission denied)</span><br><span class="line"></span><br><span class="line">$ sudo !!</span><br><span class="line"> sudo apt install net-tools [sudo] password <span class="keyword">for</span> fdl:</span><br></pre></td></tr></table></figure>
-
-<p>有的命令很⻓，一时间想不起来具体参数了怎么办?</p>
-<p><strong>对于</strong> <strong>bash</strong> <strong>终端，可以使用</strong> <strong>Ctrl+R</strong> <strong>快捷键反向搜索历史命令</strong>，之所以说是 反向搜索，就是搜索最近一次输入的命令。</p>
-<p>比如按下 Ctrl+R 之后，输入 sudo ，bash 就会搜索出最近一次包含 sudo 的命令，你回⻋之后就可以运行该命令了:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(reverse-i-search)`sudo<span class="string">&#x27;: sudo apt install git</span></span><br></pre></td></tr></table></figure>
-
-<p>但是这个方法有缺点:首先，该功能似乎只有 bash 支持，我用的 zsh 作为 shell 终端，就用不了;第二，只能查找出一个(最近的)命令，如果我想 找以前的某个命令，就没办法了。</p>
-<p>对于这种情况，<strong>我们最常用的方法是使用</strong> <strong>history</strong> <strong>命令配合管道符和</strong> <strong>grep</strong> <strong>命令来寻找某个历史命令</strong>:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 过滤出所有包含 config 字段的历史命令</span></span><br><span class="line">$ <span class="built_in">history</span> | grep <span class="string">&#x27;config&#x27;</span></span><br><span class="line">	7352 ./configure</span><br><span class="line">	7434 git config --global --<span class="built_in">unset</span> https.proxy 9609 ifconfig</span><br><span class="line">	9985 clip -o | sed -z <span class="string">&#x27;s/\n/,\n/g&#x27;</span> | clip</span><br><span class="line">	10433 <span class="built_in">cd</span> ~/.config</span><br></pre></td></tr></table></figure>
-
-<p>你使用的所有 shell 命令都会被记录，前面的数字就表示这是第几个命令， 找到你想重复使用的命令后，也不需要复制粘贴该命令，<strong>只要使用</strong> <strong>!</strong> <strong>+</strong> <strong>你 想重用的命令编号即可运行该命令</strong>。<br>拿上面的例子，我想重新运行 git config 那条命令，就可以这样:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ !7434</span><br><span class="line">git config --global --<span class="built_in">unset</span> https.proxy <span class="comment"># 运行完成</span></span><br></pre></td></tr></table></figure>
-
-<p>我觉得 history 加管道加 grep 这样打的字还是太多，可以在 你的 shell 配置文件中( .bashrc ， .zshrc 等) 中写这样一个函数:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">his</span></span>() &#123;</span><br><span class="line">	<span class="built_in">history</span> | grep <span class="string">&quot;<span class="variable">$@</span>&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>这样就不需要写那么多，只需要 his ‘some_keyword’ 即可搜索历史命令。</p>
-<p>我一般不使用 bash 作为终端，我给大家推荐一款很好用的 shell 终端叫做 zsh，这也是我自己使用的 shell。这款终端还可以扩展各种插件，非常好 用，具体配置方法可自行搜索。</p>
-<h2 id="其他小技巧"><a href="#其他小技巧" class="headerlink" title="其他小技巧"></a>其他小技巧</h2><ul>
-<li><p>**yes <strong>命令自动输入字符</strong>y **进行确认</p>
-<p>我们安装某些软件的时候，可能有交互式的提问:</p>
-</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt install XXX</span><br><span class="line">...</span><br><span class="line">XXX will use 996 MB disk space, <span class="built_in">continue</span>? [y/n]</span><br></pre></td></tr></table></figure>
-
-<p>一般情况下我们都是一路 y 到底，但如果我们想自动化一些软件的安装就很 烦，遇到这种交互式提问就卡住了，还得手动处理。</p>
-<p>yes 命令可以帮助我们:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">yes</span> | your_cmd</span><br></pre></td></tr></table></figure>
-
-<p>这样就会一路自动 y 下去，不会停下让我们输入了。 如果你读过前文Linux 文件描述符，就知道其原理很简单:</p>
-<p>你单独运行一下 yes 命令，发现它就是打印出一大堆字符 y，通过管道把 输出和 your_cmd 的标准输入相连接，如果 your_cmd 又提出无聊的问题， 就会从标准输入读取数据，也就会读取到一个 y 和换行符，和你手动输入 y 确认是一个效果。</p>
-<ul>
-<li><strong>特殊变量</strong> <strong>$?</strong> <strong>记录上一次命令的返回值</strong>。</li>
-</ul>
-<p>在 Linux shell 中，遵循 C 语言的习惯，返回值为 0 的话就是程序正常退 出，非 0 值就是异常退出出。读取上一次命令的返回值在平时使用命令行时 感觉没什么用，但是如果你想编写一些 shell 脚本，知道返回值非常有用。</p>
-<p><strong>举个实际的例子</strong>，比如我的 Github 仓库 fucking-algorithm ，我需要给其中 所有 markdown 文件最下方添加上一篇、下一篇、目录三个⻚脚链接，有的 文章已经有了⻚脚，大部分都没有。</p>
-<p>为了防止重复添加，我必须知道一个 md 文件下方是否已添加，这时候就可 以使用 $? 变量配合 grep 命令做到:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line">filename=<span class="variable">$1</span></span><br><span class="line"><span class="comment"># 查看文件尾部是否包含关键词</span></span><br><span class="line"><span class="built_in">tail</span> | grep <span class="string">&#x27;下一篇&#x27;</span> <span class="variable">$filename</span></span><br><span class="line"><span class="comment"># grep 查找到匹配会返回 0，找不到则返回非 0 值</span></span><br><span class="line">[ $? -ne 0 ] &amp;&amp; &#123; 添加⻚脚; &#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><strong>特殊变量</strong> <strong>$$</strong> <strong>记录当前进程的</strong> <strong>PID</strong>。</li>
-</ul>
-<p>这个功能可能在平时使用时也不怎么用，但是在写 shell 脚本时也非常有 用，比如说你要在 &#x2F;tmp 创建临时文件，给文件起名字一直都是非常让人 费脑子 的，这时候可以使用 $$ 变量扩展出当前进程的 PID 作为临时文件的名字。</p>
-
-      
-    </div>
-
-    
-    
-    
-
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>l
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/969e74c3/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/lion.png">
-      <meta itemprop="name" content="swimminghao">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="swimminghao's blog">
-      <meta itemprop="description" content="swimminghao的学习博客">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | swimminghao's blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/969e74c3/" class="post-title-link" itemprop="url">shell效率0</a>
-        </h2>
-
-        <div class="post-meta-container">
-
-          
-
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-13 12:51:55" itemprop="dateModified" datetime="2022-03-13T12:51:55+08:00">2022-03-13</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">工具</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="far fa-comment"></i>
-    </span>
-    <span class="post-meta-item-text">Waline：</span>
-  
-    <a title="waline" href="/posts/969e74c3/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/969e74c3/" data-xid="/posts/969e74c3/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>3.3k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>3 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>[toc]</p>
-<h1 id="§1效率"><a href="#§1效率" class="headerlink" title="§1效率"></a>§1效率</h1><h2 id="输入相似文件名太麻烦"><a href="#输入相似文件名太麻烦" class="headerlink" title="输入相似文件名太麻烦"></a><strong>输入相似文件名太麻烦</strong></h2><p>用花括号括起来的字符串用逗号连接，可以自动扩展，非常有用，直接看例子:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">echo</span> &#123;one,two,three&#125;file</span><br><span class="line">onefile twofile threefile</span><br><span class="line">$ <span class="built_in">echo</span> &#123;one,two,three&#125;&#123;1,2,3&#125;</span><br><span class="line">one1 one2 one3 two1 two2 two3 three1 three2 three3</span><br></pre></td></tr></table></figure>
-
-<p>你看，花括号中的每个字符都可以和之后(或之前)的字符串进行组合拼 接，<strong>注意花括号和其中的逗号不可以用空格分隔，否则会被认为是普通的字 符串对待</strong>。</p>
-<p>这个技巧有什么实际用处呢?最简单有用的就是给 cp , mv , rm 等命令扩 展参数:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cp</span> /very/long/path/file&#123;,.bak&#125;</span><br><span class="line">==&gt; <span class="built_in">cp</span> /very/long/path/file /very/long/path/file.bak</span><br><span class="line"><span class="comment"># 给 file 复制一个叫做 file.bak 的副本</span></span><br><span class="line"></span><br><span class="line">$ <span class="built_in">rm</span> file&#123;1,3,5&#125;.txt</span><br><span class="line"><span class="comment"># 删除 file1.txt file3.txt file5.txt</span></span><br><span class="line"></span><br><span class="line">$ <span class="built_in">mv</span> *.&#123;c,cpp&#125; src/</span><br><span class="line"><span class="comment"># 将所有 .c 和 .cpp 为后缀的文件移入 src 文件夹</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="输入路径名称太麻烦"><a href="#输入路径名称太麻烦" class="headerlink" title="输入路径名称太麻烦"></a><strong>输入路径名称太麻烦</strong></h2><ul>
-<li><strong>用</strong> <strong>cd -</strong> <strong>返回刚才呆的目录</strong>，直接看例子吧:</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">pwd</span></span><br><span class="line"> /very/long/path</span><br><span class="line"> $ <span class="built_in">cd</span> <span class="comment"># 回到家目录瞅瞅</span></span><br><span class="line"> $ <span class="built_in">pwd</span></span><br><span class="line"> /home/labuladong</span><br><span class="line"> $ <span class="built_in">cd</span> - <span class="comment"># 再返回刚才那个目录 $ pwd</span></span><br><span class="line"> /very/long/path</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><strong>特殊命令</strong> <strong>!$</strong> <strong>会替换成上一次输入的命令最后的路径</strong>，直接看例子:</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#没有加可执行权限</span></span><br><span class="line">$ /usr/bin/script.sh</span><br><span class="line">zsh: permission denied: /usr/bin/script.sh</span><br><span class="line"></span><br><span class="line">$ <span class="built_in">chmod</span> +x !$</span><br><span class="line"><span class="built_in">chmod</span> +x /usr/bin/script.sh</span><br><span class="line"><span class="built_in">export</span> lessCharset-uft8</span><br></pre></td></tr></table></figure>
-
-<p><strong>特殊命令</strong> <strong>!*</strong> <strong>会替换成上一次命令输入的所有文件路径</strong>，直接看例子:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建了三个脚本文件</span></span><br><span class="line">$ file script1.sh script2.sh script3.sh</span><br><span class="line"></span><br><span class="line"><span class="comment"># 给它们全部加上可执行权限</span></span><br><span class="line">$ <span class="built_in">chmod</span> +x !*</span><br><span class="line"><span class="built_in">chmod</span> +x script1.sh script2.sh script3.sh</span><br></pre></td></tr></table></figure>
-
-<p><strong>可以在环境变量</strong> <strong>CDPATH</strong> <strong>中加入你常用的工作目录</strong>，当 cd 命令在当前目 录中找不到你指定的文件&#x2F;目录时，会自动到 CDPATH 中的目录中寻找。</p>
-<p>比如说我常去 &#x2F;var&#x2F;log 目录找日志，可以执行如下命令:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">export</span> CDPATH=<span class="string">&#x27;~:/var/log&#x27;</span></span><br><span class="line"><span class="comment"># cd 命令将会在 〜 目录和 /var/log 目录扩展搜索$ pwd</span></span><br><span class="line">/home/labuladong/musics</span><br><span class="line">$ <span class="built_in">cd</span> mysql</span><br><span class="line"><span class="built_in">cd</span> /var/log/mysql</span><br><span class="line">$ <span class="built_in">pwd</span></span><br><span class="line">/var/log/mysql</span><br><span class="line">$ <span class="built_in">cd</span> my_pictures</span><br><span class="line"><span class="built_in">cd</span> /home/labuladong/my_pictures</span><br></pre></td></tr></table></figure>
-
-<p>这个技巧是十分好用的，这样就免了经常写完整的路径名称，节约不少时间。</p>
-<p>需要注意的是，以上操作是 bash 支持的，其他主流 shell 解释器当然都支持 扩展 cd 命令的搜索目录，但可能不是修改 CDPATH 这个变量，具体的设 置方法可以自行搜索。</p>
-<h2 id="输入重复命令太麻烦"><a href="#输入重复命令太麻烦" class="headerlink" title="输入重复命令太麻烦"></a>输入重复命令太麻烦</h2><p>** <strong>使用特殊命令</strong> <strong>!!</strong> <strong>，可以自动替换成上一次使用的命令</strong>:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ apt install net-tools</span><br><span class="line"> E: Could not open lock file - open (13: Permission denied)</span><br><span class="line"></span><br><span class="line">$ sudo !!</span><br><span class="line"> sudo apt install net-tools [sudo] password <span class="keyword">for</span> fdl:</span><br></pre></td></tr></table></figure>
-
-<p>有的命令很⻓，一时间想不起来具体参数了怎么办?</p>
-<p><strong>对于</strong> <strong>bash</strong> <strong>终端，可以使用</strong> <strong>Ctrl+R</strong> <strong>快捷键反向搜索历史命令</strong>，之所以说是 反向搜索，就是搜索最近一次输入的命令。</p>
-<p>比如按下 Ctrl+R 之后，输入 sudo ，bash 就会搜索出最近一次包含 sudo 的命令，你回⻋之后就可以运行该命令了:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(reverse-i-search)`sudo<span class="string">&#x27;: sudo apt install git</span></span><br></pre></td></tr></table></figure>
-
-<p>但是这个方法有缺点:首先，该功能似乎只有 bash 支持，我用的 zsh 作为 shell 终端，就用不了;第二，只能查找出一个(最近的)命令，如果我想 找以前的某个命令，就没办法了。</p>
-<p>对于这种情况，<strong>我们最常用的方法是使用</strong> <strong>history</strong> <strong>命令配合管道符和</strong> <strong>grep</strong> <strong>命令来寻找某个历史命令</strong>:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 过滤出所有包含 config 字段的历史命令</span></span><br><span class="line">$ <span class="built_in">history</span> | grep <span class="string">&#x27;config&#x27;</span></span><br><span class="line">	7352 ./configure</span><br><span class="line">	7434 git config --global --<span class="built_in">unset</span> https.proxy 9609 ifconfig</span><br><span class="line">	9985 clip -o | sed -z <span class="string">&#x27;s/\n/,\n/g&#x27;</span> | clip</span><br><span class="line">	10433 <span class="built_in">cd</span> ~/.config</span><br></pre></td></tr></table></figure>
-
-<p>你使用的所有 shell 命令都会被记录，前面的数字就表示这是第几个命令， 找到你想重复使用的命令后，也不需要复制粘贴该命令，<strong>只要使用</strong> <strong>!</strong> <strong>+</strong> <strong>你 想重用的命令编号即可运行该命令</strong>。<br>拿上面的例子，我想重新运行 git config 那条命令，就可以这样:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ !7434</span><br><span class="line">git config --global --<span class="built_in">unset</span> https.proxy <span class="comment"># 运行完成</span></span><br></pre></td></tr></table></figure>
-
-<p>我觉得 history 加管道加 grep 这样打的字还是太多，可以在 你的 shell 配置文件中( .bashrc ， .zshrc 等) 中写这样一个函数:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">his</span></span>() &#123;</span><br><span class="line">	<span class="built_in">history</span> | grep <span class="string">&quot;<span class="variable">$@</span>&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>这样就不需要写那么多，只需要 his ‘some_keyword’ 即可搜索历史命令。</p>
-<p>我一般不使用 bash 作为终端，我给大家推荐一款很好用的 shell 终端叫做 zsh，这也是我自己使用的 shell。这款终端还可以扩展各种插件，非常好 用，具体配置方法可自行搜索。</p>
-<h2 id="其他小技巧"><a href="#其他小技巧" class="headerlink" title="其他小技巧"></a>其他小技巧</h2><ul>
-<li><p>**yes <strong>命令自动输入字符</strong>y **进行确认</p>
-<p>我们安装某些软件的时候，可能有交互式的提问:</p>
-</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt install XXX</span><br><span class="line">...</span><br><span class="line">XXX will use 996 MB disk space, <span class="built_in">continue</span>? [y/n]</span><br></pre></td></tr></table></figure>
-
-<p>一般情况下我们都是一路 y 到底，但如果我们想自动化一些软件的安装就很 烦，遇到这种交互式提问就卡住了，还得手动处理。</p>
-<p>yes 命令可以帮助我们:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">yes</span> | your_cmd</span><br></pre></td></tr></table></figure>
-
-<p>这样就会一路自动 y 下去，不会停下让我们输入了。 如果你读过前文Linux 文件描述符，就知道其原理很简单:</p>
-<p>你单独运行一下 yes 命令，发现它就是打印出一大堆字符 y，通过管道把 输出和 your_cmd 的标准输入相连接，如果 your_cmd 又提出无聊的问题， 就会从标准输入读取数据，也就会读取到一个 y 和换行符，和你手动输入 y 确认是一个效果。</p>
-<ul>
-<li><strong>特殊变量</strong> <strong>$?</strong> <strong>记录上一次命令的返回值</strong>。</li>
-</ul>
-<p>在 Linux shell 中，遵循 C 语言的习惯，返回值为 0 的话就是程序正常退 出，非 0 值就是异常退出出。读取上一次命令的返回值在平时使用命令行时 感觉没什么用，但是如果你想编写一些 shell 脚本，知道返回值非常有用。</p>
-<p><strong>举个实际的例子</strong>，比如我的 Github 仓库 fucking-algorithm ，我需要给其中 所有 markdown 文件最下方添加上一篇、下一篇、目录三个⻚脚链接，有的 文章已经有了⻚脚，大部分都没有。</p>
-<p>为了防止重复添加，我必须知道一个 md 文件下方是否已添加，这时候就可 以使用 $? 变量配合 grep 命令做到:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line">filename=<span class="variable">$1</span></span><br><span class="line"><span class="comment"># 查看文件尾部是否包含关键词</span></span><br><span class="line"><span class="built_in">tail</span> | grep <span class="string">&#x27;下一篇&#x27;</span> <span class="variable">$filename</span></span><br><span class="line"><span class="comment"># grep 查找到匹配会返回 0，找不到则返回非 0 值</span></span><br><span class="line">[ $? -ne 0 ] &amp;&amp; &#123; 添加⻚脚; &#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><strong>特殊变量</strong> <strong>$$</strong> <strong>记录当前进程的</strong> <strong>PID</strong>。</li>
-</ul>
-<p>这个功能可能在平时使用时也不怎么用，但是在写 shell 脚本时也非常有 用，比如说你要在 &#x2F;tmp 创建临时文件，给文件起名字一直都是非常让人 费脑子 的，这时候可以使用 $$ 变量扩展出当前进程的 PID 作为临时文件的名字。</p>
-
-      
-    </div>
-
-    
-    
-    
-
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>l
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/498f0b66/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/lion.png">
-      <meta itemprop="name" content="swimminghao">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="swimminghao's blog">
-      <meta itemprop="description" content="swimminghao的学习博客">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | swimminghao's blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/498f0b66/" class="post-title-link" itemprop="url">JAVA</a>
-        </h2>
-
-        <div class="post-meta-container">
-
-          
-
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-13 12:37:46" itemprop="dateModified" datetime="2022-03-13T12:37:46+08:00">2022-03-13</time>
+      <time title="修改时间：2022-03-13 12:56:04" itemprop="dateModified" datetime="2022-03-13T12:56:04+08:00">2022-03-13</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -721,8 +336,8 @@
     </span>
     <span class="post-meta-item-text">Waline：</span>
   
-    <a title="waline" href="/posts/498f0b66/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/498f0b66/" data-xid="/posts/498f0b66/" itemprop="commentCount"></span>
+    <a title="waline" href="/posts/43d73074/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/43d73074/" data-xid="/posts/43d73074/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -733,14 +348,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>116k</span>
+      <span>114k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>1:46</span>
+      <span>1:44</span>
     </span>
 </div>
 
@@ -764,7 +379,7 @@
 </ul>
 </li>
 <li><a href="#http%E5%8D%8F%E8%AE%AE"><strong>HTTP协议</strong></a><ul>
-<li><a href="#1http%E5%8D%8F%E8%AE%AE10_11_20">1、HTTP协议<em>1.0_1.1_2.0</em></a></li>
+<li><a href="#1http%E5%8D%8F%E8%AE%AE10_11_20">1、HTTP协议1.0_1.1_2.0</a></li>
 <li><a href="#2http%E4%B8%8Ehttps%E4%B9%8B%E9%97%B4%E7%9A%84%E5%8C%BA%E5%88%AB">2、HTTP与HTTPS之间的区别</a></li>
 <li><a href="#3get%E5%92%8Cpost%E8%AF%B7%E6%B1%82%E5%8C%BA%E5%88%AB"><strong>3、Get和Post请求区别</strong></a></li>
 <li><a href="#4http%E5%B8%B8%E8%A7%81%E5%93%8D%E5%BA%94%E7%8A%B6%E6%80%81%E7%A0%81"><strong>4、HTTP常见响应状态码</strong></a></li>
@@ -1630,23 +1245,6 @@
 <p><strong>实现方式</strong>：</p>
 <p>​    <strong>饿汉式</strong>：线程安全速度快</p>
 <p>​    <strong>懒汉式</strong>：双重检测锁，第一次减少锁的开销、第二次防止重复、volatile防止重排序导致实例化未完成</p>
-<p><strong>为什么要 double-check？</strong></p>
-<p>我们先来看第二次的 check，这时你需要考虑这样一种情况，有两个线程同时调用 getInstance 方法，由于 singleton 是空的 ，因此两个线程都可以通过第一重的 if 判断；然后由于锁机制的存在，会有一个线程先进入同步语句，并进入第二重 if 判断 ，而另外的一个线程就会在外面等待。</p>
-<p>不过，当第一个线程执行完 new Singleton() 语句后，就会退出 synchronized 保护的区域，这时如果没有第二重 if (singleton &#x3D;&#x3D; null) 判断的话，那么第二个线程也会创建一个实例，此时就破坏了单例，这肯定是不行的。</p>
-<p>而对于第一个 check 而言，如果去掉它，那么所有线程都会串行执行，效率低下，所以两个 check 都是需要保留的。</p>
-<p><strong>在双重检查锁模式中为什么需要使用 volatile 关键字?</strong></p>
-<p>在java内存模型中，volatile 关键字作用可以是保证可见性或者禁止指令重排。这里是因为 singleton &#x3D; new Singleton() ，它并非是一个原子操作，事实上，在 JVM 中上述语句至少做了以下这 3 件事：</p>
-<ul>
-<li>第一步是给 singleton 分配内存空间；</li>
-<li>第二步开始调用 Singleton 的构造函数等，来初始化 singleton；</li>
-<li>第三步，将 singleton 对象指向分配的内存空间（执行完这步 singleton 就不是 null 了）。</li>
-</ul>
-<p>这里需要留意一下 1-2-3 的顺序，因为存在指令重排序的优化，也就是说第 2 步和第 3 步的顺序是不能保证的，最终的执行顺序，可能是 1-2-3，也有可能是 1-3-2。</p>
-<p>如果是 1-3-2，那么在第 3 步执行完以后，singleton 就不是 null 了，可是这时第 2 步并没有执行，singleton 对象未完成初始化，它的属性的值可能不是我们所预期的值。假设此时线程 2 进入 getInstance 方法，由于 singleton 已经不是 null 了，所以会通过第一重检查并直接返回，但其实这时的 singleton 并没有完成初始化，所以使用这个实例的时候会报错，详细流程如下图所示：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/EKNSfp_20210917165416.png"></p>
-<p>线程 1 首先执行新建实例的第一步，也就是分配单例对象的内存空间，由于线程 1 被重排序，所以执行了新建实例的第三步，也就是把 singleton 指向之前分配出来的内存地址，在这第三步执行之后，singleton 对象便不再是 null。</p>
-<p>这时线程 2 进入 getInstance 方法，判断 singleton 对象不是 null，紧接着线程 2 就返回 singleton 对象并使用，由于没有初始化，所以报错了。最后，线程 1 “姗姗来迟”，才开始执行新建实例的第二步——初始化对象，可是这时的初始化已经晚了，因为前面已经报错了。</p>
-<p>使用了 volatile 之后，相当于是表明了该字段的更新可能是在其他线程中发生的，因此应确保在读取另一个线程写入的值时，可以顺利执行接下来所需的操作。在 JDK 5 以及后续版本所使用的 JMM 中，在使用了 volatile 后，会一定程度禁止相关语句的重排序，从而避免了上述由于重排序所导致的读取到不完整对象的问题的发生。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Singleton</span>&#123;</span><br><span class="line">  <span class="keyword">private</span> <span class="title function_">Singleton</span><span class="params">()</span>&#123;&#125;</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">volatile</span> <span class="keyword">static</span> Singleton singleton;</span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="title function_">getInstance</span><span class="params">()</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(singleton == <span class="literal">null</span>)&#123;</span><br><span class="line">      <span class="keyword">synchronized</span>(Singleton.class)&#123;</span><br><span class="line">        <span class="keyword">if</span>(singleton == <span class="literal">null</span>)&#123;</span><br><span class="line">          singleton = <span class="keyword">new</span> <span class="title class_">Singleton</span>();</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> singleton;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>​    <strong>静态内部类</strong>：线程安全利用率高</p>
@@ -1665,41 +1263,8 @@
 <h4 id="3、抽象工厂模式"><a href="#3、抽象工厂模式" class="headerlink" title="3、抽象工厂模式"></a>3、抽象工厂模式</h4><p>​    提供一个接口，用于创建相关或者依赖对象的家族，并由此进行约束。</p>
 <p><strong>优点：</strong>可以在类的内部对产品族进行约束</p>
 <p><strong>缺点</strong>：假如产品族中需要增加一个新的产品，则几乎所有的工厂类都需要进行修改。</p>
-<h4 id="4、设计模式中工厂方法与抽象工厂之间的区别联系"><a href="#4、设计模式中工厂方法与抽象工厂之间的区别联系" class="headerlink" title="4、设计模式中工厂方法与抽象工厂之间的区别联系"></a>4、设计模式中工厂方法与抽象工厂之间的区别联系</h4><p>首先来看看两者的定义区别：</p>
-<ul>
-<li>工厂模式 定义一个用于创建对象的接口，让子类决定实例化哪一个类</li>
-<li>抽象工厂模式 为创建一组相关或相互依赖的对象提供一个接口，而且无需指定他们的具体类</li>
-</ul>
-<p>个人觉得这个区别在于产品，如果产品单一，最合适用工厂模式，但是如果有多个业务品种、业务分类时，通过抽象工厂模式产生需要的对象是一种非常好的解决方式。 再通俗深化理解下：工厂模式针对的是一个产品等级结构 ，抽象工厂模式针对的是面向多个产品等级结构的。</p>
-<p>再来看看工厂方法模式与抽象工厂模式对比：</p>
-<table>
-<thead>
-<tr>
-<th>工厂方法模式</th>
-<th>抽象工厂模式</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>针对的是单个产品等级结构</td>
-<td>针对的是面向多个产品等级结构</td>
-</tr>
-<tr>
-<td>一个抽象产品类</td>
-<td>多个抽象产品类</td>
-</tr>
-<tr>
-<td>可以派生出多个具体产品类</td>
-<td>每个抽象产品类可以派生出多个具体产品类</td>
-</tr>
-<tr>
-<td>一个抽象工厂类，可以派生出多个具体工厂类</td>
-<td>一个抽象工厂类，可以派生出多个具体工厂类</td>
-</tr>
-<tr>
-<td>每个具体工厂类只能创建一个具体产品类的实例</td>
-<td>每个具体工厂类可以创建多个具体产品类的实例</td>
-</tr>
-</tbody></table>
+<div style="page-break-after: always;"></div>
+
 <h2 id="面试题"><a href="#面试题" class="headerlink" title="面试题"></a>面试题</h2><h3 id="构造方法"><a href="#构造方法" class="headerlink" title="构造方法"></a>构造方法</h3><p>构造方法可以被重载，只有当类中没有显性声明任何构造方法时，才会有默认构造方法。</p>
 <p>构造方法没有返回值，构造方法的作用是创建新对象。</p>
 <h3 id="初始化块"><a href="#初始化块" class="headerlink" title="初始化块"></a>初始化块</h3><p>静态初始化块的优先级最高，会最先执行，在非静态初始化块之前执行。</p>
@@ -1747,7 +1312,7 @@
 <p><strong>虚拟机栈：</strong></p>
 <p>​        虚拟机栈<strong>是线程私有的</strong>，他的生命周期和线程的生命周期是一致的。里面装的是一个一个的<strong>栈帧</strong>，每一个方法在执行的时候都会创建一个栈帧，栈帧中用来存放（<strong>局部变量表</strong>、<strong>操作数栈</strong> 、<strong>动态链接</strong> 、<strong>返回地址</strong>）；在Java虚拟机规范中，对此区域规定了两种异常状况：如果线程请求的栈深度大于虚拟机所允许的深度，将会抛出<strong>StackOverflowError</strong>异常；如果虚拟机栈动态扩展时无法申请到足够的内存，就会抛出<strong>OutOfMemoryError</strong>异常。</p>
 <ul>
-<li><p><strong>局部变量表：</strong>局部变量表是一组变量值存储空间，用来存放<strong>方法参数</strong>、方法内部定义的<strong>局部变量</strong>。底层是变量槽（variable slot）<strong>（注意：java分成员变量、局部变量）</strong></p>
+<li><p><strong>局部变量表：</strong>局部变量表是一组变量值存储空间，用来存放<strong>方法参数</strong>、方法内部定义的<strong>局部变量</strong>。底层是变量槽（variable slot）</p>
 </li>
 <li><p><strong>操作数栈：</strong>是用来记录一个方法在执行的过程中，<strong>字节码指令向操作数栈中进行入栈和出栈的过程</strong>。大小在编译的时候已经确定了，当一个方法刚开始执行的时候，操作数栈中是空发的，在方法执行的过程中会有各种<strong>字节码指令</strong>往操作数栈中<strong>入栈和出栈</strong>。</p>
 </li>
@@ -1763,11 +1328,10 @@
 <p><strong>PC程序计数器：</strong></p>
 <p>​        PC，指的是存放下一条指令的位置的一个指针。它是一块较小的内存空间，且是<strong>线程私有</strong>的。由于线程的切换，CPU在执行的过程中，需要记住原线程的下一条指令的位置，所以每一个线程都需要有自己的PC。</p>
 <h4 id="2、堆内存分配策略"><a href="#2、堆内存分配策略" class="headerlink" title="2、堆内存分配策略"></a><strong>2、堆内存分配策略</strong></h4><p><img src="https://tva1.sinaimg.cn/large/008eGmZEly1gobnjl5glvj30l10h9jrt.jpg" alt="img"></p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/Hm2wXK_20210918154730.png"></p>
 <ul>
 <li><p>对象优先分配在Eden区，如果Eden区没有足够的空间进行分配时，虚拟机执行一次MinorGC。而那些无需回收的存活对象，将会进到 Survivor 的 From 区（From 区内存不足时，直接进入 Old 区）。</p>
 </li>
-<li><p>大对象直接进入老年代（<strong>需要大量连续内存空间的对象</strong>）。这样做的目的是避免在Eden区和两个Survivor区之间发生大量的内存拷贝（新生代采用复制算法收集内存）。</p>
+<li><p>大对象直接进入老年代（需要大量连续内存空间的对象）。这样做的目的是避免在Eden区和两个Survivor区之间发生大量的内存拷贝（新生代采用复制算法收集内存）。</p>
 </li>
 <li><p>长期存活的对象进入老年代。虚拟机为每个对象定义了一个年龄（Age Count）计数器，如果对象经过了1次Minor GC那么对象会进入Survivor区，之后每经过一次Minor GC那么对象的年龄加1，直到达到阀值（默认15次），对象进入老年区。</p>
 <p>（<strong>动态对象年龄判定</strong>：程序从年龄最小的对象开始累加，如果累加的对象大小，大于幸存区的一半，则将当前的对象 age 作为新的阈值，年龄大于此阈值的对象则直接进入老年代）</p>
@@ -1775,25 +1339,17 @@
 <li><p>每次进行Minor GC或者大对象直接进入老年区时，JVM会计算所需空间大小如小于老年区的剩余值大小，则进行一次<strong>Full GC</strong>。</p>
 </li>
 </ul>
-<h4 id="3、创建一个对象的步骤"><a href="#3、创建一个对象的步骤" class="headerlink" title="3、创建一个对象的步骤"></a><strong>3、创建一个对象的步骤</strong></h4><p><strong>步骤：类加载检查、分配内存、初始化对象（包括：初始化零值、设置对象头、执行init方法）、将创建的对象指向分配的内存</strong></p>
+<h4 id="3、创建一个对象的步骤"><a href="#3、创建一个对象的步骤" class="headerlink" title="3、创建一个对象的步骤"></a><strong>3、创建一个对象的步骤</strong></h4><p><strong>步骤：类加载检查、分配内存、初始化零值、设置对象头、执行init方法</strong></p>
 <p><strong>①类加载检查：</strong> </p>
 <p>​        虚拟机遇到 new 指令时，⾸先去检查是否能在常量池中定位到这个类的符号引⽤，并且检查这个符号引⽤代表的类是否已被加载过、解析和初始化过。如果没有，那必须先执⾏相应的类加载过程。</p>
 <p><strong>②分配内存：</strong></p>
 <p>​         在类加载检查通过后，接下来虚拟机将为新⽣对象分配内存，分配⽅式有 <strong>“指针碰撞”</strong> 和 <strong>“空闲列表”</strong> 两种，选择那种分配⽅式由 Java 堆是否规整决定，⽽Java堆是否规整⼜由所采⽤的垃圾收集器是否带有压缩整理功能决定。</p>
-<p><strong>③初始化对象</strong></p>
-<ul>
-<li><strong>初始化零值：</strong></li>
-</ul>
+<p><strong>③初始化零值：</strong></p>
 <p>​         内存分配完成后，虚拟机需要将分配到的内存空间都初始化为零值，这⼀步操作保证了对象的实例字段在 Java 代码中可以不赋初始值就直接使⽤，程序能访问到这些字段的数据类型所对应的零值。</p>
-<ul>
-<li><strong>设置对象头：</strong></li>
-</ul>
+<p><strong>④设置对象头：</strong> </p>
 <p>​        初始化零值完成之后，虚拟机要对对象进⾏必要的设置，例如这个对象是那个类的实例、如何才能找到类的元数据信息、对象的哈希吗、对象的 GC 分代年龄等信息。 这些信息存放在对象头中。 另外，根据虚拟机当前运⾏状态的不同，如是否启⽤偏向锁等，对象头会有不同的设置⽅式。</p>
-<ul>
-<li><strong>执⾏ init ⽅法：</strong></li>
-</ul>
+<p><strong>⑤执⾏ init ⽅法：</strong> </p>
 <p>​        从虚拟机的视⻆来看，⼀个新的对象已经产⽣了，但从Java 程序的视⻆来看， <init> ⽅法还没有执⾏，所有的字段都还为零。所以⼀般来说（除循环依赖），执⾏ new 指令之后会接着执⾏  <init> ⽅法，这样⼀个真正可⽤的对象才算产⽣出来。</p>
-<p><strong>④将创建的对象指向分配的内存</strong></p>
 <h4 id="4、对象引用"><a href="#4、对象引用" class="headerlink" title="4、对象引用"></a>4、<strong>对象引用</strong></h4><p>普通的对象引用关系就是<strong>强引用</strong>。</p>
 <p><strong>软引用</strong>用于维护一些可有可无的对象。只有在<strong>内存不足时，系统则会回收软引用对象</strong>，如果回收了软引用对象之后仍然没有足够的内存，才会抛出内存溢出异常。</p>
 <p><strong>弱引用</strong>对象相比软引用来说，要更加无用一些，它拥有更短的生命周期，当 JVM 进行垃圾回收时，<strong>无论内存是否充足</strong>，都会回收被弱引用关联的对象。</p>
@@ -1806,15 +1362,14 @@
 <p><strong>加载阶段：</strong></p>
 <p>​        1.通过一个类的全限定名来获取定义此类的二进制字节流。</p>
 <p>​        2.将这个字节流所代表的静态存储结构转化为方法区的运行时数据结构。</p>
-<p>​        3.在Java堆中生成一个代表这个类的java.lang.class对象，作为访问方法区这些数据的入口。</p>
+<p>​        3.在Java堆中生成一个代表这个类的java.lang.class对象，作为方法区这些数据的访问入口。</p>
 <p><strong>验证阶段：</strong></p>
 <p>​        1.文件格式验证（是否符合Class文件格式的规范，并且能被当前版本的虚拟机处理）</p>
 <p>​        2.元数据验证（对字节码描述的信息进行语意分析，以保证其描述的信息符合Java语言规范要求）</p>
 <p>​        3.字节码验证（保证被校验类的方法在运行时不会做出危害虚拟机安全的行为）</p>
 <p>​        4.符号引用验证（虚拟机将符号引用转化为直接引用时，解析阶段中发生）</p>
 <p><strong>准备阶段：</strong></p>
-<p>​        准备阶段是正式为类变量（成员变量）分配内存并设置类变量初始值的阶段。将对象初始化为“零”值。</p>
-<p>这一步只会给那些静态变量设置一个初始的值，而那些实例变量是在实例化对象时进行分配的。</p>
+<p>​        准备阶段是正式为类变量分配内存并设置类变量初始值的阶段。将对象初始化为“零”值</p>
 <p><strong>解析阶段：</strong></p>
 <p>​        解析阶段时虚拟机将常量池内的符号引用替换为直接引用的过程。</p>
 <p>​        <strong>字符串常量池</strong>：堆上，默认class文件的静态常量池</p>
@@ -1824,7 +1379,7 @@
 <h4 id="1、双亲委派机制"><a href="#1、双亲委派机制" class="headerlink" title="1、双亲委派机制"></a><strong>1、双亲委派机制</strong></h4><p>​        每⼀个类都有⼀个对应它的类加载器。系统中的 ClassLoder 在协同⼯作的时候会默认使⽤ 双亲委派模型 。即在类加载的时候，系统会⾸先判断当前类是否被加载过。已经被加载的类会直接返回，否则才会尝试加载。加载的时候，⾸先会把该请求委派该⽗类加载器的  loadClass() 处理，因此所有的请求最终都应该传送到顶层的启动类加载器  BootstrapClassLoader 中。当⽗类加载器⽆法处理时，才由⾃⼰来处理。当⽗类加载器为null时，会使⽤启动类加载器  BootstrapClassLoader 作为⽗类加载器。</p>
 <p><img src="https://tva1.sinaimg.cn/large/008eGmZEly1gobn5lh4f6j30hk08rjso.jpg" alt="img"></p>
 <p><strong>使用好处：</strong></p>
-<p>​        此机制保证JDK核心类的优先加载；使得Java程序的稳定运⾏，可以避免类的重复加载，也保证了 Java 的核⼼ API 不被篡改。如果不⽤使⽤双亲委派模型，⽽是每个类加载器加载⾃⼰的话就会出现⼀些问题，⽐如我们编写⼀个称为  java.lang.Object 类的话，那么程序运⾏的时候，系统就会出现多个不同的Object 类。</p>
+<p>​        此机制保证JDK核心类的优先加载；使得Java程序的稳定运⾏，可以避免类的重复加载，也保证了 Java 的核⼼ API 不被篡改。如果不⽤没有使⽤双亲委派模型，⽽是每个类加载器加载⾃⼰的话就会出现⼀些问题，⽐如我们编写⼀个称为  java.lang.Object 类的话，那么程序运⾏的时候，系统就会出现多个不同的Object 类。</p>
 <p><strong>破坏双亲委派机制：</strong></p>
 <ul>
 <li><p>可以⾃⼰定义⼀个类加载器，重写loadClass方法；</p>
@@ -2874,7 +2429,6 @@
 <p>（2）在通过聚集索引定位到行记录；</p>
 <p>这就是所谓的<strong>回表查询</strong>，先定位主键值，再定位行记录，它的性能较扫一遍索引树更低。</p>
 <p><strong>覆盖索引</strong>：主键索引&#x3D;&#x3D;聚簇索引&#x3D;&#x3D;覆盖索引</p>
-<p>​    覆盖索引（covering index ，或称为索引覆盖）就是把单列的非主键 索引 修改为多字段的联合索引,  在一棵索引数上 就找到了想要的数据, 不需要去主键索引树上,再检索一遍  这个现象,称之为 索引覆盖.</p>
 <p>​    如果where条件的列和返回的数据在一个索引中，那么不需要回查表，那么就叫覆盖索引。</p>
 <p><strong>实现覆盖索引</strong>：常见的方法是，将被查询的字段，建立到联合索引里去。</p>
 <h4 id="3、Explain及优化"><a href="#3、Explain及优化" class="headerlink" title="3、Explain及优化"></a>3、Explain及优化</h4><p>参考：<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/8fab76bbf448">https://www.jianshu.com/p/8fab76bbf448</a></p>
@@ -2883,7 +2437,6 @@
 <p><strong>索引优化：</strong></p>
 <p>​    ①最左前缀索引：like只用于’string%’，语句中的&#x3D;和in会动态调整顺序</p>
 <p>​    ②唯一索引：唯一键区分度在0.1以上</p>
-<p>​        区分度的公式是count(distinct col)&#x2F;count(*)，表示字段不重复的比例，比例越大我们扫描的记录数越少，唯一键的区分度是1，而一些状态、性别字段可能在<a target="_blank" rel="noopener" href="http://lib.csdn.net/base/hadoop">大数据</a>面前区分度就 是0，那可能有人会问，这个比例有什么经验值吗？使用场景不同，这个值也很难确定，一般需要join的字段我们都要求是0.1以上，即平均1条扫描10条 记录</p>
 <p>​    ③无法使用索引：!&#x3D;  、is null 、 or、&gt;&lt; 、（<strong>5.7以后根据数量自动判定）in 、not in</strong></p>
 <p>​    ④联合索引：避免select * ，查询列使用覆盖索引</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SELECT uid From user Where gid = 2 order by ctime asc limit 10</span><br><span class="line">ALTER TABLE user add index idx_gid_ctime_uid(gid,ctime,uid) #创建联合覆盖索引，避免回表查询</span><br></pre></td></tr></table></figure>
@@ -5016,6 +4569,391 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/98b63d5c/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lion.png">
+      <meta itemprop="name" content="swimminghao">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="swimminghao's blog">
+      <meta itemprop="description" content="swimminghao的学习博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | swimminghao's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/98b63d5c/" class="post-title-link" itemprop="url">shell效率</a>
+        </h2>
+
+        <div class="post-meta-container">
+
+          
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-03-13 12:56:04" itemprop="dateModified" datetime="2022-03-13T12:56:04+08:00">2022-03-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">工具</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/posts/98b63d5c/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/98b63d5c/" data-xid="/posts/98b63d5c/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>3.3k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>3 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="§1效率"><a href="#§1效率" class="headerlink" title="§1效率"></a>§1效率</h1><h2 id="输入相似文件名太麻烦"><a href="#输入相似文件名太麻烦" class="headerlink" title="输入相似文件名太麻烦"></a><strong>输入相似文件名太麻烦</strong></h2><p>用花括号括起来的字符串用逗号连接，可以自动扩展，非常有用，直接看例子:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">echo</span> &#123;one,two,three&#125;file</span><br><span class="line">onefile twofile threefile</span><br><span class="line">$ <span class="built_in">echo</span> &#123;one,two,three&#125;&#123;1,2,3&#125;</span><br><span class="line">one1 one2 one3 two1 two2 two3 three1 three2 three3</span><br></pre></td></tr></table></figure>
+
+<p>你看，花括号中的每个字符都可以和之后(或之前)的字符串进行组合拼 接，<strong>注意花括号和其中的逗号不可以用空格分隔，否则会被认为是普通的字 符串对待</strong>。</p>
+<p>这个技巧有什么实际用处呢?最简单有用的就是给 cp , mv , rm 等命令扩 展参数:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cp</span> /very/long/path/file&#123;,.bak&#125;</span><br><span class="line">==&gt; <span class="built_in">cp</span> /very/long/path/file /very/long/path/file.bak</span><br><span class="line"><span class="comment"># 给 file 复制一个叫做 file.bak 的副本</span></span><br><span class="line"></span><br><span class="line">$ <span class="built_in">rm</span> file&#123;1,3,5&#125;.txt</span><br><span class="line"><span class="comment"># 删除 file1.txt file3.txt file5.txt</span></span><br><span class="line"></span><br><span class="line">$ <span class="built_in">mv</span> *.&#123;c,cpp&#125; src/</span><br><span class="line"><span class="comment"># 将所有 .c 和 .cpp 为后缀的文件移入 src 文件夹</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="输入路径名称太麻烦"><a href="#输入路径名称太麻烦" class="headerlink" title="输入路径名称太麻烦"></a><strong>输入路径名称太麻烦</strong></h2><ul>
+<li><strong>用</strong> <strong>cd -</strong> <strong>返回刚才呆的目录</strong>，直接看例子吧:</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">pwd</span></span><br><span class="line"> /very/long/path</span><br><span class="line"> $ <span class="built_in">cd</span> <span class="comment"># 回到家目录瞅瞅</span></span><br><span class="line"> $ <span class="built_in">pwd</span></span><br><span class="line"> /home/labuladong</span><br><span class="line"> $ <span class="built_in">cd</span> - <span class="comment"># 再返回刚才那个目录 $ pwd</span></span><br><span class="line"> /very/long/path</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>特殊命令</strong> <strong>!$</strong> <strong>会替换成上一次输入的命令最后的路径</strong>，直接看例子:</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#没有加可执行权限</span></span><br><span class="line">$ /usr/bin/script.sh</span><br><span class="line">zsh: permission denied: /usr/bin/script.sh</span><br><span class="line"></span><br><span class="line">$ <span class="built_in">chmod</span> +x !$</span><br><span class="line"><span class="built_in">chmod</span> +x /usr/bin/script.sh</span><br><span class="line"><span class="built_in">export</span> lessCharset-uft8</span><br></pre></td></tr></table></figure>
+
+<p><strong>特殊命令</strong> <strong>!*</strong> <strong>会替换成上一次命令输入的所有文件路径</strong>，直接看例子:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建了三个脚本文件</span></span><br><span class="line">$ file script1.sh script2.sh script3.sh</span><br><span class="line"></span><br><span class="line"><span class="comment"># 给它们全部加上可执行权限</span></span><br><span class="line">$ <span class="built_in">chmod</span> +x !*</span><br><span class="line"><span class="built_in">chmod</span> +x script1.sh script2.sh script3.sh</span><br></pre></td></tr></table></figure>
+
+<p><strong>可以在环境变量</strong> <strong>CDPATH</strong> <strong>中加入你常用的工作目录</strong>，当 cd 命令在当前目 录中找不到你指定的文件&#x2F;目录时，会自动到 CDPATH 中的目录中寻找。</p>
+<p>比如说我常去 &#x2F;var&#x2F;log 目录找日志，可以执行如下命令:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">export</span> CDPATH=<span class="string">&#x27;~:/var/log&#x27;</span></span><br><span class="line"><span class="comment"># cd 命令将会在 〜 目录和 /var/log 目录扩展搜索$ pwd</span></span><br><span class="line">/home/labuladong/musics</span><br><span class="line">$ <span class="built_in">cd</span> mysql</span><br><span class="line"><span class="built_in">cd</span> /var/log/mysql</span><br><span class="line">$ <span class="built_in">pwd</span></span><br><span class="line">/var/log/mysql</span><br><span class="line">$ <span class="built_in">cd</span> my_pictures</span><br><span class="line"><span class="built_in">cd</span> /home/labuladong/my_pictures</span><br></pre></td></tr></table></figure>
+
+<p>这个技巧是十分好用的，这样就免了经常写完整的路径名称，节约不少时间。</p>
+<p>需要注意的是，以上操作是 bash 支持的，其他主流 shell 解释器当然都支持 扩展 cd 命令的搜索目录，但可能不是修改 CDPATH 这个变量，具体的设 置方法可以自行搜索。</p>
+<h2 id="输入重复命令太麻烦"><a href="#输入重复命令太麻烦" class="headerlink" title="输入重复命令太麻烦"></a>输入重复命令太麻烦</h2><p>** <strong>使用特殊命令</strong> <strong>!!</strong> <strong>，可以自动替换成上一次使用的命令</strong>:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ apt install net-tools</span><br><span class="line"> E: Could not open lock file - open (13: Permission denied)</span><br><span class="line"></span><br><span class="line">$ sudo !!</span><br><span class="line"> sudo apt install net-tools [sudo] password <span class="keyword">for</span> fdl:</span><br></pre></td></tr></table></figure>
+
+<p>有的命令很⻓，一时间想不起来具体参数了怎么办?</p>
+<p><strong>对于</strong> <strong>bash</strong> <strong>终端，可以使用</strong> <strong>Ctrl+R</strong> <strong>快捷键反向搜索历史命令</strong>，之所以说是 反向搜索，就是搜索最近一次输入的命令。</p>
+<p>比如按下 Ctrl+R 之后，输入 sudo ，bash 就会搜索出最近一次包含 sudo 的命令，你回⻋之后就可以运行该命令了:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(reverse-i-search)`sudo<span class="string">&#x27;: sudo apt install git</span></span><br></pre></td></tr></table></figure>
+
+<p>但是这个方法有缺点:首先，该功能似乎只有 bash 支持，我用的 zsh 作为 shell 终端，就用不了;第二，只能查找出一个(最近的)命令，如果我想 找以前的某个命令，就没办法了。</p>
+<p>对于这种情况，<strong>我们最常用的方法是使用</strong> <strong>history</strong> <strong>命令配合管道符和</strong> <strong>grep</strong> <strong>命令来寻找某个历史命令</strong>:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 过滤出所有包含 config 字段的历史命令</span></span><br><span class="line">$ <span class="built_in">history</span> | grep <span class="string">&#x27;config&#x27;</span></span><br><span class="line">	7352 ./configure</span><br><span class="line">	7434 git config --global --<span class="built_in">unset</span> https.proxy 9609 ifconfig</span><br><span class="line">	9985 clip -o | sed -z <span class="string">&#x27;s/\n/,\n/g&#x27;</span> | clip</span><br><span class="line">	10433 <span class="built_in">cd</span> ~/.config</span><br></pre></td></tr></table></figure>
+
+<p>你使用的所有 shell 命令都会被记录，前面的数字就表示这是第几个命令， 找到你想重复使用的命令后，也不需要复制粘贴该命令，<strong>只要使用</strong> <strong>!</strong> <strong>+</strong> <strong>你 想重用的命令编号即可运行该命令</strong>。<br>拿上面的例子，我想重新运行 git config 那条命令，就可以这样:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ !7434</span><br><span class="line">git config --global --<span class="built_in">unset</span> https.proxy <span class="comment"># 运行完成</span></span><br></pre></td></tr></table></figure>
+
+<p>我觉得 history 加管道加 grep 这样打的字还是太多，可以在 你的 shell 配置文件中( .bashrc ， .zshrc 等) 中写这样一个函数:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">his</span></span>() &#123;</span><br><span class="line">	<span class="built_in">history</span> | grep <span class="string">&quot;<span class="variable">$@</span>&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这样就不需要写那么多，只需要 his ‘some_keyword’ 即可搜索历史命令。</p>
+<p>我一般不使用 bash 作为终端，我给大家推荐一款很好用的 shell 终端叫做 zsh，这也是我自己使用的 shell。这款终端还可以扩展各种插件，非常好 用，具体配置方法可自行搜索。</p>
+<h2 id="其他小技巧"><a href="#其他小技巧" class="headerlink" title="其他小技巧"></a>其他小技巧</h2><ul>
+<li><p>**yes <strong>命令自动输入字符</strong>y **进行确认</p>
+<p>我们安装某些软件的时候，可能有交互式的提问:</p>
+</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt install XXX</span><br><span class="line">...</span><br><span class="line">XXX will use 996 MB disk space, <span class="built_in">continue</span>? [y/n]</span><br></pre></td></tr></table></figure>
+
+<p>一般情况下我们都是一路 y 到底，但如果我们想自动化一些软件的安装就很 烦，遇到这种交互式提问就卡住了，还得手动处理。</p>
+<p>yes 命令可以帮助我们:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">yes</span> | your_cmd</span><br></pre></td></tr></table></figure>
+
+<p>这样就会一路自动 y 下去，不会停下让我们输入了。 如果你读过前文Linux 文件描述符，就知道其原理很简单:</p>
+<p>你单独运行一下 yes 命令，发现它就是打印出一大堆字符 y，通过管道把 输出和 your_cmd 的标准输入相连接，如果 your_cmd 又提出无聊的问题， 就会从标准输入读取数据，也就会读取到一个 y 和换行符，和你手动输入 y 确认是一个效果。</p>
+<ul>
+<li><strong>特殊变量</strong> <strong>$?</strong> <strong>记录上一次命令的返回值</strong>。</li>
+</ul>
+<p>在 Linux shell 中，遵循 C 语言的习惯，返回值为 0 的话就是程序正常退 出，非 0 值就是异常退出出。读取上一次命令的返回值在平时使用命令行时 感觉没什么用，但是如果你想编写一些 shell 脚本，知道返回值非常有用。</p>
+<p><strong>举个实际的例子</strong>，比如我的 Github 仓库 fucking-algorithm ，我需要给其中 所有 markdown 文件最下方添加上一篇、下一篇、目录三个⻚脚链接，有的 文章已经有了⻚脚，大部分都没有。</p>
+<p>为了防止重复添加，我必须知道一个 md 文件下方是否已添加，这时候就可 以使用 $? 变量配合 grep 命令做到:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line">filename=<span class="variable">$1</span></span><br><span class="line"><span class="comment"># 查看文件尾部是否包含关键词</span></span><br><span class="line"><span class="built_in">tail</span> | grep <span class="string">&#x27;下一篇&#x27;</span> <span class="variable">$filename</span></span><br><span class="line"><span class="comment"># grep 查找到匹配会返回 0，找不到则返回非 0 值</span></span><br><span class="line">[ $? -ne 0 ] &amp;&amp; &#123; 添加⻚脚; &#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>特殊变量</strong> <strong>$$</strong> <strong>记录当前进程的</strong> <strong>PID</strong>。</li>
+</ul>
+<p>这个功能可能在平时使用时也不怎么用，但是在写 shell 脚本时也非常有 用，比如说你要在 &#x2F;tmp 创建临时文件，给文件起名字一直都是非常让人 费脑子 的，这时候可以使用 $$ 变量扩展出当前进程的 PID 作为临时文件的名字。</p>
+
+      
+    </div>
+
+    
+    
+    
+
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>l
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/969e74c3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lion.png">
+      <meta itemprop="name" content="swimminghao">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="swimminghao's blog">
+      <meta itemprop="description" content="swimminghao的学习博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | swimminghao's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/969e74c3/" class="post-title-link" itemprop="url">shell效率0</a>
+        </h2>
+
+        <div class="post-meta-container">
+
+          
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-03-13 12:56:04" itemprop="dateModified" datetime="2022-03-13T12:56:04+08:00">2022-03-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">工具</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/posts/969e74c3/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/969e74c3/" data-xid="/posts/969e74c3/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>3.3k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>3 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>[toc]</p>
+<h1 id="§1效率"><a href="#§1效率" class="headerlink" title="§1效率"></a>§1效率</h1><h2 id="输入相似文件名太麻烦"><a href="#输入相似文件名太麻烦" class="headerlink" title="输入相似文件名太麻烦"></a><strong>输入相似文件名太麻烦</strong></h2><p>用花括号括起来的字符串用逗号连接，可以自动扩展，非常有用，直接看例子:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">echo</span> &#123;one,two,three&#125;file</span><br><span class="line">onefile twofile threefile</span><br><span class="line">$ <span class="built_in">echo</span> &#123;one,two,three&#125;&#123;1,2,3&#125;</span><br><span class="line">one1 one2 one3 two1 two2 two3 three1 three2 three3</span><br></pre></td></tr></table></figure>
+
+<p>你看，花括号中的每个字符都可以和之后(或之前)的字符串进行组合拼 接，<strong>注意花括号和其中的逗号不可以用空格分隔，否则会被认为是普通的字 符串对待</strong>。</p>
+<p>这个技巧有什么实际用处呢?最简单有用的就是给 cp , mv , rm 等命令扩 展参数:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cp</span> /very/long/path/file&#123;,.bak&#125;</span><br><span class="line">==&gt; <span class="built_in">cp</span> /very/long/path/file /very/long/path/file.bak</span><br><span class="line"><span class="comment"># 给 file 复制一个叫做 file.bak 的副本</span></span><br><span class="line"></span><br><span class="line">$ <span class="built_in">rm</span> file&#123;1,3,5&#125;.txt</span><br><span class="line"><span class="comment"># 删除 file1.txt file3.txt file5.txt</span></span><br><span class="line"></span><br><span class="line">$ <span class="built_in">mv</span> *.&#123;c,cpp&#125; src/</span><br><span class="line"><span class="comment"># 将所有 .c 和 .cpp 为后缀的文件移入 src 文件夹</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="输入路径名称太麻烦"><a href="#输入路径名称太麻烦" class="headerlink" title="输入路径名称太麻烦"></a><strong>输入路径名称太麻烦</strong></h2><ul>
+<li><strong>用</strong> <strong>cd -</strong> <strong>返回刚才呆的目录</strong>，直接看例子吧:</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">pwd</span></span><br><span class="line"> /very/long/path</span><br><span class="line"> $ <span class="built_in">cd</span> <span class="comment"># 回到家目录瞅瞅</span></span><br><span class="line"> $ <span class="built_in">pwd</span></span><br><span class="line"> /home/labuladong</span><br><span class="line"> $ <span class="built_in">cd</span> - <span class="comment"># 再返回刚才那个目录 $ pwd</span></span><br><span class="line"> /very/long/path</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>特殊命令</strong> <strong>!$</strong> <strong>会替换成上一次输入的命令最后的路径</strong>，直接看例子:</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#没有加可执行权限</span></span><br><span class="line">$ /usr/bin/script.sh</span><br><span class="line">zsh: permission denied: /usr/bin/script.sh</span><br><span class="line"></span><br><span class="line">$ <span class="built_in">chmod</span> +x !$</span><br><span class="line"><span class="built_in">chmod</span> +x /usr/bin/script.sh</span><br><span class="line"><span class="built_in">export</span> lessCharset-uft8</span><br></pre></td></tr></table></figure>
+
+<p><strong>特殊命令</strong> <strong>!*</strong> <strong>会替换成上一次命令输入的所有文件路径</strong>，直接看例子:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建了三个脚本文件</span></span><br><span class="line">$ file script1.sh script2.sh script3.sh</span><br><span class="line"></span><br><span class="line"><span class="comment"># 给它们全部加上可执行权限</span></span><br><span class="line">$ <span class="built_in">chmod</span> +x !*</span><br><span class="line"><span class="built_in">chmod</span> +x script1.sh script2.sh script3.sh</span><br></pre></td></tr></table></figure>
+
+<p><strong>可以在环境变量</strong> <strong>CDPATH</strong> <strong>中加入你常用的工作目录</strong>，当 cd 命令在当前目 录中找不到你指定的文件&#x2F;目录时，会自动到 CDPATH 中的目录中寻找。</p>
+<p>比如说我常去 &#x2F;var&#x2F;log 目录找日志，可以执行如下命令:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">export</span> CDPATH=<span class="string">&#x27;~:/var/log&#x27;</span></span><br><span class="line"><span class="comment"># cd 命令将会在 〜 目录和 /var/log 目录扩展搜索$ pwd</span></span><br><span class="line">/home/labuladong/musics</span><br><span class="line">$ <span class="built_in">cd</span> mysql</span><br><span class="line"><span class="built_in">cd</span> /var/log/mysql</span><br><span class="line">$ <span class="built_in">pwd</span></span><br><span class="line">/var/log/mysql</span><br><span class="line">$ <span class="built_in">cd</span> my_pictures</span><br><span class="line"><span class="built_in">cd</span> /home/labuladong/my_pictures</span><br></pre></td></tr></table></figure>
+
+<p>这个技巧是十分好用的，这样就免了经常写完整的路径名称，节约不少时间。</p>
+<p>需要注意的是，以上操作是 bash 支持的，其他主流 shell 解释器当然都支持 扩展 cd 命令的搜索目录，但可能不是修改 CDPATH 这个变量，具体的设 置方法可以自行搜索。</p>
+<h2 id="输入重复命令太麻烦"><a href="#输入重复命令太麻烦" class="headerlink" title="输入重复命令太麻烦"></a>输入重复命令太麻烦</h2><p>** <strong>使用特殊命令</strong> <strong>!!</strong> <strong>，可以自动替换成上一次使用的命令</strong>:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ apt install net-tools</span><br><span class="line"> E: Could not open lock file - open (13: Permission denied)</span><br><span class="line"></span><br><span class="line">$ sudo !!</span><br><span class="line"> sudo apt install net-tools [sudo] password <span class="keyword">for</span> fdl:</span><br></pre></td></tr></table></figure>
+
+<p>有的命令很⻓，一时间想不起来具体参数了怎么办?</p>
+<p><strong>对于</strong> <strong>bash</strong> <strong>终端，可以使用</strong> <strong>Ctrl+R</strong> <strong>快捷键反向搜索历史命令</strong>，之所以说是 反向搜索，就是搜索最近一次输入的命令。</p>
+<p>比如按下 Ctrl+R 之后，输入 sudo ，bash 就会搜索出最近一次包含 sudo 的命令，你回⻋之后就可以运行该命令了:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(reverse-i-search)`sudo<span class="string">&#x27;: sudo apt install git</span></span><br></pre></td></tr></table></figure>
+
+<p>但是这个方法有缺点:首先，该功能似乎只有 bash 支持，我用的 zsh 作为 shell 终端，就用不了;第二，只能查找出一个(最近的)命令，如果我想 找以前的某个命令，就没办法了。</p>
+<p>对于这种情况，<strong>我们最常用的方法是使用</strong> <strong>history</strong> <strong>命令配合管道符和</strong> <strong>grep</strong> <strong>命令来寻找某个历史命令</strong>:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 过滤出所有包含 config 字段的历史命令</span></span><br><span class="line">$ <span class="built_in">history</span> | grep <span class="string">&#x27;config&#x27;</span></span><br><span class="line">	7352 ./configure</span><br><span class="line">	7434 git config --global --<span class="built_in">unset</span> https.proxy 9609 ifconfig</span><br><span class="line">	9985 clip -o | sed -z <span class="string">&#x27;s/\n/,\n/g&#x27;</span> | clip</span><br><span class="line">	10433 <span class="built_in">cd</span> ~/.config</span><br></pre></td></tr></table></figure>
+
+<p>你使用的所有 shell 命令都会被记录，前面的数字就表示这是第几个命令， 找到你想重复使用的命令后，也不需要复制粘贴该命令，<strong>只要使用</strong> <strong>!</strong> <strong>+</strong> <strong>你 想重用的命令编号即可运行该命令</strong>。<br>拿上面的例子，我想重新运行 git config 那条命令，就可以这样:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ !7434</span><br><span class="line">git config --global --<span class="built_in">unset</span> https.proxy <span class="comment"># 运行完成</span></span><br></pre></td></tr></table></figure>
+
+<p>我觉得 history 加管道加 grep 这样打的字还是太多，可以在 你的 shell 配置文件中( .bashrc ， .zshrc 等) 中写这样一个函数:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">his</span></span>() &#123;</span><br><span class="line">	<span class="built_in">history</span> | grep <span class="string">&quot;<span class="variable">$@</span>&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这样就不需要写那么多，只需要 his ‘some_keyword’ 即可搜索历史命令。</p>
+<p>我一般不使用 bash 作为终端，我给大家推荐一款很好用的 shell 终端叫做 zsh，这也是我自己使用的 shell。这款终端还可以扩展各种插件，非常好 用，具体配置方法可自行搜索。</p>
+<h2 id="其他小技巧"><a href="#其他小技巧" class="headerlink" title="其他小技巧"></a>其他小技巧</h2><ul>
+<li><p>**yes <strong>命令自动输入字符</strong>y **进行确认</p>
+<p>我们安装某些软件的时候，可能有交互式的提问:</p>
+</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt install XXX</span><br><span class="line">...</span><br><span class="line">XXX will use 996 MB disk space, <span class="built_in">continue</span>? [y/n]</span><br></pre></td></tr></table></figure>
+
+<p>一般情况下我们都是一路 y 到底，但如果我们想自动化一些软件的安装就很 烦，遇到这种交互式提问就卡住了，还得手动处理。</p>
+<p>yes 命令可以帮助我们:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">yes</span> | your_cmd</span><br></pre></td></tr></table></figure>
+
+<p>这样就会一路自动 y 下去，不会停下让我们输入了。 如果你读过前文Linux 文件描述符，就知道其原理很简单:</p>
+<p>你单独运行一下 yes 命令，发现它就是打印出一大堆字符 y，通过管道把 输出和 your_cmd 的标准输入相连接，如果 your_cmd 又提出无聊的问题， 就会从标准输入读取数据，也就会读取到一个 y 和换行符，和你手动输入 y 确认是一个效果。</p>
+<ul>
+<li><strong>特殊变量</strong> <strong>$?</strong> <strong>记录上一次命令的返回值</strong>。</li>
+</ul>
+<p>在 Linux shell 中，遵循 C 语言的习惯，返回值为 0 的话就是程序正常退 出，非 0 值就是异常退出出。读取上一次命令的返回值在平时使用命令行时 感觉没什么用，但是如果你想编写一些 shell 脚本，知道返回值非常有用。</p>
+<p><strong>举个实际的例子</strong>，比如我的 Github 仓库 fucking-algorithm ，我需要给其中 所有 markdown 文件最下方添加上一篇、下一篇、目录三个⻚脚链接，有的 文章已经有了⻚脚，大部分都没有。</p>
+<p>为了防止重复添加，我必须知道一个 md 文件下方是否已添加，这时候就可 以使用 $? 变量配合 grep 命令做到:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line">filename=<span class="variable">$1</span></span><br><span class="line"><span class="comment"># 查看文件尾部是否包含关键词</span></span><br><span class="line"><span class="built_in">tail</span> | grep <span class="string">&#x27;下一篇&#x27;</span> <span class="variable">$filename</span></span><br><span class="line"><span class="comment"># grep 查找到匹配会返回 0，找不到则返回非 0 值</span></span><br><span class="line">[ $? -ne 0 ] &amp;&amp; &#123; 添加⻚脚; &#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>特殊变量</strong> <strong>$$</strong> <strong>记录当前进程的</strong> <strong>PID</strong>。</li>
+</ul>
+<p>这个功能可能在平时使用时也不怎么用，但是在写 shell 脚本时也非常有 用，比如说你要在 &#x2F;tmp 创建临时文件，给文件起名字一直都是非常让人 费脑子 的，这时候可以使用 $$ 变量扩展出当前进程的 PID 作为临时文件的名字。</p>
+
+      
+    </div>
+
+    
+    
+    
+
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>l
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://example.com/posts/9efd0db9/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -5055,7 +4993,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-13 12:52:09" itemprop="dateModified" datetime="2022-03-13T12:52:09+08:00">2022-03-13</time>
+      <time title="修改时间：2022-03-13 12:56:04" itemprop="dateModified" datetime="2022-03-13T12:56:04+08:00">2022-03-13</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -5179,7 +5117,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-13 12:52:25" itemprop="dateModified" datetime="2022-03-13T12:52:25+08:00">2022-03-13</time>
+      <time title="修改时间：2022-03-13 12:56:04" itemprop="dateModified" datetime="2022-03-13T12:56:04+08:00">2022-03-13</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -5521,7 +5459,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-13 12:42:32" itemprop="dateModified" datetime="2022-03-13T12:42:32+08:00">2022-03-13</time>
+      <time title="修改时间：2022-03-13 12:56:04" itemprop="dateModified" datetime="2022-03-13T12:56:04+08:00">2022-03-13</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -7347,7 +7285,7 @@
 <p>从上面的实现机制可以看出，Redis的多线程部分只是用来处理网络数据的读写和协议解析，执行命令仍然是单线程顺序执行。所以我们不需要去考虑控制 key、lua、事务，LPUSH&#x2F;LPOP 等等的并发及线程安全问题。</p>
 <p><strong>9.Linux环境上如何安装Redis6.0.1（6.0的正式版是6.0.1）？</strong></p>
 <p>这个和安装其他版本的redis没有任何区别，整个流程跑下来也没有任何的坑，所以这里就不做描述了。唯一要注意的就是配置多线程数一定要小于cpu的核心数，查看核心数量命令：</p>
-<p>[<a href="mailto:&#x72;&#111;&#x6f;&#x74;&#64;&#99;&#x65;&#x6e;&#116;&#x6f;&#115;&#55;&#46;&#x35;">&#x72;&#111;&#x6f;&#x74;&#64;&#99;&#x65;&#x6e;&#116;&#x6f;&#115;&#55;&#46;&#x35;</a> ~]# lscpuArchitecture: x86_64CPU op-mode(s): 32-bit, 64-bitByte Order: Little EndianCPU(s): 4On-line CPU(s) list: 0-3</p>
+<p>[<a href="mailto:&#114;&#111;&#x6f;&#116;&#64;&#x63;&#101;&#x6e;&#x74;&#x6f;&#x73;&#x37;&#46;&#53;">&#114;&#111;&#x6f;&#116;&#64;&#x63;&#101;&#x6e;&#x74;&#x6f;&#x73;&#x37;&#46;&#53;</a> ~]# lscpuArchitecture: x86_64CPU op-mode(s): 32-bit, 64-bitByte Order: Little EndianCPU(s): 4On-line CPU(s) list: 0-3</p>
 <p><strong>10.Redis6.0的多线程和Memcached多线程模型进行对比</strong></p>
 <p>前些年memcached 是各大互联网公司常用的缓存方案，因此redis 和 memcached 的区别基本成了面试官缓存方面必问的面试题，最近几年memcached用的少了，基本都是 redis。</p>
 <p>不过随着Redis6.0加入了多线程特性，类似的问题可能还会出现，接下来我们只针对多线程模型来简单比较一下。</p>
@@ -7768,7 +7706,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-13 12:52:31" itemprop="dateModified" datetime="2022-03-13T12:52:31+08:00">2022-03-13</time>
+      <time title="修改时间：2022-03-13 12:56:04" itemprop="dateModified" datetime="2022-03-13T12:56:04+08:00">2022-03-13</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -7919,7 +7857,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-13 12:52:36" itemprop="dateModified" datetime="2022-03-13T12:52:36+08:00">2022-03-13</time>
+      <time title="修改时间：2022-03-13 12:56:04" itemprop="dateModified" datetime="2022-03-13T12:56:04+08:00">2022-03-13</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -8060,7 +7998,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-13 12:55:47" itemprop="dateModified" datetime="2022-03-13T12:55:47+08:00">2022-03-13</time>
+      <time title="修改时间：2022-03-13 12:56:04" itemprop="dateModified" datetime="2022-03-13T12:56:04+08:00">2022-03-13</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -8189,7 +8127,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-13 12:55:53" itemprop="dateModified" datetime="2022-03-13T12:55:53+08:00">2022-03-13</time>
+      <time title="修改时间：2022-03-13 12:56:04" itemprop="dateModified" datetime="2022-03-13T12:56:04+08:00">2022-03-13</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
