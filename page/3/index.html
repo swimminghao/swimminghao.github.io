@@ -1083,414 +1083,6 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/e4d53ddb/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/lion.png">
-      <meta itemprop="name" content="swimminghao">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="swimminghao's blog">
-      <meta itemprop="description" content="swimminghao的学习博客">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | swimminghao's blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/e4d53ddb/" class="post-title-link" itemprop="url">Spring SchedulingConfigurer 实现动态定时任务</a>
-        </h2>
-
-        <div class="post-meta-container">
-
-          
-
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-13 12:56:04" itemprop="dateModified" datetime="2022-03-13T12:56:04+08:00">2022-03-13</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="far fa-comment"></i>
-    </span>
-    <span class="post-meta-item-text">Waline：</span>
-  
-    <a title="waline" href="/posts/e4d53ddb/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/e4d53ddb/" data-xid="/posts/e4d53ddb/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>11k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>10 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="Spring-SchedulingConfigurer-实现动态定时任务"><a href="#Spring-SchedulingConfigurer-实现动态定时任务" class="headerlink" title="Spring SchedulingConfigurer 实现动态定时任务"></a>Spring SchedulingConfigurer 实现动态定时任务</h1><p>一、前言<br>大家在日常工作中，一定使用过 Spring 的 @Scheduled 注解吧，通过该注解可以非常方便的帮助我们实现任务的定时执行。</p>
-<p>但是该注解是不支持运行时动态修改执行间隔的，不知道你在业务中有没有这些需求和痛点：</p>
-<p>在服务运行时能够动态修改定时任务的执行频率和执行开关，而无需重启服务和修改代码<br>能够基于配置，在不同环境&#x2F;机器上，实现定时任务执行频率的差异化<br>这些都可以通过 Spring 的 SchedulingConfigurer 注解来实现。</p>
-<p>这个注解其实大家并不陌生，如果有使用过 @Scheduled 的话，因为 @Scheduled 默认是单线程执行的，因此如果存在多个任务同时触发，可能触发阻塞。使用 SchedulingConfigurer 可以配置用于执行 @Scheduled 的线程池，来避免这个问题。</p>
-<p>JAVA<br>@Configuration<br>public class ScheduleConfig implements SchedulingConfigurer {<br>    @Override<br>    public void configureTasks(ScheduledTaskRegistrar taskRegistrar) {<br>        &#x2F;&#x2F;设定一个长度10的定时任务线程池<br>        taskRegistrar.setScheduler(Executors.newScheduledThreadPool(10));<br>    }<br>}<br>但其实这个接口，还可以实现动态定时任务的功能，下面来演示如何实现。</p>
-<p>二、功能实现<br>后续定义的类开头的 DS 是 Dynamic Schedule 的缩写。</p>
-<p>使用到的依赖，除了 Spring 外，还包括：</p>
-<p>XML<br><dependency><br>    <groupId>org.apache.commons</groupId><br>    <artifactId>commons-lang3</artifactId><br></dependency></p>
-<dependency>
-    <groupId>org.apache.commons</groupId>
-    <artifactId>commons-collections4</artifactId>
-    <version>4.4</version>
-</dependency>
-
-<dependency>
-    <groupId>org.projectlombok</groupId>
-    <artifactId>lombok</artifactId>
-    <scope>provided</scope>
-    <version>1.18.18</version>
-</dependency>
-2.1 @EnableScheduling
-首先需要开启 @EnableScheduling 注解，直接在启动类添加即可：
-
-<p>JAVA<br>@EnableScheduling<br>@SpringBootApplication<br>public class DSApplication {<br>    public static void main(String[] args) {<br>        SpringApplication.run(DSApplication.class, args);<br>    }<br>}<br>2.2 IDSTaskInfo<br>定义一个任务信息的接口，后续所有用于动态调整的任务信息对象，都需要实现该接口。</p>
-<p>id：该任务信息的唯一 ID，用于唯一标识一个任务<br>cron：该任务执行的 cron 表达式。<br>isValid：任务开关<br>isChange：用于标识任务参数是否发生了改变<br>JAVA<br>public interface IDSTaskInfo {<br>    &#x2F;**<br>     * 任务 ID<br>     *&#x2F;<br>    long getId();</p>
-<pre><code>/**
- * 任务执行 cron 表达式
- */
-String getCron();
-
-/**
- * 任务是否有效
- */
-boolean isValid();
-
-/**
- * 判断任务是否发生变化
- */
-boolean isChange(IDSTaskInfo oldTaskInfo);
-</code></pre>
-<p>}<br>2.3 DSContainer<br>顾名思义，是存放 IDSTaskInfo 的容器。</p>
-<p>具有以下成员变量：</p>
-<p>scheduleMap：用于暂存 IDSTaskInfo 和实际任务 ScheduledTask 的映射关系。其中：<br>task_id：作为主键，确保一个 IDSTaskInfo 只会被注册进一次<br>T：暂存当初注册时的 IDSTaskInfo，用于跟最新的 IDSTaskInfo 比较参数是否发生变化<br>ScheduledTask：暂存当初注册时生成的任务，如果需要取消任务的话，需要拿到该对象<br>Semaphore：确保每个任务实际执行时只有一个线程执行，不会产生并发问题<br>taskRegistrar：Spring 的任务注册管理器，用于注册任务到 Spring 容器中<br>name：调用方提供的类名<br>具有以下成员方法：</p>
-<p>void checkTask(final T taskInfo, final TriggerTask triggerTask)：检查 IDSTaskInfo，判断是否需要注册&#x2F;取消任务。具体的逻辑包括：<br>如果任务已经注册：<br>如果任务无效：则取消任务<br>如果任务有效：<br>如果任务配置发生了变化：则取消任务并重新注册任务<br>如果任务没有注册：<br>如果任务有效：则注册任务<br>Semaphore getSemaphore()：获取信号量属性。<br>JAVA<br>import lombok.extern.slf4j.Slf4j;<br>import org.apache.commons.lang3.tuple.Pair;<br>import org.springframework.scheduling.config.ScheduledTask;<br>import org.springframework.scheduling.config.ScheduledTaskRegistrar;<br>import org.springframework.scheduling.config.TriggerTask;</p>
-<p>import java.util.Map;<br>import java.util.concurrent.ConcurrentHashMap;<br>import java.util.concurrent.Semaphore;</p>
-<p>&#x2F;**</p>
-<ul>
-<li>存放 IDSTaskInfo 容器</li>
-<li>@author jitwxs</li>
-<li>@date 2021年03月27日 16:29</li>
-</ul>
-<p> <em>&#x2F;<br> @Slf4j<br> public class DSContainer<T extends IDSTaskInfo> {<br>    &#x2F;</em>*<br>     * IDSTaskInfo和真实任务的关联关系<br>     *<br>     * &lt;task_id, &lt;Task, &lt;Scheduled, Semaphore&gt;&gt;&gt;<br>     *&#x2F;<br>     private final Map&lt;Long, Pair&lt;T, Pair&lt;ScheduledTask, Semaphore&gt;&gt;&gt; scheduleMap &#x3D; new ConcurrentHashMap&lt;&gt;();</p>
-<pre><code>private final ScheduledTaskRegistrar taskRegistrar;
-
-private final String name;
-
-public DSContainer(ScheduledTaskRegistrar scheduledTaskRegistrar, final String name) &#123;
-    this.taskRegistrar = scheduledTaskRegistrar;
-    this.name = name;
-&#125;
-
-/**
- * 注册任务
- * @param taskInfo 任务信息
- * @param triggerTask 任务的触发规则
- */
- public void checkTask(final T taskInfo, final TriggerTask triggerTask) &#123;
-    final long taskId = taskInfo.getId();
-
-    if (scheduleMap.containsKey(taskId)) &#123;
-        if (taskInfo.isValid()) &#123;
-            final T oldTaskInfo = scheduleMap.get(taskId).getLeft();
-
-            if(oldTaskInfo.isChange(taskInfo)) &#123;
-                log.info(&quot;DSContainer will register &#123;&#125; again because task config change, taskId: &#123;&#125;&quot;, name, taskId);
-                cancelTask(taskId);
-                registerTask(taskInfo, triggerTask);
-            &#125;
-        &#125; else &#123;
-            log.info(&quot;DSContainer will cancelTask &#123;&#125; because task not valid, taskId: &#123;&#125;&quot;, name, taskId);
-            cancelTask(taskId);
-        &#125;
-    &#125; else &#123;
-        if (taskInfo.isValid()) &#123;
-            log.info(&quot;DSContainer will register &#123;&#125; task, taskId: &#123;&#125;&quot;, name, taskId);
-            registerTask(taskInfo, triggerTask);
-        &#125;
-    &#125;
- &#125;
-
-/**
- * 获取 Semaphore，确保任务不会被多个线程同时执行
- */
- public Semaphore getSemaphore(final long taskId) &#123;
-    return this.scheduleMap.get(taskId).getRight().getRight();
- &#125;
-
-private void registerTask(final T taskInfo, final TriggerTask triggerTask) &#123;
-    final ScheduledTask latestTask = taskRegistrar.scheduleTriggerTask(triggerTask);
-    this.scheduleMap.put(taskInfo.getId(), Pair.of(taskInfo, Pair.of(latestTask, new Semaphore(1))));
-&#125;
-
-private void cancelTask(final long taskId) &#123;
-    final Pair&lt;T, Pair&lt;ScheduledTask, Semaphore&gt;&gt; pair = this.scheduleMap.remove(taskId);
-    if (pair != null) &#123;
-        pair.getRight().getLeft().cancel();
-    &#125;
-&#125;
-</code></pre>
-<p> }<br> 2.4 AbstractDSHandler<br> 下面定义实际的动态线程池处理方法，这里采用抽象类实现，将共用逻辑封装起来，方便扩展。</p>
-<p>具有以下抽象方法：</p>
-<p>List<T> listTaskInfo()：获取所有的任务信息。<br>void doProcess(T taskInfo)：实现实际执行任务的业务逻辑。<br>具有以下公共方法：</p>
-<p>void configureTasks(ScheduledTaskRegistrar taskRegistrar)：创建 DSContainer 对象，并创建一个单线程的任务定时执行，调用 scheduleTask() 方法处理实际逻辑。<br>void scheduleTask()：首先加载所有任务信息，然后基于 cron 表达式生成 TriggerTask 对象，调用 checkTask() 方法确认是否需要注册&#x2F;取消任务。当达到执行时间时，调用 execute() 方法，执行任务逻辑。<br>void execute(final T taskInfo)：获取信号量，成功后执行任务逻辑。<br>JAVA<br>import lombok.extern.slf4j.Slf4j;<br>import org.apache.commons.collections4.CollectionUtils;<br>import org.springframework.scheduling.annotation.SchedulingConfigurer;<br>import org.springframework.scheduling.config.ScheduledTaskRegistrar;<br>import org.springframework.scheduling.config.TriggerTask;<br>import org.springframework.scheduling.support.CronTrigger;</p>
-<p>import java.util.List;<br>import java.util.Objects;<br>import java.util.concurrent.Semaphore;<br>import java.util.concurrent.TimeUnit;</p>
-<p>&#x2F;**</p>
-<ul>
-<li>抽象 Dynamic Schedule 实现，基于 SchedulingConfigurer 实现</li>
-<li>@author jitwxs</li>
-<li>@date 2021年03月27日 16:41</li>
-</ul>
-<p> *&#x2F;<br> @Slf4j<br> public abstract class AbstractDSHandler<T extends IDSTaskInfo> implements SchedulingConfigurer {</p>
-<pre><code>private DSContainer&lt;T&gt; dsContainer;
-
-private final String CLASS_NAME = getClass().getSimpleName();
-
-/**
- * 获取所有的任务信息
- */
- protected abstract List&lt;T&gt; listTaskInfo();
-
-/**
- * 做具体的任务逻辑
- *
- * &lt;p/&gt; 该方法执行时位于跟 SpringBoot @Scheduled 注解相同的线程池内。如果内部仍需要开子线程池执行，请务必同步等待子线程池执行完毕，否则可能会影响预期效果。
- */
- protected abstract void doProcess(T taskInfo) throws Throwable;
-
-@Override
-public void configureTasks(ScheduledTaskRegistrar taskRegistrar) &#123;
-    dsContainer = new DSContainer&lt;&gt;(taskRegistrar, CLASS_NAME);
-    // 每隔 100ms 调度一次，用于读取所有任务
-    taskRegistrar.addFixedDelayTask(this::scheduleTask, 1000);
-&#125;
-
-/**
- * 调度任务，加载所有任务并注册
- */
- private void scheduleTask() &#123;
-    CollectionUtils.emptyIfNull(listTaskInfo()).forEach(taskInfo -&gt;
-            dsContainer.checkTask(taskInfo, new TriggerTask(() -&gt;
-                    this.execute(taskInfo), triggerContext -&gt; new CronTrigger(taskInfo.getCron()).nextExecutionTime(triggerContext)
-            ))
-    );
- &#125;
-
-private void execute(final T taskInfo) &#123;
-    final long taskId = taskInfo.getId();
-
-    try &#123;
-        Semaphore semaphore = dsContainer.getSemaphore(taskId);
-        if (Objects.isNull(semaphore)) &#123;
-            log.error(&quot;&#123;&#125; semaphore is null, taskId: &#123;&#125;&quot;, CLASS_NAME, taskId);
-            return;
-        &#125;
-        if (semaphore.tryAcquire(3, TimeUnit.SECONDS)) &#123;
-            try &#123;
-                doProcess(taskInfo);
-            &#125; catch (Throwable throwable) &#123;
-                log.error(&quot;&#123;&#125; doProcess error, taskId: &#123;&#125;&quot;, CLASS_NAME, taskId, throwable);
-            &#125; finally &#123;
-                semaphore.release();
-            &#125;
-        &#125; else &#123;
-            log.warn(&quot;&#123;&#125; too many executor, taskId: &#123;&#125;&quot;, CLASS_NAME, taskId);
-        &#125;
-    &#125; catch (InterruptedException e) &#123;
-        log.warn(&quot;&#123;&#125; interruptedException error, taskId: &#123;&#125;&quot;, CLASS_NAME, taskId);
-    &#125; catch (Exception e) &#123;
-        log.error(&quot;&#123;&#125; execute error, taskId: &#123;&#125;&quot;, CLASS_NAME, taskId, e);
-    &#125;
-&#125;
-</code></pre>
-<p> }<br> 三、快速测试<br> 至此就完成了动态任务的框架搭建，下面让我们来快速测试下。为了尽量减少其他技术带来的复杂度，本次测试不涉及数据库和真实的定时任务，完全采用模拟实现。</p>
-<p>3.1 模拟定时任务<br>为了模拟一个定时任务，我定义了一个 foo() 方法，其中只输出一句话。后续我将通过定时调用该方法，来模拟定时任务。</p>
-<p>JAVA<br>import lombok.extern.slf4j.Slf4j;</p>
-<p>import java.time.LocalTime;</p>
-<p>@Slf4j<br>public class SchedulerTest {<br>    public void foo() {<br>        log.info(“{} Execute com.github.jitwxs.sample.ds.test.SchedulerTest#foo”, LocalTime.now());<br>    }<br>}<br>3.2 实现 IDSTaskInfo<br>首先定义 IDSTaskInfo，我这里想通过反射来实现调用 foo() 方法，因此 reference 表示的是要调用方法的全路径。另外我实现了 isChange() 方法，只要 cron、isValid、reference 发生了变动，就认为该任务的配置发生了改变。</p>
-<p>JAVA<br>import com.github.jitwxs.sample.ds.config.IDSTaskInfo;<br>import lombok.Builder;<br>import lombok.Data;</p>
-<p>@Data<br>@Builder<br>public class SchedulerTestTaskInfo implements IDSTaskInfo {<br>    private long id;</p>
-<pre><code>private String cron;
-
-private boolean isValid;
-
-private String reference;
-
-@Override
-public boolean isChange(IDSTaskInfo oldTaskInfo) &#123;
-    if(oldTaskInfo instanceof SchedulerTestTaskInfo) &#123;
-        final SchedulerTestTaskInfo obj = (SchedulerTestTaskInfo) oldTaskInfo;
-        return !this.cron.equals(obj.cron) || this.isValid != obj.isValid || !this.reference.equals(obj.getReference());
-    &#125; else &#123;
-        throw new IllegalArgumentException(&quot;Not Support SchedulerTestTaskInfo type&quot;);
-    &#125;
-&#125;
-</code></pre>
-<p>}<br>3.3 实现 AbstractDSHandler<br>有几个需要关注的：</p>
-<p>（1）listTaskInfo() 返回值我使用了 volatile 变量，便于我修改它，模拟任务信息数据的改变。</p>
-<p>（2）doProcess() 方法中，读取到 reference 后，使用反射进行调用，模拟定时任务的执行。</p>
-<p>（3）额外实现了 ApplicationListener 接口，当服务启动后，每隔一段时间修改下任务信息，模拟业务中调整配置。</p>
-<p>服务启动后，foo() 定时任务将每 10s 执行一次。<br>10s 后，将 foo() 定时任务执行周期从每 10s 执行调整为 1s 执行。<br>10s 后，关闭 foo() 定时任务执行。<br>10s 后，开启 foo() 定时任务执行。<br>JAVA<br>import com.github.jitwxs.sample.ds.config.AbstractDSHandler;<br>import org.springframework.context.ApplicationEvent;<br>import org.springframework.context.ApplicationListener;<br>import org.springframework.stereotype.Component;</p>
-<p>import java.lang.reflect.Method;<br>import java.util.Collections;<br>import java.util.List;<br>import java.util.concurrent.Executors;<br>import java.util.concurrent.TimeUnit;<br>import java.util.concurrent.locks.LockSupport;</p>
-<p>&#x2F;**</p>
-<ul>
-<li>@author jitwxs</li>
-<li>@date 2021年03月27日 21:54</li>
-</ul>
-<p> *&#x2F;<br> @Component<br> public class SchedulerTestDSHandler extends AbstractDSHandler<SchedulerTestTaskInfo> implements ApplicationListener {<br>    public volatile List<SchedulerTestTaskInfo> taskInfoList &#x3D; Collections.singletonList(<br>            SchedulerTestTaskInfo.builder()<br>                    .id(1)<br>                    .cron(“0&#x2F;10 * * * * ? “)<br>                    .isValid(true)<br>                    .reference(“com.github.jitwxs.sample.ds.test.SchedulerTest#foo”)<br>                    .build()<br>    );</p>
-<pre><code>@Override
-protected List&lt;SchedulerTestTaskInfo&gt; listTaskInfo() &#123;
-    return taskInfoList;
-&#125;
-
-@Override
-protected void doProcess(SchedulerTestTaskInfo taskInfo) throws Throwable &#123;
-    final String reference = taskInfo.getReference();
-    final String[] split = reference.split(&quot;#&quot;);
-    if(split.length != 2) &#123;
-        return;
-    &#125;
-
-   try &#123;
-       final Class&lt;?&gt; clazz = Class.forName(split[0]);
-       final Method method = clazz.getMethod(split[1]);
-       method.invoke(clazz.newInstance());
-   &#125; catch (Exception e) &#123;
-       e.printStackTrace();
-   &#125;
-&#125;
-
-@Override
-public void onApplicationEvent(ApplicationEvent applicationEvent) &#123;
-    Executors.newScheduledThreadPool(1).scheduleAtFixedRate(() -&gt; &#123;
-        LockSupport.parkNanos(TimeUnit.SECONDS.toNanos(10));
-
-        // setting 1 seconds execute
-        taskInfoList = Collections.singletonList(
-                SchedulerTestTaskInfo.builder()
-                        .id(1)
-                        .cron(&quot;0/1 * * * * ? &quot;)
-                        .isValid(true)
-                        .reference(&quot;com.github.jitwxs.sample.ds.test.SchedulerTest#foo&quot;)
-                        .build()
-        );
- 
-        LockSupport.parkNanos(TimeUnit.SECONDS.toNanos(10));
- 
-        // setting not valid
-        taskInfoList = Collections.singletonList(
-                SchedulerTestTaskInfo.builder()
-                        .id(1)
-                        .cron(&quot;0/1 * * * * ? &quot;)
-                        .isValid(false)
-                        .reference(&quot;com.github.jitwxs.sample.ds.test.SchedulerTest#foo&quot;)
-                        .build()
-        );
- 
-        LockSupport.parkNanos(TimeUnit.SECONDS.toNanos(10));
- 
-        // setting valid
-        taskInfoList = Collections.singletonList(
-                SchedulerTestTaskInfo.builder()
-                        .id(1)
-                        .cron(&quot;0/1 * * * * ? &quot;)
-                        .isValid(true)
-                        .reference(&quot;com.github.jitwxs.sample.ds.test.SchedulerTest#foo&quot;)
-                        .build()
-        );
-    &#125;, 12, 86400, TimeUnit.SECONDS);
-&#125;
-</code></pre>
-<p> }<br> 3.4 运行程序<br> 整个应用包结构如下：</p>
-<p>包结构</p>
-<p>运行程序后，在控制台可以观测到如下输出：</p>
-<p>运行结果</p>
-<p>四、后记<br>以上完成了动态定时任务的介绍，你能够根据本篇文章，实现以下需求吗：</p>
-<p>本文基于 cron 表达式实现了频率控制，你能改用 fixedDelay 或 fixedRate 实现吗？<br>基于数据库&#x2F;配置文件&#x2F;配置中心，实现对服务中定时任务的动态频率调整和任务的启停。<br>开发一个数据表历史数据清理功能，能够动态配置要清理的表、清理的规则、清理的周期。<br>开发一个数据表异常数据告警功能，能够动态配置要扫描的表、告警的规则、扫描的周期。</p>
-<p>作者: Jitwxs<br>链接: <a target="_blank" rel="noopener" href="https://jitwxs.cn/e4d53ddb">https://jitwxs.cn/e4d53ddb</a><br>来源: Jitwxs<br>著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p>
-
-      
-    </div>
-
-    
-    
-    
-
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>l
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://example.com/posts/86d8e3c1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1692,6 +1284,414 @@ public void onApplicationEvent(ApplicationEvent applicationEvent) &#123;
 </ul>
 </li>
 </ul>
+
+      
+    </div>
+
+    
+    
+    
+
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>l
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/e4d53ddb/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lion.png">
+      <meta itemprop="name" content="swimminghao">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="swimminghao's blog">
+      <meta itemprop="description" content="swimminghao的学习博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | swimminghao's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/e4d53ddb/" class="post-title-link" itemprop="url">未命名</a>
+        </h2>
+
+        <div class="post-meta-container">
+
+          
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-03-14 11:32:47" itemprop="dateModified" datetime="2022-03-14T11:32:47+08:00">2022-03-14</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/posts/e4d53ddb/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/e4d53ddb/" data-xid="/posts/e4d53ddb/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>11k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>10 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="Spring-SchedulingConfigurer-实现动态定时任务"><a href="#Spring-SchedulingConfigurer-实现动态定时任务" class="headerlink" title="Spring SchedulingConfigurer 实现动态定时任务"></a>Spring SchedulingConfigurer 实现动态定时任务</h1><p>一、前言<br>大家在日常工作中，一定使用过 Spring 的 @Scheduled 注解吧，通过该注解可以非常方便的帮助我们实现任务的定时执行。</p>
+<p>但是该注解是不支持运行时动态修改执行间隔的，不知道你在业务中有没有这些需求和痛点：</p>
+<p>在服务运行时能够动态修改定时任务的执行频率和执行开关，而无需重启服务和修改代码<br>能够基于配置，在不同环境&#x2F;机器上，实现定时任务执行频率的差异化<br>这些都可以通过 Spring 的 SchedulingConfigurer 注解来实现。</p>
+<p>这个注解其实大家并不陌生，如果有使用过 @Scheduled 的话，因为 @Scheduled 默认是单线程执行的，因此如果存在多个任务同时触发，可能触发阻塞。使用 SchedulingConfigurer 可以配置用于执行 @Scheduled 的线程池，来避免这个问题。</p>
+<p>JAVA<br>@Configuration<br>public class ScheduleConfig implements SchedulingConfigurer {<br>    @Override<br>    public void configureTasks(ScheduledTaskRegistrar taskRegistrar) {<br>        &#x2F;&#x2F;设定一个长度10的定时任务线程池<br>        taskRegistrar.setScheduler(Executors.newScheduledThreadPool(10));<br>    }<br>}<br>但其实这个接口，还可以实现动态定时任务的功能，下面来演示如何实现。</p>
+<p>二、功能实现<br>后续定义的类开头的 DS 是 Dynamic Schedule 的缩写。</p>
+<p>使用到的依赖，除了 Spring 外，还包括：</p>
+<p>XML<br><dependency><br>    <groupId>org.apache.commons</groupId><br>    <artifactId>commons-lang3</artifactId><br></dependency></p>
+<dependency>
+    <groupId>org.apache.commons</groupId>
+    <artifactId>commons-collections4</artifactId>
+    <version>4.4</version>
+</dependency>
+
+<dependency>
+    <groupId>org.projectlombok</groupId>
+    <artifactId>lombok</artifactId>
+    <scope>provided</scope>
+    <version>1.18.18</version>
+</dependency>
+2.1 @EnableScheduling
+首先需要开启 @EnableScheduling 注解，直接在启动类添加即可：
+
+<p>JAVA<br>@EnableScheduling<br>@SpringBootApplication<br>public class DSApplication {<br>    public static void main(String[] args) {<br>        SpringApplication.run(DSApplication.class, args);<br>    }<br>}<br>2.2 IDSTaskInfo<br>定义一个任务信息的接口，后续所有用于动态调整的任务信息对象，都需要实现该接口。</p>
+<p>id：该任务信息的唯一 ID，用于唯一标识一个任务<br>cron：该任务执行的 cron 表达式。<br>isValid：任务开关<br>isChange：用于标识任务参数是否发生了改变<br>JAVA<br>public interface IDSTaskInfo {<br>    &#x2F;**<br>     * 任务 ID<br>     *&#x2F;<br>    long getId();</p>
+<pre><code>/**
+ * 任务执行 cron 表达式
+ */
+String getCron();
+
+/**
+ * 任务是否有效
+ */
+boolean isValid();
+
+/**
+ * 判断任务是否发生变化
+ */
+boolean isChange(IDSTaskInfo oldTaskInfo);
+</code></pre>
+<p>}<br>2.3 DSContainer<br>顾名思义，是存放 IDSTaskInfo 的容器。</p>
+<p>具有以下成员变量：</p>
+<p>scheduleMap：用于暂存 IDSTaskInfo 和实际任务 ScheduledTask 的映射关系。其中：<br>task_id：作为主键，确保一个 IDSTaskInfo 只会被注册进一次<br>T：暂存当初注册时的 IDSTaskInfo，用于跟最新的 IDSTaskInfo 比较参数是否发生变化<br>ScheduledTask：暂存当初注册时生成的任务，如果需要取消任务的话，需要拿到该对象<br>Semaphore：确保每个任务实际执行时只有一个线程执行，不会产生并发问题<br>taskRegistrar：Spring 的任务注册管理器，用于注册任务到 Spring 容器中<br>name：调用方提供的类名<br>具有以下成员方法：</p>
+<p>void checkTask(final T taskInfo, final TriggerTask triggerTask)：检查 IDSTaskInfo，判断是否需要注册&#x2F;取消任务。具体的逻辑包括：<br>如果任务已经注册：<br>如果任务无效：则取消任务<br>如果任务有效：<br>如果任务配置发生了变化：则取消任务并重新注册任务<br>如果任务没有注册：<br>如果任务有效：则注册任务<br>Semaphore getSemaphore()：获取信号量属性。<br>JAVA<br>import lombok.extern.slf4j.Slf4j;<br>import org.apache.commons.lang3.tuple.Pair;<br>import org.springframework.scheduling.config.ScheduledTask;<br>import org.springframework.scheduling.config.ScheduledTaskRegistrar;<br>import org.springframework.scheduling.config.TriggerTask;</p>
+<p>import java.util.Map;<br>import java.util.concurrent.ConcurrentHashMap;<br>import java.util.concurrent.Semaphore;</p>
+<p>&#x2F;**</p>
+<ul>
+<li>存放 IDSTaskInfo 容器</li>
+<li>@author jitwxs</li>
+<li>@date 2021年03月27日 16:29</li>
+</ul>
+<p> <em>&#x2F;<br>  @Slf4j<br>  public class DSContainer<T extends IDSTaskInfo> {<br>    &#x2F;</em>*<br>     * IDSTaskInfo和真实任务的关联关系<br>     *<br>     * &lt;task_id, &lt;Task, &lt;Scheduled, Semaphore&gt;&gt;&gt;<br>     *&#x2F;<br>      private final Map&lt;Long, Pair&lt;T, Pair&lt;ScheduledTask, Semaphore&gt;&gt;&gt; scheduleMap &#x3D; new ConcurrentHashMap&lt;&gt;();</p>
+<pre><code>private final ScheduledTaskRegistrar taskRegistrar;
+
+private final String name;
+
+public DSContainer(ScheduledTaskRegistrar scheduledTaskRegistrar, final String name) &#123;
+    this.taskRegistrar = scheduledTaskRegistrar;
+    this.name = name;
+&#125;
+
+/**
+ * 注册任务
+ * @param taskInfo 任务信息
+ * @param triggerTask 任务的触发规则
+ */
+  public void checkTask(final T taskInfo, final TriggerTask triggerTask) &#123;
+    final long taskId = taskInfo.getId();
+
+    if (scheduleMap.containsKey(taskId)) &#123;
+        if (taskInfo.isValid()) &#123;
+            final T oldTaskInfo = scheduleMap.get(taskId).getLeft();
+
+            if(oldTaskInfo.isChange(taskInfo)) &#123;
+                log.info(&quot;DSContainer will register &#123;&#125; again because task config change, taskId: &#123;&#125;&quot;, name, taskId);
+                cancelTask(taskId);
+                registerTask(taskInfo, triggerTask);
+            &#125;
+        &#125; else &#123;
+            log.info(&quot;DSContainer will cancelTask &#123;&#125; because task not valid, taskId: &#123;&#125;&quot;, name, taskId);
+            cancelTask(taskId);
+        &#125;
+    &#125; else &#123;
+        if (taskInfo.isValid()) &#123;
+            log.info(&quot;DSContainer will register &#123;&#125; task, taskId: &#123;&#125;&quot;, name, taskId);
+            registerTask(taskInfo, triggerTask);
+        &#125;
+    &#125;
+  &#125;
+
+/**
+ * 获取 Semaphore，确保任务不会被多个线程同时执行
+ */
+  public Semaphore getSemaphore(final long taskId) &#123;
+    return this.scheduleMap.get(taskId).getRight().getRight();
+  &#125;
+
+private void registerTask(final T taskInfo, final TriggerTask triggerTask) &#123;
+    final ScheduledTask latestTask = taskRegistrar.scheduleTriggerTask(triggerTask);
+    this.scheduleMap.put(taskInfo.getId(), Pair.of(taskInfo, Pair.of(latestTask, new Semaphore(1))));
+&#125;
+
+private void cancelTask(final long taskId) &#123;
+    final Pair&lt;T, Pair&lt;ScheduledTask, Semaphore&gt;&gt; pair = this.scheduleMap.remove(taskId);
+    if (pair != null) &#123;
+        pair.getRight().getLeft().cancel();
+    &#125;
+&#125;
+</code></pre>
+<p>  }<br>  2.4 AbstractDSHandler<br>  下面定义实际的动态线程池处理方法，这里采用抽象类实现，将共用逻辑封装起来，方便扩展。</p>
+<p>具有以下抽象方法：</p>
+<p>List<T> listTaskInfo()：获取所有的任务信息。<br>void doProcess(T taskInfo)：实现实际执行任务的业务逻辑。<br>具有以下公共方法：</p>
+<p>void configureTasks(ScheduledTaskRegistrar taskRegistrar)：创建 DSContainer 对象，并创建一个单线程的任务定时执行，调用 scheduleTask() 方法处理实际逻辑。<br>void scheduleTask()：首先加载所有任务信息，然后基于 cron 表达式生成 TriggerTask 对象，调用 checkTask() 方法确认是否需要注册&#x2F;取消任务。当达到执行时间时，调用 execute() 方法，执行任务逻辑。<br>void execute(final T taskInfo)：获取信号量，成功后执行任务逻辑。<br>JAVA<br>import lombok.extern.slf4j.Slf4j;<br>import org.apache.commons.collections4.CollectionUtils;<br>import org.springframework.scheduling.annotation.SchedulingConfigurer;<br>import org.springframework.scheduling.config.ScheduledTaskRegistrar;<br>import org.springframework.scheduling.config.TriggerTask;<br>import org.springframework.scheduling.support.CronTrigger;</p>
+<p>import java.util.List;<br>import java.util.Objects;<br>import java.util.concurrent.Semaphore;<br>import java.util.concurrent.TimeUnit;</p>
+<p>&#x2F;**</p>
+<ul>
+<li>抽象 Dynamic Schedule 实现，基于 SchedulingConfigurer 实现</li>
+<li>@author jitwxs</li>
+<li>@date 2021年03月27日 16:41</li>
+</ul>
+<p> *&#x2F;<br>  @Slf4j<br>  public abstract class AbstractDSHandler<T extends IDSTaskInfo> implements SchedulingConfigurer {</p>
+<pre><code>private DSContainer&lt;T&gt; dsContainer;
+
+private final String CLASS_NAME = getClass().getSimpleName();
+
+/**
+ * 获取所有的任务信息
+ */
+  protected abstract List&lt;T&gt; listTaskInfo();
+
+/**
+ * 做具体的任务逻辑
+ *
+ * &lt;p/&gt; 该方法执行时位于跟 SpringBoot @Scheduled 注解相同的线程池内。如果内部仍需要开子线程池执行，请务必同步等待子线程池执行完毕，否则可能会影响预期效果。
+ */
+  protected abstract void doProcess(T taskInfo) throws Throwable;
+
+@Override
+public void configureTasks(ScheduledTaskRegistrar taskRegistrar) &#123;
+    dsContainer = new DSContainer&lt;&gt;(taskRegistrar, CLASS_NAME);
+    // 每隔 100ms 调度一次，用于读取所有任务
+    taskRegistrar.addFixedDelayTask(this::scheduleTask, 1000);
+&#125;
+
+/**
+ * 调度任务，加载所有任务并注册
+ */
+  private void scheduleTask() &#123;
+    CollectionUtils.emptyIfNull(listTaskInfo()).forEach(taskInfo -&gt;
+            dsContainer.checkTask(taskInfo, new TriggerTask(() -&gt;
+                    this.execute(taskInfo), triggerContext -&gt; new CronTrigger(taskInfo.getCron()).nextExecutionTime(triggerContext)
+            ))
+    );
+  &#125;
+
+private void execute(final T taskInfo) &#123;
+    final long taskId = taskInfo.getId();
+
+    try &#123;
+        Semaphore semaphore = dsContainer.getSemaphore(taskId);
+        if (Objects.isNull(semaphore)) &#123;
+            log.error(&quot;&#123;&#125; semaphore is null, taskId: &#123;&#125;&quot;, CLASS_NAME, taskId);
+            return;
+        &#125;
+        if (semaphore.tryAcquire(3, TimeUnit.SECONDS)) &#123;
+            try &#123;
+                doProcess(taskInfo);
+            &#125; catch (Throwable throwable) &#123;
+                log.error(&quot;&#123;&#125; doProcess error, taskId: &#123;&#125;&quot;, CLASS_NAME, taskId, throwable);
+            &#125; finally &#123;
+                semaphore.release();
+            &#125;
+        &#125; else &#123;
+            log.warn(&quot;&#123;&#125; too many executor, taskId: &#123;&#125;&quot;, CLASS_NAME, taskId);
+        &#125;
+    &#125; catch (InterruptedException e) &#123;
+        log.warn(&quot;&#123;&#125; interruptedException error, taskId: &#123;&#125;&quot;, CLASS_NAME, taskId);
+    &#125; catch (Exception e) &#123;
+        log.error(&quot;&#123;&#125; execute error, taskId: &#123;&#125;&quot;, CLASS_NAME, taskId, e);
+    &#125;
+&#125;
+</code></pre>
+<p>  }<br>  三、快速测试<br>  至此就完成了动态任务的框架搭建，下面让我们来快速测试下。为了尽量减少其他技术带来的复杂度，本次测试不涉及数据库和真实的定时任务，完全采用模拟实现。</p>
+<p>3.1 模拟定时任务<br>为了模拟一个定时任务，我定义了一个 foo() 方法，其中只输出一句话。后续我将通过定时调用该方法，来模拟定时任务。</p>
+<p>JAVA<br>import lombok.extern.slf4j.Slf4j;</p>
+<p>import java.time.LocalTime;</p>
+<p>@Slf4j<br>public class SchedulerTest {<br>    public void foo() {<br>        log.info(“{} Execute com.github.jitwxs.sample.ds.test.SchedulerTest#foo”, LocalTime.now());<br>    }<br>}<br>3.2 实现 IDSTaskInfo<br>首先定义 IDSTaskInfo，我这里想通过反射来实现调用 foo() 方法，因此 reference 表示的是要调用方法的全路径。另外我实现了 isChange() 方法，只要 cron、isValid、reference 发生了变动，就认为该任务的配置发生了改变。</p>
+<p>JAVA<br>import com.github.jitwxs.sample.ds.config.IDSTaskInfo;<br>import lombok.Builder;<br>import lombok.Data;</p>
+<p>@Data<br>@Builder<br>public class SchedulerTestTaskInfo implements IDSTaskInfo {<br>    private long id;</p>
+<pre><code>private String cron;
+
+private boolean isValid;
+
+private String reference;
+
+@Override
+public boolean isChange(IDSTaskInfo oldTaskInfo) &#123;
+    if(oldTaskInfo instanceof SchedulerTestTaskInfo) &#123;
+        final SchedulerTestTaskInfo obj = (SchedulerTestTaskInfo) oldTaskInfo;
+        return !this.cron.equals(obj.cron) || this.isValid != obj.isValid || !this.reference.equals(obj.getReference());
+    &#125; else &#123;
+        throw new IllegalArgumentException(&quot;Not Support SchedulerTestTaskInfo type&quot;);
+    &#125;
+&#125;
+</code></pre>
+<p>}<br>3.3 实现 AbstractDSHandler<br>有几个需要关注的：</p>
+<p>（1）listTaskInfo() 返回值我使用了 volatile 变量，便于我修改它，模拟任务信息数据的改变。</p>
+<p>（2）doProcess() 方法中，读取到 reference 后，使用反射进行调用，模拟定时任务的执行。</p>
+<p>（3）额外实现了 ApplicationListener 接口，当服务启动后，每隔一段时间修改下任务信息，模拟业务中调整配置。</p>
+<p>服务启动后，foo() 定时任务将每 10s 执行一次。<br>10s 后，将 foo() 定时任务执行周期从每 10s 执行调整为 1s 执行。<br>10s 后，关闭 foo() 定时任务执行。<br>10s 后，开启 foo() 定时任务执行。<br>JAVA<br>import com.github.jitwxs.sample.ds.config.AbstractDSHandler;<br>import org.springframework.context.ApplicationEvent;<br>import org.springframework.context.ApplicationListener;<br>import org.springframework.stereotype.Component;</p>
+<p>import java.lang.reflect.Method;<br>import java.util.Collections;<br>import java.util.List;<br>import java.util.concurrent.Executors;<br>import java.util.concurrent.TimeUnit;<br>import java.util.concurrent.locks.LockSupport;</p>
+<p>&#x2F;**</p>
+<ul>
+<li>@author jitwxs</li>
+<li>@date 2021年03月27日 21:54</li>
+</ul>
+<p> *&#x2F;<br>  @Component<br>  public class SchedulerTestDSHandler extends AbstractDSHandler<SchedulerTestTaskInfo> implements ApplicationListener {<br>    public volatile List<SchedulerTestTaskInfo> taskInfoList &#x3D; Collections.singletonList(<br>            SchedulerTestTaskInfo.builder()<br>                    .id(1)<br>                    .cron(“0&#x2F;10 * * * * ? “)<br>                    .isValid(true)<br>                    .reference(“com.github.jitwxs.sample.ds.test.SchedulerTest#foo”)<br>                    .build()<br>    );</p>
+<pre><code>@Override
+protected List&lt;SchedulerTestTaskInfo&gt; listTaskInfo() &#123;
+    return taskInfoList;
+&#125;
+
+@Override
+protected void doProcess(SchedulerTestTaskInfo taskInfo) throws Throwable &#123;
+    final String reference = taskInfo.getReference();
+    final String[] split = reference.split(&quot;#&quot;);
+    if(split.length != 2) &#123;
+        return;
+    &#125;
+
+   try &#123;
+       final Class&lt;?&gt; clazz = Class.forName(split[0]);
+       final Method method = clazz.getMethod(split[1]);
+       method.invoke(clazz.newInstance());
+   &#125; catch (Exception e) &#123;
+       e.printStackTrace();
+   &#125;
+&#125;
+
+@Override
+public void onApplicationEvent(ApplicationEvent applicationEvent) &#123;
+    Executors.newScheduledThreadPool(1).scheduleAtFixedRate(() -&gt; &#123;
+        LockSupport.parkNanos(TimeUnit.SECONDS.toNanos(10));
+
+        // setting 1 seconds execute
+        taskInfoList = Collections.singletonList(
+                SchedulerTestTaskInfo.builder()
+                        .id(1)
+                        .cron(&quot;0/1 * * * * ? &quot;)
+                        .isValid(true)
+                        .reference(&quot;com.github.jitwxs.sample.ds.test.SchedulerTest#foo&quot;)
+                        .build()
+        );
+     
+        LockSupport.parkNanos(TimeUnit.SECONDS.toNanos(10));
+     
+        // setting not valid
+        taskInfoList = Collections.singletonList(
+                SchedulerTestTaskInfo.builder()
+                        .id(1)
+                        .cron(&quot;0/1 * * * * ? &quot;)
+                        .isValid(false)
+                        .reference(&quot;com.github.jitwxs.sample.ds.test.SchedulerTest#foo&quot;)
+                        .build()
+        );
+     
+        LockSupport.parkNanos(TimeUnit.SECONDS.toNanos(10));
+     
+        // setting valid
+        taskInfoList = Collections.singletonList(
+                SchedulerTestTaskInfo.builder()
+                        .id(1)
+                        .cron(&quot;0/1 * * * * ? &quot;)
+                        .isValid(true)
+                        .reference(&quot;com.github.jitwxs.sample.ds.test.SchedulerTest#foo&quot;)
+                        .build()
+        );
+    &#125;, 12, 86400, TimeUnit.SECONDS);
+&#125;
+</code></pre>
+<p>  }<br>  3.4 运行程序<br>  整个应用包结构如下：</p>
+<p>包结构</p>
+<p>运行程序后，在控制台可以观测到如下输出：</p>
+<p>运行结果</p>
+<p>四、后记<br>以上完成了动态定时任务的介绍，你能够根据本篇文章，实现以下需求吗：</p>
+<p>本文基于 cron 表达式实现了频率控制，你能改用 fixedDelay 或 fixedRate 实现吗？<br>基于数据库&#x2F;配置文件&#x2F;配置中心，实现对服务中定时任务的动态频率调整和任务的启停。<br>开发一个数据表历史数据清理功能，能够动态配置要清理的表、清理的规则、清理的周期。<br>开发一个数据表异常数据告警功能，能够动态配置要扫描的表、告警的规则、扫描的周期。</p>
+<p>作者: Jitwxs<br>链接: <a target="_blank" rel="noopener" href="https://jitwxs.cn/e4d53ddb">https://jitwxs.cn/e4d53ddb</a><br>来源: Jitwxs<br>著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p>
 
       
     </div>
