@@ -3359,7 +3359,7 @@ if (runStateLessThan(c, STOP)) &#123;
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/2d4446ad/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/dd89734e/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/lion.png">
@@ -3377,7 +3377,7 @@ if (runStateLessThan(c, STOP)) &#123;
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/2d4446ad/" class="post-title-link" itemprop="url">10、【对线面试官】TreadLocal</a>
+          <a href="/posts/dd89734e/" class="post-title-link" itemprop="url">小型无人机系统试验规程</a>
         </h2>
 
         <div class="post-meta-container">
@@ -3398,7 +3398,7 @@ if (runStateLessThan(c, STOP)) &#123;
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-10 09:48:07" itemprop="dateModified" datetime="2022-03-10T09:48:07+08:00">2022-03-10</time>
+      <time title="修改时间：2022-03-13 12:56:04" itemprop="dateModified" datetime="2022-03-13T12:56:04+08:00">2022-03-13</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -3406,7 +3406,7 @@ if (runStateLessThan(c, STOP)) &#123;
       </span>
       <span class="post-meta-item-text">分类于</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+          <a href="/categories/%E6%97%A0%E4%BA%BA%E6%9C%BA/" itemprop="url" rel="index"><span itemprop="name">无人机</span></a>
         </span>
     </span>
 
@@ -3419,8 +3419,8 @@ if (runStateLessThan(c, STOP)) &#123;
     </span>
     <span class="post-meta-item-text">Waline：</span>
   
-    <a title="waline" href="/posts/2d4446ad/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/2d4446ad/" data-xid="/posts/2d4446ad/" itemprop="commentCount"></span>
+    <a title="waline" href="/posts/dd89734e/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/dd89734e/" data-xid="/posts/dd89734e/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -3431,7 +3431,7 @@ if (runStateLessThan(c, STOP)) &#123;
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>982</span>
+      <span>327</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -3449,39 +3449,8 @@ if (runStateLessThan(c, STOP)) &#123;
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="10、【对线面试官】TreadLocal"><a href="#10、【对线面试官】TreadLocal" class="headerlink" title="10、【对线面试官】TreadLocal"></a>10、【对线面试官】TreadLocal</h1><h2 id="今天要不来聊聊ThreadLocal吧？"><a href="#今天要不来聊聊ThreadLocal吧？" class="headerlink" title="今天要不来聊聊ThreadLocal吧？"></a>今天要不来聊聊ThreadLocal吧？</h2><ol>
-<li>我个人对ThreadLocal理解就是</li>
-<li>它能够提供了线程的局部变量让每个线程都可以通过set&#x2F;get来对这个局部变量进行操作</li>
-<li>不会和其他线程的局部变量进行冲突，实现了线程的数据隔离</li>
-</ol>
-<h2 id="你在工作中有用到过ThreadLocal吗？"><a href="#你在工作中有用到过ThreadLocal吗？" class="headerlink" title="你在工作中有用到过ThreadLocal吗？"></a>你在工作中有用到过ThreadLocal吗？</h2><ol>
-<li>这块是真不多，不过还是有一处的。就是我们项目有个的DateUtils工具类</li>
-<li>这个工具类主要是对时间进行格式化</li>
-<li>格式化&#x2F;转化的实现是用的SimpleDateFormat</li>
-<li>但众所周知SimpleDateFormat不是线程安全的 ，所以我们就用ThreadLocal来让每个线程装载着自己的SimpleDateFormat对象</li>
-<li>以达到在格式化时间时，线程安全的目的</li>
-<li>在方法上创建SimpleDateFormat对象也没问题，但每调用一次就创建一次有点不优雅</li>
-<li>在工作中ThreadLocal的应用场景确实不多，但要不我给你讲讲Spring是怎么用的？</li>
-</ol>
-<h2 id="spring中的应用"><a href="#spring中的应用" class="headerlink" title="spring中的应用"></a>spring中的应用</h2><ol>
-<li>Spring提供了事务相关的操作，而我们知道事务是得保证一组操作同时成功或失败的</li>
-<li>这意味着我们一次事务的所有操作需要在同一个数据库连接上</li>
-<li>但是在我们日常写代码的时候是不需要关注这点的</li>
-<li>Spring就是用的ThreadLocal来实现，Th readLocal存储的类型是一个Map</li>
-<li>Map中的key是DataSource，value是C onnection（为了应对多数据源的情况，所以是一个Map）</li>
-<li>用了ThreadLocal保证了同一个线程获取一个Connection对象，从而保证一次事务的所有操作需要在同一个数据库连接上</li>
-</ol>
-<h2 id="你知道ThreadLocal内存泄露这个知识点吗？"><a href="#你知道ThreadLocal内存泄露这个知识点吗？" class="headerlink" title="你知道ThreadLocal内存泄露这个知识点吗？"></a>你知道ThreadLocal内存泄露这个知识点吗？</h2><ol>
-<li>了解的，要不我先来讲讲ThreadLocal的原理？<ul>
-<li>ThreadLocal是一个壳子，真正的存储结构是ThreadLocal里有ThreadLocalMap这么个内部类</li>
-<li>而有趣的是，ThreadLocalMap的引用是在Thread上定义的</li>
-<li>ThreadLocal本身并不存储值，它只是作为key来让线程从ThreadLocalMap获取value</li>
-<li>所以，得出的结论就是ThreadLocalMap该结构本身就在Thread下定义，而ThreadLocal只是作为key，存储set到ThreadLocalMap的变量当然是线程私有的咯</li>
-</ul>
-</li>
-</ol>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/NxSnnq_20211029171330.png"></p>
-
+          <p>[toc]</p>
+<h1 id="无人机系统组成"><a href="#无人机系统组成" class="headerlink" title="无人机系统组成"></a>无人机系统组成</h1><h2 id="航电系统"><a href="#航电系统" class="headerlink" title="航电系统"></a>航电系统</h2><h2 id="任务载荷系统"><a href="#任务载荷系统" class="headerlink" title="任务载荷系统"></a>任务载荷系统</h2><h2 id="地面系统"><a href="#地面系统" class="headerlink" title="地面系统"></a>地面系统</h2><h2 id="综合保障系统"><a href="#综合保障系统" class="headerlink" title="综合保障系统"></a>综合保障系统</h2><h1 id="试验实施"><a href="#试验实施" class="headerlink" title="试验实施"></a>试验实施</h1><h2 id="照相侦察试验"><a href="#照相侦察试验" class="headerlink" title="照相侦察试验"></a>照相侦察试验</h2><h3 id="试验目的"><a href="#试验目的" class="headerlink" title="试验目的"></a>试验目的</h3><h3 id="试验条件和要求"><a href="#试验条件和要求" class="headerlink" title="试验条件和要求"></a>试验条件和要求</h3><h3 id="试验内容与方法步骤"><a href="#试验内容与方法步骤" class="headerlink" title="试验内容与方法步骤"></a>试验内容与方法步骤</h3><h3 id="试验记录"><a href="#试验记录" class="headerlink" title="试验记录"></a>试验记录</h3><h2 id="电视及红外侦察系统试验"><a href="#电视及红外侦察系统试验" class="headerlink" title="电视及红外侦察系统试验"></a>电视及红外侦察系统试验</h2><h2 id="通信对抗侦查试验"><a href="#通信对抗侦查试验" class="headerlink" title="通信对抗侦查试验"></a>通信对抗侦查试验</h2><h2 id="通信对抗干扰试验"><a href="#通信对抗干扰试验" class="headerlink" title="通信对抗干扰试验"></a>通信对抗干扰试验</h2><h2 id="通信中继试验"><a href="#通信中继试验" class="headerlink" title="通信中继试验"></a>通信中继试验</h2><h2 id="合成孔径雷达侦察试验"><a href="#合成孔径雷达侦察试验" class="headerlink" title="合成孔径雷达侦察试验"></a>合成孔径雷达侦察试验</h2><h2 id="航空辐射侦察系统试验"><a href="#航空辐射侦察系统试验" class="headerlink" title="航空辐射侦察系统试验"></a>航空辐射侦察系统试验</h2><h2 id="隐身性能试验"><a href="#隐身性能试验" class="headerlink" title="隐身性能试验"></a>隐身性能试验</h2><h2 id="操作使用性能试验"><a href="#操作使用性能试验" class="headerlink" title="操作使用性能试验"></a>操作使用性能试验</h2><h2 id="环境适应试验"><a href="#环境适应试验" class="headerlink" title="环境适应试验"></a>环境适应试验</h2><h2 id="安全性试验"><a href="#安全性试验" class="headerlink" title="安全性试验"></a>安全性试验</h2><h1 id="试验测试（2）"><a href="#试验测试（2）" class="headerlink" title="试验测试（2）"></a>试验测试（2）</h1><h2 id="飞行新年试验"><a href="#飞行新年试验" class="headerlink" title="飞行新年试验"></a>飞行新年试验</h2><h2 id="动力装置飞行试验"><a href="#动力装置飞行试验" class="headerlink" title="动力装置飞行试验"></a>动力装置飞行试验</h2><h2 id="无人机发射回收（起飞-x2F-着陆）性能试验"><a href="#无人机发射回收（起飞-x2F-着陆）性能试验" class="headerlink" title="无人机发射回收（起飞&#x2F;着陆）性能试验"></a>无人机发射回收（起飞&#x2F;着陆）性能试验</h2><h2 id="飞行控制系统飞行试验"><a href="#飞行控制系统飞行试验" class="headerlink" title="飞行控制系统飞行试验"></a>飞行控制系统飞行试验</h2><h2 id="导航系统飞行试验"><a href="#导航系统飞行试验" class="headerlink" title="导航系统飞行试验"></a>导航系统飞行试验</h2><h2 id="机载电子电器设备性能飞行试验"><a href="#机载电子电器设备性能飞行试验" class="headerlink" title="机载电子电器设备性能飞行试验"></a>机载电子电器设备性能飞行试验</h2><h2 id="无线电测控与信息传输系统性能飞行试验"><a href="#无线电测控与信息传输系统性能飞行试验" class="headerlink" title="无线电测控与信息传输系统性能飞行试验"></a>无线电测控与信息传输系统性能飞行试验</h2><h2 id="地面控制站飞行操作使用性能试验"><a href="#地面控制站飞行操作使用性能试验" class="headerlink" title="地面控制站飞行操作使用性能试验"></a>地面控制站飞行操作使用性能试验</h2><h2 id="机载侦察任务设备性能飞行试验"><a href="#机载侦察任务设备性能飞行试验" class="headerlink" title="机载侦察任务设备性能飞行试验"></a>机载侦察任务设备性能飞行试验</h2><h2 id="机载通信对抗系统飞行试验"><a href="#机载通信对抗系统飞行试验" class="headerlink" title="机载通信对抗系统飞行试验"></a>机载通信对抗系统飞行试验</h2><h2 id="机载通信中继系统性能飞行试验"><a href="#机载通信中继系统性能飞行试验" class="headerlink" title="机载通信中继系统性能飞行试验"></a>机载通信中继系统性能飞行试验</h2><h2 id="机载合成孔径雷达侦察飞行试验"><a href="#机载合成孔径雷达侦察飞行试验" class="headerlink" title="机载合成孔径雷达侦察飞行试验"></a>机载合成孔径雷达侦察飞行试验</h2><h2 id="航空辐射侦察系统飞行试验"><a href="#航空辐射侦察系统飞行试验" class="headerlink" title="航空辐射侦察系统飞行试验"></a>航空辐射侦察系统飞行试验</h2><h2 id="隐身性能飞行试验"><a href="#隐身性能飞行试验" class="headerlink" title="隐身性能飞行试验"></a>隐身性能飞行试验</h2>
       
     </div>
 
