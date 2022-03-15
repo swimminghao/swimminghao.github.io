@@ -276,228 +276,6 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/f8e34911/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/lion.png">
-      <meta itemprop="name" content="swimminghao">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="swimminghao's blog">
-      <meta itemprop="description" content="swimminghao的学习博客">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | swimminghao's blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/f8e34911/" class="post-title-link" itemprop="url">精度问题</a>
-        </h2>
-
-        <div class="post-meta-container">
-
-          
-
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-11 11:12:36" itemprop="dateModified" datetime="2022-03-11T11:12:36+08:00">2022-03-11</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="far fa-comment"></i>
-    </span>
-    <span class="post-meta-item-text">Waline：</span>
-  
-    <a title="waline" href="/posts/f8e34911/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/f8e34911/" data-xid="/posts/f8e34911/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>2.5k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>2 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="Java中float和double中溢值问题和浮点数的储存问题"><a href="#Java中float和double中溢值问题和浮点数的储存问题" class="headerlink" title="Java中float和double中溢值问题和浮点数的储存问题"></a>Java中float和double中溢值问题和浮点数的储存问题</h1><p><img src="https://pic2.zhimg.com/v2-7ccba9dfc4e14a87fb480f8b89f7062c_1440w.jpg?source=172ae18b" alt="Java中float和double中溢值问题和浮点数的储存问题"></p>
-<p>记录一下初学Java出现的问题。</p>
-<p>以为之前是从Python起步的，最初了解到Java的数据类型有float和double这两个东西，就尝试相加这两个</p>
-<p><img src="https://pic3.zhimg.com/80/v2-58d94b038de5826bd6b794c8728b81ea_720w.jpg" alt="img"></p>
-<p>这里返回的结果：32.45000076293945</p>
-<p>这个返回值看的我一脸懵</p>
-<p>要理解这个问题要先知道浮点数在计算机中是以什么形式储存的</p>
-<p>首先要知道计算机能懂的只有0和1</p>
-<p>每一个0和1都占一个位 bit (比特)(Binary Digits)：存放一位<a href="https://link.zhihu.com/?target=https://baike.baidu.com/item/%E4%BA%8C%E8%BF%9B%E5%88%B6">二进制</a>数，最小的存储单位。</p>
-<p>所以，<strong>整数部分：</strong></p>
-<p>22 &#x2F; 2 &#x3D; 11 余<strong>0</strong></p>
-<p>11 &#x2F; 2 &#x3D; 5 余<strong>1</strong></p>
-<p>5 &#x2F; 2 &#x3D; 2 余<strong>1</strong></p>
-<p>2 &#x2F; 2 &#x3D; 1 余<strong>0</strong></p>
-<p>1 &#x2F; 2 &#x3D; 0 余<strong>1</strong></p>
-<p><strong>22的二进制转换就是10110</strong></p>
-<p><strong>小数部分：</strong></p>
-<p>0.45 * 2 &#x3D; 0.9 0</p>
-<p>0.9 * 2 &#x3D; 1.8 1</p>
-<p>0.8 * 2 &#x3D; 1.6 1</p>
-<p>0.6 * 2 &#x3D; 1.2 1</p>
-<p>0.2 * 2 &#x3D; 0.4 0</p>
-<p>0.4 * 2 &#x3D; 0.8 0</p>
-<p>0.8 * 2 &#x3D; 1.6 1</p>
-<p>0.6 * 2 &#x3D; 1.2 1</p>
-<p>0.2 * 2 &#x3D; 0.4 0</p>
-<p>……</p>
-<p>我们可以发现0.45转化成二进制的时候是无限循环的</p>
-<p>二进制转换完成，<strong>22.45 –&gt; 10110.011100110……</strong></p>
-<p>得到这个二进制浮点数之后，计算机是怎么把他表示为没有小数点的字符呢？</p>
-<p>就要用到小学学过的<strong>科学记数法</strong>：</p>
-<p>10110.011100110可以写为</p>
-<p>1.0110011100110 <img src="https://www.zhihu.com/equation?tex=%5Ctimes" alt="[公式]"> <img src="https://www.zhihu.com/equation?tex=2%5E%7B4%7D" alt="[公式]"></p>
-<p>过程中我们发现，小数的转换有可能会产生无限循环的情况，想要做的最精确的记录22.45，计算机需要无限大的空间来记录</p>
-<p>那么<strong>IEEE754标准</strong>就规定：</p>
-<p><strong>32位单精度</strong>（java中的<strong>float</strong>），使用32位（bit）来存储</p>
-<p><strong>64位双精度</strong>（<strong>double</strong>）， 使用64位储存</p>
-<p>那采用什么样的格式呢</p>
-<p>|S| Exp | Fraction |</p>
-<p>+-+——–+———————–+</p>
-<p><strong>S</strong>：符号位（正0负1）</p>
-<p><strong>EXP</strong>：指数位</p>
-<p><strong>Fraction</strong>：有效数字</p>
-<p><img src="https://pic4.zhimg.com/80/v2-75dac8cba2a0c6f341a23f320ef80eeb_720w.jpg" alt="img"></p>
-<p>单精度(<strong>float</strong>)就是</p>
-<p>|1(bit)| 8(bit) | 23(bit) |</p>
-<p>+-+——–+———————–+</p>
-<p>双精度(<strong>double</strong>)</p>
-<p>|1(bit)| 11(bit) | 52(bit) |</p>
-<p>+-+——–+———————–+</p>
-<p>以22.45为例：</p>
-<p>1.0110011100110 <img src="https://www.zhihu.com/equation?tex=%5Ctimes" alt="[公式]"><img src="https://www.zhihu.com/equation?tex=2%5E%7B4%7D" alt="[公式]">(二进制科学记数)</p>
-<p><strong>S</strong> &#x3D; <strong>0</strong></p>
-<p><strong>EXP</strong> &#x3D; 4+127 &#x3D;131 –&gt; <strong>10000011</strong></p>
-<p>这里为什么是131而不是直接的4呢？</p>
-<p>0000 0000八个位来表示指数，最大值就是1111 1111 –&gt; 十进制就是 255</p>
-<p>指数会有正负数两种情况，所以分两半，255 &#x2F; 2 &#x3D; 127.5</p>
-<p>0~127用于负数</p>
-<p>127~255用于正数</p>
-<p>127相当于一个指数是0，所以表示正指数就 + 同理 -</p>
-<p><strong>Fraction</strong> &#x3D; 0110011100110(这里只有13(bit))</p>
-<p>&#x3D; <strong>01100111001100110011010</strong>(接着算了10(bit)补齐23(bit))</p>
-<p>所以22.45在计算机里就是 <strong>S</strong>+<strong>EXP</strong>+<strong>Fraction &#x3D; 01000001101100111001100110011010</strong></p>
-<p>同理<strong>双精度（double）</strong>有64位来记录</p>
-<p><img src="https://pic2.zhimg.com/80/v2-7578d5eb4ea4b7ccd4a6ad8b3041026d_720w.jpg" alt="img"></p>
-<p>System.<em>out</em>.println(Integer.<em>toBinaryString</em>(Float.<em>floatToIntBits</em>(x)));</p>
-<p>这行代码可以查看22.45的二进位表达</p>
-<p><img src="https://pic4.zhimg.com/80/v2-37d1b25e2fcb6f6744a15d16ce403347_720w.jpg" alt="img"></p>
-<p>为什么没有0，因为01 跟1是一样的，所以0就不会显示了</p>
-<p><strong>这是-22.45</strong></p>
-<p><img src="https://pic3.zhimg.com/80/v2-2f0ea9b5de4996dfe41721c33fec509a_720w.jpg" alt="img"></p>
-<p>&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;</p>
-<p>了解了IEEE二进位浮点数，知道了float和double记录的浮点<strong>精确度</strong>不一样我们再看一下问题。</p>
-<p><img src="https://pic3.zhimg.com/80/v2-09cf00e6b2661928de9a33d34cc584ea_720w.jpg" alt="img"></p>
-<p>从输出的结果看 32.45000076293945 是一个double类型，精确的表示了小数点后14位</p>
-<p><strong>所以float + double 是从float赋值到double</strong></p>
-<p><img src="https://pic2.zhimg.com/80/v2-ac85c685344dcc6c42ab80c54c98e3fd_720w.jpg" alt="img"></p>
-<p>输出结果：22.450000762939453</p>
-<p>可是如果float(单精度)赋值到double(双精度)出现精度丢失可以理解，但是会什么会溢值呢？</p>
-<p>我们可以从二进制推回十进制来看一看</p>
-<p>0 | 10000011 | 01100111001100110011010</p>
-<p>正| 指数&#x3D;4 |有效数字</p>
-<p>1.01100111001100110011010 <img src="https://www.zhihu.com/equation?tex=%5Ctimes" alt="[公式]"><img src="https://www.zhihu.com/equation?tex=2%5E%7B4%7D" alt="[公式]"> &#x3D; 10110.<strong>0111001100110011010</strong></p>
-<p>后面这个<strong>0.0111001100110011010</strong>表示小数位</p>
-<p>我们可以通过把<strong>0.0111001100110011010</strong>换成十进制来看看</p>
-<p>小数的二进制到十进制的方法是</p>
-<p>从小数点后依次乘以2的负一次方，2的负二次方，2的负三次方等</p>
-<p>0.0111001100110011010</p>
-<p><img src="https://www.zhihu.com/equation?tex=0%5Ctimes+2%5E%7B-1%7D+++1%5Ctimes+2%5E%7B-2%7D+++1%5Ctimes+2%5E%7B-3%7D+..." alt="[公式]"></p>
-<p>可以直接用python一算</p>
-<p><img src="https://pic4.zhimg.com/80/v2-a0e98538e9455550d26ca6aabfaccf87_720w.jpg" alt="img"></p>
-<p>同这个结果，我们可以看出，由于<strong>float单精度只能选取 无限循环的二进制小数的23位</strong></p>
-<p><strong>导致了十进制浮点数在存储时的不够精准</strong></p>
-<p><strong>当我们把已经储存好的32二进制格式转换成64位时</strong></p>
-<p><img src="https://pic2.zhimg.com/80/v2-4ab767461ea0bd9250e47357d4c81531_720w.jpg" alt="img"></p>
-<p>输出结果：</p>
-<p><img src="https://pic4.zhimg.com/80/v2-6561f67dbd731bf7ad0e8fc8f58bb573_720w.jpg" alt="img"></p>
-<p><strong>可以看出Java并没有重新计算小数点后的更多位， 而是用0来补位</strong></p>
-<p>所以转换成double后，之前<strong>float没有精确到的位数就会显示出来。</strong></p>
-<p>要解决这个问题就需要使用java.math中提供的API类BigDecimal</p>
-<p>注：（BigDecimal用String 或Integer 初始化，double初始化会有舍入精度问题）</p>
-
-      
-    </div>
-
-    
-    
-    
-
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>l
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://example.com/posts/de7c53fe/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -883,7 +661,7 @@ if (runStateLessThan(c, STOP)) &#123;
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/73169f18/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/58f7b356/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/lion.png">
@@ -901,7 +679,7 @@ if (runStateLessThan(c, STOP)) &#123;
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/73169f18/" class="post-title-link" itemprop="url">正则</a>
+          <a href="/posts/58f7b356/" class="post-title-link" itemprop="url">11、【对线面试官】CountDownLatch和CyclicBarrier</a>
         </h2>
 
         <div class="post-meta-container">
@@ -922,7 +700,7 @@ if (runStateLessThan(c, STOP)) &#123;
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-13 12:56:04" itemprop="dateModified" datetime="2022-03-13T12:56:04+08:00">2022-03-13</time>
+      <time title="修改时间：2022-03-10 09:48:07" itemprop="dateModified" datetime="2022-03-10T09:48:07+08:00">2022-03-10</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -930,7 +708,7 @@ if (runStateLessThan(c, STOP)) &#123;
       </span>
       <span class="post-meta-item-text">分类于</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E8%AF%AD%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">语法</span></a>
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
         </span>
     </span>
 
@@ -943,8 +721,8 @@ if (runStateLessThan(c, STOP)) &#123;
     </span>
     <span class="post-meta-item-text">Waline：</span>
   
-    <a title="waline" href="/posts/73169f18/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/73169f18/" data-xid="/posts/73169f18/" itemprop="commentCount"></span>
+    <a title="waline" href="/posts/58f7b356/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/58f7b356/" data-xid="/posts/58f7b356/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -955,14 +733,14 @@ if (runStateLessThan(c, STOP)) &#123;
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>22k</span>
+      <span>1.6k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>20 分钟</span>
+      <span>1 分钟</span>
     </span>
 </div>
 
@@ -973,126 +751,46 @@ if (runStateLessThan(c, STOP)) &#123;
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="规则"><a href="#规则" class="headerlink" title="规则"></a>规则</h1><p>abcdefghijklmnopqurtuvwxyz<br>ABCDEFGHIJKLMNOPQRSTUVWXYZa<br>abced<br>abd</p>
-<p>A[A-Z]{24}Z<br>abbabbbc<br>abbc<br>abc<br>ac</p>
-<p>ab{5}c</p>
-<p>ab((ce)?d)?</p>
-<p>10^6ml<br>10^9ML<br>10E9 ML</p>
-<p>10[^E][369] ?(ml|ML)</p>
-<p>ad<br>1234567890<br>[^\s]<br>Ha HaHa<br>.转义<br>[abc]<br>[^abc]<br>[a-z]<br>[^a-z]<br>[a-zA-Z]<br>.<br>\s\S space<br>\w\W word<br>\d\D digit<br>(a|b)<br>a? 0-1次<br>a* 0-任意次<br>a+ 1-任意次<br>a{3} 3次<br>a{3,6} 三到六次<br>a{,6} 至多6次<br>a{3,} 至少三次<br>(a{3}|a{6}) 3次或6次<br>^ 开头<br>$ 结尾</p>
-<p>MetaCharacters (Need to be escaped):<br>.[{()^$|?*+</p>
-<p>coreyms.com<br>[-a-zA-Z0-9.&#x2F;]+.[a-zA-Z]+&#x2F;?</p>
-<p>\d{3}[.-]\d{3}[.-]\d{4}</p>
-<p>192.168.0.1<br>255.255.255.255</p>
-<p>[1-9]?\d|1\d{2}|2([0-4]\d|5[0-5])</p>
-<p>(([1-9]?\d|1\d{2}|2([0-4]\d|5[0-5])).){3}([1-9]?\d|1\d{2}|2([0-4]\d|5[0-5])))</p>
-<p>321-555-4321<br>123.555.1234</p>
-<p>Mr. Schafer<br>Mr Smith<br>Ms Davis<br>Mrs. Robinson<br>Mr. T<br>Mr. t</p>
-<p>M(s|r|rs).? [A-Z][a-z]*</p>
-<p><a target="_blank" rel="noopener" href="https://deerchao.net/tutorials/regex/regex.htm">https://deerchao.net/tutorials/regex/regex.htm</a><br><a target="_blank" rel="noopener" href="https://regex101.com/">https://regex101.com/</a><br><a target="_blank" rel="noopener" href="https://www.regular-expressions.info/">https://www.regular-expressions.info/</a></p>
-<h1 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h1><p>Dave Martin<br>615-555-7164<br>173 Main St., Springfield RI 55924<br><a href="mailto:&#100;&#97;&#118;&#101;&#x6d;&#x61;&#114;&#116;&#x69;&#x6e;&#64;&#x62;&#111;&#103;&#x75;&#115;&#101;&#109;&#x61;&#105;&#108;&#x2e;&#x63;&#x6f;&#109;">&#100;&#97;&#118;&#101;&#x6d;&#x61;&#114;&#116;&#x69;&#x6e;&#64;&#x62;&#111;&#103;&#x75;&#115;&#101;&#109;&#x61;&#105;&#108;&#x2e;&#x63;&#x6f;&#109;</a></p>
-<p>Charles Harris<br>800-555-5669<br>969 High St., Atlantis VA 34075<br><a href="mailto:&#x63;&#104;&#x61;&#x72;&#x6c;&#101;&#115;&#x68;&#x61;&#x72;&#x72;&#105;&#x73;&#x40;&#x62;&#111;&#x67;&#x75;&#x73;&#101;&#109;&#97;&#105;&#x6c;&#46;&#99;&#111;&#x6d;">&#x63;&#104;&#x61;&#x72;&#x6c;&#101;&#115;&#x68;&#x61;&#x72;&#x72;&#105;&#x73;&#x40;&#x62;&#111;&#x67;&#x75;&#x73;&#101;&#109;&#97;&#105;&#x6c;&#46;&#99;&#111;&#x6d;</a></p>
-<p>Eric Williams<br>560-555-5153<br>806 1st St., Faketown AK 86847<br><a href="mailto:&#x6c;&#x61;&#117;&#x72;&#x61;&#119;&#x69;&#x6c;&#x6c;&#105;&#97;&#x6d;&#115;&#64;&#98;&#111;&#x67;&#x75;&#115;&#x65;&#x6d;&#x61;&#105;&#108;&#46;&#99;&#x6f;&#x6d;">&#x6c;&#x61;&#117;&#x72;&#x61;&#119;&#x69;&#x6c;&#x6c;&#105;&#97;&#x6d;&#115;&#64;&#98;&#111;&#x67;&#x75;&#115;&#x65;&#x6d;&#x61;&#105;&#108;&#46;&#99;&#x6f;&#x6d;</a></p>
-<p>Corey Jefferson<br>900-555-9340<br>826 Elm St., Epicburg NE 10671<br><a href="mailto:&#99;&#111;&#x72;&#x65;&#x79;&#106;&#101;&#102;&#x66;&#101;&#114;&#x73;&#x6f;&#110;&#64;&#98;&#x6f;&#x67;&#117;&#x73;&#x65;&#x6d;&#97;&#105;&#x6c;&#46;&#x63;&#111;&#x6d;">&#99;&#111;&#x72;&#x65;&#x79;&#106;&#101;&#102;&#x66;&#101;&#114;&#x73;&#x6f;&#110;&#64;&#98;&#x6f;&#x67;&#117;&#x73;&#x65;&#x6d;&#97;&#105;&#x6c;&#46;&#x63;&#111;&#x6d;</a></p>
-<p>Jennifer Martin-White<br>714-555-7405<br>212 Cedar St., Sunnydale CT 74983<br><a href="mailto:&#106;&#101;&#110;&#x6e;&#x69;&#102;&#101;&#114;&#x77;&#x68;&#105;&#116;&#101;&#64;&#x62;&#x6f;&#x67;&#x75;&#115;&#x65;&#x6d;&#x61;&#x69;&#108;&#x2e;&#x63;&#111;&#x6d;">&#106;&#101;&#110;&#x6e;&#x69;&#102;&#101;&#114;&#x77;&#x68;&#105;&#116;&#101;&#64;&#x62;&#x6f;&#x67;&#x75;&#115;&#x65;&#x6d;&#x61;&#x69;&#108;&#x2e;&#x63;&#111;&#x6d;</a></p>
-<p>Erick Davis<br>800-555-6771<br>519 Washington St., Olympus TN 32425<br><a href="mailto:&#x74;&#111;&#109;&#100;&#97;&#118;&#105;&#x73;&#x40;&#98;&#x6f;&#x67;&#x75;&#115;&#x65;&#x6d;&#x61;&#x69;&#x6c;&#46;&#x63;&#x6f;&#109;">&#x74;&#111;&#109;&#100;&#97;&#118;&#105;&#x73;&#x40;&#98;&#x6f;&#x67;&#x75;&#115;&#x65;&#x6d;&#x61;&#x69;&#x6c;&#46;&#x63;&#x6f;&#109;</a></p>
-<p>Neil Patterson<br>783-555-4799<br>625 Oak St., Dawnstar IL 61914<br><a href="mailto:&#x6e;&#101;&#x69;&#x6c;&#112;&#97;&#x74;&#116;&#x65;&#x72;&#115;&#x6f;&#x6e;&#64;&#x62;&#x6f;&#x67;&#x75;&#x73;&#101;&#x6d;&#x61;&#105;&#108;&#x2e;&#x63;&#111;&#109;">&#x6e;&#101;&#x69;&#x6c;&#112;&#97;&#x74;&#116;&#x65;&#x72;&#115;&#x6f;&#x6e;&#64;&#x62;&#x6f;&#x67;&#x75;&#x73;&#101;&#x6d;&#x61;&#105;&#108;&#x2e;&#x63;&#111;&#109;</a></p>
-<p>Laura Jefferson<br>516-555-4615<br>890 Main St., Pythonville LA 29947<br><a href="mailto:&#x6c;&#x61;&#117;&#114;&#97;&#106;&#101;&#102;&#102;&#x65;&#114;&#x73;&#x6f;&#110;&#x40;&#x62;&#111;&#103;&#117;&#115;&#x65;&#x6d;&#97;&#x69;&#x6c;&#46;&#x63;&#111;&#109;">&#x6c;&#x61;&#117;&#114;&#97;&#106;&#101;&#102;&#102;&#x65;&#114;&#x73;&#x6f;&#110;&#x40;&#x62;&#111;&#103;&#117;&#115;&#x65;&#x6d;&#97;&#x69;&#x6c;&#46;&#x63;&#111;&#109;</a></p>
-<p>Maria Johnson<br>127-555-1867<br>884 High St., Braavos‎ ME 43597<br><a href="mailto:&#109;&#97;&#114;&#105;&#x61;&#106;&#x6f;&#104;&#110;&#x73;&#111;&#x6e;&#x40;&#98;&#111;&#x67;&#x75;&#115;&#x65;&#109;&#x61;&#105;&#x6c;&#46;&#x63;&#x6f;&#x6d;">&#109;&#97;&#114;&#105;&#x61;&#106;&#x6f;&#104;&#110;&#x73;&#111;&#x6e;&#x40;&#98;&#111;&#x67;&#x75;&#115;&#x65;&#109;&#x61;&#105;&#x6c;&#46;&#x63;&#x6f;&#x6d;</a></p>
-<p>Michael Arnold<br>608-555-4938<br>249 Elm St., Quahog OR 90938<br><a href="mailto:&#109;&#x69;&#99;&#x68;&#97;&#101;&#x6c;&#97;&#x72;&#x6e;&#111;&#x6c;&#100;&#x40;&#98;&#x6f;&#x67;&#117;&#x73;&#x65;&#109;&#97;&#105;&#x6c;&#x2e;&#x63;&#x6f;&#109;">&#109;&#x69;&#99;&#x68;&#97;&#101;&#x6c;&#97;&#x72;&#x6e;&#111;&#x6c;&#100;&#x40;&#98;&#x6f;&#x67;&#117;&#x73;&#x65;&#109;&#97;&#105;&#x6c;&#x2e;&#x63;&#x6f;&#109;</a></p>
-<p>Michael Smith<br>568-555-6051<br>619 Park St., Winterfell VA 99000<br><a href="mailto:&#x6d;&#105;&#99;&#x68;&#x61;&#x65;&#x6c;&#x73;&#109;&#x69;&#116;&#104;&#x40;&#98;&#x6f;&#x67;&#117;&#x73;&#x65;&#109;&#x61;&#x69;&#108;&#x2e;&#x63;&#111;&#x6d;">&#x6d;&#105;&#99;&#x68;&#x61;&#x65;&#x6c;&#x73;&#109;&#x69;&#116;&#104;&#x40;&#98;&#x6f;&#x67;&#117;&#x73;&#x65;&#109;&#x61;&#x69;&#108;&#x2e;&#x63;&#111;&#x6d;</a></p>
-<p>Erik Stuart<br>292-555-1875<br>220 Cedar St., Lakeview NY 87282<br><a href="mailto:&#114;&#111;&#98;&#101;&#114;&#x74;&#115;&#116;&#x75;&#97;&#114;&#116;&#64;&#98;&#111;&#x67;&#117;&#x73;&#101;&#109;&#x61;&#x69;&#108;&#x2e;&#99;&#x6f;&#x6d;">&#114;&#111;&#98;&#101;&#114;&#x74;&#115;&#116;&#x75;&#97;&#114;&#116;&#64;&#98;&#111;&#x67;&#117;&#x73;&#101;&#109;&#x61;&#x69;&#108;&#x2e;&#99;&#x6f;&#x6d;</a></p>
-<p>Laura Martin<br>900-555-3205<br>391 High St., Smalltown WY 28362<br><a href="mailto:&#108;&#97;&#117;&#114;&#97;&#109;&#97;&#114;&#x74;&#105;&#x6e;&#x40;&#98;&#x6f;&#103;&#117;&#115;&#x65;&#109;&#97;&#x69;&#x6c;&#46;&#99;&#111;&#x6d;">&#108;&#97;&#117;&#114;&#97;&#109;&#97;&#114;&#x74;&#105;&#x6e;&#x40;&#98;&#x6f;&#103;&#117;&#115;&#x65;&#109;&#97;&#x69;&#x6c;&#46;&#99;&#111;&#x6d;</a></p>
-<p>Barbara Martin<br>614-555-1166<br>121 Hill St., Braavos‎ UT 92474<br><a href="mailto:&#x62;&#97;&#114;&#x62;&#x61;&#114;&#97;&#x6d;&#x61;&#x72;&#x74;&#x69;&#x6e;&#64;&#x62;&#x6f;&#103;&#x75;&#x73;&#101;&#109;&#97;&#105;&#108;&#x2e;&#99;&#x6f;&#x6d;">&#x62;&#97;&#114;&#x62;&#x61;&#114;&#97;&#x6d;&#x61;&#x72;&#x74;&#x69;&#x6e;&#64;&#x62;&#x6f;&#103;&#x75;&#x73;&#101;&#109;&#97;&#105;&#108;&#x2e;&#99;&#x6f;&#x6d;</a></p>
-<p>Linda Jackson<br>530-555-2676<br>433 Elm St., Westworld TX 61967<br><a href="mailto:&#x6c;&#x69;&#110;&#x64;&#x61;&#106;&#x61;&#99;&#x6b;&#115;&#111;&#x6e;&#x40;&#98;&#x6f;&#x67;&#x75;&#115;&#101;&#109;&#x61;&#x69;&#108;&#x2e;&#99;&#x6f;&#x6d;">&#x6c;&#x69;&#110;&#x64;&#x61;&#106;&#x61;&#99;&#x6b;&#115;&#111;&#x6e;&#x40;&#98;&#x6f;&#x67;&#x75;&#115;&#101;&#109;&#x61;&#x69;&#108;&#x2e;&#99;&#x6f;&#x6d;</a></p>
-<p>Eric Miller<br>470-555-2750<br>838 Main St., Balmora MT 56526<br><a href="mailto:&#x73;&#x74;&#101;&#118;&#101;&#109;&#x69;&#x6c;&#x6c;&#x65;&#114;&#x40;&#98;&#x6f;&#103;&#x75;&#115;&#x65;&#x6d;&#97;&#105;&#108;&#46;&#x63;&#x6f;&#x6d;">&#x73;&#x74;&#101;&#118;&#101;&#109;&#x69;&#x6c;&#x6c;&#x65;&#114;&#x40;&#98;&#x6f;&#103;&#x75;&#115;&#x65;&#x6d;&#97;&#105;&#108;&#46;&#x63;&#x6f;&#x6d;</a></p>
-<p>Dave Arnold<br>800-555-6089<br>732 High St., Valyria KY 97152<br><a href="mailto:&#x64;&#x61;&#x76;&#101;&#97;&#x72;&#x6e;&#x6f;&#x6c;&#x64;&#64;&#x62;&#x6f;&#x67;&#117;&#115;&#x65;&#x6d;&#97;&#105;&#x6c;&#x2e;&#99;&#x6f;&#109;">&#x64;&#x61;&#x76;&#101;&#97;&#x72;&#x6e;&#x6f;&#x6c;&#x64;&#64;&#x62;&#x6f;&#x67;&#117;&#115;&#x65;&#x6d;&#97;&#105;&#x6c;&#x2e;&#99;&#x6f;&#109;</a></p>
-<p>Jennifer Jacobs<br>880-555-8319<br>217 High St., Old-town IA 82767<br><a href="mailto:&#x6a;&#x65;&#110;&#110;&#x69;&#x66;&#x65;&#x72;&#106;&#97;&#99;&#x6f;&#x62;&#115;&#x40;&#98;&#111;&#103;&#x75;&#x73;&#101;&#109;&#97;&#x69;&#108;&#46;&#x63;&#x6f;&#109;">&#x6a;&#x65;&#110;&#110;&#x69;&#x66;&#x65;&#x72;&#106;&#97;&#99;&#x6f;&#x62;&#115;&#x40;&#98;&#111;&#103;&#x75;&#x73;&#101;&#109;&#97;&#x69;&#108;&#46;&#x63;&#x6f;&#109;</a></p>
-<p>Neil Wilson<br>777-555-8378<br>191 Main St., Mordor IL 72160<br><a href="mailto:&#x6e;&#x65;&#105;&#108;&#x77;&#105;&#108;&#115;&#111;&#x6e;&#64;&#x62;&#111;&#103;&#117;&#115;&#x65;&#109;&#97;&#105;&#x6c;&#x2e;&#99;&#x6f;&#x6d;">&#x6e;&#x65;&#105;&#108;&#x77;&#105;&#108;&#115;&#111;&#x6e;&#64;&#x62;&#111;&#103;&#117;&#115;&#x65;&#109;&#97;&#105;&#x6c;&#x2e;&#99;&#x6f;&#x6d;</a></p>
-<p>Kurt Jackson<br>998-555-7385<br>607 Washington St., Blackwater NH 97183<br><a href="mailto:&#x6b;&#117;&#114;&#116;&#x6a;&#x61;&#99;&#x6b;&#115;&#x6f;&#x6e;&#64;&#x62;&#x6f;&#x67;&#x75;&#x73;&#101;&#109;&#97;&#x69;&#108;&#x2e;&#x63;&#111;&#x6d;">&#x6b;&#117;&#114;&#116;&#x6a;&#x61;&#99;&#x6b;&#115;&#x6f;&#x6e;&#64;&#x62;&#x6f;&#x67;&#x75;&#x73;&#101;&#109;&#97;&#x69;&#108;&#x2e;&#x63;&#111;&#x6d;</a></p>
-<p>Mary Jacobs<br>800-555-7100<br>478 Oak St., Bedrock IA 58176<br><a href="mailto:&#109;&#x61;&#x72;&#121;&#106;&#x61;&#99;&#111;&#x62;&#115;&#x40;&#x62;&#111;&#103;&#117;&#115;&#x65;&#x6d;&#97;&#x69;&#x6c;&#46;&#x63;&#x6f;&#x6d;">&#109;&#x61;&#x72;&#121;&#106;&#x61;&#99;&#111;&#x62;&#115;&#x40;&#x62;&#111;&#103;&#117;&#115;&#x65;&#x6d;&#97;&#x69;&#x6c;&#46;&#x63;&#x6f;&#x6d;</a></p>
-<p>Michael White<br>903-555-8277<br>906 Elm St., Mordor TX 89212<br><a href="mailto:&#109;&#x69;&#99;&#x68;&#97;&#x65;&#x6c;&#119;&#104;&#105;&#116;&#x65;&#x40;&#98;&#111;&#103;&#117;&#x73;&#101;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;">&#109;&#x69;&#99;&#x68;&#97;&#x65;&#x6c;&#119;&#104;&#105;&#116;&#x65;&#x40;&#98;&#111;&#103;&#117;&#x73;&#101;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;</a></p>
-<p>Jennifer Jenkins<br>196-555-5674<br>949 Main St., Smalltown SC 96962<br><a href="mailto:&#106;&#101;&#110;&#110;&#105;&#102;&#x65;&#x72;&#106;&#101;&#110;&#107;&#105;&#110;&#115;&#64;&#x62;&#x6f;&#x67;&#117;&#x73;&#101;&#x6d;&#x61;&#105;&#108;&#x2e;&#99;&#111;&#x6d;">&#106;&#101;&#110;&#110;&#105;&#102;&#x65;&#x72;&#106;&#101;&#110;&#107;&#105;&#110;&#115;&#64;&#x62;&#x6f;&#x67;&#117;&#x73;&#101;&#x6d;&#x61;&#105;&#108;&#x2e;&#99;&#111;&#x6d;</a></p>
-<p>Sam Wright<br>900-555-5118<br>835 Pearl St., Smalltown ND 77737<br><a href="mailto:&#115;&#97;&#x6d;&#x77;&#114;&#105;&#x67;&#104;&#x74;&#x40;&#98;&#111;&#x67;&#117;&#115;&#101;&#x6d;&#97;&#x69;&#108;&#x2e;&#99;&#111;&#109;">&#115;&#97;&#x6d;&#x77;&#114;&#105;&#x67;&#104;&#x74;&#x40;&#98;&#111;&#x67;&#117;&#115;&#101;&#x6d;&#97;&#x69;&#108;&#x2e;&#99;&#111;&#109;</a></p>
-<p>John Davis<br>905-555-1630<br>451 Lake St., Bedrock GA 34615<br><a href="mailto:&#x6a;&#x6f;&#104;&#110;&#100;&#97;&#118;&#105;&#115;&#64;&#x62;&#x6f;&#103;&#117;&#115;&#x65;&#x6d;&#x61;&#x69;&#108;&#46;&#99;&#x6f;&#x6d;">&#x6a;&#x6f;&#104;&#110;&#100;&#97;&#118;&#105;&#115;&#64;&#x62;&#x6f;&#103;&#117;&#115;&#x65;&#x6d;&#x61;&#x69;&#108;&#46;&#99;&#x6f;&#x6d;</a></p>
-<p>Eric Davis<br>203-555-3475<br>419 Lake St., Balmora OR 30826<br><a href="mailto:&#x6e;&#x65;&#105;&#108;&#100;&#x61;&#118;&#105;&#x73;&#64;&#x62;&#111;&#103;&#117;&#115;&#101;&#x6d;&#x61;&#x69;&#x6c;&#x2e;&#99;&#x6f;&#109;">&#x6e;&#x65;&#105;&#108;&#100;&#x61;&#118;&#105;&#x73;&#64;&#x62;&#111;&#103;&#117;&#115;&#101;&#x6d;&#x61;&#x69;&#x6c;&#x2e;&#99;&#x6f;&#109;</a></p>
-<p>Laura Jackson<br>884-555-8444<br>443 Maple St., Quahog MS 29348<br><a href="mailto:&#x6c;&#x61;&#117;&#x72;&#97;&#x6a;&#97;&#99;&#x6b;&#115;&#111;&#x6e;&#64;&#98;&#x6f;&#x67;&#x75;&#x73;&#101;&#x6d;&#97;&#x69;&#108;&#x2e;&#99;&#111;&#109;">&#x6c;&#x61;&#117;&#x72;&#97;&#x6a;&#97;&#99;&#x6b;&#115;&#111;&#x6e;&#64;&#98;&#x6f;&#x67;&#x75;&#x73;&#101;&#x6d;&#97;&#x69;&#108;&#x2e;&#99;&#111;&#109;</a></p>
-<p>John Williams<br>904-555-8559<br>756 Hill St., Valyria KY 94854<br><a href="mailto:&#x6a;&#111;&#104;&#110;&#119;&#105;&#x6c;&#108;&#x69;&#97;&#x6d;&#115;&#64;&#x62;&#x6f;&#x67;&#117;&#115;&#x65;&#109;&#x61;&#105;&#x6c;&#x2e;&#99;&#111;&#109;">&#x6a;&#111;&#104;&#110;&#119;&#105;&#x6c;&#108;&#x69;&#97;&#x6d;&#115;&#64;&#x62;&#x6f;&#x67;&#117;&#115;&#x65;&#109;&#x61;&#105;&#x6c;&#x2e;&#99;&#111;&#109;</a></p>
-<p>Michael Martin<br>889-555-7393<br>216 High St., Olympus NV 21888<br><a href="mailto:&#x6d;&#x69;&#99;&#x68;&#97;&#x65;&#x6c;&#x6d;&#x61;&#114;&#116;&#x69;&#110;&#64;&#x62;&#x6f;&#103;&#117;&#x73;&#x65;&#109;&#97;&#x69;&#108;&#x2e;&#x63;&#111;&#x6d;">&#x6d;&#x69;&#99;&#x68;&#97;&#x65;&#x6c;&#x6d;&#x61;&#114;&#116;&#x69;&#110;&#64;&#x62;&#x6f;&#103;&#117;&#x73;&#x65;&#109;&#97;&#x69;&#108;&#x2e;&#x63;&#111;&#x6d;</a></p>
-<p>Maggie Brown<br>195-555-2405<br>806 Lake St., Lakeview MD 59348<br><a href="mailto:&#109;&#x61;&#x67;&#103;&#x69;&#101;&#98;&#x72;&#111;&#x77;&#x6e;&#x40;&#98;&#111;&#x67;&#x75;&#x73;&#101;&#109;&#97;&#105;&#x6c;&#x2e;&#x63;&#x6f;&#x6d;">&#109;&#x61;&#x67;&#103;&#x69;&#101;&#98;&#x72;&#111;&#x77;&#x6e;&#x40;&#98;&#111;&#x67;&#x75;&#x73;&#101;&#109;&#97;&#105;&#x6c;&#x2e;&#x63;&#x6f;&#x6d;</a></p>
-<p>Erik Wilson<br>321-555-9053<br>354 Hill St., Mordor FL 74122<br><a href="mailto:&#107;&#117;&#114;&#x74;&#119;&#x69;&#108;&#115;&#x6f;&#x6e;&#x40;&#98;&#111;&#103;&#117;&#115;&#101;&#109;&#97;&#x69;&#108;&#46;&#99;&#111;&#x6d;">&#107;&#117;&#114;&#x74;&#119;&#x69;&#108;&#115;&#x6f;&#x6e;&#x40;&#98;&#111;&#103;&#117;&#115;&#101;&#109;&#97;&#x69;&#108;&#46;&#99;&#111;&#x6d;</a></p>
-<p>Elizabeth Arnold<br>133-555-1711<br>805 Maple St., Winterfell NV 99431<br><a href="mailto:&#101;&#108;&#x69;&#x7a;&#97;&#98;&#101;&#116;&#104;&#97;&#x72;&#110;&#x6f;&#108;&#100;&#x40;&#x62;&#x6f;&#x67;&#x75;&#x73;&#101;&#x6d;&#97;&#x69;&#108;&#x2e;&#x63;&#111;&#x6d;">&#101;&#108;&#x69;&#x7a;&#97;&#98;&#101;&#116;&#104;&#97;&#x72;&#110;&#x6f;&#108;&#100;&#x40;&#x62;&#x6f;&#x67;&#x75;&#x73;&#101;&#x6d;&#97;&#x69;&#108;&#x2e;&#x63;&#111;&#x6d;</a></p>
-<p>Jane Martin<br>900-555-5428<br>418 Park St., Metropolis ID 16576<br><a href="mailto:&#106;&#x61;&#110;&#101;&#109;&#x61;&#114;&#116;&#x69;&#x6e;&#64;&#x62;&#111;&#103;&#117;&#115;&#x65;&#109;&#97;&#x69;&#108;&#46;&#99;&#x6f;&#x6d;">&#106;&#x61;&#110;&#101;&#109;&#x61;&#114;&#116;&#x69;&#x6e;&#64;&#x62;&#111;&#103;&#117;&#115;&#x65;&#109;&#97;&#x69;&#108;&#46;&#99;&#x6f;&#x6d;</a></p>
-<p>Travis Johnson<br>760-555-7147<br>749 Washington St., Braavos‎ SD 25668<br><a href="mailto:&#116;&#x72;&#x61;&#x76;&#x69;&#115;&#106;&#111;&#x68;&#110;&#115;&#x6f;&#110;&#x40;&#x62;&#111;&#x67;&#117;&#115;&#x65;&#109;&#97;&#x69;&#x6c;&#x2e;&#x63;&#111;&#109;">&#116;&#x72;&#x61;&#x76;&#x69;&#115;&#106;&#111;&#x68;&#110;&#115;&#x6f;&#110;&#x40;&#x62;&#111;&#x67;&#117;&#115;&#x65;&#109;&#97;&#x69;&#x6c;&#x2e;&#x63;&#111;&#109;</a></p>
-<p>Laura Jefferson<br>391-555-6621<br>122 High St., Metropolis ME 29540<br><a href="mailto:&#108;&#97;&#x75;&#114;&#97;&#106;&#101;&#x66;&#102;&#101;&#114;&#115;&#111;&#110;&#x40;&#x62;&#x6f;&#x67;&#117;&#115;&#101;&#109;&#97;&#x69;&#x6c;&#46;&#x63;&#x6f;&#109;">&#108;&#97;&#x75;&#114;&#97;&#106;&#101;&#x66;&#102;&#101;&#114;&#115;&#111;&#110;&#x40;&#x62;&#x6f;&#x67;&#117;&#115;&#101;&#109;&#97;&#x69;&#x6c;&#46;&#x63;&#x6f;&#109;</a></p>
-<p>Tom Williams<br>932-555-7724<br>610 High St., Old-town FL 60758<br><a href="mailto:&#116;&#111;&#x6d;&#119;&#105;&#x6c;&#x6c;&#105;&#x61;&#109;&#115;&#64;&#98;&#x6f;&#x67;&#117;&#x73;&#101;&#109;&#x61;&#105;&#108;&#x2e;&#99;&#x6f;&#x6d;">&#116;&#111;&#x6d;&#119;&#105;&#x6c;&#x6c;&#105;&#x61;&#109;&#115;&#64;&#98;&#x6f;&#x67;&#117;&#x73;&#101;&#109;&#x61;&#105;&#108;&#x2e;&#99;&#x6f;&#x6d;</a></p>
-<p>Jennifer Taylor<br>609-555-7908<br>332 Main St., Pythonville OH 78172<br><a href="mailto:&#x6a;&#x65;&#110;&#x6e;&#x69;&#102;&#x65;&#114;&#x74;&#x61;&#121;&#108;&#x6f;&#114;&#64;&#98;&#111;&#x67;&#x75;&#x73;&#x65;&#109;&#x61;&#105;&#108;&#46;&#x63;&#x6f;&#109;">&#x6a;&#x65;&#110;&#x6e;&#x69;&#102;&#x65;&#114;&#x74;&#x61;&#121;&#108;&#x6f;&#114;&#64;&#98;&#111;&#x67;&#x75;&#x73;&#x65;&#109;&#x61;&#105;&#108;&#46;&#x63;&#x6f;&#109;</a></p>
-<p>Erick Wright<br>800-555-8810<br>858 Hill St., Blackwater NC 79714<br><a href="mailto:&#106;&#x65;&#x6e;&#x6e;&#x69;&#102;&#101;&#x72;&#x77;&#114;&#x69;&#x67;&#x68;&#x74;&#x40;&#98;&#111;&#103;&#x75;&#x73;&#101;&#x6d;&#x61;&#x69;&#x6c;&#46;&#99;&#x6f;&#x6d;">&#106;&#x65;&#x6e;&#x6e;&#x69;&#102;&#101;&#x72;&#x77;&#114;&#x69;&#x67;&#x68;&#x74;&#x40;&#98;&#111;&#103;&#x75;&#x73;&#101;&#x6d;&#x61;&#x69;&#x6c;&#46;&#99;&#x6f;&#x6d;</a></p>
-<p>Steve Doe<br>149-555-7657<br>441 Elm St., Atlantis MS 87195<br><a href="mailto:&#x73;&#116;&#x65;&#x76;&#101;&#100;&#x6f;&#101;&#64;&#x62;&#x6f;&#x67;&#117;&#115;&#x65;&#109;&#x61;&#x69;&#x6c;&#46;&#x63;&#111;&#109;">&#x73;&#116;&#x65;&#x76;&#101;&#100;&#x6f;&#101;&#64;&#x62;&#x6f;&#x67;&#117;&#115;&#x65;&#109;&#x61;&#x69;&#x6c;&#46;&#x63;&#111;&#109;</a></p>
-<p>Kurt Davis<br>130-555-9709<br>404 Oak St., Atlantis ND 85386<br><a href="mailto:&#x6b;&#x75;&#114;&#x74;&#100;&#x61;&#118;&#x69;&#x73;&#x40;&#98;&#x6f;&#x67;&#x75;&#115;&#x65;&#109;&#x61;&#x69;&#x6c;&#46;&#x63;&#x6f;&#x6d;">&#x6b;&#x75;&#114;&#x74;&#100;&#x61;&#118;&#x69;&#x73;&#x40;&#98;&#x6f;&#x67;&#x75;&#115;&#x65;&#109;&#x61;&#x69;&#x6c;&#46;&#x63;&#x6f;&#x6d;</a></p>
-<p>Corey Harris<br>143-555-9295<br>286 Pearl St., Vice City TX 57112<br><a href="mailto:&#99;&#x6f;&#114;&#101;&#121;&#104;&#97;&#x72;&#x72;&#x69;&#115;&#64;&#98;&#x6f;&#x67;&#x75;&#x73;&#x65;&#109;&#97;&#105;&#x6c;&#x2e;&#99;&#111;&#x6d;">&#99;&#x6f;&#114;&#101;&#121;&#104;&#97;&#x72;&#x72;&#x69;&#115;&#64;&#98;&#x6f;&#x67;&#x75;&#x73;&#x65;&#109;&#97;&#105;&#x6c;&#x2e;&#99;&#111;&#x6d;</a></p>
-<p>Nicole Taylor<br>903-555-9878<br>465 Hill St., Old-town LA 64102<br><a href="mailto:&#110;&#105;&#99;&#x6f;&#x6c;&#x65;&#x74;&#97;&#121;&#x6c;&#x6f;&#x72;&#64;&#98;&#111;&#x67;&#x75;&#115;&#x65;&#x6d;&#97;&#105;&#108;&#46;&#x63;&#x6f;&#109;">&#110;&#105;&#99;&#x6f;&#x6c;&#x65;&#x74;&#97;&#121;&#x6c;&#x6f;&#x72;&#64;&#98;&#111;&#x67;&#x75;&#115;&#x65;&#x6d;&#97;&#105;&#108;&#46;&#x63;&#x6f;&#109;</a></p>
-<p>Elizabeth Davis<br>574-555-3194<br>151 Lake St., Eerie SD 17880<br><a href="mailto:&#x65;&#x6c;&#x69;&#x7a;&#97;&#98;&#101;&#x74;&#x68;&#x64;&#x61;&#118;&#105;&#115;&#x40;&#x62;&#111;&#103;&#117;&#115;&#101;&#x6d;&#x61;&#x69;&#x6c;&#46;&#x63;&#111;&#x6d;">&#x65;&#x6c;&#x69;&#x7a;&#97;&#98;&#101;&#x74;&#x68;&#x64;&#x61;&#118;&#105;&#115;&#x40;&#x62;&#111;&#103;&#117;&#115;&#101;&#x6d;&#x61;&#x69;&#x6c;&#46;&#x63;&#111;&#x6d;</a></p>
-<p>Maggie Jenkins<br>496-555-7533<br>504 Lake St., Gotham PA 46692<br><a href="mailto:&#109;&#97;&#x67;&#x67;&#x69;&#x65;&#x6a;&#101;&#x6e;&#x6b;&#105;&#110;&#x73;&#64;&#98;&#x6f;&#x67;&#x75;&#x73;&#x65;&#109;&#x61;&#105;&#x6c;&#46;&#x63;&#x6f;&#109;">&#109;&#97;&#x67;&#x67;&#x69;&#x65;&#x6a;&#101;&#x6e;&#x6b;&#105;&#110;&#x73;&#64;&#98;&#x6f;&#x67;&#x75;&#x73;&#x65;&#109;&#x61;&#105;&#x6c;&#46;&#x63;&#x6f;&#109;</a></p>
-<p>Linda Davis<br>210-555-3757<br>201 Pine St., Vice City AR 78455<br><a href="mailto:&#108;&#x69;&#110;&#100;&#x61;&#x64;&#97;&#x76;&#105;&#x73;&#x40;&#98;&#111;&#x67;&#117;&#115;&#x65;&#x6d;&#x61;&#x69;&#x6c;&#46;&#99;&#x6f;&#x6d;">&#108;&#x69;&#110;&#100;&#x61;&#x64;&#97;&#x76;&#105;&#x73;&#x40;&#98;&#111;&#x67;&#117;&#115;&#x65;&#x6d;&#x61;&#x69;&#x6c;&#46;&#99;&#x6f;&#x6d;</a></p>
-<p>Dave Moore<br>900-555-9598<br>251 Pine St., Old-town OK 29087<br><a href="mailto:&#100;&#97;&#x76;&#x65;&#109;&#x6f;&#x6f;&#114;&#101;&#64;&#98;&#111;&#x67;&#117;&#x73;&#x65;&#x6d;&#x61;&#105;&#x6c;&#x2e;&#x63;&#x6f;&#109;">&#100;&#97;&#x76;&#x65;&#109;&#x6f;&#x6f;&#114;&#101;&#64;&#98;&#111;&#x67;&#117;&#x73;&#x65;&#x6d;&#x61;&#105;&#x6c;&#x2e;&#x63;&#x6f;&#109;</a></p>
-<p>Linda Jenkins<br>866-555-9844<br>117 High St., Bedrock NE 11899<br><a href="mailto:&#108;&#105;&#110;&#100;&#97;&#x6a;&#101;&#110;&#x6b;&#105;&#x6e;&#115;&#64;&#x62;&#x6f;&#x67;&#x75;&#x73;&#x65;&#x6d;&#x61;&#x69;&#108;&#46;&#x63;&#x6f;&#x6d;">&#108;&#105;&#110;&#100;&#97;&#x6a;&#101;&#110;&#x6b;&#105;&#x6e;&#115;&#64;&#x62;&#x6f;&#x67;&#x75;&#x73;&#x65;&#x6d;&#x61;&#x69;&#108;&#46;&#x63;&#x6f;&#x6d;</a></p>
-<p>Eric White<br>669-555-7159<br>650 Oak St., Smalltown TN 43281<br><a href="mailto:&#x73;&#97;&#109;&#x77;&#104;&#x69;&#x74;&#x65;&#64;&#98;&#111;&#x67;&#117;&#115;&#x65;&#109;&#97;&#x69;&#x6c;&#x2e;&#99;&#111;&#x6d;">&#x73;&#97;&#109;&#x77;&#104;&#x69;&#x74;&#x65;&#64;&#98;&#111;&#x67;&#117;&#115;&#x65;&#109;&#97;&#x69;&#x6c;&#x2e;&#99;&#111;&#x6d;</a></p>
-<p>Laura Robinson<br>152-555-7417<br>377 Pine St., Valyria NC 78036<br><a href="mailto:&#x6c;&#97;&#117;&#114;&#x61;&#x72;&#111;&#x62;&#x69;&#x6e;&#x73;&#x6f;&#x6e;&#64;&#98;&#111;&#103;&#117;&#x73;&#101;&#109;&#x61;&#105;&#x6c;&#x2e;&#99;&#111;&#109;">&#x6c;&#97;&#117;&#114;&#x61;&#x72;&#111;&#x62;&#x69;&#x6e;&#x73;&#x6f;&#x6e;&#64;&#98;&#111;&#103;&#117;&#x73;&#101;&#109;&#x61;&#105;&#x6c;&#x2e;&#99;&#111;&#109;</a></p>
-<p>Charles Patterson<br>893-555-9832<br>416 Pearl St., Valyria AK 62260<br><a href="mailto:&#x63;&#104;&#x61;&#x72;&#x6c;&#101;&#115;&#x70;&#x61;&#x74;&#116;&#x65;&#x72;&#x73;&#x6f;&#x6e;&#64;&#x62;&#111;&#103;&#x75;&#115;&#101;&#x6d;&#97;&#105;&#x6c;&#x2e;&#x63;&#x6f;&#109;">&#x63;&#104;&#x61;&#x72;&#x6c;&#101;&#115;&#x70;&#x61;&#x74;&#116;&#x65;&#x72;&#x73;&#x6f;&#x6e;&#64;&#x62;&#111;&#103;&#x75;&#115;&#101;&#x6d;&#97;&#105;&#x6c;&#x2e;&#x63;&#x6f;&#109;</a></p>
-<p>Joe Jackson<br>217-555-7123<br>683 Cedar St., South Park KS 66724<br><a href="mailto:&#106;&#x6f;&#x65;&#106;&#97;&#99;&#107;&#x73;&#x6f;&#110;&#64;&#x62;&#x6f;&#103;&#x75;&#x73;&#101;&#x6d;&#x61;&#105;&#x6c;&#46;&#x63;&#x6f;&#x6d;">&#106;&#x6f;&#x65;&#106;&#97;&#99;&#107;&#x73;&#x6f;&#110;&#64;&#x62;&#x6f;&#103;&#x75;&#x73;&#101;&#x6d;&#x61;&#105;&#x6c;&#46;&#x63;&#x6f;&#x6d;</a></p>
-<p>Michael Johnson<br>786-555-6544<br>288 Hill St., Smalltown AZ 18586<br><a href="mailto:&#x6d;&#x69;&#99;&#x68;&#x61;&#101;&#108;&#106;&#111;&#104;&#x6e;&#x73;&#111;&#110;&#x40;&#98;&#111;&#103;&#117;&#x73;&#x65;&#109;&#97;&#x69;&#x6c;&#46;&#x63;&#x6f;&#x6d;">&#x6d;&#x69;&#99;&#x68;&#x61;&#101;&#108;&#106;&#111;&#104;&#x6e;&#x73;&#111;&#110;&#x40;&#98;&#111;&#103;&#117;&#x73;&#x65;&#109;&#97;&#x69;&#x6c;&#46;&#x63;&#x6f;&#x6d;</a></p>
-<p>Corey Miller<br>780-555-2574<br>286 High St., Springfield IA 16272<br><a href="mailto:&#x63;&#111;&#114;&#101;&#x79;&#109;&#105;&#x6c;&#108;&#101;&#114;&#x40;&#x62;&#111;&#103;&#x75;&#x73;&#101;&#x6d;&#x61;&#x69;&#x6c;&#x2e;&#99;&#111;&#x6d;">&#x63;&#111;&#114;&#101;&#x79;&#109;&#105;&#x6c;&#108;&#101;&#114;&#x40;&#x62;&#111;&#103;&#x75;&#x73;&#101;&#x6d;&#x61;&#x69;&#x6c;&#x2e;&#99;&#111;&#x6d;</a></p>
-<p>James Moore<br>926-555-8735<br>278 Main St., Gotham KY 89569<br><a href="mailto:&#x6a;&#97;&#x6d;&#x65;&#x73;&#109;&#111;&#x6f;&#x72;&#x65;&#64;&#98;&#111;&#103;&#117;&#115;&#x65;&#109;&#x61;&#x69;&#108;&#46;&#x63;&#111;&#x6d;">&#x6a;&#97;&#x6d;&#x65;&#x73;&#109;&#111;&#x6f;&#x72;&#x65;&#64;&#98;&#111;&#103;&#117;&#115;&#x65;&#109;&#x61;&#x69;&#108;&#46;&#x63;&#111;&#x6d;</a></p>
-<p>Jennifer Stuart<br>895-555-3539<br>766 Hill St., King’s Landing GA 54999<br><a href="mailto:&#x6a;&#101;&#110;&#x6e;&#105;&#102;&#x65;&#x72;&#x73;&#x74;&#x75;&#x61;&#114;&#x74;&#64;&#x62;&#111;&#x67;&#x75;&#115;&#x65;&#109;&#97;&#x69;&#x6c;&#x2e;&#x63;&#x6f;&#109;">&#x6a;&#101;&#110;&#x6e;&#105;&#102;&#x65;&#x72;&#x73;&#x74;&#x75;&#x61;&#114;&#x74;&#64;&#x62;&#111;&#x67;&#x75;&#115;&#x65;&#109;&#97;&#x69;&#x6c;&#x2e;&#x63;&#x6f;&#109;</a></p>
-<p>Charles Martin<br>874-555-3949<br>775 High St., Faketown PA 89260<br><a href="mailto:&#x63;&#104;&#x61;&#114;&#108;&#x65;&#x73;&#109;&#x61;&#x72;&#x74;&#x69;&#110;&#x40;&#98;&#111;&#x67;&#x75;&#115;&#101;&#109;&#x61;&#x69;&#x6c;&#46;&#99;&#x6f;&#109;">&#x63;&#104;&#x61;&#114;&#108;&#x65;&#x73;&#109;&#x61;&#x72;&#x74;&#x69;&#110;&#x40;&#98;&#111;&#x67;&#x75;&#115;&#101;&#109;&#x61;&#x69;&#x6c;&#46;&#99;&#x6f;&#109;</a></p>
-<p>Eric Wilks<br>800-555-2420<br>885 Main St., Blackwater OH 61275<br><a href="mailto:&#106;&#x6f;&#101;&#x77;&#x69;&#108;&#107;&#x73;&#64;&#98;&#111;&#103;&#117;&#x73;&#x65;&#109;&#x61;&#105;&#x6c;&#x2e;&#x63;&#x6f;&#109;">&#106;&#x6f;&#101;&#x77;&#x69;&#108;&#107;&#x73;&#64;&#98;&#111;&#103;&#117;&#x73;&#x65;&#109;&#x61;&#105;&#x6c;&#x2e;&#x63;&#x6f;&#109;</a></p>
-<p>Elizabeth Arnold<br>936-555-6340<br>528 Hill St., Atlantis NH 88289<br><a href="mailto:&#x65;&#108;&#x69;&#122;&#97;&#98;&#101;&#x74;&#104;&#x61;&#114;&#110;&#x6f;&#108;&#100;&#64;&#x62;&#111;&#x67;&#117;&#x73;&#101;&#109;&#97;&#x69;&#108;&#46;&#x63;&#x6f;&#109;">&#x65;&#108;&#x69;&#122;&#97;&#98;&#101;&#x74;&#104;&#x61;&#114;&#110;&#x6f;&#108;&#100;&#64;&#x62;&#111;&#x67;&#117;&#x73;&#101;&#109;&#97;&#x69;&#108;&#46;&#x63;&#x6f;&#109;</a></p>
-<p>John Miller<br>372-555-9809<br>117 Cedar St., Thundera NM 75205<br><a href="mailto:&#x6a;&#111;&#104;&#x6e;&#109;&#105;&#108;&#x6c;&#x65;&#114;&#64;&#x62;&#x6f;&#x67;&#x75;&#x73;&#101;&#109;&#97;&#x69;&#108;&#x2e;&#99;&#x6f;&#109;">&#x6a;&#111;&#104;&#x6e;&#109;&#105;&#108;&#x6c;&#x65;&#114;&#64;&#x62;&#x6f;&#x67;&#x75;&#x73;&#101;&#109;&#97;&#x69;&#108;&#x2e;&#99;&#x6f;&#109;</a></p>
-<p>Corey Jackson<br>890-555-5618<br>115 Oak St., Gotham UT 36433<br><a href="mailto:&#x63;&#x6f;&#114;&#101;&#x79;&#x6a;&#x61;&#99;&#x6b;&#x73;&#x6f;&#x6e;&#64;&#98;&#x6f;&#x67;&#117;&#115;&#101;&#x6d;&#x61;&#105;&#x6c;&#x2e;&#x63;&#111;&#x6d;">&#x63;&#x6f;&#114;&#101;&#x79;&#x6a;&#x61;&#99;&#x6b;&#x73;&#x6f;&#x6e;&#64;&#98;&#x6f;&#x67;&#117;&#115;&#101;&#x6d;&#x61;&#105;&#x6c;&#x2e;&#x63;&#111;&#x6d;</a></p>
-<p>Sam Thomas<br>670-555-3005<br>743 Lake St., Springfield MS 25473<br><a href="mailto:&#115;&#x61;&#109;&#116;&#104;&#x6f;&#109;&#x61;&#x73;&#x40;&#x62;&#111;&#103;&#117;&#x73;&#x65;&#109;&#97;&#105;&#x6c;&#46;&#99;&#x6f;&#109;">&#115;&#x61;&#109;&#116;&#104;&#x6f;&#109;&#x61;&#x73;&#x40;&#x62;&#111;&#103;&#117;&#x73;&#x65;&#109;&#97;&#105;&#x6c;&#46;&#99;&#x6f;&#109;</a></p>
-<p>Patricia Thomas<br>509-555-5997<br>381 Hill St., Blackwater CT 30958<br><a href="mailto:&#x70;&#97;&#x74;&#114;&#x69;&#x63;&#105;&#x61;&#x74;&#x68;&#111;&#109;&#x61;&#x73;&#64;&#x62;&#x6f;&#103;&#x75;&#x73;&#x65;&#x6d;&#x61;&#x69;&#108;&#46;&#99;&#111;&#x6d;">&#x70;&#97;&#x74;&#114;&#x69;&#x63;&#105;&#x61;&#x74;&#x68;&#111;&#109;&#x61;&#x73;&#64;&#x62;&#x6f;&#103;&#x75;&#x73;&#x65;&#x6d;&#x61;&#x69;&#108;&#46;&#99;&#111;&#x6d;</a></p>
-<p>Jennifer Davis<br>721-555-5632<br>125 Main St., Smalltown MT 62155<br><a href="mailto:&#x6a;&#101;&#110;&#110;&#105;&#x66;&#x65;&#x72;&#x64;&#x61;&#x76;&#x69;&#115;&#64;&#x62;&#111;&#103;&#x75;&#x73;&#x65;&#109;&#97;&#x69;&#108;&#x2e;&#99;&#x6f;&#x6d;">&#x6a;&#101;&#110;&#110;&#105;&#x66;&#x65;&#x72;&#x64;&#x61;&#x76;&#x69;&#115;&#64;&#x62;&#111;&#103;&#x75;&#x73;&#x65;&#109;&#97;&#x69;&#108;&#x2e;&#99;&#x6f;&#x6d;</a></p>
-<p>Patricia Brown<br>900-555-3567<br>292 Hill St., Gotham WV 57680<br><a href="mailto:&#112;&#97;&#x74;&#114;&#x69;&#99;&#105;&#97;&#98;&#x72;&#111;&#x77;&#x6e;&#64;&#98;&#x6f;&#103;&#x75;&#115;&#101;&#109;&#x61;&#105;&#108;&#x2e;&#x63;&#111;&#109;">&#112;&#97;&#x74;&#114;&#x69;&#99;&#105;&#97;&#98;&#x72;&#111;&#x77;&#x6e;&#64;&#98;&#x6f;&#103;&#x75;&#115;&#101;&#109;&#x61;&#105;&#108;&#x2e;&#x63;&#111;&#109;</a></p>
-<p>Barbara Williams<br>147-555-6830<br>514 Park St., Balmora NV 55462<br><a href="mailto:&#x62;&#x61;&#114;&#x62;&#x61;&#114;&#97;&#119;&#105;&#x6c;&#108;&#x69;&#x61;&#x6d;&#x73;&#64;&#98;&#x6f;&#103;&#x75;&#115;&#x65;&#109;&#97;&#x69;&#108;&#x2e;&#x63;&#x6f;&#109;">&#x62;&#x61;&#114;&#x62;&#x61;&#114;&#97;&#119;&#105;&#x6c;&#108;&#x69;&#x61;&#x6d;&#x73;&#64;&#98;&#x6f;&#103;&#x75;&#115;&#x65;&#109;&#97;&#x69;&#108;&#x2e;&#x63;&#x6f;&#109;</a></p>
-<p>James Taylor<br>582-555-3426<br>776 Hill St., Dawnstar MA 51312<br><a href="mailto:&#x6a;&#x61;&#109;&#101;&#x73;&#x74;&#97;&#x79;&#108;&#111;&#x72;&#64;&#98;&#x6f;&#103;&#117;&#115;&#x65;&#109;&#x61;&#105;&#x6c;&#46;&#99;&#111;&#x6d;">&#x6a;&#x61;&#109;&#101;&#x73;&#x74;&#97;&#x79;&#108;&#111;&#x72;&#64;&#98;&#x6f;&#103;&#117;&#115;&#x65;&#109;&#x61;&#105;&#x6c;&#46;&#99;&#111;&#x6d;</a></p>
-<p>Eric Harris<br>400-555-1706<br>421 Elm St., Smalltown NV 72025<br><a href="mailto:&#98;&#97;&#x72;&#x62;&#x61;&#114;&#97;&#x68;&#x61;&#x72;&#114;&#105;&#115;&#x40;&#x62;&#111;&#x67;&#x75;&#115;&#x65;&#x6d;&#97;&#105;&#x6c;&#x2e;&#99;&#111;&#x6d;">&#98;&#97;&#x72;&#x62;&#x61;&#114;&#97;&#x68;&#x61;&#x72;&#114;&#105;&#115;&#x40;&#x62;&#111;&#x67;&#x75;&#115;&#x65;&#x6d;&#97;&#105;&#x6c;&#x2e;&#99;&#111;&#x6d;</a></p>
-<p>Travis Anderson<br>525-555-1793<br>937 Cedar St., Thundera WA 78862<br><a href="mailto:&#116;&#114;&#97;&#118;&#x69;&#x73;&#x61;&#110;&#100;&#101;&#114;&#x73;&#111;&#x6e;&#x40;&#98;&#111;&#103;&#117;&#115;&#x65;&#109;&#x61;&#105;&#108;&#x2e;&#x63;&#x6f;&#109;">&#116;&#114;&#97;&#118;&#x69;&#x73;&#x61;&#110;&#100;&#101;&#114;&#x73;&#111;&#x6e;&#x40;&#98;&#111;&#103;&#117;&#115;&#x65;&#109;&#x61;&#105;&#108;&#x2e;&#x63;&#x6f;&#109;</a></p>
-<p>Sam Robinson<br>317-555-6700<br>417 Pine St., Lakeview MD 13147<br><a href="mailto:&#115;&#x61;&#109;&#x72;&#111;&#98;&#x69;&#x6e;&#x73;&#x6f;&#x6e;&#64;&#98;&#x6f;&#103;&#x75;&#115;&#x65;&#109;&#x61;&#105;&#108;&#x2e;&#99;&#x6f;&#x6d;">&#115;&#x61;&#109;&#x72;&#111;&#98;&#x69;&#x6e;&#x73;&#x6f;&#x6e;&#64;&#98;&#x6f;&#103;&#x75;&#115;&#x65;&#109;&#x61;&#105;&#108;&#x2e;&#99;&#x6f;&#x6d;</a></p>
-<p>Steve Robinson<br>974-555-8301<br>478 Park St., Springfield NM 92369<br><a href="mailto:&#x73;&#x74;&#x65;&#118;&#x65;&#x72;&#111;&#x62;&#x69;&#x6e;&#115;&#x6f;&#110;&#64;&#x62;&#111;&#103;&#x75;&#115;&#101;&#109;&#97;&#105;&#x6c;&#46;&#x63;&#x6f;&#109;">&#x73;&#x74;&#x65;&#118;&#x65;&#x72;&#111;&#x62;&#x69;&#x6e;&#115;&#x6f;&#110;&#64;&#x62;&#111;&#103;&#x75;&#115;&#101;&#109;&#97;&#105;&#x6c;&#46;&#x63;&#x6f;&#109;</a></p>
-<p>Mary Wilson<br>800-555-3216<br>708 Maple St., Braavos‎ UT 29551<br><a href="mailto:&#x6d;&#97;&#x72;&#121;&#x77;&#x69;&#x6c;&#x73;&#x6f;&#110;&#64;&#x62;&#x6f;&#x67;&#117;&#x73;&#101;&#109;&#97;&#x69;&#x6c;&#46;&#99;&#111;&#x6d;">&#x6d;&#97;&#x72;&#121;&#x77;&#x69;&#x6c;&#x73;&#x6f;&#110;&#64;&#x62;&#x6f;&#x67;&#117;&#x73;&#101;&#109;&#97;&#x69;&#x6c;&#46;&#99;&#111;&#x6d;</a></p>
-<p>Sam Wilson<br>746-555-4094<br>557 Pearl St., Westworld KS 23225<br><a href="mailto:&#115;&#x61;&#109;&#x77;&#105;&#108;&#x73;&#x6f;&#110;&#x40;&#98;&#x6f;&#x67;&#117;&#x73;&#x65;&#x6d;&#x61;&#105;&#x6c;&#x2e;&#x63;&#x6f;&#x6d;">&#115;&#x61;&#109;&#x77;&#105;&#108;&#x73;&#x6f;&#110;&#x40;&#98;&#x6f;&#x67;&#117;&#x73;&#x65;&#x6d;&#x61;&#105;&#x6c;&#x2e;&#x63;&#x6f;&#x6d;</a></p>
-<p>Charles Jones<br>922-555-1773<br>855 Hill St., Olympus HI 81427<br><a href="mailto:&#x63;&#x68;&#x61;&#114;&#x6c;&#101;&#115;&#106;&#x6f;&#x6e;&#x65;&#x73;&#64;&#98;&#x6f;&#103;&#x75;&#115;&#x65;&#109;&#97;&#x69;&#108;&#x2e;&#x63;&#x6f;&#x6d;">&#x63;&#x68;&#x61;&#114;&#x6c;&#101;&#115;&#106;&#x6f;&#x6e;&#x65;&#x73;&#64;&#98;&#x6f;&#103;&#x75;&#115;&#x65;&#109;&#97;&#x69;&#108;&#x2e;&#x63;&#x6f;&#x6d;</a></p>
-<p>Laura Brown<br>711-555-4427<br>980 Maple St., Smalltown MO 96421<br><a href="mailto:&#108;&#x61;&#x75;&#x72;&#97;&#x62;&#x72;&#x6f;&#x77;&#110;&#64;&#x62;&#111;&#103;&#117;&#115;&#x65;&#109;&#x61;&#x69;&#x6c;&#x2e;&#99;&#111;&#109;">&#108;&#x61;&#x75;&#x72;&#97;&#x62;&#x72;&#x6f;&#x77;&#110;&#64;&#x62;&#111;&#103;&#117;&#115;&#x65;&#109;&#x61;&#x69;&#x6c;&#x2e;&#99;&#111;&#109;</a></p>
-<p>Tom Harris<br>355-555-1872<br>676 Hill St., Blackwater AR 96698<br><a href="mailto:&#x74;&#111;&#x6d;&#104;&#x61;&#x72;&#x72;&#x69;&#115;&#64;&#98;&#111;&#x67;&#x75;&#115;&#x65;&#109;&#x61;&#x69;&#x6c;&#x2e;&#99;&#x6f;&#109;">&#x74;&#111;&#x6d;&#104;&#x61;&#x72;&#x72;&#x69;&#115;&#64;&#98;&#111;&#x67;&#x75;&#115;&#x65;&#109;&#x61;&#x69;&#x6c;&#x2e;&#99;&#x6f;&#109;</a></p>
-<p>Patricia Taylor<br>852-555-6521<br>588 Pine St., Olympus FL 98412<br><a href="mailto:&#x70;&#97;&#116;&#114;&#x69;&#99;&#x69;&#x61;&#116;&#x61;&#121;&#x6c;&#111;&#114;&#64;&#x62;&#x6f;&#x67;&#x75;&#x73;&#x65;&#x6d;&#97;&#105;&#x6c;&#46;&#99;&#x6f;&#109;">&#x70;&#97;&#116;&#114;&#x69;&#99;&#x69;&#x61;&#116;&#x61;&#121;&#x6c;&#111;&#114;&#64;&#x62;&#x6f;&#x67;&#x75;&#x73;&#x65;&#x6d;&#97;&#105;&#x6c;&#46;&#99;&#x6f;&#109;</a></p>
-<p>Barbara Williams<br>691-555-5773<br>351 Elm St., Sunnydale GA 26245<br><a href="mailto:&#x62;&#97;&#x72;&#x62;&#x61;&#x72;&#97;&#x77;&#x69;&#108;&#x6c;&#x69;&#x61;&#109;&#x73;&#64;&#98;&#111;&#x67;&#x75;&#115;&#x65;&#109;&#97;&#105;&#x6c;&#46;&#x63;&#111;&#x6d;">&#x62;&#97;&#x72;&#x62;&#x61;&#x72;&#97;&#x77;&#x69;&#108;&#x6c;&#x69;&#x61;&#109;&#x73;&#64;&#98;&#111;&#x67;&#x75;&#115;&#x65;&#109;&#97;&#105;&#x6c;&#46;&#x63;&#111;&#x6d;</a></p>
-<p>Maggie Johnson<br>332-555-5441<br>948 Cedar St., Quahog DE 56449<br><a href="mailto:&#109;&#x61;&#x67;&#103;&#105;&#101;&#106;&#111;&#104;&#x6e;&#x73;&#111;&#110;&#64;&#x62;&#x6f;&#x67;&#x75;&#115;&#101;&#x6d;&#97;&#105;&#108;&#46;&#x63;&#111;&#109;">&#109;&#x61;&#x67;&#103;&#105;&#101;&#106;&#111;&#104;&#x6e;&#x73;&#111;&#110;&#64;&#x62;&#x6f;&#x67;&#x75;&#115;&#101;&#x6d;&#97;&#105;&#108;&#46;&#x63;&#111;&#109;</a></p>
-<p>Kurt Miller<br>900-555-7755<br>381 Hill St., Quahog AL 97503<br><a href="mailto:&#x6b;&#117;&#x72;&#116;&#109;&#x69;&#108;&#x6c;&#101;&#x72;&#x40;&#98;&#111;&#103;&#x75;&#x73;&#x65;&#109;&#x61;&#x69;&#108;&#46;&#99;&#111;&#x6d;">&#x6b;&#117;&#x72;&#116;&#109;&#x69;&#108;&#x6c;&#101;&#x72;&#x40;&#98;&#111;&#103;&#x75;&#x73;&#x65;&#109;&#x61;&#x69;&#108;&#46;&#99;&#111;&#x6d;</a></p>
-<p>Neil Stuart<br>379-555-3685<br>496 Cedar St., Sunnydale RI 49113<br><a href="mailto:&#110;&#x65;&#105;&#108;&#x73;&#x74;&#x75;&#x61;&#114;&#x74;&#64;&#x62;&#x6f;&#103;&#117;&#x73;&#x65;&#x6d;&#x61;&#105;&#108;&#46;&#x63;&#111;&#109;">&#110;&#x65;&#105;&#108;&#x73;&#x74;&#x75;&#x61;&#114;&#x74;&#64;&#x62;&#x6f;&#103;&#117;&#x73;&#x65;&#x6d;&#x61;&#105;&#108;&#46;&#x63;&#111;&#109;</a></p>
-<p>Linda Patterson<br>127-555-9682<br>736 Cedar St., Lakeview KY 47472<br><a href="mailto:&#x6c;&#x69;&#x6e;&#x64;&#x61;&#112;&#97;&#116;&#x74;&#x65;&#114;&#115;&#x6f;&#110;&#64;&#98;&#111;&#x67;&#x75;&#x73;&#x65;&#x6d;&#97;&#x69;&#x6c;&#x2e;&#x63;&#111;&#x6d;">&#x6c;&#x69;&#x6e;&#x64;&#x61;&#112;&#97;&#116;&#x74;&#x65;&#114;&#115;&#x6f;&#110;&#64;&#98;&#111;&#x67;&#x75;&#x73;&#x65;&#x6d;&#97;&#x69;&#x6c;&#x2e;&#x63;&#111;&#x6d;</a></p>
-<p>Charles Davis<br>789-555-7032<br>678 Lake St., Mordor MN 11845<br><a href="mailto:&#x63;&#104;&#x61;&#114;&#108;&#101;&#x73;&#x64;&#97;&#x76;&#x69;&#x73;&#x40;&#98;&#x6f;&#x67;&#117;&#x73;&#101;&#109;&#x61;&#105;&#108;&#x2e;&#x63;&#x6f;&#109;">&#x63;&#104;&#x61;&#114;&#108;&#101;&#x73;&#x64;&#97;&#x76;&#x69;&#x73;&#x40;&#98;&#x6f;&#x67;&#117;&#x73;&#101;&#109;&#x61;&#105;&#108;&#x2e;&#x63;&#x6f;&#109;</a></p>
-<p>Jennifer Jefferson<br>783-555-5135<br>289 Park St., Sunnydale WA 74526<br><a href="mailto:&#106;&#x65;&#x6e;&#110;&#x69;&#102;&#x65;&#x72;&#x6a;&#101;&#102;&#102;&#101;&#x72;&#115;&#x6f;&#110;&#x40;&#x62;&#x6f;&#x67;&#x75;&#x73;&#101;&#x6d;&#x61;&#x69;&#108;&#46;&#99;&#111;&#109;">&#106;&#x65;&#x6e;&#110;&#x69;&#102;&#x65;&#x72;&#x6a;&#101;&#102;&#102;&#101;&#x72;&#115;&#x6f;&#110;&#x40;&#x62;&#x6f;&#x67;&#x75;&#x73;&#101;&#x6d;&#x61;&#x69;&#108;&#46;&#99;&#111;&#109;</a></p>
-<p>Erick Taylor<br>315-555-6507<br>245 Washington St., Bedrock IL 26941<br><a href="mailto:&#x63;&#x6f;&#114;&#101;&#x79;&#116;&#97;&#121;&#x6c;&#x6f;&#114;&#64;&#x62;&#111;&#103;&#x75;&#x73;&#101;&#x6d;&#97;&#105;&#108;&#46;&#99;&#x6f;&#109;">&#x63;&#x6f;&#114;&#101;&#x79;&#116;&#97;&#121;&#x6c;&#x6f;&#114;&#64;&#x62;&#111;&#103;&#x75;&#x73;&#101;&#x6d;&#97;&#105;&#108;&#46;&#99;&#x6f;&#109;</a></p>
-<p>Robert Wilks<br>481-555-5835<br>573 Elm St., Sunnydale IL 47182<br><a href="mailto:&#114;&#111;&#98;&#x65;&#114;&#116;&#x77;&#105;&#108;&#107;&#x73;&#x40;&#x62;&#x6f;&#x67;&#117;&#x73;&#101;&#109;&#97;&#105;&#x6c;&#46;&#x63;&#111;&#109;">&#114;&#111;&#98;&#x65;&#114;&#116;&#x77;&#105;&#108;&#107;&#x73;&#x40;&#x62;&#x6f;&#x67;&#117;&#x73;&#101;&#109;&#97;&#105;&#x6c;&#46;&#x63;&#111;&#109;</a></p>
-<p>Travis Jackson<br>365-555-8287<br>851 Lake St., Metropolis PA 22772<br><a href="mailto:&#x74;&#114;&#97;&#x76;&#105;&#115;&#x6a;&#x61;&#x63;&#107;&#115;&#x6f;&#x6e;&#x40;&#x62;&#x6f;&#103;&#117;&#115;&#x65;&#x6d;&#97;&#105;&#x6c;&#46;&#x63;&#x6f;&#x6d;">&#x74;&#114;&#97;&#x76;&#105;&#115;&#x6a;&#x61;&#x63;&#107;&#115;&#x6f;&#x6e;&#x40;&#x62;&#x6f;&#103;&#117;&#115;&#x65;&#x6d;&#97;&#105;&#x6c;&#46;&#x63;&#x6f;&#x6d;</a></p>
-<p>Travis Jackson<br>911-555-7535<br>489 Oak St., Atlantis HI 73725<br><a href="mailto:&#116;&#x72;&#97;&#118;&#105;&#x73;&#x6a;&#97;&#x63;&#x6b;&#115;&#x6f;&#x6e;&#x40;&#98;&#x6f;&#103;&#117;&#115;&#x65;&#109;&#x61;&#105;&#x6c;&#46;&#99;&#x6f;&#109;">&#116;&#x72;&#97;&#118;&#105;&#x73;&#x6a;&#97;&#x63;&#x6b;&#115;&#x6f;&#x6e;&#x40;&#98;&#x6f;&#103;&#117;&#115;&#x65;&#109;&#x61;&#105;&#x6c;&#46;&#99;&#x6f;&#109;</a></p>
-<p>Laura Wilks<br>681-555-2460<br>371 Pearl St., Smalltown SC 47466<br><a href="mailto:&#x6c;&#97;&#117;&#x72;&#x61;&#x77;&#105;&#x6c;&#x6b;&#x73;&#64;&#x62;&#111;&#103;&#117;&#x73;&#x65;&#109;&#97;&#x69;&#108;&#x2e;&#x63;&#111;&#x6d;">&#x6c;&#97;&#117;&#x72;&#x61;&#x77;&#105;&#x6c;&#x6b;&#x73;&#64;&#x62;&#111;&#103;&#117;&#x73;&#x65;&#109;&#97;&#x69;&#108;&#x2e;&#x63;&#111;&#x6d;</a></p>
-<p>Neil Arnold<br>274-555-9800<br>504 Oak St., Faketown PA 73860<br><a href="mailto:&#110;&#101;&#x69;&#108;&#97;&#x72;&#110;&#111;&#108;&#x64;&#64;&#98;&#x6f;&#x67;&#x75;&#115;&#101;&#x6d;&#x61;&#x69;&#x6c;&#x2e;&#x63;&#x6f;&#x6d;">&#110;&#101;&#x69;&#108;&#97;&#x72;&#110;&#111;&#108;&#x64;&#64;&#98;&#x6f;&#x67;&#x75;&#115;&#101;&#x6d;&#x61;&#x69;&#x6c;&#x2e;&#x63;&#x6f;&#x6d;</a></p>
-<p>Linda Johnson<br>800-555-1372<br>667 High St., Balmora IN 82473<br><a href="mailto:&#108;&#105;&#x6e;&#100;&#97;&#106;&#x6f;&#104;&#110;&#x73;&#111;&#110;&#x40;&#x62;&#x6f;&#103;&#x75;&#x73;&#x65;&#x6d;&#97;&#105;&#108;&#x2e;&#x63;&#111;&#x6d;">&#108;&#105;&#x6e;&#100;&#97;&#106;&#x6f;&#104;&#110;&#x73;&#111;&#110;&#x40;&#x62;&#x6f;&#103;&#x75;&#x73;&#x65;&#x6d;&#97;&#105;&#108;&#x2e;&#x63;&#111;&#x6d;</a></p>
-<p>Jennifer Wilson<br>300-555-7821<br>266 Pine St., Westworld DC 58720<br><a href="mailto:&#106;&#x65;&#x6e;&#110;&#x69;&#x66;&#101;&#x72;&#x77;&#x69;&#x6c;&#x73;&#111;&#x6e;&#x40;&#98;&#111;&#x67;&#117;&#115;&#101;&#109;&#97;&#105;&#108;&#46;&#x63;&#111;&#x6d;">&#106;&#x65;&#x6e;&#110;&#x69;&#x66;&#101;&#x72;&#x77;&#x69;&#x6c;&#x73;&#111;&#x6e;&#x40;&#98;&#111;&#x67;&#117;&#115;&#101;&#109;&#97;&#105;&#108;&#46;&#x63;&#111;&#x6d;</a></p>
-<p>Nicole White<br>133-555-3889<br>276 High St., Braavos‎ IL 57764<br><a href="mailto:&#x6e;&#x69;&#x63;&#x6f;&#x6c;&#x65;&#x77;&#104;&#105;&#116;&#x65;&#64;&#x62;&#111;&#x67;&#x75;&#115;&#101;&#109;&#97;&#x69;&#108;&#46;&#99;&#111;&#109;">&#x6e;&#x69;&#x63;&#x6f;&#x6c;&#x65;&#x77;&#104;&#105;&#116;&#x65;&#64;&#x62;&#111;&#x67;&#x75;&#115;&#101;&#109;&#97;&#x69;&#108;&#46;&#99;&#111;&#109;</a></p>
-<p>Maria Arnold<br>705-555-6863<br>491 Elm St., Metropolis PA 31836<br><a href="mailto:&#x6d;&#97;&#x72;&#x69;&#97;&#97;&#x72;&#x6e;&#x6f;&#108;&#100;&#x40;&#98;&#111;&#x67;&#x75;&#x73;&#101;&#109;&#x61;&#105;&#x6c;&#46;&#x63;&#111;&#109;">&#x6d;&#97;&#x72;&#x69;&#97;&#97;&#x72;&#x6e;&#x6f;&#108;&#100;&#x40;&#98;&#111;&#x67;&#x75;&#x73;&#101;&#109;&#x61;&#105;&#x6c;&#46;&#x63;&#111;&#109;</a></p>
-<p>Jennifer Davis<br>215-555-9449<br>859 Cedar St., Old-town MT 31169<br><a href="mailto:&#x6a;&#x65;&#x6e;&#x6e;&#x69;&#x66;&#x65;&#114;&#x64;&#97;&#x76;&#105;&#115;&#64;&#98;&#111;&#x67;&#x75;&#115;&#101;&#109;&#x61;&#x69;&#108;&#46;&#99;&#x6f;&#109;">&#x6a;&#x65;&#x6e;&#x6e;&#x69;&#x66;&#x65;&#114;&#x64;&#97;&#x76;&#105;&#115;&#64;&#98;&#111;&#x67;&#x75;&#115;&#101;&#109;&#x61;&#x69;&#108;&#46;&#99;&#x6f;&#109;</a></p>
-<p>Mary Patterson<br>988-555-6112<br>956 Park St., Valyria CT 81541<br><a href="mailto:&#109;&#97;&#x72;&#x79;&#x70;&#97;&#x74;&#x74;&#101;&#x72;&#x73;&#111;&#x6e;&#64;&#98;&#x6f;&#x67;&#x75;&#x73;&#x65;&#x6d;&#x61;&#x69;&#x6c;&#x2e;&#99;&#111;&#x6d;">&#109;&#97;&#x72;&#x79;&#x70;&#97;&#x74;&#x74;&#101;&#x72;&#x73;&#111;&#x6e;&#64;&#98;&#x6f;&#x67;&#x75;&#x73;&#x65;&#x6d;&#x61;&#x69;&#x6c;&#x2e;&#99;&#111;&#x6d;</a></p>
-<p>Jane Stuart<br>623-555-3006<br>983 Oak St., Old-town RI 15445<br><a href="mailto:&#106;&#x61;&#110;&#x65;&#x73;&#116;&#x75;&#97;&#x72;&#116;&#64;&#98;&#111;&#x67;&#117;&#115;&#101;&#x6d;&#x61;&#x69;&#x6c;&#46;&#99;&#x6f;&#109;">&#106;&#x61;&#110;&#x65;&#x73;&#116;&#x75;&#97;&#x72;&#116;&#64;&#98;&#111;&#x67;&#117;&#115;&#101;&#x6d;&#x61;&#x69;&#x6c;&#46;&#99;&#x6f;&#109;</a></p>
-<p>Robert Davis<br>192-555-4977<br>789 Maple St., Mordor IN 22215<br><a href="mailto:&#x72;&#x6f;&#x62;&#x65;&#x72;&#116;&#100;&#97;&#x76;&#105;&#115;&#x40;&#x62;&#111;&#103;&#117;&#x73;&#101;&#x6d;&#x61;&#105;&#108;&#46;&#99;&#111;&#x6d;">&#x72;&#x6f;&#x62;&#x65;&#x72;&#116;&#100;&#97;&#x76;&#105;&#115;&#x40;&#x62;&#111;&#103;&#117;&#x73;&#101;&#x6d;&#x61;&#105;&#108;&#46;&#99;&#111;&#x6d;</a></p>
-<p>James Taylor<br>178-555-4899<br>439 Hill St., Olympus NV 39308<br><a href="mailto:&#x6a;&#x61;&#109;&#101;&#115;&#116;&#x61;&#121;&#x6c;&#111;&#x72;&#x40;&#98;&#x6f;&#x67;&#x75;&#115;&#x65;&#109;&#97;&#x69;&#108;&#46;&#99;&#x6f;&#109;">&#x6a;&#x61;&#109;&#101;&#115;&#116;&#x61;&#121;&#x6c;&#111;&#x72;&#x40;&#98;&#x6f;&#x67;&#x75;&#115;&#x65;&#109;&#97;&#x69;&#108;&#46;&#99;&#x6f;&#109;</a></p>
-<p>Eric Stuart<br>952-555-3089<br>777 High St., King’s Landing AZ 16547<br><a href="mailto:&#x6a;&#x6f;&#104;&#x6e;&#x73;&#x74;&#117;&#97;&#114;&#x74;&#64;&#x62;&#x6f;&#103;&#x75;&#x73;&#x65;&#x6d;&#97;&#x69;&#108;&#46;&#x63;&#x6f;&#109;">&#x6a;&#x6f;&#104;&#x6e;&#x73;&#x74;&#117;&#97;&#114;&#x74;&#64;&#x62;&#x6f;&#103;&#x75;&#x73;&#x65;&#x6d;&#97;&#x69;&#108;&#46;&#x63;&#x6f;&#109;</a></p>
-<p>Charles Miller<br>900-555-6426<br>207 Washington St., Blackwater MA 24886<br><a href="mailto:&#x63;&#x68;&#97;&#x72;&#108;&#101;&#115;&#x6d;&#x69;&#x6c;&#x6c;&#x65;&#x72;&#64;&#x62;&#x6f;&#103;&#117;&#x73;&#101;&#109;&#x61;&#x69;&#108;&#46;&#x63;&#x6f;&#109;">&#x63;&#x68;&#97;&#x72;&#108;&#101;&#115;&#x6d;&#x69;&#x6c;&#x6c;&#x65;&#x72;&#64;&#x62;&#x6f;&#103;&#117;&#x73;&#101;&#109;&#x61;&#x69;&#108;&#46;&#x63;&#x6f;&#109;</a></p>
-<ul>
-<li>ip正则：<br>(((\d{1,2})|(1\d{2})|(2[0-4]\d)|(25[0-5])).){3}((\d{1,2})|(1\d{2})|(2[0-4]\d)|(25[0-5]))</li>
+          <h1 id="11、【对线面试官】CountDownLatch和CyclicBarrier"><a href="#11、【对线面试官】CountDownLatch和CyclicBarrier" class="headerlink" title="11、【对线面试官】CountDownLatch和CyclicBarrier"></a>11、【对线面试官】CountDownLatch和CyclicBarrier</h1><h2 id="我现在有个场景：现在我有50个任务，这50个任务在完成之后，才能执行下一个「函数」，要是你，你怎么设计？"><a href="#我现在有个场景：现在我有50个任务，这50个任务在完成之后，才能执行下一个「函数」，要是你，你怎么设计？" class="headerlink" title="我现在有个场景：现在我有50个任务，这50个任务在完成之后，才能执行下一个「函数」，要是你，你怎么设计？"></a>我现在有个场景：现在我有50个任务，这50个任务在完成之后，才能执行下一个「函数」，要是你，你怎么设计？</h2><ol>
+<li>可以用JDK给我们提供的线程工具类，CountDownLatch和CyclicBarrier都可以完成这个需求。</li>
+<li>这两个类都可以等到线程完成之后，才去执行某些操作</li>
+</ol>
+<h2 id="那既然都能实现的话？那CountDownLatch和CyclicBarrier有什么什么区别呢？"><a href="#那既然都能实现的话？那CountDownLatch和CyclicBarrier有什么什么区别呢？" class="headerlink" title="那既然都能实现的话？那CountDownLatch和CyclicBarrier有什么什么区别呢？"></a>那既然都能实现的话？那CountDownLatch和CyclicBarrier有什么什么区别呢？</h2><ul>
+<li>主要的区别就是CountDownLatch用完了，就结束了，没法复用。而CyclicBarrier不一样，它可以复用。</li>
+<li>比如说，你得给我解释：CountDownLatch和CyclicBarrier都是线程同步的工具类<br>od</li>
+<li>CountDownLatch允许一个或多个线程一直等待，直到这些线程完成它们的操作</li>
+<li>而CyclicBarrier不一样，它往往是当线程到达某状态后，暂停下来等待其他线程等到所有线程均到达以后，才继续执行</li>
+<li>可以发现这两者的等待主体是不一样的。</li>
+<li>CountDownLatch调用await（）通常是主线程&#x2F;调用线程，而CyclicBarrier调用await（）是在任务线程调用的</li>
+<li>所以，CyclicBarrier中的阻塞的是任务的线程，而主线程是不受影响的</li>
+<li>简单叙述完这些基本概念后，可以特意抛出这两个类都是基于AQS实现的</li>
+<li>countDownLatch<ol>
+<li>前面提到了CountDownLatch也是基于AQS实现的，它的实现机制很简单</li>
+<li>当我们在构建CountDownLatch对象时，传入的值其实就会赋值给AQS的关键变量state</li>
+<li>执行countDown方法时，其实就是利用CAS将state-1<br>执行await方法时，其实就是判断state是否为0，不为0则加入到队列中，将该线程阻塞掉（除了头结点）</li>
+<li>因为头节点会一直自旋等待state为0，当state为0时，头节点把剩余的在队列中阻塞的节点也一并唤醒</li>
+</ol>
+</li>
+<li>CycllicBarrier<ol>
+<li>从源码不难发现的是，它没有像CountDo wnLatch和ReentrantLock使用AQS的stat e变量，而CyclicBarrier是直接借助ReentrantLock加上Condition等待唤醒的功能进而实现的</li>
+<li>在构建CyclicBarrier时，传入的值会赋值给CyclicBarrier内部维护count变量，也会赋值给parties变量（这是可以复用的关键）</li>
+<li>每次调用await时，会将count-1，操作count值是直接使用ReentrantLock来保证线程安全性</li>
+<li>如果count不为0，则添加则condition队列中</li>
+<li>如果count等于0时，则把节点从condition队列添加至AQS的队列中进行全部唤醒，并且将parties的值重新赋值为count的值（实现复用）</li>
+</ol>
+</li>
 </ul>
+<h2 id="那如果是这样的话，那我多次用CountDownLatch不也可以解决问题吗？"><a href="#那如果是这样的话，那我多次用CountDownLatch不也可以解决问题吗？" class="headerlink" title="那如果是这样的话，那我多次用CountDownLatch不也可以解决问题吗？"></a>那如果是这样的话，那我多次用CountDownLatch不也可以解决问题吗？</h2><ol>
+<li>是这样的，我提出了个场景，它确实很像可以用CountDownLatch和CyclicBarrier解决</li>
+<li>但是，作为面试者的你可以尝试向我获取更多的信息</li>
+<li>我可没说一个任务就用一个线程处理哦</li>
+<li>放一步讲，即便我是想考察CountDownLatch和CyclicBarrier的知识，但是过程也是很重要的。我会看你在这个过程中思考的以及沟通</li>
+</ol>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ol>
+<li>CountDownlatch基于AQS实现，会将构造CountDownLatch的入参传递至state，countDown（）就是在利用CAS将state减- 1，await（）实际就是让头节点一直在等待s tate为0时，释放所有等待的线程</li>
+<li>而CyclicBarrier则利用ReentrantLock和Condition，自身维护了count和parties变量。每次调用await将count-1，并将线程加入到condition队列上。等到count为0时，则将condition队列的节点移交至AQS队列，并全部释放。</li>
+<li></li>
+</ol>
 
       
     </div>
@@ -1246,167 +944,6 @@ if (runStateLessThan(c, STOP)) &#123;
 </li>
 </ol>
 <p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/NxSnnq_20211029171330.png"></p>
-
-      
-    </div>
-
-    
-    
-    
-
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>l
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/58f7b356/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/lion.png">
-      <meta itemprop="name" content="swimminghao">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="swimminghao's blog">
-      <meta itemprop="description" content="swimminghao的学习博客">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | swimminghao's blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/58f7b356/" class="post-title-link" itemprop="url">11、【对线面试官】CountDownLatch和CyclicBarrier</a>
-        </h2>
-
-        <div class="post-meta-container">
-
-          
-
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-10 09:48:07" itemprop="dateModified" datetime="2022-03-10T09:48:07+08:00">2022-03-10</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="far fa-comment"></i>
-    </span>
-    <span class="post-meta-item-text">Waline：</span>
-  
-    <a title="waline" href="/posts/58f7b356/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/58f7b356/" data-xid="/posts/58f7b356/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>1.6k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>1 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="11、【对线面试官】CountDownLatch和CyclicBarrier"><a href="#11、【对线面试官】CountDownLatch和CyclicBarrier" class="headerlink" title="11、【对线面试官】CountDownLatch和CyclicBarrier"></a>11、【对线面试官】CountDownLatch和CyclicBarrier</h1><h2 id="我现在有个场景：现在我有50个任务，这50个任务在完成之后，才能执行下一个「函数」，要是你，你怎么设计？"><a href="#我现在有个场景：现在我有50个任务，这50个任务在完成之后，才能执行下一个「函数」，要是你，你怎么设计？" class="headerlink" title="我现在有个场景：现在我有50个任务，这50个任务在完成之后，才能执行下一个「函数」，要是你，你怎么设计？"></a>我现在有个场景：现在我有50个任务，这50个任务在完成之后，才能执行下一个「函数」，要是你，你怎么设计？</h2><ol>
-<li>可以用JDK给我们提供的线程工具类，CountDownLatch和CyclicBarrier都可以完成这个需求。</li>
-<li>这两个类都可以等到线程完成之后，才去执行某些操作</li>
-</ol>
-<h2 id="那既然都能实现的话？那CountDownLatch和CyclicBarrier有什么什么区别呢？"><a href="#那既然都能实现的话？那CountDownLatch和CyclicBarrier有什么什么区别呢？" class="headerlink" title="那既然都能实现的话？那CountDownLatch和CyclicBarrier有什么什么区别呢？"></a>那既然都能实现的话？那CountDownLatch和CyclicBarrier有什么什么区别呢？</h2><ul>
-<li>主要的区别就是CountDownLatch用完了，就结束了，没法复用。而CyclicBarrier不一样，它可以复用。</li>
-<li>比如说，你得给我解释：CountDownLatch和CyclicBarrier都是线程同步的工具类<br>od</li>
-<li>CountDownLatch允许一个或多个线程一直等待，直到这些线程完成它们的操作</li>
-<li>而CyclicBarrier不一样，它往往是当线程到达某状态后，暂停下来等待其他线程等到所有线程均到达以后，才继续执行</li>
-<li>可以发现这两者的等待主体是不一样的。</li>
-<li>CountDownLatch调用await（）通常是主线程&#x2F;调用线程，而CyclicBarrier调用await（）是在任务线程调用的</li>
-<li>所以，CyclicBarrier中的阻塞的是任务的线程，而主线程是不受影响的</li>
-<li>简单叙述完这些基本概念后，可以特意抛出这两个类都是基于AQS实现的</li>
-<li>countDownLatch<ol>
-<li>前面提到了CountDownLatch也是基于AQS实现的，它的实现机制很简单</li>
-<li>当我们在构建CountDownLatch对象时，传入的值其实就会赋值给AQS的关键变量state</li>
-<li>执行countDown方法时，其实就是利用CAS将state-1<br>执行await方法时，其实就是判断state是否为0，不为0则加入到队列中，将该线程阻塞掉（除了头结点）</li>
-<li>因为头节点会一直自旋等待state为0，当state为0时，头节点把剩余的在队列中阻塞的节点也一并唤醒</li>
-</ol>
-</li>
-<li>CycllicBarrier<ol>
-<li>从源码不难发现的是，它没有像CountDo wnLatch和ReentrantLock使用AQS的stat e变量，而CyclicBarrier是直接借助ReentrantLock加上Condition等待唤醒的功能进而实现的</li>
-<li>在构建CyclicBarrier时，传入的值会赋值给CyclicBarrier内部维护count变量，也会赋值给parties变量（这是可以复用的关键）</li>
-<li>每次调用await时，会将count-1，操作count值是直接使用ReentrantLock来保证线程安全性</li>
-<li>如果count不为0，则添加则condition队列中</li>
-<li>如果count等于0时，则把节点从condition队列添加至AQS的队列中进行全部唤醒，并且将parties的值重新赋值为count的值（实现复用）</li>
-</ol>
-</li>
-</ul>
-<h2 id="那如果是这样的话，那我多次用CountDownLatch不也可以解决问题吗？"><a href="#那如果是这样的话，那我多次用CountDownLatch不也可以解决问题吗？" class="headerlink" title="那如果是这样的话，那我多次用CountDownLatch不也可以解决问题吗？"></a>那如果是这样的话，那我多次用CountDownLatch不也可以解决问题吗？</h2><ol>
-<li>是这样的，我提出了个场景，它确实很像可以用CountDownLatch和CyclicBarrier解决</li>
-<li>但是，作为面试者的你可以尝试向我获取更多的信息</li>
-<li>我可没说一个任务就用一个线程处理哦</li>
-<li>放一步讲，即便我是想考察CountDownLatch和CyclicBarrier的知识，但是过程也是很重要的。我会看你在这个过程中思考的以及沟通</li>
-</ol>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ol>
-<li>CountDownlatch基于AQS实现，会将构造CountDownLatch的入参传递至state，countDown（）就是在利用CAS将state减- 1，await（）实际就是让头节点一直在等待s tate为0时，释放所有等待的线程</li>
-<li>而CyclicBarrier则利用ReentrantLock和Condition，自身维护了count和parties变量。每次调用await将count-1，并将线程加入到condition队列上。等到count为0时，则将condition队列的节点移交至AQS队列，并全部释放。</li>
-<li></li>
-</ol>
 
       
     </div>
@@ -2180,6 +1717,181 @@ if (runStateLessThan(c, STOP)) &#123;
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/36f701ea/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lion.png">
+      <meta itemprop="name" content="swimminghao">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="swimminghao's blog">
+      <meta itemprop="description" content="swimminghao的学习博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | swimminghao's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/36f701ea/" class="post-title-link" itemprop="url">17、【对线面试官】Redis基础</a>
+        </h2>
+
+        <div class="post-meta-container">
+
+          
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-03-10 09:48:07" itemprop="dateModified" datetime="2022-03-10T09:48:07+08:00">2022-03-10</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/posts/36f701ea/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/36f701ea/" data-xid="/posts/36f701ea/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>1.7k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>2 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="17、【对线面试官】Redis基础"><a href="#17、【对线面试官】Redis基础" class="headerlink" title="17、【对线面试官】Redis基础"></a>17、【对线面试官】Redis基础</h1><h2 id="你先来讲讲为什么要用Redis吧？"><a href="#你先来讲讲为什么要用Redis吧？" class="headerlink" title="你先来讲讲为什么要用Redis吧？"></a>你先来讲讲为什么要用Redis吧？</h2><ol>
+<li>我个人是这样理解的：无论Redis也好、MySQL也好、HDFS也好、HBase也好</li>
+<li>他们都是存储数据的地方</li>
+<li>因为它们的设计理念的不同，我们会根据不同的应用场景使用不同的存储</li>
+<li>像Redis一般我们会把它用作于缓存</li>
+<li>当然啦，日常有的应用场景比较简单，用个HashMap也能解决很多的问题了，没必要上Redis</li>
+<li>这就好比，有的单机限流可能应对某些场景就够用了，也没必要说一定要上分布式限流把系统搞得复杂</li>
+</ol>
+<h2 id="那你在项目里有用到Redis吗？怎么用的？"><a href="#那你在项目里有用到Redis吗？怎么用的？" class="headerlink" title="那你在项目里有用到Redis吗？怎么用的？"></a>那你在项目里有用到Redis吗？怎么用的？</h2><ol>
+<li>Redis肯定是用到的，我负责的项目几乎都会有Redisl的踪影</li>
+<li>我举几个我这边项目用的案例呗？</li>
+<li>我这边负责消息管理平台，简单来说就是发消息的</li>
+<li>那发完消息肯定我们是得知道消息有没有下发成功的，是吧？</li>
+<li>于是我们系统有一套完整的链路追踪体系</li>
+<li>其中实时的数据我们就用Redis来进行存储，有实时肯定就会有离线的嘛（离线的数据我们是存储到Hive的）</li>
+<li>对消息进行实时链路追踪，我这边就用了Redis好几种的数据结构，分别有Set、List和Hash</li>
+<li>我再稍微铺垫下链路追踪的背景吧~</li>
+<li>要在消息管理平台发消息，首先得在后台新建一个「模板」，有模板自然会有一个模板ID</li>
+<li>对模板D进行扩展，比如说加上日期和固定的业务参数，形成的ID可以唯一标识某个模板的下发链路</li>
+<li>在系统上，我这边叫它为UMPID</li>
+<li>在发送入口处会对所有需要下发的消息打上UMPID，然后在关键链路上打上对应的点位</li>
+<li>接下来的工作就是清洗出统一的模型，然后根据不同维度进行处理啦。比如说：</li>
+<li>我要看某一天下发的所有模板有哪些，那只要我把清洗出来后数据的，将对应UMPID扔到了Set就好了</li>
+<li>我要看某一个模板的消息下发的整体链路情况，那我以UMPID为Key，Value是Hash结构，Key是state，Value则是人数</li>
+<li>这里的state我们在下发的过程中打的关键点位，比如接收到消息打个51，消息被去重了打个61，消息成功下发了打个81…</li>
+<li>以UMPID为Key，Hash结构的Key（State）进行不断的累加，就可以实现某一个模板的消息下发的整体链路情况</li>
+<li>我要看某个用户当天下发的消息有哪些，以及这些消息的整体链路是如何。</li>
+<li>这边我用的是List结构，Key是userld，Value则是UMPID+state（关键点位）+processTime（处理时间）</li>
+</ol>
+<ul>
+<li>简单来说，就是通过Redis丰富的数据结构来实现对下发消息多个维度的统计</li>
+<li>不同的应用场景选择不同的数据结构，再等到透出做处理的时候，就变得十分简单了</li>
+<li>消息下发过程中去重或者一般正常的场景就直接Key-Value就能符合需求了</li>
+<li>像bitmap、hyperloglogs、sortset、steam等等这些数据结构在我所负责的项目用得是真不多</li>
+<li>要是我有机会去到贵公司，贵公司有相关的应用场景，我相信我也很快就能掌握</li>
+<li>这些数据结构底层都由对应的object来支撑着，objecti记录对应的「编码」</li>
+<li>其实就是会根据key-value存储的数量或者长度来使用选择不同的底层数据结构实现</li>
+<li>比如说：ziplist压缩列表这个底层数据结构有可能上层的实现是list、hash和sortset</li>
+<li>Hash结构的底层数据结构可能是hash和ziplist</li>
+<li>在节省内存和性能的考量之中切换,Redis还是有点屌的啊。</li>
+</ul>
+<h2 id="就你上面那个实时链路场景，可以用其他的存储替代吗？"><a href="#就你上面那个实时链路场景，可以用其他的存储替代吗？" class="headerlink" title="就你上面那个实时链路场景，可以用其他的存储替代吗？"></a>就你上面那个实时链路场景，可以用其他的存储替代吗？</h2><ol>
+<li>嗯，理论上是可以的（或许可以尝试用HBase），但总体来说没这么好吧</li>
+<li>因为Redis拥有丰富的数据结构，在透出的时候，处理会非常的方便。</li>
+<li>如果不用Redis的话，还得做很多解析的工作</li>
+<li>并且，我那场景的并发还是相当大的（就一条消息发送，可能就产生10条记录）</li>
+<li>监控峰值命令处理数会去到20K+QPS，当然了，这场景我肯定用了Pipeline的（不然处理会慢很多）</li>
+<li>综合上面并发量和实时性以及数据结构，用Redis：是一个比较好的选择。</li>
+</ol>
+<h2 id="你觉得为什么Redis可以这么快？"><a href="#你觉得为什么Redis可以这么快？" class="headerlink" title="你觉得为什么Redis可以这么快？"></a>你觉得为什么Redis可以这么快？</h2><ol>
+<li>首先，它是纯内存操作，内存本身就很快</li>
+<li>其次，它是单线程的，Redis服务器核心是基于非阻塞的O多路复用机制，单线程避免了多线程的频繁上下文切换问题</li>
+<li>至于这个单线程，其实官网也有过说明（：表示使用Redis往往的瓶颈在于内与和网络，而不在于CPU</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>l
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://example.com/posts/32e97c2c/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2367,6 +2079,189 @@ if (runStateLessThan(c, STOP)) &#123;
 <p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/q5B8nQ_20211228115227.png"></p>
 <p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/ldYlbE_20211228115337.png"></p>
 <p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/czgjnh_20211228115425.png"></p>
+
+      
+    </div>
+
+    
+    
+    
+
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>l
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/eb97ef3e/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lion.png">
+      <meta itemprop="name" content="swimminghao">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="swimminghao's blog">
+      <meta itemprop="description" content="swimminghao的学习博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | swimminghao's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/eb97ef3e/" class="post-title-link" itemprop="url">18、【对线面试官】Redis持久化</a>
+        </h2>
+
+        <div class="post-meta-container">
+
+          
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-03-10 09:48:07" itemprop="dateModified" datetime="2022-03-10T09:48:07+08:00">2022-03-10</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/posts/eb97ef3e/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/eb97ef3e/" data-xid="/posts/eb97ef3e/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>1.9k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>2 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="18、【对线面试官】Redis持久化"><a href="#18、【对线面试官】Redis持久化" class="headerlink" title="18、【对线面试官】Redis持久化"></a>18、【对线面试官】Redis持久化</h1><h2 id="嗯，开始吧，今天要不来聊聊Redisl的持久化机制吧？"><a href="#嗯，开始吧，今天要不来聊聊Redisl的持久化机制吧？" class="headerlink" title="嗯，开始吧，今天要不来聊聊Redisl的持久化机制吧？"></a>嗯，开始吧，今天要不来聊聊Redisl的持久化机制吧？</h2><ol>
+<li><p>在上一次面试已经说过了Redis：是基于内存的</p>
+</li>
+<li><p>假设我们不做任何操作，只要Redis服务器重启（或者中途故障挂掉了），那内存的数据就会没掉</p>
+</li>
+<li><p>所以Redis：提供了持久化机制给我们用，分别是RDB和AOF</p>
+<p>1）RDB指的就是：根据我们自己配置的时间或者手动去执行BGSAVE或SAVE命令，Redisi就会去生成RDB文件</p>
+<p>2）这个RDB文件实际上就是一个经过压缩的二进制文件，Redis可以通过这个文件在启动的时候来还原我们的数据</p>
+<p>1）而AOF则是把Redis服务器接收到的所有写命令都记录到日志中</p>
+<p>2）Redis重跑一遍这个记录下的日志文件，就相当于还原了数据</p>
+</li>
+</ol>
+<h2 id="那我就想问了，你上次不是说Redis是单线程吗？那比如你说的RDB，它会执行SAVE或BESAVE命令，生成文件。那不是非常耗时的吗，那如果只有一个线程处理，那其他的请求不就得等了？"><a href="#那我就想问了，你上次不是说Redis是单线程吗？那比如你说的RDB，它会执行SAVE或BESAVE命令，生成文件。那不是非常耗时的吗，那如果只有一个线程处理，那其他的请求不就得等了？" class="headerlink" title="那我就想问了，你上次不是说Redis是单线程吗？那比如你说的RDB，它会执行SAVE或BESAVE命令，生成文件。那不是非常耗时的吗，那如果只有一个线程处理，那其他的请求不就得等了？"></a>那我就想问了，你上次不是说Redis是单线程吗？那比如你说的RDB，它会执行SAVE或BESAVE命令，生成文件。那不是非常耗时的吗，那如果只有一个线程处理，那其他的请求不就得等了？</h2><ol>
+<li>嗯，没错，Redis是单线程的。</li>
+<li>以RDB持久化的过程为例，假设我们在配置上是定时去执行RDB存储</li>
+<li>Redis有自己的一套事件处理机制，主要处理文件事件（命令请求和应答等等）和时间事件（RDB定时持久化、清理过期的Key等的）</li>
+<li>所以，定时的RDB实际上就是一个时间事件</li>
+<li>线程不停地轮询就绪的事件，发现RDB的事件可执行时，则调用BGSAVE命令</li>
+<li>而BGSAVE命令实际上会fork出一个子进程来进行完成持久化（生成RDB文件）</li>
+<li>在fork的过程中，父进程（主线程）肯定是阻塞的。</li>
+<li>但fork完之后，是fork出来的子进程去完成持久化。处理请求的进程该干嘛的就干嘛</li>
+<li>所以说啊，Redis：是单线程，理解是没错的，但没说人家不能fork进程来处理事情。</li>
+<li>还有就是，其实Redis在较新的版本中，有些地方都使用了多线程来进行处理</li>
+<li>比如说，一些删除的操作（UNLINK、FLUSHALL ASYNC等等）还有Redis6.x之后对网络数据的解析都用了多线程处理了。</li>
+<li>只不过，核心的处理命令请求和响应还是单线程。</li>
+</ol>
+<h2 id="那AOF呢？AOF不是也要写文件吗？难道也是fork了个子进程去做的？"><a href="#那AOF呢？AOF不是也要写文件吗？难道也是fork了个子进程去做的？" class="headerlink" title="那AOF呢？AOF不是也要写文件吗？难道也是fork了个子进程去做的？"></a>那AOF呢？AOF不是也要写文件吗？难道也是fork了个子进程去做的？</h2><ol>
+<li>emm，不是的。AOF是在命令执行完之后，把命令写在buffer缓冲区的（直接追加写）</li>
+<li>那想要持久化，肯定得存盘嘛。Redis：提供了几种策略供我们选择什么时候把缓冲区的数据写到磁盘</li>
+<li>我记得好像有：每秒一次&#x2F;每条命令都执行从不存盘；一般我们会选每秒一次</li>
+<li>Redis会启一个线程去刷盘，也不是用主线程去干的</li>
+</ol>
+<h2 id="那如果把执行过的命令都存起来；等启动的时候是可以再把这些写命令再执行一遍，达到恢复数据的效果；这样会有什么样的问题吗？"><a href="#那如果把执行过的命令都存起来；等启动的时候是可以再把这些写命令再执行一遍，达到恢复数据的效果；这样会有什么样的问题吗？" class="headerlink" title="那如果把执行过的命令都存起来；等启动的时候是可以再把这些写命令再执行一遍，达到恢复数据的效果；这样会有什么样的问题吗？"></a>那如果把执行过的命令都存起来；等启动的时候是可以再把这些写命令再执行一遍，达到恢复数据的效果；这样会有什么样的问题吗？</h2><ol>
+<li>嗯，问题就是，如果这些写入磁盘的「命令集合」不做任何处理，那该「命令集合」就会一直膨胀</li>
+<li>其实就是该文件会变得非常大</li>
+<li>Redis当然也考虑了这一点，它会fork个子进程会对「原始」命令集合进行重写</li>
+<li>说白了就是会压缩，压缩完了之后只要替换原始文件就好了</li>
+</ol>
+<h2 id="那我又想问了，既然它是fork一个进程来对AOF进行重写的；前面你也提到了再fork时，主进程是阻塞的，但fork后，主进程会继续接收命令；你是说重写完（压缩）会进行文件覆盖；那这样不会丢数据吗？毕竟主进程在fork之后是一直会接收命令的"><a href="#那我又想问了，既然它是fork一个进程来对AOF进行重写的；前面你也提到了再fork时，主进程是阻塞的，但fork后，主进程会继续接收命令；你是说重写完（压缩）会进行文件覆盖；那这样不会丢数据吗？毕竟主进程在fork之后是一直会接收命令的" class="headerlink" title="那我又想问了，既然它是fork一个进程来对AOF进行重写的；前面你也提到了再fork时，主进程是阻塞的，但fork后，主进程会继续接收命令；你是说重写完（压缩）会进行文件覆盖；那这样不会丢数据吗？毕竟主进程在fork之后是一直会接收命令的"></a>那我又想问了，既然它是fork一个进程来对AOF进行重写的；前面你也提到了再fork时，主进程是阻塞的，但fork后，主进程会继续接收命令；你是说重写完（压缩）会进行文件覆盖；那这样不会丢数据吗？毕竟主进程在fork之后是一直会接收命令的</h2><ol>
+<li>其实做法很简单啊，在fork子进程之后，把新接收到命令再写到另一个缓冲区不就好了吗</li>
+</ol>
+<h2 id="那AOF和RDB用哪一个呢？"><a href="#那AOF和RDB用哪一个呢？" class="headerlink" title="那AOF和RDB用哪一个呢？"></a>那AOF和RDB用哪一个呢？</h2><ol>
+<li>主要是看业务场景吧，我们这边是基于Redis使用了一套开源的key-value存储</li>
+<li>使用Redis前，首先要去新增实例，在新增时会让你选择对应的使用场景</li>
+<li>就是会让你通过不同的应用场景进行配置选择</li>
+<li>比如说，业务上是允许重启时部分数据丢失的，那RDB就够用了</li>
+<li>RDB在启动的时候恢复数据会比AOF快很多</li>
+<li>在Redis4.0以后也支持了AOF和RDB混合</li>
+<li>至于AOF的话，官网是不建议仅仅只使用AOF的，如果对数据丢失容忍度是有要求的，建议是开启AOF+RDB一起用</li>
+<li>总的来说，不同的场景使用不同的持久化策略吧</li>
+<li>我们公司也是不建议把Redis当做存储去使用的（毕竟没有事务保证，也还是可能导致数据丢失）</li>
+</ol>
+<h2 id="顺便我想问下，假如Redisl的内存满了，但业务还在写数据，会怎么样？"><a href="#顺便我想问下，假如Redisl的内存满了，但业务还在写数据，会怎么样？" class="headerlink" title="顺便我想问下，假如Redisl的内存满了，但业务还在写数据，会怎么样？"></a>顺便我想问下，假如Redisl的内存满了，但业务还在写数据，会怎么样？</h2><ol>
+<li>嗯，这个问题我也遇到过</li>
+<li>一般来说，我们会淘汰那些「不活跃」的数据，然后把新的数据写进去</li>
+<li>更多情况下，还是做好对应的监控和容量的考量吧。等容量达到阈值的时候，及时发现和扩容</li>
+</ol>
+<h2 id="那要不来讲讲扩容和Redisl的架构吧？"><a href="#那要不来讲讲扩容和Redisl的架构吧？" class="headerlink" title="那要不来讲讲扩容和Redisl的架构吧？"></a>那要不来讲讲扩容和Redisl的架构吧？</h2><p>下次吧</p>
+<h2 id="那要不来讲讲扩容和Redisl的架构吧？-1"><a href="#那要不来讲讲扩容和Redisl的架构吧？-1" class="headerlink" title="那要不来讲讲扩容和Redisl的架构吧？"></a>那要不来讲讲扩容和Redisl的架构吧？</h2><ol>
+<li>Redis的官网啊，看了这么多技术官网，我觉得Redis的官网弄得是真不错</li>
+<li>《Redis设计与实现》这本书也挺不错的</li>
+</ol>
 
       
     </div>
