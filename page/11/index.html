@@ -276,6 +276,172 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/844cde9b/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lion.png">
+      <meta itemprop="name" content="swimminghao">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="swimminghao's blog">
+      <meta itemprop="description" content="swimminghao的学习博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | swimminghao's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/844cde9b/" class="post-title-link" itemprop="url">7、【对线面试官】synchronized</a>
+        </h2>
+
+        <div class="post-meta-container">
+
+          
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-03-10 09:48:07" itemprop="dateModified" datetime="2022-03-10T09:48:07+08:00">2022-03-10</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/posts/844cde9b/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/844cde9b/" data-xid="/posts/844cde9b/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>1.5k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>1 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="7、【对线面试官】synchronized"><a href="#7、【对线面试官】synchronized" class="headerlink" title="7、【对线面试官】synchronized"></a>7、【对线面试官】synchronized</h1><h2 id="今天我们来聊聊synchronized吧？"><a href="#今天我们来聊聊synchronized吧？" class="headerlink" title="今天我们来聊聊synchronized吧？"></a>今天我们来聊聊synchronized吧？</h2><ol>
+<li>synchronized是一种互斥锁，一次只能允许一个线程进入被锁住的代码块</li>
+<li>synchronized是Java的一个关键字，它能够将代码块&#x2F;方法锁起来</li>
+<li>如果synchronized修饰的是实例方法，对应的锁则是对象实例</li>
+<li>如果synchronized修饰的是静态方法，对应的锁则是当前类的Class实例</li>
+<li>如果synchronized修饰的是代码块，对应的锁则是传入synchronized的对象实例</li>
+</ol>
+<h2 id="嗯，要不你来讲讲synchronized的原理呗？"><a href="#嗯，要不你来讲讲synchronized的原理呗？" class="headerlink" title="嗯，要不你来讲讲synchronized的原理呗？"></a>嗯，要不你来讲讲synchronized的原理呗？</h2><ol>
+<li>通过反编译可以发现</li>
+<li>当修饰方法时，编译器会生成ACC_SYNCHRONIZED关键字用来标识</li>
+<li>当修饰代码块时，会依赖monitorenter和monitorexit指令</li>
+<li>但前面已经说了，无论synchronized修饰的是方法还是代码块，对应的锁都是一个实例（对象）</li>
+<li>在内存中，对象一般由三部分组成，分别是对象头、对象实际数据和对齐填充</li>
+<li>重点在于对象头，对象头又由几部分组成，但我们重点关注对象头Mark Word的信息就好了</li>
+<li>Mark Word会记录对象关于锁的信息</li>
+<li>又因为每个对象都会有一个与之对应的monitor对象，monitor对象中存储着当前持有锁的线程以及等待锁的线程队列</li>
+<li>了解Mark Word和monitor对象是理解synchronized原理的前提</li>
+</ol>
+<h2 id="嗯，听说synchronized锁在JDK1-6之后做了很多的优化，这块你了解多少呢？"><a href="#嗯，听说synchronized锁在JDK1-6之后做了很多的优化，这块你了解多少呢？" class="headerlink" title="嗯，听说synchronized锁在JDK1.6之后做了很多的优化，这块你了解多少呢？"></a>嗯，听说synchronized锁在JDK1.6之后做了很多的优化，这块你了解多少呢？</h2><ol>
+<li>其实是这样的，在JDK1.6之前是重量级锁，线程进入同步代码块&#x2F;方法时</li>
+<li>monitor对象就会把当前进入线程的Id进行存储，设置Mark Word的monitor对象地址，并把阻塞的线程存储到monitor的等待线程队列中</li>
+<li>它加锁是依赖底层操作系统的mutex相关指令实现，所以会有用户态和内核态之间的切换，性能损耗十分明显</li>
+<li>而JDK1.6以后引入偏向锁和轻量级锁在JVM层面实现加锁的逻辑，不依赖底层操作系统，就没有切换的消耗</li>
+<li>所以，Mark Word对锁的状态记录一共有4种：无锁、偏向锁、轻量级锁和重量级锁</li>
+</ol>
+<h3 id="简单来说说偏向锁、轻量级锁和重量级锁吧"><a href="#简单来说说偏向锁、轻量级锁和重量级锁吧" class="headerlink" title="简单来说说偏向锁、轻量级锁和重量级锁吧"></a>简单来说说偏向锁、轻量级锁和重量级锁吧</h3><ol>
+<li>偏向锁指的就是JVM会认为只有某个线程才会执行同步代码（没有竞争的环境）</li>
+<li>所以在Mark Word会直接记录线程ID，只要线程来执行代码了，会比对线程ID是否相等，相等则当前线程能直接获取得到锁，执行同步代码</li>
+<li>如果不相等，则用CAS来尝试修改当前的线程ID，如果CAS修改成功，那还是能获取得到锁，执行同步代码</li>
+<li>如果CAS失败了，说明有竞争环境，此时会对偏向锁撤销，升级为轻量级锁。</li>
+<li>在轻量级锁状态下，当前线程会在栈帧下创建Lock Record，LockRecord会把 Mark Word的信息拷贝进去，且有个Owner指针指向加锁的对象由由</li>
+<li>线程执行到同步代码时，则用CAS试图将Mark Word的指向到线程栈帧的LockRecord，假设CAS修改成功，则获取得到轻量级锁</li>
+<li>假设修改失败，则自旋（重试），自旋一定次数后，则升级为重量级锁</li>
+<li>简单总结一下<ul>
+<li>synchronized锁原来只有重量级锁，依赖操作系统的mutex指令，需要用户态和内核态切换，性能损耗十分明显</li>
+<li>重量级锁用到monitor对象而偏向锁则在Mark Word记录线程ID进行比对、轻量级锁则是拷贝Mark Word到Lock Record，用CAS+自旋的方式获取。</li>
+</ul>
+</li>
+<li>引入了偏向锁和轻量级锁，就是为了在不同的使用场景使用不同的锁，进而提高效率。<br>锁只有升级，没有降级<ul>
+<li>只有一个线程进入临界区，偏向锁</li>
+<li>多个线程交替进入临界区，轻量级锁</li>
+<li>多线程同时进入临界区，重量级锁</li>
+</ul>
+</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>l
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://example.com/posts/3c567306/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -883,6 +1049,269 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/565f63a6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lion.png">
+      <meta itemprop="name" content="swimminghao">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="swimminghao's blog">
+      <meta itemprop="description" content="swimminghao的学习博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | swimminghao's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/565f63a6/" class="post-title-link" itemprop="url">法拍房</a>
+        </h2>
+
+        <div class="post-meta-container">
+
+          
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-03-11 11:12:36" itemprop="dateModified" datetime="2022-03-11T11:12:36+08:00">2022-03-11</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8C%A3%E9%92%B1/" itemprop="url" rel="index"><span itemprop="name">挣钱</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/posts/565f63a6/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/565f63a6/" data-xid="/posts/565f63a6/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>997</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>1 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="法拍房"><a href="#法拍房" class="headerlink" title="法拍房"></a>法拍房</h1><p>以前玩过法拍房。</p>
+<p>答案是：买卖不破租赁，没辙儿。</p>
+<p>而且存在租赁的情况法院必然会在拍卖前告知，可能你冲动之下不看仔细就瞎jb拍了。人家租赁合同估计做得也没啥原则性的漏洞（正常情况下房主计划断供之前就准备好一切了，还能等到拍卖完了才想起来临时抱佛脚？），否则你也不会跑来知乎问问题。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/QYXpiS_20220218115144.png" alt="img"><img src="https://pic1.zhimg.com/80/v2-f9c3fc9a2e3b9fb55e4d44eb4ac8ccfc_1440w.jpg?source=1940ef5c" alt="img">知乎懂哥太多了，民法典上写得清清楚楚的东西还要来杠</p>
+<p>给想玩法拍房的人一个建议。</p>
+<p>以前我玩法拍房，都是先找银行的熟人把银行的不良贷款列一份名单给我。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/in9h58_20220218115220.png" alt="img"></p>
+<p>看上哪套房子，就联系银行把该房的债权买下来，（银行-〉有资质的第三方机构-〉个人，具体步骤结尾有补充）（即房主欠银行的钱变成房主欠我的钱）。银行本来就不是拍卖机构，拍卖周期又可能比较长，银行一般急着回笼资金节约流程巴不得有人把债权买走，还会打折卖。之后自己成了债权人，就可以在拍卖信息上把联系电话留成自己的。</p>
+<p>有买家想了解这套房，就会打我的电话，这时我会告诉买家这套房有一些问题，比如就存在题主说的“有超长租赁合同”之类的。买家一听这房子藏雷，就不打算买了。</p>
+<p>最后想买的买家全都被我劝退，没有任何人和我竞争，这时我再让合伙人出手竞拍（债权人不能买，所以需要一个合伙人），于是这套房子就被我以起拍价买下来了。</p>
+<p>你们要买<a target="_blank" rel="noopener" href="https://www.zhihu.com/search?q=%E6%B3%95%E6%8B%8D%E6%88%BF&search_source=Entity&hybrid_search_source=Entity&hybrid_search_extra=%7B%22sourceType%22:%22answer%22,%22sourceId%22:2336153412%7D">法拍房</a>的可以参考这个方法。</p>
+<hr>
+<h3 id="没想到这里还有杠精，是因为我把这路子免费分享出来，知道的人多了会挡你财路？"><a href="#没想到这里还有杠精，是因为我把这路子免费分享出来，知道的人多了会挡你财路？" class="headerlink" title="没想到这里还有杠精，是因为我把这路子免费分享出来，知道的人多了会挡你财路？"></a>没想到这里还有杠精，是因为我把这路子免费分享出来，知道的人多了会挡你财路？</h3><h3 id="补充细节："><a href="#补充细节：" class="headerlink" title="补充细节："></a>补充细节：</h3><p>1，债权不能直接从银行到个人，需要经手有资质的第三方机构，比如拍卖行。具体步骤：挑好房子谈好折扣——打款到拍卖行——和银行签债转协议——银行债转公示——<a target="_blank" rel="noopener" href="https://www.zhihu.com/search?q=%E5%85%AC%E8%AF%81%E5%A4%84&search_source=Entity&hybrid_search_source=Entity&hybrid_search_extra=%7B%22sourceType%22:%22answer%22,%22sourceId%22:2336153412%7D">公证处</a>债权公证——法院出债转文书——诉讼主体变更——接手债权。</p>
+<p>2，法拍房如果出现意外情况，处理较繁琐。我以前只出资投债权赚差价，不沾房子本身。不认识熟人的散户建议联系专门的拍卖中介机构，不会多收你几个钱。中介也是按上面说的这些流程走的。</p>
+<hr>
+<p>最后声明：</p>
+<p>知乎杠精太多了。</p>
+<p>我回答这个问题仅仅只是因为关注动态里蹦出来了这个问题，而我正好以前在这个领域玩过一段时间，所以顺手答一下。我本人是原神和vtb领域的答主，对金融方面的流量不感兴趣，更何况还是知乎这种公认变现价值低的劣质流量。</p>
+<p>另外本人自前年底去年初住建部全国巡视指导发政策后就不再玩房了，不打广告不为自己引流（当然你可以去b站关注一下嘉然），也不接受网友任何投资与资金往来。答主绝不可能以任何形式问你要钱、拉你进任何形式的群聊、让你注册任何形式的账号等等。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/oXAOjg_20220218115620.png" alt="img"><img src="https://pic3.zhimg.com/80/v2-dc62303b7e3ec727fb12e80bcb36d58d_1440w.jpg?source=1940ef5c" alt="img"></p>
+
+      
+    </div>
+
+    
+    
+    
+
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>l
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/513a500a/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lion.png">
+      <meta itemprop="name" content="swimminghao">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="swimminghao's blog">
+      <meta itemprop="description" content="swimminghao的学习博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | swimminghao's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/513a500a/" class="post-title-link" itemprop="url">算法中文手册</a>
+        </h2>
+
+        <div class="post-meta-container">
+
+          
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-03-11 11:12:36" itemprop="dateModified" datetime="2022-03-11T11:12:36+08:00">2022-03-11</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/posts/513a500a/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/513a500a/" data-xid="/posts/513a500a/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>1.2k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>1 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>[toc]</p>
+<h3 id="开篇词"><a href="#开篇词" class="headerlink" title="开篇词"></a>开篇词</h3><h2 id="第零章、必读系列"><a href="#第零章、必读系列" class="headerlink" title="第零章、必读系列"></a>第零章、必读系列</h2><h3 id="学习算法和刷题的框架思维"><a href="#学习算法和刷题的框架思维" class="headerlink" title="学习算法和刷题的框架思维"></a>学习算法和刷题的框架思维</h3><h3 id="动态规划解题套路框架"><a href="#动态规划解题套路框架" class="headerlink" title="动态规划解题套路框架"></a>动态规划解题套路框架</h3><h3 id="回溯算法解题套路框架"><a href="#回溯算法解题套路框架" class="headerlink" title="回溯算法解题套路框架"></a>回溯算法解题套路框架</h3><h3 id="BFS-算法解题套路框架"><a href="#BFS-算法解题套路框架" class="headerlink" title="BFS 算法解题套路框架"></a>BFS 算法解题套路框架</h3><h3 id="我写了首诗，让你闭着眼睛也能写对二分搜索"><a href="#我写了首诗，让你闭着眼睛也能写对二分搜索" class="headerlink" title="我写了首诗，让你闭着眼睛也能写对二分搜索"></a>我写了首诗，让你闭着眼睛也能写对二分搜索</h3><h3 id="我写了首诗，把滑动窗口算法算法变成了默写题"><a href="#我写了首诗，把滑动窗口算法算法变成了默写题" class="headerlink" title="我写了首诗，把滑动窗口算法算法变成了默写题"></a>我写了首诗，把滑动窗口算法算法变成了默写题</h3><h3 id="一个方法团灭-LeetCode-股票买卖问题"><a href="#一个方法团灭-LeetCode-股票买卖问题" class="headerlink" title="一个方法团灭 LeetCode 股票买卖问题"></a>一个方法团灭 LeetCode 股票买卖问题</h3><h3 id="一个方法团灭-LeetCode-打家劫舍问题"><a href="#一个方法团灭-LeetCode-打家劫舍问题" class="headerlink" title="一个方法团灭 LeetCode 打家劫舍问题"></a>一个方法团灭 LeetCode 打家劫舍问题</h3><h3 id="一个方法团灭-nSum-问题"><a href="#一个方法团灭-nSum-问题" class="headerlink" title="一个方法团灭 nSum 问题"></a>一个方法团灭 nSum 问题</h3><h3 id="经典动态规划-高楼扔鸡蛋"><a href="#经典动态规划-高楼扔鸡蛋" class="headerlink" title="经典动态规划:高楼扔鸡蛋"></a>经典动态规划:高楼扔鸡蛋</h3><h3 id="经典动态规划-子集背包问题"><a href="#经典动态规划-子集背包问题" class="headerlink" title="经典动态规划:子集背包问题"></a>经典动态规划:子集背包问题</h3><h3 id="经典动态规划-完全背包问题"><a href="#经典动态规划-完全背包问题" class="headerlink" title="经典动态规划:完全背包问题"></a>经典动态规划:完全背包问题</h3><h3 id="表达式求值算法-实现计算器"><a href="#表达式求值算法-实现计算器" class="headerlink" title="表达式求值算法:实现计算器"></a>表达式求值算法:实现计算器</h3><h2 id="第一章、动态规划系列"><a href="#第一章、动态规划系列" class="headerlink" title="第一章、动态规划系列"></a>第一章、动态规划系列</h2><h3 id="动态规划解题套路框架-1"><a href="#动态规划解题套路框架-1" class="headerlink" title="动态规划解题套路框架"></a>动态规划解题套路框架</h3><h3 id="动态规划答疑篇"><a href="#动态规划答疑篇" class="headerlink" title="动态规划答疑篇"></a>动态规划答疑篇</h3><h3 id="动态规划和回溯算法到底谁是谁爹"><a href="#动态规划和回溯算法到底谁是谁爹" class="headerlink" title="动态规划和回溯算法到底谁是谁爹?"></a>动态规划和回溯算法到底谁是谁爹?</h3><h3 id="动态规划设计-最⻓递增子序列"><a href="#动态规划设计-最⻓递增子序列" class="headerlink" title="动态规划设计:最⻓递增子序列"></a>动态规划设计:最⻓递增子序列</h3><h3 id="动态规划设计-最大子数组"><a href="#动态规划设计-最大子数组" class="headerlink" title="动态规划设计:最大子数组"></a>动态规划设计:最大子数组</h3><h3 id="经典动态规划-0-1-背包问题"><a href="#经典动态规划-0-1-背包问题" class="headerlink" title="经典动态规划:0-1 背包问题"></a>经典动态规划:0-1 背包问题</h3><h3 id="经典动态规划-子集背包问题-1"><a href="#经典动态规划-子集背包问题-1" class="headerlink" title="经典动态规划:子集背包问题"></a>经典动态规划:子集背包问题</h3><h3 id="经典动态规划-完全背包问题-1"><a href="#经典动态规划-完全背包问题-1" class="headerlink" title="经典动态规划:完全背包问题"></a>经典动态规划:完全背包问题</h3><h3 id="经典动态规划-编辑距离"><a href="#经典动态规划-编辑距离" class="headerlink" title="经典动态规划:编辑距离"></a>经典动态规划:编辑距离</h3><h3 id="经典动态规划-高楼扔鸡蛋-1"><a href="#经典动态规划-高楼扔鸡蛋-1" class="headerlink" title="经典动态规划:高楼扔鸡蛋"></a>经典动态规划:高楼扔鸡蛋</h3><h3 id="经典动态规划-高楼扔鸡蛋-进阶"><a href="#经典动态规划-高楼扔鸡蛋-进阶" class="headerlink" title="经典动态规划:高楼扔鸡蛋(进阶)"></a>经典动态规划:高楼扔鸡蛋(进阶)</h3><h3 id="经典动态规划-戳气球"><a href="#经典动态规划-戳气球" class="headerlink" title="经典动态规划:戳气球"></a>经典动态规划:戳气球</h3><h3 id="经典动态规划-最⻓公共子序列"><a href="#经典动态规划-最⻓公共子序列" class="headerlink" title="经典动态规划:最⻓公共子序列"></a>经典动态规划:最⻓公共子序列</h3><h3 id="动态规划之子序列问题解题模板"><a href="#动态规划之子序列问题解题模板" class="headerlink" title="动态规划之子序列问题解题模板"></a>动态规划之子序列问题解题模板</h3><h3 id="动态规划之博弈问题"><a href="#动态规划之博弈问题" class="headerlink" title="动态规划之博弈问题"></a>动态规划之博弈问题</h3><h3 id="动态规划之正则表达"><a href="#动态规划之正则表达" class="headerlink" title="动态规划之正则表达"></a>动态规划之正则表达</h3><h3 id="动态规划之四键键盘"><a href="#动态规划之四键键盘" class="headerlink" title="动态规划之四键键盘"></a>动态规划之四键键盘</h3><h3 id="动态规划之KMP字符匹配算法"><a href="#动态规划之KMP字符匹配算法" class="headerlink" title="动态规划之KMP字符匹配算法"></a>动态规划之KMP字符匹配算法</h3><h3 id="贪心算法之区间调度问题"><a href="#贪心算法之区间调度问题" class="headerlink" title="贪心算法之区间调度问题"></a>贪心算法之区间调度问题</h3><h3 id="团灭-LeetCode-股票买卖问题"><a href="#团灭-LeetCode-股票买卖问题" class="headerlink" title="团灭 LeetCode 股票买卖问题"></a>团灭 LeetCode 股票买卖问题</h3><h3 id="团灭-LeetCode-打家劫舍问题"><a href="#团灭-LeetCode-打家劫舍问题" class="headerlink" title="团灭 LeetCode 打家劫舍问题"></a>团灭 LeetCode 打家劫舍问题</h3><h2 id="第二章、数据结构系列"><a href="#第二章、数据结构系列" class="headerlink" title="第二章、数据结构系列"></a>第二章、数据结构系列</h2><h3 id="学习数据结构和算法读什么书"><a href="#学习数据结构和算法读什么书" class="headerlink" title="学习数据结构和算法读什么书"></a>学习数据结构和算法读什么书</h3><h3 id="算法学习之路"><a href="#算法学习之路" class="headerlink" title="算法学习之路"></a>算法学习之路</h3><h3 id="二叉堆详解实现优先级队列"><a href="#二叉堆详解实现优先级队列" class="headerlink" title="二叉堆详解实现优先级队列"></a>二叉堆详解实现优先级队列</h3><h3 id="LRU算法详解"><a href="#LRU算法详解" class="headerlink" title="LRU算法详解"></a>LRU算法详解</h3><h3 id="二叉搜索树操作集锦"><a href="#二叉搜索树操作集锦" class="headerlink" title="二叉搜索树操作集锦"></a>二叉搜索树操作集锦</h3><h3 id="如何计算完全二叉树的节点数"><a href="#如何计算完全二叉树的节点数" class="headerlink" title="如何计算完全二叉树的节点数"></a>如何计算完全二叉树的节点数</h3><h3 id="特殊数据结构-单调栈"><a href="#特殊数据结构-单调栈" class="headerlink" title="特殊数据结构:单调栈"></a>特殊数据结构:单调栈</h3><h3 id="特殊数据结构-单调队列"><a href="#特殊数据结构-单调队列" class="headerlink" title="特殊数据结构:单调队列"></a>特殊数据结构:单调队列</h3><h3 id="设计Twitter-递归反转链表的一部分"><a href="#设计Twitter-递归反转链表的一部分" class="headerlink" title="设计Twitter 递归反转链表的一部分"></a>设计Twitter 递归反转链表的一部分</h3><h3 id="队列实现栈-栈实现队列"><a href="#队列实现栈-栈实现队列" class="headerlink" title="队列实现栈|栈实现队列"></a>队列实现栈|栈实现队列</h3><h2 id="第三章、算法思维系列"><a href="#第三章、算法思维系列" class="headerlink" title="第三章、算法思维系列"></a>第三章、算法思维系列</h2><h3 id="学习算法和刷题的思路指南"><a href="#学习算法和刷题的思路指南" class="headerlink" title="学习算法和刷题的思路指南"></a>学习算法和刷题的思路指南</h3><h3 id="回溯算法解题套路框架-1"><a href="#回溯算法解题套路框架-1" class="headerlink" title="回溯算法解题套路框架"></a>回溯算法解题套路框架</h3><h3 id="回溯算法团灭子集、排列、组合问题"><a href="#回溯算法团灭子集、排列、组合问题" class="headerlink" title="回溯算法团灭子集、排列、组合问题"></a>回溯算法团灭子集、排列、组合问题</h3><h3 id="回溯算法最佳实践-解数独"><a href="#回溯算法最佳实践-解数独" class="headerlink" title="回溯算法最佳实践:解数独"></a>回溯算法最佳实践:解数独</h3><h3 id="回溯算法最佳实践-括号生成"><a href="#回溯算法最佳实践-括号生成" class="headerlink" title="回溯算法最佳实践:括号生成"></a>回溯算法最佳实践:括号生成</h3><h3 id="二分查找详解"><a href="#二分查找详解" class="headerlink" title="二分查找详解"></a>二分查找详解</h3><h3 id="双指针技巧总结"><a href="#双指针技巧总结" class="headerlink" title="双指针技巧总结"></a>双指针技巧总结</h3><h3 id="滑动窗口技巧"><a href="#滑动窗口技巧" class="headerlink" title="滑动窗口技巧"></a>滑动窗口技巧</h3><h3 id="twoSum问题的核心思想"><a href="#twoSum问题的核心思想" class="headerlink" title="twoSum问题的核心思想"></a>twoSum问题的核心思想</h3><h3 id="常用的位操作"><a href="#常用的位操作" class="headerlink" title="常用的位操作"></a>常用的位操作</h3><h3 id="拆解复杂问题-实现计算器"><a href="#拆解复杂问题-实现计算器" class="headerlink" title="拆解复杂问题:实现计算器"></a>拆解复杂问题:实现计算器</h3><h3 id="烧饼排序"><a href="#烧饼排序" class="headerlink" title="烧饼排序"></a>烧饼排序</h3><h3 id="前缀和技巧"><a href="#前缀和技巧" class="headerlink" title="前缀和技巧"></a>前缀和技巧</h3><h3 id="字符串乘法"><a href="#字符串乘法" class="headerlink" title="字符串乘法"></a>字符串乘法</h3><h3 id="FloodFill算法详解及应用"><a href="#FloodFill算法详解及应用" class="headerlink" title="FloodFill算法详解及应用"></a>FloodFill算法详解及应用</h3><h3 id="区间调度之区间合并问题"><a href="#区间调度之区间合并问题" class="headerlink" title="区间调度之区间合并问题"></a>区间调度之区间合并问题</h3><h3 id="区间调度之区间交集问题"><a href="#区间调度之区间交集问题" class="headerlink" title="区间调度之区间交集问题"></a>区间调度之区间交集问题</h3><h3 id="信封嵌套问题"><a href="#信封嵌套问题" class="headerlink" title="信封嵌套问题"></a>信封嵌套问题</h3><h3 id="几个反直觉的概率问题"><a href="#几个反直觉的概率问题" class="headerlink" title="几个反直觉的概率问题"></a>几个反直觉的概率问题</h3><h2 id="第四章、高频面试系列"><a href="#第四章、高频面试系列" class="headerlink" title="第四章、高频面试系列"></a>第四章、高频面试系列</h2><h3 id="如何实现LRU算法"><a href="#如何实现LRU算法" class="headerlink" title="如何实现LRU算法"></a>如何实现LRU算法</h3><h3 id="如何用-BFS-算法秒杀各种智力题"><a href="#如何用-BFS-算法秒杀各种智力题" class="headerlink" title="如何用 BFS 算法秒杀各种智力题"></a>如何用 BFS 算法秒杀各种智力题</h3><h3 id="如何高效寻找素数"><a href="#如何高效寻找素数" class="headerlink" title="如何高效寻找素数"></a>如何高效寻找素数</h3><h3 id="如何高效进行模幂运算"><a href="#如何高效进行模幂运算" class="headerlink" title="如何高效进行模幂运算"></a>如何高效进行模幂运算</h3><h3 id="如何计算编辑距离"><a href="#如何计算编辑距离" class="headerlink" title="如何计算编辑距离"></a>如何计算编辑距离</h3><h3 id="如何运用二分查找算法"><a href="#如何运用二分查找算法" class="headerlink" title="如何运用二分查找算法"></a>如何运用二分查找算法</h3><h3 id="如何高效解决接雨水问题"><a href="#如何高效解决接雨水问题" class="headerlink" title="如何高效解决接雨水问题"></a>如何高效解决接雨水问题</h3><h3 id="如何去除有序数组的重复元素"><a href="#如何去除有序数组的重复元素" class="headerlink" title="如何去除有序数组的重复元素"></a>如何去除有序数组的重复元素</h3><h3 id="如何寻找最⻓回文子串"><a href="#如何寻找最⻓回文子串" class="headerlink" title="如何寻找最⻓回文子串"></a>如何寻找最⻓回文子串</h3><h3 id="如何运用贪心思想玩跳跃游戏"><a href="#如何运用贪心思想玩跳跃游戏" class="headerlink" title="如何运用贪心思想玩跳跃游戏"></a>如何运用贪心思想玩跳跃游戏</h3><h3 id="如何k个一组反转链表"><a href="#如何k个一组反转链表" class="headerlink" title="如何k个一组反转链表"></a>如何k个一组反转链表</h3><h3 id="如何判定括号合法性"><a href="#如何判定括号合法性" class="headerlink" title="如何判定括号合法性"></a>如何判定括号合法性</h3><h3 id="如何寻找缺失的元素"><a href="#如何寻找缺失的元素" class="headerlink" title="如何寻找缺失的元素"></a>如何寻找缺失的元素</h3><h3 id="如何同时寻找缺失和重复的元素"><a href="#如何同时寻找缺失和重复的元素" class="headerlink" title="如何同时寻找缺失和重复的元素"></a>如何同时寻找缺失和重复的元素</h3><h3 id="如何判断回文链表"><a href="#如何判断回文链表" class="headerlink" title="如何判断回文链表"></a>如何判断回文链表</h3><h3 id="如何在无限序列中随机抽取元素"><a href="#如何在无限序列中随机抽取元素" class="headerlink" title="如何在无限序列中随机抽取元素"></a>如何在无限序列中随机抽取元素</h3><h3 id="如何调度考生的座位"><a href="#如何调度考生的座位" class="headerlink" title="如何调度考生的座位"></a>如何调度考生的座位</h3><h3 id="Union-Find算法详解"><a href="#Union-Find算法详解" class="headerlink" title="Union-Find算法详解"></a>Union-Find算法详解</h3><h3 id="Union-Find算法应用"><a href="#Union-Find算法应用" class="headerlink" title="Union-Find算法应用"></a>Union-Find算法应用</h3><h3 id="一行代码就能解决的算法题"><a href="#一行代码就能解决的算法题" class="headerlink" title="一行代码就能解决的算法题"></a>一行代码就能解决的算法题</h3><h3 id="二分查找高效判定子序列"><a href="#二分查找高效判定子序列" class="headerlink" title="二分查找高效判定子序列"></a>二分查找高效判定子序列</h3><h2 id="第五章、技术文章系列"><a href="#第五章、技术文章系列" class="headerlink" title="第五章、技术文章系列"></a>第五章、技术文章系列</h2><h3 id="Linux的进程、线程、文件描述符是什么"><a href="#Linux的进程、线程、文件描述符是什么" class="headerlink" title="Linux的进程、线程、文件描述符是什么"></a>Linux的进程、线程、文件描述符是什么</h3><h3 id="关于-Linux-shell-你必须知道的"><a href="#关于-Linux-shell-你必须知道的" class="headerlink" title="关于 Linux shell 你必须知道的"></a>关于 Linux shell 你必须知道的</h3><h3 id="Linux-shell-的实用小技巧"><a href="#Linux-shell-的实用小技巧" class="headerlink" title="Linux shell 的实用小技巧"></a>Linux shell 的实用小技巧</h3><h3 id="一文看懂-session-和-cookie"><a href="#一文看懂-session-和-cookie" class="headerlink" title="一文看懂 session 和 cookie"></a>一文看懂 session 和 cookie</h3><h3 id="加密算法的前身今世"><a href="#加密算法的前身今世" class="headerlink" title="加密算法的前身今世"></a>加密算法的前身今世</h3><h3 id="我用四个命令概括了-Git-的所有套路"><a href="#我用四个命令概括了-Git-的所有套路" class="headerlink" title="我用四个命令概括了 Git 的所有套路"></a>我用四个命令概括了 Git 的所有套路</h3><h3 id="Git-x2F-SQL-x2F-正则表达式的在线练习平台"><a href="#Git-x2F-SQL-x2F-正则表达式的在线练习平台" class="headerlink" title="Git&#x2F;SQL&#x2F;正则表达式的在线练习平台"></a>Git&#x2F;SQL&#x2F;正则表达式的在线练习平台</h3>
+      
+    </div>
+
+    
+    
+    
+
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>l
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://example.com/posts/b88ac6ea/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1385,296 +1814,6 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/1ed54b1d/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/lion.png">
-      <meta itemprop="name" content="swimminghao">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="swimminghao's blog">
-      <meta itemprop="description" content="swimminghao的学习博客">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | swimminghao's blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/1ed54b1d/" class="post-title-link" itemprop="url">git对比两个分支</a>
-        </h2>
-
-        <div class="post-meta-container">
-
-          
-
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-11 11:12:36" itemprop="dateModified" datetime="2022-03-11T11:12:36+08:00">2022-03-11</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="far fa-comment"></i>
-    </span>
-    <span class="post-meta-item-text">Waline：</span>
-  
-    <a title="waline" href="/posts/1ed54b1d/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/1ed54b1d/" data-xid="/posts/1ed54b1d/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>477</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>1 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="git-对比两个分支差异"><a href="#git-对比两个分支差异" class="headerlink" title="git 对比两个分支差异"></a>git 对比两个分支差异</h1><h3 id="1-显示出branch1和branch2中差异的部分"><a href="#1-显示出branch1和branch2中差异的部分" class="headerlink" title="1. 显示出branch1和branch2中差异的部分"></a>1. 显示出branch1和branch2中差异的部分</h3>  <figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="keyword">diff </span><span class="keyword">branch1 </span><span class="keyword">branch2 </span>--stat</span><br></pre></td></tr></table></figure>
-
-<h3 id="2-显示指定文件的详细差异"><a href="#2-显示指定文件的详细差异" class="headerlink" title="2. 显示指定文件的详细差异"></a>2. 显示指定文件的详细差异</h3>  <figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="keyword">diff </span><span class="keyword">branch1 </span><span class="keyword">branch2 </span>具体文件路径</span><br></pre></td></tr></table></figure>
-
-<h3 id="3-显示出所有有差异的文件的详细差异"><a href="#3-显示出所有有差异的文件的详细差异" class="headerlink" title="3. 显示出所有有差异的文件的详细差异"></a>3. 显示出所有有差异的文件的详细差异</h3>  <figure class="highlight gcode"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git diff bra<span class="symbol">nch1</span> bra<span class="symbol">nch2</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="4-查看branch1分支有，而branch2中没有的log"><a href="#4-查看branch1分支有，而branch2中没有的log" class="headerlink" title="4. 查看branch1分支有，而branch2中没有的log"></a>4. 查看branch1分支有，而branch2中没有的log</h3>  <figure class="highlight gcode"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git log bra<span class="symbol">nch1</span> ^bra<span class="symbol">nch2</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="5-查看branch2中比branch1中多提交了哪些内容"><a href="#5-查看branch2中比branch1中多提交了哪些内容" class="headerlink" title="5. 查看branch2中比branch1中多提交了哪些内容"></a>5. 查看branch2中比branch1中多提交了哪些内容</h3>  <figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">git</span></span> <span class="built_in">log</span> branch1..branch2`</span><br></pre></td></tr></table></figure>
-<p>  <strong>注意，列出来的是两个点后边（此处即dev）多提交的内容。</strong></p>
-<h3 id="6-不知道谁提交的多谁提交的少，单纯想知道有是吗不一样"><a href="#6-不知道谁提交的多谁提交的少，单纯想知道有是吗不一样" class="headerlink" title="6. 不知道谁提交的多谁提交的少，单纯想知道有是吗不一样"></a>6. 不知道谁提交的多谁提交的少，单纯想知道有是吗不一样</h3>  <figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">git</span></span> <span class="built_in">log</span> branch1...branch2</span><br></pre></td></tr></table></figure>
-
-<h3 id="7-在上述情况下，在显示出没个提交是在哪个分支上"><a href="#7-在上述情况下，在显示出没个提交是在哪个分支上" class="headerlink" title="7. 在上述情况下，在显示出没个提交是在哪个分支上"></a>7. 在上述情况下，在显示出没个提交是在哪个分支上</h3>  <figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">git</span></span> <span class="built_in">log</span> --lefg-right branch1...branch2</span><br></pre></td></tr></table></figure>
-<p>  <strong>注意 commit 后面的箭头，根据我们在 –left-right branch1…branch2 的顺序，左箭头 &lt; 表示是 branch1 的，右箭头 &gt; 表示是branch2的。</strong></p>
-
-      
-    </div>
-
-    
-    
-    
-
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>l
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/e5591b74/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/lion.png">
-      <meta itemprop="name" content="swimminghao">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="swimminghao's blog">
-      <meta itemprop="description" content="swimminghao的学习博客">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | swimminghao's blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/e5591b74/" class="post-title-link" itemprop="url">git推送文件夹到github仓库</a>
-        </h2>
-
-        <div class="post-meta-container">
-
-          
-
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-11 11:12:36" itemprop="dateModified" datetime="2022-03-11T11:12:36+08:00">2022-03-11</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="far fa-comment"></i>
-    </span>
-    <span class="post-meta-item-text">Waline：</span>
-  
-    <a title="waline" href="/posts/e5591b74/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/e5591b74/" data-xid="/posts/e5591b74/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>865</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>1 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="Git推送文件夹到github仓库"><a href="#Git推送文件夹到github仓库" class="headerlink" title="Git推送文件夹到github仓库"></a>Git推送文件夹到github仓库</h1><p>有时候我们可能会遇到当文件累积到了一定程度的时候，想使用 git 进行版本管理，或者推送到 Github 等远程仓库上。本文介绍如何将一个本地文件夹中已经存在的内容使用 git 进行管理，并推送至远程仓库，以及对其中可能出现的错误进行分析。</p>
-<h2 id="创建-git-仓库"><a href="#创建-git-仓库" class="headerlink" title="创建 git 仓库"></a>创建 git 仓库</h2><p>在该文件夹下初始化仓库：</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git init</span><br></pre></td></tr></table></figure>
-
-<p>此时将会在此文件夹下创建一个空的仓库，产生一个 <code>.git</code>文件，会看到以下提示：</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Initialized empty Git repository in FOLDERPATH/<span class="selector-class">.git</span>/</span><br></pre></td></tr></table></figure>
-
-<h2 id="将文件添加到暂存区"><a href="#将文件添加到暂存区" class="headerlink" title="将文件添加到暂存区"></a>将文件添加到暂存区</h2><p>使用以下命令：</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git add .	</span><br></pre></td></tr></table></figure>
-
-<p>此操作会将当前文件夹中所有文件添加到 git 仓库暂存区。</p>
-<h2 id="将文件提交到仓库"><a href="#将文件提交到仓库" class="headerlink" title="将文件提交到仓库"></a>将文件提交到仓库</h2><p><code>git add</code> 命令仅仅将文件暂存，但实际上还没有提交，实际上仓库中并没有这些文件，使用以下命令：</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git commit</span><br></pre></td></tr></table></figure>
-
-<p>此时将会打开一个文件，用于记录提交说明，输入提交说明即可，若说明较为简短，也可以使用以下命令：</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git commit -m &quot;YOUR COMMENT&quot;</span><br></pre></td></tr></table></figure>
-
-<h2 id="添加远程仓库"><a href="#添加远程仓库" class="headerlink" title="添加远程仓库"></a>添加远程仓库</h2><p>使用以下命令添加添加一个远程仓库：</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote add origin YOUR_REMOTE_REPOSITORY_URL</span><br></pre></td></tr></table></figure>
-
-<p>or</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote set-url origin git<span class="keyword">@github</span>.com:ppreyer/first_app.git</span><br></pre></td></tr></table></figure>
-
-<p>其中 origin 相当于给远程仓库的名称，也就是相当于一个标识符。</p>
-<h2 id="推送至远程仓库"><a href="#推送至远程仓库" class="headerlink" title="推送至远程仓库"></a>推送至远程仓库</h2><p>使用以下命令将会将本地仓库中的内容推送至远程仓库的 master 分支：</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push -u origin master</span><br></pre></td></tr></table></figure>
-
-<p>or</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push origin dev:master</span><br></pre></td></tr></table></figure>
-
-<p><strong>注意</strong>：如果之前忘记了<code>git commit</code> 的步骤，这里将会出现一个错误提示：</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">error: src refspec master does not match any.</span><br></pre></td></tr></table></figure>
-
-<p>为什么会有这个报错呢？原因其实很简单，在没有使用 <code>git commit</code> 之前，由于这是一个新创建的<code>git</code>仓库，没有<code>master brench</code>，也就是并没有一个工作树可供推送至远程仓库，所以自然也就出错啦。</p>
-
-      
-    </div>
-
-    
-    
-    
-
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>l
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://example.com/posts/b72a0472/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1832,7 +1971,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/53bfd3b2/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/1ed54b1d/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/lion.png">
@@ -1850,7 +1989,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/53bfd3b2/" class="post-title-link" itemprop="url">git远程分支</a>
+          <a href="/posts/1ed54b1d/" class="post-title-link" itemprop="url">git对比两个分支</a>
         </h2>
 
         <div class="post-meta-container">
@@ -1892,8 +2031,8 @@
     </span>
     <span class="post-meta-item-text">Waline：</span>
   
-    <a title="waline" href="/posts/53bfd3b2/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/53bfd3b2/" data-xid="/posts/53bfd3b2/" itemprop="commentCount"></span>
+    <a title="waline" href="/posts/1ed54b1d/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/1ed54b1d/" data-xid="/posts/1ed54b1d/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -1904,7 +2043,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>1.3k</span>
+      <span>477</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -1922,285 +2061,20 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="从远程仓库获取最新代码合并到本地分支"><a href="#从远程仓库获取最新代码合并到本地分支" class="headerlink" title="从远程仓库获取最新代码合并到本地分支"></a>从远程仓库获取最新代码合并到本地分支</h1><p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/ApJp5Nk24a0_20201209094424.jpg" alt="ApJp5Nk24a0"></p>
-<p>这里共展示两类三种方式。</p>
-<h2 id="1-git-pull：获取最新代码到本地，并自动合并到当前分支"><a href="#1-git-pull：获取最新代码到本地，并自动合并到当前分支" class="headerlink" title="1.git pull：获取最新代码到本地，并自动合并到当前分支"></a>1.git pull：获取最新代码到本地，并自动合并到当前分支</h2><p>命令展示</p>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">//查询当前远程的版本</span><br><span class="line"><span class="meta">$ </span><span class="language-bash">git remote -v</span></span><br><span class="line">//直接拉取并合并最新代码</span><br><span class="line"><span class="meta">$ </span><span class="language-bash">git pull origin master [示例1：拉取远端origin/master分支并合并到当前分支]</span></span><br><span class="line"><span class="meta">$ </span><span class="language-bash">git pull origin dev [示例2：拉取远端origin/dev分支并合并到当前分支]12345</span></span><br></pre></td></tr></table></figure>
+          <h1 id="git-对比两个分支差异"><a href="#git-对比两个分支差异" class="headerlink" title="git 对比两个分支差异"></a>git 对比两个分支差异</h1><h3 id="1-显示出branch1和branch2中差异的部分"><a href="#1-显示出branch1和branch2中差异的部分" class="headerlink" title="1. 显示出branch1和branch2中差异的部分"></a>1. 显示出branch1和branch2中差异的部分</h3>  <figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="keyword">diff </span><span class="keyword">branch1 </span><span class="keyword">branch2 </span>--stat</span><br></pre></td></tr></table></figure>
 
-<p>分析：不推荐这种方式，因为是直接合并，无法提前处理冲突。</p>
-<h2 id="2-git-fetch-merge-获取最新代码到本地，然后手动合并分支"><a href="#2-git-fetch-merge-获取最新代码到本地，然后手动合并分支" class="headerlink" title="2.git fetch + merge: 获取最新代码到本地，然后手动合并分支"></a>2.git fetch + merge: 获取最新代码到本地，然后手动合并分支</h2><h3 id="2-1-额外建立本地分支"><a href="#2-1-额外建立本地分支" class="headerlink" title="2.1.额外建立本地分支"></a>2.1.额外建立本地分支</h3><p>代码展示</p>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">//查看当前远程的版本</span><br><span class="line"><span class="meta">$ </span><span class="language-bash">git remote -v</span> </span><br><span class="line">//获取最新代码到本地临时分支(本地当前分支为[branch]，获取的远端的分支为[origin/branch])</span><br><span class="line"><span class="meta">$ </span><span class="language-bash">git fetch origin master:master1  [示例1：在本地建立master1分支，并下载远端的origin/master分支到master1分支中]</span></span><br><span class="line"><span class="meta">$ </span><span class="language-bash">git fetch origin dev:dev1[示例1：在本地建立dev1分支，并下载远端的origin/dev分支到dev1分支中]</span></span><br><span class="line">//查看版本差异</span><br><span class="line"><span class="meta">$ </span><span class="language-bash">git diff master1 [示例1：查看本地master1分支与当前分支的版本差异]</span></span><br><span class="line"><span class="meta">$ </span><span class="language-bash">git diff dev1    [示例2：查看本地dev1分支与当前分支的版本差异]</span></span><br><span class="line">//合并最新分支到本地分支</span><br><span class="line"><span class="meta">$ </span><span class="language-bash">git merge master1    [示例1：合并本地分支master1到当前分支]</span></span><br><span class="line"><span class="meta">$ </span><span class="language-bash">git merge dev1   [示例2：合并本地分支dev1到当前分支]</span></span><br><span class="line">//删除本地临时分支</span><br><span class="line"><span class="meta">$ </span><span class="language-bash">git branch -D master1    [示例1：删除本地分支master1]</span></span><br><span class="line"><span class="meta">$ </span><span class="language-bash">git branch -D dev1 [示例1：删除本地分支dev1]1234567891011121314</span></span><br></pre></td></tr></table></figure>
+<h3 id="2-显示指定文件的详细差异"><a href="#2-显示指定文件的详细差异" class="headerlink" title="2. 显示指定文件的详细差异"></a>2. 显示指定文件的详细差异</h3>  <figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="keyword">diff </span><span class="keyword">branch1 </span><span class="keyword">branch2 </span>具体文件路径</span><br></pre></td></tr></table></figure>
 
-<p>备注：不推荐这种方式，还需要额外对临时分支进行处理。</p>
-<h3 id="2-2-不额外建立本地分支"><a href="#2-2-不额外建立本地分支" class="headerlink" title="2.2.不额外建立本地分支"></a>2.2.不额外建立本地分支</h3><p>代码展示</p>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">//查询当前远程的版本</span><br><span class="line"><span class="meta">$ </span><span class="language-bash">git remote -v</span></span><br><span class="line">//获取最新代码到本地(本地当前分支为[branch]，获取的远端的分支为[origin/branch])</span><br><span class="line"><span class="meta">$ </span><span class="language-bash">git fetch origin master  [示例1：获取远端的origin/master分支]</span></span><br><span class="line"><span class="meta">$ </span><span class="language-bash">git fetch origin dev [示例2：获取远端的origin/dev分支]</span></span><br><span class="line">//查看版本差异</span><br><span class="line"><span class="meta">$ </span><span class="language-bash">git <span class="built_in">log</span> -p master..origin/master [示例1：查看本地master与远端origin/master的版本差异]</span></span><br><span class="line"><span class="meta">$ </span><span class="language-bash">git <span class="built_in">log</span> -p dev..origin/dev   [示例2：查看本地dev与远端origin/dev的版本差异]</span></span><br><span class="line">//合并最新代码到本地分支</span><br><span class="line"><span class="meta">$ </span><span class="language-bash">git merge origin/master  [示例1：合并远端分支origin/master到当前分支]</span></span><br><span class="line"><span class="meta">$ </span><span class="language-bash">git merge origin/dev [示例2：合并远端分支origin/dev到当前分支]1234567891011</span></span><br></pre></td></tr></table></figure>
+<h3 id="3-显示出所有有差异的文件的详细差异"><a href="#3-显示出所有有差异的文件的详细差异" class="headerlink" title="3. 显示出所有有差异的文件的详细差异"></a>3. 显示出所有有差异的文件的详细差异</h3>  <figure class="highlight gcode"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git diff bra<span class="symbol">nch1</span> bra<span class="symbol">nch2</span></span><br></pre></td></tr></table></figure>
 
-<p>备注：推荐这种方</p>
+<h3 id="4-查看branch1分支有，而branch2中没有的log"><a href="#4-查看branch1分支有，而branch2中没有的log" class="headerlink" title="4. 查看branch1分支有，而branch2中没有的log"></a>4. 查看branch1分支有，而branch2中没有的log</h3>  <figure class="highlight gcode"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git log bra<span class="symbol">nch1</span> ^bra<span class="symbol">nch2</span></span><br></pre></td></tr></table></figure>
 
-      
-    </div>
+<h3 id="5-查看branch2中比branch1中多提交了哪些内容"><a href="#5-查看branch2中比branch1中多提交了哪些内容" class="headerlink" title="5. 查看branch2中比branch1中多提交了哪些内容"></a>5. 查看branch2中比branch1中多提交了哪些内容</h3>  <figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">git</span></span> <span class="built_in">log</span> branch1..branch2`</span><br></pre></td></tr></table></figure>
+<p>  <strong>注意，列出来的是两个点后边（此处即dev）多提交的内容。</strong></p>
+<h3 id="6-不知道谁提交的多谁提交的少，单纯想知道有是吗不一样"><a href="#6-不知道谁提交的多谁提交的少，单纯想知道有是吗不一样" class="headerlink" title="6. 不知道谁提交的多谁提交的少，单纯想知道有是吗不一样"></a>6. 不知道谁提交的多谁提交的少，单纯想知道有是吗不一样</h3>  <figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">git</span></span> <span class="built_in">log</span> branch1...branch2</span><br></pre></td></tr></table></figure>
 
-    
-    
-    
-
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>l
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/f15ad5a2/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/lion.png">
-      <meta itemprop="name" content="swimminghao">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="swimminghao's blog">
-      <meta itemprop="description" content="swimminghao的学习博客">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | swimminghao's blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/f15ad5a2/" class="post-title-link" itemprop="url">idea效率</a>
-        </h2>
-
-        <div class="post-meta-container">
-
-          
-
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-11 11:12:36" itemprop="dateModified" datetime="2022-03-11T11:12:36+08:00">2022-03-11</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">工具</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="far fa-comment"></i>
-    </span>
-    <span class="post-meta-item-text">Waline：</span>
-  
-    <a title="waline" href="/posts/f15ad5a2/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/f15ad5a2/" data-xid="/posts/f15ad5a2/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>4.5k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>4 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h2 id="如何用-IDEA-提升十倍开发效率？"><a href="#如何用-IDEA-提升十倍开发效率？" class="headerlink" title="如何用 IDEA 提升十倍开发效率？"></a>如何用 IDEA 提升十倍开发效率？</h2><p>工欲善其事，必先利其器。想要提升编程开发效率，必须选择一款顺手的开发工具。</p>
-<p>JetBrains 公司提供了一系列功能强大、风格统一的开发工具，深受开发者喜爱。其中，IDEA 是<strong>面向 Java 开发的专业 IDE</strong>（集成开发环境），<strong>90% 以上</strong>的企业都在使用 IDEA 进行 Java 开发，而不是用其他的工具如 Eclipse。</p>
-<p><img src="https://mmbiz.qpic.cn/mmbiz_png/mngWTkJEOYIBFQNTIq3T30Ugk7P3vfgcvwx2U5AeITWJkAILg7vibiakaicKaLCJBfLThFqMHk0SxFB0LpVWd360A/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="图片"></p>
-<p>但是，想要开发效率最大化，仅有好的开发工具是不够的，还要能够熟练地使用它。对于 IDEA 的新用户来说，面对功能如此丰富的开发工具可能会有些迷茫，但又不想花时间去学习如何使用，于是仅仅把它当做能编写代码的记事本了（就是好看点），大材小用。</p>
-<p>为大家总结了自己掌握的 IDEA 使用技巧，包括<strong>实用插件、开发技巧和阅读源码的技巧等</strong>。只需花 <strong>5 分钟</strong>的时间阅读，即可提升十倍的开发效率！</p>
-<p><img src="https://mmbiz.qpic.cn/mmbiz_jpg/mngWTkJEOYIBFQNTIq3T30Ugk7P3vfgcLME1wCCPE25IelWSk6bVMH3yHibSeDsy90jSC1VEMjZ01KKE8giahdpA/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="图片"></p>
-<p>什么，你说 IDEA 太贵用不起？如果还是<strong>学生党</strong>，可以<strong>免费使用</strong> IDEA 及 JetBrains 全系列产品哦~</p>
-<p>地址：<a target="_blank" rel="noopener" href="https://www.jetbrains.com/shop/eform/students">https://www.jetbrains.com/shop/eform/students</a></p>
-<h2 id="快捷-键"><a href="#快捷-键" class="headerlink" title="快捷****键"></a><strong>快捷****键</strong></h2><p>要使用任何 IDE（集成开发环境）提升开发及阅读源码的效率，首先要活用快捷键。</p>
-<p>在 IDEA 中，可以在 preferences 的 keymap 设置中查询及设置快捷键，如图：</p>
-<p><img src="https://mmbiz.qpic.cn/mmbiz_png/mngWTkJEOYIBFQNTIq3T30Ugk7P3vfgcwTACzTvQUy7p1rSdUoVAySMhzMnKGHICmmWzzJAC8TYMRSuWFYWNwA/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="图片"></p>
-<h2 id="实用插件"><a href="#实用插件" class="headerlink" title="实用插件"></a><strong>实用插件</strong></h2><p><strong>1. Key Promoter X</strong></p>
-<p>快捷键提示插件。当你执行鼠标操作时，如果该操作可被快捷键代替，会给出提示，帮助你自然形成使用快捷键的习惯，告别死记硬背。</p>
-<p>地址：<a target="_blank" rel="noopener" href="https://plugins.jetbrains.com/plugin/9792-key-promoter-x/">https://plugins.jetbrains.com/plugin/9792-key-promoter-x/</a></p>
-<p><img src="https://mmbiz.qpic.cn/mmbiz_gif/mngWTkJEOYIBFQNTIq3T30Ugk7P3vfgcMsTNiaCibYThkgPYdXhpKciaa5wBQfaHQLKP7nsKOX3HEXN8EsVnpOsZA/640?wx_fmt=gif&tp=webp&wxfrom=5&wx_lazy=1" alt="图片"></p>
-<p><strong>2. AiXcoder Code Completer</strong></p>
-<p>代码提示补全插件。使用 AI 去自动提示和补全代码，比 IDEA 自带的代码补全更加智能化。</p>
-<p>地址：<a target="_blank" rel="noopener" href="https://plugins.jetbrains.com/plugin/13574-aixcoder-code-completer/">https://plugins.jetbrains.com/plugin/13574-aixcoder-code-completer/</a></p>
-<p><img src="https://mmbiz.qpic.cn/mmbiz_gif/mngWTkJEOYIBFQNTIq3T30Ugk7P3vfgcHGff1pRvHllEQpQvibTyMib5XrndXPNJd9ia8lMapzxJcyht3KPZXYBTA/640?wx_fmt=gif&tp=webp&wxfrom=5&wx_lazy=1" alt="图片"></p>
-<p><strong>3. Arthas Idea</strong></p>
-<p>Arthas 命令生成插件。Arthas 是阿里开源的 Java 在线诊断工具，该插件可以自动生成 Arthas 在线 Java 代码诊断命令，不用再到官网翻文档拼命令啦！</p>
-<p>地址：<a target="_blank" rel="noopener" href="https://plugins.jetbrains.com/plugin/13581-arthas-idea/">https://plugins.jetbrains.com/plugin/13581-arthas-idea/</a></p>
-<p><img src="https://mmbiz.qpic.cn/mmbiz_png/mngWTkJEOYIBFQNTIq3T30Ugk7P3vfgcMMViaiczu9vCFZvYJNNAvkUxoSAfZRWoCPQJDMoQ6SF7WutY7ZzmkxJg/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="图片"></p>
-<p><strong>4. Auto filling Java call arguments</strong></p>
-<p>代码生成插件。通过快捷键自动补全函数的调用参数，针对包含大量参数的构造函数和方法非常有用！</p>
-<p>地址：<a target="_blank" rel="noopener" href="https://plugins.jetbrains.com/plugin/8638-auto-filling-java-call-arguments/">https://plugins.jetbrains.com/plugin/8638-auto-filling-java-call-arguments/</a></p>
-<p><img src="https://mmbiz.qpic.cn/mmbiz_png/mngWTkJEOYIBFQNTIq3T30Ugk7P3vfgczqpTjHHadDFjLcXt6PvqCBHK4KwgEk8Ckk949v2Cr9Lx15fSG7bbjQ/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="图片"></p>
-<p><strong>5. GenerateAllSetter</strong></p>
-<p>代码生成插件。一键生成指定对象的所有 set 方法调用代码，自动赋值，或者生成某方法的返回值，这在单元测试造假数据时非常有用。</p>
-<p>地址：<a target="_blank" rel="noopener" href="https://plugins.jetbrains.com/plugin/9360-generateallsetter/">https://plugins.jetbrains.com/plugin/9360-generateallsetter/</a></p>
-<p><img src="https://mmbiz.qpic.cn/mmbiz_png/mngWTkJEOYIBFQNTIq3T30Ugk7P3vfgcwaiarahjFEkJINMnFQ6zOhR5iaIib47yOeQMg5phOyojZuVgJjNysBW5Q/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="图片"></p>
-<p><strong>6. GenerateSerialVersionUID</strong></p>
-<p>代码生成插件。一键为实现 Serializable 接口的类生成 SerialVersionUID。</p>
-<p>地址：<a target="_blank" rel="noopener" href="https://plugins.jetbrains.com/plugin/185-generateserialversionuid/">https://plugins.jetbrains.com/plugin/185-generateserialversionuid/</a></p>
-<p><img src="https://mmbiz.qpic.cn/mmbiz_png/mngWTkJEOYIBFQNTIq3T30Ugk7P3vfgcnyPeiaicubZ38vu5Fkngo4hMkVjKuSrEuRNtyFc0NchRruP0XwGicNoRQ/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="图片"></p>
-<p><strong>7. GsonFormat</strong></p>
-<p>代码生成插件。在类中使用，粘贴一段 Json 文本，能自动生成对象的嵌套结构代码。</p>
-<p>地址：<a target="_blank" rel="noopener" href="https://plugins.jetbrains.com/plugin/7654-gsonformat/">https://plugins.jetbrains.com/plugin/7654-gsonformat/</a></p>
-<p><img src="https://mmbiz.qpic.cn/mmbiz_gif/mngWTkJEOYIBFQNTIq3T30Ugk7P3vfgcQXOF3x0f2zWeXicgWQ3mEeY74ic7Eib6exT4TDxttIrh5Uz9dH8IKevfw/640?wx_fmt=gif&tp=webp&wxfrom=5&wx_lazy=1" alt="图片"></p>
-<p><strong>8. Lombok</strong></p>
-<p>代码生成插件。配合 Lombok 依赖及注解使用，能够大大减少 POJO（简单老式 Java 对象）的代码量。</p>
-<p>安装插件后还要开启注解支持，可以参照这篇文章进行配置：<a target="_blank" rel="noopener" href="https://www.baeldung.com/lombok-ide">https://www.baeldung.com/lombok-ide</a> 。</p>
-<p>插件地址：<a target="_blank" rel="noopener" href="https://plugins.jetbrains.com/plugin/6317-lombok/">https://plugins.jetbrains.com/plugin/6317-lombok/</a></p>
-<p><strong>9. Rainbow Brackets</strong></p>
-<p>代码浏览插件。通过颜色区分括号嵌套层级，便于阅读，能够更快地对错误代码进行定位和调整。但是建议不要在代码中出现大量的嵌套哦！</p>
-<p>地址：<a target="_blank" rel="noopener" href="https://plugins.jetbrains.com/plugin/10080-rainbow-brackets/">https://plugins.jetbrains.com/plugin/10080-rainbow-brackets/</a></p>
-<p><img src="https://mmbiz.qpic.cn/mmbiz_png/mngWTkJEOYIBFQNTIq3T30Ugk7P3vfgcTSaUyvibZejE4H1ibGoyalPmdoERkmUx6qC7606mdw7icZUlbTAqwR2rQ/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="图片"></p>
-<p><strong>10. CodeGlance</strong></p>
-<p>代码浏览小地图插件。在编辑器右侧生成 code minimap，可以拖拽小地图光标快速定位代码，阅读行数很多的代码文件时非常实用。</p>
-<p>地址：<a target="_blank" rel="noopener" href="https://plugins.jetbrains.com/plugin/7275-codeglance/">https://plugins.jetbrains.com/plugin/7275-codeglance/</a></p>
-<p><img src="https://mmbiz.qpic.cn/mmbiz_png/mngWTkJEOYIBFQNTIq3T30Ugk7P3vfgcSJ9gErRuVwYreMPWV4T0tqh8Q3eG1DerNdPIjjXFqCgsewUb6LMFUQ/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="图片"></p>
-<p><strong>11. GitToolBox</strong></p>
-<p>Git 增强插件。在自带的 Git 功能之上，新增了查看 Git 状态、自动拉取代码、提交通知等功能。最好用的是可以查看到每一行代码的最近一次提交信息。</p>
-<p>地址：<a target="_blank" rel="noopener" href="https://plugins.jetbrains.com/plugin/7499-gittoolbox/">https://plugins.jetbrains.com/plugin/7499-gittoolbox/</a></p>
-<p><img src="https://mmbiz.qpic.cn/mmbiz_png/mngWTkJEOYIBFQNTIq3T30Ugk7P3vfgcsaib1UVDdTlibrhPb2cBMDFyT7zmmbTFClV2UHc7pJkf7ibEzia7L2qebQ/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="图片"></p>
-<p><strong>12. Translation</strong></p>
-<p>翻译插件。程序员最痛苦的事莫过于阅读代码时遇到不懂的英文单词，有了这个插件，鼠标选中文本，点击右键即可自动翻译成多国语言。</p>
-<p>地址：<a target="_blank" rel="noopener" href="https://plugins.jetbrains.com/plugin/8579-translation/">https://plugins.jetbrains.com/plugin/8579-translation/</a></p>
-<p><img src="https://mmbiz.qpic.cn/mmbiz_gif/mngWTkJEOYIBFQNTIq3T30Ugk7P3vfgca8dnrd9d2P7ymAnqzhOxwEWr3MgJt6oFp2kXMcOMVnGRzTfUhr7dnQ/640?wx_fmt=gif&tp=webp&wxfrom=5&wx_lazy=1" alt="图片"></p>
-<h2 id="开发技巧"><a href="#开发技巧" class="headerlink" title="开发技巧"></a><strong>开发技巧</strong></h2><p>通过插件可以给 IDEA 增加新功能，但是 IDEA 自带的功能也非常强大，有很多实用的开发技巧。</p>
-<p>\1. 使用上述代码生成和浏览插件</p>
-<p>\2. <strong>熟练使用快捷键</strong>，通过上述 Key Promoter X 插件渐进式熟悉快捷键。</p>
-<p>网上对快捷键的整理太多了，此处不再赘述，可以参考这两篇文章：</p>
-<p>- IDEA Mac 快捷键指南，地址：<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/454c71172c46">https://www.jianshu.com/p/454c71172c46</a></p>
-<p>- IDEA Win 常用快捷键，地址：<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/5de7cca0fefc">https://www.jianshu.com/p/5de7cca0fefc</a></p>
-<p>比较常用的快捷键是<strong>换行、复制&#x2F;删除当前行、代码格式化等</strong>。</p>
-<p>\3. <strong>利用快捷键为类快速生成代码</strong>（Win: Alt+Insert，Mac: command + n）</p>
-<p><img src="https://mmbiz.qpic.cn/mmbiz_png/mngWTkJEOYIBFQNTIq3T30Ugk7P3vfgcn101P6A0h0EaznFgY6uSFb78ahBcicYYhwNVC9mGQRLn5rXjdq0fUMg/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="图片"></p>
-<p><strong>4. 运用代码模板（Live Templates）</strong></p>
-<p>代码模板是 IDEA 中非常好用的功能，可以<strong>通过缩写（关键词）来生成指定的代码段</strong>，很多重复的代码都可以用这种方式来快速生成，提高效率的同时降低了出错概率。</p>
-<p>示例如下：</p>
-<p><img src="https://mmbiz.qpic.cn/mmbiz_gif/mngWTkJEOYIBFQNTIq3T30Ugk7P3vfgcLxyLk8VciaYdnfrAkIuPXRibiabNeOKsNH30gkBPL1O66GXgBw8zKGYeQ/640?wx_fmt=gif&tp=webp&wxfrom=5&wx_lazy=1" alt="图片"></p>
-<p>IDEA 为我们内置了很多代码模板，比如 main：</p>
-<p><img src="https://mmbiz.qpic.cn/mmbiz_png/mngWTkJEOYIBFQNTIq3T30Ugk7P3vfgcQRSWXhESU5fXXKkxH5yrD8JoKxs3Je7YJ4kHfvPcrRgxvRdaTVEicSg/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="图片"></p>
-<p>也可以自己定义缩写和要生成的代码段：</p>
-<p><img src="https://mmbiz.qpic.cn/mmbiz_png/mngWTkJEOYIBFQNTIq3T30Ugk7P3vfgcgE1v6KTIuuoIO3G7w7UhxEgXJaEgsQlQEGZEyFVz2MsuxMp5xDNYEg/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="图片"></p>
-<p>还可以使用预定义变量、自定义变量及使用内置函数，更多高级用法可以参考这篇文章：IDEA 中 live template 的详细使用教程（地址：<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/3974df6572af%EF%BC%89">https://www.jianshu.com/p/3974df6572af）</a></p>
-<p><strong>5. 使用内置剪切板保存复制历史</strong></p>
-<p>写代码的必备技能是复制粘贴，不仅可以提高效率，还可以降低出错率（比如用户、秘钥、地址等信息）。</p>
-<p><img src="https://mmbiz.qpic.cn/mmbiz_gif/mngWTkJEOYIBFQNTIq3T30Ugk7P3vfgchDho02HhicKuCibMG7weBzfYWk4f4lq8TBPED1CXUFFByX2JvhwC0F6g/640?wx_fmt=gif&tp=webp&wxfrom=5&wx_lazy=1" alt="图片"></p>
-<p>IDEA 内置了剪切板，可以帮助我们保存复制历史，粘贴时按 shift + ctrl + v 即可选择复制。</p>
-<p><img src="https://mmbiz.qpic.cn/mmbiz_png/mngWTkJEOYIBFQNTIq3T30Ugk7P3vfgcUcCwriaOON6VBdFe6c1Vo9qnyCwIjWxv4o7cEpFMYxeic7BIpSgMtwoQ/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="图片"></p>
-<p>不满足于内置的剪切板？还可以使用更高级的软件：Ditto（Windows）或 Alfred（Mac）</p>
-<p><strong>6. 使用内置的 Git</strong></p>
-<p>IDEA 内置了 Git 辅助工具，能够可视化分支管理&#x2F;切换，代码提交&#x2F;更新&#x2F;冲突解决&#x2F;回退，代码历史版本查看等。在顶部菜单 VCS &gt; Git 中可以查看所有功能：</p>
-<p><img src="https://mmbiz.qpic.cn/mmbiz_png/mngWTkJEOYIBFQNTIq3T30Ugk7P3vfgcyVOpl0YjRZzGdHhaBsqEic2tD9LffYGb8SjJXvJAPWy0RcICD4JhFkA/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="图片"></p>
-<p>在底部栏中可以查看 Git 日志：</p>
-<p><img src="https://mmbiz.qpic.cn/mmbiz_png/mngWTkJEOYIBFQNTIq3T30Ugk7P3vfgcstYwYcIqv0eoUWh7bw90VcTACCnX7YyAKtpl0OMnBjplwupxObow4Q/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="图片"></p>
-<p><strong>7. 使用内置 HTTP Client 测试接口</strong></p>
-<p>不需要再使用 Postman 等外置接口测试工具了，IDEA 内置了 HTTP Client，通过编写请求脚本来进行调用，非常灵活。</p>
-<p>在顶部菜单的 Tools &gt; HTTP Client 中打开：</p>
-<p><img src="https://mmbiz.qpic.cn/mmbiz_png/mngWTkJEOYIBFQNTIq3T30Ugk7P3vfgcqGuznVmVh62PZVwIvHP0uGjQ3lNibfrT1JYHQo0cIR57ic1ncQicLOiaOA/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="图片"></p>
-<p>编写脚本进行 HTTP 接口测试：</p>
-<p><img src="https://mmbiz.qpic.cn/mmbiz_png/mngWTkJEOYIBFQNTIq3T30Ugk7P3vfgcCPyGGGq87HiciaOq96baL199ZaANK4BXVnK6qpRjQGonIJvWH177vEMA/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="图片"></p>
-<p>详细用法请阅读官方使用文档，地址：<a target="_blank" rel="noopener" href="https://www.jetbrains.com/help/idea/http-client-in-product-code-editor.html">https://www.jetbrains.com/help/idea/http-client-in-product-code-editor.html</a></p>
-<h2 id="阅读源码技巧"><a href="#阅读源码技巧" class="headerlink" title="阅读源码技巧"></a><strong>阅读源码技巧</strong></h2><p>优秀的程序员一定会阅读很多源码，阅读源码也是有很多技巧的。</p>
-<p>通常，根据他人总结的项目文档，先看整体（目录和类图）再看局部（类和函数）。对于 Java 项目，就是先查看包的层级关系，然后分析包中类（接口）之间的关系，包括继承、实现、委托、方法调用等，最后再查看某个类具体的属性和方法的具体实现。</p>
-<p>IDEA 为整个阅读源码的过程提供了一系列好用的功能支持，能够大大提高阅读效率。</p>
-<p><strong>1. 文件&#x2F;类搜索</strong></p>
-<p>根据文件名搜索文件&#x2F;类</p>
-<p>快捷键：shift + shift（连按两次）</p>
-<p><img src="https://mmbiz.qpic.cn/mmbiz_png/mngWTkJEOYIBFQNTIq3T30Ugk7P3vfgclCpEuIia1Vy5hsW4ebMjXHu0MNVg8dzvmUzUezarbLpjKKpqnPic8icAg/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="图片"></p>
-<p><strong>2. 字段搜索</strong></p>
-<p>根据文件内容搜索，可直接定位到目标内容位置，支持局部（当前文件或选中代码段）和全局搜索（项目&#x2F;模块&#x2F;目录&#x2F;作用域等）</p>
-<p>局部搜索快捷键：Win: Ctrl + F  Mac: Command + F</p>
-<p>全局搜索快捷键：Win: Ctrl + shift + F  Mac: Command + Shift + F</p>
-<p><img src="https://mmbiz.qpic.cn/mmbiz_png/mngWTkJEOYIBFQNTIq3T30Ugk7P3vfgcEELKK4qM9ibfgvnGagKP3Nz9vIia130ic1Nfgb2srzCQQhkrWevEusRbQ/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="图片"></p>
-<p><strong>3. 跳转到上&#x2F;下次光标的位置</strong></p>
-<p>查看源码时，经常需要在两个类中来回跳转，这个功能就变得相当实用！</p>
-<p>查看上次光标位置快捷键：Win: Alt + ←  Mac: Option + Command + ←</p>
-<p>查看下次光标位置快捷键：Win: Alt + →  Mac: Option + Command + →</p>
-<p><strong>4. 查看接口的实现类（或接口方法的实现）</strong></p>
-<p>如果光标选中接口方法，直接跳转到该方法的具体实现。如果有多个实现，则可以选择跳转到指定的实现类。</p>
-<p>快捷键：Win: Ctrl + Alt + B  Mac: Option + Command + B</p>
-<p><img src="https://mmbiz.qpic.cn/mmbiz_png/mngWTkJEOYIBFQNTIq3T30Ugk7P3vfgcKgjxVDeib0dQe8vFasSkibo3h44Yg9ZyYvtUJJpmvg1iabu0AaaxS6X5w/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="图片"></p>
-<p><strong>5. 查看方法调用树</strong></p>
-<p>可以查看指定方法的所有调用方和被调方。</p>
-<p>快捷键：Win: Ctrl + Alt + H  Mac: Control + Option + H</p>
-<p><img src="https://mmbiz.qpic.cn/mmbiz_png/mngWTkJEOYIBFQNTIq3T30Ugk7P3vfgcVquygnoelEZo2vnOYodia8V7QjHZMZHrHjuORkjPTtKr7cO0Hgo5M0w/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="图片"></p>
-<p><strong>6. 查看类关系图</strong></p>
-<p>非常实用的功能，直观清晰地展现类的关系，便于分析。</p>
-<p>快捷键：Win: Ctrl + Alt + U  Mac: Shift + Option + Command + U</p>
-<p><img src="https://mmbiz.qpic.cn/mmbiz_png/mngWTkJEOYIBFQNTIq3T30Ugk7P3vfgceLhxbicHMPdfkY8mHFdurias0sqYJQhNtAvOCq8QTeoKRd8ibb62ADKmw/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="图片"></p>
-<p><strong>7. 查看类的继承树</strong></p>
-<p>能够查看类的父类和子类继承关系。</p>
-<p>快捷键：Win: Ctrl + H  Mac: Control + H</p>
-<p><img src="https://mmbiz.qpic.cn/mmbiz_png/mngWTkJEOYIBFQNTIq3T30Ugk7P3vfgcMibwKrQIuqVhFR6wBlDZXVnthsgI68spYjmLU5NyqbbTQY4RQeQcDibw/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="图片"></p>
-<p><strong>8. 查看定义的变量在哪里被声明&#x2F;调用</strong></p>
-<p>如果光标在变量声明处，则查看使用该变量的代码；如果光标在使用变量处，则查看变量的声明位置。</p>
-<p>快捷键：Win: Ctrl + B  Mac: Command + B 或按住 Ctrl &#x2F; Command 点击鼠标左键</p>
-<p><img src="https://mmbiz.qpic.cn/mmbiz_png/mngWTkJEOYIBFQNTIq3T30Ugk7P3vfgcSCXfEdLoiaPIqZthNan2PbkSoel9XcdkNOeKTWArXM7x8exCvcticXxg/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="图片"></p>
-<p><strong>9. 查看定义的变量在哪里被调用</strong></p>
-<p>功能和上述功能类似，仅查看变量的调用位置。</p>
-<p>快捷键：Win: Ctrl + Alt + F7  Mac: Option + Command + F7</p>
-<p><strong>10. 查看类的结构</strong></p>
-<p>能够查看某一个类的属性、域、方法、继承方法、匿名类、Lambdas，并快速跳转到指定位置。</p>
-<p>快捷键：Win: Alt + 7  Mac: Command + 7</p>
-<p><img src="https://mmbiz.qpic.cn/mmbiz_png/mngWTkJEOYIBFQNTIq3T30Ugk7P3vfgcaMDcc95WgUCEUfeNILeYmNlVm9Fuom9oN20JMwSp8F1BpL7awKnMyg/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="图片"></p>
-<p><strong>11. 查看每行代码的提交信息（需被 Git 管理）</strong></p>
-<p>在代码行数列表处右键，点击 Annotate 开启代码提交信息显示：</p>
-<p><img src="https://mmbiz.qpic.cn/mmbiz_png/mngWTkJEOYIBFQNTIq3T30Ugk7P3vfgc0eMTnhlDJzmMXiboq6rptvcia3RW2WQ4S1A3J4tzpOrL55hqBfeSCNlQ/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="图片"></p>
-<p>效果如下，烂代码元凶快快显形！</p>
-<p><img src="https://mmbiz.qpic.cn/mmbiz_png/mngWTkJEOYIBFQNTIq3T30Ugk7P3vfgc65TOU2LKVdAWCSCE6Riar9GJRvn0QKNptibFUnVQic2BsmrFibNKW0qTKg/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="图片"></p>
-<p>以上就是 IDEA 使用技巧啦，快去写几行代码熟悉下吧~</p>
+<h3 id="7-在上述情况下，在显示出没个提交是在哪个分支上"><a href="#7-在上述情况下，在显示出没个提交是在哪个分支上" class="headerlink" title="7. 在上述情况下，在显示出没个提交是在哪个分支上"></a>7. 在上述情况下，在显示出没个提交是在哪个分支上</h3>  <figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">git</span></span> <span class="built_in">log</span> --lefg-right branch1...branch2</span><br></pre></td></tr></table></figure>
+<p>  <strong>注意 commit 后面的箭头，根据我们在 –left-right branch1…branch2 的顺序，左箭头 &lt; 表示是 branch1 的，右箭头 &gt; 表示是branch2的。</strong></p>
 
       
     </div>
