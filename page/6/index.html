@@ -276,6 +276,208 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/d0fbc9db/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lion.png">
+      <meta itemprop="name" content="swimminghao">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="swimminghao's blog">
+      <meta itemprop="description" content="swimminghao的学习博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | swimminghao's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/d0fbc9db/" class="post-title-link" itemprop="url">经典动态规划：高楼扔鸡蛋（进阶篇）</a>
+        </h2>
+
+        <div class="post-meta-container">
+
+          
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-03-10 11:51:52" itemprop="dateModified" datetime="2022-03-10T11:51:52+08:00">2022-03-10</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/posts/d0fbc9db/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/d0fbc9db/" data-xid="/posts/d0fbc9db/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>4.6k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>4 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="经典动态规划：高楼扔鸡蛋（进阶篇）"><a href="#经典动态规划：高楼扔鸡蛋（进阶篇）" class="headerlink" title="经典动态规划：高楼扔鸡蛋（进阶篇）"></a>经典动态规划：高楼扔鸡蛋（进阶篇）</h1><p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/mp/appmsgalbum?__biz=MzAxODQxMDM0Mw==&action=getalbum&album_id=1318881141113536512&scene=173&from_msgid=2247484675&from_itemidx=1&count=3&nolastread=1#wechat_redirect">手把手刷动态规划 25个</a></p>
+<h2 id="预计阅读时间：9-分钟"><a href="#预计阅读时间：9-分钟" class="headerlink" title="预计阅读时间：9 分钟"></a>预计阅读时间：9 分钟</h2><p>我们在 <a target="_blank" rel="noopener" href="http://mp.weixin.qq.com/s?__biz=MzAxODQxMDM0Mw==&mid=2247484675&idx=1&sn=4a4ac1c0f1279530b42fedacc6cca6e6&chksm=9bd7fb0baca0721dda1eaa1d00b9a520672dc9d5c3be762eeca869be35d7ce232922ba8e928b&scene=21#wechat_redirect">上篇文章</a> 聊了高楼扔鸡蛋问题，讲了一种效率不是很高，但是较为容易理解的动态规划解法。后台很多读者问如何更高效地解决这个问题，今天就谈两种思路，来优化一下这个问题，分别是二分查找优化和重新定义状态转移。</p>
+<p>如果还不知道高楼扔鸡蛋问题的读者可以看下 <a target="_blank" rel="noopener" href="http://mp.weixin.qq.com/s?__biz=MzAxODQxMDM0Mw==&mid=2247484675&idx=1&sn=4a4ac1c0f1279530b42fedacc6cca6e6&chksm=9bd7fb0baca0721dda1eaa1d00b9a520672dc9d5c3be762eeca869be35d7ce232922ba8e928b&scene=21#wechat_redirect">经典动态规划：高楼扔鸡蛋</a>，<strong>那篇文章详解了题目的含义和基本的动态规划解题思路，请确保理解前文，<strong><strong>因为</strong></strong>今天的优化都是基于这个基本解法的</strong>。</p>
+<p>二分搜索的优化思路也许是我们可以尽力尝试写出的，而修改状态转移的解法可能是不容易想到的，可以借此见识一下动态规划算法设计的玄妙，当做思维拓展。</p>
+<h2 id="一、二分搜索优化"><a href="#一、二分搜索优化" class="headerlink" title="一、二分搜索优化"></a>一、二分搜索优化</h2><p>之前提到过这个解法，核心是因为状态转移方程的单调性，这里可以具体展开看看。</p>
+<p>题目要求最坏情况下至少需要扔几次鸡蛋才能测出鸡蛋恰好摔不碎的楼层<code>F</code>。首先简述一下原始动态规划的思路：</p>
+<p><strong>1</strong>、暴力穷举尝试在所有楼层<code>1 &lt;= i &lt;= N</code>扔鸡蛋，每次选择尝试次数<strong>最少</strong>的那一层；</p>
+<p><strong>2</strong>、每次扔鸡蛋有两种可能，要么碎，要么没碎；</p>
+<p><strong>3</strong>、如果鸡蛋碎了，<code>F</code>应该在第<code>i</code>层下面，否则，<code>F</code>应该在第<code>i</code>层上面；</p>
+<p><strong>4</strong>、鸡蛋是碎了还是没碎，取决于哪种情况下尝试次数<strong>更多</strong>，因为我们想求的是最坏情况下的结果。</p>
+<p>核心的状态转移代码是这段：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"># 当前状态为 K 个鸡蛋，面对 N 层楼</span><br><span class="line"># 返回这个状态下的最优结果</span><br><span class="line">def <span class="title function_">dp</span><span class="params">(K, N)</span>:</span><br><span class="line">    <span class="keyword">for</span> <span class="number">1</span> &lt;= i &lt;= N:</span><br><span class="line">        # 最坏情况下的最少扔鸡蛋次数</span><br><span class="line">        res = min(res, </span><br><span class="line">                  max( </span><br><span class="line">                        dp(K - <span class="number">1</span>, i - <span class="number">1</span>), # 碎</span><br><span class="line">                        dp(K, N - i)      # 没碎</span><br><span class="line">                     ) + <span class="number">1</span> # 在第 i 楼扔了一次</span><br><span class="line">                 )</span><br><span class="line">    <span class="keyword">return</span> </span><br></pre></td></tr></table></figure>
+
+<p>这个 for 循环就是下面这个状态转移方程的具体代码实现：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/CyPTgO_20210429195258.png" alt="图片"></p>
+<p>如果能够理解这个状态转移方程，那么就很容易理解二分查找的优化思路。</p>
+<p>首先我们根据<code>dp(K, N)</code>数组的定义（有<code>K</code>个鸡蛋面对<code>N</code>层楼，最少需要扔 dp(K, N) 次），<strong>很容易知道<code>K</code>固定时，这个函数随着<code>N</code>的增加一定是单调递增的</strong>，无论你策略多聪明，楼层增加的话，测试次数一定要增加。</p>
+<p>那么注意<code>dp(K - 1, i - 1)</code>和<code>dp(K, N - i)</code>这两个函数，其中<code>i</code>是从 1 到<code>N</code>单增的，如果我们固定<code>K</code>和<code>N</code>，<strong>把这两个函数看做关于<code>i</code>的函数，前者随着<code>i</code>的增加应该也是单调递增的，而后者随着<code>i</code>的增加应该是单调递减的</strong>：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/6NYUjf_20210429195215.png" alt="图片"></p>
+<p>这时候求二者的较大值，再求这些最大值之中的最小值，其实就是求这两条直线交点，也就是红色折线的最低点嘛。</p>
+<p>我们前文 <a target="_blank" rel="noopener" href="http://mp.weixin.qq.com/s?__biz=MzAxODQxMDM0Mw==&mid=2247484598&idx=1&sn=69edaf4a7f6bfd0b1185cae5d0689c1d&chksm=9bd7fabeaca073a8820bc93cb67a8e26fa9eaa1ab9717b7e3ac41b4aac12235067c8af3520d5&scene=21#wechat_redirect">二分搜索只能用来查找元素吗？</a>讲过，二分查找的运用很广泛，形如下面这种形式的 for 循环代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">    <span class="keyword">if</span> (isOK(i))</span><br><span class="line">        <span class="keyword">return</span> i;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>都很有可能可以运用二分查找来优化线性搜索的复杂度，回顾这两个<code>dp</code>函数的曲线，我们要找的最低点其实就是这种情况：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span>; i &lt;= N; i++) &#123;</span><br><span class="line">    <span class="keyword">if</span> (dp(K - <span class="number">1</span>, i - <span class="number">1</span>) == dp(K, N - i))</span><br><span class="line">        <span class="keyword">return</span> dp(K, N - i);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>熟悉二分搜索的同学肯定敏感地想到了，这不就是相当于求 Valley（山谷）值嘛，可以用二分查找来快速寻找这个点的，直接看代码吧，整体的思路还是一样，只是加快了搜索速度：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">def <span class="title function_">superEggDrop</span><span class="params">(self, K: <span class="type">int</span>, N: <span class="type">int</span>)</span> -&gt; <span class="type">int</span>:</span><br><span class="line"></span><br><span class="line">    memo = dict()</span><br><span class="line">    def <span class="title function_">dp</span><span class="params">(K, N)</span>:</span><br><span class="line">        <span class="type">if</span> <span class="variable">K</span> <span class="operator">=</span>= <span class="number">1</span>: <span class="keyword">return</span> N</span><br><span class="line">        <span class="type">if</span> <span class="variable">N</span> <span class="operator">=</span>= <span class="number">0</span>: <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">        <span class="keyword">if</span> (K, N) in memo:</span><br><span class="line">            <span class="keyword">return</span> memo[(K, N)]</span><br><span class="line"></span><br><span class="line">        # <span class="keyword">for</span> <span class="number">1</span> &lt;= i &lt;= N:</span><br><span class="line">        #     res = min(res, </span><br><span class="line">        #             max( </span><br><span class="line">        #                 dp(K - <span class="number">1</span>, i - <span class="number">1</span>), </span><br><span class="line">        #                 dp(K, N - i)      </span><br><span class="line">        #                 ) + <span class="number">1</span> </span><br><span class="line">        #             )</span><br><span class="line"></span><br><span class="line">        res = <span class="type">float</span>(<span class="string">&#x27;INF&#x27;</span>)</span><br><span class="line">        # 用二分搜索代替线性搜索</span><br><span class="line">        lo, hi = <span class="number">1</span>, N</span><br><span class="line">        <span class="keyword">while</span> lo &lt;= hi:</span><br><span class="line">            mid = (lo + hi) <span class="comment">// 2</span></span><br><span class="line">            broken = dp(K - <span class="number">1</span>, mid - <span class="number">1</span>) # 碎</span><br><span class="line">            not_broken = dp(K, N - mid) # 没碎</span><br><span class="line">            # res = min(max(碎，没碎) + <span class="number">1</span>)</span><br><span class="line">            <span class="keyword">if</span> broken &gt; not_broken:</span><br><span class="line">                hi = mid - <span class="number">1</span></span><br><span class="line">                res = min(res, broken + <span class="number">1</span>)</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                lo = mid + <span class="number">1</span></span><br><span class="line">                res = min(res, not_broken + <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">        memo[(K, N)] = res</span><br><span class="line">        <span class="keyword">return</span> res</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> dp(K, N)</span><br></pre></td></tr></table></figure>
+
+<p>这个算法的时间复杂度是多少呢？<strong>动态规划算法的时间复杂度就是子问题个数 × 函数本身的复杂度</strong>。</p>
+<p>函数本身的复杂度就是忽略递归部分的复杂度，这里<code>dp</code>函数中用了一个二分搜索，所以函数本身的复杂度是 O(logN)。</p>
+<p>子问题个数也就是不同状态组合的总数，显然是两个状态的乘积，也就是 O(KN)。</p>
+<p>所以算法的总时间复杂度是 O(K<em>N</em>logN), 空间复杂度 O(KN)。效率上比之前的算法 O(KN^2) 要高效不少。</p>
+<h2 id="二、重写状态转移"><a href="#二、重写状态转移" class="headerlink" title="二、重写状态转移"></a>二、重写状态转移</h2><p>前文 <a target="_blank" rel="noopener" href="http://mp.weixin.qq.com/s?__biz=MzAxODQxMDM0Mw==&mid=2247484469&idx=1&sn=e8d321c8ad62483874a997e9dd72da8f&chksm=9bd7fa3daca0732b316aa0afa58e70357e1cb7ab1fe0855d06bc4a852abb1b434c01c7dd19d6&scene=21#wechat_redirect">动态规划：不同的定义产生不同的解法</a> 就提过，找动态规划的状态转移本就是见仁见智，比较玄学的事情。不同的状态定义可以衍生出不同的解法，其解法和复杂程度都可能有巨大差异。这里就是一个很好的例子。</p>
+<p>再回顾一下我们之前定义的<code>dp</code>数组含义：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">def <span class="title function_">dp</span><span class="params">(k, n)</span> -&gt; <span class="type">int</span></span><br><span class="line"># 当前状态为 k 个鸡蛋，面对 n 层楼</span><br><span class="line"># 返回这个状态下最少的扔鸡蛋次数</span><br></pre></td></tr></table></figure>
+
+<p>用 dp 数组表示的话也是一样的：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">dp[k][n] = m</span><br><span class="line"># 当前状态为 k 个鸡蛋，面对 n 层楼</span><br><span class="line"># 这个状态下最少的扔鸡蛋次数为 m</span><br></pre></td></tr></table></figure>
+
+<p>按照这个定义，就是<strong>确定当前的鸡蛋个数和面对的楼层数，就知道最小扔鸡蛋次数</strong>。最终我们想要的答案就是<code>dp(K, N)</code>的结果。</p>
+<p>这种思路下，肯定要穷举所有可能的扔法的，用二分搜索优化也只是做了「剪枝」，减小了搜索空间，但本质思路没有变，只不过是更聪明的穷举。</p>
+<p>现在，我们稍微修改<code>dp</code>数组的定义，<strong>确定当前的鸡蛋个数和最多允许的扔鸡蛋次数，就知道能够确定<code>F</code>的最高楼层数</strong>。</p>
+<p>有点绕口，具体来说是这个意思：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">dp[k][m] = n</span><br><span class="line"># 当前有 k 个鸡蛋，可以尝试扔 m 次鸡蛋</span><br><span class="line"># 这个状态下，最坏情况下最多能确切测试一栋 n 层的楼</span><br><span class="line"></span><br><span class="line"># 比如说 dp[<span class="number">1</span>][<span class="number">7</span>] = <span class="number">7</span> 表示：</span><br><span class="line"># 现在有 <span class="number">1</span> 个鸡蛋，允许你扔 <span class="number">7</span> 次;</span><br><span class="line"># 这个状态下最多给你 <span class="number">7</span> 层楼，</span><br><span class="line"># 使得你可以确定楼层 F 使得鸡蛋恰好摔不碎</span><br><span class="line"># （一层一层线性探查嘛）</span><br></pre></td></tr></table></figure>
+
+<p>这其实就是我们原始思路的一个「反向」版本，我们先不管这种思路的状态转移怎么写，先来思考一下这种定义之下，最终想求的答案是什么？</p>
+<p>我们最终要求的其实是扔鸡蛋次数<code>m</code>，但是这时候<code>m</code>在状态之中而不是<code>dp</code>数组的结果，可以这样处理：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">superEggDrop</span><span class="params">(<span class="type">int</span> K, <span class="type">int</span> N)</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> <span class="variable">m</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (dp[K][m] &lt; N) &#123;</span><br><span class="line">        m++;</span><br><span class="line">        <span class="comment">// 状态转移...</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> m;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>题目不是<strong>给你<code>K</code>鸡蛋，<code>N</code>层楼，让你求最坏情况下最少的测试次数<code>m</code></strong> 吗？<code>while</code>循环结束的条件是<code>dp[K][m] == N</code>，也就是<strong>给你<code>K</code>个鸡蛋，允许测试<code>m</code>次，最坏情况下最多能测试<code>N</code>层楼</strong>。</p>
+<p>注意看这两段描述，是完全一样的！所以说这样组织代码是正确的，关键就是状态转移方程怎么找呢？还得从我们原始的思路开始讲。之前的解法配了这样图帮助大家理解状态转移思路：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/image-20210429195434229_20210429195434.png" alt="图片"></p>
+<p>这个图描述的仅仅是某一个楼层<code>i</code>，原始解法还得线性或者二分扫描所有楼层，要求最大值、最小值。但是现在这种<code>dp</code>定义根本不需要这些了，基于下面两个事实：</p>
+<p><strong>1、无论你在哪层楼扔鸡蛋，鸡蛋只可能摔碎或者没摔碎，碎了的话就测楼下，没碎的话就测楼上</strong>。</p>
+<p><strong>2、无论你上楼还是下楼，总的楼层数 &#x3D; 楼上的楼层数 + 楼下的楼层数 + 1（当前这层楼）</strong>。</p>
+<p>根据这个特点，可以写出下面的状态转移方程：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dp[k][m] = dp[k][m-<span class="number">1</span>] + dp[k-<span class="number">1</span>][m-<span class="number">1</span>] + <span class="number">1</span></span><br></pre></td></tr></table></figure>
+
+<p><strong><code>dp[k][m - 1]</code>就是楼上的楼层数</strong>，因为鸡蛋个数<code>k</code>不变，也就是鸡蛋没碎，扔鸡蛋次数<code>m</code>减一；</p>
+<p><strong><code>dp[k - 1][m - 1]</code>就是楼下的楼层数</strong>，因为鸡蛋个数<code>k</code>减一，也就是鸡蛋碎了，同时扔鸡蛋次数<code>m</code>减一。</p>
+<p>PS：这个<code>m</code>为什么要减一而不是加一？之前定义得很清楚，这个<code>m</code>是一个允许的次数上界，而不是扔了几次。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/72KWkN_20210429195454.png" alt="图片"></p>
+<p>至此，整个思路就完成了，只要把状态转移方程填进框架即可：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">superEggDrop</span><span class="params">(<span class="type">int</span> K, <span class="type">int</span> N)</span> &#123;</span><br><span class="line">    <span class="comment">// m 最多不会超过 N 次（线性扫描）</span></span><br><span class="line">    <span class="type">int</span>[][] dp = <span class="keyword">new</span> <span class="title class_">int</span>[K + <span class="number">1</span>][N + <span class="number">1</span>];</span><br><span class="line">    <span class="comment">// base case:</span></span><br><span class="line">    <span class="comment">// dp[0][..] = 0</span></span><br><span class="line">    <span class="comment">// dp[..][0] = 0</span></span><br><span class="line">    <span class="comment">// Java 默认初始化数组都为 0</span></span><br><span class="line">    <span class="type">int</span> <span class="variable">m</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (dp[K][m] &lt; N) &#123;</span><br><span class="line">        m++;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">k</span> <span class="operator">=</span> <span class="number">1</span>; k &lt;= K; k++)</span><br><span class="line">            dp[k][m] = dp[k][m - <span class="number">1</span>] + dp[k - <span class="number">1</span>][m - <span class="number">1</span>] + <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> m;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如果你还觉得这段代码有点难以理解，其实它就等同于这样写：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="type">int</span> <span class="variable">m</span> <span class="operator">=</span> <span class="number">1</span>; dp[K][m] &lt; N; m++)</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">k</span> <span class="operator">=</span> <span class="number">1</span>; k &lt;= K; k++)</span><br><span class="line">        dp[k][m] = dp[k][m - <span class="number">1</span>] + dp[k - <span class="number">1</span>][m - <span class="number">1</span>] + <span class="number">1</span>;</span><br></pre></td></tr></table></figure>
+
+<p>看到这种代码形式就熟悉多了吧，因为我们要求的不是<code>dp</code>数组里的值，而是某个符合条件的索引<code>m</code>，所以用<code>while</code>循环来找到这个<code>m</code>而已。</p>
+<p>这个算法的时间复杂度是多少？很明显就是两个嵌套循环的复杂度 O(KN)。</p>
+<p>另外注意到<code>dp[m][k]</code>转移只和左边和左上的两个状态有关，所以很容易优化成一维<code>dp</code>数组，这里就不写了。</p>
+<h2 id="三、进一步思考"><a href="#三、进一步思考" class="headerlink" title="三、进一步思考"></a>三、进一步思考</h2><p>再往下就要用一些数学方法了，不具体展开，就简单提一下思路吧。</p>
+<p>在刚才的思路之上，<strong>注意函数<code>dp(m, k)</code>是随着<code>m</code>单增的，因为鸡蛋个数<code>k</code>不变时，允许的测试次数越多，可测试的楼层就越高。</strong></p>
+<p>这里又可以借助二分搜索算法快速逼近<code>dp[K][m] == N</code>这个终止条件，时间复杂度进一步下降为 O(KlogN)，我们可以设<code>g(k,m)</code>等于……</p>
+<p>算了算了，打住吧。我觉得我们能够写出 O(K<em>N</em>logN) 的二分优化算法就行了，后面的这些解法呢，听个响鼓个掌就行了，把欲望限制在能力的范围之内才能拥有快乐！</p>
+<p>不过可以肯定的是，根据二分搜索代替线性扫描 m 的取值，代码的大致框架肯定是修改穷举 m 的 for 循环：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 把线性搜索改成二分搜索</span></span><br><span class="line"><span class="comment">// for (int m = 1; dp[K][m] &lt; N; m++)</span></span><br><span class="line"><span class="type">int</span> <span class="variable">lo</span> <span class="operator">=</span> <span class="number">1</span>, hi = N;</span><br><span class="line"><span class="keyword">while</span> (lo &lt; hi) &#123;</span><br><span class="line">    <span class="type">int</span> <span class="variable">mid</span> <span class="operator">=</span> (lo + hi) / <span class="number">2</span>;</span><br><span class="line">    <span class="keyword">if</span> (... &lt; N) &#123;</span><br><span class="line">        lo = ...</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        hi = ...</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">k</span> <span class="operator">=</span> <span class="number">1</span>; k &lt;= K; k++)</span><br><span class="line">        <span class="comment">// 状态转移方程</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>简单总结一下吧，<strong>第一个二分优化是利用了<code>dp</code>函数的单调性</strong>，用二分查找技巧快速搜索答案；<strong>第二种优化是巧妙地修改了状态转移方程</strong>，简化了求解了流程，但相应的，解题逻辑比较难以想到；后续还可以用一些数学方法和二分搜索进一步优化第二种解法，不过看了看镜子中的发量，算了。</p>
+<p>本文终，希望对你有一点启发。</p>
+
+      
+    </div>
+
+    
+    
+    
+
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>l
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://example.com/posts/afbd7c28/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -396,1182 +598,6 @@
 <p>至此，这道最长回文子串的问题就解决了，时间复杂度 O(N^2)，空间复杂度 O(1)。</p>
 <p>值得一提的是，这个问题可以用动态规划方法解决，时间复杂度一样，但是空间复杂度至少要 O(N^2) 来存储 DP table。这道题是少有的动态规划非最优解法的问题。</p>
 <p>另外，这个问题还有一个巧妙的解法，时间复杂度只需要 O(N)，不过该解法比较复杂，我个人认为没必要掌握。该算法的名字叫 Manacher’s Algorithm（马拉车算法），有兴趣的读者可以自行搜索一下。</p>
-
-      
-    </div>
-
-    
-    
-    
-
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>l
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/d7c70a78/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/lion.png">
-      <meta itemprop="name" content="swimminghao">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="swimminghao's blog">
-      <meta itemprop="description" content="swimminghao的学习博客">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | swimminghao's blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/d7c70a78/" class="post-title-link" itemprop="url">mac快捷键</a>
-        </h2>
-
-        <div class="post-meta-container">
-
-          
-
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-13 12:56:04" itemprop="dateModified" datetime="2022-03-13T12:56:04+08:00">2022-03-13</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">工具</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="far fa-comment"></i>
-    </span>
-    <span class="post-meta-item-text">Waline：</span>
-  
-    <a title="waline" href="/posts/d7c70a78/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/d7c70a78/" data-xid="/posts/d7c70a78/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>7k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>6 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="mac快捷键"><a href="#mac快捷键" class="headerlink" title="mac快捷键"></a>mac快捷键</h1><h2 id="图形按键"><a href="#图形按键" class="headerlink" title="图形按键"></a>图形按键</h2><table>
-<thead>
-<tr>
-<th>按键或组合键</th>
-<th>功能</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>⌘</td>
-<td>Command 键</td>
-</tr>
-<tr>
-<td>⌃</td>
-<td>Control 键</td>
-</tr>
-<tr>
-<td>⌥</td>
-<td>Option 键</td>
-</tr>
-<tr>
-<td>⇧</td>
-<td>Shift 键</td>
-</tr>
-<tr>
-<td>⇪</td>
-<td>Caps Lock</td>
-</tr>
-<tr>
-<td>fn</td>
-<td>功能键常用快捷键</td>
-</tr>
-</tbody></table>
-<h2 id="剪切、拷贝和粘贴"><a href="#剪切、拷贝和粘贴" class="headerlink" title="剪切、拷贝和粘贴"></a>剪切、拷贝和粘贴</h2><blockquote>
-<p>您可以在大多数 app 中使用这些快捷键来剪切、拷贝或粘贴选中的项目。其中包括文本、图片、音乐等等。您甚至可以在 Finder 中拷贝和粘贴文件，来将文件拷贝到新位置。</p>
-</blockquote>
-<table>
-<thead>
-<tr>
-<th>按键或组合键</th>
-<th>功能</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>Command-C</td>
-<td>将所选数据拷贝到剪贴板</td>
-</tr>
-<tr>
-<td>Command-X</td>
-<td>移除选中的项目，然后将副本放在剪贴板中</td>
-</tr>
-<tr>
-<td>Command-V</td>
-<td>将剪贴板副本放到（粘贴）到当前文稿或 app 中</td>
-</tr>
-</tbody></table>
-<h2 id="拍摄屏幕快照"><a href="#拍摄屏幕快照" class="headerlink" title="拍摄屏幕快照"></a>拍摄屏幕快照</h2><blockquote>
-<p>使用这些快捷键可拍摄一张屏幕内容的照片。您也可以使用 Grab 拍摄屏幕快照，这款 app 位于“实用工具”文件夹中。</p>
-</blockquote>
-<table>
-<thead>
-<tr>
-<th>按键或组合键</th>
-<th>功能</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>Command-Shift-3</td>
-<td>将屏幕捕捉到文件</td>
-</tr>
-<tr>
-<td>Command-Shift-Control-3</td>
-<td>将屏幕内容捕捉到剪贴板</td>
-</tr>
-<tr>
-<td>Command-Shift-4</td>
-<td>将所选屏幕内容捕捉到一个文件，或按空格键仅捕捉一个窗口</td>
-</tr>
-<tr>
-<td>Command-Shift-Control-4</td>
-<td>将所选屏幕内容捕捉到剪贴板，或按空格键仅捕捉一个窗口</td>
-</tr>
-</tbody></table>
-<h2 id="启动快捷键"><a href="#启动快捷键" class="headerlink" title="启动快捷键"></a>启动快捷键</h2><blockquote>
-<p>使用这些组合键可更改电脑的启动方式。启动 Mac 后立即按住相关按键或组合键，直到所需的功能出现。例如，启动时按住 Option 键，直到“启动管理器”出现。<br>注：如果您使用的不是 Apple 制造的键盘，则 Alt 键通常相当于 Option 键。如果此修饰键不起作用，请尝试改用 Apple 键盘。</p>
-</blockquote>
-<table>
-<thead>
-<tr>
-<th>按键或组合键</th>
-<th>功能</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>Option 或 Alt</td>
-<td>显示所有启动宗卷（启动管理器）</td>
-</tr>
-<tr>
-<td>Shift</td>
-<td>在安全模式下启动</td>
-</tr>
-<tr>
-<td>C</td>
-<td>从可引导介质（DVD、CD、USB 闪存驱动器）启动</td>
-</tr>
-<tr>
-<td>T</td>
-<td>在目标磁盘模式下启动</td>
-</tr>
-<tr>
-<td>N</td>
-<td>从 NetBoot 服务器启动</td>
-</tr>
-<tr>
-<td>X</td>
-<td>强制 OS X 启动（如果非 OS X 启动宗卷可用）</td>
-</tr>
-<tr>
-<td>D</td>
-<td>使用 Apple Hardware Test</td>
-</tr>
-<tr>
-<td>Command-R</td>
-<td>使用 OS X 恢复功能（OS X Lion 或更高版本）</td>
-</tr>
-<tr>
-<td>Command-Option-R</td>
-<td>在受支持的电脑上使用互联网恢复</td>
-</tr>
-<tr>
-<td>Command-V</td>
-<td>以详细模式启动</td>
-</tr>
-<tr>
-<td>Command-S</td>
-<td>以单用户模式启动</td>
-</tr>
-<tr>
-<td>Command-Option-P-R</td>
-<td>重置 NVRAM</td>
-</tr>
-<tr>
-<td>按住介质推出 (⏏) 键、F12 键、鼠标或触控板按钮</td>
-<td>推出活动光盘</td>
-</tr>
-</tbody></table>
-<h2 id="睡眠、关闭和注销快捷键"><a href="#睡眠、关闭和注销快捷键" class="headerlink" title="睡眠、关闭和注销快捷键"></a>睡眠、关闭和注销快捷键</h2><blockquote>
-<p>Mac 启动后使用这些组合键可让电脑进入睡眠状态、关机、注销或重新启动。</p>
-</blockquote>
-<table>
-<thead>
-<tr>
-<th>按键或组合键</th>
-<th>功能</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>电源按钮</td>
-<td>轻按可开机。在通电后，轻按“电源”按钮可使您的 Mac 唤醒或进入睡眠状态。</td>
-</tr>
-<tr>
-<td>按住电源按钮 1.5 秒</td>
-<td>显示重新启动&#x2F;睡眠&#x2F;关闭对话框</td>
-</tr>
-<tr>
-<td>按住电源按钮 5 秒</td>
-<td>强制 Mac 关机</td>
-</tr>
-<tr>
-<td>Control-电源按钮</td>
-<td>显示重新启动&#x2F;睡眠&#x2F;关闭对话框</td>
-</tr>
-<tr>
-<td>Command-Control-电源按钮</td>
-<td>强制 Mac 重新启动</td>
-</tr>
-<tr>
-<td>Command-Option-电源按钮</td>
-<td>使电脑进入睡眠状态</td>
-</tr>
-<tr>
-<td>Command-Control-电源按钮</td>
-<td>退出所有 app（会让您先存储对已打开文稿所作的更改），然后重新启动电脑</td>
-</tr>
-<tr>
-<td>Command-Option-Control-电源按钮</td>
-<td>退出所有 app（会让您先存储对已打开文稿所作的更改），然后关闭电脑</td>
-</tr>
-<tr>
-<td>Shift-Control-电源按钮</td>
-<td>使所有显示器进入睡眠状态</td>
-</tr>
-<tr>
-<td>Command-Shift-Q</td>
-<td>注销</td>
-</tr>
-<tr>
-<td>Command-Shift-Option-Q</td>
-<td>立即注销</td>
-</tr>
-</tbody></table>
-<h2 id="App-快捷键"><a href="#App-快捷键" class="headerlink" title="App 快捷键"></a>App 快捷键</h2><blockquote>
-<p>这些键盘快捷键适用于大部分 app。</p>
-</blockquote>
-<table>
-<thead>
-<tr>
-<th>组合键</th>
-<th>功能</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>Command-A</td>
-<td>在最前面的窗口中选择所有项目或文本</td>
-</tr>
-<tr>
-<td>Command-Z</td>
-<td>撤消上一命令（有些 app 可让您撤消多次）</td>
-</tr>
-<tr>
-<td>Command-Shift-Z</td>
-<td>重做，恢复上次使用撤消进行的更改（有些 app 可让您重做多次）</td>
-</tr>
-<tr>
-<td>Command-空格键</td>
-<td>显示或隐藏 Spotlight 搜索栏（如果同时使用多语种，此快捷键可能会转而循环显示启用的脚本系统）</td>
-</tr>
-<tr>
-<td>Command-Option-空格键</td>
-<td>显示 Spotlight 搜索结果窗口（如果安装了多语种，则可能循环显示某一脚本中的键盘布局和输入法）</td>
-</tr>
-<tr>
-<td>Command-Tab</td>
-<td>在打开的 app 列表中，向下移动到下一个最近使用的 app</td>
-</tr>
-<tr>
-<td>Option-介质推出键 (⏏)</td>
-<td>从备选光盘驱动器中推出（如果已安装）</td>
-</tr>
-<tr>
-<td>Command-调低亮度 (F1)</td>
-<td>切换针对多显示器配置的“镜像显示器”</td>
-</tr>
-<tr>
-<td>Command-调高亮度 (F2)</td>
-<td>切换目标显示器模式</td>
-</tr>
-<tr>
-<td>Command-Mission Control (F3)</td>
-<td>显示桌面</td>
-</tr>
-<tr>
-<td>Command-F5</td>
-<td>切换 VoiceOver 的开关</td>
-</tr>
-<tr>
-<td>Option-亮度 (F2)</td>
-<td>打开“显示器”系统偏好设置</td>
-</tr>
-<tr>
-<td>Option-Mission Control (F3)</td>
-<td>打开“Mission Control”偏好设置</td>
-</tr>
-<tr>
-<td>Option-音量键 (F12)</td>
-<td>打开“声音”偏好设置</td>
-</tr>
-<tr>
-<td>Command-减号 (–)</td>
-<td>缩小所选项</td>
-</tr>
-<tr>
-<td>Command-冒号 (:)</td>
-<td>显示“拼写和语法”窗口</td>
-</tr>
-<tr>
-<td>Command-分号 (;)</td>
-<td>查找文稿中拼写错误的词</td>
-</tr>
-<tr>
-<td>Command-逗号 (,)</td>
-<td>打开最前面的 app 的偏好设置窗口</td>
-</tr>
-<tr>
-<td>Command-问号 (?)</td>
-<td>打开“帮助”菜单</td>
-</tr>
-<tr>
-<td>Command-加号 (+)或 Command-Shift-等号 (&#x3D;)</td>
-<td>放大所选项</td>
-</tr>
-<tr>
-<td>Command-Option-D</td>
-<td>显示或隐藏 Dock</td>
-</tr>
-<tr>
-<td>Command-Control-D</td>
-<td>显示或隐藏选中字词的定义</td>
-</tr>
-<tr>
-<td>Command-D</td>
-<td>在“打开和存储”对话框中选择“桌面”文件夹</td>
-</tr>
-<tr>
-<td>Command-Delete</td>
-<td>选择包含“删除”或“不存储”按钮的对话框中的“不存储”</td>
-</tr>
-<tr>
-<td>Command-E</td>
-<td>使用所选内容进行查找</td>
-</tr>
-<tr>
-<td>Command-F</td>
-<td>打开“查找”窗口，或在文稿中查找文本</td>
-</tr>
-<tr>
-<td>Command-Option-F</td>
-<td>移到搜索栏控件</td>
-</tr>
-<tr>
-<td>Command-G</td>
-<td>查找所选内容出现的下一个位置</td>
-</tr>
-<tr>
-<td>Command-Shift-G</td>
-<td>查找所选内容出现的上一个位置</td>
-</tr>
-<tr>
-<td>Command-H</td>
-<td>隐藏当前正在运行的 app 的窗口</td>
-</tr>
-<tr>
-<td>Command-Option-H</td>
-<td>隐藏所有其他正在运行的 app 的窗口</td>
-</tr>
-<tr>
-<td>Command-Option-I</td>
-<td>显示检查器窗口</td>
-</tr>
-<tr>
-<td>Command-M</td>
-<td>将活跃窗口最小化至 Dock</td>
-</tr>
-<tr>
-<td>Command-Option-M</td>
-<td>将处于活动状态的 app 的所有窗口最小化至 Dock 中</td>
-</tr>
-<tr>
-<td>Command-N</td>
-<td>在最前面的 app 中创建新文稿</td>
-</tr>
-<tr>
-<td>Command-O</td>
-<td>显示一个对话框，用于选择要在最前面的 app 中打开的文稿</td>
-</tr>
-<tr>
-<td>Command-P</td>
-<td>打印当前文稿</td>
-</tr>
-<tr>
-<td>Command-Shift-P</td>
-<td>显示用于指定文稿参数（页面设置）的对话框</td>
-</tr>
-<tr>
-<td>Command-Q</td>
-<td>退出最前面的 app</td>
-</tr>
-<tr>
-<td>Command-S</td>
-<td>存储活跃文稿</td>
-</tr>
-<tr>
-<td>Command-Shift-S</td>
-<td>显示“存储为”对话框或复制当前文稿</td>
-</tr>
-<tr>
-<td>Command-Option-T</td>
-<td>显示或隐藏工具栏</td>
-</tr>
-<tr>
-<td>Command-W</td>
-<td>关闭最前面的窗口</td>
-</tr>
-<tr>
-<td>Command-Option-W</td>
-<td>关闭当前 app 中的所有窗口</td>
-</tr>
-<tr>
-<td>Command-Z</td>
-<td>撤消上一命令（有些 app 允许多次撤消）</td>
-</tr>
-<tr>
-<td>Command-Shift-Z</td>
-<td>重做，恢复上次使用撤消进行的更改（有些 app 可让您重做多次）</td>
-</tr>
-<tr>
-<td>Command-Option-esc</td>
-<td>选择要强制退出的 app</td>
-</tr>
-<tr>
-<td>Command-Shift-Option-Esc（按住三秒钟）</td>
-<td>强制退出最前面的 app</td>
-</tr>
-</tbody></table>
-<h2 id="对文本进行处理"><a href="#对文本进行处理" class="headerlink" title="对文本进行处理"></a>对文本进行处理</h2><blockquote>
-<p>编辑某个字段或文稿中的文本时可使用这些组合键。</p>
-</blockquote>
-<table>
-<thead>
-<tr>
-<th>组合键</th>
-<th>功能</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>Command-B</td>
-<td>以粗体显示所选文本或切换文本粗体显示开&#x2F;关</td>
-</tr>
-<tr>
-<td>Command-I</td>
-<td>以斜体显示所选文本或切换文本斜体显示开&#x2F;关</td>
-</tr>
-<tr>
-<td>Command-U</td>
-<td>对所选文本加下划线或打开&#x2F;关闭加下划线功能</td>
-</tr>
-<tr>
-<td>Command-T</td>
-<td>显示或隐藏“字体”窗口</td>
-</tr>
-<tr>
-<td>fn-Delete</td>
-<td>向前删除（适用于便携式 Mac 的内建键盘）</td>
-</tr>
-<tr>
-<td>fn-上箭头</td>
-<td>向上滚动一页（相当于 Page Up 键）</td>
-</tr>
-<tr>
-<td>fn-下箭头</td>
-<td>向下滚动一页（相当于 Page Down 键）</td>
-</tr>
-<tr>
-<td>fn-左箭头</td>
-<td>滚动至文稿开头（相当于 Home 键）</td>
-</tr>
-<tr>
-<td>fn-右箭头</td>
-<td>滚动至文稿末尾（相当于 End 键）</td>
-</tr>
-<tr>
-<td>Command-右箭头</td>
-<td>将文本插入点移至当前行的行尾</td>
-</tr>
-<tr>
-<td>Command-左箭头</td>
-<td>将文本插入点移至当前行的行首</td>
-</tr>
-<tr>
-<td>Command-下箭头</td>
-<td>将文本插入点移至文稿末尾</td>
-</tr>
-<tr>
-<td>Command-上箭头</td>
-<td>将文本插入点移至文稿开头</td>
-</tr>
-<tr>
-<td>Option-右箭头</td>
-<td>将文本插入点移至下一个单词的末尾</td>
-</tr>
-<tr>
-<td>Option-左箭头</td>
-<td>将文本插入点移至上一个单词的开头</td>
-</tr>
-<tr>
-<td>Option-Delete</td>
-<td>删除光标左侧的词，以及词后的任何空格或标点符号</td>
-</tr>
-<tr>
-<td>Command-Shift-右箭头</td>
-<td>选中插入点与当前行行尾之间的文本 (*)</td>
-</tr>
-<tr>
-<td>Command-Shift-左箭头</td>
-<td>选中插入点与当前行行首之间的文本 (*)</td>
-</tr>
-<tr>
-<td>Command-Shift-上箭头</td>
-<td>选中插入点与文稿开头之间的文本 (*)</td>
-</tr>
-<tr>
-<td>Command-Shift-下箭头</td>
-<td>选中插入点与文稿末尾之间的文本 (*)</td>
-</tr>
-<tr>
-<td>Shift-左箭头</td>
-<td>将文本选择范围向左扩展一个字符 (*)</td>
-</tr>
-<tr>
-<td>Shift-右箭头</td>
-<td>将文本选择范围向右扩展一个字符 (*)</td>
-</tr>
-<tr>
-<td>Shift-上箭头</td>
-<td>将文本选择范围扩展到上一行相同水平位置的最近字符边缘 (*)</td>
-</tr>
-<tr>
-<td>Shift-下箭头</td>
-<td>将文本选择范围扩展到下一行相同水平位置的最近字符边缘 (*)</td>
-</tr>
-<tr>
-<td>Shift-Option-右箭头</td>
-<td>将文本选择范围扩展到当前词的词尾，再按一次则扩展到后一词的词尾 (*)</td>
-</tr>
-<tr>
-<td>Shift-Option-左箭头</td>
-<td>将文本选择范围扩展到当前词的词首，再按一次则扩展到后一词的词首 (*)</td>
-</tr>
-<tr>
-<td>Shift-Option-下箭头</td>
-<td>将文本选择范围扩展到当前段落的段尾，再按一次则扩展到下一段落的结尾 (*)</td>
-</tr>
-<tr>
-<td>Shift-Option-上箭头</td>
-<td>将文本选择范围扩展到当前段落的段首，再按一次则扩展到下一段落的段首 (*)</td>
-</tr>
-<tr>
-<td>Control-A</td>
-<td>移至行或段落的开头</td>
-</tr>
-<tr>
-<td>Control-B</td>
-<td>向后移动一个字符</td>
-</tr>
-<tr>
-<td>Control-D</td>
-<td>删除光标前的字符</td>
-</tr>
-<tr>
-<td>Control-E</td>
-<td>移至行或段落的开头</td>
-</tr>
-<tr>
-<td>Control-F</td>
-<td>向前移动一个字符</td>
-</tr>
-<tr>
-<td>Control-H</td>
-<td>删除光标后的字符</td>
-</tr>
-<tr>
-<td>Control-K</td>
-<td>删除从光标前的字符到行或段落末尾的所有内容</td>
-</tr>
-<tr>
-<td>Control-L</td>
-<td>将光标或所选内容置于可见区域中央</td>
-</tr>
-<tr>
-<td>Control-N</td>
-<td>下移一行</td>
-</tr>
-<tr>
-<td>Control-O</td>
-<td>在光标后插入一行</td>
-</tr>
-<tr>
-<td>Control-P</td>
-<td>上移一行</td>
-</tr>
-<tr>
-<td>Control-T</td>
-<td>调换光标前后的字符</td>
-</tr>
-<tr>
-<td>Control-V</td>
-<td>下移</td>
-</tr>
-<tr>
-<td>Command-{</td>
-<td>使所选内容左对齐</td>
-</tr>
-<tr>
-<td>Command-}</td>
-<td>使所选内容右对齐</td>
-</tr>
-<tr>
-<td>Command-</td>
-<td>使所选内容居中对齐</td>
-</tr>
-<tr>
-<td>Command-Option-C</td>
-<td>拷贝所选项的格式设置并存储到剪贴板</td>
-</tr>
-<tr>
-<td>Command-Option-V</td>
-<td>将某对象的样式应用于所选对象（粘贴样式）</td>
-</tr>
-<tr>
-<td>Command-Shift-Option-V</td>
-<td>将周围文本的样式应用于所插入对象（粘贴并匹配样式）</td>
-</tr>
-<tr>
-<td>Command-Control-V</td>
-<td>将格式设置应用于所选对象（粘贴标尺）</td>
-</tr>
-</tbody></table>
-<h2 id="辅助功能"><a href="#辅助功能" class="headerlink" title="辅助功能"></a>辅助功能</h2><blockquote>
-<p>这些键盘快捷键可帮助您通过键盘或辅助设备控制 Mac。这些快捷键中，有些快捷键需要在“系统偏好设置”的“键盘”面板或“辅助功能”面板中启用。</p>
-</blockquote>
-<table>
-<thead>
-<tr>
-<th>组合键</th>
-<th>功能</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>Command-Option-F5</td>
-<td>显示辅助功能选项</td>
-</tr>
-<tr>
-<td>Command-F5 或 fn-Command-F5</td>
-<td>打开或关闭 VoiceOver</td>
-</tr>
-<tr>
-<td>Option-Control-F8 或 fn-Option-Control-F8</td>
-<td>打开 VoiceOver 实用工具（如果 VoiceOver 已打开）</td>
-</tr>
-<tr>
-<td>Command-Option-8</td>
-<td>打开或关闭缩放功能</td>
-</tr>
-<tr>
-<td>Command-Option-加号 (+)</td>
-<td>放大</td>
-</tr>
-<tr>
-<td>Command-Option-减号 (–)</td>
-<td>缩小</td>
-</tr>
-<tr>
-<td>Command-Option-Control-8</td>
-<td>反转&#x2F;复原屏幕颜色</td>
-</tr>
-<tr>
-<td>Command-Option-Control-逗号 (,)</td>
-<td>降低对比度</td>
-</tr>
-<tr>
-<td>Command-Option-Control-句点 (.)</td>
-<td>增强对比度</td>
-</tr>
-</tbody></table>
-<h2 id="全键盘控制"><a href="#全键盘控制" class="headerlink" title="全键盘控制"></a>全键盘控制</h2><blockquote>
-<p>通过全键盘控制，您可以使用键盘进行导航，并与屏幕上的项目进行交互。使用这些快捷键可选择并调整文本栏和滑块等控件。按 Control-F7 或从“系统偏好设置”中“键盘”偏好设置的“快捷键”面板中选择“全键盘控制”，可以切换此设置开&#x2F;关。</p>
-</blockquote>
-<table>
-<thead>
-<tr>
-<th>组合键</th>
-<th>功能</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>Tab</td>
-<td>移至下一个控件</td>
-</tr>
-<tr>
-<td>Shift-Tab</td>
-<td>移至上一个控件</td>
-</tr>
-<tr>
-<td>Control-Tab</td>
-<td>已选择文本栏时移至下一个控件</td>
-</tr>
-<tr>
-<td>Shift-Control-Tab</td>
-<td>将焦点移至上一组控件</td>
-</tr>
-<tr>
-<td>箭头键</td>
-<td>移至列表、标签组或菜单中的相邻项，或移动滑块和调节器（用于增加和减小值的垂直上下箭头）</td>
-</tr>
-<tr>
-<td>Control-箭头键</td>
-<td>移至与文本栏相邻的控件</td>
-</tr>
-<tr>
-<td>空格键</td>
-<td>选择高亮显示的菜单项</td>
-</tr>
-<tr>
-<td>Return 或 Enter 键</td>
-<td>点按默认按钮或执行默认操作</td>
-</tr>
-<tr>
-<td>Esc 键</td>
-<td>点按“取消”按钮，或关闭菜单而不选取项目</td>
-</tr>
-<tr>
-<td>Shift-Control-F6</td>
-<td>将焦点移至上一个面板</td>
-</tr>
-<tr>
-<td>Control-F7</td>
-<td>临时覆盖窗口和对话框中的当前键盘访问模式</td>
-</tr>
-<tr>
-<td>Control-F8</td>
-<td>移到菜单栏中的状态菜单</td>
-</tr>
-<tr>
-<td>Command-重音符 (&#96;)</td>
-<td>激活最前面的 app 中下一个打开的窗口</td>
-</tr>
-<tr>
-<td>Command-Shift-重音符 (&#96;)</td>
-<td>激活最前面的 app 中上一个打开的窗口</td>
-</tr>
-<tr>
-<td>Command-Option-重音符 (&#96;)</td>
-<td>将焦点移至窗口抽屉</td>
-</tr>
-</tbody></table>
-<h2 id="您可以在菜单栏中浏览菜单，而无需使用鼠标或触控板。若要将焦点置于菜单栏中，请按-Control-F2（便携式键盘上的-fn-Control-F2）。然后使用下列组合键。"><a href="#您可以在菜单栏中浏览菜单，而无需使用鼠标或触控板。若要将焦点置于菜单栏中，请按-Control-F2（便携式键盘上的-fn-Control-F2）。然后使用下列组合键。" class="headerlink" title="您可以在菜单栏中浏览菜单，而无需使用鼠标或触控板。若要将焦点置于菜单栏中，请按 Control-F2（便携式键盘上的 fn-Control-F2）。然后使用下列组合键。"></a>您可以在菜单栏中浏览菜单，而无需使用鼠标或触控板。若要将焦点置于菜单栏中，请按 Control-F2（便携式键盘上的 fn-Control-F2）。然后使用下列组合键。</h2><table>
-<thead>
-<tr>
-<th>组合键</th>
-<th>功能</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>左箭头和右箭头</td>
-<td>从一个菜单移到另一个菜单</td>
-</tr>
-<tr>
-<td>Return</td>
-<td>打开所选菜单</td>
-</tr>
-<tr>
-<td>上箭头和下箭头</td>
-<td>移至所选菜单中的菜单项</td>
-</tr>
-<tr>
-<td>键入菜单项的名称</td>
-<td>跳到所选菜单中的菜单项</td>
-</tr>
-<tr>
-<td>Return</td>
-<td>选择菜单项</td>
-</tr>
-</tbody></table>
-<h2 id="辅助功能-鼠标键"><a href="#辅助功能-鼠标键" class="headerlink" title="辅助功能 - 鼠标键"></a>辅助功能 - 鼠标键</h2><blockquote>
-<p>在“辅助功能”偏好设置中打开“鼠标键后，您可以使用键盘或数字小键盘上的按键移动鼠标指针。</p>
-</blockquote>
-<table>
-<thead>
-<tr>
-<th>组合键</th>
-<th>功能</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>8 或数字小键盘上的 8</td>
-<td>上移</td>
-</tr>
-<tr>
-<td>K 或数字小键盘上的 2</td>
-<td>下移</td>
-</tr>
-<tr>
-<td>U 或数字小键盘上的 4</td>
-<td>左移</td>
-</tr>
-<tr>
-<td>O 或数字小键盘上的 6</td>
-<td>右移</td>
-</tr>
-<tr>
-<td>J 或数字小键盘上的 1</td>
-<td>沿对角线向左下角移</td>
-</tr>
-<tr>
-<td>L 或数字小键盘上的 3</td>
-<td>沿对角线向右下角移</td>
-</tr>
-<tr>
-<td>7 或数字小键盘上的 7</td>
-<td>沿对角线向左上角移</td>
-</tr>
-<tr>
-<td>9 或数字小键盘上的 9</td>
-<td>沿对角线向右上角移</td>
-</tr>
-<tr>
-<td>I 或数字小键盘上的 5</td>
-<td>按鼠标按钮</td>
-</tr>
-<tr>
-<td>M 或数字小键盘上的 0</td>
-<td>按住鼠标按钮</td>
-</tr>
-<tr>
-<td>.（句点键）</td>
-<td>释放按住的鼠标按钮</td>
-</tr>
-</tbody></table>
-<h2 id="Finder-快捷键"><a href="#Finder-快捷键" class="headerlink" title="Finder 快捷键"></a>Finder 快捷键</h2><table>
-<thead>
-<tr>
-<th>组合键</th>
-<th>功能</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>Command-A</td>
-<td>选择最前面的窗口中的所有文件</td>
-</tr>
-<tr>
-<td>Command-Option-A</td>
-<td>取消选择所有项</td>
-</tr>
-<tr>
-<td>Command-C</td>
-<td>拷贝选中的文件，然后使用“粘贴”或“移动”来移动这些文件。</td>
-</tr>
-<tr>
-<td>Command-D</td>
-<td>重复选中的文件</td>
-</tr>
-<tr>
-<td>Command-E</td>
-<td>推出</td>
-</tr>
-<tr>
-<td>Command-F</td>
-<td>查找任何匹配 Spotlight 属性的内容</td>
-</tr>
-<tr>
-<td>Command-I</td>
-<td>显示选中的文件的“显示简介”窗口</td>
-</tr>
-<tr>
-<td>Command-Shift-C</td>
-<td>打开“电脑”窗口</td>
-</tr>
-<tr>
-<td>Command-Shift-D</td>
-<td>打开“桌面”文件夹</td>
-</tr>
-<tr>
-<td>Command-Shift-F</td>
-<td>显示“我的所有文件”窗口</td>
-</tr>
-<tr>
-<td>Command-Shift-G</td>
-<td>前往文件夹</td>
-</tr>
-<tr>
-<td>Command-Shift-H</td>
-<td>打开当前已登录用户帐户的个人文件夹</td>
-</tr>
-<tr>
-<td>Command-Shift-I</td>
-<td>打开 iCloud Drive</td>
-</tr>
-<tr>
-<td>Command-Shift-K</td>
-<td>打开“网络”窗口</td>
-</tr>
-<tr>
-<td>Command-Shift-L</td>
-<td>打开“下载”文件夹</td>
-</tr>
-<tr>
-<td>Command-Shift-O</td>
-<td>打开“文稿”文件夹</td>
-</tr>
-<tr>
-<td>Command-Shift-R</td>
-<td>打开 AirDrop 窗口</td>
-</tr>
-<tr>
-<td>Command-Shift-U</td>
-<td>打开“实用工具”文件夹</td>
-</tr>
-<tr>
-<td>Command-Control-T</td>
-<td>添加到边栏 (OS X Mavericks)</td>
-</tr>
-<tr>
-<td>Command-Option-I</td>
-<td>显示或隐藏“检查器”窗口</td>
-</tr>
-<tr>
-<td>Command-Control-I</td>
-<td>获得摘要信息</td>
-</tr>
-<tr>
-<td>Command-Option-P</td>
-<td>隐藏或显示路径栏</td>
-</tr>
-<tr>
-<td>Command-Option-S</td>
-<td>隐藏或显示边栏</td>
-</tr>
-<tr>
-<td>Command-正斜线 (&#x2F;)</td>
-<td>隐藏或显示状态栏</td>
-</tr>
-<tr>
-<td>Command-J</td>
-<td>调出“显示”选项</td>
-</tr>
-<tr>
-<td>Command-K</td>
-<td>连接到服务器</td>
-</tr>
-<tr>
-<td>Command-L</td>
-<td>为所选项制作替身</td>
-</tr>
-<tr>
-<td>Command-N</td>
-<td>新建 Finder 窗口</td>
-</tr>
-<tr>
-<td>Command-Shift-N</td>
-<td>新建文件夹</td>
-</tr>
-<tr>
-<td>Command-Option-N</td>
-<td>新建智能文件夹</td>
-</tr>
-<tr>
-<td>Command-O</td>
-<td>打开所选项</td>
-</tr>
-<tr>
-<td>Command-R</td>
-<td>显示（替身的）原身</td>
-</tr>
-<tr>
-<td>Command-T</td>
-<td>在当前 Finder窗口中打开单个标签时显示或隐藏标签栏</td>
-</tr>
-<tr>
-<td>Command-Shift-T</td>
-<td>显示或隐藏 Finder 标签</td>
-</tr>
-<tr>
-<td>Command-Option-T</td>
-<td>在当前 Finder窗口中打开单个标签时显示或隐藏工具栏</td>
-</tr>
-<tr>
-<td>Command-V</td>
-<td>将您放在剪贴板上的文本副本粘贴到当前位置。</td>
-</tr>
-<tr>
-<td>Command-Option-V</td>
-<td>将您放在剪贴板上的文本从其原始位置移动到当前位置。</td>
-</tr>
-<tr>
-<td>Command-Option-Y</td>
-<td>查看选中文件的快速查看幻灯片。</td>
-</tr>
-<tr>
-<td>Command-1</td>
-<td>以图标显示</td>
-</tr>
-<tr>
-<td>Command-2</td>
-<td>以列表方式显示</td>
-</tr>
-<tr>
-<td>Command-3</td>
-<td>以分栏方式显示</td>
-</tr>
-<tr>
-<td>Command-4</td>
-<td>以 Cover Flow 方式显示（Mac OS X v10.5 或更高版本）</td>
-</tr>
-<tr>
-<td>Command-逗号 (,)</td>
-<td>打开 Finder 偏好设置</td>
-</tr>
-<tr>
-<td>Command-左中括号 ([)</td>
-<td>前往上一文件夹</td>
-</tr>
-<tr>
-<td>Command-右中括号 (])</td>
-<td>前往下一文件夹</td>
-</tr>
-<tr>
-<td>Command-Control-上箭头</td>
-<td>在新窗口中打开包含当前文件夹的文件夹</td>
-</tr>
-<tr>
-<td>Command-下箭头</td>
-<td>打开高亮显示的项目</td>
-</tr>
-<tr>
-<td>右箭头（以列表视图显示）</td>
-<td>打开所选文件夹</td>
-</tr>
-<tr>
-<td>左箭头（以列表视图显示）</td>
-<td>关闭所选文件夹</td>
-</tr>
-<tr>
-<td>Option-点按显示三角形</td>
-<td>（以列表视图显示）打开所选文件夹内的所有文件夹</td>
-</tr>
-<tr>
-<td>Option-连按</td>
-<td>在单独窗口中打开文件夹，并关闭当前窗口</td>
-</tr>
-<tr>
-<td>Command-连按</td>
-<td>在单独标签或窗口中打开文件夹</td>
-</tr>
-<tr>
-<td>Command-点按窗口标题</td>
-<td>查看包含当前窗口的文件夹</td>
-</tr>
-<tr>
-<td>Command-Delete</td>
-<td>移至废纸篓</td>
-</tr>
-<tr>
-<td>Command-Shift-Delete</td>
-<td>清倒废纸篓</td>
-</tr>
-<tr>
-<td>Command-Shift-Option-Delete</td>
-<td>清倒废纸篓（不显示确认对话框）</td>
-</tr>
-<tr>
-<td>空格键（或 Command-Y）</td>
-<td>快速查看选中的文件</td>
-</tr>
-<tr>
-<td>拖移时按 Command 键</td>
-<td>将拖移的项目移至其他宗卷或位置（按住按键时指针会改变）</td>
-</tr>
-<tr>
-<td>拖移时按 Option键</td>
-<td>拷贝拖移的项目（按住按键时指针会改变）</td>
-</tr>
-<tr>
-<td>拖移时按 Command-Option 组合键</td>
-<td>对拖移的项目赋予别名（按住按键时指针会改变）</td>
-</tr>
-</tbody></table>
 
       
     </div>
