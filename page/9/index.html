@@ -451,6 +451,189 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/eb97ef3e/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lion.png">
+      <meta itemprop="name" content="swimminghao">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="swimminghao's blog">
+      <meta itemprop="description" content="swimminghao的学习博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | swimminghao's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/eb97ef3e/" class="post-title-link" itemprop="url">18、【对线面试官】Redis持久化</a>
+        </h2>
+
+        <div class="post-meta-container">
+
+          
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-03-10 09:48:07" itemprop="dateModified" datetime="2022-03-10T09:48:07+08:00">2022-03-10</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/posts/eb97ef3e/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/eb97ef3e/" data-xid="/posts/eb97ef3e/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>1.9k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>2 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="18、【对线面试官】Redis持久化"><a href="#18、【对线面试官】Redis持久化" class="headerlink" title="18、【对线面试官】Redis持久化"></a>18、【对线面试官】Redis持久化</h1><h2 id="嗯，开始吧，今天要不来聊聊Redisl的持久化机制吧？"><a href="#嗯，开始吧，今天要不来聊聊Redisl的持久化机制吧？" class="headerlink" title="嗯，开始吧，今天要不来聊聊Redisl的持久化机制吧？"></a>嗯，开始吧，今天要不来聊聊Redisl的持久化机制吧？</h2><ol>
+<li><p>在上一次面试已经说过了Redis：是基于内存的</p>
+</li>
+<li><p>假设我们不做任何操作，只要Redis服务器重启（或者中途故障挂掉了），那内存的数据就会没掉</p>
+</li>
+<li><p>所以Redis：提供了持久化机制给我们用，分别是RDB和AOF</p>
+<p>1）RDB指的就是：根据我们自己配置的时间或者手动去执行BGSAVE或SAVE命令，Redisi就会去生成RDB文件</p>
+<p>2）这个RDB文件实际上就是一个经过压缩的二进制文件，Redis可以通过这个文件在启动的时候来还原我们的数据</p>
+<p>1）而AOF则是把Redis服务器接收到的所有写命令都记录到日志中</p>
+<p>2）Redis重跑一遍这个记录下的日志文件，就相当于还原了数据</p>
+</li>
+</ol>
+<h2 id="那我就想问了，你上次不是说Redis是单线程吗？那比如你说的RDB，它会执行SAVE或BESAVE命令，生成文件。那不是非常耗时的吗，那如果只有一个线程处理，那其他的请求不就得等了？"><a href="#那我就想问了，你上次不是说Redis是单线程吗？那比如你说的RDB，它会执行SAVE或BESAVE命令，生成文件。那不是非常耗时的吗，那如果只有一个线程处理，那其他的请求不就得等了？" class="headerlink" title="那我就想问了，你上次不是说Redis是单线程吗？那比如你说的RDB，它会执行SAVE或BESAVE命令，生成文件。那不是非常耗时的吗，那如果只有一个线程处理，那其他的请求不就得等了？"></a>那我就想问了，你上次不是说Redis是单线程吗？那比如你说的RDB，它会执行SAVE或BESAVE命令，生成文件。那不是非常耗时的吗，那如果只有一个线程处理，那其他的请求不就得等了？</h2><ol>
+<li>嗯，没错，Redis是单线程的。</li>
+<li>以RDB持久化的过程为例，假设我们在配置上是定时去执行RDB存储</li>
+<li>Redis有自己的一套事件处理机制，主要处理文件事件（命令请求和应答等等）和时间事件（RDB定时持久化、清理过期的Key等的）</li>
+<li>所以，定时的RDB实际上就是一个时间事件</li>
+<li>线程不停地轮询就绪的事件，发现RDB的事件可执行时，则调用BGSAVE命令</li>
+<li>而BGSAVE命令实际上会fork出一个子进程来进行完成持久化（生成RDB文件）</li>
+<li>在fork的过程中，父进程（主线程）肯定是阻塞的。</li>
+<li>但fork完之后，是fork出来的子进程去完成持久化。处理请求的进程该干嘛的就干嘛</li>
+<li>所以说啊，Redis：是单线程，理解是没错的，但没说人家不能fork进程来处理事情。</li>
+<li>还有就是，其实Redis在较新的版本中，有些地方都使用了多线程来进行处理</li>
+<li>比如说，一些删除的操作（UNLINK、FLUSHALL ASYNC等等）还有Redis6.x之后对网络数据的解析都用了多线程处理了。</li>
+<li>只不过，核心的处理命令请求和响应还是单线程。</li>
+</ol>
+<h2 id="那AOF呢？AOF不是也要写文件吗？难道也是fork了个子进程去做的？"><a href="#那AOF呢？AOF不是也要写文件吗？难道也是fork了个子进程去做的？" class="headerlink" title="那AOF呢？AOF不是也要写文件吗？难道也是fork了个子进程去做的？"></a>那AOF呢？AOF不是也要写文件吗？难道也是fork了个子进程去做的？</h2><ol>
+<li>emm，不是的。AOF是在命令执行完之后，把命令写在buffer缓冲区的（直接追加写）</li>
+<li>那想要持久化，肯定得存盘嘛。Redis：提供了几种策略供我们选择什么时候把缓冲区的数据写到磁盘</li>
+<li>我记得好像有：每秒一次&#x2F;每条命令都执行从不存盘；一般我们会选每秒一次</li>
+<li>Redis会启一个线程去刷盘，也不是用主线程去干的</li>
+</ol>
+<h2 id="那如果把执行过的命令都存起来；等启动的时候是可以再把这些写命令再执行一遍，达到恢复数据的效果；这样会有什么样的问题吗？"><a href="#那如果把执行过的命令都存起来；等启动的时候是可以再把这些写命令再执行一遍，达到恢复数据的效果；这样会有什么样的问题吗？" class="headerlink" title="那如果把执行过的命令都存起来；等启动的时候是可以再把这些写命令再执行一遍，达到恢复数据的效果；这样会有什么样的问题吗？"></a>那如果把执行过的命令都存起来；等启动的时候是可以再把这些写命令再执行一遍，达到恢复数据的效果；这样会有什么样的问题吗？</h2><ol>
+<li>嗯，问题就是，如果这些写入磁盘的「命令集合」不做任何处理，那该「命令集合」就会一直膨胀</li>
+<li>其实就是该文件会变得非常大</li>
+<li>Redis当然也考虑了这一点，它会fork个子进程会对「原始」命令集合进行重写</li>
+<li>说白了就是会压缩，压缩完了之后只要替换原始文件就好了</li>
+</ol>
+<h2 id="那我又想问了，既然它是fork一个进程来对AOF进行重写的；前面你也提到了再fork时，主进程是阻塞的，但fork后，主进程会继续接收命令；你是说重写完（压缩）会进行文件覆盖；那这样不会丢数据吗？毕竟主进程在fork之后是一直会接收命令的"><a href="#那我又想问了，既然它是fork一个进程来对AOF进行重写的；前面你也提到了再fork时，主进程是阻塞的，但fork后，主进程会继续接收命令；你是说重写完（压缩）会进行文件覆盖；那这样不会丢数据吗？毕竟主进程在fork之后是一直会接收命令的" class="headerlink" title="那我又想问了，既然它是fork一个进程来对AOF进行重写的；前面你也提到了再fork时，主进程是阻塞的，但fork后，主进程会继续接收命令；你是说重写完（压缩）会进行文件覆盖；那这样不会丢数据吗？毕竟主进程在fork之后是一直会接收命令的"></a>那我又想问了，既然它是fork一个进程来对AOF进行重写的；前面你也提到了再fork时，主进程是阻塞的，但fork后，主进程会继续接收命令；你是说重写完（压缩）会进行文件覆盖；那这样不会丢数据吗？毕竟主进程在fork之后是一直会接收命令的</h2><ol>
+<li>其实做法很简单啊，在fork子进程之后，把新接收到命令再写到另一个缓冲区不就好了吗</li>
+</ol>
+<h2 id="那AOF和RDB用哪一个呢？"><a href="#那AOF和RDB用哪一个呢？" class="headerlink" title="那AOF和RDB用哪一个呢？"></a>那AOF和RDB用哪一个呢？</h2><ol>
+<li>主要是看业务场景吧，我们这边是基于Redis使用了一套开源的key-value存储</li>
+<li>使用Redis前，首先要去新增实例，在新增时会让你选择对应的使用场景</li>
+<li>就是会让你通过不同的应用场景进行配置选择</li>
+<li>比如说，业务上是允许重启时部分数据丢失的，那RDB就够用了</li>
+<li>RDB在启动的时候恢复数据会比AOF快很多</li>
+<li>在Redis4.0以后也支持了AOF和RDB混合</li>
+<li>至于AOF的话，官网是不建议仅仅只使用AOF的，如果对数据丢失容忍度是有要求的，建议是开启AOF+RDB一起用</li>
+<li>总的来说，不同的场景使用不同的持久化策略吧</li>
+<li>我们公司也是不建议把Redis当做存储去使用的（毕竟没有事务保证，也还是可能导致数据丢失）</li>
+</ol>
+<h2 id="顺便我想问下，假如Redisl的内存满了，但业务还在写数据，会怎么样？"><a href="#顺便我想问下，假如Redisl的内存满了，但业务还在写数据，会怎么样？" class="headerlink" title="顺便我想问下，假如Redisl的内存满了，但业务还在写数据，会怎么样？"></a>顺便我想问下，假如Redisl的内存满了，但业务还在写数据，会怎么样？</h2><ol>
+<li>嗯，这个问题我也遇到过</li>
+<li>一般来说，我们会淘汰那些「不活跃」的数据，然后把新的数据写进去</li>
+<li>更多情况下，还是做好对应的监控和容量的考量吧。等容量达到阈值的时候，及时发现和扩容</li>
+</ol>
+<h2 id="那要不来讲讲扩容和Redisl的架构吧？"><a href="#那要不来讲讲扩容和Redisl的架构吧？" class="headerlink" title="那要不来讲讲扩容和Redisl的架构吧？"></a>那要不来讲讲扩容和Redisl的架构吧？</h2><p>下次吧</p>
+<h2 id="那要不来讲讲扩容和Redisl的架构吧？-1"><a href="#那要不来讲讲扩容和Redisl的架构吧？-1" class="headerlink" title="那要不来讲讲扩容和Redisl的架构吧？"></a>那要不来讲讲扩容和Redisl的架构吧？</h2><ol>
+<li>Redis的官网啊，看了这么多技术官网，我觉得Redis的官网弄得是真不错</li>
+<li>《Redis设计与实现》这本书也挺不错的</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>l
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://example.com/posts/49c930c7/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -623,189 +806,6 @@
 </li>
 </ol>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>Kafka能这么快的原因就是实现了并行、充分利用操作系统cache、顺序写和零拷贝</p>
-
-      
-    </div>
-
-    
-    
-    
-
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>l
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/eb97ef3e/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/lion.png">
-      <meta itemprop="name" content="swimminghao">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="swimminghao's blog">
-      <meta itemprop="description" content="swimminghao的学习博客">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | swimminghao's blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/eb97ef3e/" class="post-title-link" itemprop="url">18、【对线面试官】Redis持久化</a>
-        </h2>
-
-        <div class="post-meta-container">
-
-          
-
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-10 09:48:07" itemprop="dateModified" datetime="2022-03-10T09:48:07+08:00">2022-03-10</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="far fa-comment"></i>
-    </span>
-    <span class="post-meta-item-text">Waline：</span>
-  
-    <a title="waline" href="/posts/eb97ef3e/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/eb97ef3e/" data-xid="/posts/eb97ef3e/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>1.9k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>2 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="18、【对线面试官】Redis持久化"><a href="#18、【对线面试官】Redis持久化" class="headerlink" title="18、【对线面试官】Redis持久化"></a>18、【对线面试官】Redis持久化</h1><h2 id="嗯，开始吧，今天要不来聊聊Redisl的持久化机制吧？"><a href="#嗯，开始吧，今天要不来聊聊Redisl的持久化机制吧？" class="headerlink" title="嗯，开始吧，今天要不来聊聊Redisl的持久化机制吧？"></a>嗯，开始吧，今天要不来聊聊Redisl的持久化机制吧？</h2><ol>
-<li><p>在上一次面试已经说过了Redis：是基于内存的</p>
-</li>
-<li><p>假设我们不做任何操作，只要Redis服务器重启（或者中途故障挂掉了），那内存的数据就会没掉</p>
-</li>
-<li><p>所以Redis：提供了持久化机制给我们用，分别是RDB和AOF</p>
-<p>1）RDB指的就是：根据我们自己配置的时间或者手动去执行BGSAVE或SAVE命令，Redisi就会去生成RDB文件</p>
-<p>2）这个RDB文件实际上就是一个经过压缩的二进制文件，Redis可以通过这个文件在启动的时候来还原我们的数据</p>
-<p>1）而AOF则是把Redis服务器接收到的所有写命令都记录到日志中</p>
-<p>2）Redis重跑一遍这个记录下的日志文件，就相当于还原了数据</p>
-</li>
-</ol>
-<h2 id="那我就想问了，你上次不是说Redis是单线程吗？那比如你说的RDB，它会执行SAVE或BESAVE命令，生成文件。那不是非常耗时的吗，那如果只有一个线程处理，那其他的请求不就得等了？"><a href="#那我就想问了，你上次不是说Redis是单线程吗？那比如你说的RDB，它会执行SAVE或BESAVE命令，生成文件。那不是非常耗时的吗，那如果只有一个线程处理，那其他的请求不就得等了？" class="headerlink" title="那我就想问了，你上次不是说Redis是单线程吗？那比如你说的RDB，它会执行SAVE或BESAVE命令，生成文件。那不是非常耗时的吗，那如果只有一个线程处理，那其他的请求不就得等了？"></a>那我就想问了，你上次不是说Redis是单线程吗？那比如你说的RDB，它会执行SAVE或BESAVE命令，生成文件。那不是非常耗时的吗，那如果只有一个线程处理，那其他的请求不就得等了？</h2><ol>
-<li>嗯，没错，Redis是单线程的。</li>
-<li>以RDB持久化的过程为例，假设我们在配置上是定时去执行RDB存储</li>
-<li>Redis有自己的一套事件处理机制，主要处理文件事件（命令请求和应答等等）和时间事件（RDB定时持久化、清理过期的Key等的）</li>
-<li>所以，定时的RDB实际上就是一个时间事件</li>
-<li>线程不停地轮询就绪的事件，发现RDB的事件可执行时，则调用BGSAVE命令</li>
-<li>而BGSAVE命令实际上会fork出一个子进程来进行完成持久化（生成RDB文件）</li>
-<li>在fork的过程中，父进程（主线程）肯定是阻塞的。</li>
-<li>但fork完之后，是fork出来的子进程去完成持久化。处理请求的进程该干嘛的就干嘛</li>
-<li>所以说啊，Redis：是单线程，理解是没错的，但没说人家不能fork进程来处理事情。</li>
-<li>还有就是，其实Redis在较新的版本中，有些地方都使用了多线程来进行处理</li>
-<li>比如说，一些删除的操作（UNLINK、FLUSHALL ASYNC等等）还有Redis6.x之后对网络数据的解析都用了多线程处理了。</li>
-<li>只不过，核心的处理命令请求和响应还是单线程。</li>
-</ol>
-<h2 id="那AOF呢？AOF不是也要写文件吗？难道也是fork了个子进程去做的？"><a href="#那AOF呢？AOF不是也要写文件吗？难道也是fork了个子进程去做的？" class="headerlink" title="那AOF呢？AOF不是也要写文件吗？难道也是fork了个子进程去做的？"></a>那AOF呢？AOF不是也要写文件吗？难道也是fork了个子进程去做的？</h2><ol>
-<li>emm，不是的。AOF是在命令执行完之后，把命令写在buffer缓冲区的（直接追加写）</li>
-<li>那想要持久化，肯定得存盘嘛。Redis：提供了几种策略供我们选择什么时候把缓冲区的数据写到磁盘</li>
-<li>我记得好像有：每秒一次&#x2F;每条命令都执行从不存盘；一般我们会选每秒一次</li>
-<li>Redis会启一个线程去刷盘，也不是用主线程去干的</li>
-</ol>
-<h2 id="那如果把执行过的命令都存起来；等启动的时候是可以再把这些写命令再执行一遍，达到恢复数据的效果；这样会有什么样的问题吗？"><a href="#那如果把执行过的命令都存起来；等启动的时候是可以再把这些写命令再执行一遍，达到恢复数据的效果；这样会有什么样的问题吗？" class="headerlink" title="那如果把执行过的命令都存起来；等启动的时候是可以再把这些写命令再执行一遍，达到恢复数据的效果；这样会有什么样的问题吗？"></a>那如果把执行过的命令都存起来；等启动的时候是可以再把这些写命令再执行一遍，达到恢复数据的效果；这样会有什么样的问题吗？</h2><ol>
-<li>嗯，问题就是，如果这些写入磁盘的「命令集合」不做任何处理，那该「命令集合」就会一直膨胀</li>
-<li>其实就是该文件会变得非常大</li>
-<li>Redis当然也考虑了这一点，它会fork个子进程会对「原始」命令集合进行重写</li>
-<li>说白了就是会压缩，压缩完了之后只要替换原始文件就好了</li>
-</ol>
-<h2 id="那我又想问了，既然它是fork一个进程来对AOF进行重写的；前面你也提到了再fork时，主进程是阻塞的，但fork后，主进程会继续接收命令；你是说重写完（压缩）会进行文件覆盖；那这样不会丢数据吗？毕竟主进程在fork之后是一直会接收命令的"><a href="#那我又想问了，既然它是fork一个进程来对AOF进行重写的；前面你也提到了再fork时，主进程是阻塞的，但fork后，主进程会继续接收命令；你是说重写完（压缩）会进行文件覆盖；那这样不会丢数据吗？毕竟主进程在fork之后是一直会接收命令的" class="headerlink" title="那我又想问了，既然它是fork一个进程来对AOF进行重写的；前面你也提到了再fork时，主进程是阻塞的，但fork后，主进程会继续接收命令；你是说重写完（压缩）会进行文件覆盖；那这样不会丢数据吗？毕竟主进程在fork之后是一直会接收命令的"></a>那我又想问了，既然它是fork一个进程来对AOF进行重写的；前面你也提到了再fork时，主进程是阻塞的，但fork后，主进程会继续接收命令；你是说重写完（压缩）会进行文件覆盖；那这样不会丢数据吗？毕竟主进程在fork之后是一直会接收命令的</h2><ol>
-<li>其实做法很简单啊，在fork子进程之后，把新接收到命令再写到另一个缓冲区不就好了吗</li>
-</ol>
-<h2 id="那AOF和RDB用哪一个呢？"><a href="#那AOF和RDB用哪一个呢？" class="headerlink" title="那AOF和RDB用哪一个呢？"></a>那AOF和RDB用哪一个呢？</h2><ol>
-<li>主要是看业务场景吧，我们这边是基于Redis使用了一套开源的key-value存储</li>
-<li>使用Redis前，首先要去新增实例，在新增时会让你选择对应的使用场景</li>
-<li>就是会让你通过不同的应用场景进行配置选择</li>
-<li>比如说，业务上是允许重启时部分数据丢失的，那RDB就够用了</li>
-<li>RDB在启动的时候恢复数据会比AOF快很多</li>
-<li>在Redis4.0以后也支持了AOF和RDB混合</li>
-<li>至于AOF的话，官网是不建议仅仅只使用AOF的，如果对数据丢失容忍度是有要求的，建议是开启AOF+RDB一起用</li>
-<li>总的来说，不同的场景使用不同的持久化策略吧</li>
-<li>我们公司也是不建议把Redis当做存储去使用的（毕竟没有事务保证，也还是可能导致数据丢失）</li>
-</ol>
-<h2 id="顺便我想问下，假如Redisl的内存满了，但业务还在写数据，会怎么样？"><a href="#顺便我想问下，假如Redisl的内存满了，但业务还在写数据，会怎么样？" class="headerlink" title="顺便我想问下，假如Redisl的内存满了，但业务还在写数据，会怎么样？"></a>顺便我想问下，假如Redisl的内存满了，但业务还在写数据，会怎么样？</h2><ol>
-<li>嗯，这个问题我也遇到过</li>
-<li>一般来说，我们会淘汰那些「不活跃」的数据，然后把新的数据写进去</li>
-<li>更多情况下，还是做好对应的监控和容量的考量吧。等容量达到阈值的时候，及时发现和扩容</li>
-</ol>
-<h2 id="那要不来讲讲扩容和Redisl的架构吧？"><a href="#那要不来讲讲扩容和Redisl的架构吧？" class="headerlink" title="那要不来讲讲扩容和Redisl的架构吧？"></a>那要不来讲讲扩容和Redisl的架构吧？</h2><p>下次吧</p>
-<h2 id="那要不来讲讲扩容和Redisl的架构吧？-1"><a href="#那要不来讲讲扩容和Redisl的架构吧？-1" class="headerlink" title="那要不来讲讲扩容和Redisl的架构吧？"></a>那要不来讲讲扩容和Redisl的架构吧？</h2><ol>
-<li>Redis的官网啊，看了这么多技术官网，我觉得Redis的官网弄得是真不错</li>
-<li>《Redis设计与实现》这本书也挺不错的</li>
-</ol>
 
       
     </div>
@@ -1627,7 +1627,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/691a1255/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/3973d3db/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/lion.png">
@@ -1645,7 +1645,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/691a1255/" class="post-title-link" itemprop="url">24、【对线面试官】为什么需要Java内存模型</a>
+          <a href="/posts/3973d3db/" class="post-title-link" itemprop="url">26、【对线面试官】双亲委派机制</a>
         </h2>
 
         <div class="post-meta-container">
@@ -1687,8 +1687,8 @@
     </span>
     <span class="post-meta-item-text">Waline：</span>
   
-    <a title="waline" href="/posts/691a1255/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/691a1255/" data-xid="/posts/691a1255/" itemprop="commentCount"></span>
+    <a title="waline" href="/posts/3973d3db/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/3973d3db/" data-xid="/posts/3973d3db/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -1699,7 +1699,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>3.6k</span>
+      <span>2.9k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -1717,104 +1717,75 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="24、【对线面试官】为什么需要Java内存模型"><a href="#24、【对线面试官】为什么需要Java内存模型" class="headerlink" title="24、【对线面试官】为什么需要Java内存模型"></a>24、【对线面试官】为什么需要Java内存模型</h1><h2 id="今天想跟你聊聊Java内存模型，这块你了解过吗？"><a href="#今天想跟你聊聊Java内存模型，这块你了解过吗？" class="headerlink" title="今天想跟你聊聊Java内存模型，这块你了解过吗？"></a>今天想跟你聊聊Java内存模型，这块你了解过吗？</h2><ul>
-<li><p>嗯，我简单说下我的理解吧。那我就从为什么要有Java内存模型开始讲起吧</p>
+          <h1 id="26、【对线面试官】双亲委派机制"><a href="#26、【对线面试官】双亲委派机制" class="headerlink" title="26、【对线面试官】双亲委派机制"></a>26、【对线面试官】双亲委派机制</h1><h2 id="接着上次的话题吧，要不你来详细讲讲双亲委派机制？"><a href="#接着上次的话题吧，要不你来详细讲讲双亲委派机制？" class="headerlink" title="接着上次的话题吧，要不你来详细讲讲双亲委派机制？"></a>接着上次的话题吧，要不你来详细讲讲双亲委派机制？</h2><ul>
+<li>上次提到了：class文件是通过「类加载器」装载至JVM中的</li>
+<li>为了防止内存中存在多份同样的字节码，使用了双亲委派机制（它不会自己去尝试加载类，而是把请求委托给父加载器去完成，依次向上）</li>
+<li>JDK中的本地方法类一般由根加载器（Bootstrp loader）装载JDK中内部实现的扩展类一般由扩展加载器（ExtClassLoader）实现装载入而程序中的类文件则由系统加载器（AppClassLoader）实现装载。</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/aWnCRl_20211229133925.png" alt="java类加载结构图"></p>
+<h2 id="打破双亲委派机制是什么意思？"><a href="#打破双亲委派机制是什么意思？" class="headerlink" title="打破双亲委派机制是什么意思？"></a>打破双亲委派机制是什么意思？</h2><ul>
+<li>很好理解啊，意思就是：只要我加载类的时候，不是从App ClassLoader-》ExtClassLoader-&gt;BootStrap ClassLoader这个顺序找，那就算是打破了啊</li>
+<li>因为加载classi核心的方法在LoaderClass类的loadClass方法上（双亲委派机制的核心实现）</li>
+<li>那只要我自定义个ClassLoader，重写loadClass方法（不依照往上开始寻找类加载器），那就算是打破双亲委派机制了。</li>
+</ul>
+<h2 id="那你知道有哪个场景破坏了双亲委派机制吗？"><a href="#那你知道有哪个场景破坏了双亲委派机制吗？" class="headerlink" title="那你知道有哪个场景破坏了双亲委派机制吗？"></a>那你知道有哪个场景破坏了双亲委派机制吗？</h2><ul>
+<li>tomcat</li>
+<li>部署项目时，会把war包放到tomcat的webapp下，这意味着一个tomcat可以运行多个Web应用程序<ul>
+<li>那假设我现在有两个Web应用程序，它们都有一个类，叫做User，并且它们的类全限定名都一样，比如都是com.yyy.User。但是他们的具体实现是不一样的</li>
+<li>那么Tomcat是如何保证它们是不会冲突的呢？</li>
+</ul>
+</li>
+<li>答案就是，那就是tomcat做了Web应用层级的隔离。Tomcat给每个Web应用创建一个类加载器实例（WebAppClassLoader），该加载器重写了loadClass方法，优先加载当前应用目录下的类，如果当前找不到了，才一层一层往上找</li>
+</ul>
+<h2 id="Tomcat还有哪些类加载器吗？"><a href="#Tomcat还有哪些类加载器吗？" class="headerlink" title="Tomcat还有哪些类加载器吗？"></a>Tomcat还有哪些类加载器吗？</h2><ul>
+<li><p>并不是Web应用程序下的所有依赖都需要隔离的，比如Redis，因为如果版本相同，没必要每个Web应用程序都独自加载一份，就可以Web应用程序之间共享</p>
 <ul>
-<li><p>单线程下，可见性&#x2F;有序性&#x2F;原子性都没问题</p>
+<li>做法也很简单，Tomcat就在WebAppClassLoader.上加了个父类加载器（SharedClassLoader），如果WebAppClassLoader自身没有加载到某个类，那就委托SharedClassLoader去加载。</li>
+<li>（无非就是把需要应用程序之间需要共享的类放到一个共享目录下，Share ClassLoader读共享目录的类就好了）</li>
+</ul>
 </li>
-<li><p>CPU为了效率，有了高速缓存、有了指令重排序等等，整块架构都变得复杂了。我们写的程序肯定也想要「充分」利用CPU的资源啊！于是乎，我们使用起了多线程</p>
+<li><p>为了隔绝Web应用程序与Tomcat本身的类，又有类加载器（CatalinaClassLoader）来装载Tomcat本身的依赖</p>
+</li>
+<li><p>如果Tomcat本身的依赖和Web应用还需要共享，那么还有类加载器（CommonClassLoader）来装载进而达到共享</p>
+</li>
+<li><p>各个类加载器的加载目录可以到tomcat的catalina.properties配置文件上查看</p>
+<center>Tomcat的类加载结构图</center>
+![](https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/Q0RM1Q_20211229140203.png)</li>
+</ul>
+<h2 id="JDBC你不是知道吗，听说它也是破坏了双亲委派模型的，你是怎么理解的？"><a href="#JDBC你不是知道吗，听说它也是破坏了双亲委派模型的，你是怎么理解的？" class="headerlink" title="JDBC你不是知道吗，听说它也是破坏了双亲委派模型的，你是怎么理解的？"></a>JDBC你不是知道吗，听说它也是破坏了双亲委派模型的，你是怎么理解的？</h2><ul>
+<li><p>JDBC定义了接口。具体实现类由各个厂商进行实现嘛（比如MySQL）</p>
 <ul>
-<li><p>多线程在意味着并发，并发就意味着我们需要考虑线程安全问题</p>
+<li>类加载有个规则：如里一个类由类加载器A加载那么，这个类的依赖类也是由「相同的类加载器」加载。</li>
+<li>我们用JDBC的时候，是用DriverManager进而获取Connection，DriverManager在java.sql包下，显然是由BootStrap类加载器进行装载</li>
+<li>当我们使用DriverManager.getConnection()时，得到的一定是厂商实现的类.</li>
+<li>但因为这些实现类又不在java包中，BootStrap ClassLoaders并不能加载到各个厂商实现的类</li>
+</ul>
+</li>
+<li><p>DriverManager的解决方案就是，在DriverManager切始化的时候，得到「线程上下文加载器」</p>
 <ul>
-<li>1.缓存数据不一致：多个线程同时修改「共享变量」，CPU核心下的高速缓存是「不共享」的，那多个cache与内存之间的数据同步该怎么做？</li>
-<li>2.CPU指令重排序在多线程下会导致代码在非预期下执行，最终会导致结果存在错误的情况。</li>
-</ul>
-</li>
-<li><p>针对于「缓存不一致」问题，CPU也有其解决办法，常被大家所认识的有两种：</p>
-<p>1.使用「总线锁」：某个核心在修改数据的过程中，其他核心均无法修改内存中的数据。（类似于独占内存的概念，只要有CPU在修改，那别的CPU就得等待当前CPU释放）</p>
-<p>2.缓存一致性协议（MESI协议，其实协议有很多，只是举个大家都可能见过的）。MESI拆开英文是（Modified（修改状态）、Exclusive（独占状态）、Share（共享状态）、Invalid（无效状态））</p>
-</li>
-<li><p>缓存一致性协议我认为可以理解为「缓存锁」，它针对的是「缓存行」（Cache Iine）进行”加锁”，所谓「缓存行」其实就是高速缓存存储的最小单位。</p>
-</li>
-<li><p>MESI协议的原理大概就是：当每个CPU读取共享变量之前，会先识别数据的「对象状态」（是修改、还是共享、还是独占、还是无效）。</p>
-</li>
-<li><p>如果是独占，说明当前CPU将要得到的变量数据是最新的，没有被其他CPU所同时读取</p>
-</li>
-<li><p>如果是共享，说明当前CPU将要得到的变量数据还是最新的，有其他的CPU在同时读取，但还没被修改</p>
-</li>
-<li><p>如果是修改，说明当前CPU正在修改该变量的值，同时会向其他CPU发送该数据状态为invalid（无效）的通知，得到其他CPU响应后（其他CPU将数据状态从共享（share）变成invalid（无效），会当前CPU将高速缓存的数据写到主存，并把自己的状态从modify（修改）变成exclusive（独占）</p>
-</li>
-<li><p>如果是无效，说明当前数据是被改过了，需要从主存重新读取最新的数据。</p>
-</li>
-<li><p>其实MESI协议做的就是判断「对象状态」，根据「对象状态」做不同的策略移动</p>
-</li>
-<li><p>关键就在于某个CPU在对数据进行修改时，需要「同步」通知其他CPU，表示这个数据被我修改了，你们不能用了。</p>
-</li>
-<li><p>比较于「总线锁」，MESI协议的”锁粒度”更小了，性能那肯定会更高咯</p>
-</li>
+<li>获取Connection的时候，是使用「线程上下文加载器」去加载Connection的，而这里的线程上下文加载器实际上还是App ClassLoader</li>
+<li>所以在获取Connection的时候，还是先找ExtClassLoader和BootStrapClassLoader，只不过这两加载器肯定是加载不到的，最终会由AppClassLoader进行加载</li>
 </ul>
 </li>
 </ul>
-</li>
+<ul>
+<li>那这种情况，有的人觉得破坏了双亲委派机制，因为本来明明应该是由BootStrapClassLoader进行加载的，结果来了手「线程上下文加载器」，改掉了<br>类加载器</li>
+<li>有的人觉得没破坏双亲委派机制，只是改成由「线程上下文加载器」进行类载，但还是遵守着：「依次往上找父类加载器进行加载，都找不到时才由自身加载」。认为“原则“上是没变的。</li>
 </ul>
-<h2 id="但据我了解，CPU还有优化，你还知道吗？"><a href="#但据我了解，CPU还有优化，你还知道吗？" class="headerlink" title="但据我了解，CPU还有优化，你还知道吗？"></a>但据我了解，CPU还有优化，你还知道吗？</h2><ul>
-<li>同步，意味着等待，等待意味着什么都干不了。CPU肯定不乐意啊，所以又优化了一把。</li>
-<li>优化思路就是从「同步」变成「异步」。</li>
-<li>在修改时会「同步」告诉其他CPU，而现在则把最新修改的值写到「store buffe」中，并通知其他CPU记得要改状态，随后CPU就直接返回干其他事了。</li>
-<li>等到收到其它CPU发过来的响应消息，再将数据更新到高速缓存中。</li>
-<li>其他CPU接收到invalid（无效）通知时，也会把接收到的消息放入「invalid queue」中，只要写到「invalid queue.」就会直接返回告诉修改数据的CPU已经将状态置为「invalid」</li>
-<li>而异步又会带来新问题：那我现在CPU修改完A值，写到「store buffer」了，CPU就可以干其他事了</li>
-<li>那如果该CPU又接收指令需要修改A值，但上一次修改的值还在「store buffer.」中呢，没修改至高速缓存呢。</li>
-<li>所以CPU在读取的时候，需要去「storebuffer.」看看存不存在，存在则直接取，不存在才读主存的数据。【Store Forwarding】</li>
-<li>好了，解决掉第一个异步带来的问题了。（相同的核心对数据进行读写，由于异步，很可能会导致第二次读取的还是旧值，所以首先读「store buffer」。</li>
-<li>那当然啊，那「异步化」会导致相同核心读写共享变量有问题，那当然也会导致「不同」核心读写共享变量有问题啊</li>
-<li>CPU1修改了A值，已把修改后值写到「store buffer.」并通知CPU2对该值进行invalid（无效）操作，而CPU2可能还没收到invalid（无效）通知，就去做了其他的操作，导致CPU2读到的还是旧值。</li>
-<li>即便CPU2收到了invalid（无效）通知，但CPU1的值还没写到主存，那CPU2再次向主存读取的时候，还是旧值…</li>
-<li>变量之间很多时候是具有「相关性」（a&#x3D;1；b&#x3D;0；b&#x3D;a），这对于CPU又是无感知的.…</li>
-<li>总体而言，由于CPU对「缓存一致性协议」进行的异步优化「store buffer」「invalid queue.」，很可能导致后面的指令很可能查不到前面指令的执行结果（各个指令的执行顺序非代码执行顺序），这种现象很多时候被称作「CPU乱序执行」</li>
-<li>为了解决乱序问题（也可以理解为可见性问题，修改完没有及时同步到其他的CPU），又引出了「内存屏障」的概念。</li>
-<li>「内存屏障」其实就是为了解决「异步优化」导致「CPU乱序执行」&#x2F;「缓存不及时可见」的问题，那怎么解决的呢？嗯，就是把「异步优化」给”禁用“掉</li>
-<li>内存屏障可以分为三种类型：写屏障，读屏障以及全能屏障（包含了读写屏障）</li>
-<li>屏障可以简单理解为：在操作数据的时候，往数据插入一条”特殊的指令”。只要遇到这条指令，那前面的操作都得「完成」。</li>
-<li>那写屏障就可以这样理解：CPU当发现写屏障的指令时，会把该指令「之前」存在于「store Buffer.」所有写指令刷入高速缓存。</li>
-<li>通过这种方式就可以让CPU修改的数据可以马上暴露给其他CPU，达到「写操作」可见性的效果。</li>
-<li>那读屏障也是类似的：CPU当发现读屏障的指令时，会把该指令「之前」存在于「invalid queue」所有的指令都处理掉</li>
-<li>通过这种方式就可以确保当前CPU的缓存状态是准确的，达到「读操作」一定是读取最新的效果。</li>
-</ul>
-<h2 id="聊了半天，我一直在讲硬件-x2F-操作系统的东西，我要回到正题上了。"><a href="#聊了半天，我一直在讲硬件-x2F-操作系统的东西，我要回到正题上了。" class="headerlink" title="聊了半天，我一直在讲硬件&#x2F;操作系统的东西，我要回到正题上了。"></a>聊了半天，我一直在讲硬件&#x2F;操作系统的东西，我要回到正题上了。</h2><ul>
-<li>由于不同CPU架构的缓存体系不一样、缓存一致性协议不一样、重排序的策略不一样、所提供的内存屏障指令也有差异，为了简化Java开发人员的工作。Java封装了一套规范，这套规范就是「Java内存模型」</li>
-<li>再详细地说，「Java内存模型」希望屏蔽各种硬件和操作系统的访问差异，保证了Java程序在各种平台下对内存的访问都能得到一致效果。</li>
-<li>目的是解决多线程存在的原子性、可见性（缓存一致性）以及有序性问题。</li>
-</ul>
-<h2 id="那要不简单聊聊Java内存模型的规范和内容吧？"><a href="#那要不简单聊聊Java内存模型的规范和内容吧？" class="headerlink" title="那要不简单聊聊Java内存模型的规范和内容吧？"></a>那要不简单聊聊Java内存模型的规范和内容吧？</h2><p>下次</p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ul>
-<li><p>并发问题产生的三大根源是「可见性」「有序性」「原子性」</p>
-</li>
-<li><p>可见性：CPU架构下存在高速缓存，每个核心下的L1&#x2F;L2高速缓存不共享（不可见）</p>
-</li>
-<li><p>有序性：主要有三部分可能导致打破（编译器和处理器可以在不改变「单线程」程序语义的情况下，可以对代码语句顺序进行调整重新排序</p>
-</li>
-<li><ul>
-<li>编译器优化导致重排序（编译器重排）</li>
-<li>指令集并行重排序（CPU原生重排）</li>
-<li>内存系统重排序（CPU架构下很可能有store buffer &#x2F;invalid queue 缓冲区，这种「异步」很可能会导致指令重排）</li>
-</ul>
-</li>
-<li><p>原子性：Java的一条语句往往需要多条 CPU 指令完成(i++)，由于操作系统的线程切换很可能导致 i++ 操作未完成，其他线程“中途”操作了共享变量  i ，导致最终结果并非我们所期待的。</p>
-</li>
-<li><p>在CPU层级下，为了解决「缓存一致性」问题，有相关的“锁”来保证，比如“总线锁”和“缓存锁”。</p>
-</li>
-<li><ul>
-<li>总线锁是锁总线，对共享变量的修改在相同的时刻只允许一个CPU操作。</li>
-<li>缓存锁是锁缓存行(cache line)，其中比较出名的是MESI协议，对缓存行标记状态，通过“同步通知”的方式，来实现(缓存行)数据的可见性和有序性</li>
-<li>但“同步通知”会影响性能，所以会有内存缓冲区(store buffer&#x2F;invalid queue)来实现「异步」进而提高CPU的工作效率</li>
-<li>引入了内存缓冲区后，又会存在「可见性」和「有序性」的问题，平日大多数情况下是可以享受「异步」带来的好处的，但少数情况下，需要强「可见性」和「有序性」，只能”禁用”缓存的优化。</li>
-<li>“禁用”缓存优化在CPU层面下有「内存屏障」，读屏障&#x2F;写屏障&#x2F;全能屏障，本质上是插入一条”屏障指令”，使得缓冲区(store buffer&#x2F;invalid queue)在屏障指令之前的操作均已被处理，进而达到 读写 在CPU层面上是可见和有序的。</li>
-</ul>
-</li>
-<li><p>不同的CPU实现的架构不一样，Java为了屏蔽硬件和操作系统访问内存的各种差异，提出了「Java内存模型」的规范，保证了Java程序在各种平台下对内存的访问都能得到一致效果。</p>
-</li>
-</ul>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p><strong>前置知识</strong>：JDK中默认类加载器有三个：AppClassLoader、Ext ClassLoader、BootStrap ClassLoader。AppClassLoader的父加载器为Ext ClassLoader、Ext ClassLoader的父加载器为BootStrap ClassLoader。这里的父子关系并不是通过继承实现的，而是组合。</p>
+<p><strong>什么是双亲委派机制</strong>：加载器在加载过程中，先把类交由父类加载器进行加载，父类加载器没找到才由自身加载。</p>
+<p><strong>双亲委派机制目的</strong>：为了防止内存中存在多份同样的字节码（安全）</p>
+<p><strong>类加载规则</strong>：如果一个类由类加载器A加载，那么这个类的依赖类也是由「相同的类加载器」加载。</p>
+<p><strong>如何打破双亲委派机制</strong>：自定义ClassLoader，重写loadClass方法（只要不依次往上交给父加载器进行加载，就算是打破双亲委派机制）</p>
+<p><strong>打破双亲委派机制案例</strong>：Tomcat</p>
+<ol>
+<li>为了Web应用程序类之间隔离，为每个应用程序创建WebAppClassLoader类加载器</li>
+<li>为了Web应用程序类之间共享，把ShareClassLoader作为WebAppClassLoader的父类加载器，如果WebAppClassLoader加载器找不到，则尝试用ShareClassLoader进行加载</li>
+<li>为了Tomcat本身与Web应用程序类隔离，用CatalinaClassLoader类加载器进行隔离，CatalinaClassLoader加载Tomcat本身的类</li>
+<li>为了Tomcat与Web应用程序类共享，用CommonClassLoader作为CatalinaClassLoader和ShareClassLoader的父类加载器</li>
+<li>ShareClassLoader、CatalinaClassLoader、CommonClassLoader的目录可以在Tomcat的catalina.properties进行配置</li>
+</ol>
+<p><strong>线程上下文加载器</strong>：由于类加载的规则，很可能导致父加载器加载时依赖子加载器的类，导致无法加载成功（BootStrap ClassLoader无法加载第三方库的类），所以存在「线程上下文加载器」来进行加载。</p>
 
       
     </div>
@@ -2044,7 +2015,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/3973d3db/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/691a1255/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/lion.png">
@@ -2062,7 +2033,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/3973d3db/" class="post-title-link" itemprop="url">26、【对线面试官】双亲委派机制</a>
+          <a href="/posts/691a1255/" class="post-title-link" itemprop="url">24、【对线面试官】为什么需要Java内存模型</a>
         </h2>
 
         <div class="post-meta-container">
@@ -2104,8 +2075,8 @@
     </span>
     <span class="post-meta-item-text">Waline：</span>
   
-    <a title="waline" href="/posts/3973d3db/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/3973d3db/" data-xid="/posts/3973d3db/" itemprop="commentCount"></span>
+    <a title="waline" href="/posts/691a1255/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/691a1255/" data-xid="/posts/691a1255/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -2116,7 +2087,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>2.9k</span>
+      <span>3.6k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -2134,75 +2105,104 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="26、【对线面试官】双亲委派机制"><a href="#26、【对线面试官】双亲委派机制" class="headerlink" title="26、【对线面试官】双亲委派机制"></a>26、【对线面试官】双亲委派机制</h1><h2 id="接着上次的话题吧，要不你来详细讲讲双亲委派机制？"><a href="#接着上次的话题吧，要不你来详细讲讲双亲委派机制？" class="headerlink" title="接着上次的话题吧，要不你来详细讲讲双亲委派机制？"></a>接着上次的话题吧，要不你来详细讲讲双亲委派机制？</h2><ul>
-<li>上次提到了：class文件是通过「类加载器」装载至JVM中的</li>
-<li>为了防止内存中存在多份同样的字节码，使用了双亲委派机制（它不会自己去尝试加载类，而是把请求委托给父加载器去完成，依次向上）</li>
-<li>JDK中的本地方法类一般由根加载器（Bootstrp loader）装载JDK中内部实现的扩展类一般由扩展加载器（ExtClassLoader）实现装载入而程序中的类文件则由系统加载器（AppClassLoader）实现装载。</li>
-</ul>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/aWnCRl_20211229133925.png" alt="java类加载结构图"></p>
-<h2 id="打破双亲委派机制是什么意思？"><a href="#打破双亲委派机制是什么意思？" class="headerlink" title="打破双亲委派机制是什么意思？"></a>打破双亲委派机制是什么意思？</h2><ul>
-<li>很好理解啊，意思就是：只要我加载类的时候，不是从App ClassLoader-》ExtClassLoader-&gt;BootStrap ClassLoader这个顺序找，那就算是打破了啊</li>
-<li>因为加载classi核心的方法在LoaderClass类的loadClass方法上（双亲委派机制的核心实现）</li>
-<li>那只要我自定义个ClassLoader，重写loadClass方法（不依照往上开始寻找类加载器），那就算是打破双亲委派机制了。</li>
-</ul>
-<h2 id="那你知道有哪个场景破坏了双亲委派机制吗？"><a href="#那你知道有哪个场景破坏了双亲委派机制吗？" class="headerlink" title="那你知道有哪个场景破坏了双亲委派机制吗？"></a>那你知道有哪个场景破坏了双亲委派机制吗？</h2><ul>
-<li>tomcat</li>
-<li>部署项目时，会把war包放到tomcat的webapp下，这意味着一个tomcat可以运行多个Web应用程序<ul>
-<li>那假设我现在有两个Web应用程序，它们都有一个类，叫做User，并且它们的类全限定名都一样，比如都是com.yyy.User。但是他们的具体实现是不一样的</li>
-<li>那么Tomcat是如何保证它们是不会冲突的呢？</li>
-</ul>
-</li>
-<li>答案就是，那就是tomcat做了Web应用层级的隔离。Tomcat给每个Web应用创建一个类加载器实例（WebAppClassLoader），该加载器重写了loadClass方法，优先加载当前应用目录下的类，如果当前找不到了，才一层一层往上找</li>
-</ul>
-<h2 id="Tomcat还有哪些类加载器吗？"><a href="#Tomcat还有哪些类加载器吗？" class="headerlink" title="Tomcat还有哪些类加载器吗？"></a>Tomcat还有哪些类加载器吗？</h2><ul>
-<li><p>并不是Web应用程序下的所有依赖都需要隔离的，比如Redis，因为如果版本相同，没必要每个Web应用程序都独自加载一份，就可以Web应用程序之间共享</p>
+          <h1 id="24、【对线面试官】为什么需要Java内存模型"><a href="#24、【对线面试官】为什么需要Java内存模型" class="headerlink" title="24、【对线面试官】为什么需要Java内存模型"></a>24、【对线面试官】为什么需要Java内存模型</h1><h2 id="今天想跟你聊聊Java内存模型，这块你了解过吗？"><a href="#今天想跟你聊聊Java内存模型，这块你了解过吗？" class="headerlink" title="今天想跟你聊聊Java内存模型，这块你了解过吗？"></a>今天想跟你聊聊Java内存模型，这块你了解过吗？</h2><ul>
+<li><p>嗯，我简单说下我的理解吧。那我就从为什么要有Java内存模型开始讲起吧</p>
 <ul>
-<li>做法也很简单，Tomcat就在WebAppClassLoader.上加了个父类加载器（SharedClassLoader），如果WebAppClassLoader自身没有加载到某个类，那就委托SharedClassLoader去加载。</li>
-<li>（无非就是把需要应用程序之间需要共享的类放到一个共享目录下，Share ClassLoader读共享目录的类就好了）</li>
-</ul>
+<li><p>单线程下，可见性&#x2F;有序性&#x2F;原子性都没问题</p>
 </li>
-<li><p>为了隔绝Web应用程序与Tomcat本身的类，又有类加载器（CatalinaClassLoader）来装载Tomcat本身的依赖</p>
-</li>
-<li><p>如果Tomcat本身的依赖和Web应用还需要共享，那么还有类加载器（CommonClassLoader）来装载进而达到共享</p>
-</li>
-<li><p>各个类加载器的加载目录可以到tomcat的catalina.properties配置文件上查看</p>
-<center>Tomcat的类加载结构图</center>
-![](https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/Q0RM1Q_20211229140203.png)</li>
-</ul>
-<h2 id="JDBC你不是知道吗，听说它也是破坏了双亲委派模型的，你是怎么理解的？"><a href="#JDBC你不是知道吗，听说它也是破坏了双亲委派模型的，你是怎么理解的？" class="headerlink" title="JDBC你不是知道吗，听说它也是破坏了双亲委派模型的，你是怎么理解的？"></a>JDBC你不是知道吗，听说它也是破坏了双亲委派模型的，你是怎么理解的？</h2><ul>
-<li><p>JDBC定义了接口。具体实现类由各个厂商进行实现嘛（比如MySQL）</p>
+<li><p>CPU为了效率，有了高速缓存、有了指令重排序等等，整块架构都变得复杂了。我们写的程序肯定也想要「充分」利用CPU的资源啊！于是乎，我们使用起了多线程</p>
 <ul>
-<li>类加载有个规则：如里一个类由类加载器A加载那么，这个类的依赖类也是由「相同的类加载器」加载。</li>
-<li>我们用JDBC的时候，是用DriverManager进而获取Connection，DriverManager在java.sql包下，显然是由BootStrap类加载器进行装载</li>
-<li>当我们使用DriverManager.getConnection()时，得到的一定是厂商实现的类.</li>
-<li>但因为这些实现类又不在java包中，BootStrap ClassLoaders并不能加载到各个厂商实现的类</li>
+<li><p>多线程在意味着并发，并发就意味着我们需要考虑线程安全问题</p>
+<ul>
+<li>1.缓存数据不一致：多个线程同时修改「共享变量」，CPU核心下的高速缓存是「不共享」的，那多个cache与内存之间的数据同步该怎么做？</li>
+<li>2.CPU指令重排序在多线程下会导致代码在非预期下执行，最终会导致结果存在错误的情况。</li>
 </ul>
 </li>
-<li><p>DriverManager的解决方案就是，在DriverManager切始化的时候，得到「线程上下文加载器」</p>
-<ul>
-<li>获取Connection的时候，是使用「线程上下文加载器」去加载Connection的，而这里的线程上下文加载器实际上还是App ClassLoader</li>
-<li>所以在获取Connection的时候，还是先找ExtClassLoader和BootStrapClassLoader，只不过这两加载器肯定是加载不到的，最终会由AppClassLoader进行加载</li>
+<li><p>针对于「缓存不一致」问题，CPU也有其解决办法，常被大家所认识的有两种：</p>
+<p>1.使用「总线锁」：某个核心在修改数据的过程中，其他核心均无法修改内存中的数据。（类似于独占内存的概念，只要有CPU在修改，那别的CPU就得等待当前CPU释放）</p>
+<p>2.缓存一致性协议（MESI协议，其实协议有很多，只是举个大家都可能见过的）。MESI拆开英文是（Modified（修改状态）、Exclusive（独占状态）、Share（共享状态）、Invalid（无效状态））</p>
+</li>
+<li><p>缓存一致性协议我认为可以理解为「缓存锁」，它针对的是「缓存行」（Cache Iine）进行”加锁”，所谓「缓存行」其实就是高速缓存存储的最小单位。</p>
+</li>
+<li><p>MESI协议的原理大概就是：当每个CPU读取共享变量之前，会先识别数据的「对象状态」（是修改、还是共享、还是独占、还是无效）。</p>
+</li>
+<li><p>如果是独占，说明当前CPU将要得到的变量数据是最新的，没有被其他CPU所同时读取</p>
+</li>
+<li><p>如果是共享，说明当前CPU将要得到的变量数据还是最新的，有其他的CPU在同时读取，但还没被修改</p>
+</li>
+<li><p>如果是修改，说明当前CPU正在修改该变量的值，同时会向其他CPU发送该数据状态为invalid（无效）的通知，得到其他CPU响应后（其他CPU将数据状态从共享（share）变成invalid（无效），会当前CPU将高速缓存的数据写到主存，并把自己的状态从modify（修改）变成exclusive（独占）</p>
+</li>
+<li><p>如果是无效，说明当前数据是被改过了，需要从主存重新读取最新的数据。</p>
+</li>
+<li><p>其实MESI协议做的就是判断「对象状态」，根据「对象状态」做不同的策略移动</p>
+</li>
+<li><p>关键就在于某个CPU在对数据进行修改时，需要「同步」通知其他CPU，表示这个数据被我修改了，你们不能用了。</p>
+</li>
+<li><p>比较于「总线锁」，MESI协议的”锁粒度”更小了，性能那肯定会更高咯</p>
+</li>
 </ul>
 </li>
 </ul>
-<ul>
-<li>那这种情况，有的人觉得破坏了双亲委派机制，因为本来明明应该是由BootStrapClassLoader进行加载的，结果来了手「线程上下文加载器」，改掉了<br>类加载器</li>
-<li>有的人觉得没破坏双亲委派机制，只是改成由「线程上下文加载器」进行类载，但还是遵守着：「依次往上找父类加载器进行加载，都找不到时才由自身加载」。认为“原则“上是没变的。</li>
+</li>
 </ul>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p><strong>前置知识</strong>：JDK中默认类加载器有三个：AppClassLoader、Ext ClassLoader、BootStrap ClassLoader。AppClassLoader的父加载器为Ext ClassLoader、Ext ClassLoader的父加载器为BootStrap ClassLoader。这里的父子关系并不是通过继承实现的，而是组合。</p>
-<p><strong>什么是双亲委派机制</strong>：加载器在加载过程中，先把类交由父类加载器进行加载，父类加载器没找到才由自身加载。</p>
-<p><strong>双亲委派机制目的</strong>：为了防止内存中存在多份同样的字节码（安全）</p>
-<p><strong>类加载规则</strong>：如果一个类由类加载器A加载，那么这个类的依赖类也是由「相同的类加载器」加载。</p>
-<p><strong>如何打破双亲委派机制</strong>：自定义ClassLoader，重写loadClass方法（只要不依次往上交给父加载器进行加载，就算是打破双亲委派机制）</p>
-<p><strong>打破双亲委派机制案例</strong>：Tomcat</p>
-<ol>
-<li>为了Web应用程序类之间隔离，为每个应用程序创建WebAppClassLoader类加载器</li>
-<li>为了Web应用程序类之间共享，把ShareClassLoader作为WebAppClassLoader的父类加载器，如果WebAppClassLoader加载器找不到，则尝试用ShareClassLoader进行加载</li>
-<li>为了Tomcat本身与Web应用程序类隔离，用CatalinaClassLoader类加载器进行隔离，CatalinaClassLoader加载Tomcat本身的类</li>
-<li>为了Tomcat与Web应用程序类共享，用CommonClassLoader作为CatalinaClassLoader和ShareClassLoader的父类加载器</li>
-<li>ShareClassLoader、CatalinaClassLoader、CommonClassLoader的目录可以在Tomcat的catalina.properties进行配置</li>
-</ol>
-<p><strong>线程上下文加载器</strong>：由于类加载的规则，很可能导致父加载器加载时依赖子加载器的类，导致无法加载成功（BootStrap ClassLoader无法加载第三方库的类），所以存在「线程上下文加载器」来进行加载。</p>
+<h2 id="但据我了解，CPU还有优化，你还知道吗？"><a href="#但据我了解，CPU还有优化，你还知道吗？" class="headerlink" title="但据我了解，CPU还有优化，你还知道吗？"></a>但据我了解，CPU还有优化，你还知道吗？</h2><ul>
+<li>同步，意味着等待，等待意味着什么都干不了。CPU肯定不乐意啊，所以又优化了一把。</li>
+<li>优化思路就是从「同步」变成「异步」。</li>
+<li>在修改时会「同步」告诉其他CPU，而现在则把最新修改的值写到「store buffe」中，并通知其他CPU记得要改状态，随后CPU就直接返回干其他事了。</li>
+<li>等到收到其它CPU发过来的响应消息，再将数据更新到高速缓存中。</li>
+<li>其他CPU接收到invalid（无效）通知时，也会把接收到的消息放入「invalid queue」中，只要写到「invalid queue.」就会直接返回告诉修改数据的CPU已经将状态置为「invalid」</li>
+<li>而异步又会带来新问题：那我现在CPU修改完A值，写到「store buffer」了，CPU就可以干其他事了</li>
+<li>那如果该CPU又接收指令需要修改A值，但上一次修改的值还在「store buffer.」中呢，没修改至高速缓存呢。</li>
+<li>所以CPU在读取的时候，需要去「storebuffer.」看看存不存在，存在则直接取，不存在才读主存的数据。【Store Forwarding】</li>
+<li>好了，解决掉第一个异步带来的问题了。（相同的核心对数据进行读写，由于异步，很可能会导致第二次读取的还是旧值，所以首先读「store buffer」。</li>
+<li>那当然啊，那「异步化」会导致相同核心读写共享变量有问题，那当然也会导致「不同」核心读写共享变量有问题啊</li>
+<li>CPU1修改了A值，已把修改后值写到「store buffer.」并通知CPU2对该值进行invalid（无效）操作，而CPU2可能还没收到invalid（无效）通知，就去做了其他的操作，导致CPU2读到的还是旧值。</li>
+<li>即便CPU2收到了invalid（无效）通知，但CPU1的值还没写到主存，那CPU2再次向主存读取的时候，还是旧值…</li>
+<li>变量之间很多时候是具有「相关性」（a&#x3D;1；b&#x3D;0；b&#x3D;a），这对于CPU又是无感知的.…</li>
+<li>总体而言，由于CPU对「缓存一致性协议」进行的异步优化「store buffer」「invalid queue.」，很可能导致后面的指令很可能查不到前面指令的执行结果（各个指令的执行顺序非代码执行顺序），这种现象很多时候被称作「CPU乱序执行」</li>
+<li>为了解决乱序问题（也可以理解为可见性问题，修改完没有及时同步到其他的CPU），又引出了「内存屏障」的概念。</li>
+<li>「内存屏障」其实就是为了解决「异步优化」导致「CPU乱序执行」&#x2F;「缓存不及时可见」的问题，那怎么解决的呢？嗯，就是把「异步优化」给”禁用“掉</li>
+<li>内存屏障可以分为三种类型：写屏障，读屏障以及全能屏障（包含了读写屏障）</li>
+<li>屏障可以简单理解为：在操作数据的时候，往数据插入一条”特殊的指令”。只要遇到这条指令，那前面的操作都得「完成」。</li>
+<li>那写屏障就可以这样理解：CPU当发现写屏障的指令时，会把该指令「之前」存在于「store Buffer.」所有写指令刷入高速缓存。</li>
+<li>通过这种方式就可以让CPU修改的数据可以马上暴露给其他CPU，达到「写操作」可见性的效果。</li>
+<li>那读屏障也是类似的：CPU当发现读屏障的指令时，会把该指令「之前」存在于「invalid queue」所有的指令都处理掉</li>
+<li>通过这种方式就可以确保当前CPU的缓存状态是准确的，达到「读操作」一定是读取最新的效果。</li>
+</ul>
+<h2 id="聊了半天，我一直在讲硬件-x2F-操作系统的东西，我要回到正题上了。"><a href="#聊了半天，我一直在讲硬件-x2F-操作系统的东西，我要回到正题上了。" class="headerlink" title="聊了半天，我一直在讲硬件&#x2F;操作系统的东西，我要回到正题上了。"></a>聊了半天，我一直在讲硬件&#x2F;操作系统的东西，我要回到正题上了。</h2><ul>
+<li>由于不同CPU架构的缓存体系不一样、缓存一致性协议不一样、重排序的策略不一样、所提供的内存屏障指令也有差异，为了简化Java开发人员的工作。Java封装了一套规范，这套规范就是「Java内存模型」</li>
+<li>再详细地说，「Java内存模型」希望屏蔽各种硬件和操作系统的访问差异，保证了Java程序在各种平台下对内存的访问都能得到一致效果。</li>
+<li>目的是解决多线程存在的原子性、可见性（缓存一致性）以及有序性问题。</li>
+</ul>
+<h2 id="那要不简单聊聊Java内存模型的规范和内容吧？"><a href="#那要不简单聊聊Java内存模型的规范和内容吧？" class="headerlink" title="那要不简单聊聊Java内存模型的规范和内容吧？"></a>那要不简单聊聊Java内存模型的规范和内容吧？</h2><p>下次</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ul>
+<li><p>并发问题产生的三大根源是「可见性」「有序性」「原子性」</p>
+</li>
+<li><p>可见性：CPU架构下存在高速缓存，每个核心下的L1&#x2F;L2高速缓存不共享（不可见）</p>
+</li>
+<li><p>有序性：主要有三部分可能导致打破（编译器和处理器可以在不改变「单线程」程序语义的情况下，可以对代码语句顺序进行调整重新排序</p>
+</li>
+<li><ul>
+<li>编译器优化导致重排序（编译器重排）</li>
+<li>指令集并行重排序（CPU原生重排）</li>
+<li>内存系统重排序（CPU架构下很可能有store buffer &#x2F;invalid queue 缓冲区，这种「异步」很可能会导致指令重排）</li>
+</ul>
+</li>
+<li><p>原子性：Java的一条语句往往需要多条 CPU 指令完成(i++)，由于操作系统的线程切换很可能导致 i++ 操作未完成，其他线程“中途”操作了共享变量  i ，导致最终结果并非我们所期待的。</p>
+</li>
+<li><p>在CPU层级下，为了解决「缓存一致性」问题，有相关的“锁”来保证，比如“总线锁”和“缓存锁”。</p>
+</li>
+<li><ul>
+<li>总线锁是锁总线，对共享变量的修改在相同的时刻只允许一个CPU操作。</li>
+<li>缓存锁是锁缓存行(cache line)，其中比较出名的是MESI协议，对缓存行标记状态，通过“同步通知”的方式，来实现(缓存行)数据的可见性和有序性</li>
+<li>但“同步通知”会影响性能，所以会有内存缓冲区(store buffer&#x2F;invalid queue)来实现「异步」进而提高CPU的工作效率</li>
+<li>引入了内存缓冲区后，又会存在「可见性」和「有序性」的问题，平日大多数情况下是可以享受「异步」带来的好处的，但少数情况下，需要强「可见性」和「有序性」，只能”禁用”缓存的优化。</li>
+<li>“禁用”缓存优化在CPU层面下有「内存屏障」，读屏障&#x2F;写屏障&#x2F;全能屏障，本质上是插入一条”屏障指令”，使得缓冲区(store buffer&#x2F;invalid queue)在屏障指令之前的操作均已被处理，进而达到 读写 在CPU层面上是可见和有序的。</li>
+</ul>
+</li>
+<li><p>不同的CPU实现的架构不一样，Java为了屏蔽硬件和操作系统访问内存的各种差异，提出了「Java内存模型」的规范，保证了Java程序在各种平台下对内存的访问都能得到一致效果。</p>
+</li>
+</ul>
 
       
     </div>
