@@ -276,224 +276,6 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/32e97c2c/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/lion.png">
-      <meta itemprop="name" content="swimminghao">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="swimminghao's blog">
-      <meta itemprop="description" content="swimminghao的学习博客">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | swimminghao's blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/32e97c2c/" class="post-title-link" itemprop="url">16、【对线面试官】SpringBean生命周期</a>
-        </h2>
-
-        <div class="post-meta-container">
-
-          
-
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-10 09:48:07" itemprop="dateModified" datetime="2022-03-10T09:48:07+08:00">2022-03-10</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="far fa-comment"></i>
-    </span>
-    <span class="post-meta-item-text">Waline：</span>
-  
-    <a title="waline" href="/posts/32e97c2c/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/32e97c2c/" data-xid="/posts/32e97c2c/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>3.5k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>3 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="16、【对线面试官】SpringBean生命周期"><a href="#16、【对线面试官】SpringBean生命周期" class="headerlink" title="16、【对线面试官】SpringBean生命周期"></a>16、【对线面试官】SpringBean生命周期</h1><h2 id="今天要不来聊聊Spring对Bean的生命周期管理？"><a href="#今天要不来聊聊Spring对Bean的生命周期管理？" class="headerlink" title="今天要不来聊聊Spring对Bean的生命周期管理？"></a>今天要不来聊聊Spring对Bean的生命周期管理？</h2><ol>
-<li>嗯，没问题的。</li>
-<li>很早之前我就看过源码，但Spring源码的实现类都太长了</li>
-<li>我也记不得很清楚某些实现类的名字</li>
-<li>要不我大概来说下流程？</li>
-<li>首先要知道的是：普通Java对象和Spring.所管理的Bean实例化的过程是有些区别的<br>在普通Java环境下创建对象简要的步骤可以分为以下几步：<ul>
-<li>java源码被编译为被编译为class文件</li>
-<li>等到类需要被初始化时（比如说new、反射等）</li>
-<li>class文件被虚拟机通过类加载器加载到JVM</li>
-<li>初始化对象供我们使用</li>
-</ul>
-</li>
-<li>简单来说，可以理解为它是用Class对象作为「模板」进而创建出具体的实例</li>
-<li>而Spring所管理的Bean不同的是，除了Class.对象之外，还会使用BeanDefinition的实例来描述对象的信息</li>
-<li>比如说，我们可以在Spring.所管理的Bean有一系列的描述：@Scope、@Lazy、@DependsOn等等</li>
-<li>可以理解为：Class只描述了类的信息，而BeanDefinition：描述了对象的信息</li>
-</ol>
-<h2 id="你就是想告诉我，Spring有BeanDefinition来存储着我们日常给Spring-Bean定义的元数据（-Scope、-Lazy、-DependsOn等等），对吧？"><a href="#你就是想告诉我，Spring有BeanDefinition来存储着我们日常给Spring-Bean定义的元数据（-Scope、-Lazy、-DependsOn等等），对吧？" class="headerlink" title="你就是想告诉我，Spring有BeanDefinition来存储着我们日常给Spring Bean定义的元数据（@Scope、@Lazy、@DependsOn等等），对吧？"></a>你就是想告诉我，Spring有BeanDefinition来存储着我们日常给Spring Bean定义的元数据（@Scope、@Lazy、@DependsOn等等），对吧？</h2><ol>
-<li>Spring在启动的时候需要「扫描」在XML&#x2F;注解&#x2F;JavaConfig中需要被Spring管理的Bean信息</li>
-<li>随后，会将这些信息封装成BeanDefinition，最后会把这些信息放到一个beanDefinitionMap中</li>
-<li>我记得这个Map的key应该是beanName，value则是BeanDefinition.对象</li>
-<li>到这里其实就是把定义的元数据加载起来，目前真实对象还没实例化</li>
-<li>接着会遍历这个beanDefinitionMap，执行BeanFactoryPostProcessor这个Bean工厂后置处理器的逻辑</li>
-<li>比如说，我们平时定义的占位符信息，就是通过BeanFactoryPostProcessor的子类PropertyPlaceholderConfigurer进行注入进去</li>
-<li>当然了，这里我们也可以自定义BeanFactoryPostProcessor来对我们定义好的Bean元数据进行获取或者修改。只是一般我们不会这样干，实际上也很有少的使用场景。</li>
-<li>BeanFactoryPostProcessor&#x2F;后置处理器执行完了以后，就到了实例化对象啦</li>
-<li>在Spring.里边是通过反射来实现的，一般情况下会通过反射选择合适的构造器来把对象实例化</li>
-<li>但这里把对象实例化，只是把对象给创建出来，而对象具体的属性是还没注入的。</li>
-<li>比如我的对象是UserService，而UserService对象依赖着SendService对象，这时候的SendService还是null的</li>
-<li>所以，下一步就是把对象的相关属性给注入</li>
-<li>相关属性注入完之后，往下接着就是初始化的工作了</li>
-<li>首先判断该Bean是否实现了Aware相关的接口，如果存在则填充相关的资源<br>比如我这边在项目用到的：我希望通过代码程序的方式去获取指定的Spring Bean</li>
-<li>我们这边会抽取成一个工具类，去实现ApplicationContextAware接口，来获取ApplicationContexti对象进而获取Spring Bean</li>
-<li>Aware相关的接口处理完之后，就会到BeanPostProcessor后置处理器啦</li>
-<li>BeanPostProcessor后置处理器有两个方法，一个是before，一个是after。<br>（那肯定是before先执行、after）后执行）</li>
-<li>这个BeanPostProcessor）后置处理器是AOP实现的关键<br>关键子类AnnotationAwareAspectJAutoProxyCreator</li>
-<li>所以，执行完Aware相关的接口就会执行，BeanPostProcessor相关子类的before方法。</li>
-<li>BeanPostProcessor相关子类的before方法执行完，则执行init相关的方法，比如说@PostConstruct、实现了InitializingBean接口、定义的init-method方法</li>
-<li>当时我还去官网去看他们的被调用「执行顺序」分别是：@PostConstruct、实现了InitializingBean：接口以及init-nethod方法</li>
-<li>这些都是Spring：给我们的「扩展」，像@PostConstruct我就经常用到</li>
-<li>比如说：对象实例化后，我要做些初始化的相关工作或者就启个线程去Kafka拉取数据</li>
-<li>等到init方法执行完之后，就会执行BeanPostProcessor的after方法</li>
-<li>基本重要的流程已经走完了，我们就可以获取到对象去使用了</li>
-<li>销毁的时候就看有没有配置相关的destroy方法，执行就完事了</li>
-</ol>
-<h2 id="你看过Spring：是怎么解决循环依赖的吗？如果现在有个A对象，它的属性是B对象，而B对象的属性也是A对象说白了就是A依赖B，而B又依赖A，Spring是怎么做的？"><a href="#你看过Spring：是怎么解决循环依赖的吗？如果现在有个A对象，它的属性是B对象，而B对象的属性也是A对象说白了就是A依赖B，而B又依赖A，Spring是怎么做的？" class="headerlink" title="你看过Spring：是怎么解决循环依赖的吗？如果现在有个A对象，它的属性是B对象，而B对象的属性也是A对象说白了就是A依赖B，而B又依赖A，Spring是怎么做的？"></a>你看过Spring：是怎么解决循环依赖的吗？如果现在有个A对象，它的属性是B对象，而B对象的属性也是A对象说白了就是A依赖B，而B又依赖A，Spring是怎么做的？</h2><ol>
-<li>从上面我们可以知道，对象属性的注入在对象实例化之后的嘛。</li>
-<li>它的大致过程是这样的：首先A对象实例化，然后对属性进行注入，发现依赖B对象<br>B对象此时还没创建出来，所以转头去实例化B对象</li>
-<li>B对象实例化之后，发现需要依赖A对象，那A对象已经实例化了嘛，所以B对<br>象最终能完成创建</li>
-<li>B对象返回到A对象的属性注入的方法上，A对象最终完成创建。这就是大致的过程。</li>
-</ol>
-<h2 id="哦？听起来你还会原理哦？"><a href="#哦？听起来你还会原理哦？" class="headerlink" title="哦？听起来你还会原理哦？"></a>哦？听起来你还会原理哦？</h2><ol>
-<li>至于原理，其实就是用到了三级的缓存</li>
-<li>所谓的三级缓存其实就是三个Map.…首先明确一定，我对这里的三级缓存定义是这样的：<br>singletonObjects（一级，日常实际获取Bean的地方）；</li>
-<li>earlySingletonObjects（二级，已实例化，但还没进行属性注入，由三级缓存放进来）；</li>
-<li>singletonFactories（三级，Value：是一个对象工厂）；</li>
-<li>再回到刚才讲述的过程中，A对象实例化之后，属性注入之前，其实会把A对象放入三级缓存中</li>
-<li>key是BeanName，Value：是ObjectFactory</li>
-<li>等到A对象属性注入时，发现依赖B，又去实例化B时</li>
-<li>B属性注入需要去获取A对象，这里就是从三级缓存里拿出ObjectFactory，从ObjectFactory得到对应的Bean（就是对象A)</li>
-<li>把三级缓存的A记录给干掉，然后放到二级缓存中</li>
-<li>显然，二级缓存存储的key是BeanName，value就是Bean（这里的Bean还没做完属性注入相关的工作）</li>
-<li>等到完全初始化之后，就会把二级缓存给remove掉，塞到一级缓存中</li>
-<li>我们自己去getBean的时候，实际上拿到的是一级缓存的</li>
-<li>大致的过程就是这样</li>
-</ol>
-<h2 id="那我想问一下，为什么是三级缓存？"><a href="#那我想问一下，为什么是三级缓存？" class="headerlink" title="那我想问一下，为什么是三级缓存？"></a>那我想问一下，为什么是三级缓存？</h2><ol>
-<li>首先从第三级缓存说起（就是key是BeanName，Value为ObjectFactory）</li>
-<li>我们的对象是单例的，有可能A对象依赖的B对象是有AOP的（B对象需要代理）</li>
-<li>假设没有第三级缓存，只有第二级缓存（Value存对象，而不是工厂对象）</li>
-<li>那如果有AOP的情况下，岂不是在存入第二级缓存之前都需要先去做AOP代理？这不合适嘛</li>
-<li>这里肯定是需要考虑代理的情况的，比如A对象是一个被AOP增量的对象，B依赖A时，得到的A肯定是代理对象的</li>
-<li>所以，三级缓存的Value是ObjectFactory，可以从里边拿到代理对象</li>
-<li>而二级缓存存在的必要就是为了性能，从三级缓存的工厂里创建出对象，再扔到二级缓存（这样就不用每次都要从工厂里拿）</li>
-</ol>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ol>
-<li><p>首先是Spring Bean的生命周期过程，Sprng使用BeanDefinition：来装载着我们给Bean定义的元数据</p>
-</li>
-<li><p>实例化Bean的时候会遍历BeanDefinitionMap</p>
-</li>
-<li><p>Springl的Bean实例化和属性赋值是分开两步来做的</p>
-</li>
-<li><p>在Spring Beanl的生命周期，Spring预留了很多的hook给我们去扩展</p>
-<p>1）：Bean实例化之前有BeanFactoryPostProcessor<br>2）：Bean实例化之后，初始化时，有相关的Aware接口供我们去拿到Context相关信息<br>3）：环绕着初始化阶段，有BeanPostProcessor（AOP的关键）<br>4）：在初始化阶段，有各种的init方法供我们去自定义</p>
-</li>
-<li><p>而循环依赖的解决主要通过三级的缓存</p>
-</li>
-<li><p>在实例化后，会把自己扔到三级缓存（此时的key是BeanName，Value是ObjectFactory)</p>
-</li>
-<li><p>在注入属性时，发现需要依赖B，也会走B的实例化过程，B属性注入依赖A，从三级缓存找到A</p>
-</li>
-<li><p>删掉三级缓存，放到二级缓存</p>
-</li>
-</ol>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/q5B8nQ_20211228115227.png"></p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/ldYlbE_20211228115337.png"></p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/czgjnh_20211228115425.png"></p>
-
-      
-    </div>
-
-    
-    
-    
-
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>l
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://example.com/posts/36f701ea/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2231,6 +2013,196 @@
 </li>
 </ul>
 <p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/36XlDf_20211229115158.png"></p>
+
+      
+    </div>
+
+    
+    
+    
+
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>l
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/3973d3db/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lion.png">
+      <meta itemprop="name" content="swimminghao">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="swimminghao's blog">
+      <meta itemprop="description" content="swimminghao的学习博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | swimminghao's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/3973d3db/" class="post-title-link" itemprop="url">26、【对线面试官】双亲委派机制</a>
+        </h2>
+
+        <div class="post-meta-container">
+
+          
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-03-10 09:48:07" itemprop="dateModified" datetime="2022-03-10T09:48:07+08:00">2022-03-10</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/posts/3973d3db/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/3973d3db/" data-xid="/posts/3973d3db/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>2.9k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>3 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="26、【对线面试官】双亲委派机制"><a href="#26、【对线面试官】双亲委派机制" class="headerlink" title="26、【对线面试官】双亲委派机制"></a>26、【对线面试官】双亲委派机制</h1><h2 id="接着上次的话题吧，要不你来详细讲讲双亲委派机制？"><a href="#接着上次的话题吧，要不你来详细讲讲双亲委派机制？" class="headerlink" title="接着上次的话题吧，要不你来详细讲讲双亲委派机制？"></a>接着上次的话题吧，要不你来详细讲讲双亲委派机制？</h2><ul>
+<li>上次提到了：class文件是通过「类加载器」装载至JVM中的</li>
+<li>为了防止内存中存在多份同样的字节码，使用了双亲委派机制（它不会自己去尝试加载类，而是把请求委托给父加载器去完成，依次向上）</li>
+<li>JDK中的本地方法类一般由根加载器（Bootstrp loader）装载JDK中内部实现的扩展类一般由扩展加载器（ExtClassLoader）实现装载入而程序中的类文件则由系统加载器（AppClassLoader）实现装载。</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/aWnCRl_20211229133925.png" alt="java类加载结构图"></p>
+<h2 id="打破双亲委派机制是什么意思？"><a href="#打破双亲委派机制是什么意思？" class="headerlink" title="打破双亲委派机制是什么意思？"></a>打破双亲委派机制是什么意思？</h2><ul>
+<li>很好理解啊，意思就是：只要我加载类的时候，不是从App ClassLoader-》ExtClassLoader-&gt;BootStrap ClassLoader这个顺序找，那就算是打破了啊</li>
+<li>因为加载classi核心的方法在LoaderClass类的loadClass方法上（双亲委派机制的核心实现）</li>
+<li>那只要我自定义个ClassLoader，重写loadClass方法（不依照往上开始寻找类加载器），那就算是打破双亲委派机制了。</li>
+</ul>
+<h2 id="那你知道有哪个场景破坏了双亲委派机制吗？"><a href="#那你知道有哪个场景破坏了双亲委派机制吗？" class="headerlink" title="那你知道有哪个场景破坏了双亲委派机制吗？"></a>那你知道有哪个场景破坏了双亲委派机制吗？</h2><ul>
+<li>tomcat</li>
+<li>部署项目时，会把war包放到tomcat的webapp下，这意味着一个tomcat可以运行多个Web应用程序<ul>
+<li>那假设我现在有两个Web应用程序，它们都有一个类，叫做User，并且它们的类全限定名都一样，比如都是com.yyy.User。但是他们的具体实现是不一样的</li>
+<li>那么Tomcat是如何保证它们是不会冲突的呢？</li>
+</ul>
+</li>
+<li>答案就是，那就是tomcat做了Web应用层级的隔离。Tomcat给每个Web应用创建一个类加载器实例（WebAppClassLoader），该加载器重写了loadClass方法，优先加载当前应用目录下的类，如果当前找不到了，才一层一层往上找</li>
+</ul>
+<h2 id="Tomcat还有哪些类加载器吗？"><a href="#Tomcat还有哪些类加载器吗？" class="headerlink" title="Tomcat还有哪些类加载器吗？"></a>Tomcat还有哪些类加载器吗？</h2><ul>
+<li><p>并不是Web应用程序下的所有依赖都需要隔离的，比如Redis，因为如果版本相同，没必要每个Web应用程序都独自加载一份，就可以Web应用程序之间共享</p>
+<ul>
+<li>做法也很简单，Tomcat就在WebAppClassLoader.上加了个父类加载器（SharedClassLoader），如果WebAppClassLoader自身没有加载到某个类，那就委托SharedClassLoader去加载。</li>
+<li>（无非就是把需要应用程序之间需要共享的类放到一个共享目录下，Share ClassLoader读共享目录的类就好了）</li>
+</ul>
+</li>
+<li><p>为了隔绝Web应用程序与Tomcat本身的类，又有类加载器（CatalinaClassLoader）来装载Tomcat本身的依赖</p>
+</li>
+<li><p>如果Tomcat本身的依赖和Web应用还需要共享，那么还有类加载器（CommonClassLoader）来装载进而达到共享</p>
+</li>
+<li><p>各个类加载器的加载目录可以到tomcat的catalina.properties配置文件上查看</p>
+<center>Tomcat的类加载结构图</center>
+![](https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/Q0RM1Q_20211229140203.png)</li>
+</ul>
+<h2 id="JDBC你不是知道吗，听说它也是破坏了双亲委派模型的，你是怎么理解的？"><a href="#JDBC你不是知道吗，听说它也是破坏了双亲委派模型的，你是怎么理解的？" class="headerlink" title="JDBC你不是知道吗，听说它也是破坏了双亲委派模型的，你是怎么理解的？"></a>JDBC你不是知道吗，听说它也是破坏了双亲委派模型的，你是怎么理解的？</h2><ul>
+<li><p>JDBC定义了接口。具体实现类由各个厂商进行实现嘛（比如MySQL）</p>
+<ul>
+<li>类加载有个规则：如里一个类由类加载器A加载那么，这个类的依赖类也是由「相同的类加载器」加载。</li>
+<li>我们用JDBC的时候，是用DriverManager进而获取Connection，DriverManager在java.sql包下，显然是由BootStrap类加载器进行装载</li>
+<li>当我们使用DriverManager.getConnection()时，得到的一定是厂商实现的类.</li>
+<li>但因为这些实现类又不在java包中，BootStrap ClassLoaders并不能加载到各个厂商实现的类</li>
+</ul>
+</li>
+<li><p>DriverManager的解决方案就是，在DriverManager切始化的时候，得到「线程上下文加载器」</p>
+<ul>
+<li>获取Connection的时候，是使用「线程上下文加载器」去加载Connection的，而这里的线程上下文加载器实际上还是App ClassLoader</li>
+<li>所以在获取Connection的时候，还是先找ExtClassLoader和BootStrapClassLoader，只不过这两加载器肯定是加载不到的，最终会由AppClassLoader进行加载</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>那这种情况，有的人觉得破坏了双亲委派机制，因为本来明明应该是由BootStrapClassLoader进行加载的，结果来了手「线程上下文加载器」，改掉了<br>类加载器</li>
+<li>有的人觉得没破坏双亲委派机制，只是改成由「线程上下文加载器」进行类载，但还是遵守着：「依次往上找父类加载器进行加载，都找不到时才由自身加载」。认为“原则“上是没变的。</li>
+</ul>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p><strong>前置知识</strong>：JDK中默认类加载器有三个：AppClassLoader、Ext ClassLoader、BootStrap ClassLoader。AppClassLoader的父加载器为Ext ClassLoader、Ext ClassLoader的父加载器为BootStrap ClassLoader。这里的父子关系并不是通过继承实现的，而是组合。</p>
+<p><strong>什么是双亲委派机制</strong>：加载器在加载过程中，先把类交由父类加载器进行加载，父类加载器没找到才由自身加载。</p>
+<p><strong>双亲委派机制目的</strong>：为了防止内存中存在多份同样的字节码（安全）</p>
+<p><strong>类加载规则</strong>：如果一个类由类加载器A加载，那么这个类的依赖类也是由「相同的类加载器」加载。</p>
+<p><strong>如何打破双亲委派机制</strong>：自定义ClassLoader，重写loadClass方法（只要不依次往上交给父加载器进行加载，就算是打破双亲委派机制）</p>
+<p><strong>打破双亲委派机制案例</strong>：Tomcat</p>
+<ol>
+<li>为了Web应用程序类之间隔离，为每个应用程序创建WebAppClassLoader类加载器</li>
+<li>为了Web应用程序类之间共享，把ShareClassLoader作为WebAppClassLoader的父类加载器，如果WebAppClassLoader加载器找不到，则尝试用ShareClassLoader进行加载</li>
+<li>为了Tomcat本身与Web应用程序类隔离，用CatalinaClassLoader类加载器进行隔离，CatalinaClassLoader加载Tomcat本身的类</li>
+<li>为了Tomcat与Web应用程序类共享，用CommonClassLoader作为CatalinaClassLoader和ShareClassLoader的父类加载器</li>
+<li>ShareClassLoader、CatalinaClassLoader、CommonClassLoader的目录可以在Tomcat的catalina.properties进行配置</li>
+</ol>
+<p><strong>线程上下文加载器</strong>：由于类加载的规则，很可能导致父加载器加载时依赖子加载器的类，导致无法加载成功（BootStrap ClassLoader无法加载第三方库的类），所以存在「线程上下文加载器」来进行加载。</p>
 
       
     </div>

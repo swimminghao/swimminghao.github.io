@@ -276,196 +276,6 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/3973d3db/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/lion.png">
-      <meta itemprop="name" content="swimminghao">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="swimminghao's blog">
-      <meta itemprop="description" content="swimminghao的学习博客">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | swimminghao's blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/3973d3db/" class="post-title-link" itemprop="url">26、【对线面试官】双亲委派机制</a>
-        </h2>
-
-        <div class="post-meta-container">
-
-          
-
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-10 09:48:07" itemprop="dateModified" datetime="2022-03-10T09:48:07+08:00">2022-03-10</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="far fa-comment"></i>
-    </span>
-    <span class="post-meta-item-text">Waline：</span>
-  
-    <a title="waline" href="/posts/3973d3db/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/3973d3db/" data-xid="/posts/3973d3db/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>2.9k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>3 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="26、【对线面试官】双亲委派机制"><a href="#26、【对线面试官】双亲委派机制" class="headerlink" title="26、【对线面试官】双亲委派机制"></a>26、【对线面试官】双亲委派机制</h1><h2 id="接着上次的话题吧，要不你来详细讲讲双亲委派机制？"><a href="#接着上次的话题吧，要不你来详细讲讲双亲委派机制？" class="headerlink" title="接着上次的话题吧，要不你来详细讲讲双亲委派机制？"></a>接着上次的话题吧，要不你来详细讲讲双亲委派机制？</h2><ul>
-<li>上次提到了：class文件是通过「类加载器」装载至JVM中的</li>
-<li>为了防止内存中存在多份同样的字节码，使用了双亲委派机制（它不会自己去尝试加载类，而是把请求委托给父加载器去完成，依次向上）</li>
-<li>JDK中的本地方法类一般由根加载器（Bootstrp loader）装载JDK中内部实现的扩展类一般由扩展加载器（ExtClassLoader）实现装载入而程序中的类文件则由系统加载器（AppClassLoader）实现装载。</li>
-</ul>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/aWnCRl_20211229133925.png" alt="java类加载结构图"></p>
-<h2 id="打破双亲委派机制是什么意思？"><a href="#打破双亲委派机制是什么意思？" class="headerlink" title="打破双亲委派机制是什么意思？"></a>打破双亲委派机制是什么意思？</h2><ul>
-<li>很好理解啊，意思就是：只要我加载类的时候，不是从App ClassLoader-》ExtClassLoader-&gt;BootStrap ClassLoader这个顺序找，那就算是打破了啊</li>
-<li>因为加载classi核心的方法在LoaderClass类的loadClass方法上（双亲委派机制的核心实现）</li>
-<li>那只要我自定义个ClassLoader，重写loadClass方法（不依照往上开始寻找类加载器），那就算是打破双亲委派机制了。</li>
-</ul>
-<h2 id="那你知道有哪个场景破坏了双亲委派机制吗？"><a href="#那你知道有哪个场景破坏了双亲委派机制吗？" class="headerlink" title="那你知道有哪个场景破坏了双亲委派机制吗？"></a>那你知道有哪个场景破坏了双亲委派机制吗？</h2><ul>
-<li>tomcat</li>
-<li>部署项目时，会把war包放到tomcat的webapp下，这意味着一个tomcat可以运行多个Web应用程序<ul>
-<li>那假设我现在有两个Web应用程序，它们都有一个类，叫做User，并且它们的类全限定名都一样，比如都是com.yyy.User。但是他们的具体实现是不一样的</li>
-<li>那么Tomcat是如何保证它们是不会冲突的呢？</li>
-</ul>
-</li>
-<li>答案就是，那就是tomcat做了Web应用层级的隔离。Tomcat给每个Web应用创建一个类加载器实例（WebAppClassLoader），该加载器重写了loadClass方法，优先加载当前应用目录下的类，如果当前找不到了，才一层一层往上找</li>
-</ul>
-<h2 id="Tomcat还有哪些类加载器吗？"><a href="#Tomcat还有哪些类加载器吗？" class="headerlink" title="Tomcat还有哪些类加载器吗？"></a>Tomcat还有哪些类加载器吗？</h2><ul>
-<li><p>并不是Web应用程序下的所有依赖都需要隔离的，比如Redis，因为如果版本相同，没必要每个Web应用程序都独自加载一份，就可以Web应用程序之间共享</p>
-<ul>
-<li>做法也很简单，Tomcat就在WebAppClassLoader.上加了个父类加载器（SharedClassLoader），如果WebAppClassLoader自身没有加载到某个类，那就委托SharedClassLoader去加载。</li>
-<li>（无非就是把需要应用程序之间需要共享的类放到一个共享目录下，Share ClassLoader读共享目录的类就好了）</li>
-</ul>
-</li>
-<li><p>为了隔绝Web应用程序与Tomcat本身的类，又有类加载器（CatalinaClassLoader）来装载Tomcat本身的依赖</p>
-</li>
-<li><p>如果Tomcat本身的依赖和Web应用还需要共享，那么还有类加载器（CommonClassLoader）来装载进而达到共享</p>
-</li>
-<li><p>各个类加载器的加载目录可以到tomcat的catalina.properties配置文件上查看</p>
-<center>Tomcat的类加载结构图</center>
-![](https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/Q0RM1Q_20211229140203.png)</li>
-</ul>
-<h2 id="JDBC你不是知道吗，听说它也是破坏了双亲委派模型的，你是怎么理解的？"><a href="#JDBC你不是知道吗，听说它也是破坏了双亲委派模型的，你是怎么理解的？" class="headerlink" title="JDBC你不是知道吗，听说它也是破坏了双亲委派模型的，你是怎么理解的？"></a>JDBC你不是知道吗，听说它也是破坏了双亲委派模型的，你是怎么理解的？</h2><ul>
-<li><p>JDBC定义了接口。具体实现类由各个厂商进行实现嘛（比如MySQL）</p>
-<ul>
-<li>类加载有个规则：如里一个类由类加载器A加载那么，这个类的依赖类也是由「相同的类加载器」加载。</li>
-<li>我们用JDBC的时候，是用DriverManager进而获取Connection，DriverManager在java.sql包下，显然是由BootStrap类加载器进行装载</li>
-<li>当我们使用DriverManager.getConnection()时，得到的一定是厂商实现的类.</li>
-<li>但因为这些实现类又不在java包中，BootStrap ClassLoaders并不能加载到各个厂商实现的类</li>
-</ul>
-</li>
-<li><p>DriverManager的解决方案就是，在DriverManager切始化的时候，得到「线程上下文加载器」</p>
-<ul>
-<li>获取Connection的时候，是使用「线程上下文加载器」去加载Connection的，而这里的线程上下文加载器实际上还是App ClassLoader</li>
-<li>所以在获取Connection的时候，还是先找ExtClassLoader和BootStrapClassLoader，只不过这两加载器肯定是加载不到的，最终会由AppClassLoader进行加载</li>
-</ul>
-</li>
-</ul>
-<ul>
-<li>那这种情况，有的人觉得破坏了双亲委派机制，因为本来明明应该是由BootStrapClassLoader进行加载的，结果来了手「线程上下文加载器」，改掉了<br>类加载器</li>
-<li>有的人觉得没破坏双亲委派机制，只是改成由「线程上下文加载器」进行类载，但还是遵守着：「依次往上找父类加载器进行加载，都找不到时才由自身加载」。认为“原则“上是没变的。</li>
-</ul>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p><strong>前置知识</strong>：JDK中默认类加载器有三个：AppClassLoader、Ext ClassLoader、BootStrap ClassLoader。AppClassLoader的父加载器为Ext ClassLoader、Ext ClassLoader的父加载器为BootStrap ClassLoader。这里的父子关系并不是通过继承实现的，而是组合。</p>
-<p><strong>什么是双亲委派机制</strong>：加载器在加载过程中，先把类交由父类加载器进行加载，父类加载器没找到才由自身加载。</p>
-<p><strong>双亲委派机制目的</strong>：为了防止内存中存在多份同样的字节码（安全）</p>
-<p><strong>类加载规则</strong>：如果一个类由类加载器A加载，那么这个类的依赖类也是由「相同的类加载器」加载。</p>
-<p><strong>如何打破双亲委派机制</strong>：自定义ClassLoader，重写loadClass方法（只要不依次往上交给父加载器进行加载，就算是打破双亲委派机制）</p>
-<p><strong>打破双亲委派机制案例</strong>：Tomcat</p>
-<ol>
-<li>为了Web应用程序类之间隔离，为每个应用程序创建WebAppClassLoader类加载器</li>
-<li>为了Web应用程序类之间共享，把ShareClassLoader作为WebAppClassLoader的父类加载器，如果WebAppClassLoader加载器找不到，则尝试用ShareClassLoader进行加载</li>
-<li>为了Tomcat本身与Web应用程序类隔离，用CatalinaClassLoader类加载器进行隔离，CatalinaClassLoader加载Tomcat本身的类</li>
-<li>为了Tomcat与Web应用程序类共享，用CommonClassLoader作为CatalinaClassLoader和ShareClassLoader的父类加载器</li>
-<li>ShareClassLoader、CatalinaClassLoader、CommonClassLoader的目录可以在Tomcat的catalina.properties进行配置</li>
-</ol>
-<p><strong>线程上下文加载器</strong>：由于类加载的规则，很可能导致父加载器加载时依赖子加载器的类，导致无法加载成功（BootStrap ClassLoader无法加载第三方库的类），所以存在「线程上下文加载器」来进行加载。</p>
-
-      
-    </div>
-
-    
-    
-    
-
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>l
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://example.com/posts/e1774332/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1246,7 +1056,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/498f0b66/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/6f559dce/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/lion.png">
@@ -1264,7 +1074,654 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/498f0b66/" class="post-title-link" itemprop="url">JAVA</a>
+          <a href="/posts/6f559dce/" class="post-title-link" itemprop="url">30、【对线面试官】CMS垃圾回收器</a>
+        </h2>
+
+        <div class="post-meta-container">
+
+          
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-03-10 09:48:07" itemprop="dateModified" datetime="2022-03-10T09:48:07+08:00">2022-03-10</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/posts/6f559dce/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/6f559dce/" data-xid="/posts/6f559dce/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>2.1k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>2 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="30、【对线面试官】CMS垃圾回收器"><a href="#30、【对线面试官】CMS垃圾回收器" class="headerlink" title="30、【对线面试官】CMS垃圾回收器"></a>30、【对线面试官】CMS垃圾回收器</h1><h2 id="今天还是来聊聊CMS垃圾收集器呗？"><a href="#今天还是来聊聊CMS垃圾收集器呗？" class="headerlink" title="今天还是来聊聊CMS垃圾收集器呗？"></a>今天还是来聊聊CMS垃圾收集器呗？</h2><ul>
+<li>如果用Seria和 Parallel系列的垃圾收集器：在垃圾回收的时，用户线程都会完全停止，直至垃圾回收结束！</li>
+<li>CMS的全称： Concurrent Mark Sweep，翻译过来是「并发标记清除」</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/1u2iZp_20211229164510.png"></p>
+<ul>
+<li>用CMS对比上面的垃圾收集器（ Seria和Parllel和 parNew）：它最大的不同点就是「并发」：在GC线程工作的时候，用户线程「不会完全停止」，用户线程在「部分场景下」与GC线程一起并发执行</li>
+<li>无论是什么垃圾收集器， Stop The Word&#x2F;是一定无法避免的！</li>
+<li>CMS只是在「部分」的GC场景下可以让GC线程与用户线程并发执行</li>
+<li>目的：为了避免「老年代GC」出现「长时间」的卡顿（ Stop The Word )</li>
+</ul>
+<h2 id="CMS工作流程"><a href="#CMS工作流程" class="headerlink" title="CMS工作流程"></a>CMS工作流程</h2><ul>
+<li><p>CMS可以简单分为5个步骤：初始标记、并发标记、并发预清理、重新标记以及并发清除</p>
+<ul>
+<li><p>从步骤可看出，CMS主要是实现了「标记清除」垃圾回收算法</p>
+</li>
+<li><p>「初始标记」</p>
+<ul>
+<li>「初始标记」会标记 GCroots「直接关联」的对象以及「年轻代」指向「老年代」的对象</li>
+<li>「初始标记」这个过程是会发生 Stop The Word的。但这个阶段的速度算是很快的，因为没有「向下追溯」（只标记一层）</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/FqsTqd_20211229162246.png"></p>
+</li>
+<li><p>「并发标记」</p>
+<ul>
+<li>「并发标记」这个过程是不会停止用户线程的（不会发生 Stop The Word）。这一阶段主要是从 GC Roots向下「追溯」，标记所有可达的对象</li>
+<li>并发标记」在GC的角度而言，是比较耗费时间的（需要追溯）</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/cUUH7w_20211229162544.png"></p>
+</li>
+<li><p>「并发预处理」</p>
+<ul>
+<li>「并发预处理」这个阶段主要是：希望能减少下一个阶段「重新标记」所消耗的时间</li>
+<li>因为下一个阶段「重新标记」是需要Stop The World的，「并发标记」这个阶段由于用户线程是没有被挂起的，所以对象是有可能发生变化的</li>
+<li>可能有些对象，从新生代晋升到了老年代。可能有些对象，直接分配到了老年代（大对象）。可能老年代或者新生代的对象引用发生了变化</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/NeI2CU_20211229163018.png"></p>
+</li>
+<li><p>「重新标记」</p>
+<ul>
+<li>「重新标记」阶段会 Stop The Word，这个过程的停顿时间其实很大程度上取决于上面「并发预处理」阶段</li>
+<li>这是一个追赶的过程：边在标记存活对象，一边用户线程在执行产生垃圾）</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/o97JPO_20211229163156.png"></p>
+</li>
+<li><p>「并发清除」</p>
+<ul>
+<li>一边用户线程在执行，一边GC线程在回收不可达的对象</li>
+<li>这个过程，还是有可能用户线程在不断产生垃圾，但只能留到下一次GC进行处<br>理了，产生的这些垃圾被叫做“浮动垃圾”</li>
+<li>完了以后会重置CMS算法相关的内部数据，为下一次GC循环做准备</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/TJihOR_20211229163307.png"></p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="为什么要扫年轻代？"><a href="#为什么要扫年轻代？" class="headerlink" title="为什么要扫年轻代？"></a>为什么要扫年轻代？</h2><ul>
+<li>CMS主要回收老年代的对象。年轻代有可能会指向老年代的对象，不扫就不知道是不是垃圾了</li>
+</ul>
+<h2 id="「并发预处理」问题解决"><a href="#「并发预处理」问题解决" class="headerlink" title="「并发预处理」问题解决"></a>「并发预处理」问题解决</h2><ul>
+<li>针对老年代的对象，其实还是可以借助类 card table的存储（将老年代对象发生变化所对应的卡页标记为 dirty）</li>
+<li>所以「并发预处理」这个阶段会扫描可能由于「并发标记」时导致老年代发生变化的对象，会再扫描一遍标记为diy的卡页</li>
+<li>对于新生代的对象，我们还是得遍历新生代来看看在「并发标记」过程中有没有对象引用了老年代.</li>
+<li>JVM里给我们提供了很多「参数」，有可能在这个过程中会触发一次minor GC（触发了 minor GC是意味着就可以更少地遍历新生代的对象）</li>
+</ul>
+<h2 id="相比G1，那你觉得CMS有什么缺点呢？"><a href="#相比G1，那你觉得CMS有什么缺点呢？" class="headerlink" title="相比G1，那你觉得CMS有什么缺点呢？"></a>相比G1，那你觉得CMS有什么缺点呢？</h2><ul>
+<li><p>1.空间需要预留：CMS垃圾收集器可以一边回收垃圾，一边处理用户线程，那需要在这个过程中保证有充足的内存空间供用户使用。</p>
+<ul>
+<li>如果CMS运行过程中预留的空间不够用了，会报错（ Concurrent Mode Failure），这时会启动 Serial Old垃圾收集器进行老年代的垃圾回收，会导致停顿的时间很长</li>
+</ul>
+</li>
+<li><p>2.内存碎片问题：CMS本质上是实现了「标记清除算法」的收集器（从过程就可以看得出），这会意味着会产生内存碎片</p>
+<ul>
+<li>由于碎片太多，又可能会导致内存空间不足所触发 full GC，CMS一般会在触发full GC这个过程对碎片进行整理</li>
+<li>整理涉及到「移动」&#x2F;「标记」，那这个过程肯定会 Stop The Word的，如果内存足够大（意味着可能装载的对象足够多），那这个过程卡顿也是需要一定的时间的。</li>
+</ul>
+</li>
+<li><p>使用CMS的弊端好像就是一个死循环</p>
+<ul>
+<li>1.内存碎片过多，导致空间利用率减低。</li>
+<li>2.空间本身就需要预留给用户线程使用，现在碎片内存又加剧了空间的问题，导致有可能垃圾收集器降级为 Serial old，卡顿时间更长</li>
+<li>3.要处理内存碎片的问题（整理），同样会卡顿</li>
+</ul>
+</li>
+</ul>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ul>
+<li><p>CMS把垃圾回收的过程给”细分”了，然后在某些阶段可以不停止用户线程，一边回收垃圾，一边处理请求，来减少每次垃圾回收时 Stop The Word的时间</p>
+</li>
+<li><p>中间也做了很多的优化（ dirty card标记、可能中途触发 minor gca等等，在我理解下，这些都提供了CMS的相关参数配置</p>
+</li>
+<li><p>CMS垃圾回收器设计目的：</p>
+<ul>
+<li>为了避免「老年代 GC」出现「长时间」的卡顿（Stop The World）</li>
+</ul>
+</li>
+<li><p>CMS垃圾回收器回收过程：</p>
+<ul>
+<li>初始标记、并发标记、并发预处理、重新标记和并发清除。初始标记以及重新标记这两个阶段会Stop The World</li>
+</ul>
+</li>
+<li><p>CMS垃圾回收器的弊端：</p>
+<ul>
+<li>会产生内存碎片&amp;&amp;需要空间预留：停顿时间是不可预知的</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/KNqlDT_20211229164021.png"></p>
+
+      
+    </div>
+
+    
+    
+    
+
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>l
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/e93a2b49/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lion.png">
+      <meta itemprop="name" content="swimminghao">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="swimminghao's blog">
+      <meta itemprop="description" content="swimminghao的学习博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | swimminghao's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/e93a2b49/" class="post-title-link" itemprop="url">31、【对线面试官】G1垃圾收集器</a>
+        </h2>
+
+        <div class="post-meta-container">
+
+          
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-03-10 09:48:07" itemprop="dateModified" datetime="2022-03-10T09:48:07+08:00">2022-03-10</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/posts/e93a2b49/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/e93a2b49/" data-xid="/posts/e93a2b49/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>3.2k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>3 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="31、【对线面试官】G1垃圾收集器"><a href="#31、【对线面试官】G1垃圾收集器" class="headerlink" title="31、【对线面试官】G1垃圾收集器"></a>31、【对线面试官】G1垃圾收集器</h1><h2 id="要不这次来聊聊G1垃圾收集器？"><a href="#要不这次来聊聊G1垃圾收集器？" class="headerlink" title="要不这次来聊聊G1垃圾收集器？"></a>要不这次来聊聊G1垃圾收集器？</h2><ul>
+<li><p>CMS垃圾收集器的升级</p>
+</li>
+<li><p>G1垃圾收集器可以给你设定一个你希望Stop The Word停顿时间，G1垃圾收集器会根据这个时间尽量满足你</p>
+<ul>
+<li><p>在前面我在介绍JM堆的时候，堆的内存分布是以「物理」空间进行隔离</p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/qjMhU8_20211229164725.png"></p>
+</li>
+<li><p>在G1垃圾收集器的世界上，堆的划分不再是「物理」形式，而是以「逻辑」的形式进行划分</p>
+</li>
+<li><p>不过的「分代」概念在G1垃圾收集器的世界还是一样奏效的</p>
+</li>
+<li><p>比如说：新对象一般会分配到Eden区经过默认15次的 Minor GC新生代的对象如果还存活，会移交到老年代等等。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/SwXVef_20211229165004.png"></p>
+</li>
+<li><p>堆被划分了多个同等份的区域，在G1里每个区域叫做Region</p>
+</li>
+<li><p>G1中，还有一种叫 Humongous（大对象）区域，其实就是用来存储特别大的对象（大于 Region内存的一半）</p>
+</li>
+<li><p>一旦发现没有引用指向大对象，就可直接在年轻代的 Minor GC中被回收掉</p>
+</li>
+<li><p>之所以要将「堆空间」进行「细分」多个小的区域，是因为像以前的垃圾收集器都是对堆进行「物理」划分，如果堆空间（内存）大的时候，每次进行「垃圾回收」都需要对一整块大的区域进行回收，那收集的时间是不好控制的；而划分多个小区域之后，那对这些「小区域」回收就容易控制它的「收集时间」了</p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="GC过程"><a href="#GC过程" class="headerlink" title="GC过程"></a>GC过程</h2><ul>
+<li><p>在G1收集器中，可以主要分为有Minor GC（ Young GC）和 Mixed GC，也有些特殊场景可能会发生 Full GC</p>
+<ul>
+<li><p>Minor GC</p>
+<ul>
+<li><p>G1的 Minor GC其实触发时机跟前面提到过的垃圾收集器都是一样的</p>
+</li>
+<li><p>等到Eden区满了之后，会触发 Minor GC。 Minor GCI同样也是会发生 Stop The World的</p>
+</li>
+<li><p>要补充说明的是：在G1的世界里，新生代和老年代所占堆的空间是没那么固定的（会动态根据「最大停顿时间」进行调整）</p>
+</li>
+<li><p>这块会给我们提供参数进行配置就好了</p>
+</li>
+<li><p>所以，动态地改变收集年轻代 Region的个数可以「控制」 Minor GCI的开销</p>
+</li>
+<li><p>Minor GC我认为可以简单分为为三个步骤：根扫描、更新&amp;&amp;处理RSet、复制对象</p>
+<p>1）第一步应该很好理解，因为这跟之前CMS是类似的，可以理解为初始标记的过程</p>
+<p>2）第二步就是处理RSet的信息并且扫描，将老年代对象持有年轻代对象的相关引用都加入到 GC Roots下，避免被回收掉</p>
+<p>​        涉及到「Rset」的概念</p>
+<p>​    （1）上ー次我们聊CMS回收过程的时候，同样讲到了 Minor GC，它是通过「卡表」（ cart table）来避免全表扫描老年代的对象</p>
+<p>​    （2）因为 Minor GC是回收年轻代的对象，但如果老年代有对象引用着年轻代，那这些被老年代引用的对象也不能回收掉</p>
+<p>​    （3）同样的，在G1也有这种问题（毕竟是Minor GC）。CMS是卡表，而G1解决「跨代引用」的问题的存储一般叫做RSet</p>
+<p>​    （4）只要记住，RSet这种存储在每个 Region都会有，它记录着「其他 Region引用了当前 Regiong的对象关系」</p>
+<p>​    <img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/FpUxzX_20211229170010.png"></p>
+<p>​    （5）对于年轻代的 Region，它的RSet只保存了来自老年代的引用（因为年轻代的没必要存储啊，自己都要做 Minor GC了</p>
+<p>​    （6）而对于老年代的 Region来说，它的RSet也只会保存老年代对它的引用（在G1垃圾收集器，老年代回收之前，都会先对年轻代进行回收，所以没必要保存年轻代的引用）</p>
+<p>3）第三步：把扫描之后存活的对象往「空的 Survivor区」或者老年代」存放，其他的Eden区进行清除</p>
+<p>​    （1）这里要提下的是，在G1还有另一个名词，叫做CSet</p>
+<p>​    （2）它的全称是 Collection Set，保存了一次GC中「将执行垃圾回收」的 Region。CSet中的所有存活对象都会被转移到别的可用 Region上</p>
+<p>​    （3）在 Minor GC的最后，会处理下软引用、弱引用、 JNI Weak等引用，结束收集</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>总结</p>
+<ul>
+<li><p>总结起来就是：扫描、处理跨 Region引用、收集至CSet、复制清除、处理引用</p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/WZo9bF_20211229170433.png"></p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="MixedGC过程"><a href="#MixedGC过程" class="headerlink" title="MixedGC过程"></a>MixedGC过程</h2><ul>
+<li>当堆空间的占用率达到一定阈值后会触发 Mixed GC（默认45%，由参数决定）</li>
+<li>Mixed GC会依赖「全局并发标记」统计后的 Region数据</li>
+<li>「全局并发标记」它的过程跟CMS非常类型，步骤大概是：初始标记（STW）、并发标记、最终标记（ST）以及清理（ST）<ul>
+<li>说明： Mixed GC它一定会回收年轻代，并会采集部分老年代的Region进行回收的，所以它是一个混合GC</li>
+<li>「初始标记」，<ul>
+<li>这个过程是「共用」了 Minor GC的 Stop The World（Mixed GC一定会发生 Minor GC），复用了「扫描 GC Roots的操作</li>
+<li>在这个过程中，老年代和新生代都会扫</li>
+<li>总的来说，「初始标记」这个过程还是比较快的，毕竟没有追溯遍历嘛</li>
+</ul>
+</li>
+<li>「并发标记」<ul>
+<li>这个阶段不会 Stop The World，GC线程与用户线程一起执行，GC线程负责收集各个 Region的存活对象信息</li>
+<li>从 GC Roots往下追溯，査找整个堆存活的对象，比较耗时</li>
+</ul>
+</li>
+<li>「重新标记」<ul>
+<li>跟CMS又一样，标记那些在「并发标记」阶段发生变化的对象</li>
+<li>CMS在「重新标记」阶段，应该会重新扫描所有的线程栈和整个年轻代作为root,G1不是<ul>
+<li>在G1中解決「并发标记」阶段导致引用变更的问题，使用的是SATB算法</li>
+<li>可以简单理解为：在GC开始的时候，它为存活的对象做了一次「快照」</li>
+<li>在「并发阶段」时，把每一次发生引用关系变化时旧的引用值给记下来</li>
+<li>然后在「重新标记」阶段只扫描着块「发生过变化」的引用，看有没有对象还是存活的，加入到「 GC Roots」上</li>
+<li>不过SATB算法有个小的问题，就是：如果在开始时，G1就认为它是活的，那就在此次GC中不会对它回收，即便可能在「并发阶段」上对象已经变为了垃圾。</li>
+<li>所以，G1也有可能会存在「浮动垃圾」</li>
+<li>但是总的来说，对于G1而言，问题不大（毕竟它不是追求一次把所有的垃圾都清除掉，而是注重 Stop The Worlde时间）</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>「清理」<ul>
+<li>这个阶段也是会 Stop The World的，主要清点和重置标记状态，会根据「停顿预模型」（其实就是设定的停顿时间），来决定本次GC回收多少 Region</li>
+<li>一般来说， Mixed GC会选定所有的年轻代 Region，部分「回收价值高」的老年代 Region（回收价值高其实就是垃圾多）进行采集</li>
+<li>最后 Mixed GC进行清除还是通过「拷贝」&#x2F;「复制」的方式去干的</li>
+<li>所以在G1中，一次回收未必是将所有的垃圾进行回收的，G1会依据停顿时间做出选择 Region数量</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="什么时候发生full-GC"><a href="#什么时候发生full-GC" class="headerlink" title="什么时候发生full GC"></a>什么时候发生full GC</h2><ul>
+<li>如果在 Mixed GC中无法跟上用户线程分配内存的速度，导致老年代填满无法继续进行 Mixed GC，就又会降级到 serial oldGC来收集整个 GC heap</li>
+<li>其实跟CMS是非常类似的都是因为空间不足</li>
+<li>不过uGC这个场景相较于CMS还是很少的，毕竟G1没有像CMS「内存碎片」这种问题</li>
+</ul>
+<h2 id="G1垃圾收集器特点："><a href="#G1垃圾收集器特点：" class="headerlink" title="G1垃圾收集器特点："></a><strong>G1垃圾收集器特点</strong>：</h2><ul>
+<li>从原来的「物理」分代，变成现在的「逻辑」分代，将堆内存「逻辑」划分为多个Region</li>
+<li>使用CSet来存储可回收Region的集合</li>
+<li>使用RSet来处理跨代引用的问题（注意：RSet不保留 年轻代相关的引用关系）</li>
+<li>G1可简单分为：Minor GC 和Mixed GC以及Full GC</li>
+<li>【Eden区满则触发】Minor GC 回收过程可简单分为：(STW) 扫描 GC Roots、更新&amp;&amp;处理Rset、复制清除</li>
+<li>全局并发标记的过程跟CMS过程差不多：初始标记（STW）、并发标记、最终标记（STW）以及清理（STW）</li>
+<li>【整堆空间占一定比例则触发】Mixed GC 依赖「全局并发标记」，得到CSet(可回收Region)，就进行「复制清除」</li>
+<li>使用SATB算法来处理「并发标记」阶段对象引用存在变更的问题</li>
+<li><strong>亮点&amp;&amp;重点</strong>：提供可停顿时间参数供用户设置（<strong>G1会尽量满足该停顿时间来调整 GC时回收Region的数量</strong>）</li>
+<li>R大描述G1原理的时候，他提到：从宏观的角度看G1，主要分为两块「<strong>全局并发标记</strong>」和「<strong>拷贝存活对象</strong>」</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>l
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/b8eb8241/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lion.png">
+      <meta itemprop="name" content="swimminghao">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="swimminghao's blog">
+      <meta itemprop="description" content="swimminghao的学习博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | swimminghao's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/b8eb8241/" class="post-title-link" itemprop="url">32、【对线面试官】如何实现幂等和去重？</a>
+        </h2>
+
+        <div class="post-meta-container">
+
+          
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-03-10 09:48:07" itemprop="dateModified" datetime="2022-03-10T09:48:07+08:00">2022-03-10</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/posts/b8eb8241/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/b8eb8241/" data-xid="/posts/b8eb8241/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>1.6k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>1 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="如何实现去重和幂等"><a href="#如何实现去重和幂等" class="headerlink" title="如何实现去重和幂等"></a>如何实现去重和幂等</h1><h2 id="去重与幂等"><a href="#去重与幂等" class="headerlink" title="去重与幂等"></a>去重与幂等</h2><ul>
+<li>区别<ul>
+<li>「去重」是对请求或者消息在「一定时间内」进行去重「N次」</li>
+<li>「幂等」则是保证请求或消息在「任意时间内」进行处理，都需要保证它的结果是一致</li>
+</ul>
+</li>
+<li>以项目举例，我维护的「消息管理平台」是有「去重」的功能的：「5分钟相同内容消息去重」「1小时内模板去重」「一天内渠道达到N次阈值去重」.</li>
+<li>再次强调下「幂等」和「去重」的本质：「唯一Key」+「存储」</li>
+</ul>
+<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><ul>
+<li>不同的业务场景，唯一Key是不一样的，由业务決定</li>
+<li>存储选择挺多的，比如「本地缓存」&#x2F;「 Redis」&#x2F;「 MYSQL」&#x2F;「 Hbase」等等，具体选取什么，也跟业务有关</li>
+<li>比如说，在「消息管理平台」这个场景下，我存储选择的「 Redis」（读写性能优越）， Redis也有「过期时间」方便解决「一定时间内」的问题</li>
+<li>而唯一Key，自然就是根据不同的业务构建不同的。</li>
+<li>比如说「5分钟相同内容消息去重」，我直接MD5请求参数作为唯一Key。「1小时模板去重」则是「模板ID+ userid」作为唯一Key，「ー天内渠道去重」则是「渠道ID+ userid」作为唯一Key.</li>
+</ul>
+<h2 id="提到了「去重」了，你听过布隆过滤器吗？"><a href="#提到了「去重」了，你听过布隆过滤器吗？" class="headerlink" title="提到了「去重」了，你听过布隆过滤器吗？"></a>提到了「去重」了，你听过布隆过滤器吗？</h2><ul>
+<li>布隆过滤器的底层数据结构可以理解为bitmap， bitmap也可以简单理解为是一个数组，元素只存储0和1，所以它占用的空间相对较小</li>
+<li>当一个元素要存入 bitmap时，其实是要去看存储到 bitmap的哪个位置，这时一般用的就是「哈希算法」，存进去的位置标记为1</li>
+<li>标记为1的位置表示存在，标记为0的位置标示不存在</li>
+<li>布隆过滤器是可以以较低的空间占用来判断元素是否存在进而用于去重，但是它也有对应的缺点</li>
+<li>只要使用哈希算法离不开「哈希冲突」，导致有存在「误判」的情况</li>
+<li>在布隆过滤器中，如果元素判定为存在，那该元素「未必」真实存在。如果元素判定为不存在，那就肯定是不存在</li>
+<li>这应该不用我多解释了吧？（结合「哈希算法」和「标记为1的位置表示存在，标记为0的位置表示不存在」这两者就能得出上面结论）</li>
+<li>布隆过滤器也不能「删除」元素（也是哈希算法的局限性，在布隆过滤器中是不能准确定位一个元素的）</li>
+<li>如果要用的话，布隆过滤器的实现可以直接上 guava已经实现好的，不过这个是单机的</li>
+<li>而分布式下的布隆过滤器，一般现在会用 Redis，但也不是每个公司都会部暑布隆过潓器的 Redis版（还是有局限，像我以前公司就没有）</li>
+<li>所以，目前我负责的项目都是没有用布隆过滤器的</li>
+</ul>
+<h2 id="去重开销大"><a href="#去重开销大" class="headerlink" title="去重开销大"></a>去重开销大</h2><ul>
+<li>如果「去重」开销比较大，可以考虑建立「多层过滤」的逻辑</li>
+<li>比如，先看看『本地缓存』能不能过滤一部分，剩下「强校验」交由『远程存储』（常见的 Redis或者DB）进行二次过滤</li>
+</ul>
+<h2 id="kafka场景"><a href="#kafka场景" class="headerlink" title="kafka场景"></a>kafka场景</h2><ul>
+<li>当时你说在处理订单时实现了 at least one+幂等</li>
+<li>幂等处理时：前置过滤使用的是 Redis，强一致校验时使用的是DB唯一索引，也是为了提高性能，唯一Key好像就是「订单编号+订单状态」</li>
+</ul>
+<h2 id="方案的场景适用"><a href="#方案的场景适用" class="headerlink" title="方案的场景适用"></a>方案的场景适用</h2><ol>
+<li>一般我们需要对数据强一致性校验，就直接上 MYSQL（DB），毕竟有事务的支持</li>
+<li>「本地缓存」如果业务适合，那可以作为一个「前置」判断</li>
+<li>Redis高性能读写，前置判断和后置均可</li>
+<li>而 Hbasel则一般用于庞大数据量的场景下（ Redis内存太贵，DB不够灵活也不适合单表存大量数据）</li>
+</ol>
+<h2 id="幂等"><a href="#幂等" class="headerlink" title="幂等"></a>幂等</h2><ul>
+<li>至于幂等，一般的方案下存储还是「Redis」和「数据库」</li>
+<li>最最最最常见的就是数据库「唯一索」来实现幂等（我所负责的好几个项目都是用这个）</li>
+<li>构建「唯一Key」是业务相关的事了（一般是用自己的业务ID进行拼接，生成一个有意义”的唯一Key</li>
+<li>当然，也有用「 Redis」和「 MYSQL」实现分布式锁来实现幂等的（：）</li>
+<li>但 Redis’分布式锁是不能完全保证安全的，而MNSL实现分布式锁（乐观锁和悲观锁），不过还是看业务吧，我是没用到过的</li>
+<li>网上有很多实现「幂等」的方案，本质上都是围绕着「存储」和「唯一Key」做了些变种，然后取了个名字</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>l
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/43d73074/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lion.png">
+      <meta itemprop="name" content="swimminghao">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="swimminghao's blog">
+      <meta itemprop="description" content="swimminghao的学习博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | swimminghao's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/43d73074/" class="post-title-link" itemprop="url">JAVA基础</a>
         </h2>
 
         <div class="post-meta-container">
@@ -1306,8 +1763,8 @@
     </span>
     <span class="post-meta-item-text">Waline：</span>
   
-    <a title="waline" href="/posts/498f0b66/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/498f0b66/" data-xid="/posts/498f0b66/" itemprop="commentCount"></span>
+    <a title="waline" href="/posts/43d73074/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/43d73074/" data-xid="/posts/43d73074/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -1318,14 +1775,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>116k</span>
+      <span>114k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>1:46</span>
+      <span>1:44</span>
     </span>
 </div>
 
@@ -1349,7 +1806,7 @@
 </ul>
 </li>
 <li><a href="#http%E5%8D%8F%E8%AE%AE"><strong>HTTP协议</strong></a><ul>
-<li><a href="#1http%E5%8D%8F%E8%AE%AE10_11_20">1、HTTP协议<em>1.0_1.1_2.0</em></a></li>
+<li><a href="#1http%E5%8D%8F%E8%AE%AE10_11_20">1、HTTP协议1.0_1.1_2.0</a></li>
 <li><a href="#2http%E4%B8%8Ehttps%E4%B9%8B%E9%97%B4%E7%9A%84%E5%8C%BA%E5%88%AB">2、HTTP与HTTPS之间的区别</a></li>
 <li><a href="#3get%E5%92%8Cpost%E8%AF%B7%E6%B1%82%E5%8C%BA%E5%88%AB"><strong>3、Get和Post请求区别</strong></a></li>
 <li><a href="#4http%E5%B8%B8%E8%A7%81%E5%93%8D%E5%BA%94%E7%8A%B6%E6%80%81%E7%A0%81"><strong>4、HTTP常见响应状态码</strong></a></li>
@@ -2215,23 +2672,6 @@
 <p><strong>实现方式</strong>：</p>
 <p>​    <strong>饿汉式</strong>：线程安全速度快</p>
 <p>​    <strong>懒汉式</strong>：双重检测锁，第一次减少锁的开销、第二次防止重复、volatile防止重排序导致实例化未完成</p>
-<p><strong>为什么要 double-check？</strong></p>
-<p>我们先来看第二次的 check，这时你需要考虑这样一种情况，有两个线程同时调用 getInstance 方法，由于 singleton 是空的 ，因此两个线程都可以通过第一重的 if 判断；然后由于锁机制的存在，会有一个线程先进入同步语句，并进入第二重 if 判断 ，而另外的一个线程就会在外面等待。</p>
-<p>不过，当第一个线程执行完 new Singleton() 语句后，就会退出 synchronized 保护的区域，这时如果没有第二重 if (singleton &#x3D;&#x3D; null) 判断的话，那么第二个线程也会创建一个实例，此时就破坏了单例，这肯定是不行的。</p>
-<p>而对于第一个 check 而言，如果去掉它，那么所有线程都会串行执行，效率低下，所以两个 check 都是需要保留的。</p>
-<p><strong>在双重检查锁模式中为什么需要使用 volatile 关键字?</strong></p>
-<p>在java内存模型中，volatile 关键字作用可以是保证可见性或者禁止指令重排。这里是因为 singleton &#x3D; new Singleton() ，它并非是一个原子操作，事实上，在 JVM 中上述语句至少做了以下这 3 件事：</p>
-<ul>
-<li>第一步是给 singleton 分配内存空间；</li>
-<li>第二步开始调用 Singleton 的构造函数等，来初始化 singleton；</li>
-<li>第三步，将 singleton 对象指向分配的内存空间（执行完这步 singleton 就不是 null 了）。</li>
-</ul>
-<p>这里需要留意一下 1-2-3 的顺序，因为存在指令重排序的优化，也就是说第 2 步和第 3 步的顺序是不能保证的，最终的执行顺序，可能是 1-2-3，也有可能是 1-3-2。</p>
-<p>如果是 1-3-2，那么在第 3 步执行完以后，singleton 就不是 null 了，可是这时第 2 步并没有执行，singleton 对象未完成初始化，它的属性的值可能不是我们所预期的值。假设此时线程 2 进入 getInstance 方法，由于 singleton 已经不是 null 了，所以会通过第一重检查并直接返回，但其实这时的 singleton 并没有完成初始化，所以使用这个实例的时候会报错，详细流程如下图所示：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/EKNSfp_20210917165416.png"></p>
-<p>线程 1 首先执行新建实例的第一步，也就是分配单例对象的内存空间，由于线程 1 被重排序，所以执行了新建实例的第三步，也就是把 singleton 指向之前分配出来的内存地址，在这第三步执行之后，singleton 对象便不再是 null。</p>
-<p>这时线程 2 进入 getInstance 方法，判断 singleton 对象不是 null，紧接着线程 2 就返回 singleton 对象并使用，由于没有初始化，所以报错了。最后，线程 1 “姗姗来迟”，才开始执行新建实例的第二步——初始化对象，可是这时的初始化已经晚了，因为前面已经报错了。</p>
-<p>使用了 volatile 之后，相当于是表明了该字段的更新可能是在其他线程中发生的，因此应确保在读取另一个线程写入的值时，可以顺利执行接下来所需的操作。在 JDK 5 以及后续版本所使用的 JMM 中，在使用了 volatile 后，会一定程度禁止相关语句的重排序，从而避免了上述由于重排序所导致的读取到不完整对象的问题的发生。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Singleton</span>&#123;</span><br><span class="line">  <span class="keyword">private</span> <span class="title function_">Singleton</span><span class="params">()</span>&#123;&#125;</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">volatile</span> <span class="keyword">static</span> Singleton singleton;</span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="title function_">getInstance</span><span class="params">()</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(singleton == <span class="literal">null</span>)&#123;</span><br><span class="line">      <span class="keyword">synchronized</span>(Singleton.class)&#123;</span><br><span class="line">        <span class="keyword">if</span>(singleton == <span class="literal">null</span>)&#123;</span><br><span class="line">          singleton = <span class="keyword">new</span> <span class="title class_">Singleton</span>();</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> singleton;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>​    <strong>静态内部类</strong>：线程安全利用率高</p>
@@ -2250,41 +2690,8 @@
 <h4 id="3、抽象工厂模式"><a href="#3、抽象工厂模式" class="headerlink" title="3、抽象工厂模式"></a>3、抽象工厂模式</h4><p>​    提供一个接口，用于创建相关或者依赖对象的家族，并由此进行约束。</p>
 <p><strong>优点：</strong>可以在类的内部对产品族进行约束</p>
 <p><strong>缺点</strong>：假如产品族中需要增加一个新的产品，则几乎所有的工厂类都需要进行修改。</p>
-<h4 id="4、设计模式中工厂方法与抽象工厂之间的区别联系"><a href="#4、设计模式中工厂方法与抽象工厂之间的区别联系" class="headerlink" title="4、设计模式中工厂方法与抽象工厂之间的区别联系"></a>4、设计模式中工厂方法与抽象工厂之间的区别联系</h4><p>首先来看看两者的定义区别：</p>
-<ul>
-<li>工厂模式 定义一个用于创建对象的接口，让子类决定实例化哪一个类</li>
-<li>抽象工厂模式 为创建一组相关或相互依赖的对象提供一个接口，而且无需指定他们的具体类</li>
-</ul>
-<p>个人觉得这个区别在于产品，如果产品单一，最合适用工厂模式，但是如果有多个业务品种、业务分类时，通过抽象工厂模式产生需要的对象是一种非常好的解决方式。 再通俗深化理解下：工厂模式针对的是一个产品等级结构 ，抽象工厂模式针对的是面向多个产品等级结构的。</p>
-<p>再来看看工厂方法模式与抽象工厂模式对比：</p>
-<table>
-<thead>
-<tr>
-<th>工厂方法模式</th>
-<th>抽象工厂模式</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>针对的是单个产品等级结构</td>
-<td>针对的是面向多个产品等级结构</td>
-</tr>
-<tr>
-<td>一个抽象产品类</td>
-<td>多个抽象产品类</td>
-</tr>
-<tr>
-<td>可以派生出多个具体产品类</td>
-<td>每个抽象产品类可以派生出多个具体产品类</td>
-</tr>
-<tr>
-<td>一个抽象工厂类，可以派生出多个具体工厂类</td>
-<td>一个抽象工厂类，可以派生出多个具体工厂类</td>
-</tr>
-<tr>
-<td>每个具体工厂类只能创建一个具体产品类的实例</td>
-<td>每个具体工厂类可以创建多个具体产品类的实例</td>
-</tr>
-</tbody></table>
+<div style="page-break-after: always;"></div>
+
 <h2 id="面试题"><a href="#面试题" class="headerlink" title="面试题"></a>面试题</h2><h3 id="构造方法"><a href="#构造方法" class="headerlink" title="构造方法"></a>构造方法</h3><p>构造方法可以被重载，只有当类中没有显性声明任何构造方法时，才会有默认构造方法。</p>
 <p>构造方法没有返回值，构造方法的作用是创建新对象。</p>
 <h3 id="初始化块"><a href="#初始化块" class="headerlink" title="初始化块"></a>初始化块</h3><p>静态初始化块的优先级最高，会最先执行，在非静态初始化块之前执行。</p>
@@ -2332,7 +2739,7 @@
 <p><strong>虚拟机栈：</strong></p>
 <p>​        虚拟机栈<strong>是线程私有的</strong>，他的生命周期和线程的生命周期是一致的。里面装的是一个一个的<strong>栈帧</strong>，每一个方法在执行的时候都会创建一个栈帧，栈帧中用来存放（<strong>局部变量表</strong>、<strong>操作数栈</strong> 、<strong>动态链接</strong> 、<strong>返回地址</strong>）；在Java虚拟机规范中，对此区域规定了两种异常状况：如果线程请求的栈深度大于虚拟机所允许的深度，将会抛出<strong>StackOverflowError</strong>异常；如果虚拟机栈动态扩展时无法申请到足够的内存，就会抛出<strong>OutOfMemoryError</strong>异常。</p>
 <ul>
-<li><p><strong>局部变量表：</strong>局部变量表是一组变量值存储空间，用来存放<strong>方法参数</strong>、方法内部定义的<strong>局部变量</strong>。底层是变量槽（variable slot）<strong>（注意：java分成员变量、局部变量）</strong></p>
+<li><p><strong>局部变量表：</strong>局部变量表是一组变量值存储空间，用来存放<strong>方法参数</strong>、方法内部定义的<strong>局部变量</strong>。底层是变量槽（variable slot）</p>
 </li>
 <li><p><strong>操作数栈：</strong>是用来记录一个方法在执行的过程中，<strong>字节码指令向操作数栈中进行入栈和出栈的过程</strong>。大小在编译的时候已经确定了，当一个方法刚开始执行的时候，操作数栈中是空发的，在方法执行的过程中会有各种<strong>字节码指令</strong>往操作数栈中<strong>入栈和出栈</strong>。</p>
 </li>
@@ -2348,11 +2755,10 @@
 <p><strong>PC程序计数器：</strong></p>
 <p>​        PC，指的是存放下一条指令的位置的一个指针。它是一块较小的内存空间，且是<strong>线程私有</strong>的。由于线程的切换，CPU在执行的过程中，需要记住原线程的下一条指令的位置，所以每一个线程都需要有自己的PC。</p>
 <h4 id="2、堆内存分配策略"><a href="#2、堆内存分配策略" class="headerlink" title="2、堆内存分配策略"></a><strong>2、堆内存分配策略</strong></h4><p><img src="https://tva1.sinaimg.cn/large/008eGmZEly1gobnjl5glvj30l10h9jrt.jpg" alt="img"></p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/Hm2wXK_20210918154730.png"></p>
 <ul>
 <li><p>对象优先分配在Eden区，如果Eden区没有足够的空间进行分配时，虚拟机执行一次MinorGC。而那些无需回收的存活对象，将会进到 Survivor 的 From 区（From 区内存不足时，直接进入 Old 区）。</p>
 </li>
-<li><p>大对象直接进入老年代（<strong>需要大量连续内存空间的对象</strong>）。这样做的目的是避免在Eden区和两个Survivor区之间发生大量的内存拷贝（新生代采用复制算法收集内存）。</p>
+<li><p>大对象直接进入老年代（需要大量连续内存空间的对象）。这样做的目的是避免在Eden区和两个Survivor区之间发生大量的内存拷贝（新生代采用复制算法收集内存）。</p>
 </li>
 <li><p>长期存活的对象进入老年代。虚拟机为每个对象定义了一个年龄（Age Count）计数器，如果对象经过了1次Minor GC那么对象会进入Survivor区，之后每经过一次Minor GC那么对象的年龄加1，直到达到阀值（默认15次），对象进入老年区。</p>
 <p>（<strong>动态对象年龄判定</strong>：程序从年龄最小的对象开始累加，如果累加的对象大小，大于幸存区的一半，则将当前的对象 age 作为新的阈值，年龄大于此阈值的对象则直接进入老年代）</p>
@@ -2360,25 +2766,17 @@
 <li><p>每次进行Minor GC或者大对象直接进入老年区时，JVM会计算所需空间大小如小于老年区的剩余值大小，则进行一次<strong>Full GC</strong>。</p>
 </li>
 </ul>
-<h4 id="3、创建一个对象的步骤"><a href="#3、创建一个对象的步骤" class="headerlink" title="3、创建一个对象的步骤"></a><strong>3、创建一个对象的步骤</strong></h4><p><strong>步骤：类加载检查、分配内存、初始化对象（包括：初始化零值、设置对象头、执行init方法）、将创建的对象指向分配的内存</strong></p>
+<h4 id="3、创建一个对象的步骤"><a href="#3、创建一个对象的步骤" class="headerlink" title="3、创建一个对象的步骤"></a><strong>3、创建一个对象的步骤</strong></h4><p><strong>步骤：类加载检查、分配内存、初始化零值、设置对象头、执行init方法</strong></p>
 <p><strong>①类加载检查：</strong> </p>
 <p>​        虚拟机遇到 new 指令时，⾸先去检查是否能在常量池中定位到这个类的符号引⽤，并且检查这个符号引⽤代表的类是否已被加载过、解析和初始化过。如果没有，那必须先执⾏相应的类加载过程。</p>
 <p><strong>②分配内存：</strong></p>
 <p>​         在类加载检查通过后，接下来虚拟机将为新⽣对象分配内存，分配⽅式有 <strong>“指针碰撞”</strong> 和 <strong>“空闲列表”</strong> 两种，选择那种分配⽅式由 Java 堆是否规整决定，⽽Java堆是否规整⼜由所采⽤的垃圾收集器是否带有压缩整理功能决定。</p>
-<p><strong>③初始化对象</strong></p>
-<ul>
-<li><strong>初始化零值：</strong></li>
-</ul>
+<p><strong>③初始化零值：</strong></p>
 <p>​         内存分配完成后，虚拟机需要将分配到的内存空间都初始化为零值，这⼀步操作保证了对象的实例字段在 Java 代码中可以不赋初始值就直接使⽤，程序能访问到这些字段的数据类型所对应的零值。</p>
-<ul>
-<li><strong>设置对象头：</strong></li>
-</ul>
+<p><strong>④设置对象头：</strong> </p>
 <p>​        初始化零值完成之后，虚拟机要对对象进⾏必要的设置，例如这个对象是那个类的实例、如何才能找到类的元数据信息、对象的哈希吗、对象的 GC 分代年龄等信息。 这些信息存放在对象头中。 另外，根据虚拟机当前运⾏状态的不同，如是否启⽤偏向锁等，对象头会有不同的设置⽅式。</p>
-<ul>
-<li><strong>执⾏ init ⽅法：</strong></li>
-</ul>
+<p><strong>⑤执⾏ init ⽅法：</strong> </p>
 <p>​        从虚拟机的视⻆来看，⼀个新的对象已经产⽣了，但从Java 程序的视⻆来看， <init> ⽅法还没有执⾏，所有的字段都还为零。所以⼀般来说（除循环依赖），执⾏ new 指令之后会接着执⾏  <init> ⽅法，这样⼀个真正可⽤的对象才算产⽣出来。</p>
-<p><strong>④将创建的对象指向分配的内存</strong></p>
 <h4 id="4、对象引用"><a href="#4、对象引用" class="headerlink" title="4、对象引用"></a>4、<strong>对象引用</strong></h4><p>普通的对象引用关系就是<strong>强引用</strong>。</p>
 <p><strong>软引用</strong>用于维护一些可有可无的对象。只有在<strong>内存不足时，系统则会回收软引用对象</strong>，如果回收了软引用对象之后仍然没有足够的内存，才会抛出内存溢出异常。</p>
 <p><strong>弱引用</strong>对象相比软引用来说，要更加无用一些，它拥有更短的生命周期，当 JVM 进行垃圾回收时，<strong>无论内存是否充足</strong>，都会回收被弱引用关联的对象。</p>
@@ -2391,15 +2789,14 @@
 <p><strong>加载阶段：</strong></p>
 <p>​        1.通过一个类的全限定名来获取定义此类的二进制字节流。</p>
 <p>​        2.将这个字节流所代表的静态存储结构转化为方法区的运行时数据结构。</p>
-<p>​        3.在Java堆中生成一个代表这个类的java.lang.class对象，作为访问方法区这些数据的入口。</p>
+<p>​        3.在Java堆中生成一个代表这个类的java.lang.class对象，作为方法区这些数据的访问入口。</p>
 <p><strong>验证阶段：</strong></p>
 <p>​        1.文件格式验证（是否符合Class文件格式的规范，并且能被当前版本的虚拟机处理）</p>
 <p>​        2.元数据验证（对字节码描述的信息进行语意分析，以保证其描述的信息符合Java语言规范要求）</p>
 <p>​        3.字节码验证（保证被校验类的方法在运行时不会做出危害虚拟机安全的行为）</p>
 <p>​        4.符号引用验证（虚拟机将符号引用转化为直接引用时，解析阶段中发生）</p>
 <p><strong>准备阶段：</strong></p>
-<p>​        准备阶段是正式为类变量（成员变量）分配内存并设置类变量初始值的阶段。将对象初始化为“零”值。</p>
-<p>这一步只会给那些静态变量设置一个初始的值，而那些实例变量是在实例化对象时进行分配的。</p>
+<p>​        准备阶段是正式为类变量分配内存并设置类变量初始值的阶段。将对象初始化为“零”值</p>
 <p><strong>解析阶段：</strong></p>
 <p>​        解析阶段时虚拟机将常量池内的符号引用替换为直接引用的过程。</p>
 <p>​        <strong>字符串常量池</strong>：堆上，默认class文件的静态常量池</p>
@@ -2409,7 +2806,7 @@
 <h4 id="1、双亲委派机制"><a href="#1、双亲委派机制" class="headerlink" title="1、双亲委派机制"></a><strong>1、双亲委派机制</strong></h4><p>​        每⼀个类都有⼀个对应它的类加载器。系统中的 ClassLoder 在协同⼯作的时候会默认使⽤ 双亲委派模型 。即在类加载的时候，系统会⾸先判断当前类是否被加载过。已经被加载的类会直接返回，否则才会尝试加载。加载的时候，⾸先会把该请求委派该⽗类加载器的  loadClass() 处理，因此所有的请求最终都应该传送到顶层的启动类加载器  BootstrapClassLoader 中。当⽗类加载器⽆法处理时，才由⾃⼰来处理。当⽗类加载器为null时，会使⽤启动类加载器  BootstrapClassLoader 作为⽗类加载器。</p>
 <p><img src="https://tva1.sinaimg.cn/large/008eGmZEly1gobn5lh4f6j30hk08rjso.jpg" alt="img"></p>
 <p><strong>使用好处：</strong></p>
-<p>​        此机制保证JDK核心类的优先加载；使得Java程序的稳定运⾏，可以避免类的重复加载，也保证了 Java 的核⼼ API 不被篡改。如果不⽤使⽤双亲委派模型，⽽是每个类加载器加载⾃⼰的话就会出现⼀些问题，⽐如我们编写⼀个称为  java.lang.Object 类的话，那么程序运⾏的时候，系统就会出现多个不同的Object 类。</p>
+<p>​        此机制保证JDK核心类的优先加载；使得Java程序的稳定运⾏，可以避免类的重复加载，也保证了 Java 的核⼼ API 不被篡改。如果不⽤没有使⽤双亲委派模型，⽽是每个类加载器加载⾃⼰的话就会出现⼀些问题，⽐如我们编写⼀个称为  java.lang.Object 类的话，那么程序运⾏的时候，系统就会出现多个不同的Object 类。</p>
 <p><strong>破坏双亲委派机制：</strong></p>
 <ul>
 <li><p>可以⾃⼰定义⼀个类加载器，重写loadClass方法；</p>
@@ -3459,7 +3856,6 @@
 <p>（2）在通过聚集索引定位到行记录；</p>
 <p>这就是所谓的<strong>回表查询</strong>，先定位主键值，再定位行记录，它的性能较扫一遍索引树更低。</p>
 <p><strong>覆盖索引</strong>：主键索引&#x3D;&#x3D;聚簇索引&#x3D;&#x3D;覆盖索引</p>
-<p>​    覆盖索引（covering index ，或称为索引覆盖）就是把单列的非主键 索引 修改为多字段的联合索引,  在一棵索引数上 就找到了想要的数据, 不需要去主键索引树上,再检索一遍  这个现象,称之为 索引覆盖.</p>
 <p>​    如果where条件的列和返回的数据在一个索引中，那么不需要回查表，那么就叫覆盖索引。</p>
 <p><strong>实现覆盖索引</strong>：常见的方法是，将被查询的字段，建立到联合索引里去。</p>
 <h4 id="3、Explain及优化"><a href="#3、Explain及优化" class="headerlink" title="3、Explain及优化"></a>3、Explain及优化</h4><p>参考：<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/8fab76bbf448">https://www.jianshu.com/p/8fab76bbf448</a></p>
@@ -3468,7 +3864,6 @@
 <p><strong>索引优化：</strong></p>
 <p>​    ①最左前缀索引：like只用于’string%’，语句中的&#x3D;和in会动态调整顺序</p>
 <p>​    ②唯一索引：唯一键区分度在0.1以上</p>
-<p>​        区分度的公式是count(distinct col)&#x2F;count(*)，表示字段不重复的比例，比例越大我们扫描的记录数越少，唯一键的区分度是1，而一些状态、性别字段可能在<a target="_blank" rel="noopener" href="http://lib.csdn.net/base/hadoop">大数据</a>面前区分度就 是0，那可能有人会问，这个比例有什么经验值吗？使用场景不同，这个值也很难确定，一般需要join的字段我们都要求是0.1以上，即平均1条扫描10条 记录</p>
 <p>​    ③无法使用索引：!&#x3D;  、is null 、 or、&gt;&lt; 、（<strong>5.7以后根据数量自动判定）in 、not in</strong></p>
 <p>​    ④联合索引：避免select * ，查询列使用覆盖索引</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SELECT uid From user Where gid = 2 order by ctime asc limit 10</span><br><span class="line">ALTER TABLE user add index idx_gid_ctime_uid(gid,ctime,uid) #创建联合覆盖索引，避免回表查询</span><br></pre></td></tr></table></figure>
@@ -5601,481 +5996,6 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/6f559dce/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/lion.png">
-      <meta itemprop="name" content="swimminghao">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="swimminghao's blog">
-      <meta itemprop="description" content="swimminghao的学习博客">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | swimminghao's blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/6f559dce/" class="post-title-link" itemprop="url">30、【对线面试官】CMS垃圾回收器</a>
-        </h2>
-
-        <div class="post-meta-container">
-
-          
-
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-10 09:48:07" itemprop="dateModified" datetime="2022-03-10T09:48:07+08:00">2022-03-10</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="far fa-comment"></i>
-    </span>
-    <span class="post-meta-item-text">Waline：</span>
-  
-    <a title="waline" href="/posts/6f559dce/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/6f559dce/" data-xid="/posts/6f559dce/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>2.1k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>2 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="30、【对线面试官】CMS垃圾回收器"><a href="#30、【对线面试官】CMS垃圾回收器" class="headerlink" title="30、【对线面试官】CMS垃圾回收器"></a>30、【对线面试官】CMS垃圾回收器</h1><h2 id="今天还是来聊聊CMS垃圾收集器呗？"><a href="#今天还是来聊聊CMS垃圾收集器呗？" class="headerlink" title="今天还是来聊聊CMS垃圾收集器呗？"></a>今天还是来聊聊CMS垃圾收集器呗？</h2><ul>
-<li>如果用Seria和 Parallel系列的垃圾收集器：在垃圾回收的时，用户线程都会完全停止，直至垃圾回收结束！</li>
-<li>CMS的全称： Concurrent Mark Sweep，翻译过来是「并发标记清除」</li>
-</ul>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/1u2iZp_20211229164510.png"></p>
-<ul>
-<li>用CMS对比上面的垃圾收集器（ Seria和Parllel和 parNew）：它最大的不同点就是「并发」：在GC线程工作的时候，用户线程「不会完全停止」，用户线程在「部分场景下」与GC线程一起并发执行</li>
-<li>无论是什么垃圾收集器， Stop The Word&#x2F;是一定无法避免的！</li>
-<li>CMS只是在「部分」的GC场景下可以让GC线程与用户线程并发执行</li>
-<li>目的：为了避免「老年代GC」出现「长时间」的卡顿（ Stop The Word )</li>
-</ul>
-<h2 id="CMS工作流程"><a href="#CMS工作流程" class="headerlink" title="CMS工作流程"></a>CMS工作流程</h2><ul>
-<li><p>CMS可以简单分为5个步骤：初始标记、并发标记、并发预清理、重新标记以及并发清除</p>
-<ul>
-<li><p>从步骤可看出，CMS主要是实现了「标记清除」垃圾回收算法</p>
-</li>
-<li><p>「初始标记」</p>
-<ul>
-<li>「初始标记」会标记 GCroots「直接关联」的对象以及「年轻代」指向「老年代」的对象</li>
-<li>「初始标记」这个过程是会发生 Stop The Word的。但这个阶段的速度算是很快的，因为没有「向下追溯」（只标记一层）</li>
-</ul>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/FqsTqd_20211229162246.png"></p>
-</li>
-<li><p>「并发标记」</p>
-<ul>
-<li>「并发标记」这个过程是不会停止用户线程的（不会发生 Stop The Word）。这一阶段主要是从 GC Roots向下「追溯」，标记所有可达的对象</li>
-<li>并发标记」在GC的角度而言，是比较耗费时间的（需要追溯）</li>
-</ul>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/cUUH7w_20211229162544.png"></p>
-</li>
-<li><p>「并发预处理」</p>
-<ul>
-<li>「并发预处理」这个阶段主要是：希望能减少下一个阶段「重新标记」所消耗的时间</li>
-<li>因为下一个阶段「重新标记」是需要Stop The World的，「并发标记」这个阶段由于用户线程是没有被挂起的，所以对象是有可能发生变化的</li>
-<li>可能有些对象，从新生代晋升到了老年代。可能有些对象，直接分配到了老年代（大对象）。可能老年代或者新生代的对象引用发生了变化</li>
-</ul>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/NeI2CU_20211229163018.png"></p>
-</li>
-<li><p>「重新标记」</p>
-<ul>
-<li>「重新标记」阶段会 Stop The Word，这个过程的停顿时间其实很大程度上取决于上面「并发预处理」阶段</li>
-<li>这是一个追赶的过程：边在标记存活对象，一边用户线程在执行产生垃圾）</li>
-</ul>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/o97JPO_20211229163156.png"></p>
-</li>
-<li><p>「并发清除」</p>
-<ul>
-<li>一边用户线程在执行，一边GC线程在回收不可达的对象</li>
-<li>这个过程，还是有可能用户线程在不断产生垃圾，但只能留到下一次GC进行处<br>理了，产生的这些垃圾被叫做“浮动垃圾”</li>
-<li>完了以后会重置CMS算法相关的内部数据，为下一次GC循环做准备</li>
-</ul>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/TJihOR_20211229163307.png"></p>
-</li>
-</ul>
-</li>
-</ul>
-<h2 id="为什么要扫年轻代？"><a href="#为什么要扫年轻代？" class="headerlink" title="为什么要扫年轻代？"></a>为什么要扫年轻代？</h2><ul>
-<li>CMS主要回收老年代的对象。年轻代有可能会指向老年代的对象，不扫就不知道是不是垃圾了</li>
-</ul>
-<h2 id="「并发预处理」问题解决"><a href="#「并发预处理」问题解决" class="headerlink" title="「并发预处理」问题解决"></a>「并发预处理」问题解决</h2><ul>
-<li>针对老年代的对象，其实还是可以借助类 card table的存储（将老年代对象发生变化所对应的卡页标记为 dirty）</li>
-<li>所以「并发预处理」这个阶段会扫描可能由于「并发标记」时导致老年代发生变化的对象，会再扫描一遍标记为diy的卡页</li>
-<li>对于新生代的对象，我们还是得遍历新生代来看看在「并发标记」过程中有没有对象引用了老年代.</li>
-<li>JVM里给我们提供了很多「参数」，有可能在这个过程中会触发一次minor GC（触发了 minor GC是意味着就可以更少地遍历新生代的对象）</li>
-</ul>
-<h2 id="相比G1，那你觉得CMS有什么缺点呢？"><a href="#相比G1，那你觉得CMS有什么缺点呢？" class="headerlink" title="相比G1，那你觉得CMS有什么缺点呢？"></a>相比G1，那你觉得CMS有什么缺点呢？</h2><ul>
-<li><p>1.空间需要预留：CMS垃圾收集器可以一边回收垃圾，一边处理用户线程，那需要在这个过程中保证有充足的内存空间供用户使用。</p>
-<ul>
-<li>如果CMS运行过程中预留的空间不够用了，会报错（ Concurrent Mode Failure），这时会启动 Serial Old垃圾收集器进行老年代的垃圾回收，会导致停顿的时间很长</li>
-</ul>
-</li>
-<li><p>2.内存碎片问题：CMS本质上是实现了「标记清除算法」的收集器（从过程就可以看得出），这会意味着会产生内存碎片</p>
-<ul>
-<li>由于碎片太多，又可能会导致内存空间不足所触发 full GC，CMS一般会在触发full GC这个过程对碎片进行整理</li>
-<li>整理涉及到「移动」&#x2F;「标记」，那这个过程肯定会 Stop The Word的，如果内存足够大（意味着可能装载的对象足够多），那这个过程卡顿也是需要一定的时间的。</li>
-</ul>
-</li>
-<li><p>使用CMS的弊端好像就是一个死循环</p>
-<ul>
-<li>1.内存碎片过多，导致空间利用率减低。</li>
-<li>2.空间本身就需要预留给用户线程使用，现在碎片内存又加剧了空间的问题，导致有可能垃圾收集器降级为 Serial old，卡顿时间更长</li>
-<li>3.要处理内存碎片的问题（整理），同样会卡顿</li>
-</ul>
-</li>
-</ul>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ul>
-<li><p>CMS把垃圾回收的过程给”细分”了，然后在某些阶段可以不停止用户线程，一边回收垃圾，一边处理请求，来减少每次垃圾回收时 Stop The Word的时间</p>
-</li>
-<li><p>中间也做了很多的优化（ dirty card标记、可能中途触发 minor gca等等，在我理解下，这些都提供了CMS的相关参数配置</p>
-</li>
-<li><p>CMS垃圾回收器设计目的：</p>
-<ul>
-<li>为了避免「老年代 GC」出现「长时间」的卡顿（Stop The World）</li>
-</ul>
-</li>
-<li><p>CMS垃圾回收器回收过程：</p>
-<ul>
-<li>初始标记、并发标记、并发预处理、重新标记和并发清除。初始标记以及重新标记这两个阶段会Stop The World</li>
-</ul>
-</li>
-<li><p>CMS垃圾回收器的弊端：</p>
-<ul>
-<li>会产生内存碎片&amp;&amp;需要空间预留：停顿时间是不可预知的</li>
-</ul>
-</li>
-</ul>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/KNqlDT_20211229164021.png"></p>
-
-      
-    </div>
-
-    
-    
-    
-
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>l
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/e93a2b49/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/lion.png">
-      <meta itemprop="name" content="swimminghao">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="swimminghao's blog">
-      <meta itemprop="description" content="swimminghao的学习博客">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | swimminghao's blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/e93a2b49/" class="post-title-link" itemprop="url">31、【对线面试官】G1垃圾收集器</a>
-        </h2>
-
-        <div class="post-meta-container">
-
-          
-
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-10 09:48:07" itemprop="dateModified" datetime="2022-03-10T09:48:07+08:00">2022-03-10</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="far fa-comment"></i>
-    </span>
-    <span class="post-meta-item-text">Waline：</span>
-  
-    <a title="waline" href="/posts/e93a2b49/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/e93a2b49/" data-xid="/posts/e93a2b49/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>3.2k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>3 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="31、【对线面试官】G1垃圾收集器"><a href="#31、【对线面试官】G1垃圾收集器" class="headerlink" title="31、【对线面试官】G1垃圾收集器"></a>31、【对线面试官】G1垃圾收集器</h1><h2 id="要不这次来聊聊G1垃圾收集器？"><a href="#要不这次来聊聊G1垃圾收集器？" class="headerlink" title="要不这次来聊聊G1垃圾收集器？"></a>要不这次来聊聊G1垃圾收集器？</h2><ul>
-<li><p>CMS垃圾收集器的升级</p>
-</li>
-<li><p>G1垃圾收集器可以给你设定一个你希望Stop The Word停顿时间，G1垃圾收集器会根据这个时间尽量满足你</p>
-<ul>
-<li><p>在前面我在介绍JM堆的时候，堆的内存分布是以「物理」空间进行隔离</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/qjMhU8_20211229164725.png"></p>
-</li>
-<li><p>在G1垃圾收集器的世界上，堆的划分不再是「物理」形式，而是以「逻辑」的形式进行划分</p>
-</li>
-<li><p>不过的「分代」概念在G1垃圾收集器的世界还是一样奏效的</p>
-</li>
-<li><p>比如说：新对象一般会分配到Eden区经过默认15次的 Minor GC新生代的对象如果还存活，会移交到老年代等等。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/SwXVef_20211229165004.png"></p>
-</li>
-<li><p>堆被划分了多个同等份的区域，在G1里每个区域叫做Region</p>
-</li>
-<li><p>G1中，还有一种叫 Humongous（大对象）区域，其实就是用来存储特别大的对象（大于 Region内存的一半）</p>
-</li>
-<li><p>一旦发现没有引用指向大对象，就可直接在年轻代的 Minor GC中被回收掉</p>
-</li>
-<li><p>之所以要将「堆空间」进行「细分」多个小的区域，是因为像以前的垃圾收集器都是对堆进行「物理」划分，如果堆空间（内存）大的时候，每次进行「垃圾回收」都需要对一整块大的区域进行回收，那收集的时间是不好控制的；而划分多个小区域之后，那对这些「小区域」回收就容易控制它的「收集时间」了</p>
-</li>
-</ul>
-</li>
-</ul>
-<h2 id="GC过程"><a href="#GC过程" class="headerlink" title="GC过程"></a>GC过程</h2><ul>
-<li><p>在G1收集器中，可以主要分为有Minor GC（ Young GC）和 Mixed GC，也有些特殊场景可能会发生 Full GC</p>
-<ul>
-<li><p>Minor GC</p>
-<ul>
-<li><p>G1的 Minor GC其实触发时机跟前面提到过的垃圾收集器都是一样的</p>
-</li>
-<li><p>等到Eden区满了之后，会触发 Minor GC。 Minor GCI同样也是会发生 Stop The World的</p>
-</li>
-<li><p>要补充说明的是：在G1的世界里，新生代和老年代所占堆的空间是没那么固定的（会动态根据「最大停顿时间」进行调整）</p>
-</li>
-<li><p>这块会给我们提供参数进行配置就好了</p>
-</li>
-<li><p>所以，动态地改变收集年轻代 Region的个数可以「控制」 Minor GCI的开销</p>
-</li>
-<li><p>Minor GC我认为可以简单分为为三个步骤：根扫描、更新&amp;&amp;处理RSet、复制对象</p>
-<p>1）第一步应该很好理解，因为这跟之前CMS是类似的，可以理解为初始标记的过程</p>
-<p>2）第二步就是处理RSet的信息并且扫描，将老年代对象持有年轻代对象的相关引用都加入到 GC Roots下，避免被回收掉</p>
-<p>​        涉及到「Rset」的概念</p>
-<p>​    （1）上ー次我们聊CMS回收过程的时候，同样讲到了 Minor GC，它是通过「卡表」（ cart table）来避免全表扫描老年代的对象</p>
-<p>​    （2）因为 Minor GC是回收年轻代的对象，但如果老年代有对象引用着年轻代，那这些被老年代引用的对象也不能回收掉</p>
-<p>​    （3）同样的，在G1也有这种问题（毕竟是Minor GC）。CMS是卡表，而G1解决「跨代引用」的问题的存储一般叫做RSet</p>
-<p>​    （4）只要记住，RSet这种存储在每个 Region都会有，它记录着「其他 Region引用了当前 Regiong的对象关系」</p>
-<p>​    <img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/FpUxzX_20211229170010.png"></p>
-<p>​    （5）对于年轻代的 Region，它的RSet只保存了来自老年代的引用（因为年轻代的没必要存储啊，自己都要做 Minor GC了</p>
-<p>​    （6）而对于老年代的 Region来说，它的RSet也只会保存老年代对它的引用（在G1垃圾收集器，老年代回收之前，都会先对年轻代进行回收，所以没必要保存年轻代的引用）</p>
-<p>3）第三步：把扫描之后存活的对象往「空的 Survivor区」或者老年代」存放，其他的Eden区进行清除</p>
-<p>​    （1）这里要提下的是，在G1还有另一个名词，叫做CSet</p>
-<p>​    （2）它的全称是 Collection Set，保存了一次GC中「将执行垃圾回收」的 Region。CSet中的所有存活对象都会被转移到别的可用 Region上</p>
-<p>​    （3）在 Minor GC的最后，会处理下软引用、弱引用、 JNI Weak等引用，结束收集</p>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>总结</p>
-<ul>
-<li><p>总结起来就是：扫描、处理跨 Region引用、收集至CSet、复制清除、处理引用</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/WZo9bF_20211229170433.png"></p>
-</li>
-</ul>
-</li>
-</ul>
-<h2 id="MixedGC过程"><a href="#MixedGC过程" class="headerlink" title="MixedGC过程"></a>MixedGC过程</h2><ul>
-<li>当堆空间的占用率达到一定阈值后会触发 Mixed GC（默认45%，由参数决定）</li>
-<li>Mixed GC会依赖「全局并发标记」统计后的 Region数据</li>
-<li>「全局并发标记」它的过程跟CMS非常类型，步骤大概是：初始标记（STW）、并发标记、最终标记（ST）以及清理（ST）<ul>
-<li>说明： Mixed GC它一定会回收年轻代，并会采集部分老年代的Region进行回收的，所以它是一个混合GC</li>
-<li>「初始标记」，<ul>
-<li>这个过程是「共用」了 Minor GC的 Stop The World（Mixed GC一定会发生 Minor GC），复用了「扫描 GC Roots的操作</li>
-<li>在这个过程中，老年代和新生代都会扫</li>
-<li>总的来说，「初始标记」这个过程还是比较快的，毕竟没有追溯遍历嘛</li>
-</ul>
-</li>
-<li>「并发标记」<ul>
-<li>这个阶段不会 Stop The World，GC线程与用户线程一起执行，GC线程负责收集各个 Region的存活对象信息</li>
-<li>从 GC Roots往下追溯，査找整个堆存活的对象，比较耗时</li>
-</ul>
-</li>
-<li>「重新标记」<ul>
-<li>跟CMS又一样，标记那些在「并发标记」阶段发生变化的对象</li>
-<li>CMS在「重新标记」阶段，应该会重新扫描所有的线程栈和整个年轻代作为root,G1不是<ul>
-<li>在G1中解決「并发标记」阶段导致引用变更的问题，使用的是SATB算法</li>
-<li>可以简单理解为：在GC开始的时候，它为存活的对象做了一次「快照」</li>
-<li>在「并发阶段」时，把每一次发生引用关系变化时旧的引用值给记下来</li>
-<li>然后在「重新标记」阶段只扫描着块「发生过变化」的引用，看有没有对象还是存活的，加入到「 GC Roots」上</li>
-<li>不过SATB算法有个小的问题，就是：如果在开始时，G1就认为它是活的，那就在此次GC中不会对它回收，即便可能在「并发阶段」上对象已经变为了垃圾。</li>
-<li>所以，G1也有可能会存在「浮动垃圾」</li>
-<li>但是总的来说，对于G1而言，问题不大（毕竟它不是追求一次把所有的垃圾都清除掉，而是注重 Stop The Worlde时间）</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>「清理」<ul>
-<li>这个阶段也是会 Stop The World的，主要清点和重置标记状态，会根据「停顿预模型」（其实就是设定的停顿时间），来决定本次GC回收多少 Region</li>
-<li>一般来说， Mixed GC会选定所有的年轻代 Region，部分「回收价值高」的老年代 Region（回收价值高其实就是垃圾多）进行采集</li>
-<li>最后 Mixed GC进行清除还是通过「拷贝」&#x2F;「复制」的方式去干的</li>
-<li>所以在G1中，一次回收未必是将所有的垃圾进行回收的，G1会依据停顿时间做出选择 Region数量</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h2 id="什么时候发生full-GC"><a href="#什么时候发生full-GC" class="headerlink" title="什么时候发生full GC"></a>什么时候发生full GC</h2><ul>
-<li>如果在 Mixed GC中无法跟上用户线程分配内存的速度，导致老年代填满无法继续进行 Mixed GC，就又会降级到 serial oldGC来收集整个 GC heap</li>
-<li>其实跟CMS是非常类似的都是因为空间不足</li>
-<li>不过uGC这个场景相较于CMS还是很少的，毕竟G1没有像CMS「内存碎片」这种问题</li>
-</ul>
-<h2 id="G1垃圾收集器特点："><a href="#G1垃圾收集器特点：" class="headerlink" title="G1垃圾收集器特点："></a><strong>G1垃圾收集器特点</strong>：</h2><ul>
-<li>从原来的「物理」分代，变成现在的「逻辑」分代，将堆内存「逻辑」划分为多个Region</li>
-<li>使用CSet来存储可回收Region的集合</li>
-<li>使用RSet来处理跨代引用的问题（注意：RSet不保留 年轻代相关的引用关系）</li>
-<li>G1可简单分为：Minor GC 和Mixed GC以及Full GC</li>
-<li>【Eden区满则触发】Minor GC 回收过程可简单分为：(STW) 扫描 GC Roots、更新&amp;&amp;处理Rset、复制清除</li>
-<li>全局并发标记的过程跟CMS过程差不多：初始标记（STW）、并发标记、最终标记（STW）以及清理（STW）</li>
-<li>【整堆空间占一定比例则触发】Mixed GC 依赖「全局并发标记」，得到CSet(可回收Region)，就进行「复制清除」</li>
-<li>使用SATB算法来处理「并发标记」阶段对象引用存在变更的问题</li>
-<li><strong>亮点&amp;&amp;重点</strong>：提供可停顿时间参数供用户设置（<strong>G1会尽量满足该停顿时间来调整 GC时回收Region的数量</strong>）</li>
-<li>R大描述G1原理的时候，他提到：从宏观的角度看G1，主要分为两块「<strong>全局并发标记</strong>」和「<strong>拷贝存活对象</strong>」</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>l
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://example.com/posts/63b182f/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -6346,7 +6266,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/b8eb8241/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/f4ff0293/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/lion.png">
@@ -6364,7 +6284,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/b8eb8241/" class="post-title-link" itemprop="url">32、【对线面试官】如何实现幂等和去重？</a>
+          <a href="/posts/f4ff0293/" class="post-title-link" itemprop="url">34、【对线面试官】Redis分片集群</a>
         </h2>
 
         <div class="post-meta-container">
@@ -6406,8 +6326,8 @@
     </span>
     <span class="post-meta-item-text">Waline：</span>
   
-    <a title="waline" href="/posts/b8eb8241/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/b8eb8241/" data-xid="/posts/b8eb8241/" itemprop="commentCount"></span>
+    <a title="waline" href="/posts/f4ff0293/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/f4ff0293/" data-xid="/posts/f4ff0293/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -6418,14 +6338,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>1.6k</span>
+      <span>3.6k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>1 分钟</span>
+      <span>3 分钟</span>
     </span>
 </div>
 
@@ -6436,57 +6356,122 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="如何实现去重和幂等"><a href="#如何实现去重和幂等" class="headerlink" title="如何实现去重和幂等"></a>如何实现去重和幂等</h1><h2 id="去重与幂等"><a href="#去重与幂等" class="headerlink" title="去重与幂等"></a>去重与幂等</h2><ul>
-<li>区别<ul>
-<li>「去重」是对请求或者消息在「一定时间内」进行去重「N次」</li>
-<li>「幂等」则是保证请求或消息在「任意时间内」进行处理，都需要保证它的结果是一致</li>
+          <h1 id="34、【对线面试官】Redis分片集群"><a href="#34、【对线面试官】Redis分片集群" class="headerlink" title="34、【对线面试官】Redis分片集群"></a>34、【对线面试官】Redis分片集群</h1><h2 id="要不接着上一次的话题呗？聊下Redis的分片集群，先聊Redis-Clusters好咯？"><a href="#要不接着上一次的话题呗？聊下Redis的分片集群，先聊Redis-Clusters好咯？" class="headerlink" title="要不接着上一次的话题呗？聊下Redis的分片集群，先聊Redis Clusters好咯？"></a>要不接着上一次的话题呗？聊下Redis的分片集群，先聊Redis Clusters好咯？</h2><ul>
+<li><p>基础</p>
+<ul>
+<li><p>在前面聊Redisl的时候，提到的Redis都是「单实例」存储所有的数据</p>
+</li>
+<li><p>1.主从模式下实现读写分离的架构，可以让多个从服务器承载「读流量」，但面对「写流量」时，始终是只有主服务器在抗。</p>
+</li>
+<li><p>2.「纵向扩展」升级Redis服务器硬件能力，但升级至一定程度下，就不划算了。</p>
+</li>
+<li><p>纵向扩展意味着「大内存」，Redis：持久化时的”成本”会加大（Redis做RDB持久化，是全量的，fork子进程时有可能由于使用内存过大，导致主线程阻塞时间过长）</p>
+</li>
+<li><p>所以，「单实例」是有瓶颈的这里的。单实例我指的是：某台Redis服务器存储着某业务的所有数据</p>
+</li>
+<li><p>「纵向扩展」不行，就「横向扩展」呗。</p>
+</li>
+<li><p>用多个Redis实例来组成一个集群，按照一定的规则把数据「分发」到不同的Redis实例上。当集群所有的Redis实例的数据加起来，那这份数据就是全的</p>
+</li>
+<li><p>其实就是「分布式」的概念（：只不过，在Redis.里，好像叫「分片集群」的人比较多？</p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/UjVuJE_20211230101518.png"></p>
+</li>
+<li><p>从前面就得知了，要「分布式存储」，就肯定避免不了对数据进行「分发」（也是路由的意思）</p>
+</li>
+<li><p>从Redis Clusteri讲起吧，它的「路由」是做在客户端的（SDK已经集成了路由转发的功能）</p>
+</li>
+<li><p>Redis Cluster）对数据的分发的逻辑中，涉及到「哈希槽」（Hash Solt）的概念</p>
+</li>
+<li><p>Redis Cluster默认一个集群有16384个哈希槽，这些哈希槽会分配到不同的Redis实例中</p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/wG6xGm_20211230101625.png"></p>
+</li>
+<li><p>至于怎么「瓜分」，可以直接均分，也可以「手动」设置每个Redis实例的哈希槽，全由我们来决定</p>
+</li>
+<li><p>重要的是，我们要把这16384个都得瓜分完，不能有剩余！</p>
+</li>
+<li><p>当客户端有数据进行写入的时候，首先会对key按照CRC16算法计算出16bit的值（可以理解为就是做hash），然后得到的值对16384进行取模</p>
+</li>
+<li><p>取模之后，自然就得到其中一个哈希槽，然后就可以将数据插入到分配至该哈希槽的Redis实例中</p>
+</li>
 </ul>
 </li>
-<li>以项目举例，我维护的「消息管理平台」是有「去重」的功能的：「5分钟相同内容消息去重」「1小时内模板去重」「一天内渠道达到N次阈值去重」.</li>
-<li>再次强调下「幂等」和「去重」的本质：「唯一Key」+「存储」</li>
 </ul>
-<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><ul>
-<li>不同的业务场景，唯一Key是不一样的，由业务決定</li>
-<li>存储选择挺多的，比如「本地缓存」&#x2F;「 Redis」&#x2F;「 MYSQL」&#x2F;「 Hbase」等等，具体选取什么，也跟业务有关</li>
-<li>比如说，在「消息管理平台」这个场景下，我存储选择的「 Redis」（读写性能优越）， Redis也有「过期时间」方便解决「一定时间内」的问题</li>
-<li>而唯一Key，自然就是根据不同的业务构建不同的。</li>
-<li>比如说「5分钟相同内容消息去重」，我直接MD5请求参数作为唯一Key。「1小时模板去重」则是「模板ID+ userid」作为唯一Key，「ー天内渠道去重」则是「渠道ID+ userid」作为唯一Key.</li>
+<h2 id="那问题就来了，现在客户端通过hash算法算出了哈希槽的位置，那客户端怎么知道这个哈希槽在哪台Redis实例上呢？"><a href="#那问题就来了，现在客户端通过hash算法算出了哈希槽的位置，那客户端怎么知道这个哈希槽在哪台Redis实例上呢？" class="headerlink" title="那问题就来了，现在客户端通过hash算法算出了哈希槽的位置，那客户端怎么知道这个哈希槽在哪台Redis实例上呢？"></a>那问题就来了，现在客户端通过hash算法算出了哈希槽的位置，那客户端怎么知道这个哈希槽在哪台Redis实例上呢？</h2><ul>
+<li>是这样的，在集群的中每个Redis实例都会向其他实例「传播」自己所负责的哈希槽有哪些。这样一来，每台Redis实例就可以记录着「所有哈希槽与实例」的关系了</li>
+<li>有了这个映射关系以后，客户端也会「缓存」一份到自己的本地上，那自然客户端就知道去哪个Redis实例上操作</li>
 </ul>
-<h2 id="提到了「去重」了，你听过布隆过滤器吗？"><a href="#提到了「去重」了，你听过布隆过滤器吗？" class="headerlink" title="提到了「去重」了，你听过布隆过滤器吗？"></a>提到了「去重」了，你听过布隆过滤器吗？</h2><ul>
-<li>布隆过滤器的底层数据结构可以理解为bitmap， bitmap也可以简单理解为是一个数组，元素只存储0和1，所以它占用的空间相对较小</li>
-<li>当一个元素要存入 bitmap时，其实是要去看存储到 bitmap的哪个位置，这时一般用的就是「哈希算法」，存进去的位置标记为1</li>
-<li>标记为1的位置表示存在，标记为0的位置标示不存在</li>
-<li>布隆过滤器是可以以较低的空间占用来判断元素是否存在进而用于去重，但是它也有对应的缺点</li>
-<li>只要使用哈希算法离不开「哈希冲突」，导致有存在「误判」的情况</li>
-<li>在布隆过滤器中，如果元素判定为存在，那该元素「未必」真实存在。如果元素判定为不存在，那就肯定是不存在</li>
-<li>这应该不用我多解释了吧？（结合「哈希算法」和「标记为1的位置表示存在，标记为0的位置表示不存在」这两者就能得出上面结论）</li>
-<li>布隆过滤器也不能「删除」元素（也是哈希算法的局限性，在布隆过滤器中是不能准确定位一个元素的）</li>
-<li>如果要用的话，布隆过滤器的实现可以直接上 guava已经实现好的，不过这个是单机的</li>
-<li>而分布式下的布隆过滤器，一般现在会用 Redis，但也不是每个公司都会部暑布隆过潓器的 Redis版（还是有局限，像我以前公司就没有）</li>
-<li>所以，目前我负责的项目都是没有用布隆过滤器的</li>
+<h2 id="那我又有问题了，在集群里也可以新增画者删除Redis：实例啊，这个怎么整？（扩容、缩容很常见的操作）"><a href="#那我又有问题了，在集群里也可以新增画者删除Redis：实例啊，这个怎么整？（扩容、缩容很常见的操作）" class="headerlink" title="那我又有问题了，在集群里也可以新增画者删除Redis：实例啊，这个怎么整？（扩容、缩容很常见的操作）"></a>那我又有问题了，在集群里也可以新增画者删除Redis：实例啊，这个怎么整？（扩容、缩容很常见的操作）</h2><ul>
+<li>当集群删除或者新增Redis实例时，那总会有某Redis实例所负责的哈希槽关系会发生变化</li>
+<li>发生变化的信息会通过消息发送至整个集群中，所有的Redis实例都会知道该变化，然后更新自己所保存的映射关系</li>
+<li>但这时候，客户端其实是不感知的</li>
+<li>所以，当客户端请求时某Key时，还是会请求到「原来」的Redis实例上。</li>
+<li>而原来的Redis实例会返回「noved」命令，告诉客户端应该要去新的Redis：实例上去请求啦</li>
+<li>客户端接收到「moved」命令之后，就知道去新的Redis实例请求了，并且更新客户端自身「哈希槽与实例之间的映射关系」</li>
+<li>总结起来就是：数据迁移完毕后被响应，客户端会收到「moved」命令，并且会更新本地缓存</li>
+<li>那数据还没完全迁移完呢？</li>
+<li>如果数据还没完全迁移完，那这时候会返回客户端「ask」命令。也是让客户端去请求新的Redis实例，但客户端这时候不会更新本地缓存</li>
 </ul>
-<h2 id="去重开销大"><a href="#去重开销大" class="headerlink" title="去重开销大"></a>去重开销大</h2><ul>
-<li>如果「去重」开销比较大，可以考虑建立「多层过滤」的逻辑</li>
-<li>比如，先看看『本地缓存』能不能过滤一部分，剩下「强校验」交由『远程存储』（常见的 Redis或者DB）进行二次过滤</li>
+<h2 id="那你知道为什么哈希槽是16384个吗？"><a href="#那你知道为什么哈希槽是16384个吗？" class="headerlink" title="那你知道为什么哈希槽是16384个吗？"></a>那你知道为什么哈希槽是16384个吗？</h2><ul>
+<li>嗯，这个。是这样的，Redis：实例之间「通讯」会相互交换「槽信息」，那如果槽过多（意味着网络包会变大），网络包变大，那是不是就意味着会「过度占用」网络的带宽</li>
+<li>另外一块是，Redis作者认为集群在一般情况下是不会超过1000个实例</li>
+<li>那就取了16384个，即可以将数据合理打散至Redis：集群中的不同实例，又不会在交换数据时导致带宽占用过多</li>
 </ul>
-<h2 id="kafka场景"><a href="#kafka场景" class="headerlink" title="kafka场景"></a>kafka场景</h2><ul>
-<li>当时你说在处理订单时实现了 at least one+幂等</li>
-<li>幂等处理时：前置过滤使用的是 Redis，强一致校验时使用的是DB唯一索引，也是为了提高性能，唯一Key好像就是「订单编号+订单状态」</li>
+<h2 id="那你知道为什么对数据进行分区在Redis中用的是「哈希槽」这种方式吗？而不是一致性哈希算法"><a href="#那你知道为什么对数据进行分区在Redis中用的是「哈希槽」这种方式吗？而不是一致性哈希算法" class="headerlink" title="那你知道为什么对数据进行分区在Redis中用的是「哈希槽」这种方式吗？而不是一致性哈希算法"></a>那你知道为什么对数据进行分区在Redis中用的是「哈希槽」这种方式吗？而不是一致性哈希算法</h2><ul>
+<li>在我理解下，一致性哈希算法就是有个「哈希环」，当客户端请求时，会对Key进行hash，确定在哈希环上的位置，然后顺时针往后找，找到的第一个节点</li>
+<li>一致性哈希算法比「传统固定取模」的好处就是：如果集群中需要新增或删除某实例，只会影响一小部分的数据</li>
+<li>但如果在集群中新增或者删除实例，在一致性哈希算法下，就得知道是「哪一部分数据」受到影响了，需要进行对受影响的数据进行迁移</li>
+<li>而哈希槽的方式，我们通过上面已经可以发现：在集群中的每个实例都能拿到槽位相关的信息（去中心化）</li>
+<li>当客户端对key进行hash运算之后，如果发现请求的实例没有相关的数据，实例会返回「重定向」命令告诉客户端应该去哪儿请求</li>
+<li>集群的扩容、缩容都是以「哈希槽」作为基本单位进行操作，总的来说就是「实现」会更加简单（简洁，高效，有弹性）</li>
+<li>过程大概就是把部分槽进行重新分配，然后迁移槽中的数据即可，不会影响到集群中某个实例的所有数据。</li>
 </ul>
-<h2 id="方案的场景适用"><a href="#方案的场景适用" class="headerlink" title="方案的场景适用"></a>方案的场景适用</h2><ol>
-<li>一般我们需要对数据强一致性校验，就直接上 MYSQL（DB），毕竟有事务的支持</li>
-<li>「本地缓存」如果业务适合，那可以作为一个「前置」判断</li>
-<li>Redis高性能读写，前置判断和后置均可</li>
-<li>而 Hbasel则一般用于庞大数据量的场景下（ Redis内存太贵，DB不够灵活也不适合单表存大量数据）</li>
-</ol>
-<h2 id="幂等"><a href="#幂等" class="headerlink" title="幂等"></a>幂等</h2><ul>
-<li>至于幂等，一般的方案下存储还是「Redis」和「数据库」</li>
-<li>最最最最常见的就是数据库「唯一索」来实现幂等（我所负责的好几个项目都是用这个）</li>
-<li>构建「唯一Key」是业务相关的事了（一般是用自己的业务ID进行拼接，生成一个有意义”的唯一Key</li>
-<li>当然，也有用「 Redis」和「 MYSQL」实现分布式锁来实现幂等的（：）</li>
-<li>但 Redis’分布式锁是不能完全保证安全的，而MNSL实现分布式锁（乐观锁和悲观锁），不过还是看业务吧，我是没用到过的</li>
-<li>网上有很多实现「幂等」的方案，本质上都是围绕着「存储」和「唯一Key」做了些变种，然后取了个名字</li>
+<h2 id="那你了解「服务端路由」的大致原理吗？"><a href="#那你了解「服务端路由」的大致原理吗？" class="headerlink" title="那你了解「服务端路由」的大致原理吗？"></a>那你了解「服务端路由」的大致原理吗？</h2><ul>
+<li><p>嗯，服务端路由一般指的就是，有个代理层专门对接客户端的请求，然后再转发到Redis集群进行处理</p>
+</li>
+<li><p>上次最后面试的时候，也提到了，现在比较流行的是Codis</p>
+</li>
+<li><p>它与Redis Clusteri最大的区别就是，Redis Cluster是直连Redis实例的，而Codis则客户端直连Proxy，再由Proxy进行分发到不同的Redis实例进行处理</p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/5iNRXA_20211230102232.png"></p>
+</li>
+<li><p>在Codis对Key路由的方案跟Redis Cluster很类似，Codis初始化出1024个哈希槽，然后分配到不同的Redis服务器中</p>
+</li>
+<li><p>哈希槽与Redis实例的映射关系由Zookeeper进行存储和管理，Proxy会通过CodisDashBoard得到最新的映射关系，并缓存在本地上</p>
+</li>
 </ul>
+<h2 id="那如果我要扩容Codis-Redis实例的流程是怎么样的？"><a href="#那如果我要扩容Codis-Redis实例的流程是怎么样的？" class="headerlink" title="那如果我要扩容Codis Redis实例的流程是怎么样的？"></a>那如果我要扩容Codis Redis实例的流程是怎么样的？</h2><ul>
+<li>简单来说就是：把新的Redis：实例加入到集群中，然后把部分数据迁移到新的实例上</li>
+<li>大概的过程就是：<ul>
+<li>1.「原实例」某一个Solt的部分数据发送给「目标实例」</li>
+<li>2.「目标实例」收到数据后，给「原实例」返回ack</li>
+<li>3.「原实例」收到ack之后，在本地删除掉刚刚给「目标实例」的数据</li>
+<li>4.不断循环1、2、3步骤，直至整个solt迁移完毕</li>
+</ul>
+</li>
+<li>Codis和Redis Cluster迁移的步骤都差不多的</li>
+<li>不过Codis：是支持「异步迁移」的，针对上面的步骤2，「原实例」发送数据后，不等待「目标实例」返回ack，就可以继续接收客户端的请求</li>
+<li>未迁移完的数据标记为「只读」，就不会影响到数据的一致性</li>
+<li>如果对迁移中的数据存在「写操作」，那会让客户端进行「重试」，最后会写到「目标实例」上</li>
+<li>还有就是，针对bigkey，异步迁移采用了「拆分指令」的方式进行迁移，比如有个set元素有10000个，那「原实例」可能就发送10000条命令给「目标实例」，而不是一整个bigkey一次性迁移（因为大对象容易造成阻塞）</li>
+</ul>
+<h2 id="Redis-Cluster和Codis的总体区别"><a href="#Redis-Cluster和Codis的总体区别" class="headerlink" title="Redis Cluster和Codis的总体区别"></a>Redis Cluster和Codis的总体区别</h2><p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/EArvDs_20211230102555.png"></p>
+<h2 id="总结1"><a href="#总结1" class="headerlink" title="总结1"></a>总结1</h2><ul>
+<li>说白了就是，如果集群Redis实例存在变动，由于Redis实例之间会「通讯」</li>
+<li>所以等到客户端请求时，Redis实例总会知道客户端所要请求的数据在哪个Redis实例上</li>
+<li>如果已经迁移完毕了，那就返回「move」命令告诉客户端应该去找哪个Redis实例要数据，并且客户端应该更新自己的缓存（映射关系）</li>
+<li>如果正在迁移中，那就返回「ack」命令告诉客户端应该去找哪个Redis实例要数据</li>
+</ul>
+<h2 id="总结2"><a href="#总结2" class="headerlink" title="总结2"></a>总结2</h2><p><strong>分片集群诞生理由</strong>：写性能在高并发下会遇到瓶颈&amp;&amp;无法无限地纵向扩展（不划算）</p>
+<p><strong>分片集群</strong>：需要解决「数据路由」和「数据迁移」的问题</p>
+<p><strong>Redis Cluster数据路由</strong>：</p>
+<ul>
+<li>Redis Cluster默认一个集群有16384个哈希槽，哈希槽会被分配到Redis集群中的实例中</li>
+<li>Redis集群的实例会相互「通讯」，交互自己所负责哈希槽信息（最终每个实例都有完整的映射关系）</li>
+<li>当客户端请求时，使用CRC16算法算出Hash值并模以16384，自然就能得到哈希槽进而得到所对应的Redis实例位置</li>
+</ul>
+<p><strong>为什么16384个哈希槽</strong>：16384个既能让Redis实例分配到的数据相对均匀，又不会影响Redis实例之间交互槽信息产生严重的网络性能开销问题</p>
+<p><strong>Redis Cluster 为什么使用哈希槽，而非一致性哈希算法</strong>：哈希槽实现相对简单高效，每次扩缩容只需要动对应Solt（槽）的数据，一般不会动整个Redis实例</p>
+<p><strong>Codis数据路由</strong>：默认分配1024个哈希槽，映射相关信息会被保存至Zookeeper集群。Proxy会缓存一份至本地，Redis集群实例发生变化时，DashBoard更新Zookeeper和Proxy的映射信息</p>
+<p><strong>Redis Cluster和Codis数据迁移</strong>：Redis Cluster支持同步迁移，Codis支持同步迁移&amp;&amp;异步迁移</p>
 
       
     </div>
