@@ -850,6 +850,163 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/5a56f011/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lion.png">
+      <meta itemprop="name" content="swimminghao">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="swimminghao's blog">
+      <meta itemprop="description" content="swimminghao的学习博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | swimminghao's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/5a56f011/" class="post-title-link" itemprop="url">2、【对线面试官】今天来聊聊Java泛型</a>
+        </h2>
+
+        <div class="post-meta-container">
+
+          
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-03-10 09:48:07" itemprop="dateModified" datetime="2022-03-10T09:48:07+08:00">2022-03-10</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/posts/5a56f011/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/5a56f011/" data-xid="/posts/5a56f011/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>2.5k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>2 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>#2、【对线面试官】今天来聊聊Java泛型</p>
+<h2 id="泛型了解"><a href="#泛型了解" class="headerlink" title="泛型了解"></a>泛型了解</h2><ol>
+<li>在Java中的泛型简单来说就是：在创建对象或调用方法的时候才明确下具体的类型</li>
+<li>使用泛型的好处就是代码更加简洁（不再需要强制转换），程序更加健壮（在编译期间没有警告，在运行期就不会出现ClassCastException异常）</li>
+</ol>
+<h2 id="工作中用得多吗"><a href="#工作中用得多吗" class="headerlink" title="工作中用得多吗"></a>工作中用得多吗</h2><ol>
+<li>在操作集合的时候，还是很多的，毕竟方便啊。List lists &#x3D; new ArrayList&lt;&gt;();lists.add （”面试造火箭”）；</li>
+<li>如果是其他场景的话，那就是在写「基础组件」的时候了。</li>
+</ol>
+<h2 id="你是怎么写的"><a href="#你是怎么写的" class="headerlink" title="你是怎么写的"></a>你是怎么写的</h2><ol>
+<li><p>再明确一下泛型就是「在创建对象或调用方法的时候才明确下具体的类型」</p>
+</li>
+<li><p>而组件为了做到足够的通用性，是不知道「用户」传入什么类型参数进来的所以在这种情况下用泛型就是很好的实践。</p>
+</li>
+<li><p>这块可以参考SpringData JPA的JpaRepository写法。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">JpaRepository</span>&lt;T, ID&gt; <span class="keyword">extends</span> <span class="title class_">PagingAndSortingRepository</span>&lt;T, ID&gt;, QueryByExampleExecutor&lt;T&gt; &#123;</span><br><span class="line"></span><br><span class="line"> List&lt;T&gt; <span class="title function_">findAll</span><span class="params">()</span>;</span><br><span class="line"></span><br><span class="line"> List&lt;T&gt; <span class="title function_">findAll</span><span class="params">(Sort sort)</span>;</span><br><span class="line"></span><br><span class="line"> List&lt;T&gt; <span class="title function_">findAllById</span><span class="params">(Iterable&lt;ID&gt; ids)</span>;</span><br><span class="line"></span><br><span class="line"> &lt;S <span class="keyword">extends</span> <span class="title class_">T</span>&gt; List&lt;S&gt; <span class="title function_">saveAll</span><span class="params">(Iterable&lt;S&gt; entities)</span>;</span><br><span class="line"></span><br><span class="line"> <span class="keyword">void</span> <span class="title function_">flush</span><span class="params">()</span>;</span><br><span class="line"></span><br><span class="line"> &lt;S <span class="keyword">extends</span> <span class="title class_">T</span>&gt; S <span class="title function_">saveAndFlush</span><span class="params">(S entity)</span>;</span><br><span class="line"></span><br><span class="line"> <span class="keyword">void</span> <span class="title function_">deleteInBatch</span><span class="params">(Iterable&lt;T&gt; entities)</span>;</span><br><span class="line"></span><br><span class="line"> <span class="keyword">void</span> <span class="title function_">deleteAllInBatch</span><span class="params">()</span>;</span><br><span class="line"></span><br><span class="line"> T <span class="title function_">getOne</span><span class="params">(ID id)</span>;</span><br><span class="line"></span><br><span class="line"> <span class="meta">@Override</span></span><br><span class="line"> &lt;S <span class="keyword">extends</span> <span class="title class_">T</span>&gt; List&lt;S&gt; <span class="title function_">findAll</span><span class="params">(Example&lt;S&gt; example)</span>;</span><br><span class="line"></span><br><span class="line"> <span class="meta">@Override</span></span><br><span class="line"> &lt;S <span class="keyword">extends</span> <span class="title class_">T</span>&gt; List&lt;S&gt; <span class="title function_">findAll</span><span class="params">(Example&lt;S&gt; example, Sort sort)</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>要写组件，还是离不开Java反射机制（能够从运行时获取信息），所以一般组件是泛型+反射来实现的。</p>
+</li>
+<li><p>回到我所讲的组件吧，背景是这样的：我这边有个需求，需要根据某些字段进行聚合。</p>
+</li>
+<li><p>换到SQL其实就是select sum（column 1),sum(column2) from table group by fie ld1,field2</p>
+</li>
+<li><p>需要sum和group by的列肯定是由业务方自己传入，而SQL的表其实就是我们的POJO（传入的字段也肯定是POJO的属性）</p>
+</li>
+<li><p>单个业务实际可以在参数上写死POJO，但为了做得更加通用，我把入参设置为泛型</p>
+</li>
+<li><p>拿到参数后，通过反射获取其字段具体的值，做累加就好了。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 传入 需要group by 和 sum 的字段名</span></span><br><span class="line"><span class="keyword">public</span> <span class="title function_">cacheMap</span><span class="params">(List&lt;String&gt; groupByKeys, List&lt;String&gt; sumValues)</span> &#123;</span><br><span class="line">  <span class="built_in">this</span>.groupByKeys = groupByKeys;</span><br><span class="line">  <span class="built_in">this</span>.sumValues = sumValues;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">excute</span><span class="params">(T e)</span> &#123;</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// 从pojo 取出需要group by 的字段 list</span></span><br><span class="line">  List&lt;Object&gt; key = buildPrimaryKey(e);</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// primaryMap 是存储结果的Map</span></span><br><span class="line">  <span class="type">T</span> <span class="variable">value</span> <span class="operator">=</span> primaryMap.get(key);</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// 如果从存储结果找到有相应记录</span></span><br><span class="line">  <span class="keyword">if</span> (value != <span class="literal">null</span>) &#123;</span><br><span class="line">    <span class="keyword">for</span> (String elem : sumValues) &#123;</span><br><span class="line">      <span class="comment">// 反射获取对应的字段，做累加处理</span></span><br><span class="line">      <span class="type">Field</span> <span class="variable">field</span> <span class="operator">=</span> getDeclaredField(elem, e);</span><br><span class="line">      <span class="keyword">if</span> (field.get(e) <span class="keyword">instanceof</span> Integer) &#123;</span><br><span class="line">        field.set(value, (Integer) field.get(e) + (Integer) field.get(value));</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span> (field.get(e) <span class="keyword">instanceof</span> Long) &#123;</span><br><span class="line">        field.set(value, (Long) field.get(e) + (Long) field.get(value));</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">RuntimeException</span>(<span class="string">&quot;类型异常,请处理异常&quot;</span>);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 处理时间记录</span></span><br><span class="line">    <span class="type">Field</span> <span class="variable">field</span> <span class="operator">=</span> getDeclaredField(<span class="string">&quot;updated&quot;</span>, value);</span><br><span class="line">    <span class="keyword">if</span> (<span class="literal">null</span> != field) &#123;</span><br><span class="line">      field.set(value, DateTimeUtils.getCurrentTime());</span><br><span class="line">    &#125;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="comment">// group by 字段 第一次进来</span></span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      primaryMap.put(key, Tclone(e));</span><br><span class="line">      createdMap.put(key, DateTimeUtils.getCurrentTime());</span><br><span class="line">    &#125;<span class="keyword">catch</span> (Exception ex) &#123;</span><br><span class="line">      log.info(<span class="string">&quot;first put value error &#123;&#125;&quot;</span> , e);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>理解了泛型的作用之后，再去审视自己代码时，就可以判断是否需要用到泛型了。</p>
+</li>
+</ol>
+<h2 id="价值体现"><a href="#价值体现" class="headerlink" title="价值体现"></a>价值体现</h2><ol>
+<li>主要是在平时工作中，写代码的时候会多想想，遇到能用到的地方会优化下代码</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>l
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://example.com/posts/9544a93a/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1058,6 +1215,481 @@
 <p><strong>Minor GC</strong>：当Eden区满了则触发，从GC Roots往下遍历，年轻代GC不关心老年代对象</p>
 <p><strong>什么是card table</strong>【卡表】：空间换时间（类似bitmap），能够避免扫描老年代的所有对象，进而顺利进行Minor GC （案例：老年代对象持有年轻代对象引用）</p>
 <p><strong>堆内存占比</strong>：年轻代占堆内存1&#x2F;3，老年代占堆内存2&#x2F;3。Eden区占年轻代8&#x2F;10，Survivor区占年轻代2&#x2F;10（其中From 和To 各站1&#x2F;10)</p>
+
+      
+    </div>
+
+    
+    
+    
+
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>l
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/6f559dce/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lion.png">
+      <meta itemprop="name" content="swimminghao">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="swimminghao's blog">
+      <meta itemprop="description" content="swimminghao的学习博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | swimminghao's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/6f559dce/" class="post-title-link" itemprop="url">30、【对线面试官】CMS垃圾回收器</a>
+        </h2>
+
+        <div class="post-meta-container">
+
+          
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-03-10 09:48:07" itemprop="dateModified" datetime="2022-03-10T09:48:07+08:00">2022-03-10</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/posts/6f559dce/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/6f559dce/" data-xid="/posts/6f559dce/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>2.1k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>2 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="30、【对线面试官】CMS垃圾回收器"><a href="#30、【对线面试官】CMS垃圾回收器" class="headerlink" title="30、【对线面试官】CMS垃圾回收器"></a>30、【对线面试官】CMS垃圾回收器</h1><h2 id="今天还是来聊聊CMS垃圾收集器呗？"><a href="#今天还是来聊聊CMS垃圾收集器呗？" class="headerlink" title="今天还是来聊聊CMS垃圾收集器呗？"></a>今天还是来聊聊CMS垃圾收集器呗？</h2><ul>
+<li>如果用Seria和 Parallel系列的垃圾收集器：在垃圾回收的时，用户线程都会完全停止，直至垃圾回收结束！</li>
+<li>CMS的全称： Concurrent Mark Sweep，翻译过来是「并发标记清除」</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/1u2iZp_20211229164510.png"></p>
+<ul>
+<li>用CMS对比上面的垃圾收集器（ Seria和Parllel和 parNew）：它最大的不同点就是「并发」：在GC线程工作的时候，用户线程「不会完全停止」，用户线程在「部分场景下」与GC线程一起并发执行</li>
+<li>无论是什么垃圾收集器， Stop The Word&#x2F;是一定无法避免的！</li>
+<li>CMS只是在「部分」的GC场景下可以让GC线程与用户线程并发执行</li>
+<li>目的：为了避免「老年代GC」出现「长时间」的卡顿（ Stop The Word )</li>
+</ul>
+<h2 id="CMS工作流程"><a href="#CMS工作流程" class="headerlink" title="CMS工作流程"></a>CMS工作流程</h2><ul>
+<li><p>CMS可以简单分为5个步骤：初始标记、并发标记、并发预清理、重新标记以及并发清除</p>
+<ul>
+<li><p>从步骤可看出，CMS主要是实现了「标记清除」垃圾回收算法</p>
+</li>
+<li><p>「初始标记」</p>
+<ul>
+<li>「初始标记」会标记 GCroots「直接关联」的对象以及「年轻代」指向「老年代」的对象</li>
+<li>「初始标记」这个过程是会发生 Stop The Word的。但这个阶段的速度算是很快的，因为没有「向下追溯」（只标记一层）</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/FqsTqd_20211229162246.png"></p>
+</li>
+<li><p>「并发标记」</p>
+<ul>
+<li>「并发标记」这个过程是不会停止用户线程的（不会发生 Stop The Word）。这一阶段主要是从 GC Roots向下「追溯」，标记所有可达的对象</li>
+<li>并发标记」在GC的角度而言，是比较耗费时间的（需要追溯）</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/cUUH7w_20211229162544.png"></p>
+</li>
+<li><p>「并发预处理」</p>
+<ul>
+<li>「并发预处理」这个阶段主要是：希望能减少下一个阶段「重新标记」所消耗的时间</li>
+<li>因为下一个阶段「重新标记」是需要Stop The World的，「并发标记」这个阶段由于用户线程是没有被挂起的，所以对象是有可能发生变化的</li>
+<li>可能有些对象，从新生代晋升到了老年代。可能有些对象，直接分配到了老年代（大对象）。可能老年代或者新生代的对象引用发生了变化</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/NeI2CU_20211229163018.png"></p>
+</li>
+<li><p>「重新标记」</p>
+<ul>
+<li>「重新标记」阶段会 Stop The Word，这个过程的停顿时间其实很大程度上取决于上面「并发预处理」阶段</li>
+<li>这是一个追赶的过程：边在标记存活对象，一边用户线程在执行产生垃圾）</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/o97JPO_20211229163156.png"></p>
+</li>
+<li><p>「并发清除」</p>
+<ul>
+<li>一边用户线程在执行，一边GC线程在回收不可达的对象</li>
+<li>这个过程，还是有可能用户线程在不断产生垃圾，但只能留到下一次GC进行处<br>理了，产生的这些垃圾被叫做“浮动垃圾”</li>
+<li>完了以后会重置CMS算法相关的内部数据，为下一次GC循环做准备</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/TJihOR_20211229163307.png"></p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="为什么要扫年轻代？"><a href="#为什么要扫年轻代？" class="headerlink" title="为什么要扫年轻代？"></a>为什么要扫年轻代？</h2><ul>
+<li>CMS主要回收老年代的对象。年轻代有可能会指向老年代的对象，不扫就不知道是不是垃圾了</li>
+</ul>
+<h2 id="「并发预处理」问题解决"><a href="#「并发预处理」问题解决" class="headerlink" title="「并发预处理」问题解决"></a>「并发预处理」问题解决</h2><ul>
+<li>针对老年代的对象，其实还是可以借助类 card table的存储（将老年代对象发生变化所对应的卡页标记为 dirty）</li>
+<li>所以「并发预处理」这个阶段会扫描可能由于「并发标记」时导致老年代发生变化的对象，会再扫描一遍标记为diy的卡页</li>
+<li>对于新生代的对象，我们还是得遍历新生代来看看在「并发标记」过程中有没有对象引用了老年代.</li>
+<li>JVM里给我们提供了很多「参数」，有可能在这个过程中会触发一次minor GC（触发了 minor GC是意味着就可以更少地遍历新生代的对象）</li>
+</ul>
+<h2 id="相比G1，那你觉得CMS有什么缺点呢？"><a href="#相比G1，那你觉得CMS有什么缺点呢？" class="headerlink" title="相比G1，那你觉得CMS有什么缺点呢？"></a>相比G1，那你觉得CMS有什么缺点呢？</h2><ul>
+<li><p>1.空间需要预留：CMS垃圾收集器可以一边回收垃圾，一边处理用户线程，那需要在这个过程中保证有充足的内存空间供用户使用。</p>
+<ul>
+<li>如果CMS运行过程中预留的空间不够用了，会报错（ Concurrent Mode Failure），这时会启动 Serial Old垃圾收集器进行老年代的垃圾回收，会导致停顿的时间很长</li>
+</ul>
+</li>
+<li><p>2.内存碎片问题：CMS本质上是实现了「标记清除算法」的收集器（从过程就可以看得出），这会意味着会产生内存碎片</p>
+<ul>
+<li>由于碎片太多，又可能会导致内存空间不足所触发 full GC，CMS一般会在触发full GC这个过程对碎片进行整理</li>
+<li>整理涉及到「移动」&#x2F;「标记」，那这个过程肯定会 Stop The Word的，如果内存足够大（意味着可能装载的对象足够多），那这个过程卡顿也是需要一定的时间的。</li>
+</ul>
+</li>
+<li><p>使用CMS的弊端好像就是一个死循环</p>
+<ul>
+<li>1.内存碎片过多，导致空间利用率减低。</li>
+<li>2.空间本身就需要预留给用户线程使用，现在碎片内存又加剧了空间的问题，导致有可能垃圾收集器降级为 Serial old，卡顿时间更长</li>
+<li>3.要处理内存碎片的问题（整理），同样会卡顿</li>
+</ul>
+</li>
+</ul>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ul>
+<li><p>CMS把垃圾回收的过程给”细分”了，然后在某些阶段可以不停止用户线程，一边回收垃圾，一边处理请求，来减少每次垃圾回收时 Stop The Word的时间</p>
+</li>
+<li><p>中间也做了很多的优化（ dirty card标记、可能中途触发 minor gca等等，在我理解下，这些都提供了CMS的相关参数配置</p>
+</li>
+<li><p>CMS垃圾回收器设计目的：</p>
+<ul>
+<li>为了避免「老年代 GC」出现「长时间」的卡顿（Stop The World）</li>
+</ul>
+</li>
+<li><p>CMS垃圾回收器回收过程：</p>
+<ul>
+<li>初始标记、并发标记、并发预处理、重新标记和并发清除。初始标记以及重新标记这两个阶段会Stop The World</li>
+</ul>
+</li>
+<li><p>CMS垃圾回收器的弊端：</p>
+<ul>
+<li>会产生内存碎片&amp;&amp;需要空间预留：停顿时间是不可预知的</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/KNqlDT_20211229164021.png"></p>
+
+      
+    </div>
+
+    
+    
+    
+
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>l
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/e93a2b49/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lion.png">
+      <meta itemprop="name" content="swimminghao">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="swimminghao's blog">
+      <meta itemprop="description" content="swimminghao的学习博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | swimminghao's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/e93a2b49/" class="post-title-link" itemprop="url">31、【对线面试官】G1垃圾收集器</a>
+        </h2>
+
+        <div class="post-meta-container">
+
+          
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-03-10 09:48:07" itemprop="dateModified" datetime="2022-03-10T09:48:07+08:00">2022-03-10</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/posts/e93a2b49/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/e93a2b49/" data-xid="/posts/e93a2b49/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>3.2k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>3 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="31、【对线面试官】G1垃圾收集器"><a href="#31、【对线面试官】G1垃圾收集器" class="headerlink" title="31、【对线面试官】G1垃圾收集器"></a>31、【对线面试官】G1垃圾收集器</h1><h2 id="要不这次来聊聊G1垃圾收集器？"><a href="#要不这次来聊聊G1垃圾收集器？" class="headerlink" title="要不这次来聊聊G1垃圾收集器？"></a>要不这次来聊聊G1垃圾收集器？</h2><ul>
+<li><p>CMS垃圾收集器的升级</p>
+</li>
+<li><p>G1垃圾收集器可以给你设定一个你希望Stop The Word停顿时间，G1垃圾收集器会根据这个时间尽量满足你</p>
+<ul>
+<li><p>在前面我在介绍JM堆的时候，堆的内存分布是以「物理」空间进行隔离</p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/qjMhU8_20211229164725.png"></p>
+</li>
+<li><p>在G1垃圾收集器的世界上，堆的划分不再是「物理」形式，而是以「逻辑」的形式进行划分</p>
+</li>
+<li><p>不过的「分代」概念在G1垃圾收集器的世界还是一样奏效的</p>
+</li>
+<li><p>比如说：新对象一般会分配到Eden区经过默认15次的 Minor GC新生代的对象如果还存活，会移交到老年代等等。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/SwXVef_20211229165004.png"></p>
+</li>
+<li><p>堆被划分了多个同等份的区域，在G1里每个区域叫做Region</p>
+</li>
+<li><p>G1中，还有一种叫 Humongous（大对象）区域，其实就是用来存储特别大的对象（大于 Region内存的一半）</p>
+</li>
+<li><p>一旦发现没有引用指向大对象，就可直接在年轻代的 Minor GC中被回收掉</p>
+</li>
+<li><p>之所以要将「堆空间」进行「细分」多个小的区域，是因为像以前的垃圾收集器都是对堆进行「物理」划分，如果堆空间（内存）大的时候，每次进行「垃圾回收」都需要对一整块大的区域进行回收，那收集的时间是不好控制的；而划分多个小区域之后，那对这些「小区域」回收就容易控制它的「收集时间」了</p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="GC过程"><a href="#GC过程" class="headerlink" title="GC过程"></a>GC过程</h2><ul>
+<li><p>在G1收集器中，可以主要分为有Minor GC（ Young GC）和 Mixed GC，也有些特殊场景可能会发生 Full GC</p>
+<ul>
+<li><p>Minor GC</p>
+<ul>
+<li><p>G1的 Minor GC其实触发时机跟前面提到过的垃圾收集器都是一样的</p>
+</li>
+<li><p>等到Eden区满了之后，会触发 Minor GC。 Minor GCI同样也是会发生 Stop The World的</p>
+</li>
+<li><p>要补充说明的是：在G1的世界里，新生代和老年代所占堆的空间是没那么固定的（会动态根据「最大停顿时间」进行调整）</p>
+</li>
+<li><p>这块会给我们提供参数进行配置就好了</p>
+</li>
+<li><p>所以，动态地改变收集年轻代 Region的个数可以「控制」 Minor GCI的开销</p>
+</li>
+<li><p>Minor GC我认为可以简单分为为三个步骤：根扫描、更新&amp;&amp;处理RSet、复制对象</p>
+<p>1）第一步应该很好理解，因为这跟之前CMS是类似的，可以理解为初始标记的过程</p>
+<p>2）第二步就是处理RSet的信息并且扫描，将老年代对象持有年轻代对象的相关引用都加入到 GC Roots下，避免被回收掉</p>
+<p>​        涉及到「Rset」的概念</p>
+<p>​    （1）上ー次我们聊CMS回收过程的时候，同样讲到了 Minor GC，它是通过「卡表」（ cart table）来避免全表扫描老年代的对象</p>
+<p>​    （2）因为 Minor GC是回收年轻代的对象，但如果老年代有对象引用着年轻代，那这些被老年代引用的对象也不能回收掉</p>
+<p>​    （3）同样的，在G1也有这种问题（毕竟是Minor GC）。CMS是卡表，而G1解决「跨代引用」的问题的存储一般叫做RSet</p>
+<p>​    （4）只要记住，RSet这种存储在每个 Region都会有，它记录着「其他 Region引用了当前 Regiong的对象关系」</p>
+<p>​    <img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/FpUxzX_20211229170010.png"></p>
+<p>​    （5）对于年轻代的 Region，它的RSet只保存了来自老年代的引用（因为年轻代的没必要存储啊，自己都要做 Minor GC了</p>
+<p>​    （6）而对于老年代的 Region来说，它的RSet也只会保存老年代对它的引用（在G1垃圾收集器，老年代回收之前，都会先对年轻代进行回收，所以没必要保存年轻代的引用）</p>
+<p>3）第三步：把扫描之后存活的对象往「空的 Survivor区」或者老年代」存放，其他的Eden区进行清除</p>
+<p>​    （1）这里要提下的是，在G1还有另一个名词，叫做CSet</p>
+<p>​    （2）它的全称是 Collection Set，保存了一次GC中「将执行垃圾回收」的 Region。CSet中的所有存活对象都会被转移到别的可用 Region上</p>
+<p>​    （3）在 Minor GC的最后，会处理下软引用、弱引用、 JNI Weak等引用，结束收集</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>总结</p>
+<ul>
+<li><p>总结起来就是：扫描、处理跨 Region引用、收集至CSet、复制清除、处理引用</p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/WZo9bF_20211229170433.png"></p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="MixedGC过程"><a href="#MixedGC过程" class="headerlink" title="MixedGC过程"></a>MixedGC过程</h2><ul>
+<li>当堆空间的占用率达到一定阈值后会触发 Mixed GC（默认45%，由参数决定）</li>
+<li>Mixed GC会依赖「全局并发标记」统计后的 Region数据</li>
+<li>「全局并发标记」它的过程跟CMS非常类型，步骤大概是：初始标记（STW）、并发标记、最终标记（ST）以及清理（ST）<ul>
+<li>说明： Mixed GC它一定会回收年轻代，并会采集部分老年代的Region进行回收的，所以它是一个混合GC</li>
+<li>「初始标记」，<ul>
+<li>这个过程是「共用」了 Minor GC的 Stop The World（Mixed GC一定会发生 Minor GC），复用了「扫描 GC Roots的操作</li>
+<li>在这个过程中，老年代和新生代都会扫</li>
+<li>总的来说，「初始标记」这个过程还是比较快的，毕竟没有追溯遍历嘛</li>
+</ul>
+</li>
+<li>「并发标记」<ul>
+<li>这个阶段不会 Stop The World，GC线程与用户线程一起执行，GC线程负责收集各个 Region的存活对象信息</li>
+<li>从 GC Roots往下追溯，査找整个堆存活的对象，比较耗时</li>
+</ul>
+</li>
+<li>「重新标记」<ul>
+<li>跟CMS又一样，标记那些在「并发标记」阶段发生变化的对象</li>
+<li>CMS在「重新标记」阶段，应该会重新扫描所有的线程栈和整个年轻代作为root,G1不是<ul>
+<li>在G1中解決「并发标记」阶段导致引用变更的问题，使用的是SATB算法</li>
+<li>可以简单理解为：在GC开始的时候，它为存活的对象做了一次「快照」</li>
+<li>在「并发阶段」时，把每一次发生引用关系变化时旧的引用值给记下来</li>
+<li>然后在「重新标记」阶段只扫描着块「发生过变化」的引用，看有没有对象还是存活的，加入到「 GC Roots」上</li>
+<li>不过SATB算法有个小的问题，就是：如果在开始时，G1就认为它是活的，那就在此次GC中不会对它回收，即便可能在「并发阶段」上对象已经变为了垃圾。</li>
+<li>所以，G1也有可能会存在「浮动垃圾」</li>
+<li>但是总的来说，对于G1而言，问题不大（毕竟它不是追求一次把所有的垃圾都清除掉，而是注重 Stop The Worlde时间）</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>「清理」<ul>
+<li>这个阶段也是会 Stop The World的，主要清点和重置标记状态，会根据「停顿预模型」（其实就是设定的停顿时间），来决定本次GC回收多少 Region</li>
+<li>一般来说， Mixed GC会选定所有的年轻代 Region，部分「回收价值高」的老年代 Region（回收价值高其实就是垃圾多）进行采集</li>
+<li>最后 Mixed GC进行清除还是通过「拷贝」&#x2F;「复制」的方式去干的</li>
+<li>所以在G1中，一次回收未必是将所有的垃圾进行回收的，G1会依据停顿时间做出选择 Region数量</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="什么时候发生full-GC"><a href="#什么时候发生full-GC" class="headerlink" title="什么时候发生full GC"></a>什么时候发生full GC</h2><ul>
+<li>如果在 Mixed GC中无法跟上用户线程分配内存的速度，导致老年代填满无法继续进行 Mixed GC，就又会降级到 serial oldGC来收集整个 GC heap</li>
+<li>其实跟CMS是非常类似的都是因为空间不足</li>
+<li>不过uGC这个场景相较于CMS还是很少的，毕竟G1没有像CMS「内存碎片」这种问题</li>
+</ul>
+<h2 id="G1垃圾收集器特点："><a href="#G1垃圾收集器特点：" class="headerlink" title="G1垃圾收集器特点："></a><strong>G1垃圾收集器特点</strong>：</h2><ul>
+<li>从原来的「物理」分代，变成现在的「逻辑」分代，将堆内存「逻辑」划分为多个Region</li>
+<li>使用CSet来存储可回收Region的集合</li>
+<li>使用RSet来处理跨代引用的问题（注意：RSet不保留 年轻代相关的引用关系）</li>
+<li>G1可简单分为：Minor GC 和Mixed GC以及Full GC</li>
+<li>【Eden区满则触发】Minor GC 回收过程可简单分为：(STW) 扫描 GC Roots、更新&amp;&amp;处理Rset、复制清除</li>
+<li>全局并发标记的过程跟CMS过程差不多：初始标记（STW）、并发标记、最终标记（STW）以及清理（STW）</li>
+<li>【整堆空间占一定比例则触发】Mixed GC 依赖「全局并发标记」，得到CSet(可回收Region)，就进行「复制清除」</li>
+<li>使用SATB算法来处理「并发标记」阶段对象引用存在变更的问题</li>
+<li><strong>亮点&amp;&amp;重点</strong>：提供可停顿时间参数供用户设置（<strong>G1会尽量满足该停顿时间来调整 GC时回收Region的数量</strong>）</li>
+<li>R大描述G1原理的时候，他提到：从宏观的角度看G1，主要分为两块「<strong>全局并发标记</strong>」和「<strong>拷贝存活对象</strong>」</li>
+</ul>
 
       
     </div>
@@ -5412,638 +6044,6 @@
 <li>基于JWT的Token，数据从cache或者数据库中获取</li>
 <li>基于Tomcat的Redis，简单配置conf文件</li>
 <li>基于Spring的Redis，支持SpringCloud和Springb</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>l
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/5a56f011/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/lion.png">
-      <meta itemprop="name" content="swimminghao">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="swimminghao's blog">
-      <meta itemprop="description" content="swimminghao的学习博客">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | swimminghao's blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/5a56f011/" class="post-title-link" itemprop="url">2、【对线面试官】今天来聊聊Java泛型</a>
-        </h2>
-
-        <div class="post-meta-container">
-
-          
-
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-10 09:48:07" itemprop="dateModified" datetime="2022-03-10T09:48:07+08:00">2022-03-10</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="far fa-comment"></i>
-    </span>
-    <span class="post-meta-item-text">Waline：</span>
-  
-    <a title="waline" href="/posts/5a56f011/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/5a56f011/" data-xid="/posts/5a56f011/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>2.5k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>2 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>#2、【对线面试官】今天来聊聊Java泛型</p>
-<h2 id="泛型了解"><a href="#泛型了解" class="headerlink" title="泛型了解"></a>泛型了解</h2><ol>
-<li>在Java中的泛型简单来说就是：在创建对象或调用方法的时候才明确下具体的类型</li>
-<li>使用泛型的好处就是代码更加简洁（不再需要强制转换），程序更加健壮（在编译期间没有警告，在运行期就不会出现ClassCastException异常）</li>
-</ol>
-<h2 id="工作中用得多吗"><a href="#工作中用得多吗" class="headerlink" title="工作中用得多吗"></a>工作中用得多吗</h2><ol>
-<li>在操作集合的时候，还是很多的，毕竟方便啊。List lists &#x3D; new ArrayList&lt;&gt;();lists.add （”面试造火箭”）；</li>
-<li>如果是其他场景的话，那就是在写「基础组件」的时候了。</li>
-</ol>
-<h2 id="你是怎么写的"><a href="#你是怎么写的" class="headerlink" title="你是怎么写的"></a>你是怎么写的</h2><ol>
-<li><p>再明确一下泛型就是「在创建对象或调用方法的时候才明确下具体的类型」</p>
-</li>
-<li><p>而组件为了做到足够的通用性，是不知道「用户」传入什么类型参数进来的所以在这种情况下用泛型就是很好的实践。</p>
-</li>
-<li><p>这块可以参考SpringData JPA的JpaRepository写法。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">JpaRepository</span>&lt;T, ID&gt; <span class="keyword">extends</span> <span class="title class_">PagingAndSortingRepository</span>&lt;T, ID&gt;, QueryByExampleExecutor&lt;T&gt; &#123;</span><br><span class="line"></span><br><span class="line"> List&lt;T&gt; <span class="title function_">findAll</span><span class="params">()</span>;</span><br><span class="line"></span><br><span class="line"> List&lt;T&gt; <span class="title function_">findAll</span><span class="params">(Sort sort)</span>;</span><br><span class="line"></span><br><span class="line"> List&lt;T&gt; <span class="title function_">findAllById</span><span class="params">(Iterable&lt;ID&gt; ids)</span>;</span><br><span class="line"></span><br><span class="line"> &lt;S <span class="keyword">extends</span> <span class="title class_">T</span>&gt; List&lt;S&gt; <span class="title function_">saveAll</span><span class="params">(Iterable&lt;S&gt; entities)</span>;</span><br><span class="line"></span><br><span class="line"> <span class="keyword">void</span> <span class="title function_">flush</span><span class="params">()</span>;</span><br><span class="line"></span><br><span class="line"> &lt;S <span class="keyword">extends</span> <span class="title class_">T</span>&gt; S <span class="title function_">saveAndFlush</span><span class="params">(S entity)</span>;</span><br><span class="line"></span><br><span class="line"> <span class="keyword">void</span> <span class="title function_">deleteInBatch</span><span class="params">(Iterable&lt;T&gt; entities)</span>;</span><br><span class="line"></span><br><span class="line"> <span class="keyword">void</span> <span class="title function_">deleteAllInBatch</span><span class="params">()</span>;</span><br><span class="line"></span><br><span class="line"> T <span class="title function_">getOne</span><span class="params">(ID id)</span>;</span><br><span class="line"></span><br><span class="line"> <span class="meta">@Override</span></span><br><span class="line"> &lt;S <span class="keyword">extends</span> <span class="title class_">T</span>&gt; List&lt;S&gt; <span class="title function_">findAll</span><span class="params">(Example&lt;S&gt; example)</span>;</span><br><span class="line"></span><br><span class="line"> <span class="meta">@Override</span></span><br><span class="line"> &lt;S <span class="keyword">extends</span> <span class="title class_">T</span>&gt; List&lt;S&gt; <span class="title function_">findAll</span><span class="params">(Example&lt;S&gt; example, Sort sort)</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>要写组件，还是离不开Java反射机制（能够从运行时获取信息），所以一般组件是泛型+反射来实现的。</p>
-</li>
-<li><p>回到我所讲的组件吧，背景是这样的：我这边有个需求，需要根据某些字段进行聚合。</p>
-</li>
-<li><p>换到SQL其实就是select sum（column 1),sum(column2) from table group by fie ld1,field2</p>
-</li>
-<li><p>需要sum和group by的列肯定是由业务方自己传入，而SQL的表其实就是我们的POJO（传入的字段也肯定是POJO的属性）</p>
-</li>
-<li><p>单个业务实际可以在参数上写死POJO，但为了做得更加通用，我把入参设置为泛型</p>
-</li>
-<li><p>拿到参数后，通过反射获取其字段具体的值，做累加就好了。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 传入 需要group by 和 sum 的字段名</span></span><br><span class="line"><span class="keyword">public</span> <span class="title function_">cacheMap</span><span class="params">(List&lt;String&gt; groupByKeys, List&lt;String&gt; sumValues)</span> &#123;</span><br><span class="line">  <span class="built_in">this</span>.groupByKeys = groupByKeys;</span><br><span class="line">  <span class="built_in">this</span>.sumValues = sumValues;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">excute</span><span class="params">(T e)</span> &#123;</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// 从pojo 取出需要group by 的字段 list</span></span><br><span class="line">  List&lt;Object&gt; key = buildPrimaryKey(e);</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// primaryMap 是存储结果的Map</span></span><br><span class="line">  <span class="type">T</span> <span class="variable">value</span> <span class="operator">=</span> primaryMap.get(key);</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// 如果从存储结果找到有相应记录</span></span><br><span class="line">  <span class="keyword">if</span> (value != <span class="literal">null</span>) &#123;</span><br><span class="line">    <span class="keyword">for</span> (String elem : sumValues) &#123;</span><br><span class="line">      <span class="comment">// 反射获取对应的字段，做累加处理</span></span><br><span class="line">      <span class="type">Field</span> <span class="variable">field</span> <span class="operator">=</span> getDeclaredField(elem, e);</span><br><span class="line">      <span class="keyword">if</span> (field.get(e) <span class="keyword">instanceof</span> Integer) &#123;</span><br><span class="line">        field.set(value, (Integer) field.get(e) + (Integer) field.get(value));</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span> (field.get(e) <span class="keyword">instanceof</span> Long) &#123;</span><br><span class="line">        field.set(value, (Long) field.get(e) + (Long) field.get(value));</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">RuntimeException</span>(<span class="string">&quot;类型异常,请处理异常&quot;</span>);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 处理时间记录</span></span><br><span class="line">    <span class="type">Field</span> <span class="variable">field</span> <span class="operator">=</span> getDeclaredField(<span class="string">&quot;updated&quot;</span>, value);</span><br><span class="line">    <span class="keyword">if</span> (<span class="literal">null</span> != field) &#123;</span><br><span class="line">      field.set(value, DateTimeUtils.getCurrentTime());</span><br><span class="line">    &#125;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="comment">// group by 字段 第一次进来</span></span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      primaryMap.put(key, Tclone(e));</span><br><span class="line">      createdMap.put(key, DateTimeUtils.getCurrentTime());</span><br><span class="line">    &#125;<span class="keyword">catch</span> (Exception ex) &#123;</span><br><span class="line">      log.info(<span class="string">&quot;first put value error &#123;&#125;&quot;</span> , e);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>理解了泛型的作用之后，再去审视自己代码时，就可以判断是否需要用到泛型了。</p>
-</li>
-</ol>
-<h2 id="价值体现"><a href="#价值体现" class="headerlink" title="价值体现"></a>价值体现</h2><ol>
-<li>主要是在平时工作中，写代码的时候会多想想，遇到能用到的地方会优化下代码</li>
-</ol>
-
-      
-    </div>
-
-    
-    
-    
-
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>l
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/6f559dce/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/lion.png">
-      <meta itemprop="name" content="swimminghao">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="swimminghao's blog">
-      <meta itemprop="description" content="swimminghao的学习博客">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | swimminghao's blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/6f559dce/" class="post-title-link" itemprop="url">30、【对线面试官】CMS垃圾回收器</a>
-        </h2>
-
-        <div class="post-meta-container">
-
-          
-
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-10 09:48:07" itemprop="dateModified" datetime="2022-03-10T09:48:07+08:00">2022-03-10</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="far fa-comment"></i>
-    </span>
-    <span class="post-meta-item-text">Waline：</span>
-  
-    <a title="waline" href="/posts/6f559dce/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/6f559dce/" data-xid="/posts/6f559dce/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>2.1k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>2 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="30、【对线面试官】CMS垃圾回收器"><a href="#30、【对线面试官】CMS垃圾回收器" class="headerlink" title="30、【对线面试官】CMS垃圾回收器"></a>30、【对线面试官】CMS垃圾回收器</h1><h2 id="今天还是来聊聊CMS垃圾收集器呗？"><a href="#今天还是来聊聊CMS垃圾收集器呗？" class="headerlink" title="今天还是来聊聊CMS垃圾收集器呗？"></a>今天还是来聊聊CMS垃圾收集器呗？</h2><ul>
-<li>如果用Seria和 Parallel系列的垃圾收集器：在垃圾回收的时，用户线程都会完全停止，直至垃圾回收结束！</li>
-<li>CMS的全称： Concurrent Mark Sweep，翻译过来是「并发标记清除」</li>
-</ul>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/1u2iZp_20211229164510.png"></p>
-<ul>
-<li>用CMS对比上面的垃圾收集器（ Seria和Parllel和 parNew）：它最大的不同点就是「并发」：在GC线程工作的时候，用户线程「不会完全停止」，用户线程在「部分场景下」与GC线程一起并发执行</li>
-<li>无论是什么垃圾收集器， Stop The Word&#x2F;是一定无法避免的！</li>
-<li>CMS只是在「部分」的GC场景下可以让GC线程与用户线程并发执行</li>
-<li>目的：为了避免「老年代GC」出现「长时间」的卡顿（ Stop The Word )</li>
-</ul>
-<h2 id="CMS工作流程"><a href="#CMS工作流程" class="headerlink" title="CMS工作流程"></a>CMS工作流程</h2><ul>
-<li><p>CMS可以简单分为5个步骤：初始标记、并发标记、并发预清理、重新标记以及并发清除</p>
-<ul>
-<li><p>从步骤可看出，CMS主要是实现了「标记清除」垃圾回收算法</p>
-</li>
-<li><p>「初始标记」</p>
-<ul>
-<li>「初始标记」会标记 GCroots「直接关联」的对象以及「年轻代」指向「老年代」的对象</li>
-<li>「初始标记」这个过程是会发生 Stop The Word的。但这个阶段的速度算是很快的，因为没有「向下追溯」（只标记一层）</li>
-</ul>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/FqsTqd_20211229162246.png"></p>
-</li>
-<li><p>「并发标记」</p>
-<ul>
-<li>「并发标记」这个过程是不会停止用户线程的（不会发生 Stop The Word）。这一阶段主要是从 GC Roots向下「追溯」，标记所有可达的对象</li>
-<li>并发标记」在GC的角度而言，是比较耗费时间的（需要追溯）</li>
-</ul>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/cUUH7w_20211229162544.png"></p>
-</li>
-<li><p>「并发预处理」</p>
-<ul>
-<li>「并发预处理」这个阶段主要是：希望能减少下一个阶段「重新标记」所消耗的时间</li>
-<li>因为下一个阶段「重新标记」是需要Stop The World的，「并发标记」这个阶段由于用户线程是没有被挂起的，所以对象是有可能发生变化的</li>
-<li>可能有些对象，从新生代晋升到了老年代。可能有些对象，直接分配到了老年代（大对象）。可能老年代或者新生代的对象引用发生了变化</li>
-</ul>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/NeI2CU_20211229163018.png"></p>
-</li>
-<li><p>「重新标记」</p>
-<ul>
-<li>「重新标记」阶段会 Stop The Word，这个过程的停顿时间其实很大程度上取决于上面「并发预处理」阶段</li>
-<li>这是一个追赶的过程：边在标记存活对象，一边用户线程在执行产生垃圾）</li>
-</ul>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/o97JPO_20211229163156.png"></p>
-</li>
-<li><p>「并发清除」</p>
-<ul>
-<li>一边用户线程在执行，一边GC线程在回收不可达的对象</li>
-<li>这个过程，还是有可能用户线程在不断产生垃圾，但只能留到下一次GC进行处<br>理了，产生的这些垃圾被叫做“浮动垃圾”</li>
-<li>完了以后会重置CMS算法相关的内部数据，为下一次GC循环做准备</li>
-</ul>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/TJihOR_20211229163307.png"></p>
-</li>
-</ul>
-</li>
-</ul>
-<h2 id="为什么要扫年轻代？"><a href="#为什么要扫年轻代？" class="headerlink" title="为什么要扫年轻代？"></a>为什么要扫年轻代？</h2><ul>
-<li>CMS主要回收老年代的对象。年轻代有可能会指向老年代的对象，不扫就不知道是不是垃圾了</li>
-</ul>
-<h2 id="「并发预处理」问题解决"><a href="#「并发预处理」问题解决" class="headerlink" title="「并发预处理」问题解决"></a>「并发预处理」问题解决</h2><ul>
-<li>针对老年代的对象，其实还是可以借助类 card table的存储（将老年代对象发生变化所对应的卡页标记为 dirty）</li>
-<li>所以「并发预处理」这个阶段会扫描可能由于「并发标记」时导致老年代发生变化的对象，会再扫描一遍标记为diy的卡页</li>
-<li>对于新生代的对象，我们还是得遍历新生代来看看在「并发标记」过程中有没有对象引用了老年代.</li>
-<li>JVM里给我们提供了很多「参数」，有可能在这个过程中会触发一次minor GC（触发了 minor GC是意味着就可以更少地遍历新生代的对象）</li>
-</ul>
-<h2 id="相比G1，那你觉得CMS有什么缺点呢？"><a href="#相比G1，那你觉得CMS有什么缺点呢？" class="headerlink" title="相比G1，那你觉得CMS有什么缺点呢？"></a>相比G1，那你觉得CMS有什么缺点呢？</h2><ul>
-<li><p>1.空间需要预留：CMS垃圾收集器可以一边回收垃圾，一边处理用户线程，那需要在这个过程中保证有充足的内存空间供用户使用。</p>
-<ul>
-<li>如果CMS运行过程中预留的空间不够用了，会报错（ Concurrent Mode Failure），这时会启动 Serial Old垃圾收集器进行老年代的垃圾回收，会导致停顿的时间很长</li>
-</ul>
-</li>
-<li><p>2.内存碎片问题：CMS本质上是实现了「标记清除算法」的收集器（从过程就可以看得出），这会意味着会产生内存碎片</p>
-<ul>
-<li>由于碎片太多，又可能会导致内存空间不足所触发 full GC，CMS一般会在触发full GC这个过程对碎片进行整理</li>
-<li>整理涉及到「移动」&#x2F;「标记」，那这个过程肯定会 Stop The Word的，如果内存足够大（意味着可能装载的对象足够多），那这个过程卡顿也是需要一定的时间的。</li>
-</ul>
-</li>
-<li><p>使用CMS的弊端好像就是一个死循环</p>
-<ul>
-<li>1.内存碎片过多，导致空间利用率减低。</li>
-<li>2.空间本身就需要预留给用户线程使用，现在碎片内存又加剧了空间的问题，导致有可能垃圾收集器降级为 Serial old，卡顿时间更长</li>
-<li>3.要处理内存碎片的问题（整理），同样会卡顿</li>
-</ul>
-</li>
-</ul>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ul>
-<li><p>CMS把垃圾回收的过程给”细分”了，然后在某些阶段可以不停止用户线程，一边回收垃圾，一边处理请求，来减少每次垃圾回收时 Stop The Word的时间</p>
-</li>
-<li><p>中间也做了很多的优化（ dirty card标记、可能中途触发 minor gca等等，在我理解下，这些都提供了CMS的相关参数配置</p>
-</li>
-<li><p>CMS垃圾回收器设计目的：</p>
-<ul>
-<li>为了避免「老年代 GC」出现「长时间」的卡顿（Stop The World）</li>
-</ul>
-</li>
-<li><p>CMS垃圾回收器回收过程：</p>
-<ul>
-<li>初始标记、并发标记、并发预处理、重新标记和并发清除。初始标记以及重新标记这两个阶段会Stop The World</li>
-</ul>
-</li>
-<li><p>CMS垃圾回收器的弊端：</p>
-<ul>
-<li>会产生内存碎片&amp;&amp;需要空间预留：停顿时间是不可预知的</li>
-</ul>
-</li>
-</ul>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/KNqlDT_20211229164021.png"></p>
-
-      
-    </div>
-
-    
-    
-    
-
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>l
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/e93a2b49/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/lion.png">
-      <meta itemprop="name" content="swimminghao">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="swimminghao's blog">
-      <meta itemprop="description" content="swimminghao的学习博客">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | swimminghao's blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/e93a2b49/" class="post-title-link" itemprop="url">31、【对线面试官】G1垃圾收集器</a>
-        </h2>
-
-        <div class="post-meta-container">
-
-          
-
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-10 09:48:07" itemprop="dateModified" datetime="2022-03-10T09:48:07+08:00">2022-03-10</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="far fa-comment"></i>
-    </span>
-    <span class="post-meta-item-text">Waline：</span>
-  
-    <a title="waline" href="/posts/e93a2b49/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/e93a2b49/" data-xid="/posts/e93a2b49/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>3.2k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>3 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="31、【对线面试官】G1垃圾收集器"><a href="#31、【对线面试官】G1垃圾收集器" class="headerlink" title="31、【对线面试官】G1垃圾收集器"></a>31、【对线面试官】G1垃圾收集器</h1><h2 id="要不这次来聊聊G1垃圾收集器？"><a href="#要不这次来聊聊G1垃圾收集器？" class="headerlink" title="要不这次来聊聊G1垃圾收集器？"></a>要不这次来聊聊G1垃圾收集器？</h2><ul>
-<li><p>CMS垃圾收集器的升级</p>
-</li>
-<li><p>G1垃圾收集器可以给你设定一个你希望Stop The Word停顿时间，G1垃圾收集器会根据这个时间尽量满足你</p>
-<ul>
-<li><p>在前面我在介绍JM堆的时候，堆的内存分布是以「物理」空间进行隔离</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/qjMhU8_20211229164725.png"></p>
-</li>
-<li><p>在G1垃圾收集器的世界上，堆的划分不再是「物理」形式，而是以「逻辑」的形式进行划分</p>
-</li>
-<li><p>不过的「分代」概念在G1垃圾收集器的世界还是一样奏效的</p>
-</li>
-<li><p>比如说：新对象一般会分配到Eden区经过默认15次的 Minor GC新生代的对象如果还存活，会移交到老年代等等。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/SwXVef_20211229165004.png"></p>
-</li>
-<li><p>堆被划分了多个同等份的区域，在G1里每个区域叫做Region</p>
-</li>
-<li><p>G1中，还有一种叫 Humongous（大对象）区域，其实就是用来存储特别大的对象（大于 Region内存的一半）</p>
-</li>
-<li><p>一旦发现没有引用指向大对象，就可直接在年轻代的 Minor GC中被回收掉</p>
-</li>
-<li><p>之所以要将「堆空间」进行「细分」多个小的区域，是因为像以前的垃圾收集器都是对堆进行「物理」划分，如果堆空间（内存）大的时候，每次进行「垃圾回收」都需要对一整块大的区域进行回收，那收集的时间是不好控制的；而划分多个小区域之后，那对这些「小区域」回收就容易控制它的「收集时间」了</p>
-</li>
-</ul>
-</li>
-</ul>
-<h2 id="GC过程"><a href="#GC过程" class="headerlink" title="GC过程"></a>GC过程</h2><ul>
-<li><p>在G1收集器中，可以主要分为有Minor GC（ Young GC）和 Mixed GC，也有些特殊场景可能会发生 Full GC</p>
-<ul>
-<li><p>Minor GC</p>
-<ul>
-<li><p>G1的 Minor GC其实触发时机跟前面提到过的垃圾收集器都是一样的</p>
-</li>
-<li><p>等到Eden区满了之后，会触发 Minor GC。 Minor GCI同样也是会发生 Stop The World的</p>
-</li>
-<li><p>要补充说明的是：在G1的世界里，新生代和老年代所占堆的空间是没那么固定的（会动态根据「最大停顿时间」进行调整）</p>
-</li>
-<li><p>这块会给我们提供参数进行配置就好了</p>
-</li>
-<li><p>所以，动态地改变收集年轻代 Region的个数可以「控制」 Minor GCI的开销</p>
-</li>
-<li><p>Minor GC我认为可以简单分为为三个步骤：根扫描、更新&amp;&amp;处理RSet、复制对象</p>
-<p>1）第一步应该很好理解，因为这跟之前CMS是类似的，可以理解为初始标记的过程</p>
-<p>2）第二步就是处理RSet的信息并且扫描，将老年代对象持有年轻代对象的相关引用都加入到 GC Roots下，避免被回收掉</p>
-<p>​        涉及到「Rset」的概念</p>
-<p>​    （1）上ー次我们聊CMS回收过程的时候，同样讲到了 Minor GC，它是通过「卡表」（ cart table）来避免全表扫描老年代的对象</p>
-<p>​    （2）因为 Minor GC是回收年轻代的对象，但如果老年代有对象引用着年轻代，那这些被老年代引用的对象也不能回收掉</p>
-<p>​    （3）同样的，在G1也有这种问题（毕竟是Minor GC）。CMS是卡表，而G1解决「跨代引用」的问题的存储一般叫做RSet</p>
-<p>​    （4）只要记住，RSet这种存储在每个 Region都会有，它记录着「其他 Region引用了当前 Regiong的对象关系」</p>
-<p>​    <img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/FpUxzX_20211229170010.png"></p>
-<p>​    （5）对于年轻代的 Region，它的RSet只保存了来自老年代的引用（因为年轻代的没必要存储啊，自己都要做 Minor GC了</p>
-<p>​    （6）而对于老年代的 Region来说，它的RSet也只会保存老年代对它的引用（在G1垃圾收集器，老年代回收之前，都会先对年轻代进行回收，所以没必要保存年轻代的引用）</p>
-<p>3）第三步：把扫描之后存活的对象往「空的 Survivor区」或者老年代」存放，其他的Eden区进行清除</p>
-<p>​    （1）这里要提下的是，在G1还有另一个名词，叫做CSet</p>
-<p>​    （2）它的全称是 Collection Set，保存了一次GC中「将执行垃圾回收」的 Region。CSet中的所有存活对象都会被转移到别的可用 Region上</p>
-<p>​    （3）在 Minor GC的最后，会处理下软引用、弱引用、 JNI Weak等引用，结束收集</p>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>总结</p>
-<ul>
-<li><p>总结起来就是：扫描、处理跨 Region引用、收集至CSet、复制清除、处理引用</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/WZo9bF_20211229170433.png"></p>
-</li>
-</ul>
-</li>
-</ul>
-<h2 id="MixedGC过程"><a href="#MixedGC过程" class="headerlink" title="MixedGC过程"></a>MixedGC过程</h2><ul>
-<li>当堆空间的占用率达到一定阈值后会触发 Mixed GC（默认45%，由参数决定）</li>
-<li>Mixed GC会依赖「全局并发标记」统计后的 Region数据</li>
-<li>「全局并发标记」它的过程跟CMS非常类型，步骤大概是：初始标记（STW）、并发标记、最终标记（ST）以及清理（ST）<ul>
-<li>说明： Mixed GC它一定会回收年轻代，并会采集部分老年代的Region进行回收的，所以它是一个混合GC</li>
-<li>「初始标记」，<ul>
-<li>这个过程是「共用」了 Minor GC的 Stop The World（Mixed GC一定会发生 Minor GC），复用了「扫描 GC Roots的操作</li>
-<li>在这个过程中，老年代和新生代都会扫</li>
-<li>总的来说，「初始标记」这个过程还是比较快的，毕竟没有追溯遍历嘛</li>
-</ul>
-</li>
-<li>「并发标记」<ul>
-<li>这个阶段不会 Stop The World，GC线程与用户线程一起执行，GC线程负责收集各个 Region的存活对象信息</li>
-<li>从 GC Roots往下追溯，査找整个堆存活的对象，比较耗时</li>
-</ul>
-</li>
-<li>「重新标记」<ul>
-<li>跟CMS又一样，标记那些在「并发标记」阶段发生变化的对象</li>
-<li>CMS在「重新标记」阶段，应该会重新扫描所有的线程栈和整个年轻代作为root,G1不是<ul>
-<li>在G1中解決「并发标记」阶段导致引用变更的问题，使用的是SATB算法</li>
-<li>可以简单理解为：在GC开始的时候，它为存活的对象做了一次「快照」</li>
-<li>在「并发阶段」时，把每一次发生引用关系变化时旧的引用值给记下来</li>
-<li>然后在「重新标记」阶段只扫描着块「发生过变化」的引用，看有没有对象还是存活的，加入到「 GC Roots」上</li>
-<li>不过SATB算法有个小的问题，就是：如果在开始时，G1就认为它是活的，那就在此次GC中不会对它回收，即便可能在「并发阶段」上对象已经变为了垃圾。</li>
-<li>所以，G1也有可能会存在「浮动垃圾」</li>
-<li>但是总的来说，对于G1而言，问题不大（毕竟它不是追求一次把所有的垃圾都清除掉，而是注重 Stop The Worlde时间）</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>「清理」<ul>
-<li>这个阶段也是会 Stop The World的，主要清点和重置标记状态，会根据「停顿预模型」（其实就是设定的停顿时间），来决定本次GC回收多少 Region</li>
-<li>一般来说， Mixed GC会选定所有的年轻代 Region，部分「回收价值高」的老年代 Region（回收价值高其实就是垃圾多）进行采集</li>
-<li>最后 Mixed GC进行清除还是通过「拷贝」&#x2F;「复制」的方式去干的</li>
-<li>所以在G1中，一次回收未必是将所有的垃圾进行回收的，G1会依据停顿时间做出选择 Region数量</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h2 id="什么时候发生full-GC"><a href="#什么时候发生full-GC" class="headerlink" title="什么时候发生full GC"></a>什么时候发生full GC</h2><ul>
-<li>如果在 Mixed GC中无法跟上用户线程分配内存的速度，导致老年代填满无法继续进行 Mixed GC，就又会降级到 serial oldGC来收集整个 GC heap</li>
-<li>其实跟CMS是非常类似的都是因为空间不足</li>
-<li>不过uGC这个场景相较于CMS还是很少的，毕竟G1没有像CMS「内存碎片」这种问题</li>
-</ul>
-<h2 id="G1垃圾收集器特点："><a href="#G1垃圾收集器特点：" class="headerlink" title="G1垃圾收集器特点："></a><strong>G1垃圾收集器特点</strong>：</h2><ul>
-<li>从原来的「物理」分代，变成现在的「逻辑」分代，将堆内存「逻辑」划分为多个Region</li>
-<li>使用CSet来存储可回收Region的集合</li>
-<li>使用RSet来处理跨代引用的问题（注意：RSet不保留 年轻代相关的引用关系）</li>
-<li>G1可简单分为：Minor GC 和Mixed GC以及Full GC</li>
-<li>【Eden区满则触发】Minor GC 回收过程可简单分为：(STW) 扫描 GC Roots、更新&amp;&amp;处理Rset、复制清除</li>
-<li>全局并发标记的过程跟CMS过程差不多：初始标记（STW）、并发标记、最终标记（STW）以及清理（STW）</li>
-<li>【整堆空间占一定比例则触发】Mixed GC 依赖「全局并发标记」，得到CSet(可回收Region)，就进行「复制清除」</li>
-<li>使用SATB算法来处理「并发标记」阶段对象引用存在变更的问题</li>
-<li><strong>亮点&amp;&amp;重点</strong>：提供可停顿时间参数供用户设置（<strong>G1会尽量满足该停顿时间来调整 GC时回收Region的数量</strong>）</li>
-<li>R大描述G1原理的时候，他提到：从宏观的角度看G1，主要分为两块「<strong>全局并发标记</strong>」和「<strong>拷贝存活对象</strong>」</li>
 </ul>
 
       
