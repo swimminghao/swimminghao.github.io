@@ -276,7 +276,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/844cde9b/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/759e745e/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/lion.png">
@@ -294,7 +294,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/844cde9b/" class="post-title-link" itemprop="url">7、【对线面试官】synchronized</a>
+          <a href="/posts/759e745e/" class="post-title-link" itemprop="url">6、【对线面试官】CAS</a>
         </h2>
 
         <div class="post-meta-container">
@@ -336,8 +336,8 @@
     </span>
     <span class="post-meta-item-text">Waline：</span>
   
-    <a title="waline" href="/posts/844cde9b/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/844cde9b/" data-xid="/posts/844cde9b/" itemprop="commentCount"></span>
+    <a title="waline" href="/posts/759e745e/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/759e745e/" data-xid="/posts/759e745e/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -348,7 +348,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>1.5k</span>
+      <span>1k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -366,50 +366,39 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="7、【对线面试官】synchronized"><a href="#7、【对线面试官】synchronized" class="headerlink" title="7、【对线面试官】synchronized"></a>7、【对线面试官】synchronized</h1><h2 id="今天我们来聊聊synchronized吧？"><a href="#今天我们来聊聊synchronized吧？" class="headerlink" title="今天我们来聊聊synchronized吧？"></a>今天我们来聊聊synchronized吧？</h2><ol>
-<li>synchronized是一种互斥锁，一次只能允许一个线程进入被锁住的代码块</li>
-<li>synchronized是Java的一个关键字，它能够将代码块&#x2F;方法锁起来</li>
-<li>如果synchronized修饰的是实例方法，对应的锁则是对象实例</li>
-<li>如果synchronized修饰的是静态方法，对应的锁则是当前类的Class实例</li>
-<li>如果synchronized修饰的是代码块，对应的锁则是传入synchronized的对象实例</li>
+          <h1 id="6、【对线面试官】CAS"><a href="#6、【对线面试官】CAS" class="headerlink" title="6、【对线面试官】CAS"></a>6、【对线面试官】CAS</h1><h2 id="今天我们来聊聊CAS吧？你对CAS了解多少？"><a href="#今天我们来聊聊CAS吧？你对CAS了解多少？" class="headerlink" title="今天我们来聊聊CAS吧？你对CAS了解多少？"></a>今天我们来聊聊CAS吧？你对CAS了解多少？</h2><ol>
+<li>CAS的全称为compare and swap，比较并交换</li>
+<li>虽然翻译过来是「比较并交换」，但它是一个原子性的操作，对应到CPU指令为cmpxchg</li>
+<li>cpu指令你都知道？-&gt;这没什么，都是背的。</li>
+<li>回到CAS上吧，CAS的操作其实非常简单。</li>
+<li>CAS有三个操作数：当前值A、内存值V、要修改的新值B</li>
+<li>假设当前值A跟内存值V相等，那就将内存值V改成B</li>
+<li>假设当前值A跟内存值V不相等，要么就重试，要么就放弃更新</li>
+<li>将当前值与内存值进行对比，判断是否有被修改过，这就是CAS的核心</li>
 </ol>
-<h2 id="嗯，要不你来讲讲synchronized的原理呗？"><a href="#嗯，要不你来讲讲synchronized的原理呗？" class="headerlink" title="嗯，要不你来讲讲synchronized的原理呗？"></a>嗯，要不你来讲讲synchronized的原理呗？</h2><ol>
-<li>通过反编译可以发现</li>
-<li>当修饰方法时，编译器会生成ACC_SYNCHRONIZED关键字用来标识</li>
-<li>当修饰代码块时，会依赖monitorenter和monitorexit指令</li>
-<li>但前面已经说了，无论synchronized修饰的是方法还是代码块，对应的锁都是一个实例（对象）</li>
-<li>在内存中，对象一般由三部分组成，分别是对象头、对象实际数据和对齐填充</li>
-<li>重点在于对象头，对象头又由几部分组成，但我们重点关注对象头Mark Word的信息就好了</li>
-<li>Mark Word会记录对象关于锁的信息</li>
-<li>又因为每个对象都会有一个与之对应的monitor对象，monitor对象中存储着当前持有锁的线程以及等待锁的线程队列</li>
-<li>了解Mark Word和monitor对象是理解synchronized原理的前提</li>
+<h2 id="确实，那为什么要用CAS呢？"><a href="#确实，那为什么要用CAS呢？" class="headerlink" title="确实，那为什么要用CAS呢？"></a>确实，那为什么要用CAS呢？</h2><ol>
+<li>嗯，要讲到CAS就不得不说synchronized锁了，它是Java锁..然后..</li>
+<li>ok，其实就是synchronized锁每次只会让一个线程去操作共享资源</li>
+<li>而CAS相当于没有加锁，多个线程都可以直接操作共享资源，在实际去修改的时候才去判断能否修改成功</li>
+<li>在很多的情况下会synchronized锁要高效很多</li>
+<li>比如，对一个值进行累加，就没必要使用synchronized锁，使用juc包下的Atomic类就足以。</li>
 </ol>
-<h2 id="嗯，听说synchronized锁在JDK1-6之后做了很多的优化，这块你了解多少呢？"><a href="#嗯，听说synchronized锁在JDK1-6之后做了很多的优化，这块你了解多少呢？" class="headerlink" title="嗯，听说synchronized锁在JDK1.6之后做了很多的优化，这块你了解多少呢？"></a>嗯，听说synchronized锁在JDK1.6之后做了很多的优化，这块你了解多少呢？</h2><ol>
-<li>其实是这样的，在JDK1.6之前是重量级锁，线程进入同步代码块&#x2F;方法时</li>
-<li>monitor对象就会把当前进入线程的Id进行存储，设置Mark Word的monitor对象地址，并把阻塞的线程存储到monitor的等待线程队列中</li>
-<li>它加锁是依赖底层操作系统的mutex相关指令实现，所以会有用户态和内核态之间的切换，性能损耗十分明显</li>
-<li>而JDK1.6以后引入偏向锁和轻量级锁在JVM层面实现加锁的逻辑，不依赖底层操作系统，就没有切换的消耗</li>
-<li>所以，Mark Word对锁的状态记录一共有4种：无锁、偏向锁、轻量级锁和重量级锁</li>
+<h2 id="了解，那你知道CAS会有什么缺点吗？"><a href="#了解，那你知道CAS会有什么缺点吗？" class="headerlink" title="了解，那你知道CAS会有什么缺点吗？"></a>了解，那你知道CAS会有什么缺点吗？</h2><ol>
+<li>CAS有个缺点就是会带来ABA的问题</li>
+<li>从CAS更新的时候，我们可以发现它只比对当前值和内存值是否相等，这会带来个问题，下面我举例说明下：</li>
+<li>假设线程A读到当前值是10，可能线程B把值修改为100，然后线程C又把值修改为10。</li>
+<li>等到线程A拿到执行权时，因为当前值和内存值是一致的，线程A是可以修改的！</li>
+<li>站在线程A的角度来说，这个值是从未被修改的（：</li>
+<li>这是不合理的，因为我们从上帝的角度来看，这个变量已经被线程B和线程C修改过了。</li>
+<li>这就是所谓的ABA问题</li>
+<li>要解决ABA的问题，Java也提供了AtomicStampedReference类供我们用，说白了就是加了个版本，比对的就是内存值+版本是否一致</li>
 </ol>
-<h3 id="简单来说说偏向锁、轻量级锁和重量级锁吧"><a href="#简单来说说偏向锁、轻量级锁和重量级锁吧" class="headerlink" title="简单来说说偏向锁、轻量级锁和重量级锁吧"></a>简单来说说偏向锁、轻量级锁和重量级锁吧</h3><ol>
-<li>偏向锁指的就是JVM会认为只有某个线程才会执行同步代码（没有竞争的环境）</li>
-<li>所以在Mark Word会直接记录线程ID，只要线程来执行代码了，会比对线程ID是否相等，相等则当前线程能直接获取得到锁，执行同步代码</li>
-<li>如果不相等，则用CAS来尝试修改当前的线程ID，如果CAS修改成功，那还是能获取得到锁，执行同步代码</li>
-<li>如果CAS失败了，说明有竞争环境，此时会对偏向锁撤销，升级为轻量级锁。</li>
-<li>在轻量级锁状态下，当前线程会在栈帧下创建Lock Record，LockRecord会把 Mark Word的信息拷贝进去，且有个Owner指针指向加锁的对象由由</li>
-<li>线程执行到同步代码时，则用CAS试图将Mark Word的指向到线程栈帧的LockRecord，假设CAS修改成功，则获取得到轻量级锁</li>
-<li>假设修改失败，则自旋（重试），自旋一定次数后，则升级为重量级锁</li>
-<li>简单总结一下<ul>
-<li>synchronized锁原来只有重量级锁，依赖操作系统的mutex指令，需要用户态和内核态切换，性能损耗十分明显</li>
-<li>重量级锁用到monitor对象而偏向锁则在Mark Word记录线程ID进行比对、轻量级锁则是拷贝Mark Word到Lock Record，用CAS+自旋的方式获取。</li>
-</ul>
-</li>
-<li>引入了偏向锁和轻量级锁，就是为了在不同的使用场景使用不同的锁，进而提高效率。<br>锁只有升级，没有降级<ul>
-<li>只有一个线程进入临界区，偏向锁</li>
-<li>多个线程交替进入临界区，轻量级锁</li>
-<li>多线程同时进入临界区，重量级锁</li>
-</ul>
-</li>
+<h2 id="阿里巴巴开发手册提及到推荐使用LongAdder对象，比AtomicLong性能更好（减少乐观锁的重试次数）"><a href="#阿里巴巴开发手册提及到推荐使用LongAdder对象，比AtomicLong性能更好（减少乐观锁的重试次数）" class="headerlink" title="阿里巴巴开发手册提及到推荐使用LongAdder对象，比AtomicLong性能更好（减少乐观锁的重试次数）"></a>阿里巴巴开发手册提及到推荐使用LongAdder对象，比AtomicLong性能更好（减少乐观锁的重试次数）</h2><ol>
+<li>AtomicLong做累加的时候实际上就是多个线程操作同一个目标资源</li>
+<li>在高并发时，只有一个线程是执行成功的，其他的线程都会失败，不断自旋（重试），自旋会成为瓶颈</li>
+<li>而LongAdder的思想就是把要操作的目标资源「分散」到数组Cell中</li>
+<li>每个线程对自己的Cell变量的value进行原子操作，大大降低了失败的次数</li>
+<li>这就是为什么在高并发场景下，推荐使用LongAdder的原因</li>
 </ol>
 
       
