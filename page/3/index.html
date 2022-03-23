@@ -102,7 +102,7 @@
   <ul class="main-menu menu">
         <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
         <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
-        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">29</span></a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">30</span></a></li>
         <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">8</span></a></li>
         <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">129</span></a></li>
         <li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a></li>
@@ -187,7 +187,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">29</span>
+        <span class="site-state-item-count">30</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -229,8 +229,8 @@
 		    </a>
 		</li>
 	        <li class="my-links-of-blogroll-item">
-		    <a href="/posts/55ff28b4/" title="Spring Boot 2.0 集成 redis" target="">
-		    Spring Boot 2.0 集成 redis
+		    <a href="/posts/55ff28b4/" title="renren-fast开发文档3.0最新版" target="">
+		    renren-fast开发文档3.0最新版
 		    </a>
 		</li>
 	        <li class="my-links-of-blogroll-item">
@@ -276,7 +276,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/734afda2/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/e215f7cb/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/lion.png">
@@ -294,7 +294,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/734afda2/" class="post-title-link" itemprop="url">idea .gitignore(git文件忽略)</a>
+          <a href="/posts/e215f7cb/" class="post-title-link" itemprop="url">NAS上搭建SS客户端</a>
         </h2>
 
         <div class="post-meta-container">
@@ -323,6 +323,828 @@
       </span>
       <span class="post-meta-item-text">分类于</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">工具</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/posts/e215f7cb/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/e215f7cb/" data-xid="/posts/e215f7cb/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>1.9k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>2 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="群辉NAS上搭建SS客户端来连接远程并提供本地HTTP-x2F-Socks5代理"><a href="#群辉NAS上搭建SS客户端来连接远程并提供本地HTTP-x2F-Socks5代理" class="headerlink" title="群辉NAS上搭建SS客户端来连接远程并提供本地HTTP&#x2F;Socks5代理"></a>群辉NAS上搭建SS客户端来连接远程并提供本地HTTP&#x2F;Socks5代理</h1><p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/mxF2RW_20220217094542.png" alt="img"></p>
+<p><a target="_blank" rel="noopener" href="https://odcn.top/2018/10/24/854/%E7%BE%A4%E6%99%96ss%E5%90%8C%E6%AD%A5dropbox%E5%92%8Cgoogledrive/">主要参考了这片文章。</a></p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://odcn.top/2018/10/24/854/%E7%BE%A4%E6%99%96ss%E5%90%8C%E6%AD%A5dropbox%E5%92%8Cgoogledrive/">shadowsocks的Http代理桥接为SOCKS5代理，使群晖SS同步Dropbox和GoogleDrive</a></p>
+</blockquote>
+<iframe title="《shadowsocks的Http代理桥接为SOCKS5代理，使群晖SS同步Dropbox和GoogleDrive》—oD^Blog" class="wp-embedded-content" sandbox="allow-scripts" security="restricted" src="https://odcn.top/2018/10/24/854/%e7%be%a4%e6%99%96ss%e5%90%8c%e6%ad%a5dropbox%e5%92%8cgoogledrive/embed/#?secret=hiN7sQcs2t" data-secret="hiN7sQcs2t" width="600" height="338" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="box-sizing: border-box; margin: 0px; padding: 0px; border: 0px; max-width: 100%; position: absolute; clip: rect(1px, 1px, 1px, 1px);"></iframe>
+**Contents**  [hide](https://1024.ee/index.php/2020/04/06/群辉nas上搭建ss客户端来连接远程并提供本地http-socks5代理/#) 
+
+<p><a target="_blank" rel="noopener" href="https://1024.ee/index.php/2020/04/06/%E7%BE%A4%E8%BE%89nas%E4%B8%8A%E6%90%AD%E5%BB%BAss%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%9D%A5%E8%BF%9E%E6%8E%A5%E8%BF%9C%E7%A8%8B%E5%B9%B6%E6%8F%90%E4%BE%9B%E6%9C%AC%E5%9C%B0http-socks5%E4%BB%A3%E7%90%86/#xia_zaidocker_-_ss-privoxy">1 下载docker – ss-privoxy</a></p>
+<p><a target="_blank" rel="noopener" href="https://1024.ee/index.php/2020/04/06/%E7%BE%A4%E8%BE%89nas%E4%B8%8A%E6%90%AD%E5%BB%BAss%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%9D%A5%E8%BF%9E%E6%8E%A5%E8%BF%9C%E7%A8%8B%E5%B9%B6%E6%8F%90%E4%BE%9B%E6%9C%AC%E5%9C%B0http-socks5%E4%BB%A3%E7%90%86/#gao_ji_she_zhi">2 高级设置</a></p>
+<p><a target="_blank" rel="noopener" href="https://1024.ee/index.php/2020/04/06/%E7%BE%A4%E8%BE%89nas%E4%B8%8A%E6%90%AD%E5%BB%BAss%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%9D%A5%E8%BF%9E%E6%8E%A5%E8%BF%9C%E7%A8%8B%E5%B9%B6%E6%8F%90%E4%BE%9B%E6%9C%AC%E5%9C%B0http-socks5%E4%BB%A3%E7%90%86/#she_zhi_duan_kou">3 设置端口</a></p>
+<p><a target="_blank" rel="noopener" href="https://1024.ee/index.php/2020/04/06/%E7%BE%A4%E8%BE%89nas%E4%B8%8A%E6%90%AD%E5%BB%BAss%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%9D%A5%E8%BF%9E%E6%8E%A5%E8%BF%9C%E7%A8%8B%E5%B9%B6%E6%8F%90%E4%BE%9B%E6%9C%AC%E5%9C%B0http-socks5%E4%BB%A3%E7%90%86/#zui_hou_cha_yi_cha">4 最后查一查</a></p>
+<p><a target="_blank" rel="noopener" href="https://1024.ee/index.php/2020/04/06/%E7%BE%A4%E8%BE%89nas%E4%B8%8A%E6%90%AD%E5%BB%BAss%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%9D%A5%E8%BF%9E%E6%8E%A5%E8%BF%9C%E7%A8%8B%E5%B9%B6%E6%8F%90%E4%BE%9B%E6%9C%AC%E5%9C%B0http-socks5%E4%BB%A3%E7%90%86/#kai_qi_hou_cha_cha_ri_zhi_yi_qie_zheng_chang_ji_ke">5 开启后查查日志，一切正常即可</a></p>
+<p><a target="_blank" rel="noopener" href="https://1024.ee/index.php/2020/04/06/%E7%BE%A4%E8%BE%89nas%E4%B8%8A%E6%90%AD%E5%BB%BAss%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%9D%A5%E8%BF%9E%E6%8E%A5%E8%BF%9C%E7%A8%8B%E5%B9%B6%E6%8F%90%E4%BE%9B%E6%9C%AC%E5%9C%B0http-socks5%E4%BB%A3%E7%90%86/#qun_hui_zi_ji_de_shi_yong_kai_zhe_li_jiu_xing">6 群辉自己的使用，看这里就行。</a></p>
+<p><a target="_blank" rel="noopener" href="https://1024.ee/index.php/2020/04/06/%E7%BE%A4%E8%BE%89nas%E4%B8%8A%E6%90%AD%E5%BB%BAss%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%9D%A5%E8%BF%9E%E6%8E%A5%E8%BF%9C%E7%A8%8B%E5%B9%B6%E6%8F%90%E4%BE%9B%E6%9C%AC%E5%9C%B0http-socks5%E4%BB%A3%E7%90%86/#qun_hui_zi_ji_de_shi_yong_kai_zhe_li_jiu_xing">7指令</a></p>
+<h2 id="下载docker-–-ss-privoxy"><a href="#下载docker-–-ss-privoxy" class="headerlink" title="下载docker – ss-privoxy"></a>下载docker – ss-privoxy</h2><p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2NcHvz_20220217094617.png" alt="img"></p>
+<h2 id="高级设置"><a href="#高级设置" class="headerlink" title="高级设置"></a>高级设置</h2><p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/JTDf8S_20220217094637.png" alt="img">注意是<strong>文件</strong>，不是文件夹。而且，文件名就是<strong>config</strong>, 不是config.conf之类。</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#配置文件</span></span><br><span class="line"></span><br><span class="line">confdir /etc/privoxy</span><br><span class="line">logdir /var/log/privoxy</span><br><span class="line"></span><br><span class="line">actionsfile match-all.action <span class="comment"># Actions that are applied to all sites and maybe overruled later on.</span></span><br><span class="line">actionsfile default.action <span class="comment"># Main actions file</span></span><br><span class="line">actionsfile <span class="keyword">user</span>.action <span class="comment"># User customizations</span></span><br><span class="line"></span><br><span class="line">filterfile default.filter</span><br><span class="line">filterfile <span class="keyword">user</span>.filter <span class="comment"># User customizations</span></span><br><span class="line"></span><br><span class="line">logfile privoxy.log</span><br><span class="line"><span class="comment">#下面这行的意思是监听来自任意地址的8118访问</span></span><br><span class="line">listen-address :<span class="number">8118</span></span><br><span class="line">toggle <span class="number">1</span></span><br><span class="line"></span><br><span class="line">enable-remote-toggle <span class="number">0</span></span><br><span class="line">enable-remote-http-toggle <span class="number">0</span></span><br><span class="line">enable-edit-actions <span class="number">0</span></span><br><span class="line">enforce-blocks <span class="number">0</span></span><br><span class="line"></span><br><span class="line">buffer-limit <span class="number">4096</span></span><br><span class="line">enable-proxy-authentication-forwarding <span class="number">0</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#启用这段全局代理模式#####################################</span></span><br><span class="line"><span class="comment">##下面一行表示将所有网址转发给本地7070端口，也就是本地的SS客户端所开放的端口。</span></span><br><span class="line"><span class="comment">#forward-socks5 / 127.0.0.1:7070 .</span></span><br><span class="line"><span class="comment">#启动这段只有部分网址走代理###############################</span></span><br><span class="line">forward / .</span><br><span class="line"><span class="comment">#下面这一段表示需要走代理的规则</span></span><br><span class="line">forward-socks5 .dropbox*.com <span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">7070</span> .</span><br><span class="line">forward-socks5 .*google*.* <span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">7070</span> .</span><br><span class="line">forward-socks5 .*facebook*.* <span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">7070</span> .</span><br><span class="line">forward-socks5 .*twitter*.* <span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">7070</span> .</span><br><span class="line"><span class="comment">#forward-socks5 .*youtube*.* 127.0.0.1:7070 .</span></span><br><span class="line"><span class="comment">##########################################################</span></span><br><span class="line">forwarded-connect-retries <span class="number">0</span></span><br><span class="line"></span><br><span class="line">accept-intercepted-requests <span class="number">0</span></span><br><span class="line">allow-cgi-request-crunching <span class="number">0</span></span><br><span class="line">split-large-forms <span class="number">0</span></span><br><span class="line">keep-alive-timeout <span class="number">300</span></span><br><span class="line">tolerate-pipelining <span class="number">1</span></span><br><span class="line">default-server-timeout <span class="number">60</span></span><br><span class="line">socket-timeout <span class="number">300</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#配置文件结束</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="设置端口"><a href="#设置端口" class="headerlink" title="设置端口"></a>设置端口</h2><ul>
+<li>7070 For Socks5 – All Traffic</li>
+<li>8118 for Http&#x2F;Https – 部分域名翻墙，改conf文件即可</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/t5PYQv_20220217094721.png" alt="img"></p>
+<h2 id="最后查一查"><a href="#最后查一查" class="headerlink" title="最后查一查"></a>最后查一查</h2><p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/iwGoJB_20220217094740.png" alt="img"></p>
+<h2 id="开启后查查日志，一切正常即可"><a href="#开启后查查日志，一切正常即可" class="headerlink" title="开启后查查日志，一切正常即可"></a>开启后查查日志，一切正常即可</h2><p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/S5u8G1_20220217094809.png" alt="img"></p>
+<h2 id="群辉自己的使用，开这里就行。"><a href="#群辉自己的使用，开这里就行。" class="headerlink" title="群辉自己的使用，开这里就行。"></a>群辉自己的使用，开这里就行。</h2><p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/L0Nwl6_20220217094828.png" alt="img"></p>
+<h2 id="指令"><a href="#指令" class="headerlink" title="指令"></a>指令</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -i -t -e SERVER_ADDR=n47.boom.party -e SERVER_PORT=31100 -e PASSWORD=Uk92CS -e METHOD=aes-256-cfb -e PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin -e TIME_OUT=300 -p 7070:7070 -p 8118:8118 -v /share/CACHEDEV1_DATA/Container/etc/privoxy/config:/etc/privoxy/config oldiy/ss-privoxy</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>l
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/5832e44e/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lion.png">
+      <meta itemprop="name" content="swimminghao">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="swimminghao's blog">
+      <meta itemprop="description" content="swimminghao的学习博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | swimminghao's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/5832e44e/" class="post-title-link" itemprop="url">shell知识点</a>
+        </h2>
+
+        <div class="post-meta-container">
+
+          
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-03-13 12:56:04" itemprop="dateModified" datetime="2022-03-13T12:56:04+08:00">2022-03-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">工具</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/posts/5832e44e/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/5832e44e/" data-xid="/posts/5832e44e/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>2k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>2 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="1易混淆点"><a href="#1易混淆点" class="headerlink" title="$1易混淆点"></a>$1易混淆点</h1><h2 id="一、标准输入和参数的区别"><a href="#一、标准输入和参数的区别" class="headerlink" title="一、标准输入和参数的区别"></a>一、标准输入和参数的区别</h2><p>这个问题一定是最容易让人迷惑的，具体来说，就是搞不清什么时候用管道 符| 和文件重定向&gt; ，&lt; ，什么时候用变量$ 。</p>
+<p>比如说，我现在有个自动连接宽带的 shell 脚本 connect.sh ，存在我的家目录:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">where</span> connect.sh </span><br><span class="line">/home/fdl/bin/connect.sh</span><br></pre></td></tr></table></figure>
+
+<p>如果我想删除这个脚本，而且想少敲几次键盘，应该怎么操作呢?我曾经这<br>样尝试过:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">where</span> connect.sh | <span class="built_in">rm</span></span><br></pre></td></tr></table></figure>
+
+<p>实际上，这样操作是错误的，正确的做法应该是这样的:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">rm</span> $(<span class="built_in">where</span> connect.sh)</span><br></pre></td></tr></table></figure>
+
+<p>前者试图将 where 的结果连接到 rm 的标准输入，后者试图将结果作为命令行参数传入。</p>
+<p><strong>标准输入就是编程语言中诸如</strong> <strong>scanf</strong> <strong>或者</strong> <strong>readline</strong> <strong>这种命令;而参数是指 程序的</strong> <strong>main</strong> <strong>函数传入的</strong> <strong>args</strong> <strong>字符数组</strong>。</p>
+<p>前文「Linux文件描述符」说过，管道符和重定向符是将数据作为程序的标 准输入，而 $(cmd) 是读取 cmd 命令输出的数据作为参数。</p>
+<p>用刚才的例子说， rm 命令源代码中肯定不接受标准输入，而是接收命令行 参数，删除相应的文件。作为对比， cat 命令是既接受标准输入，又接受 命令行参数:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cat</span> filename </span><br><span class="line">...file text...</span><br><span class="line">$ <span class="built_in">cat</span> &lt; filename</span><br><span class="line">...file text...</span><br><span class="line">$ <span class="built_in">echo</span> <span class="string">&#x27;hello world&#x27;</span> | <span class="built_in">cat</span></span><br><span class="line">hello world</span><br></pre></td></tr></table></figure>
+
+<p><strong>如果命令能够让终端阻塞，说明该命令接收标准输入，反之就是不接受</strong>，比 如你只运行 cat 命令不加任何参数，终端就会阻塞，等待你输入字符串并 回显相同的字符串。</p>
+<h2 id="二、后台运行程序"><a href="#二、后台运行程序" class="headerlink" title="二、后台运行程序"></a><strong>二、后台运行程序</strong></h2><p>比如说你远程登录到服务器上，运行一个 Django web 程序:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ python manager.py runserver 0.0.0.0 Listening on 0.0.0.0:8080...</span><br></pre></td></tr></table></figure>
+
+<p>现在你可以通过服务器的 IP 地址测试 Django 服务，但是终端此时就阻塞 了，你输入什么都不响应，除非输入 Ctrl-C 或者 Ctrl-&#x2F; 终止 python 进程。</p>
+<p>可以在命令之后加一个 &amp; 符号，这样命令行不会阻塞，可以响应你后续输 入的命令，但是如果你退出服务器的登录，就不能访问该网⻚了。</p>
+<p>如果你想在退出服务器之后仍然能够访问web服务，应该这样写命令 (cmd &amp;) :</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ (python manager.py runserver 0.0.0.0 &amp;) Listening on 0.0.0.0:8080...</span><br><span class="line"></span><br><span class="line">$ <span class="built_in">logout</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>底层原理是这样的</strong>:</p>
+<p>每一个命令行终端都是一个 shell 进程，你在这个终端里执行的程序实际上 都是这个 shell 进程分出来的子进程。正常情况下，shell 进程会阻塞，等待 子进程退出才重新接收你输入的新的命令。加上 &amp; 号，只是让 shell 进程不 再阻塞，可以继续响应你的新命令。但是无论如何，你如果关掉了这个 shell 命令行端口，依附于它的所有子进程都会退出。</p>
+<p><strong>而 (cmd &amp;) 这样运行命令，则是将 cmd 命令挂到一个 systemd 系统守护进程名下，认 systemd 做爸爸，这样当你退出当前终端时，对于刚才的 cmd 命令就完全没有影响了。</strong></p>
+<p>类似的，还有一种后台运行常用的做法是这样:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ nohub some_cmd &amp;</span><br></pre></td></tr></table></figure>
+
+<p>nohub 命令也是类似的原理，不过通过我的测试，<strong>还是 (cmd &amp;) 这种形式 更加稳定</strong>。</p>
+<h2 id="三、单引号和双引号的区别"><a href="#三、单引号和双引号的区别" class="headerlink" title="三、单引号和双引号的区别"></a>三、单引号和双引号的区别</h2><p>不同的 shell 行为会有细微区别，但有一点是确定的，<strong>对于</strong> <strong>$</strong> <strong>，</strong> <strong>(</strong> <strong>，</strong> <strong>)</strong> <strong>这 几个符号，单引号包围的字符串不会做任何转义，双引号包围的字符串会转 义</strong>。</p>
+<p>shell 的行为可以测试，使用 set -x 命令，会开启 shell 的命令回显，你可 以通过回显观察 shell 到底在执行什么命令:</p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/acjc30_20210910112344.png"></p>
+<p>可⻅ echo $(cmd) 和 echo “$(cmd)” ，结果差不多，但是仍然有区别。注 意观察，双引号转义完成的结果会自动增加单引号，而前者不会。</p>
+<p><strong>也就是说，如果</strong> <strong>$</strong> <strong>读取出的参数字符串包含空格，应该用双引号括起来， 否则就会出错</strong>。</p>
+<h2 id="四、-sudo-找不到命令"><a href="#四、-sudo-找不到命令" class="headerlink" title="四、****sudo 找不到命令"></a><strong>四、****sudo</strong> <strong>找不到命令</strong></h2><p>有时候我们普通用户可以用的命令，用 sudo 加权限之后却报错 command not found:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ connect.sh</span><br><span class="line"> network-manager: Permission denied</span><br><span class="line"></span><br><span class="line">$ sudo connect.sh</span><br><span class="line"> sudo: <span class="built_in">command</span> not found</span><br></pre></td></tr></table></figure>
+
+<p>原因在于， connect.sh 这个脚本仅存在于该用户的环境变量中:</p>
+<p><strong>当使用</strong> <strong>sudo</strong> <strong>时，系统会使用</strong> <strong>&#x2F;etc&#x2F;sudoers</strong> <strong>这个文件中规定的该用户的权 限和环境变量</strong>，而这个脚本在 &#x2F;etc&#x2F;sudoers 环境变量目录中当然是找不到 的。</p>
+<p>解决方法是使用脚本文件的路径，而不是仅仅通过脚本名称:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo /home/fdl/bin/connect.sh</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>l
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/98b63d5c/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lion.png">
+      <meta itemprop="name" content="swimminghao">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="swimminghao's blog">
+      <meta itemprop="description" content="swimminghao的学习博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | swimminghao's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/98b63d5c/" class="post-title-link" itemprop="url">shell效率</a>
+        </h2>
+
+        <div class="post-meta-container">
+
+          
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-03-13 12:56:04" itemprop="dateModified" datetime="2022-03-13T12:56:04+08:00">2022-03-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">工具</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/posts/98b63d5c/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/98b63d5c/" data-xid="/posts/98b63d5c/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>3.3k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>3 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="§1效率"><a href="#§1效率" class="headerlink" title="§1效率"></a>§1效率</h1><h2 id="输入相似文件名太麻烦"><a href="#输入相似文件名太麻烦" class="headerlink" title="输入相似文件名太麻烦"></a><strong>输入相似文件名太麻烦</strong></h2><p>用花括号括起来的字符串用逗号连接，可以自动扩展，非常有用，直接看例子:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">echo</span> &#123;one,two,three&#125;file</span><br><span class="line">onefile twofile threefile</span><br><span class="line">$ <span class="built_in">echo</span> &#123;one,two,three&#125;&#123;1,2,3&#125;</span><br><span class="line">one1 one2 one3 two1 two2 two3 three1 three2 three3</span><br></pre></td></tr></table></figure>
+
+<p>你看，花括号中的每个字符都可以和之后(或之前)的字符串进行组合拼 接，<strong>注意花括号和其中的逗号不可以用空格分隔，否则会被认为是普通的字 符串对待</strong>。</p>
+<p>这个技巧有什么实际用处呢?最简单有用的就是给 cp , mv , rm 等命令扩 展参数:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cp</span> /very/long/path/file&#123;,.bak&#125;</span><br><span class="line">==&gt; <span class="built_in">cp</span> /very/long/path/file /very/long/path/file.bak</span><br><span class="line"><span class="comment"># 给 file 复制一个叫做 file.bak 的副本</span></span><br><span class="line"></span><br><span class="line">$ <span class="built_in">rm</span> file&#123;1,3,5&#125;.txt</span><br><span class="line"><span class="comment"># 删除 file1.txt file3.txt file5.txt</span></span><br><span class="line"></span><br><span class="line">$ <span class="built_in">mv</span> *.&#123;c,cpp&#125; src/</span><br><span class="line"><span class="comment"># 将所有 .c 和 .cpp 为后缀的文件移入 src 文件夹</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="输入路径名称太麻烦"><a href="#输入路径名称太麻烦" class="headerlink" title="输入路径名称太麻烦"></a><strong>输入路径名称太麻烦</strong></h2><ul>
+<li><strong>用</strong> <strong>cd -</strong> <strong>返回刚才呆的目录</strong>，直接看例子吧:</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">pwd</span></span><br><span class="line"> /very/long/path</span><br><span class="line"> $ <span class="built_in">cd</span> <span class="comment"># 回到家目录瞅瞅</span></span><br><span class="line"> $ <span class="built_in">pwd</span></span><br><span class="line"> /home/labuladong</span><br><span class="line"> $ <span class="built_in">cd</span> - <span class="comment"># 再返回刚才那个目录 $ pwd</span></span><br><span class="line"> /very/long/path</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>特殊命令</strong> <strong>!$</strong> <strong>会替换成上一次输入的命令最后的路径</strong>，直接看例子:</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#没有加可执行权限</span></span><br><span class="line">$ /usr/bin/script.sh</span><br><span class="line">zsh: permission denied: /usr/bin/script.sh</span><br><span class="line"></span><br><span class="line">$ <span class="built_in">chmod</span> +x !$</span><br><span class="line"><span class="built_in">chmod</span> +x /usr/bin/script.sh</span><br><span class="line"><span class="built_in">export</span> lessCharset-uft8</span><br></pre></td></tr></table></figure>
+
+<p><strong>特殊命令</strong> <strong>!*</strong> <strong>会替换成上一次命令输入的所有文件路径</strong>，直接看例子:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建了三个脚本文件</span></span><br><span class="line">$ file script1.sh script2.sh script3.sh</span><br><span class="line"></span><br><span class="line"><span class="comment"># 给它们全部加上可执行权限</span></span><br><span class="line">$ <span class="built_in">chmod</span> +x !*</span><br><span class="line"><span class="built_in">chmod</span> +x script1.sh script2.sh script3.sh</span><br></pre></td></tr></table></figure>
+
+<p><strong>可以在环境变量</strong> <strong>CDPATH</strong> <strong>中加入你常用的工作目录</strong>，当 cd 命令在当前目 录中找不到你指定的文件&#x2F;目录时，会自动到 CDPATH 中的目录中寻找。</p>
+<p>比如说我常去 &#x2F;var&#x2F;log 目录找日志，可以执行如下命令:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">export</span> CDPATH=<span class="string">&#x27;~:/var/log&#x27;</span></span><br><span class="line"><span class="comment"># cd 命令将会在 〜 目录和 /var/log 目录扩展搜索$ pwd</span></span><br><span class="line">/home/labuladong/musics</span><br><span class="line">$ <span class="built_in">cd</span> mysql</span><br><span class="line"><span class="built_in">cd</span> /var/log/mysql</span><br><span class="line">$ <span class="built_in">pwd</span></span><br><span class="line">/var/log/mysql</span><br><span class="line">$ <span class="built_in">cd</span> my_pictures</span><br><span class="line"><span class="built_in">cd</span> /home/labuladong/my_pictures</span><br></pre></td></tr></table></figure>
+
+<p>这个技巧是十分好用的，这样就免了经常写完整的路径名称，节约不少时间。</p>
+<p>需要注意的是，以上操作是 bash 支持的，其他主流 shell 解释器当然都支持 扩展 cd 命令的搜索目录，但可能不是修改 CDPATH 这个变量，具体的设 置方法可以自行搜索。</p>
+<h2 id="输入重复命令太麻烦"><a href="#输入重复命令太麻烦" class="headerlink" title="输入重复命令太麻烦"></a>输入重复命令太麻烦</h2><p>** <strong>使用特殊命令</strong> <strong>!!</strong> <strong>，可以自动替换成上一次使用的命令</strong>:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ apt install net-tools</span><br><span class="line"> E: Could not open lock file - open (13: Permission denied)</span><br><span class="line"></span><br><span class="line">$ sudo !!</span><br><span class="line"> sudo apt install net-tools [sudo] password <span class="keyword">for</span> fdl:</span><br></pre></td></tr></table></figure>
+
+<p>有的命令很⻓，一时间想不起来具体参数了怎么办?</p>
+<p><strong>对于</strong> <strong>bash</strong> <strong>终端，可以使用</strong> <strong>Ctrl+R</strong> <strong>快捷键反向搜索历史命令</strong>，之所以说是 反向搜索，就是搜索最近一次输入的命令。</p>
+<p>比如按下 Ctrl+R 之后，输入 sudo ，bash 就会搜索出最近一次包含 sudo 的命令，你回⻋之后就可以运行该命令了:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(reverse-i-search)`sudo<span class="string">&#x27;: sudo apt install git</span></span><br></pre></td></tr></table></figure>
+
+<p>但是这个方法有缺点:首先，该功能似乎只有 bash 支持，我用的 zsh 作为 shell 终端，就用不了;第二，只能查找出一个(最近的)命令，如果我想 找以前的某个命令，就没办法了。</p>
+<p>对于这种情况，<strong>我们最常用的方法是使用</strong> <strong>history</strong> <strong>命令配合管道符和</strong> <strong>grep</strong> <strong>命令来寻找某个历史命令</strong>:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 过滤出所有包含 config 字段的历史命令</span></span><br><span class="line">$ <span class="built_in">history</span> | grep <span class="string">&#x27;config&#x27;</span></span><br><span class="line">	7352 ./configure</span><br><span class="line">	7434 git config --global --<span class="built_in">unset</span> https.proxy 9609 ifconfig</span><br><span class="line">	9985 clip -o | sed -z <span class="string">&#x27;s/\n/,\n/g&#x27;</span> | clip</span><br><span class="line">	10433 <span class="built_in">cd</span> ~/.config</span><br></pre></td></tr></table></figure>
+
+<p>你使用的所有 shell 命令都会被记录，前面的数字就表示这是第几个命令， 找到你想重复使用的命令后，也不需要复制粘贴该命令，<strong>只要使用</strong> <strong>!</strong> <strong>+</strong> <strong>你 想重用的命令编号即可运行该命令</strong>。<br>拿上面的例子，我想重新运行 git config 那条命令，就可以这样:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ !7434</span><br><span class="line">git config --global --<span class="built_in">unset</span> https.proxy <span class="comment"># 运行完成</span></span><br></pre></td></tr></table></figure>
+
+<p>我觉得 history 加管道加 grep 这样打的字还是太多，可以在 你的 shell 配置文件中( .bashrc ， .zshrc 等) 中写这样一个函数:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">his</span></span>() &#123;</span><br><span class="line">	<span class="built_in">history</span> | grep <span class="string">&quot;<span class="variable">$@</span>&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这样就不需要写那么多，只需要 his ‘some_keyword’ 即可搜索历史命令。</p>
+<p>我一般不使用 bash 作为终端，我给大家推荐一款很好用的 shell 终端叫做 zsh，这也是我自己使用的 shell。这款终端还可以扩展各种插件，非常好 用，具体配置方法可自行搜索。</p>
+<h2 id="其他小技巧"><a href="#其他小技巧" class="headerlink" title="其他小技巧"></a>其他小技巧</h2><ul>
+<li><p>**yes <strong>命令自动输入字符</strong>y **进行确认</p>
+<p>我们安装某些软件的时候，可能有交互式的提问:</p>
+</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt install XXX</span><br><span class="line">...</span><br><span class="line">XXX will use 996 MB disk space, <span class="built_in">continue</span>? [y/n]</span><br></pre></td></tr></table></figure>
+
+<p>一般情况下我们都是一路 y 到底，但如果我们想自动化一些软件的安装就很 烦，遇到这种交互式提问就卡住了，还得手动处理。</p>
+<p>yes 命令可以帮助我们:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">yes</span> | your_cmd</span><br></pre></td></tr></table></figure>
+
+<p>这样就会一路自动 y 下去，不会停下让我们输入了。 如果你读过前文Linux 文件描述符，就知道其原理很简单:</p>
+<p>你单独运行一下 yes 命令，发现它就是打印出一大堆字符 y，通过管道把 输出和 your_cmd 的标准输入相连接，如果 your_cmd 又提出无聊的问题， 就会从标准输入读取数据，也就会读取到一个 y 和换行符，和你手动输入 y 确认是一个效果。</p>
+<ul>
+<li><strong>特殊变量</strong> <strong>$?</strong> <strong>记录上一次命令的返回值</strong>。</li>
+</ul>
+<p>在 Linux shell 中，遵循 C 语言的习惯，返回值为 0 的话就是程序正常退 出，非 0 值就是异常退出出。读取上一次命令的返回值在平时使用命令行时 感觉没什么用，但是如果你想编写一些 shell 脚本，知道返回值非常有用。</p>
+<p><strong>举个实际的例子</strong>，比如我的 Github 仓库 fucking-algorithm ，我需要给其中 所有 markdown 文件最下方添加上一篇、下一篇、目录三个⻚脚链接，有的 文章已经有了⻚脚，大部分都没有。</p>
+<p>为了防止重复添加，我必须知道一个 md 文件下方是否已添加，这时候就可 以使用 $? 变量配合 grep 命令做到:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line">filename=<span class="variable">$1</span></span><br><span class="line"><span class="comment"># 查看文件尾部是否包含关键词</span></span><br><span class="line"><span class="built_in">tail</span> | grep <span class="string">&#x27;下一篇&#x27;</span> <span class="variable">$filename</span></span><br><span class="line"><span class="comment"># grep 查找到匹配会返回 0，找不到则返回非 0 值</span></span><br><span class="line">[ $? -ne 0 ] &amp;&amp; &#123; 添加⻚脚; &#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>特殊变量</strong> <strong>$$</strong> <strong>记录当前进程的</strong> <strong>PID</strong>。</li>
+</ul>
+<p>这个功能可能在平时使用时也不怎么用，但是在写 shell 脚本时也非常有 用，比如说你要在 &#x2F;tmp 创建临时文件，给文件起名字一直都是非常让人 费脑子 的，这时候可以使用 $$ 变量扩展出当前进程的 PID 作为临时文件的名字。</p>
+
+      
+    </div>
+
+    
+    
+    
+
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>l
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/969e74c3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lion.png">
+      <meta itemprop="name" content="swimminghao">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="swimminghao's blog">
+      <meta itemprop="description" content="swimminghao的学习博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | swimminghao's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/969e74c3/" class="post-title-link" itemprop="url">shell效率0</a>
+        </h2>
+
+        <div class="post-meta-container">
+
+          
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-03-13 12:56:04" itemprop="dateModified" datetime="2022-03-13T12:56:04+08:00">2022-03-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">工具</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/posts/969e74c3/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/969e74c3/" data-xid="/posts/969e74c3/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>3.3k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>3 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>[toc]</p>
+<h1 id="§1效率"><a href="#§1效率" class="headerlink" title="§1效率"></a>§1效率</h1><h2 id="输入相似文件名太麻烦"><a href="#输入相似文件名太麻烦" class="headerlink" title="输入相似文件名太麻烦"></a><strong>输入相似文件名太麻烦</strong></h2><p>用花括号括起来的字符串用逗号连接，可以自动扩展，非常有用，直接看例子:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">echo</span> &#123;one,two,three&#125;file</span><br><span class="line">onefile twofile threefile</span><br><span class="line">$ <span class="built_in">echo</span> &#123;one,two,three&#125;&#123;1,2,3&#125;</span><br><span class="line">one1 one2 one3 two1 two2 two3 three1 three2 three3</span><br></pre></td></tr></table></figure>
+
+<p>你看，花括号中的每个字符都可以和之后(或之前)的字符串进行组合拼 接，<strong>注意花括号和其中的逗号不可以用空格分隔，否则会被认为是普通的字 符串对待</strong>。</p>
+<p>这个技巧有什么实际用处呢?最简单有用的就是给 cp , mv , rm 等命令扩 展参数:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cp</span> /very/long/path/file&#123;,.bak&#125;</span><br><span class="line">==&gt; <span class="built_in">cp</span> /very/long/path/file /very/long/path/file.bak</span><br><span class="line"><span class="comment"># 给 file 复制一个叫做 file.bak 的副本</span></span><br><span class="line"></span><br><span class="line">$ <span class="built_in">rm</span> file&#123;1,3,5&#125;.txt</span><br><span class="line"><span class="comment"># 删除 file1.txt file3.txt file5.txt</span></span><br><span class="line"></span><br><span class="line">$ <span class="built_in">mv</span> *.&#123;c,cpp&#125; src/</span><br><span class="line"><span class="comment"># 将所有 .c 和 .cpp 为后缀的文件移入 src 文件夹</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="输入路径名称太麻烦"><a href="#输入路径名称太麻烦" class="headerlink" title="输入路径名称太麻烦"></a><strong>输入路径名称太麻烦</strong></h2><ul>
+<li><strong>用</strong> <strong>cd -</strong> <strong>返回刚才呆的目录</strong>，直接看例子吧:</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">pwd</span></span><br><span class="line"> /very/long/path</span><br><span class="line"> $ <span class="built_in">cd</span> <span class="comment"># 回到家目录瞅瞅</span></span><br><span class="line"> $ <span class="built_in">pwd</span></span><br><span class="line"> /home/labuladong</span><br><span class="line"> $ <span class="built_in">cd</span> - <span class="comment"># 再返回刚才那个目录 $ pwd</span></span><br><span class="line"> /very/long/path</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>特殊命令</strong> <strong>!$</strong> <strong>会替换成上一次输入的命令最后的路径</strong>，直接看例子:</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#没有加可执行权限</span></span><br><span class="line">$ /usr/bin/script.sh</span><br><span class="line">zsh: permission denied: /usr/bin/script.sh</span><br><span class="line"></span><br><span class="line">$ <span class="built_in">chmod</span> +x !$</span><br><span class="line"><span class="built_in">chmod</span> +x /usr/bin/script.sh</span><br><span class="line"><span class="built_in">export</span> lessCharset-uft8</span><br></pre></td></tr></table></figure>
+
+<p><strong>特殊命令</strong> <strong>!*</strong> <strong>会替换成上一次命令输入的所有文件路径</strong>，直接看例子:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建了三个脚本文件</span></span><br><span class="line">$ file script1.sh script2.sh script3.sh</span><br><span class="line"></span><br><span class="line"><span class="comment"># 给它们全部加上可执行权限</span></span><br><span class="line">$ <span class="built_in">chmod</span> +x !*</span><br><span class="line"><span class="built_in">chmod</span> +x script1.sh script2.sh script3.sh</span><br></pre></td></tr></table></figure>
+
+<p><strong>可以在环境变量</strong> <strong>CDPATH</strong> <strong>中加入你常用的工作目录</strong>，当 cd 命令在当前目 录中找不到你指定的文件&#x2F;目录时，会自动到 CDPATH 中的目录中寻找。</p>
+<p>比如说我常去 &#x2F;var&#x2F;log 目录找日志，可以执行如下命令:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">export</span> CDPATH=<span class="string">&#x27;~:/var/log&#x27;</span></span><br><span class="line"><span class="comment"># cd 命令将会在 〜 目录和 /var/log 目录扩展搜索$ pwd</span></span><br><span class="line">/home/labuladong/musics</span><br><span class="line">$ <span class="built_in">cd</span> mysql</span><br><span class="line"><span class="built_in">cd</span> /var/log/mysql</span><br><span class="line">$ <span class="built_in">pwd</span></span><br><span class="line">/var/log/mysql</span><br><span class="line">$ <span class="built_in">cd</span> my_pictures</span><br><span class="line"><span class="built_in">cd</span> /home/labuladong/my_pictures</span><br></pre></td></tr></table></figure>
+
+<p>这个技巧是十分好用的，这样就免了经常写完整的路径名称，节约不少时间。</p>
+<p>需要注意的是，以上操作是 bash 支持的，其他主流 shell 解释器当然都支持 扩展 cd 命令的搜索目录，但可能不是修改 CDPATH 这个变量，具体的设 置方法可以自行搜索。</p>
+<h2 id="输入重复命令太麻烦"><a href="#输入重复命令太麻烦" class="headerlink" title="输入重复命令太麻烦"></a>输入重复命令太麻烦</h2><p>** <strong>使用特殊命令</strong> <strong>!!</strong> <strong>，可以自动替换成上一次使用的命令</strong>:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ apt install net-tools</span><br><span class="line"> E: Could not open lock file - open (13: Permission denied)</span><br><span class="line"></span><br><span class="line">$ sudo !!</span><br><span class="line"> sudo apt install net-tools [sudo] password <span class="keyword">for</span> fdl:</span><br></pre></td></tr></table></figure>
+
+<p>有的命令很⻓，一时间想不起来具体参数了怎么办?</p>
+<p><strong>对于</strong> <strong>bash</strong> <strong>终端，可以使用</strong> <strong>Ctrl+R</strong> <strong>快捷键反向搜索历史命令</strong>，之所以说是 反向搜索，就是搜索最近一次输入的命令。</p>
+<p>比如按下 Ctrl+R 之后，输入 sudo ，bash 就会搜索出最近一次包含 sudo 的命令，你回⻋之后就可以运行该命令了:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(reverse-i-search)`sudo<span class="string">&#x27;: sudo apt install git</span></span><br></pre></td></tr></table></figure>
+
+<p>但是这个方法有缺点:首先，该功能似乎只有 bash 支持，我用的 zsh 作为 shell 终端，就用不了;第二，只能查找出一个(最近的)命令，如果我想 找以前的某个命令，就没办法了。</p>
+<p>对于这种情况，<strong>我们最常用的方法是使用</strong> <strong>history</strong> <strong>命令配合管道符和</strong> <strong>grep</strong> <strong>命令来寻找某个历史命令</strong>:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 过滤出所有包含 config 字段的历史命令</span></span><br><span class="line">$ <span class="built_in">history</span> | grep <span class="string">&#x27;config&#x27;</span></span><br><span class="line">	7352 ./configure</span><br><span class="line">	7434 git config --global --<span class="built_in">unset</span> https.proxy 9609 ifconfig</span><br><span class="line">	9985 clip -o | sed -z <span class="string">&#x27;s/\n/,\n/g&#x27;</span> | clip</span><br><span class="line">	10433 <span class="built_in">cd</span> ~/.config</span><br></pre></td></tr></table></figure>
+
+<p>你使用的所有 shell 命令都会被记录，前面的数字就表示这是第几个命令， 找到你想重复使用的命令后，也不需要复制粘贴该命令，<strong>只要使用</strong> <strong>!</strong> <strong>+</strong> <strong>你 想重用的命令编号即可运行该命令</strong>。<br>拿上面的例子，我想重新运行 git config 那条命令，就可以这样:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ !7434</span><br><span class="line">git config --global --<span class="built_in">unset</span> https.proxy <span class="comment"># 运行完成</span></span><br></pre></td></tr></table></figure>
+
+<p>我觉得 history 加管道加 grep 这样打的字还是太多，可以在 你的 shell 配置文件中( .bashrc ， .zshrc 等) 中写这样一个函数:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">his</span></span>() &#123;</span><br><span class="line">	<span class="built_in">history</span> | grep <span class="string">&quot;<span class="variable">$@</span>&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这样就不需要写那么多，只需要 his ‘some_keyword’ 即可搜索历史命令。</p>
+<p>我一般不使用 bash 作为终端，我给大家推荐一款很好用的 shell 终端叫做 zsh，这也是我自己使用的 shell。这款终端还可以扩展各种插件，非常好 用，具体配置方法可自行搜索。</p>
+<h2 id="其他小技巧"><a href="#其他小技巧" class="headerlink" title="其他小技巧"></a>其他小技巧</h2><ul>
+<li><p>**yes <strong>命令自动输入字符</strong>y **进行确认</p>
+<p>我们安装某些软件的时候，可能有交互式的提问:</p>
+</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt install XXX</span><br><span class="line">...</span><br><span class="line">XXX will use 996 MB disk space, <span class="built_in">continue</span>? [y/n]</span><br></pre></td></tr></table></figure>
+
+<p>一般情况下我们都是一路 y 到底，但如果我们想自动化一些软件的安装就很 烦，遇到这种交互式提问就卡住了，还得手动处理。</p>
+<p>yes 命令可以帮助我们:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">yes</span> | your_cmd</span><br></pre></td></tr></table></figure>
+
+<p>这样就会一路自动 y 下去，不会停下让我们输入了。 如果你读过前文Linux 文件描述符，就知道其原理很简单:</p>
+<p>你单独运行一下 yes 命令，发现它就是打印出一大堆字符 y，通过管道把 输出和 your_cmd 的标准输入相连接，如果 your_cmd 又提出无聊的问题， 就会从标准输入读取数据，也就会读取到一个 y 和换行符，和你手动输入 y 确认是一个效果。</p>
+<ul>
+<li><strong>特殊变量</strong> <strong>$?</strong> <strong>记录上一次命令的返回值</strong>。</li>
+</ul>
+<p>在 Linux shell 中，遵循 C 语言的习惯，返回值为 0 的话就是程序正常退 出，非 0 值就是异常退出出。读取上一次命令的返回值在平时使用命令行时 感觉没什么用，但是如果你想编写一些 shell 脚本，知道返回值非常有用。</p>
+<p><strong>举个实际的例子</strong>，比如我的 Github 仓库 fucking-algorithm ，我需要给其中 所有 markdown 文件最下方添加上一篇、下一篇、目录三个⻚脚链接，有的 文章已经有了⻚脚，大部分都没有。</p>
+<p>为了防止重复添加，我必须知道一个 md 文件下方是否已添加，这时候就可 以使用 $? 变量配合 grep 命令做到:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line">filename=<span class="variable">$1</span></span><br><span class="line"><span class="comment"># 查看文件尾部是否包含关键词</span></span><br><span class="line"><span class="built_in">tail</span> | grep <span class="string">&#x27;下一篇&#x27;</span> <span class="variable">$filename</span></span><br><span class="line"><span class="comment"># grep 查找到匹配会返回 0，找不到则返回非 0 值</span></span><br><span class="line">[ $? -ne 0 ] &amp;&amp; &#123; 添加⻚脚; &#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>特殊变量</strong> <strong>$$</strong> <strong>记录当前进程的</strong> <strong>PID</strong>。</li>
+</ul>
+<p>这个功能可能在平时使用时也不怎么用，但是在写 shell 脚本时也非常有 用，比如说你要在 &#x2F;tmp 创建临时文件，给文件起名字一直都是非常让人 费脑子 的，这时候可以使用 $$ 变量扩展出当前进程的 PID 作为临时文件的名字。</p>
+
+      
+    </div>
+
+    
+    
+    
+
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>l
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/9efd0db9/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lion.png">
+      <meta itemprop="name" content="swimminghao">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="swimminghao's blog">
+      <meta itemprop="description" content="swimminghao的学习博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | swimminghao's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/9efd0db9/" class="post-title-link" itemprop="url">报告分类bash</a>
+        </h2>
+
+        <div class="post-meta-container">
+
+          
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-03-13 12:56:04" itemprop="dateModified" datetime="2022-03-13T12:56:04+08:00">2022-03-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">工具</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/posts/9efd0db9/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/9efd0db9/" data-xid="/posts/9efd0db9/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>137</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>1 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="报告分类bash"><a href="#报告分类bash" class="headerlink" title="报告分类bash"></a>报告分类bash</h1><pre><code class="java">for file in *.pdf; do mkdir -p -- &quot;$&#123;file%%-*&#125;&quot; &amp;&amp; \
+    mv -- &quot;$file&quot; &quot;$&#123;file%%-*&#125;&quot;; done
+</code></pre>
+
+      
+    </div>
+
+    
+    
+    
+
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>l
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/d2168e68/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lion.png">
+      <meta itemprop="name" content="swimminghao">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="swimminghao's blog">
+      <meta itemprop="description" content="swimminghao的学习博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | swimminghao's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/d2168e68/" class="post-title-link" itemprop="url">个人博客系统设计(支持hexo和halo同步)</a>
+        </h2>
+
+        <div class="post-meta-container">
+
+          
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-03-11 11:10:12" itemprop="dateModified" datetime="2022-03-11T11:10:12+08:00">2022-03-11</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
           <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
         </span>
     </span>
@@ -336,8 +1158,8 @@
     </span>
     <span class="post-meta-item-text">Waline：</span>
   
-    <a title="waline" href="/posts/734afda2/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/734afda2/" data-xid="/posts/734afda2/" itemprop="commentCount"></span>
+    <a title="waline" href="/posts/d2168e68/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/d2168e68/" data-xid="/posts/d2168e68/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -348,7 +1170,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>4.9k</span>
+      <span>3.9k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -366,39 +1188,77 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="idea-gitignore-git文件忽略"><a href="#idea-gitignore-git文件忽略" class="headerlink" title="idea .gitignore(git文件忽略)"></a>idea .gitignore(git文件忽略)</h1><p>idea使用git通常需要忽略一些临时文件，需要配置.gitignore插件</p>
-<ol>
-<li><p>安装插件<br>File -&gt; Settings -&gt; Plugins 搜索框搜索.ignore，点击安装</p>
-</li>
-<li><p>生成初始.ignore文件</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/svvoLk_20210619221210.png"></p>
-</li>
+          <h1 id="个人博客系统设计-支持hexo和halo同步"><a href="#个人博客系统设计-支持hexo和halo同步" class="headerlink" title="个人博客系统设计(支持hexo和halo同步)"></a>个人博客系统设计(支持hexo和halo同步)</h1><ol>
+<li>本文主要介绍自己的博客系统是如何设计的，并使用<a target="_blank" rel="noopener" href="https://github.com/linshenkx/haloSyncServer">Halo博客同步器</a> 将hexo（git pages: <a target="_blank" rel="noopener" href="https://linshenkx.github.io/">https://linshenkx.github.io</a> ）文章自动同步到halo( <a target="_blank" rel="noopener" href="http://linshenkx.cn/">http://linshenkx.cn</a> )。<br>实现一次编写、两套博客系统并存、多个网址访问的效果。</li>
 </ol>
-<p>出现如下弹框，会默认生成所选语言的常用忽略项，我这里选java，</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/0XlItZ_20210619221230.png" alt="img"></p>
-<p>生成如下文件</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"># Compiled <span class="keyword">class</span> <span class="title class_">file</span></span><br><span class="line">*.class</span><br><span class="line"></span><br><span class="line"># Log file</span><br><span class="line">*.log</span><br><span class="line"></span><br><span class="line"># BlueJ files</span><br><span class="line">*.ctxt</span><br><span class="line"></span><br><span class="line"># Mobile Tools <span class="keyword">for</span> <span class="title function_">Java</span> <span class="params">(J2ME)</span></span><br><span class="line">.mtj.tmp/</span><br><span class="line"></span><br><span class="line"># Package Files #</span><br><span class="line">*.jar</span><br><span class="line">*.war</span><br><span class="line">*.ear</span><br><span class="line">*.zip</span><br><span class="line">*.tar.gz</span><br><span class="line">*.rar</span><br><span class="line"></span><br><span class="line"># virtual machine crash logs, see http:<span class="comment">//www.java.com/en/download/help/error_hotspot.xml</span></span><br><span class="line">hs_err_pid*</span><br></pre></td></tr></table></figure>
+<h2 id="一-总览"><a href="#一-总览" class="headerlink" title="一 总览"></a>一 总览</h2><h3 id="达到效果"><a href="#达到效果" class="headerlink" title="达到效果"></a>达到效果</h3><table>
+<thead>
+<tr>
+<th>个人博客网址</th>
+<th>介绍</th>
+<th>对应git仓库&#x2F;管理界面</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><a target="_blank" rel="noopener" href="https://linshenkx.gitee.io/">https://linshenkx.gitee.io</a></td>
+<td>hexo next gitee pages</td>
+<td><a target="_blank" rel="noopener" href="https://gitee.com/linshenkx/linshenkx">https://gitee.com/linshenkx/linshenkx</a></td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://linshenkx.github.io/">https://linshenkx.github.io</a></td>
+<td>hexo next github pages</td>
+<td><a target="_blank" rel="noopener" href="https://github.com/linshenkx/linshenkx.github.io">https://github.com/linshenkx/linshenkx.github.io</a></td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://linshen.netlify.app/">https://linshen.netlify.app</a></td>
+<td>netlify加速，文章同步自blog源码仓库</td>
+<td><a target="_blank" rel="noopener" href="https://app.netlify.com/teams/linshenkx">https://app.netlify.com/teams/linshenkx</a></td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://linshenkx.cn/">https://linshenkx.cn</a></td>
+<td>halo个人网站，文章同步自blog源码仓库</td>
+<td><a target="_blank" rel="noopener" href="https://linshenkx.cn/admin/index.html#/dashboard">https://linshenkx.cn/admin/index.html#/dashboard</a></td>
+</tr>
+</tbody></table>
+<p>blog博客源码仓库（核心，私有）：<a target="_blank" rel="noopener" href="https://github.com/linshenkx/blog">https://github.com/linshenkx/blog</a></p>
+<h3 id="博客发布流程"><a href="#博客发布流程" class="headerlink" title="博客发布流程"></a>博客发布流程</h3><ol>
+<li>编写博客<br>在blog工程下写博客，工程为标准hexo，博客为markdown文件放在source&#x2F;_posts目录下，使用多层级分类存放</li>
+<li>发布到git pages<br>完成博客的增删改后，在工程目录下执行<code>hexo clean &amp;&amp; hexo d -g</code>部署到git pages。<br>这里我配置了同时发布到github和gitee，需要注意的是，gitee的git pages需要手动去触发更新才能生效。</li>
+<li>提交并推送工程<br>提交并推送blog工程的修改。<br>netlify将自动获取blog工程，并执行hexo部署脚本（效果和git pages一样，只是用netlify访问据说会快一点）<br>自己开发的<a target="_blank" rel="noopener" href="https://github.com/linshenkx/haloSyncServer">Halo博客同步器</a>也会检测到blog工程更新，根据更新情况将变化同步到halo博客系统中。</li>
+</ol>
+<h2 id="二-设计思路"><a href="#二-设计思路" class="headerlink" title="二 设计思路"></a>二 设计思路</h2><h3 id="1-起因"><a href="#1-起因" class="headerlink" title="1 起因"></a>1 起因</h3><p>本来我一直是在使用csdn的，但是网页端写作确实不方便，而且还可能受网络情况限制。<br>所以我后面一般都是用印象笔记做记录，在印象笔记写好再看心情整理到csdn上去。<br>但是悄不注意的，在21年初csdn改版，同时也改变了排名和引流规则。<br>之前一个星期2500到3000的访问量现在只剩1500到2000了。</p>
+<p>嗯，不可忍。换。</p>
+<h3 id="2-调研"><a href="#2-调研" class="headerlink" title="2 调研"></a>2 调研</h3><p>市面上的博客系统可根据对Git Pages的支持（即是否支持生成静态网站）分为两大类：</p>
+<p>一是以hexo为代表的静态网站生成器：如hexo、hugo、jekyll，较成熟，有较多第三方主题和插件，可与git pages搭配使用，也可自行部署。</p>
+<p>二是以halo为代表的五花八门的个人博客系统，功能更加强大，自由度更高，通常带后台管理，但不支持git pages，需自行部署。</p>
+<h3 id="3-分析"><a href="#3-分析" class="headerlink" title="3 分析"></a>3 分析</h3><p>个人博客的话使用git pages比较稳定，网址固定，可以永久使用，而且可以通过搭配不同的git服务商来保证访问速度。<br>但是git pages的缺点也很明显，是静态网站，虽然可以搭配第三方插件增强，但说到底还是个静态网站。</p>
+<p>而如果自己买服务器，买域名，用第三方个人博客系统，就可以玩得比较花里胡哨了，但谁知道会用多久呢。<br>服务器、域名都要自己负责，三五年之后还能不能访问就比较难说了。<br>但是年轻人嘛，总还是花里胡哨点才香。</p>
+<p>那我就全都要。</p>
+<p>git pages作为专业性较强的个人网站可以永久访问，<br>然后再弄个服务器放个博客系统自己玩。</p>
+<h3 id="4-选型"><a href="#4-选型" class="headerlink" title="4 选型"></a>4 选型</h3><p>静态网站生成器选的是hexo，传统一点，支持的插件和主题比较多。<br>hugo虽然也不错，但似乎国内用的不多，支持可能还不够完善。</p>
+<p>然后hexo的主题用的最经典的next，比较成熟，功能也很完善<br>虽然整体比较严肃压抑，但可以自己加个live2d增添点活力，<br>作为一个展示专业性的博客网站这样也就够了</p>
+<p>自定义博客系统的话我选的是halo，最主要原因是它是java写的，利于二次开发（事实上后面用着也确实有问题，还提交了一个issue）<br>而且功能比较强大，生态比较完善，虽然第三方主题少且基本都没更新，但是…实在是找不出其他一个能打的了<br>另外halo支持导入markdown，且功能基本都通过rest接口放开，适合开发者使用</p>
+<h2 id="三-设计实现"><a href="#三-设计实现" class="headerlink" title="三 设计实现"></a>三 设计实现</h2><h3 id="1-hexo"><a href="#1-hexo" class="headerlink" title="1 hexo"></a>1 hexo</h3><p>hexo本身只是静态网站生成器，你可以把hexo项目本身发布成为git pages项目，<br>像github、gitee这些会识别出这是一个hexo项目，然后进行编译，得到静态资源供外部访问。<br>这也是最简单的用法。</p>
+<p>但是不推荐。</p>
+<p>因为git pages项目一般都要求是public的（且名称固定，一个git账号只有一个git pages仓库），<br>hexo项目包含你的博客markdown源文件和其他的个人信息。<br>我们只是想把必要的生成后的静态网页放出去而已，至于项目的配置信息和markdown源文件应该藏起来。</p>
+<p>所以需要使用 hexo-deployer-git 插件进行git pages的部署。<br>即放到git公开的文件只有生成后的网页文件而已，git只是把你生成后的index.html进行直接展示，不会再去编译了<br>（需要在source目录下添加.nojekyll文件表明为静态网页，无须编译）</p>
+<p>而项目本身为了更好地进行管理和记录，还是要发布到git上面的，作为一个普通的私有仓库，名称可以任意（如 blog）</p>
+<p>这样，每次要增删改完文章只需要执行<code>hexo clean &amp;&amp; hexo d -g</code>即可发布到git仓库上<br>注意，不同git服务商git pages规则不一样。<br>比方说我gitee和github的用户名都是linshenkx<br>但是gitee要求的仓库名是linshenkx，而github的仓库名就必须是linshenkx.github.io了<br>而github的git pages仓库在接收到推送后就自动（编译）部署<br>gitee则需要到仓库web界面手动触发更新</p>
+<p>截至到这一步是大多数人的做法，即git上两个仓库并存，一（或多）个git pages公有仓库做展示，一个blog仓库存放博客源码<br>注意：如果git pages仓库允许私有，则可以使用一个仓库多个分支来实现相同效果。<br>但还是推荐使用两个仓库，因为这样更通用，设计上也更合理。</p>
+<p>工程总体结构如下，为普通hexo工程：<br><a target="_blank" rel="noopener" href="https://lian-gallery.oss-cn-guangzhou.aliyuncs.com/img/1631718173(1).png"><img src="https://lian-gallery.oss-cn-guangzhou.aliyuncs.com/img/1631718173(1).png" alt="img"></a><br>博客源码目录结构如下，为多层级结构：<br><a target="_blank" rel="noopener" href="https://lian-gallery.oss-cn-guangzhou.aliyuncs.com/img/1631718305(1).png"><img src="https://lian-gallery.oss-cn-guangzhou.aliyuncs.com/img/1631718305(1).png" alt="img"></a></p>
+<h3 id="2-halo"><a href="#2-halo" class="headerlink" title="2 halo"></a>2 halo</h3><p>halo的使用看官方文档一般就够了，这里需要补充的是其代理配置。<br>因为halo的在线下载更新主题功能通常需要连接到github，我习惯通过代理访问<br>这里提供一下配置方法<br>即在容器启动时添加JVM参数即可</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker run -it -d --name halo --network host -e JVM_OPTS=&quot;-Dhttp.proxyHost=127.0.0.1 -Dhttp.proxyPort=7890 -Dhttps.proxyHost=127.0.0.1 -Dhttps.proxyPort=7890&quot; -v /opt/halo/workspace:/root/.halo --restart=always halohub/halo</span><br><span class="line"> </span><br></pre></td></tr></table></figure>
 
-<p>idea项目一般需要自己增加如下两项</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">.idea/</span><br><span class="line">target/</span><br></pre></td></tr></table></figure>
-
-<p>即忽略这两个文件夹即文件夹下的所有文件</p>
-<p>现在可以使用了，提交一次测试下</p>
-<p>发现.idea文件夹下的文件还有变更被提交，这是因为在使用gitignore之前，此文件就以及被跟踪了，这样的话需要移除跟踪，如下命令:</p>
-<p>移除指定文件夹即文件夹下所有文件：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">git rm --cached --force -r .idea </span><br><span class="line">rm <span class="string">&#x27;.idea/artifacts/xxx_api_war.xml&#x27;</span></span><br><span class="line">rm <span class="string">&#x27;.idea/artifacts/xxx_api_war_exploded.xml&#x27;</span></span><br><span class="line">rm <span class="string">&#x27;.idea/artifacts/xxx_task_war.xml&#x27;</span></span><br><span class="line">rm <span class="string">&#x27;.idea/artifacts/xxx_task_war_exploded.xml&#x27;</span></span><br><span class="line">rm <span class="string">&#x27;.idea/libraries/Maven__ch_qos_logback_logback_classic_1_1_7.xml&#x27;</span></span><br><span class="line">rm <span class="string">&#x27;.idea/libraries/Maven__ch_qos_logback_logback_core_1_1_7.xml&#x27;</span></span><br><span class="line">rm <span class="string">&#x27;.idea/libraries/Maven__com_alibaba_druid_1_0_22.xml&#x27;</span></span><br><span class="line">rm <span class="string">&#x27;.idea/libraries/Maven__com_alibaba_fastjson_1_2_14.xml&#x27;</span></span><br><span class="line">rm <span class="string">&#x27;.idea/libraries/Maven__com_aliyun_openservices_ons_client_1_2_4.xml&#x27;</span></span><br><span class="line">rm <span class="string">&#x27;.idea/libraries/Maven__com_fasterxml_aalto_xml_0_9_11.xml&#x27;</span></span><br><span class="line">rm <span class="string">&#x27;.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_annotations_2_5_2.xml&#x27;</span></span><br><span class="line">rm <span class="string">&#x27;.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_core_2_5_2.xml&#x27;</span></span><br><span class="line">rm <span class="string">&#x27;.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_databind_2_5_2.xml&#x27;</span></span><br><span class="line">rm <span class="string">&#x27;.idea/libraries/Maven__com_fasterxml_jackson_dataformat_jackson_dataformat_xml_2_5_2.xml&#x27;</span></span><br><span class="line">rm <span class="string">&#x27;.idea/libraries/Maven__com_fasterxml_jackson_module_jackson_module_jaxb_annotations_2_5_2.xml&#x27;</span></span><br><span class="line">rm <span class="string">&#x27;.idea/libraries/Maven__com_google_guava_guava_19_0.xml&#x27;</span></span><br><span class="line">rm <span class="string">&#x27;.idea/libraries/Maven__commons_codec_commons_codec_1_9.xml&#x27;</span></span><br><span class="line">rm <span class="string">&#x27;.idea/libraries/Maven__commons_httpclient_commons_httpclient_3_1.xml&#x27;</span></span><br><span class="line">rm <span class="string">&#x27;.idea/libraries/Maven__commons_logging_commons_logging_1_0_4.xml&#x27;</span></span><br><span class="line">rm <span class="string">&#x27;.idea/libraries/Maven__commons_logging_commons_logging_1_2.xml&#x27;</span></span><br><span class="line">rm <span class="string">&#x27;.idea/libraries/Maven__javax_servlet_javax_servlet_api_3_1_0.xml&#x27;</span></span><br><span class="line">rm <span class="string">&#x27;.idea/libraries/Maven__mysql_mysql_connector_java_5_1_39.xml&#x27;</span></span><br><span class="line">rm <span class="string">&#x27;.idea/libraries/Maven__org_apache_commons_commons_lang3_3_3_2.xml&#x27;</span></span><br><span class="line">rm <span class="string">&#x27;.idea/libraries/Maven__org_apache_commons_commons_pool2_2_0.xml&#x27;</span></span><br><span class="line">rm <span class="string">&#x27;.idea/libraries/Maven__org_apache_httpcomponents_httpclient_4_4.xml&#x27;</span></span><br><span class="line">rm <span class="string">&#x27;.idea/libraries/Maven__org_apache_httpcomponents_httpcore_4_4.xml&#x27;</span></span><br><span class="line">rm <span class="string">&#x27;.idea/libraries/Maven__org_aspectj_aspectjweaver_1_8_9.xml&#x27;</span></span><br><span class="line">rm <span class="string">&#x27;.idea/libraries/Maven__org_codehaus_woodstox_stax2_api_3_1_4.xml&#x27;</span></span><br><span class="line">rm <span class="string">&#x27;.idea/libraries/Maven__org_mongodb_mongo_java_driver_2_14_0.xml&#x27;</span></span><br><span class="line">rm <span class="string">&#x27;.idea/libraries/Maven__org_mybatis_mybatis_3_4_1.xml&#x27;</span></span><br><span class="line">rm <span class="string">&#x27;.idea/libraries/Maven__org_mybatis_mybatis_spring_1_3_0.xml&#x27;</span></span><br><span class="line">rm <span class="string">&#x27;.idea/libraries/Maven__org_quartz_scheduler_quartz_2_2_2.xml&#x27;</span></span><br><span class="line">rm <span class="string">&#x27;.idea/libraries/Maven__org_slf4j_jcl_over_slf4j_1_7_21.xml&#x27;</span></span><br><span class="line">rm <span class="string">&#x27;.idea/libraries/Maven__org_slf4j_slf4j_api_1_7_21.xml&#x27;</span></span><br><span class="line">rm <span class="string">&#x27;.idea/libraries/Maven__org_springframework_data_spring_data_commons_1_12_2_RELEASE.xml&#x27;</span></span><br><span class="line">rm <span class="string">&#x27;.idea/libraries/Maven__org_springframework_data_spring_data_mongodb_1_9_2_RELEASE.xml&#x27;</span></span><br><span class="line">rm <span class="string">&#x27;.idea/libraries/Maven__org_springframework_spring_aop_4_3_1_RELEASE.xml&#x27;</span></span><br><span class="line">rm <span class="string">&#x27;.idea/libraries/Maven__org_springframework_spring_aspects_4_3_1_RELEASE.xml&#x27;</span></span><br><span class="line">rm <span class="string">&#x27;.idea/libraries/Maven__org_springframework_spring_beans_4_3_1_RELEASE.xml&#x27;</span></span><br><span class="line">rm <span class="string">&#x27;.idea/libraries/Maven__org_springframework_spring_context_4_3_1_RELEASE.xml&#x27;</span></span><br><span class="line">rm <span class="string">&#x27;.idea/libraries/Maven__org_springframework_spring_context_support_4_3_1_RELEASE.xml&#x27;</span></span><br><span class="line">rm <span class="string">&#x27;.idea/libraries/Maven__org_springframework_spring_core_4_3_1_RELEASE.xml&#x27;</span></span><br><span class="line">rm <span class="string">&#x27;.idea/libraries/Maven__org_springframework_spring_expression_4_3_1_RELEASE.xml&#x27;</span></span><br><span class="line">rm <span class="string">&#x27;.idea/libraries/Maven__org_springframework_spring_jdbc_4_3_1_RELEASE.xml&#x27;</span></span><br><span class="line">rm <span class="string">&#x27;.idea/libraries/Maven__org_springframework_spring_tx_4_3_1_RELEASE.xml&#x27;</span></span><br><span class="line">rm <span class="string">&#x27;.idea/libraries/Maven__org_springframework_spring_web_4_3_1_RELEASE.xml&#x27;</span></span><br><span class="line">rm <span class="string">&#x27;.idea/libraries/Maven__org_springframework_spring_webmvc_4_3_1_RELEASE.xml&#x27;</span></span><br><span class="line">rm <span class="string">&#x27;.idea/libraries/Maven__redis_clients_jedis_2_6_2.xml&#x27;</span></span><br></pre></td></tr></table></figure>
-
-<p>移除指定文件：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git rm --cached --force ydq-api/ydq-api.iml</span><br><span class="line">rm <span class="string">&#x27;ydq-api/ydq-api.iml&#x27;</span></span><br></pre></td></tr></table></figure>
-
-<p>这样，表示移除成功。</p>
-<p>现在，上面的操作进行提交：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/wa03I1_20210619221316.png" alt="img"></p>
-<p>移交移除文件.png</p>
-<p>以后再做一些变更，当再次提交时，只有未被忽略的（被忽略的文件的变更再也不会被提交了）修改的文件了。</p>
-<p>现在，idea下配置.gitignore结束。</p>
-<p>注：<br><strong>.gitignore只能忽略那些原来没有被track的文件，如果某些文件已经被纳入了版本管理中，则修改.gitignore是无效的。那么解决方法就是先把本地缓存删除（改变成未track状态），然后再提交：</strong><br><strong>输入：</strong><br><strong>git rm -r –cached filePath</strong><br><strong>git commit -m “remove xx”</strong><br><strong>或者：</strong><br><strong>git rm -r –cached .</strong><br><strong>git add .</strong><br><strong>git commit -m “update .gitignore”</strong></p>
-<p><strong>来解释下几个参数 -r 是删除文件夹及其子目录 –cached 是删除暂存区里的文件而不删除工作区里的文件，第一种是删除某个文件，第二种方法就把所有暂存区里的文件删了，再加一遍，相当于更新了一遍。</strong></p>
+<h3 id="3-markdown图片"><a href="#3-markdown图片" class="headerlink" title="3 markdown图片"></a>3 markdown图片</h3><p>markdown图片的存放一直是个麻烦的问题。<br>最害怕遇到就是图链的失效，而且往往自己还不能发现。<br>理想状态下就是markdown一张图片支持配置多个图床链接，第一个图床链接超时就使用下一个。<br>这种服务端的处理思想很明显不适合放到客户端。<br>退而求其次，配置一个链接，访问这个链接会触发对多个图床的访问，然后那个快用那个。<br>这个效果技术上不难实现，也有个商业产品（聚合图床）是这样的，缺点是收费。<br>然后我又在github、gitee上找了各个图床软件，都不怎么样（这个时间成本都够给聚合图床开几年会员了）<br>最终还是妥协，用云存储吧，选了阿里<br>七牛、腾讯也都试了，其实都差不多，看个人爱好，没有太特别的理由</p>
+<p>如果你用typora写markdown的话很方便，它支持picgo插件</p>
+<p>但我习惯在idea里面编写，idea也有一些markdown-image插件，基本都不好用<br>所以我还是安装了picgo，开了快捷键，复制图片直接快捷键粘贴体验也还是比较舒服的<br>picgo的特点是插件多，不过插件质量一般，有很多bug</p>
+<p>花了两天时间纠结、测试，最后的方案是：idea编辑+阿里云存储+picgo上传</p>
+<h3 id="4-同步"><a href="#4-同步" class="headerlink" title="4 同步"></a>4 同步</h3><p>这才是重点</p>
+<h4 id="1-同步的方向"><a href="#1-同步的方向" class="headerlink" title="1 同步的方向"></a>1 同步的方向</h4><p>即在哪里写文章，同步到哪里</p>
+<p>我还是习惯用idea写markdown文档而不是在网页上。<br>所以确定是流向为 hexo-&gt;halo</p>
+<h4 id="2-技术支撑"><a href="#2-技术支撑" class="headerlink" title="2 技术支撑"></a>2 技术支撑</h4><p>halo支持导入markdown文件，所以主要问题为hexo的markdown博客源码文件的获取<br>hexo文章存储路径为 source&#x2F;_posts ，有多层级文件夹，可以简单地理解成文件IO操作获取文章内容。<br>但关键是存储在git上，这里可以用JGit进行操作。<br>同时，JGit支持获取两次commit之间的文件变化情况。<br>即可以捕获到文章的增删改操作，而不用每次都全量地同步。</p>
+<h4 id="3-成果"><a href="#3-成果" class="headerlink" title="3 成果"></a>3 成果</h4><p>又处理了一些细节问题，最终还是自己做了个haloSyncServer同步程序，<br>封装成docker，放服务器上跑，实现同步。<br>待整理后开源。</p>
+<p>2021年11月更新<br>开源地址为：<a target="_blank" rel="noopener" href="https://github.com/linshenkx/haloSyncServer">https://github.com/linshenkx/haloSyncServer</a><br>效果<br><a target="_blank" rel="noopener" href="https://lian-gallery.oss-cn-guangzhou.aliyuncs.com/img/1637394238(1).jpg"><img src="https://lian-gallery.oss-cn-guangzhou.aliyuncs.com/img/1637394238(1).jpg" alt="img"></a></p>
 
       
     </div>
@@ -1575,828 +2435,6 @@
 <td>对拖移的项目赋予别名（按住按键时指针会改变）</td>
 </tr>
 </tbody></table>
-
-      
-    </div>
-
-    
-    
-    
-
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>l
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/e215f7cb/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/lion.png">
-      <meta itemprop="name" content="swimminghao">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="swimminghao's blog">
-      <meta itemprop="description" content="swimminghao的学习博客">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | swimminghao's blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/e215f7cb/" class="post-title-link" itemprop="url">NAS上搭建SS客户端</a>
-        </h2>
-
-        <div class="post-meta-container">
-
-          
-
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-13 12:56:04" itemprop="dateModified" datetime="2022-03-13T12:56:04+08:00">2022-03-13</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">工具</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="far fa-comment"></i>
-    </span>
-    <span class="post-meta-item-text">Waline：</span>
-  
-    <a title="waline" href="/posts/e215f7cb/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/e215f7cb/" data-xid="/posts/e215f7cb/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>1.9k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>2 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="群辉NAS上搭建SS客户端来连接远程并提供本地HTTP-x2F-Socks5代理"><a href="#群辉NAS上搭建SS客户端来连接远程并提供本地HTTP-x2F-Socks5代理" class="headerlink" title="群辉NAS上搭建SS客户端来连接远程并提供本地HTTP&#x2F;Socks5代理"></a>群辉NAS上搭建SS客户端来连接远程并提供本地HTTP&#x2F;Socks5代理</h1><p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/mxF2RW_20220217094542.png" alt="img"></p>
-<p><a target="_blank" rel="noopener" href="https://odcn.top/2018/10/24/854/%E7%BE%A4%E6%99%96ss%E5%90%8C%E6%AD%A5dropbox%E5%92%8Cgoogledrive/">主要参考了这片文章。</a></p>
-<blockquote>
-<p><a target="_blank" rel="noopener" href="https://odcn.top/2018/10/24/854/%E7%BE%A4%E6%99%96ss%E5%90%8C%E6%AD%A5dropbox%E5%92%8Cgoogledrive/">shadowsocks的Http代理桥接为SOCKS5代理，使群晖SS同步Dropbox和GoogleDrive</a></p>
-</blockquote>
-<iframe title="《shadowsocks的Http代理桥接为SOCKS5代理，使群晖SS同步Dropbox和GoogleDrive》—oD^Blog" class="wp-embedded-content" sandbox="allow-scripts" security="restricted" src="https://odcn.top/2018/10/24/854/%e7%be%a4%e6%99%96ss%e5%90%8c%e6%ad%a5dropbox%e5%92%8cgoogledrive/embed/#?secret=hiN7sQcs2t" data-secret="hiN7sQcs2t" width="600" height="338" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="box-sizing: border-box; margin: 0px; padding: 0px; border: 0px; max-width: 100%; position: absolute; clip: rect(1px, 1px, 1px, 1px);"></iframe>
-**Contents**  [hide](https://1024.ee/index.php/2020/04/06/群辉nas上搭建ss客户端来连接远程并提供本地http-socks5代理/#) 
-
-<p><a target="_blank" rel="noopener" href="https://1024.ee/index.php/2020/04/06/%E7%BE%A4%E8%BE%89nas%E4%B8%8A%E6%90%AD%E5%BB%BAss%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%9D%A5%E8%BF%9E%E6%8E%A5%E8%BF%9C%E7%A8%8B%E5%B9%B6%E6%8F%90%E4%BE%9B%E6%9C%AC%E5%9C%B0http-socks5%E4%BB%A3%E7%90%86/#xia_zaidocker_-_ss-privoxy">1 下载docker – ss-privoxy</a></p>
-<p><a target="_blank" rel="noopener" href="https://1024.ee/index.php/2020/04/06/%E7%BE%A4%E8%BE%89nas%E4%B8%8A%E6%90%AD%E5%BB%BAss%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%9D%A5%E8%BF%9E%E6%8E%A5%E8%BF%9C%E7%A8%8B%E5%B9%B6%E6%8F%90%E4%BE%9B%E6%9C%AC%E5%9C%B0http-socks5%E4%BB%A3%E7%90%86/#gao_ji_she_zhi">2 高级设置</a></p>
-<p><a target="_blank" rel="noopener" href="https://1024.ee/index.php/2020/04/06/%E7%BE%A4%E8%BE%89nas%E4%B8%8A%E6%90%AD%E5%BB%BAss%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%9D%A5%E8%BF%9E%E6%8E%A5%E8%BF%9C%E7%A8%8B%E5%B9%B6%E6%8F%90%E4%BE%9B%E6%9C%AC%E5%9C%B0http-socks5%E4%BB%A3%E7%90%86/#she_zhi_duan_kou">3 设置端口</a></p>
-<p><a target="_blank" rel="noopener" href="https://1024.ee/index.php/2020/04/06/%E7%BE%A4%E8%BE%89nas%E4%B8%8A%E6%90%AD%E5%BB%BAss%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%9D%A5%E8%BF%9E%E6%8E%A5%E8%BF%9C%E7%A8%8B%E5%B9%B6%E6%8F%90%E4%BE%9B%E6%9C%AC%E5%9C%B0http-socks5%E4%BB%A3%E7%90%86/#zui_hou_cha_yi_cha">4 最后查一查</a></p>
-<p><a target="_blank" rel="noopener" href="https://1024.ee/index.php/2020/04/06/%E7%BE%A4%E8%BE%89nas%E4%B8%8A%E6%90%AD%E5%BB%BAss%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%9D%A5%E8%BF%9E%E6%8E%A5%E8%BF%9C%E7%A8%8B%E5%B9%B6%E6%8F%90%E4%BE%9B%E6%9C%AC%E5%9C%B0http-socks5%E4%BB%A3%E7%90%86/#kai_qi_hou_cha_cha_ri_zhi_yi_qie_zheng_chang_ji_ke">5 开启后查查日志，一切正常即可</a></p>
-<p><a target="_blank" rel="noopener" href="https://1024.ee/index.php/2020/04/06/%E7%BE%A4%E8%BE%89nas%E4%B8%8A%E6%90%AD%E5%BB%BAss%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%9D%A5%E8%BF%9E%E6%8E%A5%E8%BF%9C%E7%A8%8B%E5%B9%B6%E6%8F%90%E4%BE%9B%E6%9C%AC%E5%9C%B0http-socks5%E4%BB%A3%E7%90%86/#qun_hui_zi_ji_de_shi_yong_kai_zhe_li_jiu_xing">6 群辉自己的使用，看这里就行。</a></p>
-<p><a target="_blank" rel="noopener" href="https://1024.ee/index.php/2020/04/06/%E7%BE%A4%E8%BE%89nas%E4%B8%8A%E6%90%AD%E5%BB%BAss%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%9D%A5%E8%BF%9E%E6%8E%A5%E8%BF%9C%E7%A8%8B%E5%B9%B6%E6%8F%90%E4%BE%9B%E6%9C%AC%E5%9C%B0http-socks5%E4%BB%A3%E7%90%86/#qun_hui_zi_ji_de_shi_yong_kai_zhe_li_jiu_xing">7指令</a></p>
-<h2 id="下载docker-–-ss-privoxy"><a href="#下载docker-–-ss-privoxy" class="headerlink" title="下载docker – ss-privoxy"></a>下载docker – ss-privoxy</h2><p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2NcHvz_20220217094617.png" alt="img"></p>
-<h2 id="高级设置"><a href="#高级设置" class="headerlink" title="高级设置"></a>高级设置</h2><p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/JTDf8S_20220217094637.png" alt="img">注意是<strong>文件</strong>，不是文件夹。而且，文件名就是<strong>config</strong>, 不是config.conf之类。</p>
-<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#配置文件</span></span><br><span class="line"></span><br><span class="line">confdir /etc/privoxy</span><br><span class="line">logdir /var/log/privoxy</span><br><span class="line"></span><br><span class="line">actionsfile match-all.action <span class="comment"># Actions that are applied to all sites and maybe overruled later on.</span></span><br><span class="line">actionsfile default.action <span class="comment"># Main actions file</span></span><br><span class="line">actionsfile <span class="keyword">user</span>.action <span class="comment"># User customizations</span></span><br><span class="line"></span><br><span class="line">filterfile default.filter</span><br><span class="line">filterfile <span class="keyword">user</span>.filter <span class="comment"># User customizations</span></span><br><span class="line"></span><br><span class="line">logfile privoxy.log</span><br><span class="line"><span class="comment">#下面这行的意思是监听来自任意地址的8118访问</span></span><br><span class="line">listen-address :<span class="number">8118</span></span><br><span class="line">toggle <span class="number">1</span></span><br><span class="line"></span><br><span class="line">enable-remote-toggle <span class="number">0</span></span><br><span class="line">enable-remote-http-toggle <span class="number">0</span></span><br><span class="line">enable-edit-actions <span class="number">0</span></span><br><span class="line">enforce-blocks <span class="number">0</span></span><br><span class="line"></span><br><span class="line">buffer-limit <span class="number">4096</span></span><br><span class="line">enable-proxy-authentication-forwarding <span class="number">0</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#启用这段全局代理模式#####################################</span></span><br><span class="line"><span class="comment">##下面一行表示将所有网址转发给本地7070端口，也就是本地的SS客户端所开放的端口。</span></span><br><span class="line"><span class="comment">#forward-socks5 / 127.0.0.1:7070 .</span></span><br><span class="line"><span class="comment">#启动这段只有部分网址走代理###############################</span></span><br><span class="line">forward / .</span><br><span class="line"><span class="comment">#下面这一段表示需要走代理的规则</span></span><br><span class="line">forward-socks5 .dropbox*.com <span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">7070</span> .</span><br><span class="line">forward-socks5 .*google*.* <span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">7070</span> .</span><br><span class="line">forward-socks5 .*facebook*.* <span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">7070</span> .</span><br><span class="line">forward-socks5 .*twitter*.* <span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">7070</span> .</span><br><span class="line"><span class="comment">#forward-socks5 .*youtube*.* 127.0.0.1:7070 .</span></span><br><span class="line"><span class="comment">##########################################################</span></span><br><span class="line">forwarded-connect-retries <span class="number">0</span></span><br><span class="line"></span><br><span class="line">accept-intercepted-requests <span class="number">0</span></span><br><span class="line">allow-cgi-request-crunching <span class="number">0</span></span><br><span class="line">split-large-forms <span class="number">0</span></span><br><span class="line">keep-alive-timeout <span class="number">300</span></span><br><span class="line">tolerate-pipelining <span class="number">1</span></span><br><span class="line">default-server-timeout <span class="number">60</span></span><br><span class="line">socket-timeout <span class="number">300</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#配置文件结束</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="设置端口"><a href="#设置端口" class="headerlink" title="设置端口"></a>设置端口</h2><ul>
-<li>7070 For Socks5 – All Traffic</li>
-<li>8118 for Http&#x2F;Https – 部分域名翻墙，改conf文件即可</li>
-</ul>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/t5PYQv_20220217094721.png" alt="img"></p>
-<h2 id="最后查一查"><a href="#最后查一查" class="headerlink" title="最后查一查"></a>最后查一查</h2><p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/iwGoJB_20220217094740.png" alt="img"></p>
-<h2 id="开启后查查日志，一切正常即可"><a href="#开启后查查日志，一切正常即可" class="headerlink" title="开启后查查日志，一切正常即可"></a>开启后查查日志，一切正常即可</h2><p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/S5u8G1_20220217094809.png" alt="img"></p>
-<h2 id="群辉自己的使用，开这里就行。"><a href="#群辉自己的使用，开这里就行。" class="headerlink" title="群辉自己的使用，开这里就行。"></a>群辉自己的使用，开这里就行。</h2><p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/L0Nwl6_20220217094828.png" alt="img"></p>
-<h2 id="指令"><a href="#指令" class="headerlink" title="指令"></a>指令</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -i -t -e SERVER_ADDR=n47.boom.party -e SERVER_PORT=31100 -e PASSWORD=Uk92CS -e METHOD=aes-256-cfb -e PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin -e TIME_OUT=300 -p 7070:7070 -p 8118:8118 -v /share/CACHEDEV1_DATA/Container/etc/privoxy/config:/etc/privoxy/config oldiy/ss-privoxy</span><br></pre></td></tr></table></figure>
-      
-    </div>
-
-    
-    
-    
-
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>l
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/5832e44e/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/lion.png">
-      <meta itemprop="name" content="swimminghao">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="swimminghao's blog">
-      <meta itemprop="description" content="swimminghao的学习博客">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | swimminghao's blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/5832e44e/" class="post-title-link" itemprop="url">shell知识点</a>
-        </h2>
-
-        <div class="post-meta-container">
-
-          
-
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-13 12:56:04" itemprop="dateModified" datetime="2022-03-13T12:56:04+08:00">2022-03-13</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">工具</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="far fa-comment"></i>
-    </span>
-    <span class="post-meta-item-text">Waline：</span>
-  
-    <a title="waline" href="/posts/5832e44e/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/5832e44e/" data-xid="/posts/5832e44e/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>2k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>2 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="1易混淆点"><a href="#1易混淆点" class="headerlink" title="$1易混淆点"></a>$1易混淆点</h1><h2 id="一、标准输入和参数的区别"><a href="#一、标准输入和参数的区别" class="headerlink" title="一、标准输入和参数的区别"></a>一、标准输入和参数的区别</h2><p>这个问题一定是最容易让人迷惑的，具体来说，就是搞不清什么时候用管道 符| 和文件重定向&gt; ，&lt; ，什么时候用变量$ 。</p>
-<p>比如说，我现在有个自动连接宽带的 shell 脚本 connect.sh ，存在我的家目录:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">where</span> connect.sh </span><br><span class="line">/home/fdl/bin/connect.sh</span><br></pre></td></tr></table></figure>
-
-<p>如果我想删除这个脚本，而且想少敲几次键盘，应该怎么操作呢?我曾经这<br>样尝试过:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">where</span> connect.sh | <span class="built_in">rm</span></span><br></pre></td></tr></table></figure>
-
-<p>实际上，这样操作是错误的，正确的做法应该是这样的:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">rm</span> $(<span class="built_in">where</span> connect.sh)</span><br></pre></td></tr></table></figure>
-
-<p>前者试图将 where 的结果连接到 rm 的标准输入，后者试图将结果作为命令行参数传入。</p>
-<p><strong>标准输入就是编程语言中诸如</strong> <strong>scanf</strong> <strong>或者</strong> <strong>readline</strong> <strong>这种命令;而参数是指 程序的</strong> <strong>main</strong> <strong>函数传入的</strong> <strong>args</strong> <strong>字符数组</strong>。</p>
-<p>前文「Linux文件描述符」说过，管道符和重定向符是将数据作为程序的标 准输入，而 $(cmd) 是读取 cmd 命令输出的数据作为参数。</p>
-<p>用刚才的例子说， rm 命令源代码中肯定不接受标准输入，而是接收命令行 参数，删除相应的文件。作为对比， cat 命令是既接受标准输入，又接受 命令行参数:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cat</span> filename </span><br><span class="line">...file text...</span><br><span class="line">$ <span class="built_in">cat</span> &lt; filename</span><br><span class="line">...file text...</span><br><span class="line">$ <span class="built_in">echo</span> <span class="string">&#x27;hello world&#x27;</span> | <span class="built_in">cat</span></span><br><span class="line">hello world</span><br></pre></td></tr></table></figure>
-
-<p><strong>如果命令能够让终端阻塞，说明该命令接收标准输入，反之就是不接受</strong>，比 如你只运行 cat 命令不加任何参数，终端就会阻塞，等待你输入字符串并 回显相同的字符串。</p>
-<h2 id="二、后台运行程序"><a href="#二、后台运行程序" class="headerlink" title="二、后台运行程序"></a><strong>二、后台运行程序</strong></h2><p>比如说你远程登录到服务器上，运行一个 Django web 程序:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ python manager.py runserver 0.0.0.0 Listening on 0.0.0.0:8080...</span><br></pre></td></tr></table></figure>
-
-<p>现在你可以通过服务器的 IP 地址测试 Django 服务，但是终端此时就阻塞 了，你输入什么都不响应，除非输入 Ctrl-C 或者 Ctrl-&#x2F; 终止 python 进程。</p>
-<p>可以在命令之后加一个 &amp; 符号，这样命令行不会阻塞，可以响应你后续输 入的命令，但是如果你退出服务器的登录，就不能访问该网⻚了。</p>
-<p>如果你想在退出服务器之后仍然能够访问web服务，应该这样写命令 (cmd &amp;) :</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ (python manager.py runserver 0.0.0.0 &amp;) Listening on 0.0.0.0:8080...</span><br><span class="line"></span><br><span class="line">$ <span class="built_in">logout</span></span><br></pre></td></tr></table></figure>
-
-<p><strong>底层原理是这样的</strong>:</p>
-<p>每一个命令行终端都是一个 shell 进程，你在这个终端里执行的程序实际上 都是这个 shell 进程分出来的子进程。正常情况下，shell 进程会阻塞，等待 子进程退出才重新接收你输入的新的命令。加上 &amp; 号，只是让 shell 进程不 再阻塞，可以继续响应你的新命令。但是无论如何，你如果关掉了这个 shell 命令行端口，依附于它的所有子进程都会退出。</p>
-<p><strong>而 (cmd &amp;) 这样运行命令，则是将 cmd 命令挂到一个 systemd 系统守护进程名下，认 systemd 做爸爸，这样当你退出当前终端时，对于刚才的 cmd 命令就完全没有影响了。</strong></p>
-<p>类似的，还有一种后台运行常用的做法是这样:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ nohub some_cmd &amp;</span><br></pre></td></tr></table></figure>
-
-<p>nohub 命令也是类似的原理，不过通过我的测试，<strong>还是 (cmd &amp;) 这种形式 更加稳定</strong>。</p>
-<h2 id="三、单引号和双引号的区别"><a href="#三、单引号和双引号的区别" class="headerlink" title="三、单引号和双引号的区别"></a>三、单引号和双引号的区别</h2><p>不同的 shell 行为会有细微区别，但有一点是确定的，<strong>对于</strong> <strong>$</strong> <strong>，</strong> <strong>(</strong> <strong>，</strong> <strong>)</strong> <strong>这 几个符号，单引号包围的字符串不会做任何转义，双引号包围的字符串会转 义</strong>。</p>
-<p>shell 的行为可以测试，使用 set -x 命令，会开启 shell 的命令回显，你可 以通过回显观察 shell 到底在执行什么命令:</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/acjc30_20210910112344.png"></p>
-<p>可⻅ echo $(cmd) 和 echo “$(cmd)” ，结果差不多，但是仍然有区别。注 意观察，双引号转义完成的结果会自动增加单引号，而前者不会。</p>
-<p><strong>也就是说，如果</strong> <strong>$</strong> <strong>读取出的参数字符串包含空格，应该用双引号括起来， 否则就会出错</strong>。</p>
-<h2 id="四、-sudo-找不到命令"><a href="#四、-sudo-找不到命令" class="headerlink" title="四、****sudo 找不到命令"></a><strong>四、****sudo</strong> <strong>找不到命令</strong></h2><p>有时候我们普通用户可以用的命令，用 sudo 加权限之后却报错 command not found:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ connect.sh</span><br><span class="line"> network-manager: Permission denied</span><br><span class="line"></span><br><span class="line">$ sudo connect.sh</span><br><span class="line"> sudo: <span class="built_in">command</span> not found</span><br></pre></td></tr></table></figure>
-
-<p>原因在于， connect.sh 这个脚本仅存在于该用户的环境变量中:</p>
-<p><strong>当使用</strong> <strong>sudo</strong> <strong>时，系统会使用</strong> <strong>&#x2F;etc&#x2F;sudoers</strong> <strong>这个文件中规定的该用户的权 限和环境变量</strong>，而这个脚本在 &#x2F;etc&#x2F;sudoers 环境变量目录中当然是找不到 的。</p>
-<p>解决方法是使用脚本文件的路径，而不是仅仅通过脚本名称:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo /home/fdl/bin/connect.sh</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>l
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/98b63d5c/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/lion.png">
-      <meta itemprop="name" content="swimminghao">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="swimminghao's blog">
-      <meta itemprop="description" content="swimminghao的学习博客">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | swimminghao's blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/98b63d5c/" class="post-title-link" itemprop="url">shell效率</a>
-        </h2>
-
-        <div class="post-meta-container">
-
-          
-
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-13 12:56:04" itemprop="dateModified" datetime="2022-03-13T12:56:04+08:00">2022-03-13</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">工具</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="far fa-comment"></i>
-    </span>
-    <span class="post-meta-item-text">Waline：</span>
-  
-    <a title="waline" href="/posts/98b63d5c/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/98b63d5c/" data-xid="/posts/98b63d5c/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>3.3k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>3 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="§1效率"><a href="#§1效率" class="headerlink" title="§1效率"></a>§1效率</h1><h2 id="输入相似文件名太麻烦"><a href="#输入相似文件名太麻烦" class="headerlink" title="输入相似文件名太麻烦"></a><strong>输入相似文件名太麻烦</strong></h2><p>用花括号括起来的字符串用逗号连接，可以自动扩展，非常有用，直接看例子:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">echo</span> &#123;one,two,three&#125;file</span><br><span class="line">onefile twofile threefile</span><br><span class="line">$ <span class="built_in">echo</span> &#123;one,two,three&#125;&#123;1,2,3&#125;</span><br><span class="line">one1 one2 one3 two1 two2 two3 three1 three2 three3</span><br></pre></td></tr></table></figure>
-
-<p>你看，花括号中的每个字符都可以和之后(或之前)的字符串进行组合拼 接，<strong>注意花括号和其中的逗号不可以用空格分隔，否则会被认为是普通的字 符串对待</strong>。</p>
-<p>这个技巧有什么实际用处呢?最简单有用的就是给 cp , mv , rm 等命令扩 展参数:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cp</span> /very/long/path/file&#123;,.bak&#125;</span><br><span class="line">==&gt; <span class="built_in">cp</span> /very/long/path/file /very/long/path/file.bak</span><br><span class="line"><span class="comment"># 给 file 复制一个叫做 file.bak 的副本</span></span><br><span class="line"></span><br><span class="line">$ <span class="built_in">rm</span> file&#123;1,3,5&#125;.txt</span><br><span class="line"><span class="comment"># 删除 file1.txt file3.txt file5.txt</span></span><br><span class="line"></span><br><span class="line">$ <span class="built_in">mv</span> *.&#123;c,cpp&#125; src/</span><br><span class="line"><span class="comment"># 将所有 .c 和 .cpp 为后缀的文件移入 src 文件夹</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="输入路径名称太麻烦"><a href="#输入路径名称太麻烦" class="headerlink" title="输入路径名称太麻烦"></a><strong>输入路径名称太麻烦</strong></h2><ul>
-<li><strong>用</strong> <strong>cd -</strong> <strong>返回刚才呆的目录</strong>，直接看例子吧:</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">pwd</span></span><br><span class="line"> /very/long/path</span><br><span class="line"> $ <span class="built_in">cd</span> <span class="comment"># 回到家目录瞅瞅</span></span><br><span class="line"> $ <span class="built_in">pwd</span></span><br><span class="line"> /home/labuladong</span><br><span class="line"> $ <span class="built_in">cd</span> - <span class="comment"># 再返回刚才那个目录 $ pwd</span></span><br><span class="line"> /very/long/path</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><strong>特殊命令</strong> <strong>!$</strong> <strong>会替换成上一次输入的命令最后的路径</strong>，直接看例子:</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#没有加可执行权限</span></span><br><span class="line">$ /usr/bin/script.sh</span><br><span class="line">zsh: permission denied: /usr/bin/script.sh</span><br><span class="line"></span><br><span class="line">$ <span class="built_in">chmod</span> +x !$</span><br><span class="line"><span class="built_in">chmod</span> +x /usr/bin/script.sh</span><br><span class="line"><span class="built_in">export</span> lessCharset-uft8</span><br></pre></td></tr></table></figure>
-
-<p><strong>特殊命令</strong> <strong>!*</strong> <strong>会替换成上一次命令输入的所有文件路径</strong>，直接看例子:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建了三个脚本文件</span></span><br><span class="line">$ file script1.sh script2.sh script3.sh</span><br><span class="line"></span><br><span class="line"><span class="comment"># 给它们全部加上可执行权限</span></span><br><span class="line">$ <span class="built_in">chmod</span> +x !*</span><br><span class="line"><span class="built_in">chmod</span> +x script1.sh script2.sh script3.sh</span><br></pre></td></tr></table></figure>
-
-<p><strong>可以在环境变量</strong> <strong>CDPATH</strong> <strong>中加入你常用的工作目录</strong>，当 cd 命令在当前目 录中找不到你指定的文件&#x2F;目录时，会自动到 CDPATH 中的目录中寻找。</p>
-<p>比如说我常去 &#x2F;var&#x2F;log 目录找日志，可以执行如下命令:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">export</span> CDPATH=<span class="string">&#x27;~:/var/log&#x27;</span></span><br><span class="line"><span class="comment"># cd 命令将会在 〜 目录和 /var/log 目录扩展搜索$ pwd</span></span><br><span class="line">/home/labuladong/musics</span><br><span class="line">$ <span class="built_in">cd</span> mysql</span><br><span class="line"><span class="built_in">cd</span> /var/log/mysql</span><br><span class="line">$ <span class="built_in">pwd</span></span><br><span class="line">/var/log/mysql</span><br><span class="line">$ <span class="built_in">cd</span> my_pictures</span><br><span class="line"><span class="built_in">cd</span> /home/labuladong/my_pictures</span><br></pre></td></tr></table></figure>
-
-<p>这个技巧是十分好用的，这样就免了经常写完整的路径名称，节约不少时间。</p>
-<p>需要注意的是，以上操作是 bash 支持的，其他主流 shell 解释器当然都支持 扩展 cd 命令的搜索目录，但可能不是修改 CDPATH 这个变量，具体的设 置方法可以自行搜索。</p>
-<h2 id="输入重复命令太麻烦"><a href="#输入重复命令太麻烦" class="headerlink" title="输入重复命令太麻烦"></a>输入重复命令太麻烦</h2><p>** <strong>使用特殊命令</strong> <strong>!!</strong> <strong>，可以自动替换成上一次使用的命令</strong>:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ apt install net-tools</span><br><span class="line"> E: Could not open lock file - open (13: Permission denied)</span><br><span class="line"></span><br><span class="line">$ sudo !!</span><br><span class="line"> sudo apt install net-tools [sudo] password <span class="keyword">for</span> fdl:</span><br></pre></td></tr></table></figure>
-
-<p>有的命令很⻓，一时间想不起来具体参数了怎么办?</p>
-<p><strong>对于</strong> <strong>bash</strong> <strong>终端，可以使用</strong> <strong>Ctrl+R</strong> <strong>快捷键反向搜索历史命令</strong>，之所以说是 反向搜索，就是搜索最近一次输入的命令。</p>
-<p>比如按下 Ctrl+R 之后，输入 sudo ，bash 就会搜索出最近一次包含 sudo 的命令，你回⻋之后就可以运行该命令了:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(reverse-i-search)`sudo<span class="string">&#x27;: sudo apt install git</span></span><br></pre></td></tr></table></figure>
-
-<p>但是这个方法有缺点:首先，该功能似乎只有 bash 支持，我用的 zsh 作为 shell 终端，就用不了;第二，只能查找出一个(最近的)命令，如果我想 找以前的某个命令，就没办法了。</p>
-<p>对于这种情况，<strong>我们最常用的方法是使用</strong> <strong>history</strong> <strong>命令配合管道符和</strong> <strong>grep</strong> <strong>命令来寻找某个历史命令</strong>:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 过滤出所有包含 config 字段的历史命令</span></span><br><span class="line">$ <span class="built_in">history</span> | grep <span class="string">&#x27;config&#x27;</span></span><br><span class="line">	7352 ./configure</span><br><span class="line">	7434 git config --global --<span class="built_in">unset</span> https.proxy 9609 ifconfig</span><br><span class="line">	9985 clip -o | sed -z <span class="string">&#x27;s/\n/,\n/g&#x27;</span> | clip</span><br><span class="line">	10433 <span class="built_in">cd</span> ~/.config</span><br></pre></td></tr></table></figure>
-
-<p>你使用的所有 shell 命令都会被记录，前面的数字就表示这是第几个命令， 找到你想重复使用的命令后，也不需要复制粘贴该命令，<strong>只要使用</strong> <strong>!</strong> <strong>+</strong> <strong>你 想重用的命令编号即可运行该命令</strong>。<br>拿上面的例子，我想重新运行 git config 那条命令，就可以这样:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ !7434</span><br><span class="line">git config --global --<span class="built_in">unset</span> https.proxy <span class="comment"># 运行完成</span></span><br></pre></td></tr></table></figure>
-
-<p>我觉得 history 加管道加 grep 这样打的字还是太多，可以在 你的 shell 配置文件中( .bashrc ， .zshrc 等) 中写这样一个函数:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">his</span></span>() &#123;</span><br><span class="line">	<span class="built_in">history</span> | grep <span class="string">&quot;<span class="variable">$@</span>&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>这样就不需要写那么多，只需要 his ‘some_keyword’ 即可搜索历史命令。</p>
-<p>我一般不使用 bash 作为终端，我给大家推荐一款很好用的 shell 终端叫做 zsh，这也是我自己使用的 shell。这款终端还可以扩展各种插件，非常好 用，具体配置方法可自行搜索。</p>
-<h2 id="其他小技巧"><a href="#其他小技巧" class="headerlink" title="其他小技巧"></a>其他小技巧</h2><ul>
-<li><p>**yes <strong>命令自动输入字符</strong>y **进行确认</p>
-<p>我们安装某些软件的时候，可能有交互式的提问:</p>
-</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt install XXX</span><br><span class="line">...</span><br><span class="line">XXX will use 996 MB disk space, <span class="built_in">continue</span>? [y/n]</span><br></pre></td></tr></table></figure>
-
-<p>一般情况下我们都是一路 y 到底，但如果我们想自动化一些软件的安装就很 烦，遇到这种交互式提问就卡住了，还得手动处理。</p>
-<p>yes 命令可以帮助我们:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">yes</span> | your_cmd</span><br></pre></td></tr></table></figure>
-
-<p>这样就会一路自动 y 下去，不会停下让我们输入了。 如果你读过前文Linux 文件描述符，就知道其原理很简单:</p>
-<p>你单独运行一下 yes 命令，发现它就是打印出一大堆字符 y，通过管道把 输出和 your_cmd 的标准输入相连接，如果 your_cmd 又提出无聊的问题， 就会从标准输入读取数据，也就会读取到一个 y 和换行符，和你手动输入 y 确认是一个效果。</p>
-<ul>
-<li><strong>特殊变量</strong> <strong>$?</strong> <strong>记录上一次命令的返回值</strong>。</li>
-</ul>
-<p>在 Linux shell 中，遵循 C 语言的习惯，返回值为 0 的话就是程序正常退 出，非 0 值就是异常退出出。读取上一次命令的返回值在平时使用命令行时 感觉没什么用，但是如果你想编写一些 shell 脚本，知道返回值非常有用。</p>
-<p><strong>举个实际的例子</strong>，比如我的 Github 仓库 fucking-algorithm ，我需要给其中 所有 markdown 文件最下方添加上一篇、下一篇、目录三个⻚脚链接，有的 文章已经有了⻚脚，大部分都没有。</p>
-<p>为了防止重复添加，我必须知道一个 md 文件下方是否已添加，这时候就可 以使用 $? 变量配合 grep 命令做到:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line">filename=<span class="variable">$1</span></span><br><span class="line"><span class="comment"># 查看文件尾部是否包含关键词</span></span><br><span class="line"><span class="built_in">tail</span> | grep <span class="string">&#x27;下一篇&#x27;</span> <span class="variable">$filename</span></span><br><span class="line"><span class="comment"># grep 查找到匹配会返回 0，找不到则返回非 0 值</span></span><br><span class="line">[ $? -ne 0 ] &amp;&amp; &#123; 添加⻚脚; &#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><strong>特殊变量</strong> <strong>$$</strong> <strong>记录当前进程的</strong> <strong>PID</strong>。</li>
-</ul>
-<p>这个功能可能在平时使用时也不怎么用，但是在写 shell 脚本时也非常有 用，比如说你要在 &#x2F;tmp 创建临时文件，给文件起名字一直都是非常让人 费脑子 的，这时候可以使用 $$ 变量扩展出当前进程的 PID 作为临时文件的名字。</p>
-
-      
-    </div>
-
-    
-    
-    
-
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>l
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/969e74c3/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/lion.png">
-      <meta itemprop="name" content="swimminghao">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="swimminghao's blog">
-      <meta itemprop="description" content="swimminghao的学习博客">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | swimminghao's blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/969e74c3/" class="post-title-link" itemprop="url">shell效率0</a>
-        </h2>
-
-        <div class="post-meta-container">
-
-          
-
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-13 12:56:04" itemprop="dateModified" datetime="2022-03-13T12:56:04+08:00">2022-03-13</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">工具</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="far fa-comment"></i>
-    </span>
-    <span class="post-meta-item-text">Waline：</span>
-  
-    <a title="waline" href="/posts/969e74c3/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/969e74c3/" data-xid="/posts/969e74c3/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>3.3k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>3 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>[toc]</p>
-<h1 id="§1效率"><a href="#§1效率" class="headerlink" title="§1效率"></a>§1效率</h1><h2 id="输入相似文件名太麻烦"><a href="#输入相似文件名太麻烦" class="headerlink" title="输入相似文件名太麻烦"></a><strong>输入相似文件名太麻烦</strong></h2><p>用花括号括起来的字符串用逗号连接，可以自动扩展，非常有用，直接看例子:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">echo</span> &#123;one,two,three&#125;file</span><br><span class="line">onefile twofile threefile</span><br><span class="line">$ <span class="built_in">echo</span> &#123;one,two,three&#125;&#123;1,2,3&#125;</span><br><span class="line">one1 one2 one3 two1 two2 two3 three1 three2 three3</span><br></pre></td></tr></table></figure>
-
-<p>你看，花括号中的每个字符都可以和之后(或之前)的字符串进行组合拼 接，<strong>注意花括号和其中的逗号不可以用空格分隔，否则会被认为是普通的字 符串对待</strong>。</p>
-<p>这个技巧有什么实际用处呢?最简单有用的就是给 cp , mv , rm 等命令扩 展参数:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cp</span> /very/long/path/file&#123;,.bak&#125;</span><br><span class="line">==&gt; <span class="built_in">cp</span> /very/long/path/file /very/long/path/file.bak</span><br><span class="line"><span class="comment"># 给 file 复制一个叫做 file.bak 的副本</span></span><br><span class="line"></span><br><span class="line">$ <span class="built_in">rm</span> file&#123;1,3,5&#125;.txt</span><br><span class="line"><span class="comment"># 删除 file1.txt file3.txt file5.txt</span></span><br><span class="line"></span><br><span class="line">$ <span class="built_in">mv</span> *.&#123;c,cpp&#125; src/</span><br><span class="line"><span class="comment"># 将所有 .c 和 .cpp 为后缀的文件移入 src 文件夹</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="输入路径名称太麻烦"><a href="#输入路径名称太麻烦" class="headerlink" title="输入路径名称太麻烦"></a><strong>输入路径名称太麻烦</strong></h2><ul>
-<li><strong>用</strong> <strong>cd -</strong> <strong>返回刚才呆的目录</strong>，直接看例子吧:</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">pwd</span></span><br><span class="line"> /very/long/path</span><br><span class="line"> $ <span class="built_in">cd</span> <span class="comment"># 回到家目录瞅瞅</span></span><br><span class="line"> $ <span class="built_in">pwd</span></span><br><span class="line"> /home/labuladong</span><br><span class="line"> $ <span class="built_in">cd</span> - <span class="comment"># 再返回刚才那个目录 $ pwd</span></span><br><span class="line"> /very/long/path</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><strong>特殊命令</strong> <strong>!$</strong> <strong>会替换成上一次输入的命令最后的路径</strong>，直接看例子:</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#没有加可执行权限</span></span><br><span class="line">$ /usr/bin/script.sh</span><br><span class="line">zsh: permission denied: /usr/bin/script.sh</span><br><span class="line"></span><br><span class="line">$ <span class="built_in">chmod</span> +x !$</span><br><span class="line"><span class="built_in">chmod</span> +x /usr/bin/script.sh</span><br><span class="line"><span class="built_in">export</span> lessCharset-uft8</span><br></pre></td></tr></table></figure>
-
-<p><strong>特殊命令</strong> <strong>!*</strong> <strong>会替换成上一次命令输入的所有文件路径</strong>，直接看例子:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建了三个脚本文件</span></span><br><span class="line">$ file script1.sh script2.sh script3.sh</span><br><span class="line"></span><br><span class="line"><span class="comment"># 给它们全部加上可执行权限</span></span><br><span class="line">$ <span class="built_in">chmod</span> +x !*</span><br><span class="line"><span class="built_in">chmod</span> +x script1.sh script2.sh script3.sh</span><br></pre></td></tr></table></figure>
-
-<p><strong>可以在环境变量</strong> <strong>CDPATH</strong> <strong>中加入你常用的工作目录</strong>，当 cd 命令在当前目 录中找不到你指定的文件&#x2F;目录时，会自动到 CDPATH 中的目录中寻找。</p>
-<p>比如说我常去 &#x2F;var&#x2F;log 目录找日志，可以执行如下命令:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">export</span> CDPATH=<span class="string">&#x27;~:/var/log&#x27;</span></span><br><span class="line"><span class="comment"># cd 命令将会在 〜 目录和 /var/log 目录扩展搜索$ pwd</span></span><br><span class="line">/home/labuladong/musics</span><br><span class="line">$ <span class="built_in">cd</span> mysql</span><br><span class="line"><span class="built_in">cd</span> /var/log/mysql</span><br><span class="line">$ <span class="built_in">pwd</span></span><br><span class="line">/var/log/mysql</span><br><span class="line">$ <span class="built_in">cd</span> my_pictures</span><br><span class="line"><span class="built_in">cd</span> /home/labuladong/my_pictures</span><br></pre></td></tr></table></figure>
-
-<p>这个技巧是十分好用的，这样就免了经常写完整的路径名称，节约不少时间。</p>
-<p>需要注意的是，以上操作是 bash 支持的，其他主流 shell 解释器当然都支持 扩展 cd 命令的搜索目录，但可能不是修改 CDPATH 这个变量，具体的设 置方法可以自行搜索。</p>
-<h2 id="输入重复命令太麻烦"><a href="#输入重复命令太麻烦" class="headerlink" title="输入重复命令太麻烦"></a>输入重复命令太麻烦</h2><p>** <strong>使用特殊命令</strong> <strong>!!</strong> <strong>，可以自动替换成上一次使用的命令</strong>:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ apt install net-tools</span><br><span class="line"> E: Could not open lock file - open (13: Permission denied)</span><br><span class="line"></span><br><span class="line">$ sudo !!</span><br><span class="line"> sudo apt install net-tools [sudo] password <span class="keyword">for</span> fdl:</span><br></pre></td></tr></table></figure>
-
-<p>有的命令很⻓，一时间想不起来具体参数了怎么办?</p>
-<p><strong>对于</strong> <strong>bash</strong> <strong>终端，可以使用</strong> <strong>Ctrl+R</strong> <strong>快捷键反向搜索历史命令</strong>，之所以说是 反向搜索，就是搜索最近一次输入的命令。</p>
-<p>比如按下 Ctrl+R 之后，输入 sudo ，bash 就会搜索出最近一次包含 sudo 的命令，你回⻋之后就可以运行该命令了:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(reverse-i-search)`sudo<span class="string">&#x27;: sudo apt install git</span></span><br></pre></td></tr></table></figure>
-
-<p>但是这个方法有缺点:首先，该功能似乎只有 bash 支持，我用的 zsh 作为 shell 终端，就用不了;第二，只能查找出一个(最近的)命令，如果我想 找以前的某个命令，就没办法了。</p>
-<p>对于这种情况，<strong>我们最常用的方法是使用</strong> <strong>history</strong> <strong>命令配合管道符和</strong> <strong>grep</strong> <strong>命令来寻找某个历史命令</strong>:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 过滤出所有包含 config 字段的历史命令</span></span><br><span class="line">$ <span class="built_in">history</span> | grep <span class="string">&#x27;config&#x27;</span></span><br><span class="line">	7352 ./configure</span><br><span class="line">	7434 git config --global --<span class="built_in">unset</span> https.proxy 9609 ifconfig</span><br><span class="line">	9985 clip -o | sed -z <span class="string">&#x27;s/\n/,\n/g&#x27;</span> | clip</span><br><span class="line">	10433 <span class="built_in">cd</span> ~/.config</span><br></pre></td></tr></table></figure>
-
-<p>你使用的所有 shell 命令都会被记录，前面的数字就表示这是第几个命令， 找到你想重复使用的命令后，也不需要复制粘贴该命令，<strong>只要使用</strong> <strong>!</strong> <strong>+</strong> <strong>你 想重用的命令编号即可运行该命令</strong>。<br>拿上面的例子，我想重新运行 git config 那条命令，就可以这样:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ !7434</span><br><span class="line">git config --global --<span class="built_in">unset</span> https.proxy <span class="comment"># 运行完成</span></span><br></pre></td></tr></table></figure>
-
-<p>我觉得 history 加管道加 grep 这样打的字还是太多，可以在 你的 shell 配置文件中( .bashrc ， .zshrc 等) 中写这样一个函数:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">his</span></span>() &#123;</span><br><span class="line">	<span class="built_in">history</span> | grep <span class="string">&quot;<span class="variable">$@</span>&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>这样就不需要写那么多，只需要 his ‘some_keyword’ 即可搜索历史命令。</p>
-<p>我一般不使用 bash 作为终端，我给大家推荐一款很好用的 shell 终端叫做 zsh，这也是我自己使用的 shell。这款终端还可以扩展各种插件，非常好 用，具体配置方法可自行搜索。</p>
-<h2 id="其他小技巧"><a href="#其他小技巧" class="headerlink" title="其他小技巧"></a>其他小技巧</h2><ul>
-<li><p>**yes <strong>命令自动输入字符</strong>y **进行确认</p>
-<p>我们安装某些软件的时候，可能有交互式的提问:</p>
-</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt install XXX</span><br><span class="line">...</span><br><span class="line">XXX will use 996 MB disk space, <span class="built_in">continue</span>? [y/n]</span><br></pre></td></tr></table></figure>
-
-<p>一般情况下我们都是一路 y 到底，但如果我们想自动化一些软件的安装就很 烦，遇到这种交互式提问就卡住了，还得手动处理。</p>
-<p>yes 命令可以帮助我们:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">yes</span> | your_cmd</span><br></pre></td></tr></table></figure>
-
-<p>这样就会一路自动 y 下去，不会停下让我们输入了。 如果你读过前文Linux 文件描述符，就知道其原理很简单:</p>
-<p>你单独运行一下 yes 命令，发现它就是打印出一大堆字符 y，通过管道把 输出和 your_cmd 的标准输入相连接，如果 your_cmd 又提出无聊的问题， 就会从标准输入读取数据，也就会读取到一个 y 和换行符，和你手动输入 y 确认是一个效果。</p>
-<ul>
-<li><strong>特殊变量</strong> <strong>$?</strong> <strong>记录上一次命令的返回值</strong>。</li>
-</ul>
-<p>在 Linux shell 中，遵循 C 语言的习惯，返回值为 0 的话就是程序正常退 出，非 0 值就是异常退出出。读取上一次命令的返回值在平时使用命令行时 感觉没什么用，但是如果你想编写一些 shell 脚本，知道返回值非常有用。</p>
-<p><strong>举个实际的例子</strong>，比如我的 Github 仓库 fucking-algorithm ，我需要给其中 所有 markdown 文件最下方添加上一篇、下一篇、目录三个⻚脚链接，有的 文章已经有了⻚脚，大部分都没有。</p>
-<p>为了防止重复添加，我必须知道一个 md 文件下方是否已添加，这时候就可 以使用 $? 变量配合 grep 命令做到:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line">filename=<span class="variable">$1</span></span><br><span class="line"><span class="comment"># 查看文件尾部是否包含关键词</span></span><br><span class="line"><span class="built_in">tail</span> | grep <span class="string">&#x27;下一篇&#x27;</span> <span class="variable">$filename</span></span><br><span class="line"><span class="comment"># grep 查找到匹配会返回 0，找不到则返回非 0 值</span></span><br><span class="line">[ $? -ne 0 ] &amp;&amp; &#123; 添加⻚脚; &#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><strong>特殊变量</strong> <strong>$$</strong> <strong>记录当前进程的</strong> <strong>PID</strong>。</li>
-</ul>
-<p>这个功能可能在平时使用时也不怎么用，但是在写 shell 脚本时也非常有 用，比如说你要在 &#x2F;tmp 创建临时文件，给文件起名字一直都是非常让人 费脑子 的，这时候可以使用 $$ 变量扩展出当前进程的 PID 作为临时文件的名字。</p>
-
-      
-    </div>
-
-    
-    
-    
-
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>l
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/9efd0db9/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/lion.png">
-      <meta itemprop="name" content="swimminghao">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="swimminghao's blog">
-      <meta itemprop="description" content="swimminghao的学习博客">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | swimminghao's blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/9efd0db9/" class="post-title-link" itemprop="url">报告分类bash</a>
-        </h2>
-
-        <div class="post-meta-container">
-
-          
-
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-13 12:56:04" itemprop="dateModified" datetime="2022-03-13T12:56:04+08:00">2022-03-13</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">工具</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="far fa-comment"></i>
-    </span>
-    <span class="post-meta-item-text">Waline：</span>
-  
-    <a title="waline" href="/posts/9efd0db9/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/9efd0db9/" data-xid="/posts/9efd0db9/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>137</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>1 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="报告分类bash"><a href="#报告分类bash" class="headerlink" title="报告分类bash"></a>报告分类bash</h1><pre><code class="java">for file in *.pdf; do mkdir -p -- &quot;$&#123;file%%-*&#125;&quot; &amp;&amp; \
-    mv -- &quot;$file&quot; &quot;$&#123;file%%-*&#125;&quot;; done
-</code></pre>
 
       
     </div>
