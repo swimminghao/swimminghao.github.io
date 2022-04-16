@@ -1423,6 +1423,144 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/f1919e86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lion.png">
+      <meta itemprop="name" content="swimminghao">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="swimminghao's blog">
+      <meta itemprop="description" content="swimminghao的学习博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | swimminghao's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/f1919e86/" class="post-title-link" itemprop="url">sql难点记录</a>
+        </h2>
+
+        <div class="post-meta-container">
+
+          
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-03-11 11:12:36" itemprop="dateModified" datetime="2022-03-11T11:12:36+08:00">2022-03-11</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/posts/f1919e86/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/f1919e86/" data-xid="/posts/f1919e86/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>918</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>1 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="sql难点记录"><a href="#sql难点记录" class="headerlink" title="sql难点记录"></a>sql难点记录</h1><h2 id="1"><a href="#1" class="headerlink" title="1."></a>1.</h2><p>The expression <strong>subject IN (‘Chemistry’,’Physics’)</strong> can be used as a value - it will be <strong>0</strong> or <strong>1</strong>.</p>
+<p>Show the 1984 winners and subject ordered by subject and winner name; but list Chemistry and Physics last.</p>
+<p>这个题目没有中文，翻译的大概意思是 按照获奖的科学领域跟获奖者的名字来排序，但是 化学和物理要被排在最后</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> winner, subject <span class="keyword">FROM</span> nobel <span class="keyword">where</span> yr<span class="operator">=</span><span class="number">1984</span> <span class="keyword">ORDER</span> <span class="keyword">BY</span> subject <span class="keyword">IN</span> (<span class="string">&#x27;Physics&#x27;</span>,<span class="string">&#x27;Chemistry&#x27;</span>),subject <span class="keyword">asc</span>,winner <span class="keyword">asc</span></span><br></pre></td></tr></table></figure>
+<p>相当于</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> winner, subject <span class="keyword">FROM</span> nobel <span class="keyword">where</span> yr<span class="operator">=</span><span class="number">1984</span> </span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span>  <span class="keyword">CASE</span> <span class="keyword">WHEN</span> subject <span class="keyword">IN</span> (<span class="string">&#x27;Physics&#x27;</span>,<span class="string">&#x27;Chemistry&#x27;</span>) <span class="keyword">THEN</span> <span class="number">1</span> </span><br><span class="line">								<span class="keyword">ELSE</span> <span class="number">0</span> <span class="keyword">END</span>,</span><br><span class="line">                subject <span class="keyword">asc</span>,winner <span class="keyword">asc</span></span><br></pre></td></tr></table></figure>
+<p>相当于</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> winner, subject <span class="keyword">FROM</span> nobel <span class="keyword">where</span> yr<span class="operator">=</span><span class="number">1984</span> </span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> ( <span class="keyword">case</span> subject</span><br><span class="line">           <span class="keyword">when</span> <span class="string">&#x27;Chemistry&#x27;</span> <span class="keyword">then</span> <span class="number">1</span></span><br><span class="line">           <span class="keyword">when</span> <span class="string">&#x27;Physics&#x27;</span>   <span class="keyword">then</span> <span class="number">1</span></span><br><span class="line">           <span class="keyword">else</span> <span class="number">0</span></span><br><span class="line">           <span class="keyword">end</span>),subject <span class="keyword">asc</span>,winner <span class="keyword">asc</span></span><br></pre></td></tr></table></figure>
+
+<p>这里分析一下，以后也用得上，关键在order by subject IN (‘Physics’,’Chemistry’) ,subject asc,winner asc</p>
+<p>后两个比较容易理解 字段名加上asc表示按正常排序，难点在 subject in (xxx)这个表达式，</p>
+<p>排除后两个表达式，这是一个分组排序，</p>
+<p>subject in(xxx)为0的分成一组 排序</p>
+<p>subject in(xxx)为1的分成一组 排序</p>
+<p>得到结果连接起来就是新的排序表</p>
+<p>subject in(xxx) desc ：新的排序表 就在前面</p>
+<p>subject in(xxx) asc ：新的排序表 就在后面 （默认asc）</p>
+
+      
+    </div>
+
+    
+    
+    
+
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>l
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://example.com/posts/78971d1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2201,144 +2339,6 @@ footer {
 <span>  -- csdn</span></p><blockquote><h3><a name="科学上网" class="md-header-anchor"></a><span>科学上网</span></h3></blockquote><h5><a name="sockboomhttpssockboomart" class="md-header-anchor"></a><a target="_blank" rel="noopener" href='https://sockboom.art/'><span>sockboom</span></a></h5><p><a target="_blank" rel="noopener" href='https://sakura.cat/auth/login'><span>樱猫</span></a></p><blockquote><h3><a name="ftp" class="md-header-anchor"></a><span>ftp</span></h3></blockquote><ul><li><p><span>FileZillaClient</span></p></li><li><p><span>FileZillaServer</span></p><ul><li><span>搭建个人ftp使用，局域网内共享大文件使用</span></li></ul></li></ul><blockquote><h3><a name="redis" class="md-header-anchor"></a><span>redis</span></h3></blockquote><ul><li><p><span>Redis DeskTop</span></p><ul><li><span>redis管理终端，使用简单</span></li></ul></li></ul><blockquote><h3><a name="sql" class="md-header-anchor"></a><span>sql</span></h3></blockquote><ul><li><p><span>navicat/dataGrip/sqlyog</span></p><ul><li><span>常用的sql客户端，常用navicat，支持多种数据库如mongo</span></li></ul></li><li><p><span>PDMan</span></p><ul><li><span>可以建立表之间的逻辑关联关系</span></li><li><span>支持导出建表语句</span></li></ul></li></ul><blockquote><h3><a name="terminal" class="md-header-anchor"></a><span>terminal</span></h3></blockquote><ul><li><p><span>mobaxterm</span></p><ul><li><span>免费</span></li><li><span>直接建立Sftp，方便文件管理</span></li><li><span>性能稍差</span></li></ul></li><li><p><span>xhsell</span></p><ul><li><span>收费，免费版限制较多，限制终端开启数量</span></li></ul></li><li><p><span>Cmder/GitBash</span></p><ul><li><span>windows端的终端</span></li><li><span>直接一些bash指令，模拟linux操作win，比如tail、less等等，比win cmd及powershell稍微好用些</span></li></ul></li></ul><blockquote><h3><a name="onedrive--office" class="md-header-anchor"></a><span>onedrive + office</span></h3></blockquote><ul><li><span>家庭版共享性价比很高，1T云存储</span></li></ul><h2><a name="开发办公" class="md-header-anchor"></a><span>开发办公</span></h2><blockquote><h3><a name="idea" class="md-header-anchor"></a><span>idea</span></h3></blockquote><ul><li><h5><a name="破解和注册" class="md-header-anchor"></a><span>破解和注册</span></h5><ul><li><h5><a name="教育邮箱免费注册专业版本jetbrain全家桶）" class="md-header-anchor"></a><span>教育邮箱，免费注册专业版本（jetbrain全家桶）</span></h5></li><li><h5><a name="读书成诗公众号破解补丁" class="md-header-anchor"></a><span>读书成诗公众号，破解补丁</span></h5></li></ul></li><li><h5><a name="插件推荐" class="md-header-anchor"></a><span>插件推荐</span></h5><ul><li><h5><a name="1easycode" class="md-header-anchor"></a><code>1、easycode</code></h5><ul><li><h5><a name="sqlmap模板代码生成插件模板自定义语法较为简单上手容易" class="md-header-anchor"></a><span>sqlmap模板代码生成插件，模板自定义，语法较为简单，上手容易</span></h5></li></ul></li><li><p><code>2、easyyapi</code></p><ul><li><span>接口文档生成插件</span></li><li><span>支持http、dubbo接口</span></li><li><span>可导出至yapi、postman、本地markdown</span></li></ul></li><li><p><code>3、 camelcase</code></p><ul><li><span>大小写转换工具，驼峰、下划线等多种类型切换</span></li><li><span>常用于从数据库中复制的字段转换成驼峰</span></li></ul></li><li><p><code>4、alibaba cloud toolkit</code></p><ul><li><span>远程部署</span></li><li><span>一般本地测试直接部署到本地tomcat，开发环境联调需要部署，可以使用该功能</span></li></ul></li><li><p><code>5、codeglance</code><span> </span></p><ul><li><span>代码概览，类似vscode的右边导览，在文件较长时（看源码）时浏览方便</span></li></ul></li></ul></li><li><h5><a name="常用快捷操作和命令" class="md-header-anchor"></a><span>常用快捷操作和命令</span></h5><ul><li><p><code>1、文本操作</code><span> （常用于数据清洗，批量操作数据或是批量修改代码）</span></p><ul><li><span>扩大/减小选取，ctrl alt up/down</span></li><li><span>多光标，alt shift leftmouse</span></li><li><span>选区转光标，alt shift insert</span></li><li><span>正则替换</span></li></ul></li><li><p><code>2、重构操作</code></p><ul><li><span>change singature 修改方法签名：alt shift c</span></li><li><span>重命名变量/方法：alt shift r</span></li></ul></li></ul></li><li><h5><a name="debug" class="md-header-anchor"></a><span>debug </span></h5><ul><li><p><span>evaluate</span></p></li><li><p><span>watch</span></p></li><li><p><span>remote debug</span></p><ul><li><span>远程连接服务器debug，可以用于开发环境debug使用</span></li></ul></li></ul></li></ul><blockquote><h3><a name="飞书" class="md-header-anchor"></a><span>飞书</span></h3></blockquote><ul><li><p><span>infobot</span></p><ul><li><span>消息推送，webhook直接推送，使用简单</span></li></ul></li><li><p><span>捷径</span></p><ul><li><span>配合infobot可以实现一些个人的快捷功能</span></li></ul></li></ul><blockquote><h3><a name="远程桌面" class="md-header-anchor"></a><span>远程桌面</span></h3></blockquote><ul><li><p><span>teamview</span></p><ul><li><span>免费，一旦检测到商业使用，会限制连接时长，基本无法继续使用</span></li><li><span>稳定，基于P2P或teamview服务器连接</span></li></ul></li><li><p><span>remotedesktop</span></p><ul><li><span>支持多平台客户端</span></li><li><span>配合vpn或是nat使用效果很好，连接质量比teamview高，基本可以达到与使用本机相同的体验</span></li><li><span>使用nat时，一定要做好安全控制</span></li></ul></li></ul><p>&nbsp;</p><h2><a name="常用站点" class="md-header-anchor"></a><span>常用站点</span></h2><h4><a name="内部" class="md-header-anchor"></a><span>内部</span></h4><ul><li><p><a target="_blank" rel="noopener" href='http://47.97.67.85:3000/group/87'><span>yapi</span></a></p><ul><li><span>接口文档共享</span></li></ul></li><li><p><a target="_blank" rel="noopener" href='http://118.178.190.205/zabbix/zabbix.php?action=dashboard.view'><span>zabbix</span></a></p><ul><li><span>生产服务器运行监控，服务器的cpu、内存、tomcat gc等查看</span></li><li><span>可以查看消息队列的消息长度，用于判断生产消息队列的消费者消费能力</span></li></ul></li><li><p><a target="_blank" rel="noopener" href='http://114.55.248.113/login?next=%2F#?_g=()'><span>kibana</span></a></p><ul><li><span>日志检索平台</span></li><li><span>多台服务器部署的应用，日志查询</span></li></ul></li><li><p><a target="_blank" rel="noopener" href='http://118.178.137.55:8081/nexus/content/repositories/releases/'><span>nexus</span></a></p><ul><li><span>maven仓库管理</span></li><li><span>可以查询公司目前已有的jar包，常用于内部jar包版本问题排查</span></li></ul></li><li><p><a target="_blank" rel="noopener" href='http://118.178.190.205:3000/group/deploy'><span>rocketchat</span></a></p></li><li><p><a target="_blank" rel="noopener" href='http://114.55.248.113:8202/main'><span>pinpoint</span></a></p><ul><li><span>APM监控工具</span></li><li><span>慢sql排查，服务性能问题排查，服务调用监控</span></li></ul></li><li><p><a target="_blank" rel="noopener" href='http://118.31.104.127:8070/'><span>apollo配置中心</span></a></p><ul><li><span>分布式配置中心</span></li><li><span>一般用于配置信息查询</span></li></ul></li><li><p><a target="_blank" rel="noopener" href='http://106.15.251.60:8071/#/service?filter=%2a&amp;pattern=service'><span>dubbo admin</span></a></p><ul><li><span>查看dubbo服务的注册与订阅信息</span></li><li><span>查询对应zk上已经注册的服务</span></li><li><span>服务治理、统计查询、服务mock</span></li></ul></li><li><p><a target="_blank" rel="noopener" href='http://47.100.94.134:15672/'><span>rabbitMQ</span></a></p><ul><li><span>rabbitmq管理页面</span></li><li><span>可以操作队列、查询队列消息长度，消息内容，手动发送消息等</span></li></ul></li><li><p><a target="_blank" rel="noopener" href='http://47.100.94.134:9000/'><span>jenkins</span></a></p><ul><li><span>部署记录、日志查看；部署操作（dev、fat）</span></li></ul></li><li><p><a target="_blank" rel="noopener" href='http://nbs.wayyue.com/mysql-backup-delay.html'><span>备库延迟检测</span></a></p><ul><li><span>生产备库延迟检测</span></li><li><span>有时候更新了生产数据，但发现没有变化，此时可以看一下备库延迟</span></li></ul></li><li><p><a target="_blank" rel="noopener" href='https://dataquery.shanzhen.me/login'><span>dataquery</span></a></p><ul><li><span>数据查询平台，需要找俊博注册开通，查询生产备库数据</span></li></ul></li></ul><h4><a name="其他站点" class="md-header-anchor"></a><span>其他站点</span></h4><ul><li><p><span>正则</span></p><ul><li><a target="_blank" rel="noopener" href='https://regex101.com/'><span>在线测试</span></a></li><li><a target="_blank" rel="noopener" href='https://www.regular-expressions.info/'><span>语法介绍</span></a></li></ul></li><li><p><a href='https://mvnrepository.com/' target='_blank' class='url'>https://mvnrepository.com/</a></p></li><li><p><a href='https://www.codota.com/code' target='_blank' class='url'>https://www.codota.com/code</a></p><ul><li><span>相似代码搜索</span></li></ul></li><li><p><span>数据结构演示</span></p><ul><li><a href='http://ds.fmdca380.com/' target='_blank' class='url'>http://ds.fmdca380.com/</a></li><li><a href='https://www.cs.usfca.edu/~galles/visualization/Algorithms.html' target='_blank' class='url'>https://www.cs.usfca.edu/~galles/visualization/Algorithms.html</a></li></ul></li></ul></div>
 </body>
 </html>
-      
-    </div>
-
-    
-    
-    
-
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>l
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/f1919e86/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/lion.png">
-      <meta itemprop="name" content="swimminghao">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="swimminghao's blog">
-      <meta itemprop="description" content="swimminghao的学习博客">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | swimminghao's blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/f1919e86/" class="post-title-link" itemprop="url">sql难点记录</a>
-        </h2>
-
-        <div class="post-meta-container">
-
-          
-
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-11 11:12:36" itemprop="dateModified" datetime="2022-03-11T11:12:36+08:00">2022-03-11</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="far fa-comment"></i>
-    </span>
-    <span class="post-meta-item-text">Waline：</span>
-  
-    <a title="waline" href="/posts/f1919e86/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/f1919e86/" data-xid="/posts/f1919e86/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>918</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>1 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="sql难点记录"><a href="#sql难点记录" class="headerlink" title="sql难点记录"></a>sql难点记录</h1><h2 id="1"><a href="#1" class="headerlink" title="1."></a>1.</h2><p>The expression <strong>subject IN (‘Chemistry’,’Physics’)</strong> can be used as a value - it will be <strong>0</strong> or <strong>1</strong>.</p>
-<p>Show the 1984 winners and subject ordered by subject and winner name; but list Chemistry and Physics last.</p>
-<p>这个题目没有中文，翻译的大概意思是 按照获奖的科学领域跟获奖者的名字来排序，但是 化学和物理要被排在最后</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> winner, subject <span class="keyword">FROM</span> nobel <span class="keyword">where</span> yr<span class="operator">=</span><span class="number">1984</span> <span class="keyword">ORDER</span> <span class="keyword">BY</span> subject <span class="keyword">IN</span> (<span class="string">&#x27;Physics&#x27;</span>,<span class="string">&#x27;Chemistry&#x27;</span>),subject <span class="keyword">asc</span>,winner <span class="keyword">asc</span></span><br></pre></td></tr></table></figure>
-<p>相当于</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> winner, subject <span class="keyword">FROM</span> nobel <span class="keyword">where</span> yr<span class="operator">=</span><span class="number">1984</span> </span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span>  <span class="keyword">CASE</span> <span class="keyword">WHEN</span> subject <span class="keyword">IN</span> (<span class="string">&#x27;Physics&#x27;</span>,<span class="string">&#x27;Chemistry&#x27;</span>) <span class="keyword">THEN</span> <span class="number">1</span> </span><br><span class="line">								<span class="keyword">ELSE</span> <span class="number">0</span> <span class="keyword">END</span>,</span><br><span class="line">                subject <span class="keyword">asc</span>,winner <span class="keyword">asc</span></span><br></pre></td></tr></table></figure>
-<p>相当于</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> winner, subject <span class="keyword">FROM</span> nobel <span class="keyword">where</span> yr<span class="operator">=</span><span class="number">1984</span> </span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> ( <span class="keyword">case</span> subject</span><br><span class="line">           <span class="keyword">when</span> <span class="string">&#x27;Chemistry&#x27;</span> <span class="keyword">then</span> <span class="number">1</span></span><br><span class="line">           <span class="keyword">when</span> <span class="string">&#x27;Physics&#x27;</span>   <span class="keyword">then</span> <span class="number">1</span></span><br><span class="line">           <span class="keyword">else</span> <span class="number">0</span></span><br><span class="line">           <span class="keyword">end</span>),subject <span class="keyword">asc</span>,winner <span class="keyword">asc</span></span><br></pre></td></tr></table></figure>
-
-<p>这里分析一下，以后也用得上，关键在order by subject IN (‘Physics’,’Chemistry’) ,subject asc,winner asc</p>
-<p>后两个比较容易理解 字段名加上asc表示按正常排序，难点在 subject in (xxx)这个表达式，</p>
-<p>排除后两个表达式，这是一个分组排序，</p>
-<p>subject in(xxx)为0的分成一组 排序</p>
-<p>subject in(xxx)为1的分成一组 排序</p>
-<p>得到结果连接起来就是新的排序表</p>
-<p>subject in(xxx) desc ：新的排序表 就在前面</p>
-<p>subject in(xxx) asc ：新的排序表 就在后面 （默认asc）</p>
-
       
     </div>
 
