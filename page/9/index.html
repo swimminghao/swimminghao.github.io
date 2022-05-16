@@ -276,196 +276,6 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/f78aff48/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/lion.png">
-      <meta itemprop="name" content="swimminghao">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="swimminghao's blog">
-      <meta itemprop="description" content="swimminghao的学习博客">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | swimminghao's blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/f78aff48/" class="post-title-link" itemprop="url">13、【对线面试官】Map</a>
-        </h2>
-
-        <div class="post-meta-container">
-
-          
-
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-10 09:48:07" itemprop="dateModified" datetime="2022-03-10T09:48:07+08:00">2022-03-10</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="far fa-comment"></i>
-    </span>
-    <span class="post-meta-item-text">Waline：</span>
-  
-    <a title="waline" href="/posts/f78aff48/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/f78aff48/" data-xid="/posts/f78aff48/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>2.7k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>2 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="13、【对线面试官】Map"><a href="#13、【对线面试官】Map" class="headerlink" title="13、【对线面试官】Map"></a>13、【对线面试官】Map</h1><h2 id="今天来讲讲Map吧，你对Map了解多少？就讲JDK1-8就好咯"><a href="#今天来讲讲Map吧，你对Map了解多少？就讲JDK1-8就好咯" class="headerlink" title="今天来讲讲Map吧，你对Map了解多少？就讲JDK1.8就好咯"></a>今天来讲讲Map吧，你对Map了解多少？就讲JDK1.8就好咯</h2><ul>
-<li>Map在Java里边是一个接口，常见的实现类有HashMap、 LinkedHashMap、TreeMap和ConcurrentHashMap</li>
-</ul>
-<ol>
-<li>在Java里边，哈希表的实现由数组+链表所组成</li>
-<li>HashMap底层数据结构是数组+链表&#x2F;红黑树</li>
-<li>LinkedHashMap底层数据结构是数组+链表+双向链表</li>
-<li>TreeMap底层数据结构是红黑树</li>
-<li>而ConcurrentHashMap底层数据结构也是数组+链表&#x2F;红黑树</li>
-</ol>
-<h2 id="我们先以HashMap开始吧，你能讲讲当你new一个HashMap的时候，会发生什么吗？"><a href="#我们先以HashMap开始吧，你能讲讲当你new一个HashMap的时候，会发生什么吗？" class="headerlink" title="我们先以HashMap开始吧，你能讲讲当你new一个HashMap的时候，会发生什么吗？"></a>我们先以HashMap开始吧，你能讲讲当你new一个HashMap的时候，会发生什么吗？</h2><ol>
-<li>如果我们不指定，默认HashMap的大小为16，负载因子的大小为0.75</li>
-<li>还有就是：HashMap的大小只能是2次幂的，假设你传一个10进去，实际上最终HashMap的大小是16，你传一个7进去，HashMap最终的大小是8，具体的实现在tableSizeFor可以看到。</li>
-<li>我们把元素放进HashMap的时候，需要算出这个元素所在的位置（hash）</li>
-<li>在HashMap里用的是位运算来代替取模，能够更加高效地算出该元素所在的位置</li>
-<li>为什么HashMap的大小只能是2次幂，因为只有大小为2次幂时，才能合理用位运算替代取模。</li>
-<li>而负载因子的大小决定着哈希表的扩容和哈希冲突。</li>
-<li>比如现在我默认的HashMap大小为16，负载因子为0.75，这意味着数组最多只能放12个元素，一旦超过12个元素，则哈希表需要扩容</li>
-<li>怎么算出是12呢？很简单，就是16*0.7 5。每次put元素进去的时候，都会检查HashMap的大小有没有超过这个阈值，如果有，则需要扩容。</li>
-<li>鉴于上面的说法（HashMap的大小只能是2次幂），所以扩容的时候时候默认是扩原来的2倍</li>
-<li>还有就是扩容这个操作肯定是耗时的，那能不能把负载因子调高一点，比如我要调至为1，那我的HashMap就等到16个元素的时候才扩容呢。</li>
-<li>当然是可以的，但是不推荐。负载因子调高了，这意味着哈希冲突的概率会增高，哈希冲突概率增高，同样会耗时（因为查找的速度变慢了）</li>
-</ol>
-<h2 id="算了。我还想继续问下，在put元素的时候，传递的Key是怎么算哈希值的？"><a href="#算了。我还想继续问下，在put元素的时候，传递的Key是怎么算哈希值的？" class="headerlink" title="算了。我还想继续问下，在put元素的时候，传递的Key是怎么算哈希值的？"></a>算了。我还想继续问下，在put元素的时候，传递的Key是怎么算哈希值的？</h2><ol>
-<li>实现就在hash方法上，可以发现的是，它是先算出正常的哈希值，然后与高16位做异或运算，产生最终的哈希值。</li>
-<li>这样做的好处可以增加了随机性，减少了碰撞冲突的可能性。</li>
-</ol>
-<h2 id="你简单再说下put和get方法的实现吧"><a href="#你简单再说下put和get方法的实现吧" class="headerlink" title="你简单再说下put和get方法的实现吧"></a>你简单再说下put和get方法的实现吧</h2><ol>
-<li>在put的时候，首先对key做hash运算，计算出该key所在的index。</li>
-<li>如果没碰撞，直接放到数组中，如果碰撞了，需要判断目前数据结构是链表还是红黑树，根据不同的情况来进行插入。</li>
-<li>假设key是相同的，则替换到原来的值。最后判断哈希表是否满了（当前哈希表大小*负载因子），如果满了，则扩容</li>
-<li>在get的时候，还是对key做hash运算，计算出该key所在的index，然后判断是否有hash冲突</li>
-<li>假设没有冲突直接返回，假设有冲突则判断当前数据结构是链表还是红黑树，分别从不同的数据结构中取出。</li>
-</ol>
-<h2 id="那在HashMap中是怎么判断一个元素是否相同的呢？"><a href="#那在HashMap中是怎么判断一个元素是否相同的呢？" class="headerlink" title="那在HashMap中是怎么判断一个元素是否相同的呢？"></a>那在HashMap中是怎么判断一个元素是否相同的呢？</h2><ol>
-<li>首先会比较hash值，随后会用&#x3D;&#x3D;运算符和equals（）来判断该元素是否相同。</li>
-<li>说白了就是：如果只有hash值相同，那说明该元素哈希冲突了，如果hash值和equals（）|| &#x3D;&#x3D;都相同，那说明该元素是同个。</li>
-</ol>
-<h2 id="你说HashMap的数据结构是数组-链表-x2F-红黑树，那什么情况拿下才会用到红黑树呢？"><a href="#你说HashMap的数据结构是数组-链表-x2F-红黑树，那什么情况拿下才会用到红黑树呢？" class="headerlink" title="你说HashMap的数据结构是数组+链表&#x2F;红黑树，那什么情况拿下才会用到红黑树呢？"></a>你说HashMap的数据结构是数组+链表&#x2F;红黑树，那什么情况拿下才会用到红黑树呢？</h2><ol>
-<li>当数组的大小大于64且链表的大小大于8的时候才会将链表改为红黑树，当红黑树大小为6时，会退化为链表。</li>
-<li>这里转红黑树退化为链表的操作主要出于查询和插入时对性能的考量。</li>
-<li>链表查询时间复杂度O（N），插入时间复杂度O（1），红黑树查询和插入时间复杂度O（logN）</li>
-</ol>
-<h2 id="你在日常开始中LinkedHashMap用的多吗？"><a href="#你在日常开始中LinkedHashMap用的多吗？" class="headerlink" title="你在日常开始中LinkedHashMap用的多吗？"></a>你在日常开始中LinkedHashMap用的多吗？</h2><ol>
-<li>在前面也提到了，LinkedHashMap底层结构是数组+链表+双向链表，实际上它继承了HashMap，在HashMap的基础上维护了一个双向链表</li>
-<li>有了这个双向链表，我们的插入可以是有序的，这里的有序不是指大小有序而是插入有序</li>
-<li>LinkedHashMap在遍历的时候实际用的是双向链表来遍历的，所以LinkedHashMap的大小不会影响到遍历的性能</li>
-</ol>
-<h2 id="那TreeMap呢？"><a href="#那TreeMap呢？" class="headerlink" title="那TreeMap呢？"></a>那TreeMap呢？</h2><ol>
-<li>TreeMap在现实开发中用得也不多，Tre eMap的底层数据结构是红黑树</li>
-<li>TreeMap的key不能为null（如果为null，那还怎么排序呢），TreeMap有序是通过Comparator来进行比较的，如果comparator为null，那么就使用自然顺序</li>
-</ol>
-<h2 id="再来讲讲线程安全的Map吧？-HashMap是线程安全的吗？"><a href="#再来讲讲线程安全的Map吧？-HashMap是线程安全的吗？" class="headerlink" title="再来讲讲线程安全的Map吧？ HashMap是线程安全的吗？"></a>再来讲讲线程安全的Map吧？ HashMap是线程安全的吗？</h2><ol>
-<li>HashMap不是线程安全的，在多线程环境下，HashMap有可能会有数据丢失和获取不了最新数据的问题，比如说：线程Aput进去了，线程Bget不出来。</li>
-<li>想要线程安全，一般使用ConcurrentHashMap</li>
-<li>ConcurrentHashMap是线程安全的Map 实现类，它在juc包下的。</li>
-<li>线程安全的Map实现类除了ConcurrentHashMap还有一个叫做Hashtable。</li>
-<li>当然了，也可以使用Collections来包装出一个线程安全的Map。</li>
-<li>但无论是Hashtable还是Collections包装出来的都比较低效（因为是直接在外层套synchronize），所以我们一般有线程安全问题考量的，都使用ConcurrentHashMap</li>
-<li>ConcurrentHashMap的底层数据结构是数组+链表&#x2F;红黑树，它能支持高并发的访问和更新，是线程安全的。</li>
-<li>ConcurrentHashMap通过在部分加锁和利用CAS算法来实现同步，在get的时候没有加锁，Node都用了volatile给修饰。</li>
-<li>在扩容时，会给每个线程分配对应的区间，并且为了防止putVal导致数据不一致，会给线程的所负责的区间加锁</li>
-</ol>
-<h2 id="嗯，你可以给我讲讲JDK7和JDK8中HashMap和ConcurrentHashMap的区别吗？"><a href="#嗯，你可以给我讲讲JDK7和JDK8中HashMap和ConcurrentHashMap的区别吗？" class="headerlink" title="嗯，你可以给我讲讲JDK7和JDK8中HashMap和ConcurrentHashMap的区别吗？"></a>嗯，你可以给我讲讲JDK7和JDK8中HashMap和ConcurrentHashMap的区别吗？</h2><ol>
-<li>我在学习的时候也看过JDK7的HashMap和ConcurrentHashMap，其实还是有很多不一样的地方</li>
-<li>比如JDK7的HashMap在扩容时是头插法，在JDK8就变成了尾插法，在JDK7的HashMap还没有引入红黑树</li>
-<li>ConcurrentHashMap在JDK7还是使用分段锁的方式来实现，而JDK8就又不一样了。但JDK7细节我大多数都忘了。</li>
-<li>我就没用过JDK7的API，我想着现在最低应该也是用JDK8了吧？所以我就没去仔细看了。</li>
-</ol>
-
-      
-    </div>
-
-    
-    
-    
-
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>l
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://example.com/posts/c2bf7fb6/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -641,7 +451,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/36f701ea/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/51360fe0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/lion.png">
@@ -659,7 +469,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/36f701ea/" class="post-title-link" itemprop="url">17、【对线面试官】Redis基础</a>
+          <a href="/posts/51360fe0/" class="post-title-link" itemprop="url">15、【对线面试官】Spring基础</a>
         </h2>
 
         <div class="post-meta-container">
@@ -701,8 +511,8 @@
     </span>
     <span class="post-meta-item-text">Waline：</span>
   
-    <a title="waline" href="/posts/36f701ea/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/36f701ea/" data-xid="/posts/36f701ea/" itemprop="commentCount"></span>
+    <a title="waline" href="/posts/51360fe0/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/51360fe0/" data-xid="/posts/51360fe0/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -713,7 +523,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>1.7k</span>
+      <span>2k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -731,59 +541,76 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="17、【对线面试官】Redis基础"><a href="#17、【对线面试官】Redis基础" class="headerlink" title="17、【对线面试官】Redis基础"></a>17、【对线面试官】Redis基础</h1><h2 id="你先来讲讲为什么要用Redis吧？"><a href="#你先来讲讲为什么要用Redis吧？" class="headerlink" title="你先来讲讲为什么要用Redis吧？"></a>你先来讲讲为什么要用Redis吧？</h2><ol>
-<li>我个人是这样理解的：无论Redis也好、MySQL也好、HDFS也好、HBase也好</li>
-<li>他们都是存储数据的地方</li>
-<li>因为它们的设计理念的不同，我们会根据不同的应用场景使用不同的存储</li>
-<li>像Redis一般我们会把它用作于缓存</li>
-<li>当然啦，日常有的应用场景比较简单，用个HashMap也能解决很多的问题了，没必要上Redis</li>
-<li>这就好比，有的单机限流可能应对某些场景就够用了，也没必要说一定要上分布式限流把系统搞得复杂</li>
+          <h1 id="15、【对线面试官】Spring基础"><a href="#15、【对线面试官】Spring基础" class="headerlink" title="15、【对线面试官】Spring基础"></a>15、【对线面试官】Spring基础</h1><h2 id="要不你来讲讲Spring的IOC和AOP你是怎么理解的呗？"><a href="#要不你来讲讲Spring的IOC和AOP你是怎么理解的呗？" class="headerlink" title="要不你来讲讲Spring的IOC和AOP你是怎么理解的呗？"></a>要不你来讲讲Spring的IOC和AOP你是怎么理解的呗？</h2><ol>
+<li>我个人理解下：SpringIOC解决的是对象管理和对象依赖的问题。</li>
+<li>本来是我们自己手动new出来的对象，现在则把对象交给Spring的IOC容器管理</li>
+<li>IOC容器可以理解为一个对象工厂，我们都把该对象交给工厂，工厂管理这些对象的创建以及依赖关系</li>
+<li>等我们需要用对象的时候，从工厂里边获取就好了</li>
 </ol>
-<h2 id="那你在项目里有用到Redis吗？怎么用的？"><a href="#那你在项目里有用到Redis吗？怎么用的？" class="headerlink" title="那你在项目里有用到Redis吗？怎么用的？"></a>那你在项目里有用到Redis吗？怎么用的？</h2><ol>
-<li>Redis肯定是用到的，我负责的项目几乎都会有Redisl的踪影</li>
-<li>我举几个我这边项目用的案例呗？</li>
-<li>我这边负责消息管理平台，简单来说就是发消息的</li>
-<li>那发完消息肯定我们是得知道消息有没有下发成功的，是吧？</li>
-<li>于是我们系统有一套完整的链路追踪体系</li>
-<li>其中实时的数据我们就用Redis来进行存储，有实时肯定就会有离线的嘛（离线的数据我们是存储到Hive的）</li>
-<li>对消息进行实时链路追踪，我这边就用了Redis好几种的数据结构，分别有Set、List和Hash</li>
-<li>我再稍微铺垫下链路追踪的背景吧~</li>
-<li>要在消息管理平台发消息，首先得在后台新建一个「模板」，有模板自然会有一个模板ID</li>
-<li>对模板D进行扩展，比如说加上日期和固定的业务参数，形成的ID可以唯一标识某个模板的下发链路</li>
-<li>在系统上，我这边叫它为UMPID</li>
-<li>在发送入口处会对所有需要下发的消息打上UMPID，然后在关键链路上打上对应的点位</li>
-<li>接下来的工作就是清洗出统一的模型，然后根据不同维度进行处理啦。比如说：</li>
-<li>我要看某一天下发的所有模板有哪些，那只要我把清洗出来后数据的，将对应UMPID扔到了Set就好了</li>
-<li>我要看某一个模板的消息下发的整体链路情况，那我以UMPID为Key，Value是Hash结构，Key是state，Value则是人数</li>
-<li>这里的state我们在下发的过程中打的关键点位，比如接收到消息打个51，消息被去重了打个61，消息成功下发了打个81…</li>
-<li>以UMPID为Key，Hash结构的Key（State）进行不断的累加，就可以实现某一个模板的消息下发的整体链路情况</li>
-<li>我要看某个用户当天下发的消息有哪些，以及这些消息的整体链路是如何。</li>
-<li>这边我用的是List结构，Key是userld，Value则是UMPID+state（关键点位）+processTime（处理时间）</li>
+<h2 id="哦，你说的就是「控制反转」和「注入依赖」吧？"><a href="#哦，你说的就是「控制反转」和「注入依赖」吧？" class="headerlink" title="哦，你说的就是「控制反转」和「注入依赖」吧？"></a>哦，你说的就是「控制反转」和「注入依赖」吧？</h2><ol>
+<li>我认为「控制反转」指的就是：把原有自己掌控的事交给别人去处理</li>
+<li>它更多的是一种思想或者可以理解为设计模式</li>
+<li>比如：本来由我们自己new出来的对象，现在交由IOC容器，把对象的控制权交给它方了.</li>
+<li>而「依赖注入」在我的理解下，它其实是「控制反转」的实现方式</li>
+<li>对象无需自行创建或者管理它的依赖关系，依赖关系将被「自动注入」到需要它们的对象当中去</li>
 </ol>
+<h2 id="嗯，那我想问问，用SpringIOC有什么好处吗？"><a href="#嗯，那我想问问，用SpringIOC有什么好处吗？" class="headerlink" title="嗯，那我想问问，用SpringIOC有什么好处吗？"></a>嗯，那我想问问，用SpringIOC有什么好处吗？</h2><h2 id="或者换个问法：本来我可以new出来的对象，为什么我要交由Spring-IOC容器管理呢？"><a href="#或者换个问法：本来我可以new出来的对象，为什么我要交由Spring-IOC容器管理呢？" class="headerlink" title="或者换个问法：本来我可以new出来的对象，为什么我要交由Spring IOC容器管理呢？"></a>或者换个问法：本来我可以new出来的对象，为什么我要交由Spring IOC容器管理呢？</h2><ol>
+<li>主要的好处在于「将对象集中统一管理」并且「降低耦合度」</li>
+<li>如果面试官理解了「工厂模式」，那就知道为什么我们不直接new对象</li>
+<li>要说理由的话，可以举很多例子，比如说：</li>
+<li>我用SpringIOC可以方便单元测试、对象创建复杂、对象依赖复杂、单例等等的，什么都可以交给Spring IOC</li>
+<li>理论上自己new出来的都可以解决上面的问题，Spring在各种场景组合下有可能不是最优解</li>
+<li>但new出来的你要自己管理，可能你得自己写工厂，得实现一大套的东西才能满足需求</li>
+<li>写着写着有可能还是Spring的那一套</li>
+<li>但现在Spring现在已经帮你实现了啊！</li>
+<li>如果项目里的对象都是就new下就完事了，没有多个实现类，那没事，不用Spring也没啥问题</li>
+<li>并且Spring核心不仅仅IOC啊，除了把对象创建出来，还有一整套的Bean生命周期管理</li>
+<li>比如说你要实现对象增强，AOP不就有了吗？不然你还得自己创建代理</li>
+</ol>
+<h2 id="那你继续来聊下Spring-AOP呗？"><a href="#那你继续来聊下Spring-AOP呗？" class="headerlink" title="那你继续来聊下Spring AOP呗？"></a>那你继续来聊下Spring AOP呗？</h2><ol>
+<li>Spring AOP解决的是非业务代码抽取的问题</li>
+<li>AOP底层的技术是动态代理，在Spring 内实现依赖的是BeanPostProcessor</li>
+<li>比如我们需要在方法上注入些「重复性」的非业务代码，就可以利用Spring AOP</li>
+<li>所谓的「面向切面编程」在我理解下其实就是在方法前后增加非业务代码</li>
+</ol>
+<h2 id="那你在工作中实际用到过AOP去优化你的代码吗？"><a href="#那你在工作中实际用到过AOP去优化你的代码吗？" class="headerlink" title="那你在工作中实际用到过AOP去优化你的代码吗？"></a>那你在工作中实际用到过AOP去优化你的代码吗？</h2><ol>
+<li>·有的。当时我用AOP来对我们公司现有的监控客户端进行封装</li>
+<li>一个系统离不开监控，监控基本的指标有QPS、RT、ERROR等等</li>
+<li>对外暴露的监控客户端只能在代码里写对应的上报信息（灵活，但会与业务代码掺杂在一起）</li>
+<li>于是我利用注解+AOP的方式封装了一把，只要方法&#x2F;类上带有我自定义的注解</li>
+<li>方法被调用时，就会上报AQS、RT等信息实现了非业务代码与业务代码分离的效果</li>
+</ol>
+<h2 id="了解，你们项目一般是怎么把对象交给IOC容器管理的？"><a href="#了解，你们项目一般是怎么把对象交给IOC容器管理的？" class="headerlink" title="了解，你们项目一般是怎么把对象交给IOC容器管理的？"></a>了解，你们项目一般是怎么把对象交给IOC容器管理的？</h2><h2 id="换个问法：一般是怎么定义Bean的？"><a href="#换个问法：一般是怎么定义Bean的？" class="headerlink" title="换个问法：一般是怎么定义Bean的？"></a>换个问法：一般是怎么定义Bean的？</h2><ol>
+<li>Spring提供了4种方式，分别是：<br>1）：注解2）：XML3）：JavaConfig 4）：基于Groovy 的DSL配置</li>
+<li>一般项目我们用注解或XML比较多，少部分用JavaConfig</li>
+<li>日常写业务代码一般用注解来定义各种对象，责任链这种一般配置在XML「注解」解决不了的就用JavaConfig</li>
+<li>总体而言，还是得看项目的代码风格吧</li>
+<li>反正就是定义元数据，能给到Spring解析就好了</li>
+</ol>
+<h2 id="要不来聊聊你使用Spring的感受？"><a href="#要不来聊聊你使用Spring的感受？" class="headerlink" title="要不来聊聊你使用Spring的感受？"></a>要不来聊聊你使用Spring的感受？</h2><ol>
+<li>当我还是初学Spring的时候，我觉得Spring很麻烦，需要有一大堆的配置信息才能跑起来</li>
+<li>光是搭建环境就需要耗费我好长的时间</li>
+<li>毕竟版本冲突，依赖冲突什么的就可能个下午就过去了</li>
+<li>但毕竟一个系统环境只搭一次嘛，所以还好（后来用上了SpringBoot这又更方便了）</li>
+<li>回来，IOC和AOP在工作用的时候还是很爽的</li>
+<li>毕竟搞个注解什么的，配置下就可以把对象交给Spring管理了</li>
+<li>配合Spring的生态，@Transactional注解什么的，都好用得飞起</li>
+<li>不过，Spring给我们封装得太好了</li>
+<li>经常就会有奇奇怪怪的”bug”出现，也踩过很多的坑了</li>
+<li>Bean经常没办法创建成功，导致项目启动失败..</li>
+<li>对象的循环依赖问题.</li>
+<li>同一个接口，多个实现，识别不出我要创建哪个对象.</li>
+<li>为什么catch了异常，Spring事务为什么还会自动回滚..</li>
+<li>等等等</li>
+</ol>
+<h2 id="循环以来"><a href="#循环以来" class="headerlink" title="循环以来"></a>循环以来</h2><ol>
+<li><p>到这里，Spring整个解决循环依赖问题的实现思路已经比较清楚了。对于整体过程，读者朋友只要理解两点：</p>
 <ul>
-<li>简单来说，就是通过Redis丰富的数据结构来实现对下发消息多个维度的统计</li>
-<li>不同的应用场景选择不同的数据结构，再等到透出做处理的时候，就变得十分简单了</li>
-<li>消息下发过程中去重或者一般正常的场景就直接Key-Value就能符合需求了</li>
-<li>像bitmap、hyperloglogs、sortset、steam等等这些数据结构在我所负责的项目用得是真不多</li>
-<li>要是我有机会去到贵公司，贵公司有相关的应用场景，我相信我也很快就能掌握</li>
-<li>这些数据结构底层都由对应的object来支撑着，objecti记录对应的「编码」</li>
-<li>其实就是会根据key-value存储的数量或者长度来使用选择不同的底层数据结构实现</li>
-<li>比如说：ziplist压缩列表这个底层数据结构有可能上层的实现是list、hash和sortset</li>
-<li>Hash结构的底层数据结构可能是hash和ziplist</li>
-<li>在节省内存和性能的考量之中切换,Redis还是有点屌的啊。</li>
+<li>Spring是通过递归的方式获取目标bean及其所依赖的bean的；</li>
+<li>Spring实例化一个bean的时候，是分两步进行的，首先实例化目标bean，然后为其注入属性。</li>
 </ul>
-<h2 id="就你上面那个实时链路场景，可以用其他的存储替代吗？"><a href="#就你上面那个实时链路场景，可以用其他的存储替代吗？" class="headerlink" title="就你上面那个实时链路场景，可以用其他的存储替代吗？"></a>就你上面那个实时链路场景，可以用其他的存储替代吗？</h2><ol>
-<li>嗯，理论上是可以的（或许可以尝试用HBase），但总体来说没这么好吧</li>
-<li>因为Redis拥有丰富的数据结构，在透出的时候，处理会非常的方便。</li>
-<li>如果不用Redis的话，还得做很多解析的工作</li>
-<li>并且，我那场景的并发还是相当大的（就一条消息发送，可能就产生10条记录）</li>
-<li>监控峰值命令处理数会去到20K+QPS，当然了，这场景我肯定用了Pipeline的（不然处理会慢很多）</li>
-<li>综合上面并发量和实时性以及数据结构，用Redis：是一个比较好的选择。</li>
-</ol>
-<h2 id="你觉得为什么Redis可以这么快？"><a href="#你觉得为什么Redis可以这么快？" class="headerlink" title="你觉得为什么Redis可以这么快？"></a>你觉得为什么Redis可以这么快？</h2><ol>
-<li>首先，它是纯内存操作，内存本身就很快</li>
-<li>其次，它是单线程的，Redis服务器核心是基于非阻塞的O多路复用机制，单线程避免了多线程的频繁上下文切换问题</li>
-<li>至于这个单线程，其实官网也有过说明（：表示使用Redis往往的瓶颈在于内与和网络，而不在于CPU</li>
+<p>结合这两点，也就是说，Spring在实例化一个bean的时候，是首先递归的实例化其所依赖的所有bean，直到某个bean没有依赖其他bean，此时就会将该实例返回，然后反递归的将获取到的bean设置为各个上层bean的属性的。</p>
+</li>
 </ol>
 
       
@@ -1003,6 +830,181 @@
 <p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/q5B8nQ_20211228115227.png"></p>
 <p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/ldYlbE_20211228115337.png"></p>
 <p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/czgjnh_20211228115425.png"></p>
+
+      
+    </div>
+
+    
+    
+    
+
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>l
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/36f701ea/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lion.png">
+      <meta itemprop="name" content="swimminghao">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="swimminghao's blog">
+      <meta itemprop="description" content="swimminghao的学习博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | swimminghao's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/36f701ea/" class="post-title-link" itemprop="url">17、【对线面试官】Redis基础</a>
+        </h2>
+
+        <div class="post-meta-container">
+
+          
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-03-10 09:48:07" itemprop="dateModified" datetime="2022-03-10T09:48:07+08:00">2022-03-10</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/posts/36f701ea/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/36f701ea/" data-xid="/posts/36f701ea/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>1.7k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>2 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="17、【对线面试官】Redis基础"><a href="#17、【对线面试官】Redis基础" class="headerlink" title="17、【对线面试官】Redis基础"></a>17、【对线面试官】Redis基础</h1><h2 id="你先来讲讲为什么要用Redis吧？"><a href="#你先来讲讲为什么要用Redis吧？" class="headerlink" title="你先来讲讲为什么要用Redis吧？"></a>你先来讲讲为什么要用Redis吧？</h2><ol>
+<li>我个人是这样理解的：无论Redis也好、MySQL也好、HDFS也好、HBase也好</li>
+<li>他们都是存储数据的地方</li>
+<li>因为它们的设计理念的不同，我们会根据不同的应用场景使用不同的存储</li>
+<li>像Redis一般我们会把它用作于缓存</li>
+<li>当然啦，日常有的应用场景比较简单，用个HashMap也能解决很多的问题了，没必要上Redis</li>
+<li>这就好比，有的单机限流可能应对某些场景就够用了，也没必要说一定要上分布式限流把系统搞得复杂</li>
+</ol>
+<h2 id="那你在项目里有用到Redis吗？怎么用的？"><a href="#那你在项目里有用到Redis吗？怎么用的？" class="headerlink" title="那你在项目里有用到Redis吗？怎么用的？"></a>那你在项目里有用到Redis吗？怎么用的？</h2><ol>
+<li>Redis肯定是用到的，我负责的项目几乎都会有Redisl的踪影</li>
+<li>我举几个我这边项目用的案例呗？</li>
+<li>我这边负责消息管理平台，简单来说就是发消息的</li>
+<li>那发完消息肯定我们是得知道消息有没有下发成功的，是吧？</li>
+<li>于是我们系统有一套完整的链路追踪体系</li>
+<li>其中实时的数据我们就用Redis来进行存储，有实时肯定就会有离线的嘛（离线的数据我们是存储到Hive的）</li>
+<li>对消息进行实时链路追踪，我这边就用了Redis好几种的数据结构，分别有Set、List和Hash</li>
+<li>我再稍微铺垫下链路追踪的背景吧~</li>
+<li>要在消息管理平台发消息，首先得在后台新建一个「模板」，有模板自然会有一个模板ID</li>
+<li>对模板D进行扩展，比如说加上日期和固定的业务参数，形成的ID可以唯一标识某个模板的下发链路</li>
+<li>在系统上，我这边叫它为UMPID</li>
+<li>在发送入口处会对所有需要下发的消息打上UMPID，然后在关键链路上打上对应的点位</li>
+<li>接下来的工作就是清洗出统一的模型，然后根据不同维度进行处理啦。比如说：</li>
+<li>我要看某一天下发的所有模板有哪些，那只要我把清洗出来后数据的，将对应UMPID扔到了Set就好了</li>
+<li>我要看某一个模板的消息下发的整体链路情况，那我以UMPID为Key，Value是Hash结构，Key是state，Value则是人数</li>
+<li>这里的state我们在下发的过程中打的关键点位，比如接收到消息打个51，消息被去重了打个61，消息成功下发了打个81…</li>
+<li>以UMPID为Key，Hash结构的Key（State）进行不断的累加，就可以实现某一个模板的消息下发的整体链路情况</li>
+<li>我要看某个用户当天下发的消息有哪些，以及这些消息的整体链路是如何。</li>
+<li>这边我用的是List结构，Key是userld，Value则是UMPID+state（关键点位）+processTime（处理时间）</li>
+</ol>
+<ul>
+<li>简单来说，就是通过Redis丰富的数据结构来实现对下发消息多个维度的统计</li>
+<li>不同的应用场景选择不同的数据结构，再等到透出做处理的时候，就变得十分简单了</li>
+<li>消息下发过程中去重或者一般正常的场景就直接Key-Value就能符合需求了</li>
+<li>像bitmap、hyperloglogs、sortset、steam等等这些数据结构在我所负责的项目用得是真不多</li>
+<li>要是我有机会去到贵公司，贵公司有相关的应用场景，我相信我也很快就能掌握</li>
+<li>这些数据结构底层都由对应的object来支撑着，objecti记录对应的「编码」</li>
+<li>其实就是会根据key-value存储的数量或者长度来使用选择不同的底层数据结构实现</li>
+<li>比如说：ziplist压缩列表这个底层数据结构有可能上层的实现是list、hash和sortset</li>
+<li>Hash结构的底层数据结构可能是hash和ziplist</li>
+<li>在节省内存和性能的考量之中切换,Redis还是有点屌的啊。</li>
+</ul>
+<h2 id="就你上面那个实时链路场景，可以用其他的存储替代吗？"><a href="#就你上面那个实时链路场景，可以用其他的存储替代吗？" class="headerlink" title="就你上面那个实时链路场景，可以用其他的存储替代吗？"></a>就你上面那个实时链路场景，可以用其他的存储替代吗？</h2><ol>
+<li>嗯，理论上是可以的（或许可以尝试用HBase），但总体来说没这么好吧</li>
+<li>因为Redis拥有丰富的数据结构，在透出的时候，处理会非常的方便。</li>
+<li>如果不用Redis的话，还得做很多解析的工作</li>
+<li>并且，我那场景的并发还是相当大的（就一条消息发送，可能就产生10条记录）</li>
+<li>监控峰值命令处理数会去到20K+QPS，当然了，这场景我肯定用了Pipeline的（不然处理会慢很多）</li>
+<li>综合上面并发量和实时性以及数据结构，用Redis：是一个比较好的选择。</li>
+</ol>
+<h2 id="你觉得为什么Redis可以这么快？"><a href="#你觉得为什么Redis可以这么快？" class="headerlink" title="你觉得为什么Redis可以这么快？"></a>你觉得为什么Redis可以这么快？</h2><ol>
+<li>首先，它是纯内存操作，内存本身就很快</li>
+<li>其次，它是单线程的，Redis服务器核心是基于非阻塞的O多路复用机制，单线程避免了多线程的频繁上下文切换问题</li>
+<li>至于这个单线程，其实官网也有过说明（：表示使用Redis往往的瓶颈在于内与和网络，而不在于CPU</li>
+</ol>
 
       
     </div>
@@ -1420,220 +1422,6 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/b4eb9a6c/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/lion.png">
-      <meta itemprop="name" content="swimminghao">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="swimminghao's blog">
-      <meta itemprop="description" content="swimminghao的学习博客">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | swimminghao's blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/b4eb9a6c/" class="post-title-link" itemprop="url">23、【对线面试官】InnoDB引擎中的事务</a>
-        </h2>
-
-        <div class="post-meta-container">
-
-          
-
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-10 09:48:07" itemprop="dateModified" datetime="2022-03-10T09:48:07+08:00">2022-03-10</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="far fa-comment"></i>
-    </span>
-    <span class="post-meta-item-text">Waline：</span>
-  
-    <a title="waline" href="/posts/b4eb9a6c/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/b4eb9a6c/" data-xid="/posts/b4eb9a6c/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>4k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>4 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="这次我想问下，你是怎么理解InnoDB引擎中的事务的？"><a href="#这次我想问下，你是怎么理解InnoDB引擎中的事务的？" class="headerlink" title="这次我想问下，你是怎么理解InnoDB引擎中的事务的？"></a>这次我想问下，你是怎么理解InnoDB引擎中的事务的？</h1><ol>
-<li>在我的理解下，事务可以使「一组操作」要么全部成功，要么全部失败</li>
-<li>事务其目的是为了「保证数据最终的一致性」。</li>
-<li>举个例子，我给你发支付宝转了888块红包。那自然我的支付宝余额会扣减888块，你的支付宝余额会增加888块。</li>
-<li>而事务就是保证我的余额扣减跟你的余额增添是同时成功或者同时失败的，这样这次转账就正常了</li>
-</ol>
-<h2 id="嗯，那你了解事务的几大特性吗？"><a href="#嗯，那你了解事务的几大特性吗？" class="headerlink" title="嗯，那你了解事务的几大特性吗？"></a>嗯，那你了解事务的几大特性吗？</h2><p>嗯，就是ACID嘛，分别是原子性（Atomicity）、一致性（Consistency）、隔离性（Isolation）、持久性（Durability）。</p>
-<ol>
-<li><p>原子性指的是：当前事务的操作要么同时成功，要么同时失败。原子性由undo Iog日志来保证，因为undo log记载着数据修改前的信息。</p>
-<p>1）比如我们要insert一条数据了，那undo Iog会记录的一条对应的delete日志。我们要update一条记录时，那undo log会记录之前的「旧值」的update记录。</p>
-<p>2）如果执行事务过程中出现异常的情况，那执行「回滚」。InnoDB引擎就是利用undo log记录下的数据，来将数据「恢复」到事务开始之前</p>
-</li>
-<li><p>隔离性指的是：在事务「并发」执行时，他们内部的操作不能互相干扰。</p>
-<p>1）如果多个事务可以在同一时刻操作同一份数据，那么就会可能会产生脏读、重复读、幻读的问题。</p>
-<p>2）于是，事务与事务之间需要存在「一定」的隔离。在nnoDB引擎中，定义了四种隔离级别供我们使用：分别是：read uncommit（读未提交）、read commit（读已提交）、repeatable read（可重复复读）、serializable（串行）</p>
-<p>3）不同的隔离级别对事务之间的隔离性是不一样的（级别越高事务隔离性越好，但性能就越低），而隔离性是由MySQL的各种锁来实现的，只是它屏蔽了加锁的细节。</p>
-</li>
-<li><p>持久性指的就是：一旦提交了事务，它对数据库的改变就应该是永久性的。说白了就是，会将数据持久化在硬盘上。</p>
-<p>1）而持久性由redo log日志来保证，当我们要修改数据时，MySQL是先把这条记录所在的「页」找到，然后把该页加载到内存中，将对应记录进行修改。</p>
-<p>2）为了防止内存修改完了，MySQL就挂掉了（如果内存改完，直接挂掉，那这次的修改相当于就丢失了）。</p>
-<p>3）MySQL引入了redo log，内存写完了，然后会写一份redo log，这份redo log记载着这次在某个页上做了什么修改。</p>
-<p>4）即便MySQL在中途挂了，我们还可以根据redo log：来对数据进行恢复。</p>
-<p>5）redo log是顺序写的，写入速度很快。并且它记录的是物理修改（xxxx页做了xxx修改），文件的体积很小，恢复速度也很快。</p>
-</li>
-<li><p>「一致性」可以理解为我们使用事务的「目的」，而「隔离性」「原子性」「持久性」均是为了保障「一致性」的手段，保证一致性需要由应用程序代码来保证</p>
-<p>1）比如，如果事务在发生的过程中，出现了异常情况，此时你就得回滚事务，而不是强行提交事务来导致数据不一致。</p>
-</li>
-</ol>
-<h2 id="刚才你也提到了隔离性嘛，然后你说在MySQL中有四种隔离级别，能分别来介绍下吗？"><a href="#刚才你也提到了隔离性嘛，然后你说在MySQL中有四种隔离级别，能分别来介绍下吗？" class="headerlink" title="刚才你也提到了隔离性嘛，然后你说在MySQL中有四种隔离级别，能分别来介绍下吗？"></a>刚才你也提到了隔离性嘛，然后你说在MySQL中有四种隔离级别，能分别来介绍下吗？</h2><ol>
-<li><p>嗯，为了讲清楚隔离级别，我顺带来说下MySQL锁相关的知识吧。</p>
-<p>1）在InnoDB引擎下，按锁的粒度分类，可以简单分为行锁和表锁。</p>
-<p>2）行锁实际上是作用在索引之上的（索引上次已经说过了，这里就不赘述了）</p>
-<p>3）当我们的SQL命中了索引，那锁住的就是命中条件内的索引节点（这种就是行锁），如果没有命中索引，那我们锁的就是整个索引树（表锁）。</p>
-<p>4）简单来说就是：锁住的是整棵树还是某几个节点，完全取决于SQL条件是否有命中到对应的索引节点。</p>
-<p>5）而行锁又可以简单分为读锁（共享锁、S锁）和写锁（排它锁、X锁）。</p>
-<p>6）读锁是共享的，多个事务可以同时读取同一个资源，但不允许其他事务修改。写锁是排他的，写锁会阻塞其他的写锁和读锁。</p>
-</li>
-<li><p>我现在就再回到隔离级别上吧，就直接以例子来说明啦。</p>
-<p>1）首先来说下read uncommit（读未提交）。比如说：A向B转账，A执行了转账语句，但A还没有提交事务，B读取数据，发现自己账户钱变多了！B跟A说，我已经收到钱了。A回滚事务【rollback】，等B再查看账户的钱时，发现钱并没有多。</p>
-<p>​    （1）简单的定义就是：事务B读取到了事务A还没提交的数据，这种用专业术语来说叫做「脏读」。</p>
-<p>​    （2）对于锁的维度而言，其实就是在read uncommit隔离级别下，读不会加任何锁，而写会加排他锁。读什么锁都不加，这就让排他锁无法排它了。</p>
-<p>​    （3）我们又知道，对于更新操作而言，lnnODB是肯定会加写锁的（数据库是不可能允许在同一时间，更新同一条记录的）。而读操作，如果不加任何锁，那就会造成上面的脏读。</p>
-<p>​    （4）脏读在生产环境下肯定是无法接受的，那如果读加锁的话，那意味着：当更新数据的时，就没办法读取了，这会极大地降低数据库性能。</p>
-<ul>
-<li><p>在MySQL InnoDB引擎层面，又有新的解决方案（解决加锁后读写性能问题），叫做MVCC（Multi-Version Concurrency Control）多版本并发控制</p>
-</li>
-<li><p>在MVCC下，就可以做到读写不阻塞，且避免了类似脏读这样的问题。那MVCC是怎么做的呢？</p>
-</li>
-<li><p>MVCC通过生成数据快照（Snapshot），并用这个快照来提供一定级别（语句级或事务级）的一致性读取</p>
-</li>
-</ul>
-<p>  （5）回到事务隔离级别下，针对于read commit（读已提交）隔离级别，它生成的就是语句级快照，而针对于repeatable read（可重复读），它生成的就是事务级的快照。</p>
-<p>2）前面提到过read uncommit隔离级别下会产生脏读，而read commit（读已提交）隔离级别解决了脏读</p>
-<p>​    （1）思想其实很简单：在读取的时候生成一个”版本号”，等到其他事务commit了之后，才会读取最新已commit的”版本号”数据。</p>
-<p>​    （2）比如说：事务A读取了记录（生成版本号），事务B修改了记录（此时加了写锁），事务A再读取的时候，是依据最新的版本号来读取的（当事务B执行commit了之后，会生成一个新的版本号），如果事务B还没有commit.那事务A读取的还是之前版本号的数据。</p>
-<p>​    （3）通过「版本」的概念，这样就解决了脏读的问题，而通过「版本」又可以对应快照的数据。read commit（读已提交）解决了脏读。</p>
-<p>3）read commit（读已提交）解决了脏读，但也会有其他并发的问题。「不可重复读」：一个事务读取到另外一个事务已经提交的数据，也就是说一个事务可以看到其他事务所做的修改。</p>
-<p>​    （1）不可重复读的例子：A查询数据库得到数据，B去修改数据库的数据，导致A多次查询数据库的结果都不一样【危害：A每次查询的结果都是受B的影响的】</p>
-<p>​    （2）了解MVCC基础之后，就很容易想到repeatable read（可重复复读）隔离级别是怎么避免不可重复读的问题了（前面也提到了）。</p>
-<p>​    （3）repeatable read（可重复复读）隔离级别是「事务级别」的快照！每次读取的都是「当前事务的版本」，即使当前数据被其他事务修改了（commit），也只会读取当前事务版本的数据。</p>
-<p>​    （4）在InnoDB引擎下的的repeatable read（可重复复读）隔离级别下，在MVCC下，快照读，已经解决了幻读的问题（因为它是读历史版本的数据）</p>
-<p>​    （5）而如果是当前读（比如select*from table for update），则需要配合间隙锁来解决幻读的问题。</p>
-<p>4）剩下的就是serializable（串行）隔离级别了，它的最高的隔离级别，相当于不允许事务的并发，事务与事务之间执行是串行的，它的效率最低，但同时也是最安全的。</p>
-</li>
-</ol>
-<h2 id="我看你提到了MVCC了，不妨来说下他的原理？"><a href="#我看你提到了MVCC了，不妨来说下他的原理？" class="headerlink" title="我看你提到了MVCC了，不妨来说下他的原理？"></a>我看你提到了MVCC了，不妨来说下他的原理？</h2><ol>
-<li>MVCC的主要是通过read view和undo log来实现的</li>
-<li>undo log前面也提到了，它会记录修改数据之前的信息，事务中的原子性就是通过undo log：来实现的。所以，有undo log可以帮我们找到「版本」的数据</li>
-<li>而read view实际上就是在查询时，lnnoDB会生成一个read view，read view有几个重要的字段，看下去就懂了</li>
-<li>分别是：trx ids（尚未提交commit的事务版本号集合），low limit id（下一次要生成的事务D值），low limit id（尚未提交版本号的事务D最小值）以及creator trx id（当前的事务版本号）</li>
-<li>在每行数据有两列隐藏的字段，分别是DB_TRX_ID（记录着当前ID）以及DB_ROLL _PTR（指向上一个版本数据在undolog里的位置指针）</li>
-<li>垫到这了，很容易就发现，MVCC其实就是靠「比对版本」来实现读写不阻塞，而版本的数据存在于undo log中。</li>
-<li>而针对于不同的隔离级别（read commit和repeatable read），无非就是read commit隔离级别下，每次都获取一个新的read view，repeatable read隔离级别则每次事务只获取一个read view</li>
-</ol>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ul>
-<li><p>事务为了保证数据的最终一致性</p>
-</li>
-<li><p>事务有四大特性，分别是原子性、一致性、隔离性、持久性</p>
-</li>
-<li><ul>
-<li>原子性由undo log保证</li>
-<li>持久性由redo log 保证</li>
-<li>隔离性由数据库隔离级别供我们选择，分别有read uncommit,read commit,repeatable read,serializable</li>
-<li>一致性是事务的目的，一致性由应用程序来保证</li>
-</ul>
-</li>
-<li><p>事务并发会存在各种问题，分别有脏读、重复读、幻读问题。上面的不同隔离级别可以解决掉由于并发事务所造成的问题，而隔离级别实际上就是由MySQL锁来实现的</p>
-</li>
-<li><p>频繁加锁会导致数据库性能低下，引入了MVCC多版本控制来实现读写不阻塞，提高数据库性能</p>
-</li>
-<li><p>MVCC原理即通过read view 以及undo log来实现</p>
-</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>l
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://example.com/posts/c5b7e17d/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1963,6 +1751,220 @@
 <li>另外，由于索引的特性（有序），如果生成像uuid类似的主键，那插入的的性能是比自增的要差的</li>
 <li>因为生成的uuid，在插入时有可能需要移动磁盘块（比如，块内的空间在当前时刻已经存储满了，但新生成的uuid需要插入已满的块内，就需要移动块的数据）</li>
 </ol>
+
+      
+    </div>
+
+    
+    
+    
+
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>l
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/b4eb9a6c/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lion.png">
+      <meta itemprop="name" content="swimminghao">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="swimminghao's blog">
+      <meta itemprop="description" content="swimminghao的学习博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | swimminghao's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/b4eb9a6c/" class="post-title-link" itemprop="url">23、【对线面试官】InnoDB引擎中的事务</a>
+        </h2>
+
+        <div class="post-meta-container">
+
+          
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-03-10 09:48:07" itemprop="dateModified" datetime="2022-03-10T09:48:07+08:00">2022-03-10</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/posts/b4eb9a6c/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/b4eb9a6c/" data-xid="/posts/b4eb9a6c/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>4k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>4 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="这次我想问下，你是怎么理解InnoDB引擎中的事务的？"><a href="#这次我想问下，你是怎么理解InnoDB引擎中的事务的？" class="headerlink" title="这次我想问下，你是怎么理解InnoDB引擎中的事务的？"></a>这次我想问下，你是怎么理解InnoDB引擎中的事务的？</h1><ol>
+<li>在我的理解下，事务可以使「一组操作」要么全部成功，要么全部失败</li>
+<li>事务其目的是为了「保证数据最终的一致性」。</li>
+<li>举个例子，我给你发支付宝转了888块红包。那自然我的支付宝余额会扣减888块，你的支付宝余额会增加888块。</li>
+<li>而事务就是保证我的余额扣减跟你的余额增添是同时成功或者同时失败的，这样这次转账就正常了</li>
+</ol>
+<h2 id="嗯，那你了解事务的几大特性吗？"><a href="#嗯，那你了解事务的几大特性吗？" class="headerlink" title="嗯，那你了解事务的几大特性吗？"></a>嗯，那你了解事务的几大特性吗？</h2><p>嗯，就是ACID嘛，分别是原子性（Atomicity）、一致性（Consistency）、隔离性（Isolation）、持久性（Durability）。</p>
+<ol>
+<li><p>原子性指的是：当前事务的操作要么同时成功，要么同时失败。原子性由undo Iog日志来保证，因为undo log记载着数据修改前的信息。</p>
+<p>1）比如我们要insert一条数据了，那undo Iog会记录的一条对应的delete日志。我们要update一条记录时，那undo log会记录之前的「旧值」的update记录。</p>
+<p>2）如果执行事务过程中出现异常的情况，那执行「回滚」。InnoDB引擎就是利用undo log记录下的数据，来将数据「恢复」到事务开始之前</p>
+</li>
+<li><p>隔离性指的是：在事务「并发」执行时，他们内部的操作不能互相干扰。</p>
+<p>1）如果多个事务可以在同一时刻操作同一份数据，那么就会可能会产生脏读、重复读、幻读的问题。</p>
+<p>2）于是，事务与事务之间需要存在「一定」的隔离。在nnoDB引擎中，定义了四种隔离级别供我们使用：分别是：read uncommit（读未提交）、read commit（读已提交）、repeatable read（可重复复读）、serializable（串行）</p>
+<p>3）不同的隔离级别对事务之间的隔离性是不一样的（级别越高事务隔离性越好，但性能就越低），而隔离性是由MySQL的各种锁来实现的，只是它屏蔽了加锁的细节。</p>
+</li>
+<li><p>持久性指的就是：一旦提交了事务，它对数据库的改变就应该是永久性的。说白了就是，会将数据持久化在硬盘上。</p>
+<p>1）而持久性由redo log日志来保证，当我们要修改数据时，MySQL是先把这条记录所在的「页」找到，然后把该页加载到内存中，将对应记录进行修改。</p>
+<p>2）为了防止内存修改完了，MySQL就挂掉了（如果内存改完，直接挂掉，那这次的修改相当于就丢失了）。</p>
+<p>3）MySQL引入了redo log，内存写完了，然后会写一份redo log，这份redo log记载着这次在某个页上做了什么修改。</p>
+<p>4）即便MySQL在中途挂了，我们还可以根据redo log：来对数据进行恢复。</p>
+<p>5）redo log是顺序写的，写入速度很快。并且它记录的是物理修改（xxxx页做了xxx修改），文件的体积很小，恢复速度也很快。</p>
+</li>
+<li><p>「一致性」可以理解为我们使用事务的「目的」，而「隔离性」「原子性」「持久性」均是为了保障「一致性」的手段，保证一致性需要由应用程序代码来保证</p>
+<p>1）比如，如果事务在发生的过程中，出现了异常情况，此时你就得回滚事务，而不是强行提交事务来导致数据不一致。</p>
+</li>
+</ol>
+<h2 id="刚才你也提到了隔离性嘛，然后你说在MySQL中有四种隔离级别，能分别来介绍下吗？"><a href="#刚才你也提到了隔离性嘛，然后你说在MySQL中有四种隔离级别，能分别来介绍下吗？" class="headerlink" title="刚才你也提到了隔离性嘛，然后你说在MySQL中有四种隔离级别，能分别来介绍下吗？"></a>刚才你也提到了隔离性嘛，然后你说在MySQL中有四种隔离级别，能分别来介绍下吗？</h2><ol>
+<li><p>嗯，为了讲清楚隔离级别，我顺带来说下MySQL锁相关的知识吧。</p>
+<p>1）在InnoDB引擎下，按锁的粒度分类，可以简单分为行锁和表锁。</p>
+<p>2）行锁实际上是作用在索引之上的（索引上次已经说过了，这里就不赘述了）</p>
+<p>3）当我们的SQL命中了索引，那锁住的就是命中条件内的索引节点（这种就是行锁），如果没有命中索引，那我们锁的就是整个索引树（表锁）。</p>
+<p>4）简单来说就是：锁住的是整棵树还是某几个节点，完全取决于SQL条件是否有命中到对应的索引节点。</p>
+<p>5）而行锁又可以简单分为读锁（共享锁、S锁）和写锁（排它锁、X锁）。</p>
+<p>6）读锁是共享的，多个事务可以同时读取同一个资源，但不允许其他事务修改。写锁是排他的，写锁会阻塞其他的写锁和读锁。</p>
+</li>
+<li><p>我现在就再回到隔离级别上吧，就直接以例子来说明啦。</p>
+<p>1）首先来说下read uncommit（读未提交）。比如说：A向B转账，A执行了转账语句，但A还没有提交事务，B读取数据，发现自己账户钱变多了！B跟A说，我已经收到钱了。A回滚事务【rollback】，等B再查看账户的钱时，发现钱并没有多。</p>
+<p>​    （1）简单的定义就是：事务B读取到了事务A还没提交的数据，这种用专业术语来说叫做「脏读」。</p>
+<p>​    （2）对于锁的维度而言，其实就是在read uncommit隔离级别下，读不会加任何锁，而写会加排他锁。读什么锁都不加，这就让排他锁无法排它了。</p>
+<p>​    （3）我们又知道，对于更新操作而言，lnnODB是肯定会加写锁的（数据库是不可能允许在同一时间，更新同一条记录的）。而读操作，如果不加任何锁，那就会造成上面的脏读。</p>
+<p>​    （4）脏读在生产环境下肯定是无法接受的，那如果读加锁的话，那意味着：当更新数据的时，就没办法读取了，这会极大地降低数据库性能。</p>
+<ul>
+<li><p>在MySQL InnoDB引擎层面，又有新的解决方案（解决加锁后读写性能问题），叫做MVCC（Multi-Version Concurrency Control）多版本并发控制</p>
+</li>
+<li><p>在MVCC下，就可以做到读写不阻塞，且避免了类似脏读这样的问题。那MVCC是怎么做的呢？</p>
+</li>
+<li><p>MVCC通过生成数据快照（Snapshot），并用这个快照来提供一定级别（语句级或事务级）的一致性读取</p>
+</li>
+</ul>
+<p>  （5）回到事务隔离级别下，针对于read commit（读已提交）隔离级别，它生成的就是语句级快照，而针对于repeatable read（可重复读），它生成的就是事务级的快照。</p>
+<p>2）前面提到过read uncommit隔离级别下会产生脏读，而read commit（读已提交）隔离级别解决了脏读</p>
+<p>​    （1）思想其实很简单：在读取的时候生成一个”版本号”，等到其他事务commit了之后，才会读取最新已commit的”版本号”数据。</p>
+<p>​    （2）比如说：事务A读取了记录（生成版本号），事务B修改了记录（此时加了写锁），事务A再读取的时候，是依据最新的版本号来读取的（当事务B执行commit了之后，会生成一个新的版本号），如果事务B还没有commit.那事务A读取的还是之前版本号的数据。</p>
+<p>​    （3）通过「版本」的概念，这样就解决了脏读的问题，而通过「版本」又可以对应快照的数据。read commit（读已提交）解决了脏读。</p>
+<p>3）read commit（读已提交）解决了脏读，但也会有其他并发的问题。「不可重复读」：一个事务读取到另外一个事务已经提交的数据，也就是说一个事务可以看到其他事务所做的修改。</p>
+<p>​    （1）不可重复读的例子：A查询数据库得到数据，B去修改数据库的数据，导致A多次查询数据库的结果都不一样【危害：A每次查询的结果都是受B的影响的】</p>
+<p>​    （2）了解MVCC基础之后，就很容易想到repeatable read（可重复复读）隔离级别是怎么避免不可重复读的问题了（前面也提到了）。</p>
+<p>​    （3）repeatable read（可重复复读）隔离级别是「事务级别」的快照！每次读取的都是「当前事务的版本」，即使当前数据被其他事务修改了（commit），也只会读取当前事务版本的数据。</p>
+<p>​    （4）在InnoDB引擎下的的repeatable read（可重复复读）隔离级别下，在MVCC下，快照读，已经解决了幻读的问题（因为它是读历史版本的数据）</p>
+<p>​    （5）而如果是当前读（比如select*from table for update），则需要配合间隙锁来解决幻读的问题。</p>
+<p>4）剩下的就是serializable（串行）隔离级别了，它的最高的隔离级别，相当于不允许事务的并发，事务与事务之间执行是串行的，它的效率最低，但同时也是最安全的。</p>
+</li>
+</ol>
+<h2 id="我看你提到了MVCC了，不妨来说下他的原理？"><a href="#我看你提到了MVCC了，不妨来说下他的原理？" class="headerlink" title="我看你提到了MVCC了，不妨来说下他的原理？"></a>我看你提到了MVCC了，不妨来说下他的原理？</h2><ol>
+<li>MVCC的主要是通过read view和undo log来实现的</li>
+<li>undo log前面也提到了，它会记录修改数据之前的信息，事务中的原子性就是通过undo log：来实现的。所以，有undo log可以帮我们找到「版本」的数据</li>
+<li>而read view实际上就是在查询时，lnnoDB会生成一个read view，read view有几个重要的字段，看下去就懂了</li>
+<li>分别是：trx ids（尚未提交commit的事务版本号集合），low limit id（下一次要生成的事务D值），low limit id（尚未提交版本号的事务D最小值）以及creator trx id（当前的事务版本号）</li>
+<li>在每行数据有两列隐藏的字段，分别是DB_TRX_ID（记录着当前ID）以及DB_ROLL _PTR（指向上一个版本数据在undolog里的位置指针）</li>
+<li>垫到这了，很容易就发现，MVCC其实就是靠「比对版本」来实现读写不阻塞，而版本的数据存在于undo log中。</li>
+<li>而针对于不同的隔离级别（read commit和repeatable read），无非就是read commit隔离级别下，每次都获取一个新的read view，repeatable read隔离级别则每次事务只获取一个read view</li>
+</ol>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ul>
+<li><p>事务为了保证数据的最终一致性</p>
+</li>
+<li><p>事务有四大特性，分别是原子性、一致性、隔离性、持久性</p>
+</li>
+<li><ul>
+<li>原子性由undo log保证</li>
+<li>持久性由redo log 保证</li>
+<li>隔离性由数据库隔离级别供我们选择，分别有read uncommit,read commit,repeatable read,serializable</li>
+<li>一致性是事务的目的，一致性由应用程序来保证</li>
+</ul>
+</li>
+<li><p>事务并发会存在各种问题，分别有脏读、重复读、幻读问题。上面的不同隔离级别可以解决掉由于并发事务所造成的问题，而隔离级别实际上就是由MySQL锁来实现的</p>
+</li>
+<li><p>频繁加锁会导致数据库性能低下，引入了MVCC多版本控制来实现读写不阻塞，提高数据库性能</p>
+</li>
+<li><p>MVCC原理即通过read view 以及undo log来实现</p>
+</li>
+</ul>
 
       
     </div>
