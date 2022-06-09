@@ -883,194 +883,6 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/6f64b3a6/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/lion.png">
-      <meta itemprop="name" content="swimminghao">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="swimminghao's blog">
-      <meta itemprop="description" content="swimminghao的学习博客">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | swimminghao's blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/6f64b3a6/" class="post-title-link" itemprop="url">28、【对线面试官】JVM内存模型</a>
-        </h2>
-
-        <div class="post-meta-container">
-
-          
-
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-10 09:48:07" itemprop="dateModified" datetime="2022-03-10T09:48:07+08:00">2022-03-10</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="far fa-comment"></i>
-    </span>
-    <span class="post-meta-item-text">Waline：</span>
-  
-    <a title="waline" href="/posts/6f64b3a6/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/6f64b3a6/" data-xid="/posts/6f64b3a6/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>1.6k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>1 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="28、【对线面试官】JVM内存模型"><a href="#28、【对线面试官】JVM内存模型" class="headerlink" title="28、【对线面试官】JVM内存模型"></a>28、【对线面试官】JVM内存模型</h1><h2 id="聊聊JVM的内存结构吧？"><a href="#聊聊JVM的内存结构吧？" class="headerlink" title="聊聊JVM的内存结构吧？"></a>聊聊JVM的内存结构吧？</h2><ul>
-<li>class文件会被类加载器装载至JVM中，并且JVM会负责程序「运行时」的「内存管理」</li>
-<li>而JVM的内存结构，往往指的就是JVM定义的「运行时数据区域」</li>
-<li>简单来说就分为了5大块：方法区、堆、程序计数器、虚拟机栈、本地方法栈</li>
-</ul>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/VHXC3i_20211229151038.png"></p>
-<h2 id="顺便讲下你这图上每个区域的内容"><a href="#顺便讲下你这图上每个区域的内容" class="headerlink" title="顺便讲下你这图上每个区域的内容"></a>顺便讲下你这图上每个区域的内容</h2><ul>
-<li>程序计数器<ul>
-<li>Java是多线程的语言，假设线程数大于CPU数，就很会有「线程切換」现象，切换意昧着「中断」和「恢复」，那自然就需要有一块区域来保存「当前线程的执行信息」</li>
-<li>所以，程序计数器就是用于记录各个线程执行的字节码的地址（分支、循环跳转、异常、线程恢复等都依赖于计数器）</li>
-</ul>
-</li>
-<li>虚拟机栈<ul>
-<li>每个线程在创建的时候都会创建一个虚拟机栈，每次方法调用都会创建一个「栈帧」。每个「栈帧」会包含几块内容：局部变量表、操作数栈、动态连接和返回地址</li>
-<li>作用：它保存方法的局部变量、部分变量的计算并参与了方法的调用和返回。</li>
-</ul>
-</li>
-</ul>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/GOLAU2_20211229151640.png"></p>
-<ul>
-<li><p>本地方法栈</p>
-<ul>
-<li>本地方法栈跟虚拟机栈的功能类似，虚拟机栈用于管理Java函数的调用，而本地方法栈则用于管理本地方法的调用。这里的「本地方法」指的是「非Java方法」，一般本地方法是使用C语言实现的。</li>
-</ul>
-</li>
-<li><p>方法区</p>
-<ul>
-<li>前面提到了运行时数据区这个「分区」是JVM的「规范」，具体的落地实现，不同的虚拟机厂商可能是不一样的</li>
-<li>所以「方法区」也只是JVM中规范的一部分</li>
-<li>Hotspot虚拟机，就会常常提到「永久代」这个词。 Hotspotl虚拟机在「JDK8前」用「永久代」实现了「方法区」，而很多其他厂商的虚拟机其实是没有「永久代」的概念的</li>
-<li>在JDK8中，已经用「元空间」来替代了「永久代」作为「方法区」的实现了</li>
-<li>方法区主要是用来存放已被虚拟机加载的「类相关信息」：包括类信息、常量池<ul>
-<li>类信息又包括了类的版本、字段、方法、接口和父类等信息。</li>
-<li>常量池又可以分「静态常量池」和「运行时常量池」<ul>
-<li>静态常量池主要存储的是「字面量」以及「符号引用」等信息，静态常量池也包括了我们说的「字符串常量池」。</li>
-<li>「运行时常量池」存储的是「类加载」时生成的「直接引用」等信息</li>
-<li>值得注意的是：从「逻辑分区」的角度而言「常量池」是属于「方法区」的</li>
-<li>但自从在「JDK7」以后，就已经把「运行时常量池」和「静态常量池」转移到了「堆」内存中进行存储</li>
-<li>对于「物理分区」来说「运行时常量池」和「静态常量池』就属于堆</li>
-</ul>
-</li>
-<li>总体来说，就是逻辑分区和物理实际存储的位置，是不一样的</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>堆</p>
-<ul>
-<li><p>「堆」是线程共享的区域，几乎类的实例和数组分配的内存都来自于它</p>
-</li>
-<li><p>「堆」被划分为「新生代」和「老年代」，「新生代」又被进一步划分为Eden和 Survivor区，最后 Survivor由From Survivor 和 To Survivor组成</p>
-</li>
-</ul>
-</li>
-</ul>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/Xm317A_20211229152833.png"></p>
-<h2 id="从「JDK8」已经把「方法区」的实现从「永久代」变成「元空间」，有什么区别？"><a href="#从「JDK8」已经把「方法区」的实现从「永久代」变成「元空间」，有什么区别？" class="headerlink" title="从「JDK8」已经把「方法区」的实现从「永久代」变成「元空间」，有什么区别？"></a>从「JDK8」已经把「方法区」的实现从「永久代」变成「元空间」，有什么区别？</h2><ul>
-<li>最主要的区别就是：「元空间」存储不在虚拟机中，而是使用本地内存，JVM不会再出现方法区的内存溢出，以往「永久代」经常因为内存不够用导致跑出OOM异常。</li>
-<li>按JDK8版本，总结起来其实就相当于：「类信息」是存储在「元空间」的（也有人把「类信息」这块叫做「类信息常量池」）</li>
-<li>而「常量池」用JDK7开始，从「物理存储」角度上就在「堆中」，这是没有变化的。</li>
-</ul>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/5Ha0EV_20211229152636.png"></p>
-<h2 id="JVM内存结构和Java內存模型有啥区别吧？"><a href="#JVM内存结构和Java內存模型有啥区别吧？" class="headerlink" title="JVM内存结构和Java內存模型有啥区别吧？"></a>JVM内存结构和Java內存模型有啥区别吧？</h2><ul>
-<li>Java内存模型是跟「并发」相关的，它是为了屏蔽底层细节而提出的规范，希望在上层（Java层面上）在操作内存时在不同的平台上也有相同的效果</li>
-<li>JVM内存结构（又称为运行时数据区域），它描述着当我们的 class文件加载至虚拟机后，各个分区的「逻辑结构」是如何的，每个分区承担的作用</li>
-</ul>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p><strong>JVM内存结构组成</strong>：JVM内存结构又称为「运行时数据区域」。主要有五部分组成：虚拟机栈、本地方法栈、程序计数器、方法区和堆。其中方法区和堆是线程共享的。虚拟机栈、本地方法栈以及程序计数器是线程隔离的。</p>
-
-      
-    </div>
-
-    
-    
-    
-
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>l
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://example.com/posts/e1774332/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1236,6 +1048,194 @@
 <p><strong>Java内存模型抽象结构</strong>：线程之间的「共享变量」存储在「主内存」中，每个线程都有自己私有的「本地内存」，「本地内存」存储了该线程以读&#x2F;写共享变量的副本。线程对变量的所有操作都必须在「本地内存」进行，而「不能直接读写主内存」的变量</p>
 <p><strong>happen-before规则</strong>：Java内存模型规定在某些场景下（一共8条），前面一个操作的结果对后续操作必须是可见的。这8条规则成为happen-before规则</p>
 <p><strong>volatile</strong>：volatile是Java的关键字，修饰的变量是可见性且有序的（不会被重排序）。可见性&amp;&amp;有序性，由Java内存模型定义的「内存屏障」完成，实际HotSpot虚拟机实现Java内存模型规范，汇编底层是通过Lock指令来实现。</p>
+
+      
+    </div>
+
+    
+    
+    
+
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>l
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/6f64b3a6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lion.png">
+      <meta itemprop="name" content="swimminghao">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="swimminghao's blog">
+      <meta itemprop="description" content="swimminghao的学习博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | swimminghao's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/6f64b3a6/" class="post-title-link" itemprop="url">28、【对线面试官】JVM内存模型</a>
+        </h2>
+
+        <div class="post-meta-container">
+
+          
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-03-10 09:48:07" itemprop="dateModified" datetime="2022-03-10T09:48:07+08:00">2022-03-10</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/posts/6f64b3a6/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/6f64b3a6/" data-xid="/posts/6f64b3a6/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>1.6k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>1 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="28、【对线面试官】JVM内存模型"><a href="#28、【对线面试官】JVM内存模型" class="headerlink" title="28、【对线面试官】JVM内存模型"></a>28、【对线面试官】JVM内存模型</h1><h2 id="聊聊JVM的内存结构吧？"><a href="#聊聊JVM的内存结构吧？" class="headerlink" title="聊聊JVM的内存结构吧？"></a>聊聊JVM的内存结构吧？</h2><ul>
+<li>class文件会被类加载器装载至JVM中，并且JVM会负责程序「运行时」的「内存管理」</li>
+<li>而JVM的内存结构，往往指的就是JVM定义的「运行时数据区域」</li>
+<li>简单来说就分为了5大块：方法区、堆、程序计数器、虚拟机栈、本地方法栈</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/VHXC3i_20211229151038.png"></p>
+<h2 id="顺便讲下你这图上每个区域的内容"><a href="#顺便讲下你这图上每个区域的内容" class="headerlink" title="顺便讲下你这图上每个区域的内容"></a>顺便讲下你这图上每个区域的内容</h2><ul>
+<li>程序计数器<ul>
+<li>Java是多线程的语言，假设线程数大于CPU数，就很会有「线程切換」现象，切换意昧着「中断」和「恢复」，那自然就需要有一块区域来保存「当前线程的执行信息」</li>
+<li>所以，程序计数器就是用于记录各个线程执行的字节码的地址（分支、循环跳转、异常、线程恢复等都依赖于计数器）</li>
+</ul>
+</li>
+<li>虚拟机栈<ul>
+<li>每个线程在创建的时候都会创建一个虚拟机栈，每次方法调用都会创建一个「栈帧」。每个「栈帧」会包含几块内容：局部变量表、操作数栈、动态连接和返回地址</li>
+<li>作用：它保存方法的局部变量、部分变量的计算并参与了方法的调用和返回。</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/GOLAU2_20211229151640.png"></p>
+<ul>
+<li><p>本地方法栈</p>
+<ul>
+<li>本地方法栈跟虚拟机栈的功能类似，虚拟机栈用于管理Java函数的调用，而本地方法栈则用于管理本地方法的调用。这里的「本地方法」指的是「非Java方法」，一般本地方法是使用C语言实现的。</li>
+</ul>
+</li>
+<li><p>方法区</p>
+<ul>
+<li>前面提到了运行时数据区这个「分区」是JVM的「规范」，具体的落地实现，不同的虚拟机厂商可能是不一样的</li>
+<li>所以「方法区」也只是JVM中规范的一部分</li>
+<li>Hotspot虚拟机，就会常常提到「永久代」这个词。 Hotspotl虚拟机在「JDK8前」用「永久代」实现了「方法区」，而很多其他厂商的虚拟机其实是没有「永久代」的概念的</li>
+<li>在JDK8中，已经用「元空间」来替代了「永久代」作为「方法区」的实现了</li>
+<li>方法区主要是用来存放已被虚拟机加载的「类相关信息」：包括类信息、常量池<ul>
+<li>类信息又包括了类的版本、字段、方法、接口和父类等信息。</li>
+<li>常量池又可以分「静态常量池」和「运行时常量池」<ul>
+<li>静态常量池主要存储的是「字面量」以及「符号引用」等信息，静态常量池也包括了我们说的「字符串常量池」。</li>
+<li>「运行时常量池」存储的是「类加载」时生成的「直接引用」等信息</li>
+<li>值得注意的是：从「逻辑分区」的角度而言「常量池」是属于「方法区」的</li>
+<li>但自从在「JDK7」以后，就已经把「运行时常量池」和「静态常量池」转移到了「堆」内存中进行存储</li>
+<li>对于「物理分区」来说「运行时常量池」和「静态常量池』就属于堆</li>
+</ul>
+</li>
+<li>总体来说，就是逻辑分区和物理实际存储的位置，是不一样的</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>堆</p>
+<ul>
+<li><p>「堆」是线程共享的区域，几乎类的实例和数组分配的内存都来自于它</p>
+</li>
+<li><p>「堆」被划分为「新生代」和「老年代」，「新生代」又被进一步划分为Eden和 Survivor区，最后 Survivor由From Survivor 和 To Survivor组成</p>
+</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/Xm317A_20211229152833.png"></p>
+<h2 id="从「JDK8」已经把「方法区」的实现从「永久代」变成「元空间」，有什么区别？"><a href="#从「JDK8」已经把「方法区」的实现从「永久代」变成「元空间」，有什么区别？" class="headerlink" title="从「JDK8」已经把「方法区」的实现从「永久代」变成「元空间」，有什么区别？"></a>从「JDK8」已经把「方法区」的实现从「永久代」变成「元空间」，有什么区别？</h2><ul>
+<li>最主要的区别就是：「元空间」存储不在虚拟机中，而是使用本地内存，JVM不会再出现方法区的内存溢出，以往「永久代」经常因为内存不够用导致跑出OOM异常。</li>
+<li>按JDK8版本，总结起来其实就相当于：「类信息」是存储在「元空间」的（也有人把「类信息」这块叫做「类信息常量池」）</li>
+<li>而「常量池」用JDK7开始，从「物理存储」角度上就在「堆中」，这是没有变化的。</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/5Ha0EV_20211229152636.png"></p>
+<h2 id="JVM内存结构和Java內存模型有啥区别吧？"><a href="#JVM内存结构和Java內存模型有啥区别吧？" class="headerlink" title="JVM内存结构和Java內存模型有啥区别吧？"></a>JVM内存结构和Java內存模型有啥区别吧？</h2><ul>
+<li>Java内存模型是跟「并发」相关的，它是为了屏蔽底层细节而提出的规范，希望在上层（Java层面上）在操作内存时在不同的平台上也有相同的效果</li>
+<li>JVM内存结构（又称为运行时数据区域），它描述着当我们的 class文件加载至虚拟机后，各个分区的「逻辑结构」是如何的，每个分区承担的作用</li>
+</ul>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p><strong>JVM内存结构组成</strong>：JVM内存结构又称为「运行时数据区域」。主要有五部分组成：虚拟机栈、本地方法栈、程序计数器、方法区和堆。其中方法区和堆是线程共享的。虚拟机栈、本地方法栈以及程序计数器是线程隔离的。</p>
 
       
     </div>
@@ -1891,6 +1891,178 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/b8eb8241/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lion.png">
+      <meta itemprop="name" content="swimminghao">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="swimminghao's blog">
+      <meta itemprop="description" content="swimminghao的学习博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | swimminghao's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/b8eb8241/" class="post-title-link" itemprop="url">32、【对线面试官】如何实现幂等和去重？</a>
+        </h2>
+
+        <div class="post-meta-container">
+
+          
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-03-10 09:48:07" itemprop="dateModified" datetime="2022-03-10T09:48:07+08:00">2022-03-10</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/posts/b8eb8241/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/b8eb8241/" data-xid="/posts/b8eb8241/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>1.6k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>1 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="如何实现去重和幂等"><a href="#如何实现去重和幂等" class="headerlink" title="如何实现去重和幂等"></a>如何实现去重和幂等</h1><h2 id="去重与幂等"><a href="#去重与幂等" class="headerlink" title="去重与幂等"></a>去重与幂等</h2><ul>
+<li>区别<ul>
+<li>「去重」是对请求或者消息在「一定时间内」进行去重「N次」</li>
+<li>「幂等」则是保证请求或消息在「任意时间内」进行处理，都需要保证它的结果是一致</li>
+</ul>
+</li>
+<li>以项目举例，我维护的「消息管理平台」是有「去重」的功能的：「5分钟相同内容消息去重」「1小时内模板去重」「一天内渠道达到N次阈值去重」.</li>
+<li>再次强调下「幂等」和「去重」的本质：「唯一Key」+「存储」</li>
+</ul>
+<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><ul>
+<li>不同的业务场景，唯一Key是不一样的，由业务決定</li>
+<li>存储选择挺多的，比如「本地缓存」&#x2F;「 Redis」&#x2F;「 MYSQL」&#x2F;「 Hbase」等等，具体选取什么，也跟业务有关</li>
+<li>比如说，在「消息管理平台」这个场景下，我存储选择的「 Redis」（读写性能优越）， Redis也有「过期时间」方便解决「一定时间内」的问题</li>
+<li>而唯一Key，自然就是根据不同的业务构建不同的。</li>
+<li>比如说「5分钟相同内容消息去重」，我直接MD5请求参数作为唯一Key。「1小时模板去重」则是「模板ID+ userid」作为唯一Key，「ー天内渠道去重」则是「渠道ID+ userid」作为唯一Key.</li>
+</ul>
+<h2 id="提到了「去重」了，你听过布隆过滤器吗？"><a href="#提到了「去重」了，你听过布隆过滤器吗？" class="headerlink" title="提到了「去重」了，你听过布隆过滤器吗？"></a>提到了「去重」了，你听过布隆过滤器吗？</h2><ul>
+<li>布隆过滤器的底层数据结构可以理解为bitmap， bitmap也可以简单理解为是一个数组，元素只存储0和1，所以它占用的空间相对较小</li>
+<li>当一个元素要存入 bitmap时，其实是要去看存储到 bitmap的哪个位置，这时一般用的就是「哈希算法」，存进去的位置标记为1</li>
+<li>标记为1的位置表示存在，标记为0的位置标示不存在</li>
+<li>布隆过滤器是可以以较低的空间占用来判断元素是否存在进而用于去重，但是它也有对应的缺点</li>
+<li>只要使用哈希算法离不开「哈希冲突」，导致有存在「误判」的情况</li>
+<li>在布隆过滤器中，如果元素判定为存在，那该元素「未必」真实存在。如果元素判定为不存在，那就肯定是不存在</li>
+<li>这应该不用我多解释了吧？（结合「哈希算法」和「标记为1的位置表示存在，标记为0的位置表示不存在」这两者就能得出上面结论）</li>
+<li>布隆过滤器也不能「删除」元素（也是哈希算法的局限性，在布隆过滤器中是不能准确定位一个元素的）</li>
+<li>如果要用的话，布隆过滤器的实现可以直接上 guava已经实现好的，不过这个是单机的</li>
+<li>而分布式下的布隆过滤器，一般现在会用 Redis，但也不是每个公司都会部暑布隆过潓器的 Redis版（还是有局限，像我以前公司就没有）</li>
+<li>所以，目前我负责的项目都是没有用布隆过滤器的</li>
+</ul>
+<h2 id="去重开销大"><a href="#去重开销大" class="headerlink" title="去重开销大"></a>去重开销大</h2><ul>
+<li>如果「去重」开销比较大，可以考虑建立「多层过滤」的逻辑</li>
+<li>比如，先看看『本地缓存』能不能过滤一部分，剩下「强校验」交由『远程存储』（常见的 Redis或者DB）进行二次过滤</li>
+</ul>
+<h2 id="kafka场景"><a href="#kafka场景" class="headerlink" title="kafka场景"></a>kafka场景</h2><ul>
+<li>当时你说在处理订单时实现了 at least one+幂等</li>
+<li>幂等处理时：前置过滤使用的是 Redis，强一致校验时使用的是DB唯一索引，也是为了提高性能，唯一Key好像就是「订单编号+订单状态」</li>
+</ul>
+<h2 id="方案的场景适用"><a href="#方案的场景适用" class="headerlink" title="方案的场景适用"></a>方案的场景适用</h2><ol>
+<li>一般我们需要对数据强一致性校验，就直接上 MYSQL（DB），毕竟有事务的支持</li>
+<li>「本地缓存」如果业务适合，那可以作为一个「前置」判断</li>
+<li>Redis高性能读写，前置判断和后置均可</li>
+<li>而 Hbasel则一般用于庞大数据量的场景下（ Redis内存太贵，DB不够灵活也不适合单表存大量数据）</li>
+</ol>
+<h2 id="幂等"><a href="#幂等" class="headerlink" title="幂等"></a>幂等</h2><ul>
+<li>至于幂等，一般的方案下存储还是「Redis」和「数据库」</li>
+<li>最最最最常见的就是数据库「唯一索」来实现幂等（我所负责的好几个项目都是用这个）</li>
+<li>构建「唯一Key」是业务相关的事了（一般是用自己的业务ID进行拼接，生成一个有意义”的唯一Key</li>
+<li>当然，也有用「 Redis」和「 MYSQL」实现分布式锁来实现幂等的（：）</li>
+<li>但 Redis’分布式锁是不能完全保证安全的，而MNSL实现分布式锁（乐观锁和悲观锁），不过还是看业务吧，我是没用到过的</li>
+<li>网上有很多实现「幂等」的方案，本质上都是围绕着「存储」和「唯一Key」做了些变种，然后取了个名字</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>l
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://example.com/posts/e93a2b49/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2106,178 +2278,6 @@
 <li>使用SATB算法来处理「并发标记」阶段对象引用存在变更的问题</li>
 <li><strong>亮点&amp;&amp;重点</strong>：提供可停顿时间参数供用户设置（<strong>G1会尽量满足该停顿时间来调整 GC时回收Region的数量</strong>）</li>
 <li>R大描述G1原理的时候，他提到：从宏观的角度看G1，主要分为两块「<strong>全局并发标记</strong>」和「<strong>拷贝存活对象</strong>」</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>l
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/b8eb8241/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/lion.png">
-      <meta itemprop="name" content="swimminghao">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="swimminghao's blog">
-      <meta itemprop="description" content="swimminghao的学习博客">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | swimminghao's blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/b8eb8241/" class="post-title-link" itemprop="url">32、【对线面试官】如何实现幂等和去重？</a>
-        </h2>
-
-        <div class="post-meta-container">
-
-          
-
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-10 09:48:07" itemprop="dateModified" datetime="2022-03-10T09:48:07+08:00">2022-03-10</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="far fa-comment"></i>
-    </span>
-    <span class="post-meta-item-text">Waline：</span>
-  
-    <a title="waline" href="/posts/b8eb8241/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/b8eb8241/" data-xid="/posts/b8eb8241/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>1.6k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>1 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="如何实现去重和幂等"><a href="#如何实现去重和幂等" class="headerlink" title="如何实现去重和幂等"></a>如何实现去重和幂等</h1><h2 id="去重与幂等"><a href="#去重与幂等" class="headerlink" title="去重与幂等"></a>去重与幂等</h2><ul>
-<li>区别<ul>
-<li>「去重」是对请求或者消息在「一定时间内」进行去重「N次」</li>
-<li>「幂等」则是保证请求或消息在「任意时间内」进行处理，都需要保证它的结果是一致</li>
-</ul>
-</li>
-<li>以项目举例，我维护的「消息管理平台」是有「去重」的功能的：「5分钟相同内容消息去重」「1小时内模板去重」「一天内渠道达到N次阈值去重」.</li>
-<li>再次强调下「幂等」和「去重」的本质：「唯一Key」+「存储」</li>
-</ul>
-<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><ul>
-<li>不同的业务场景，唯一Key是不一样的，由业务決定</li>
-<li>存储选择挺多的，比如「本地缓存」&#x2F;「 Redis」&#x2F;「 MYSQL」&#x2F;「 Hbase」等等，具体选取什么，也跟业务有关</li>
-<li>比如说，在「消息管理平台」这个场景下，我存储选择的「 Redis」（读写性能优越）， Redis也有「过期时间」方便解决「一定时间内」的问题</li>
-<li>而唯一Key，自然就是根据不同的业务构建不同的。</li>
-<li>比如说「5分钟相同内容消息去重」，我直接MD5请求参数作为唯一Key。「1小时模板去重」则是「模板ID+ userid」作为唯一Key，「ー天内渠道去重」则是「渠道ID+ userid」作为唯一Key.</li>
-</ul>
-<h2 id="提到了「去重」了，你听过布隆过滤器吗？"><a href="#提到了「去重」了，你听过布隆过滤器吗？" class="headerlink" title="提到了「去重」了，你听过布隆过滤器吗？"></a>提到了「去重」了，你听过布隆过滤器吗？</h2><ul>
-<li>布隆过滤器的底层数据结构可以理解为bitmap， bitmap也可以简单理解为是一个数组，元素只存储0和1，所以它占用的空间相对较小</li>
-<li>当一个元素要存入 bitmap时，其实是要去看存储到 bitmap的哪个位置，这时一般用的就是「哈希算法」，存进去的位置标记为1</li>
-<li>标记为1的位置表示存在，标记为0的位置标示不存在</li>
-<li>布隆过滤器是可以以较低的空间占用来判断元素是否存在进而用于去重，但是它也有对应的缺点</li>
-<li>只要使用哈希算法离不开「哈希冲突」，导致有存在「误判」的情况</li>
-<li>在布隆过滤器中，如果元素判定为存在，那该元素「未必」真实存在。如果元素判定为不存在，那就肯定是不存在</li>
-<li>这应该不用我多解释了吧？（结合「哈希算法」和「标记为1的位置表示存在，标记为0的位置表示不存在」这两者就能得出上面结论）</li>
-<li>布隆过滤器也不能「删除」元素（也是哈希算法的局限性，在布隆过滤器中是不能准确定位一个元素的）</li>
-<li>如果要用的话，布隆过滤器的实现可以直接上 guava已经实现好的，不过这个是单机的</li>
-<li>而分布式下的布隆过滤器，一般现在会用 Redis，但也不是每个公司都会部暑布隆过潓器的 Redis版（还是有局限，像我以前公司就没有）</li>
-<li>所以，目前我负责的项目都是没有用布隆过滤器的</li>
-</ul>
-<h2 id="去重开销大"><a href="#去重开销大" class="headerlink" title="去重开销大"></a>去重开销大</h2><ul>
-<li>如果「去重」开销比较大，可以考虑建立「多层过滤」的逻辑</li>
-<li>比如，先看看『本地缓存』能不能过滤一部分，剩下「强校验」交由『远程存储』（常见的 Redis或者DB）进行二次过滤</li>
-</ul>
-<h2 id="kafka场景"><a href="#kafka场景" class="headerlink" title="kafka场景"></a>kafka场景</h2><ul>
-<li>当时你说在处理订单时实现了 at least one+幂等</li>
-<li>幂等处理时：前置过滤使用的是 Redis，强一致校验时使用的是DB唯一索引，也是为了提高性能，唯一Key好像就是「订单编号+订单状态」</li>
-</ul>
-<h2 id="方案的场景适用"><a href="#方案的场景适用" class="headerlink" title="方案的场景适用"></a>方案的场景适用</h2><ol>
-<li>一般我们需要对数据强一致性校验，就直接上 MYSQL（DB），毕竟有事务的支持</li>
-<li>「本地缓存」如果业务适合，那可以作为一个「前置」判断</li>
-<li>Redis高性能读写，前置判断和后置均可</li>
-<li>而 Hbasel则一般用于庞大数据量的场景下（ Redis内存太贵，DB不够灵活也不适合单表存大量数据）</li>
-</ol>
-<h2 id="幂等"><a href="#幂等" class="headerlink" title="幂等"></a>幂等</h2><ul>
-<li>至于幂等，一般的方案下存储还是「Redis」和「数据库」</li>
-<li>最最最最常见的就是数据库「唯一索」来实现幂等（我所负责的好几个项目都是用这个）</li>
-<li>构建「唯一Key」是业务相关的事了（一般是用自己的业务ID进行拼接，生成一个有意义”的唯一Key</li>
-<li>当然，也有用「 Redis」和「 MYSQL」实现分布式锁来实现幂等的（：）</li>
-<li>但 Redis’分布式锁是不能完全保证安全的，而MNSL实现分布式锁（乐观锁和悲观锁），不过还是看业务吧，我是没用到过的</li>
-<li>网上有很多实现「幂等」的方案，本质上都是围绕着「存储」和「唯一Key」做了些变种，然后取了个名字</li>
 </ul>
 
       

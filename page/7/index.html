@@ -276,7 +276,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/364ea8cc/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/513a500a/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/lion.png">
@@ -294,7 +294,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/364ea8cc/" class="post-title-link" itemprop="url">设计模式</a>
+          <a href="/posts/513a500a/" class="post-title-link" itemprop="url">算法中文手册</a>
         </h2>
 
         <div class="post-meta-container">
@@ -315,7 +315,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-11 21:02:58" itemprop="dateModified" datetime="2022-03-11T21:02:58+08:00">2022-03-11</time>
+      <time title="修改时间：2022-03-11 11:12:36" itemprop="dateModified" datetime="2022-03-11T11:12:36+08:00">2022-03-11</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -336,8 +336,8 @@
     </span>
     <span class="post-meta-item-text">Waline：</span>
   
-    <a title="waline" href="/posts/364ea8cc/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/364ea8cc/" data-xid="/posts/364ea8cc/" itemprop="commentCount"></span>
+    <a title="waline" href="/posts/513a500a/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/513a500a/" data-xid="/posts/513a500a/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -348,14 +348,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>1.9k</span>
+      <span>1.2k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>2 分钟</span>
+      <span>1 分钟</span>
     </span>
 </div>
 
@@ -366,269 +366,8 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="常用设计模式"><a href="#常用设计模式" class="headerlink" title="常用设计模式"></a>常用设计模式</h1><h2 id="1-观察者模式"><a href="#1-观察者模式" class="headerlink" title="1.观察者模式"></a>1.观察者模式</h2><ul>
-<li>定义：在对象之间定义了一对多的依赖，这样的话，当一个对象改变状态，依赖他的对象会受到通知并自动更新。（其实就是发布订阅模式：发布者发布信息，订阅者获取信息，订阅了就能收到消息，没订阅的就收不到消息）</li>
-</ul>
-<h2 id="2-访问者模式"><a href="#2-访问者模式" class="headerlink" title="2.访问者模式"></a>2.访问者模式</h2><ul>
-<li>定义：封装作用于某种数据结构中各元素的操作，它可在不改变数据结构的前提下定义作用于这些元素的新的操作。</li>
-</ul>
-<h2 id="3-命令模式"><a href="#3-命令模式" class="headerlink" title="3.命令模式"></a>3.命令模式</h2><ul>
-<li>定义：发送者和接收者之间引入了一个命令对象，将发送者的请求封装在命令对象中，再通过命令对象来调用接受者的方法。</li>
-<li>spring框架：spring是怎么做的，view、controller、service是怎么连在一起的：spring是控制反转、依赖注入，解决了数据数据初始化一些问题，能够吧代码写得很简洁，然后脱颖而出，核心是怎么做的，数据初始化是怎么做的。面向切面的编程可以用在什么地方，spring的一般框架是mvc<br>：层是controller、中间层是service、底层是dao。为什么这么分？他比其他的区别是什么？对一些request包装了<br>   找spring一两点深入研究：我不仅仅是用了spring，我还研究了他某一个组件，他是怎么实现的？讲讲(闪光点）</li>
-<li>velocity（模板语言）<br> 我用了velocity，我发现了velocity里的很多东西和我学的java、c++都是一样的，他这个框架他把一些公用的都提取出来，前面的spring boot是个java框架，为什么要用velocity，因为我要前后端分离，view和后面的数据要分离，data是怎么传过来的，怎么解析的，他支持什么东西？（不仅仅用了这个东西，还有思想，解耦）</li>
-</ul>
-<h2 id="3-mybatis"><a href="#3-mybatis" class="headerlink" title="3.mybatis"></a>3.mybatis</h2><ul>
-<li>怎么把数据库的一些前后的读取给做了，怎么把xml里的多重条件，怎么做文法的解析，然后把这些条件给处理掉。</li>
-</ul>
-<h2 id="4-登录-x2F-注册"><a href="#4-登录-x2F-注册" class="headerlink" title="4.登录&#x2F;注册"></a>4.登录&#x2F;注册</h2><ul>
-<li>网站安全（salt）：密码为什么加了一个salt就变得安全？</li>
-<li>通过拦截器来实现的：拦截器的思想、框架，留好接口;拦截器实现登录注册：我在cookie里放了一个token，token怎么处理用户登录注册的：在用户登录注册的时候，会下发一个token，把token与用户信息关联起来，关联起来之后我为了优化token信息，把token放到数据库里（redis），设计一个分布式的统一登录系统，现在的互联网产品都是统一登录的，比如，登录qq之后，登录网页就不需要登录了，qq登录过的token直接注入到网页上去。这是个ssension共享问题：、</li>
-<li>保证数据安全：验证（邮件激活）</li>
-</ul>
-<h2 id="5-前缀树"><a href="#5-前缀树" class="headerlink" title="5.前缀树"></a>5.前缀树</h2><ul>
-<li>构造一个前缀树，通过一个有限状态机来实现一传文本是不是包含敏感词，繁杂度是多少 很重要：优点有哪些？为什么不用kmp，文本查找算法：<br>可以很快的加一些词汇过来；有扩展性，以及性能更提高</li>
-</ul>
-<h2 id="6-redis"><a href="#6-redis" class="headerlink" title="6.redis"></a>6.redis</h2><ul>
-<li>数据结构：跳列表，哈希，优先队列，list：我了解redis底层是怎么实现的，为什么他的效率很高，他的字符串是怎么保存的，做这个工程的时候我用在的异步队列上、排序上、异步框架</li>
-</ul>
-<h2 id="7-异步框架"><a href="#7-异步框架" class="headerlink" title="7.异步框架"></a>7.异步框架</h2><p>*思路：我这个网站附带的每一步操作可能附带的操作都非常多，为了更快的吧结果返回给用户，所以采用异步框架，自己写的，数据结构：使用redis的队列，因为redis能够保证线程同步；除了用队列，我还想过用有优先队列，这样我的异步框架能够把紧急的任务线处理掉。我这个异步框架：有消息的发射，消息的处理，事件的模型定义以及具体执行的eventhandle，我定义了一些公共接口把这些实现了。</p>
-<h2 id="8-邮件（smtp协议）"><a href="#8-邮件（smtp协议）" class="headerlink" title="8.邮件（smtp协议）"></a>8.邮件（smtp协议）</h2><ul>
-<li>做了一个简单邮件，怎么连接上服务器，我当时做这个的时候，ssl问题<br>，ssl理解，服务器需要ssl链接，为了安全服务器是怎么做的；java sdk 1.7 1.8的问题，1.8是需要换一个jar包的</li>
-<li>豆瓣电影排序：好的问题能挑选出来，互动越多，时间越新，评分越高。</li>
-</ul>
-<h2 id="9-timeline（时间轴）"><a href="#9-timeline（时间轴）" class="headerlink" title="9.timeline（时间轴）"></a>9.timeline（时间轴）</h2><ul>
-<li>肯定会问：为什么用推拉模式，用推实时性高能让好友快速得到消息，用拉能节省僵尸号、不是活跃用户的存储空间。怎么区分？最后把timeline组合起来‘timeline模板系统，每个新鲜事展向不一样，和velocity结合起来，后台存储的都是核心数据，每个数据对应的是一个模板，我把模板结合起来，我就能快速的把时间轴展示出来。</li>
-</ul>
-<h2 id="10-爬虫"><a href="#10-爬虫" class="headerlink" title="10.爬虫"></a>10.爬虫</h2><h2 id="11-solr搜索"><a href="#11-solr搜索" class="headerlink" title="11.solr搜索"></a>11.solr搜索</h2><ul>
-<li>搜索去重：对比相似度，敏感哈希算法，哈希算法：两个字符串稍微有一点点不一样，结构就是不一样的。可能头尾是不一样的，内容一样：采用敏感哈希算法把相似度求出来，区别：敏感哈希算法两个文档相似度很高，他生成的哈希值的比例是很相似的。</li>
-</ul>
-<h2 id="12-单元测试-x2F-部署"><a href="#12-单元测试-x2F-部署" class="headerlink" title="12.单元测试&#x2F;部署"></a>12.单元测试&#x2F;部署</h2><ul>
-<li>部署：运维，llinux nigix反向代理，与正向对比。负载均衡：为什么要负载均衡。</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>l
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/74cfd586/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/lion.png">
-      <meta itemprop="name" content="swimminghao">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="swimminghao's blog">
-      <meta itemprop="description" content="swimminghao的学习博客">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | swimminghao's blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/74cfd586/" class="post-title-link" itemprop="url">java8类型互转</a>
-        </h2>
-
-        <div class="post-meta-container">
-
-          
-
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-05-16 16:20:40" itemprop="dateModified" datetime="2022-05-16T16:20:40+08:00">2022-05-16</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E8%AF%AD%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">语法</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="far fa-comment"></i>
-    </span>
-    <span class="post-meta-item-text">Waline：</span>
-  
-    <a title="waline" href="/posts/74cfd586/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/74cfd586/" data-xid="/posts/74cfd586/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>6.4k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>6 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="java8类型互转"><a href="#java8类型互转" class="headerlink" title="java8类型互转"></a>java8类型互转</h1><h2 id="List-lt-Integer-gt-、int-、Integer-相互转换"><a href="#List-lt-Integer-gt-、int-、Integer-相互转换" class="headerlink" title="List&lt; Integer &gt;、int[ ]、Integer[ ]相互转换"></a>List&lt; Integer &gt;、int[ ]、Integer[ ]相互转换</h2><p>[toc]</p>
-<p>下文中出现的list、ints、integers分别代表一个列表、一个int数组、一个Integer数组。<br>它们之间所谓的转化，其实是 复制数据，互不干扰，可以理解为深拷贝。</p>
-<h3 id="int-转-List-lt-Integer-gt"><a href="#int-转-List-lt-Integer-gt" class="headerlink" title="int[ ] 转 List&lt; Integer &gt;"></a>int[ ] 转 List&lt; Integer &gt;</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Integer&gt; list = Arrays.stream(ints).boxed().collect(Collectors.toList());</span><br></pre></td></tr></table></figure>
-
-<p>Arrays.stream(ints) 之后返回的类型是 IntStream，IntStream 是一个接口继承自 BaseStream，BaseStream 又继承自AutoCloseable。所以我把IntStream看成一个方便对每个整数做操作的数据流。</p>
-<p>之后调用了 boxed()，它的作用是对每个整数进行装箱，基本类型流转换为对象流，返回的是 Stream<Integer>，Stream 也是继承自 BaseStream。所以这一步的作用是把 IntStream 转换成了 Stream<Integer>。</p>
-<p>最后通过collect方法将数据流 (Stream<Integer>) 收集成了集合 ( List<Integer>)，这里 collect 方法里传入的是一个收集器 (Collector)，它通过 Collectors.toList() 产生。</p>
-<p>小结：</p>
-<ol>
-<li>Arrays.stream(ints) 将基本类型数组转换为基本类型流。 int[ ] &#x3D;&gt; IntStream</li>
-<li>.boxed() 将基本类型流转换为对象流。 &#x3D;&gt; Stream&lt; Integer &gt;</li>
-<li>.collect(Collectors.toList()) 将对象流收集为集合。 &#x3D;&gt; List&lt; Integer &gt;</li>
-</ol>
-<h3 id="int-转-List-lt-List-lt-Integer-gt-gt"><a href="#int-转-List-lt-List-lt-Integer-gt-gt" class="headerlink" title="int[ ] [ ] 转 List&lt;  List &lt; Integer &gt;  &gt;"></a>int[ ] [ ] 转 List&lt;  List &lt; Integer &gt;  &gt;</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">temp</span> <span class="operator">=</span> Arrays.deepToString(fooArr).replaceAll(<span class="string">&quot;\\[&quot;</span>,<span class="string">&quot;&quot;</span>).replaceAll(<span class="string">&quot;\\]&quot;</span>,<span class="string">&quot;&quot;</span>);</span><br><span class="line">List&lt;String&gt; fooList = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;(Arrays.asList(<span class="string">&quot;,&quot;</span>)); <span class="comment">//不对</span></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">List&lt;List&lt;Integer&gt;&gt; collect2 = Arrays.Stream(ints1).map(ar -&gt; Arrays.stream(ar).boxed().collect(Collectors.toList())).collect(Collectors.toList());</span><br></pre></td></tr></table></figure>
-
-<h3 id="int-转-Integer"><a href="#int-转-Integer" class="headerlink" title="int[ ] 转 Integer[ ]"></a>int[ ] 转 Integer[ ]</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Integer[] integers = Arrays.stream(ints).boxed().toArray(Integer[]::<span class="keyword">new</span>);</span><br></pre></td></tr></table></figure>
-
-<p>一样的内容就不重复了，toArray(T[ ] :: new) 方法返回基本类型数组。<br>小结：</p>
-<ol>
-<li>Arrays.stream(ints) 将基本类型数组转换为基本类型流。 int[ ] &#x3D;&gt; IntStream</li>
-<li>.boxed() 将基本类型流转换为对象流。&#x3D;&gt; Stream&lt; Integer &gt;</li>
-<li>.toArray(Integer[ ]::new) 将对象流转换为对象数组。&#x3D;&gt; Integer[ ]</li>
-</ol>
-<h3 id="int-转-Integer-1"><a href="#int-转-Integer-1" class="headerlink" title="int[ ] [ ]转 Integer[ ] [ ]"></a>int[ ] [ ]转 Integer[ ] [ ]</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Integer[][] integers3 = Arrays.stream(ints1).map(ints -&gt; Arrays.stream(ints).boxed().toArray(Integer[]::<span class="keyword">new</span>)).toArray(Integer[][]::<span class="keyword">new</span>);</span><br></pre></td></tr></table></figure>
-
-<h3 id="Integer-转-List-lt-Integer-gt"><a href="#Integer-转-List-lt-Integer-gt" class="headerlink" title="Integer[ ] 转 List&lt; Integer &gt;"></a>Integer[ ] 转 List&lt; Integer &gt;</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Integer&gt; list = Arrays.asList(integers);</span><br></pre></td></tr></table></figure>
-
-<p>这个就很简单了，通过Arrays类里的asList方法将数组装换为List。值得注意：</p>
-<p>asList 返回的是 Arrays 里的静态私有类 ArrayList，而不是 java.util 里的 ArrayList，它无法自动扩容。</p>
-<p>可以用下面2种方法生成可扩容的ArrayList：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Integer&gt; list = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;(Arrays.asList(integers)); </span><br></pre></td></tr></table></figure>
-
-<p>或者</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Integer&gt; list = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;(); </span><br><span class="line">Collections.addAll(list, integers);</span><br></pre></td></tr></table></figure>
-
-<h3 id="Integer-转-List-lt-List-lt-Integer-gt-gt"><a href="#Integer-转-List-lt-List-lt-Integer-gt-gt" class="headerlink" title="Integer[ ] [ ]转 List&lt; List &lt; Integer &gt; &gt;"></a>Integer[ ] [ ]转 List&lt; List &lt; Integer &gt; &gt;</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Integer[][] a = &#123;&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>&#125;,&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>&#125;&#125;;</span><br><span class="line">List&lt;List&lt;Integer&gt;&gt; lists = Arrays.stream(a).map(Arrays::asList).collect(Collectors.toList());</span><br></pre></td></tr></table></figure>
-
-<h3 id="Integer-转-int"><a href="#Integer-转-int" class="headerlink" title="Integer[ ] 转 int[ ]"></a>Integer[ ] 转 int[ ]</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span>[] ints = Arrays.stream(integers).mapToInt(Integer::valueOf).toArray();</span><br></pre></td></tr></table></figure>
-
-<p>map的意思是把每一个元素进行同样的操作。mapToInt的意思是把每一个元素转换为int。mapToInt(Integer::valueOf)方法返回的是IntStream。<br>小结：</p>
-<ol>
-<li>Arrays.stream(integers) 将对象数组转换为对象流。 Integer[ ] &#x3D;&gt; Stream&lt; Integer &gt;</li>
-<li>.mapToInt(Integer::valueOf) 将对象流转换成基本类型流。&#x3D;&gt; IntStream</li>
-<li>.toArray() 将基本类型流转换为基本类型数组。 &#x3D;&gt; int[ ]</li>
-</ol>
-<h3 id="Integer-转-int-1"><a href="#Integer-转-int-1" class="headerlink" title="Integer[ ] [ ]转 int[ ] [ ]"></a>Integer[ ] [ ]转 int[ ] [ ]</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Integer[][] a = &#123;&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>&#125;,&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>&#125;&#125;;      </span><br><span class="line"><span class="type">int</span>[][] ints1 = Arrays.stream(a).map(a1 -&gt; Arrays.stream(a1).mapToInt(Integer::valueOf).toArray()).toArray(<span class="type">int</span>[][]::<span class="keyword">new</span>);</span><br></pre></td></tr></table></figure>
-
-<h3 id="List-lt-Integer-gt-转-int"><a href="#List-lt-Integer-gt-转-int" class="headerlink" title="List&lt; Integer &gt; 转 int[ ]"></a>List&lt; Integer &gt; 转 int[ ]</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span>[] ints = list.stream().mapToInt(Integer::valueOf).toArray();</span><br></pre></td></tr></table></figure>
-
-<p>经过上面的说明，相信这里已经很好理解了，直接小结。<br>小结：</p>
-<ol>
-<li>list.stream() 将列表转换为对象流。List&lt; Integer &gt; &#x3D;&gt; Stream&lt; Integer &gt;</li>
-<li>.mapToInt(Integer::valueOf) 将对象流转换为基本数据类型流。&#x3D;&gt; IntStream</li>
-<li>.toArray() 将基本数据类型流转换为基本类型数组。&#x3D;&gt;int[ ]</li>
-</ol>
-<h3 id="List-lt-List-lt-Integer-gt-gt-转-int"><a href="#List-lt-List-lt-Integer-gt-gt-转-int" class="headerlink" title="List&lt; List &lt; Integer &gt; &gt; 转 int[ ] [ ]"></a>List&lt; List &lt; Integer &gt; &gt; 转 int[ ] [ ]</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">List&lt;List&lt;Integer&gt;&gt; lists = ...;</span><br><span class="line"><span class="type">int</span>[][] arrays = lists.stream()                                <span class="comment">// Stream&lt;List&lt;Integer&gt;&gt;</span></span><br><span class="line">        .map(list -&gt; list.stream().mapToInt(i -&gt; i).toArray()) <span class="comment">// Stream&lt;int[]&gt;</span></span><br><span class="line">        .toArray(<span class="type">int</span>[][]::<span class="keyword">new</span>);</span><br></pre></td></tr></table></figure>
-
-<h3 id="List-lt-Integer-gt-转-Integer"><a href="#List-lt-Integer-gt-转-Integer" class="headerlink" title="List&lt; Integer &gt; 转 Integer[ ]"></a>List&lt; Integer &gt; 转 Integer[ ]</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Integer[] integers = list.toArray(<span class="keyword">new</span> <span class="title class_">Integer</span>[list.size()]);</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Integer[] integers = list.stream().toArray(Integer[]::<span class="keyword">new</span>); <span class="comment">//不推荐</span></span><br></pre></td></tr></table></figure>
-
-<p>这个也很简单，方法里的参数是一个数组，所以要规定长度。也有无参的方法，但是要进行转型，所以不推荐使用。</p>
-<h3 id="List-lt-List-lt-Integer-gt-gt-转-Integer"><a href="#List-lt-List-lt-Integer-gt-gt-转-Integer" class="headerlink" title="List&lt; List &lt; Integer &gt; &gt; 转 Integer[ ] [ ]"></a>List&lt; List &lt; Integer &gt; &gt; 转 Integer[ ] [ ]</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">List&lt;List&lt;Integer&gt;&gt; lists = ...;</span><br><span class="line">Integer[][] arrays = lists.stream()                                <span class="comment">// Stream&lt;List&lt;Integer&gt;&gt;</span></span><br><span class="line">        .map(list -&gt; list.toArray(<span class="keyword">new</span> <span class="title class_">Integer</span>[list.size()])) <span class="comment">// Stream&lt;Integer[]&gt;</span></span><br><span class="line">        .toArray(Integer[][]::<span class="keyword">new</span>);</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Integer[][] arrays = lists.stream()                                <span class="comment">// Stream&lt;List&lt;Integer&gt;&gt;</span></span><br><span class="line">        .map(l -&gt; l.stream().toArray(String[]::<span class="keyword">new</span>)) <span class="comment">// Stream&lt;Integer[]&gt;</span></span><br><span class="line">        .toArray(Integer[][]::<span class="keyword">new</span>);</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Integer[][] arrays = lists.stream().map(List::toArray).toArray(Integer[][]::<span class="keyword">new</span>);</span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="List-lt-Character-gt-、char-、Character-相互转换"><a href="#List-lt-Character-gt-、char-、Character-相互转换" class="headerlink" title="List&lt; Character &gt;、char[ ]、Character[ ]相互转换"></a>List&lt; Character &gt;、char[ ]、Character[ ]相互转换</h2><h3 id="char-转-List-lt-Character-gt"><a href="#char-转-List-lt-Character-gt" class="headerlink" title="char[ ] 转 List&lt; Character &gt;"></a>char[ ] 转 List&lt; Character &gt;</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">char</span>[] chars = &#123;<span class="string">&#x27;a&#x27;</span>, <span class="string">&#x27;b&#x27;</span>, <span class="string">&#x27;c&#x27;</span>&#125;;</span><br><span class="line">List&lt;Character&gt; collect = <span class="keyword">new</span> <span class="title class_">String</span>(chars).chars().mapToObj(i -&gt; (<span class="type">char</span>) i).collect(Collectors.toList());</span><br></pre></td></tr></table></figure>
-
-<h3 id="char-转-List-lt-List-lt-Character-gt-gt"><a href="#char-转-List-lt-List-lt-Character-gt-gt" class="headerlink" title="char[ ] [ ] 转 List&lt;  List &lt; Character &gt;  &gt;"></a>char[ ] [ ] 转 List&lt;  List &lt; Character &gt;  &gt;</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">List&lt;List&lt;Character&gt;&gt; collect2 = Arrays.stream(ints1).map(chars1 -&gt; <span class="keyword">new</span> <span class="title class_">String</span>(chars1).chars().mapToObj(i -&gt; (<span class="type">char</span>) i).collect(Collectors.toList())).collect(Collectors.toList());</span><br></pre></td></tr></table></figure>
-
-<h3 id="char-转-Character"><a href="#char-转-Character" class="headerlink" title="char[ ] 转 Character[ ]"></a>char[ ] 转 Character[ ]</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">char</span>[] chars = &#123;<span class="string">&#x27;a&#x27;</span>, <span class="string">&#x27;b&#x27;</span>, <span class="string">&#x27;c&#x27;</span>&#125;;</span><br><span class="line">Character[] characters1 = <span class="keyword">new</span> <span class="title class_">String</span>(chars).chars().mapToObj(i -&gt; (<span class="type">char</span>) i).toArray(Character[]::<span class="keyword">new</span>);     </span><br></pre></td></tr></table></figure>
-
-<h3 id="char-转-Character-1"><a href="#char-转-Character-1" class="headerlink" title="char[ ] [ ]转 Character[ ] [ ]"></a>char[ ] [ ]转 Character[ ] [ ]</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Character[][] integers3 = Arrays.stream(ints1).map(chars -&gt; <span class="keyword">new</span> <span class="title class_">String</span>(chars).chars().mapToObj(i-&gt;(<span class="type">char</span>)i).toArray(Character[]::<span class="keyword">new</span>)).toArray(Character[][]::<span class="keyword">new</span>);</span><br></pre></td></tr></table></figure>
-
-<h3 id="Character-转-List-lt-Character-gt"><a href="#Character-转-List-lt-Character-gt" class="headerlink" title="Character[ ] 转 List&lt; Character &gt;"></a>Character[ ] 转 List&lt; Character &gt;</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Character&gt; collect2 = Arrays.stream(characters).collect(Collectors.toList());</span><br></pre></td></tr></table></figure>
-
-<h3 id="Character-转-List-lt-List-lt-Character-gt-gt"><a href="#Character-转-List-lt-List-lt-Character-gt-gt" class="headerlink" title="Character[ ] [ ]转 List&lt; List &lt; Character &gt; &gt;"></a>Character[ ] [ ]转 List&lt; List &lt; Character &gt; &gt;</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">List&lt;List&lt;Character&gt;&gt; lists = Arrays.stream(a).map(Arrays::asList).collect(Collectors.toList());</span><br></pre></td></tr></table></figure>
-
-<h3 id="Character-转-char"><a href="#Character-转-char" class="headerlink" title="Character[ ] 转 char[ ]"></a>Character[ ] 转 char[ ]</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">char</span>[] chars4 = Arrays.stream(characters1).map(String::valueOf).collect(Collectors.joining()).toCharArray();</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h3 id="Character-转-char-1"><a href="#Character-转-char-1" class="headerlink" title="Character[ ] [ ]转 char[ ] [ ]"></a>Character[ ] [ ]转 char[ ] [ ]</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">char</span>[][] ints1 = Arrays.stream(a).map(a1 -&gt; Arrays.stream(a1).map(String::valueOf).collect(Collectors.joining()).toCharArray()).toArray(<span class="type">char</span>[][]::<span class="keyword">new</span>);</span><br></pre></td></tr></table></figure>
-
-<h3 id="List-lt-Character-gt-转-char"><a href="#List-lt-Character-gt-转-char" class="headerlink" title="List&lt; Character &gt; 转 char[ ]"></a>List&lt; Character &gt; 转 char[ ]</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">char</span>[] value = characters.stream().map(String::valueOf).collect(Collectors.joining()).toCharArray();</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Character[] charArr = characters.toArray(<span class="keyword">new</span> <span class="title class_">Character</span>[characters.size()]);</span><br><span class="line"><span class="type">char</span>[] value = ArrayUtils.toPrimitive(charArr);</span><br></pre></td></tr></table></figure>
-
-<h3 id="List-lt-List-lt-Character-gt-gt-转-char"><a href="#List-lt-List-lt-Character-gt-gt-转-char" class="headerlink" title="List&lt; List &lt; Character &gt; &gt; 转 char[ ] [ ]"></a>List&lt; List &lt; Character &gt; &gt; 转 char[ ] [ ]</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">char</span>[][] arrays = lists.stream()                                <span class="comment">// Stream&lt;List&lt;Integer&gt;&gt;</span></span><br><span class="line">                .map(list -&gt; list.stream().map(String::valueOf).collect(Collectors.joining()).toCharArray()) <span class="comment">// Stream&lt;int[]&gt;</span></span><br><span class="line">                .toArray(<span class="type">char</span>[][]::<span class="keyword">new</span>);</span><br></pre></td></tr></table></figure>
-
-<h3 id="List-lt-Character-gt-转-Character"><a href="#List-lt-Character-gt-转-Character" class="headerlink" title="List&lt; Character &gt; 转 Character[ ]"></a>List&lt; Character &gt; 转 Character[ ]</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Character[] characters2 = Arrays.stream(characters1).toArray(Character[]::<span class="keyword">new</span>);</span><br></pre></td></tr></table></figure>
-
-<h3 id="List-lt-List-lt-Character-gt-gt-转-Character"><a href="#List-lt-List-lt-Character-gt-gt-转-Character" class="headerlink" title="List&lt; List &lt; Character &gt; &gt; 转 Character[ ] [ ]"></a>List&lt; List &lt; Character &gt; &gt; 转 Character[ ] [ ]</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Character[][] integers1 = lists.stream()                                <span class="comment">// Stream&lt;List&lt;Integer&gt;&gt;</span></span><br><span class="line">               .map(list -&gt; list.toArray(<span class="keyword">new</span> <span class="title class_">Character</span>[list.size()])).toArray(Character[][]::<span class="keyword">new</span>);</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Character[][] integers2 = lists.stream()                                <span class="comment">// Stream&lt;List&lt;Integer&gt;&gt;</span></span><br><span class="line">                .map(l -&gt; l.stream().toArray(Character[]::<span class="keyword">new</span>))</span><br><span class="line">                .toArray(Character[][]::<span class="keyword">new</span>);</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Character[][] integers = lists.stream().map(List::toArray).toArray(Character[][]::<span class="keyword">new</span>);</span><br></pre></td></tr></table></figure>
-
-
+          <p>[toc]</p>
+<h3 id="开篇词"><a href="#开篇词" class="headerlink" title="开篇词"></a>开篇词</h3><h2 id="第零章、必读系列"><a href="#第零章、必读系列" class="headerlink" title="第零章、必读系列"></a>第零章、必读系列</h2><h3 id="学习算法和刷题的框架思维"><a href="#学习算法和刷题的框架思维" class="headerlink" title="学习算法和刷题的框架思维"></a>学习算法和刷题的框架思维</h3><h3 id="动态规划解题套路框架"><a href="#动态规划解题套路框架" class="headerlink" title="动态规划解题套路框架"></a>动态规划解题套路框架</h3><h3 id="回溯算法解题套路框架"><a href="#回溯算法解题套路框架" class="headerlink" title="回溯算法解题套路框架"></a>回溯算法解题套路框架</h3><h3 id="BFS-算法解题套路框架"><a href="#BFS-算法解题套路框架" class="headerlink" title="BFS 算法解题套路框架"></a>BFS 算法解题套路框架</h3><h3 id="我写了首诗，让你闭着眼睛也能写对二分搜索"><a href="#我写了首诗，让你闭着眼睛也能写对二分搜索" class="headerlink" title="我写了首诗，让你闭着眼睛也能写对二分搜索"></a>我写了首诗，让你闭着眼睛也能写对二分搜索</h3><h3 id="我写了首诗，把滑动窗口算法算法变成了默写题"><a href="#我写了首诗，把滑动窗口算法算法变成了默写题" class="headerlink" title="我写了首诗，把滑动窗口算法算法变成了默写题"></a>我写了首诗，把滑动窗口算法算法变成了默写题</h3><h3 id="一个方法团灭-LeetCode-股票买卖问题"><a href="#一个方法团灭-LeetCode-股票买卖问题" class="headerlink" title="一个方法团灭 LeetCode 股票买卖问题"></a>一个方法团灭 LeetCode 股票买卖问题</h3><h3 id="一个方法团灭-LeetCode-打家劫舍问题"><a href="#一个方法团灭-LeetCode-打家劫舍问题" class="headerlink" title="一个方法团灭 LeetCode 打家劫舍问题"></a>一个方法团灭 LeetCode 打家劫舍问题</h3><h3 id="一个方法团灭-nSum-问题"><a href="#一个方法团灭-nSum-问题" class="headerlink" title="一个方法团灭 nSum 问题"></a>一个方法团灭 nSum 问题</h3><h3 id="经典动态规划-高楼扔鸡蛋"><a href="#经典动态规划-高楼扔鸡蛋" class="headerlink" title="经典动态规划:高楼扔鸡蛋"></a>经典动态规划:高楼扔鸡蛋</h3><h3 id="经典动态规划-子集背包问题"><a href="#经典动态规划-子集背包问题" class="headerlink" title="经典动态规划:子集背包问题"></a>经典动态规划:子集背包问题</h3><h3 id="经典动态规划-完全背包问题"><a href="#经典动态规划-完全背包问题" class="headerlink" title="经典动态规划:完全背包问题"></a>经典动态规划:完全背包问题</h3><h3 id="表达式求值算法-实现计算器"><a href="#表达式求值算法-实现计算器" class="headerlink" title="表达式求值算法:实现计算器"></a>表达式求值算法:实现计算器</h3><h2 id="第一章、动态规划系列"><a href="#第一章、动态规划系列" class="headerlink" title="第一章、动态规划系列"></a>第一章、动态规划系列</h2><h3 id="动态规划解题套路框架-1"><a href="#动态规划解题套路框架-1" class="headerlink" title="动态规划解题套路框架"></a>动态规划解题套路框架</h3><h3 id="动态规划答疑篇"><a href="#动态规划答疑篇" class="headerlink" title="动态规划答疑篇"></a>动态规划答疑篇</h3><h3 id="动态规划和回溯算法到底谁是谁爹"><a href="#动态规划和回溯算法到底谁是谁爹" class="headerlink" title="动态规划和回溯算法到底谁是谁爹?"></a>动态规划和回溯算法到底谁是谁爹?</h3><h3 id="动态规划设计-最⻓递增子序列"><a href="#动态规划设计-最⻓递增子序列" class="headerlink" title="动态规划设计:最⻓递增子序列"></a>动态规划设计:最⻓递增子序列</h3><h3 id="动态规划设计-最大子数组"><a href="#动态规划设计-最大子数组" class="headerlink" title="动态规划设计:最大子数组"></a>动态规划设计:最大子数组</h3><h3 id="经典动态规划-0-1-背包问题"><a href="#经典动态规划-0-1-背包问题" class="headerlink" title="经典动态规划:0-1 背包问题"></a>经典动态规划:0-1 背包问题</h3><h3 id="经典动态规划-子集背包问题-1"><a href="#经典动态规划-子集背包问题-1" class="headerlink" title="经典动态规划:子集背包问题"></a>经典动态规划:子集背包问题</h3><h3 id="经典动态规划-完全背包问题-1"><a href="#经典动态规划-完全背包问题-1" class="headerlink" title="经典动态规划:完全背包问题"></a>经典动态规划:完全背包问题</h3><h3 id="经典动态规划-编辑距离"><a href="#经典动态规划-编辑距离" class="headerlink" title="经典动态规划:编辑距离"></a>经典动态规划:编辑距离</h3><h3 id="经典动态规划-高楼扔鸡蛋-1"><a href="#经典动态规划-高楼扔鸡蛋-1" class="headerlink" title="经典动态规划:高楼扔鸡蛋"></a>经典动态规划:高楼扔鸡蛋</h3><h3 id="经典动态规划-高楼扔鸡蛋-进阶"><a href="#经典动态规划-高楼扔鸡蛋-进阶" class="headerlink" title="经典动态规划:高楼扔鸡蛋(进阶)"></a>经典动态规划:高楼扔鸡蛋(进阶)</h3><h3 id="经典动态规划-戳气球"><a href="#经典动态规划-戳气球" class="headerlink" title="经典动态规划:戳气球"></a>经典动态规划:戳气球</h3><h3 id="经典动态规划-最⻓公共子序列"><a href="#经典动态规划-最⻓公共子序列" class="headerlink" title="经典动态规划:最⻓公共子序列"></a>经典动态规划:最⻓公共子序列</h3><h3 id="动态规划之子序列问题解题模板"><a href="#动态规划之子序列问题解题模板" class="headerlink" title="动态规划之子序列问题解题模板"></a>动态规划之子序列问题解题模板</h3><h3 id="动态规划之博弈问题"><a href="#动态规划之博弈问题" class="headerlink" title="动态规划之博弈问题"></a>动态规划之博弈问题</h3><h3 id="动态规划之正则表达"><a href="#动态规划之正则表达" class="headerlink" title="动态规划之正则表达"></a>动态规划之正则表达</h3><h3 id="动态规划之四键键盘"><a href="#动态规划之四键键盘" class="headerlink" title="动态规划之四键键盘"></a>动态规划之四键键盘</h3><h3 id="动态规划之KMP字符匹配算法"><a href="#动态规划之KMP字符匹配算法" class="headerlink" title="动态规划之KMP字符匹配算法"></a>动态规划之KMP字符匹配算法</h3><h3 id="贪心算法之区间调度问题"><a href="#贪心算法之区间调度问题" class="headerlink" title="贪心算法之区间调度问题"></a>贪心算法之区间调度问题</h3><h3 id="团灭-LeetCode-股票买卖问题"><a href="#团灭-LeetCode-股票买卖问题" class="headerlink" title="团灭 LeetCode 股票买卖问题"></a>团灭 LeetCode 股票买卖问题</h3><h3 id="团灭-LeetCode-打家劫舍问题"><a href="#团灭-LeetCode-打家劫舍问题" class="headerlink" title="团灭 LeetCode 打家劫舍问题"></a>团灭 LeetCode 打家劫舍问题</h3><h2 id="第二章、数据结构系列"><a href="#第二章、数据结构系列" class="headerlink" title="第二章、数据结构系列"></a>第二章、数据结构系列</h2><h3 id="学习数据结构和算法读什么书"><a href="#学习数据结构和算法读什么书" class="headerlink" title="学习数据结构和算法读什么书"></a>学习数据结构和算法读什么书</h3><h3 id="算法学习之路"><a href="#算法学习之路" class="headerlink" title="算法学习之路"></a>算法学习之路</h3><h3 id="二叉堆详解实现优先级队列"><a href="#二叉堆详解实现优先级队列" class="headerlink" title="二叉堆详解实现优先级队列"></a>二叉堆详解实现优先级队列</h3><h3 id="LRU算法详解"><a href="#LRU算法详解" class="headerlink" title="LRU算法详解"></a>LRU算法详解</h3><h3 id="二叉搜索树操作集锦"><a href="#二叉搜索树操作集锦" class="headerlink" title="二叉搜索树操作集锦"></a>二叉搜索树操作集锦</h3><h3 id="如何计算完全二叉树的节点数"><a href="#如何计算完全二叉树的节点数" class="headerlink" title="如何计算完全二叉树的节点数"></a>如何计算完全二叉树的节点数</h3><h3 id="特殊数据结构-单调栈"><a href="#特殊数据结构-单调栈" class="headerlink" title="特殊数据结构:单调栈"></a>特殊数据结构:单调栈</h3><h3 id="特殊数据结构-单调队列"><a href="#特殊数据结构-单调队列" class="headerlink" title="特殊数据结构:单调队列"></a>特殊数据结构:单调队列</h3><h3 id="设计Twitter-递归反转链表的一部分"><a href="#设计Twitter-递归反转链表的一部分" class="headerlink" title="设计Twitter 递归反转链表的一部分"></a>设计Twitter 递归反转链表的一部分</h3><h3 id="队列实现栈-栈实现队列"><a href="#队列实现栈-栈实现队列" class="headerlink" title="队列实现栈|栈实现队列"></a>队列实现栈|栈实现队列</h3><h2 id="第三章、算法思维系列"><a href="#第三章、算法思维系列" class="headerlink" title="第三章、算法思维系列"></a>第三章、算法思维系列</h2><h3 id="学习算法和刷题的思路指南"><a href="#学习算法和刷题的思路指南" class="headerlink" title="学习算法和刷题的思路指南"></a>学习算法和刷题的思路指南</h3><h3 id="回溯算法解题套路框架-1"><a href="#回溯算法解题套路框架-1" class="headerlink" title="回溯算法解题套路框架"></a>回溯算法解题套路框架</h3><h3 id="回溯算法团灭子集、排列、组合问题"><a href="#回溯算法团灭子集、排列、组合问题" class="headerlink" title="回溯算法团灭子集、排列、组合问题"></a>回溯算法团灭子集、排列、组合问题</h3><h3 id="回溯算法最佳实践-解数独"><a href="#回溯算法最佳实践-解数独" class="headerlink" title="回溯算法最佳实践:解数独"></a>回溯算法最佳实践:解数独</h3><h3 id="回溯算法最佳实践-括号生成"><a href="#回溯算法最佳实践-括号生成" class="headerlink" title="回溯算法最佳实践:括号生成"></a>回溯算法最佳实践:括号生成</h3><h3 id="二分查找详解"><a href="#二分查找详解" class="headerlink" title="二分查找详解"></a>二分查找详解</h3><h3 id="双指针技巧总结"><a href="#双指针技巧总结" class="headerlink" title="双指针技巧总结"></a>双指针技巧总结</h3><h3 id="滑动窗口技巧"><a href="#滑动窗口技巧" class="headerlink" title="滑动窗口技巧"></a>滑动窗口技巧</h3><h3 id="twoSum问题的核心思想"><a href="#twoSum问题的核心思想" class="headerlink" title="twoSum问题的核心思想"></a>twoSum问题的核心思想</h3><h3 id="常用的位操作"><a href="#常用的位操作" class="headerlink" title="常用的位操作"></a>常用的位操作</h3><h3 id="拆解复杂问题-实现计算器"><a href="#拆解复杂问题-实现计算器" class="headerlink" title="拆解复杂问题:实现计算器"></a>拆解复杂问题:实现计算器</h3><h3 id="烧饼排序"><a href="#烧饼排序" class="headerlink" title="烧饼排序"></a>烧饼排序</h3><h3 id="前缀和技巧"><a href="#前缀和技巧" class="headerlink" title="前缀和技巧"></a>前缀和技巧</h3><h3 id="字符串乘法"><a href="#字符串乘法" class="headerlink" title="字符串乘法"></a>字符串乘法</h3><h3 id="FloodFill算法详解及应用"><a href="#FloodFill算法详解及应用" class="headerlink" title="FloodFill算法详解及应用"></a>FloodFill算法详解及应用</h3><h3 id="区间调度之区间合并问题"><a href="#区间调度之区间合并问题" class="headerlink" title="区间调度之区间合并问题"></a>区间调度之区间合并问题</h3><h3 id="区间调度之区间交集问题"><a href="#区间调度之区间交集问题" class="headerlink" title="区间调度之区间交集问题"></a>区间调度之区间交集问题</h3><h3 id="信封嵌套问题"><a href="#信封嵌套问题" class="headerlink" title="信封嵌套问题"></a>信封嵌套问题</h3><h3 id="几个反直觉的概率问题"><a href="#几个反直觉的概率问题" class="headerlink" title="几个反直觉的概率问题"></a>几个反直觉的概率问题</h3><h2 id="第四章、高频面试系列"><a href="#第四章、高频面试系列" class="headerlink" title="第四章、高频面试系列"></a>第四章、高频面试系列</h2><h3 id="如何实现LRU算法"><a href="#如何实现LRU算法" class="headerlink" title="如何实现LRU算法"></a>如何实现LRU算法</h3><h3 id="如何用-BFS-算法秒杀各种智力题"><a href="#如何用-BFS-算法秒杀各种智力题" class="headerlink" title="如何用 BFS 算法秒杀各种智力题"></a>如何用 BFS 算法秒杀各种智力题</h3><h3 id="如何高效寻找素数"><a href="#如何高效寻找素数" class="headerlink" title="如何高效寻找素数"></a>如何高效寻找素数</h3><h3 id="如何高效进行模幂运算"><a href="#如何高效进行模幂运算" class="headerlink" title="如何高效进行模幂运算"></a>如何高效进行模幂运算</h3><h3 id="如何计算编辑距离"><a href="#如何计算编辑距离" class="headerlink" title="如何计算编辑距离"></a>如何计算编辑距离</h3><h3 id="如何运用二分查找算法"><a href="#如何运用二分查找算法" class="headerlink" title="如何运用二分查找算法"></a>如何运用二分查找算法</h3><h3 id="如何高效解决接雨水问题"><a href="#如何高效解决接雨水问题" class="headerlink" title="如何高效解决接雨水问题"></a>如何高效解决接雨水问题</h3><h3 id="如何去除有序数组的重复元素"><a href="#如何去除有序数组的重复元素" class="headerlink" title="如何去除有序数组的重复元素"></a>如何去除有序数组的重复元素</h3><h3 id="如何寻找最⻓回文子串"><a href="#如何寻找最⻓回文子串" class="headerlink" title="如何寻找最⻓回文子串"></a>如何寻找最⻓回文子串</h3><h3 id="如何运用贪心思想玩跳跃游戏"><a href="#如何运用贪心思想玩跳跃游戏" class="headerlink" title="如何运用贪心思想玩跳跃游戏"></a>如何运用贪心思想玩跳跃游戏</h3><h3 id="如何k个一组反转链表"><a href="#如何k个一组反转链表" class="headerlink" title="如何k个一组反转链表"></a>如何k个一组反转链表</h3><h3 id="如何判定括号合法性"><a href="#如何判定括号合法性" class="headerlink" title="如何判定括号合法性"></a>如何判定括号合法性</h3><h3 id="如何寻找缺失的元素"><a href="#如何寻找缺失的元素" class="headerlink" title="如何寻找缺失的元素"></a>如何寻找缺失的元素</h3><h3 id="如何同时寻找缺失和重复的元素"><a href="#如何同时寻找缺失和重复的元素" class="headerlink" title="如何同时寻找缺失和重复的元素"></a>如何同时寻找缺失和重复的元素</h3><h3 id="如何判断回文链表"><a href="#如何判断回文链表" class="headerlink" title="如何判断回文链表"></a>如何判断回文链表</h3><h3 id="如何在无限序列中随机抽取元素"><a href="#如何在无限序列中随机抽取元素" class="headerlink" title="如何在无限序列中随机抽取元素"></a>如何在无限序列中随机抽取元素</h3><h3 id="如何调度考生的座位"><a href="#如何调度考生的座位" class="headerlink" title="如何调度考生的座位"></a>如何调度考生的座位</h3><h3 id="Union-Find算法详解"><a href="#Union-Find算法详解" class="headerlink" title="Union-Find算法详解"></a>Union-Find算法详解</h3><h3 id="Union-Find算法应用"><a href="#Union-Find算法应用" class="headerlink" title="Union-Find算法应用"></a>Union-Find算法应用</h3><h3 id="一行代码就能解决的算法题"><a href="#一行代码就能解决的算法题" class="headerlink" title="一行代码就能解决的算法题"></a>一行代码就能解决的算法题</h3><h3 id="二分查找高效判定子序列"><a href="#二分查找高效判定子序列" class="headerlink" title="二分查找高效判定子序列"></a>二分查找高效判定子序列</h3><h2 id="第五章、技术文章系列"><a href="#第五章、技术文章系列" class="headerlink" title="第五章、技术文章系列"></a>第五章、技术文章系列</h2><h3 id="Linux的进程、线程、文件描述符是什么"><a href="#Linux的进程、线程、文件描述符是什么" class="headerlink" title="Linux的进程、线程、文件描述符是什么"></a>Linux的进程、线程、文件描述符是什么</h3><h3 id="关于-Linux-shell-你必须知道的"><a href="#关于-Linux-shell-你必须知道的" class="headerlink" title="关于 Linux shell 你必须知道的"></a>关于 Linux shell 你必须知道的</h3><h3 id="Linux-shell-的实用小技巧"><a href="#Linux-shell-的实用小技巧" class="headerlink" title="Linux shell 的实用小技巧"></a>Linux shell 的实用小技巧</h3><h3 id="一文看懂-session-和-cookie"><a href="#一文看懂-session-和-cookie" class="headerlink" title="一文看懂 session 和 cookie"></a>一文看懂 session 和 cookie</h3><h3 id="加密算法的前身今世"><a href="#加密算法的前身今世" class="headerlink" title="加密算法的前身今世"></a>加密算法的前身今世</h3><h3 id="我用四个命令概括了-Git-的所有套路"><a href="#我用四个命令概括了-Git-的所有套路" class="headerlink" title="我用四个命令概括了 Git 的所有套路"></a>我用四个命令概括了 Git 的所有套路</h3><h3 id="Git-x2F-SQL-x2F-正则表达式的在线练习平台"><a href="#Git-x2F-SQL-x2F-正则表达式的在线练习平台" class="headerlink" title="Git&#x2F;SQL&#x2F;正则表达式的在线练习平台"></a>Git&#x2F;SQL&#x2F;正则表达式的在线练习平台</h3>
       
     </div>
 
@@ -992,6 +731,229 @@
 <p>**</p>
 <hr>
 <p>**</p>
+
+      
+    </div>
+
+    
+    
+    
+
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>l
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/74cfd586/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lion.png">
+      <meta itemprop="name" content="swimminghao">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="swimminghao's blog">
+      <meta itemprop="description" content="swimminghao的学习博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | swimminghao's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/74cfd586/" class="post-title-link" itemprop="url">java8类型互转</a>
+        </h2>
+
+        <div class="post-meta-container">
+
+          
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-05-16 16:20:40" itemprop="dateModified" datetime="2022-05-16T16:20:40+08:00">2022-05-16</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E8%AF%AD%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">语法</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/posts/74cfd586/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/74cfd586/" data-xid="/posts/74cfd586/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>6.4k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>6 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="java8类型互转"><a href="#java8类型互转" class="headerlink" title="java8类型互转"></a>java8类型互转</h1><h2 id="List-lt-Integer-gt-、int-、Integer-相互转换"><a href="#List-lt-Integer-gt-、int-、Integer-相互转换" class="headerlink" title="List&lt; Integer &gt;、int[ ]、Integer[ ]相互转换"></a>List&lt; Integer &gt;、int[ ]、Integer[ ]相互转换</h2><p>[toc]</p>
+<p>下文中出现的list、ints、integers分别代表一个列表、一个int数组、一个Integer数组。<br>它们之间所谓的转化，其实是 复制数据，互不干扰，可以理解为深拷贝。</p>
+<h3 id="int-转-List-lt-Integer-gt"><a href="#int-转-List-lt-Integer-gt" class="headerlink" title="int[ ] 转 List&lt; Integer &gt;"></a>int[ ] 转 List&lt; Integer &gt;</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Integer&gt; list = Arrays.stream(ints).boxed().collect(Collectors.toList());</span><br></pre></td></tr></table></figure>
+
+<p>Arrays.stream(ints) 之后返回的类型是 IntStream，IntStream 是一个接口继承自 BaseStream，BaseStream 又继承自AutoCloseable。所以我把IntStream看成一个方便对每个整数做操作的数据流。</p>
+<p>之后调用了 boxed()，它的作用是对每个整数进行装箱，基本类型流转换为对象流，返回的是 Stream<Integer>，Stream 也是继承自 BaseStream。所以这一步的作用是把 IntStream 转换成了 Stream<Integer>。</p>
+<p>最后通过collect方法将数据流 (Stream<Integer>) 收集成了集合 ( List<Integer>)，这里 collect 方法里传入的是一个收集器 (Collector)，它通过 Collectors.toList() 产生。</p>
+<p>小结：</p>
+<ol>
+<li>Arrays.stream(ints) 将基本类型数组转换为基本类型流。 int[ ] &#x3D;&gt; IntStream</li>
+<li>.boxed() 将基本类型流转换为对象流。 &#x3D;&gt; Stream&lt; Integer &gt;</li>
+<li>.collect(Collectors.toList()) 将对象流收集为集合。 &#x3D;&gt; List&lt; Integer &gt;</li>
+</ol>
+<h3 id="int-转-List-lt-List-lt-Integer-gt-gt"><a href="#int-转-List-lt-List-lt-Integer-gt-gt" class="headerlink" title="int[ ] [ ] 转 List&lt;  List &lt; Integer &gt;  &gt;"></a>int[ ] [ ] 转 List&lt;  List &lt; Integer &gt;  &gt;</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">temp</span> <span class="operator">=</span> Arrays.deepToString(fooArr).replaceAll(<span class="string">&quot;\\[&quot;</span>,<span class="string">&quot;&quot;</span>).replaceAll(<span class="string">&quot;\\]&quot;</span>,<span class="string">&quot;&quot;</span>);</span><br><span class="line">List&lt;String&gt; fooList = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;(Arrays.asList(<span class="string">&quot;,&quot;</span>)); <span class="comment">//不对</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">List&lt;List&lt;Integer&gt;&gt; collect2 = Arrays.Stream(ints1).map(ar -&gt; Arrays.stream(ar).boxed().collect(Collectors.toList())).collect(Collectors.toList());</span><br></pre></td></tr></table></figure>
+
+<h3 id="int-转-Integer"><a href="#int-转-Integer" class="headerlink" title="int[ ] 转 Integer[ ]"></a>int[ ] 转 Integer[ ]</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Integer[] integers = Arrays.stream(ints).boxed().toArray(Integer[]::<span class="keyword">new</span>);</span><br></pre></td></tr></table></figure>
+
+<p>一样的内容就不重复了，toArray(T[ ] :: new) 方法返回基本类型数组。<br>小结：</p>
+<ol>
+<li>Arrays.stream(ints) 将基本类型数组转换为基本类型流。 int[ ] &#x3D;&gt; IntStream</li>
+<li>.boxed() 将基本类型流转换为对象流。&#x3D;&gt; Stream&lt; Integer &gt;</li>
+<li>.toArray(Integer[ ]::new) 将对象流转换为对象数组。&#x3D;&gt; Integer[ ]</li>
+</ol>
+<h3 id="int-转-Integer-1"><a href="#int-转-Integer-1" class="headerlink" title="int[ ] [ ]转 Integer[ ] [ ]"></a>int[ ] [ ]转 Integer[ ] [ ]</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Integer[][] integers3 = Arrays.stream(ints1).map(ints -&gt; Arrays.stream(ints).boxed().toArray(Integer[]::<span class="keyword">new</span>)).toArray(Integer[][]::<span class="keyword">new</span>);</span><br></pre></td></tr></table></figure>
+
+<h3 id="Integer-转-List-lt-Integer-gt"><a href="#Integer-转-List-lt-Integer-gt" class="headerlink" title="Integer[ ] 转 List&lt; Integer &gt;"></a>Integer[ ] 转 List&lt; Integer &gt;</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Integer&gt; list = Arrays.asList(integers);</span><br></pre></td></tr></table></figure>
+
+<p>这个就很简单了，通过Arrays类里的asList方法将数组装换为List。值得注意：</p>
+<p>asList 返回的是 Arrays 里的静态私有类 ArrayList，而不是 java.util 里的 ArrayList，它无法自动扩容。</p>
+<p>可以用下面2种方法生成可扩容的ArrayList：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Integer&gt; list = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;(Arrays.asList(integers)); </span><br></pre></td></tr></table></figure>
+
+<p>或者</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Integer&gt; list = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;(); </span><br><span class="line">Collections.addAll(list, integers);</span><br></pre></td></tr></table></figure>
+
+<h3 id="Integer-转-List-lt-List-lt-Integer-gt-gt"><a href="#Integer-转-List-lt-List-lt-Integer-gt-gt" class="headerlink" title="Integer[ ] [ ]转 List&lt; List &lt; Integer &gt; &gt;"></a>Integer[ ] [ ]转 List&lt; List &lt; Integer &gt; &gt;</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Integer[][] a = &#123;&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>&#125;,&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>&#125;&#125;;</span><br><span class="line">List&lt;List&lt;Integer&gt;&gt; lists = Arrays.stream(a).map(Arrays::asList).collect(Collectors.toList());</span><br></pre></td></tr></table></figure>
+
+<h3 id="Integer-转-int"><a href="#Integer-转-int" class="headerlink" title="Integer[ ] 转 int[ ]"></a>Integer[ ] 转 int[ ]</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span>[] ints = Arrays.stream(integers).mapToInt(Integer::valueOf).toArray();</span><br></pre></td></tr></table></figure>
+
+<p>map的意思是把每一个元素进行同样的操作。mapToInt的意思是把每一个元素转换为int。mapToInt(Integer::valueOf)方法返回的是IntStream。<br>小结：</p>
+<ol>
+<li>Arrays.stream(integers) 将对象数组转换为对象流。 Integer[ ] &#x3D;&gt; Stream&lt; Integer &gt;</li>
+<li>.mapToInt(Integer::valueOf) 将对象流转换成基本类型流。&#x3D;&gt; IntStream</li>
+<li>.toArray() 将基本类型流转换为基本类型数组。 &#x3D;&gt; int[ ]</li>
+</ol>
+<h3 id="Integer-转-int-1"><a href="#Integer-转-int-1" class="headerlink" title="Integer[ ] [ ]转 int[ ] [ ]"></a>Integer[ ] [ ]转 int[ ] [ ]</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Integer[][] a = &#123;&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>&#125;,&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>&#125;&#125;;      </span><br><span class="line"><span class="type">int</span>[][] ints1 = Arrays.stream(a).map(a1 -&gt; Arrays.stream(a1).mapToInt(Integer::valueOf).toArray()).toArray(<span class="type">int</span>[][]::<span class="keyword">new</span>);</span><br></pre></td></tr></table></figure>
+
+<h3 id="List-lt-Integer-gt-转-int"><a href="#List-lt-Integer-gt-转-int" class="headerlink" title="List&lt; Integer &gt; 转 int[ ]"></a>List&lt; Integer &gt; 转 int[ ]</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span>[] ints = list.stream().mapToInt(Integer::valueOf).toArray();</span><br></pre></td></tr></table></figure>
+
+<p>经过上面的说明，相信这里已经很好理解了，直接小结。<br>小结：</p>
+<ol>
+<li>list.stream() 将列表转换为对象流。List&lt; Integer &gt; &#x3D;&gt; Stream&lt; Integer &gt;</li>
+<li>.mapToInt(Integer::valueOf) 将对象流转换为基本数据类型流。&#x3D;&gt; IntStream</li>
+<li>.toArray() 将基本数据类型流转换为基本类型数组。&#x3D;&gt;int[ ]</li>
+</ol>
+<h3 id="List-lt-List-lt-Integer-gt-gt-转-int"><a href="#List-lt-List-lt-Integer-gt-gt-转-int" class="headerlink" title="List&lt; List &lt; Integer &gt; &gt; 转 int[ ] [ ]"></a>List&lt; List &lt; Integer &gt; &gt; 转 int[ ] [ ]</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">List&lt;List&lt;Integer&gt;&gt; lists = ...;</span><br><span class="line"><span class="type">int</span>[][] arrays = lists.stream()                                <span class="comment">// Stream&lt;List&lt;Integer&gt;&gt;</span></span><br><span class="line">        .map(list -&gt; list.stream().mapToInt(i -&gt; i).toArray()) <span class="comment">// Stream&lt;int[]&gt;</span></span><br><span class="line">        .toArray(<span class="type">int</span>[][]::<span class="keyword">new</span>);</span><br></pre></td></tr></table></figure>
+
+<h3 id="List-lt-Integer-gt-转-Integer"><a href="#List-lt-Integer-gt-转-Integer" class="headerlink" title="List&lt; Integer &gt; 转 Integer[ ]"></a>List&lt; Integer &gt; 转 Integer[ ]</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Integer[] integers = list.toArray(<span class="keyword">new</span> <span class="title class_">Integer</span>[list.size()]);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Integer[] integers = list.stream().toArray(Integer[]::<span class="keyword">new</span>); <span class="comment">//不推荐</span></span><br></pre></td></tr></table></figure>
+
+<p>这个也很简单，方法里的参数是一个数组，所以要规定长度。也有无参的方法，但是要进行转型，所以不推荐使用。</p>
+<h3 id="List-lt-List-lt-Integer-gt-gt-转-Integer"><a href="#List-lt-List-lt-Integer-gt-gt-转-Integer" class="headerlink" title="List&lt; List &lt; Integer &gt; &gt; 转 Integer[ ] [ ]"></a>List&lt; List &lt; Integer &gt; &gt; 转 Integer[ ] [ ]</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">List&lt;List&lt;Integer&gt;&gt; lists = ...;</span><br><span class="line">Integer[][] arrays = lists.stream()                                <span class="comment">// Stream&lt;List&lt;Integer&gt;&gt;</span></span><br><span class="line">        .map(list -&gt; list.toArray(<span class="keyword">new</span> <span class="title class_">Integer</span>[list.size()])) <span class="comment">// Stream&lt;Integer[]&gt;</span></span><br><span class="line">        .toArray(Integer[][]::<span class="keyword">new</span>);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Integer[][] arrays = lists.stream()                                <span class="comment">// Stream&lt;List&lt;Integer&gt;&gt;</span></span><br><span class="line">        .map(l -&gt; l.stream().toArray(String[]::<span class="keyword">new</span>)) <span class="comment">// Stream&lt;Integer[]&gt;</span></span><br><span class="line">        .toArray(Integer[][]::<span class="keyword">new</span>);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Integer[][] arrays = lists.stream().map(List::toArray).toArray(Integer[][]::<span class="keyword">new</span>);</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="List-lt-Character-gt-、char-、Character-相互转换"><a href="#List-lt-Character-gt-、char-、Character-相互转换" class="headerlink" title="List&lt; Character &gt;、char[ ]、Character[ ]相互转换"></a>List&lt; Character &gt;、char[ ]、Character[ ]相互转换</h2><h3 id="char-转-List-lt-Character-gt"><a href="#char-转-List-lt-Character-gt" class="headerlink" title="char[ ] 转 List&lt; Character &gt;"></a>char[ ] 转 List&lt; Character &gt;</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">char</span>[] chars = &#123;<span class="string">&#x27;a&#x27;</span>, <span class="string">&#x27;b&#x27;</span>, <span class="string">&#x27;c&#x27;</span>&#125;;</span><br><span class="line">List&lt;Character&gt; collect = <span class="keyword">new</span> <span class="title class_">String</span>(chars).chars().mapToObj(i -&gt; (<span class="type">char</span>) i).collect(Collectors.toList());</span><br></pre></td></tr></table></figure>
+
+<h3 id="char-转-List-lt-List-lt-Character-gt-gt"><a href="#char-转-List-lt-List-lt-Character-gt-gt" class="headerlink" title="char[ ] [ ] 转 List&lt;  List &lt; Character &gt;  &gt;"></a>char[ ] [ ] 转 List&lt;  List &lt; Character &gt;  &gt;</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">List&lt;List&lt;Character&gt;&gt; collect2 = Arrays.stream(ints1).map(chars1 -&gt; <span class="keyword">new</span> <span class="title class_">String</span>(chars1).chars().mapToObj(i -&gt; (<span class="type">char</span>) i).collect(Collectors.toList())).collect(Collectors.toList());</span><br></pre></td></tr></table></figure>
+
+<h3 id="char-转-Character"><a href="#char-转-Character" class="headerlink" title="char[ ] 转 Character[ ]"></a>char[ ] 转 Character[ ]</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">char</span>[] chars = &#123;<span class="string">&#x27;a&#x27;</span>, <span class="string">&#x27;b&#x27;</span>, <span class="string">&#x27;c&#x27;</span>&#125;;</span><br><span class="line">Character[] characters1 = <span class="keyword">new</span> <span class="title class_">String</span>(chars).chars().mapToObj(i -&gt; (<span class="type">char</span>) i).toArray(Character[]::<span class="keyword">new</span>);     </span><br></pre></td></tr></table></figure>
+
+<h3 id="char-转-Character-1"><a href="#char-转-Character-1" class="headerlink" title="char[ ] [ ]转 Character[ ] [ ]"></a>char[ ] [ ]转 Character[ ] [ ]</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Character[][] integers3 = Arrays.stream(ints1).map(chars -&gt; <span class="keyword">new</span> <span class="title class_">String</span>(chars).chars().mapToObj(i-&gt;(<span class="type">char</span>)i).toArray(Character[]::<span class="keyword">new</span>)).toArray(Character[][]::<span class="keyword">new</span>);</span><br></pre></td></tr></table></figure>
+
+<h3 id="Character-转-List-lt-Character-gt"><a href="#Character-转-List-lt-Character-gt" class="headerlink" title="Character[ ] 转 List&lt; Character &gt;"></a>Character[ ] 转 List&lt; Character &gt;</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Character&gt; collect2 = Arrays.stream(characters).collect(Collectors.toList());</span><br></pre></td></tr></table></figure>
+
+<h3 id="Character-转-List-lt-List-lt-Character-gt-gt"><a href="#Character-转-List-lt-List-lt-Character-gt-gt" class="headerlink" title="Character[ ] [ ]转 List&lt; List &lt; Character &gt; &gt;"></a>Character[ ] [ ]转 List&lt; List &lt; Character &gt; &gt;</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">List&lt;List&lt;Character&gt;&gt; lists = Arrays.stream(a).map(Arrays::asList).collect(Collectors.toList());</span><br></pre></td></tr></table></figure>
+
+<h3 id="Character-转-char"><a href="#Character-转-char" class="headerlink" title="Character[ ] 转 char[ ]"></a>Character[ ] 转 char[ ]</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">char</span>[] chars4 = Arrays.stream(characters1).map(String::valueOf).collect(Collectors.joining()).toCharArray();</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="Character-转-char-1"><a href="#Character-转-char-1" class="headerlink" title="Character[ ] [ ]转 char[ ] [ ]"></a>Character[ ] [ ]转 char[ ] [ ]</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">char</span>[][] ints1 = Arrays.stream(a).map(a1 -&gt; Arrays.stream(a1).map(String::valueOf).collect(Collectors.joining()).toCharArray()).toArray(<span class="type">char</span>[][]::<span class="keyword">new</span>);</span><br></pre></td></tr></table></figure>
+
+<h3 id="List-lt-Character-gt-转-char"><a href="#List-lt-Character-gt-转-char" class="headerlink" title="List&lt; Character &gt; 转 char[ ]"></a>List&lt; Character &gt; 转 char[ ]</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">char</span>[] value = characters.stream().map(String::valueOf).collect(Collectors.joining()).toCharArray();</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Character[] charArr = characters.toArray(<span class="keyword">new</span> <span class="title class_">Character</span>[characters.size()]);</span><br><span class="line"><span class="type">char</span>[] value = ArrayUtils.toPrimitive(charArr);</span><br></pre></td></tr></table></figure>
+
+<h3 id="List-lt-List-lt-Character-gt-gt-转-char"><a href="#List-lt-List-lt-Character-gt-gt-转-char" class="headerlink" title="List&lt; List &lt; Character &gt; &gt; 转 char[ ] [ ]"></a>List&lt; List &lt; Character &gt; &gt; 转 char[ ] [ ]</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">char</span>[][] arrays = lists.stream()                                <span class="comment">// Stream&lt;List&lt;Integer&gt;&gt;</span></span><br><span class="line">                .map(list -&gt; list.stream().map(String::valueOf).collect(Collectors.joining()).toCharArray()) <span class="comment">// Stream&lt;int[]&gt;</span></span><br><span class="line">                .toArray(<span class="type">char</span>[][]::<span class="keyword">new</span>);</span><br></pre></td></tr></table></figure>
+
+<h3 id="List-lt-Character-gt-转-Character"><a href="#List-lt-Character-gt-转-Character" class="headerlink" title="List&lt; Character &gt; 转 Character[ ]"></a>List&lt; Character &gt; 转 Character[ ]</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Character[] characters2 = Arrays.stream(characters1).toArray(Character[]::<span class="keyword">new</span>);</span><br></pre></td></tr></table></figure>
+
+<h3 id="List-lt-List-lt-Character-gt-gt-转-Character"><a href="#List-lt-List-lt-Character-gt-gt-转-Character" class="headerlink" title="List&lt; List &lt; Character &gt; &gt; 转 Character[ ] [ ]"></a>List&lt; List &lt; Character &gt; &gt; 转 Character[ ] [ ]</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Character[][] integers1 = lists.stream()                                <span class="comment">// Stream&lt;List&lt;Integer&gt;&gt;</span></span><br><span class="line">               .map(list -&gt; list.toArray(<span class="keyword">new</span> <span class="title class_">Character</span>[list.size()])).toArray(Character[][]::<span class="keyword">new</span>);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Character[][] integers2 = lists.stream()                                <span class="comment">// Stream&lt;List&lt;Integer&gt;&gt;</span></span><br><span class="line">                .map(l -&gt; l.stream().toArray(Character[]::<span class="keyword">new</span>))</span><br><span class="line">                .toArray(Character[][]::<span class="keyword">new</span>);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Character[][] integers = lists.stream().map(List::toArray).toArray(Character[][]::<span class="keyword">new</span>);</span><br></pre></td></tr></table></figure>
+
 
       
     </div>

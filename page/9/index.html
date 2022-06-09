@@ -451,6 +451,198 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/51360fe0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lion.png">
+      <meta itemprop="name" content="swimminghao">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="swimminghao's blog">
+      <meta itemprop="description" content="swimminghao的学习博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | swimminghao's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/51360fe0/" class="post-title-link" itemprop="url">15、【对线面试官】Spring基础</a>
+        </h2>
+
+        <div class="post-meta-container">
+
+          
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-03-10 09:48:07" itemprop="dateModified" datetime="2022-03-10T09:48:07+08:00">2022-03-10</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/posts/51360fe0/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/51360fe0/" data-xid="/posts/51360fe0/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>2k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>2 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="15、【对线面试官】Spring基础"><a href="#15、【对线面试官】Spring基础" class="headerlink" title="15、【对线面试官】Spring基础"></a>15、【对线面试官】Spring基础</h1><h2 id="要不你来讲讲Spring的IOC和AOP你是怎么理解的呗？"><a href="#要不你来讲讲Spring的IOC和AOP你是怎么理解的呗？" class="headerlink" title="要不你来讲讲Spring的IOC和AOP你是怎么理解的呗？"></a>要不你来讲讲Spring的IOC和AOP你是怎么理解的呗？</h2><ol>
+<li>我个人理解下：SpringIOC解决的是对象管理和对象依赖的问题。</li>
+<li>本来是我们自己手动new出来的对象，现在则把对象交给Spring的IOC容器管理</li>
+<li>IOC容器可以理解为一个对象工厂，我们都把该对象交给工厂，工厂管理这些对象的创建以及依赖关系</li>
+<li>等我们需要用对象的时候，从工厂里边获取就好了</li>
+</ol>
+<h2 id="哦，你说的就是「控制反转」和「注入依赖」吧？"><a href="#哦，你说的就是「控制反转」和「注入依赖」吧？" class="headerlink" title="哦，你说的就是「控制反转」和「注入依赖」吧？"></a>哦，你说的就是「控制反转」和「注入依赖」吧？</h2><ol>
+<li>我认为「控制反转」指的就是：把原有自己掌控的事交给别人去处理</li>
+<li>它更多的是一种思想或者可以理解为设计模式</li>
+<li>比如：本来由我们自己new出来的对象，现在交由IOC容器，把对象的控制权交给它方了.</li>
+<li>而「依赖注入」在我的理解下，它其实是「控制反转」的实现方式</li>
+<li>对象无需自行创建或者管理它的依赖关系，依赖关系将被「自动注入」到需要它们的对象当中去</li>
+</ol>
+<h2 id="嗯，那我想问问，用SpringIOC有什么好处吗？"><a href="#嗯，那我想问问，用SpringIOC有什么好处吗？" class="headerlink" title="嗯，那我想问问，用SpringIOC有什么好处吗？"></a>嗯，那我想问问，用SpringIOC有什么好处吗？</h2><h2 id="或者换个问法：本来我可以new出来的对象，为什么我要交由Spring-IOC容器管理呢？"><a href="#或者换个问法：本来我可以new出来的对象，为什么我要交由Spring-IOC容器管理呢？" class="headerlink" title="或者换个问法：本来我可以new出来的对象，为什么我要交由Spring IOC容器管理呢？"></a>或者换个问法：本来我可以new出来的对象，为什么我要交由Spring IOC容器管理呢？</h2><ol>
+<li>主要的好处在于「将对象集中统一管理」并且「降低耦合度」</li>
+<li>如果面试官理解了「工厂模式」，那就知道为什么我们不直接new对象</li>
+<li>要说理由的话，可以举很多例子，比如说：</li>
+<li>我用SpringIOC可以方便单元测试、对象创建复杂、对象依赖复杂、单例等等的，什么都可以交给Spring IOC</li>
+<li>理论上自己new出来的都可以解决上面的问题，Spring在各种场景组合下有可能不是最优解</li>
+<li>但new出来的你要自己管理，可能你得自己写工厂，得实现一大套的东西才能满足需求</li>
+<li>写着写着有可能还是Spring的那一套</li>
+<li>但现在Spring现在已经帮你实现了啊！</li>
+<li>如果项目里的对象都是就new下就完事了，没有多个实现类，那没事，不用Spring也没啥问题</li>
+<li>并且Spring核心不仅仅IOC啊，除了把对象创建出来，还有一整套的Bean生命周期管理</li>
+<li>比如说你要实现对象增强，AOP不就有了吗？不然你还得自己创建代理</li>
+</ol>
+<h2 id="那你继续来聊下Spring-AOP呗？"><a href="#那你继续来聊下Spring-AOP呗？" class="headerlink" title="那你继续来聊下Spring AOP呗？"></a>那你继续来聊下Spring AOP呗？</h2><ol>
+<li>Spring AOP解决的是非业务代码抽取的问题</li>
+<li>AOP底层的技术是动态代理，在Spring 内实现依赖的是BeanPostProcessor</li>
+<li>比如我们需要在方法上注入些「重复性」的非业务代码，就可以利用Spring AOP</li>
+<li>所谓的「面向切面编程」在我理解下其实就是在方法前后增加非业务代码</li>
+</ol>
+<h2 id="那你在工作中实际用到过AOP去优化你的代码吗？"><a href="#那你在工作中实际用到过AOP去优化你的代码吗？" class="headerlink" title="那你在工作中实际用到过AOP去优化你的代码吗？"></a>那你在工作中实际用到过AOP去优化你的代码吗？</h2><ol>
+<li>·有的。当时我用AOP来对我们公司现有的监控客户端进行封装</li>
+<li>一个系统离不开监控，监控基本的指标有QPS、RT、ERROR等等</li>
+<li>对外暴露的监控客户端只能在代码里写对应的上报信息（灵活，但会与业务代码掺杂在一起）</li>
+<li>于是我利用注解+AOP的方式封装了一把，只要方法&#x2F;类上带有我自定义的注解</li>
+<li>方法被调用时，就会上报AQS、RT等信息实现了非业务代码与业务代码分离的效果</li>
+</ol>
+<h2 id="了解，你们项目一般是怎么把对象交给IOC容器管理的？"><a href="#了解，你们项目一般是怎么把对象交给IOC容器管理的？" class="headerlink" title="了解，你们项目一般是怎么把对象交给IOC容器管理的？"></a>了解，你们项目一般是怎么把对象交给IOC容器管理的？</h2><h2 id="换个问法：一般是怎么定义Bean的？"><a href="#换个问法：一般是怎么定义Bean的？" class="headerlink" title="换个问法：一般是怎么定义Bean的？"></a>换个问法：一般是怎么定义Bean的？</h2><ol>
+<li>Spring提供了4种方式，分别是：<br>1）：注解2）：XML3）：JavaConfig 4）：基于Groovy 的DSL配置</li>
+<li>一般项目我们用注解或XML比较多，少部分用JavaConfig</li>
+<li>日常写业务代码一般用注解来定义各种对象，责任链这种一般配置在XML「注解」解决不了的就用JavaConfig</li>
+<li>总体而言，还是得看项目的代码风格吧</li>
+<li>反正就是定义元数据，能给到Spring解析就好了</li>
+</ol>
+<h2 id="要不来聊聊你使用Spring的感受？"><a href="#要不来聊聊你使用Spring的感受？" class="headerlink" title="要不来聊聊你使用Spring的感受？"></a>要不来聊聊你使用Spring的感受？</h2><ol>
+<li>当我还是初学Spring的时候，我觉得Spring很麻烦，需要有一大堆的配置信息才能跑起来</li>
+<li>光是搭建环境就需要耗费我好长的时间</li>
+<li>毕竟版本冲突，依赖冲突什么的就可能个下午就过去了</li>
+<li>但毕竟一个系统环境只搭一次嘛，所以还好（后来用上了SpringBoot这又更方便了）</li>
+<li>回来，IOC和AOP在工作用的时候还是很爽的</li>
+<li>毕竟搞个注解什么的，配置下就可以把对象交给Spring管理了</li>
+<li>配合Spring的生态，@Transactional注解什么的，都好用得飞起</li>
+<li>不过，Spring给我们封装得太好了</li>
+<li>经常就会有奇奇怪怪的”bug”出现，也踩过很多的坑了</li>
+<li>Bean经常没办法创建成功，导致项目启动失败..</li>
+<li>对象的循环依赖问题.</li>
+<li>同一个接口，多个实现，识别不出我要创建哪个对象.</li>
+<li>为什么catch了异常，Spring事务为什么还会自动回滚..</li>
+<li>等等等</li>
+</ol>
+<h2 id="循环以来"><a href="#循环以来" class="headerlink" title="循环以来"></a>循环以来</h2><ol>
+<li><p>到这里，Spring整个解决循环依赖问题的实现思路已经比较清楚了。对于整体过程，读者朋友只要理解两点：</p>
+<ul>
+<li>Spring是通过递归的方式获取目标bean及其所依赖的bean的；</li>
+<li>Spring实例化一个bean的时候，是分两步进行的，首先实例化目标bean，然后为其注入属性。</li>
+</ul>
+<p>结合这两点，也就是说，Spring在实例化一个bean的时候，是首先递归的实例化其所依赖的所有bean，直到某个bean没有依赖其他bean，此时就会将该实例返回，然后反递归的将获取到的bean设置为各个上层bean的属性的。</p>
+</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>l
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://example.com/posts/32e97c2c/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -638,198 +830,6 @@
 <p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/q5B8nQ_20211228115227.png"></p>
 <p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/ldYlbE_20211228115337.png"></p>
 <p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/czgjnh_20211228115425.png"></p>
-
-      
-    </div>
-
-    
-    
-    
-
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>l
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/51360fe0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/lion.png">
-      <meta itemprop="name" content="swimminghao">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="swimminghao's blog">
-      <meta itemprop="description" content="swimminghao的学习博客">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | swimminghao's blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/51360fe0/" class="post-title-link" itemprop="url">15、【对线面试官】Spring基础</a>
-        </h2>
-
-        <div class="post-meta-container">
-
-          
-
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-10 09:48:07" itemprop="dateModified" datetime="2022-03-10T09:48:07+08:00">2022-03-10</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="far fa-comment"></i>
-    </span>
-    <span class="post-meta-item-text">Waline：</span>
-  
-    <a title="waline" href="/posts/51360fe0/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/51360fe0/" data-xid="/posts/51360fe0/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>2k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>2 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="15、【对线面试官】Spring基础"><a href="#15、【对线面试官】Spring基础" class="headerlink" title="15、【对线面试官】Spring基础"></a>15、【对线面试官】Spring基础</h1><h2 id="要不你来讲讲Spring的IOC和AOP你是怎么理解的呗？"><a href="#要不你来讲讲Spring的IOC和AOP你是怎么理解的呗？" class="headerlink" title="要不你来讲讲Spring的IOC和AOP你是怎么理解的呗？"></a>要不你来讲讲Spring的IOC和AOP你是怎么理解的呗？</h2><ol>
-<li>我个人理解下：SpringIOC解决的是对象管理和对象依赖的问题。</li>
-<li>本来是我们自己手动new出来的对象，现在则把对象交给Spring的IOC容器管理</li>
-<li>IOC容器可以理解为一个对象工厂，我们都把该对象交给工厂，工厂管理这些对象的创建以及依赖关系</li>
-<li>等我们需要用对象的时候，从工厂里边获取就好了</li>
-</ol>
-<h2 id="哦，你说的就是「控制反转」和「注入依赖」吧？"><a href="#哦，你说的就是「控制反转」和「注入依赖」吧？" class="headerlink" title="哦，你说的就是「控制反转」和「注入依赖」吧？"></a>哦，你说的就是「控制反转」和「注入依赖」吧？</h2><ol>
-<li>我认为「控制反转」指的就是：把原有自己掌控的事交给别人去处理</li>
-<li>它更多的是一种思想或者可以理解为设计模式</li>
-<li>比如：本来由我们自己new出来的对象，现在交由IOC容器，把对象的控制权交给它方了.</li>
-<li>而「依赖注入」在我的理解下，它其实是「控制反转」的实现方式</li>
-<li>对象无需自行创建或者管理它的依赖关系，依赖关系将被「自动注入」到需要它们的对象当中去</li>
-</ol>
-<h2 id="嗯，那我想问问，用SpringIOC有什么好处吗？"><a href="#嗯，那我想问问，用SpringIOC有什么好处吗？" class="headerlink" title="嗯，那我想问问，用SpringIOC有什么好处吗？"></a>嗯，那我想问问，用SpringIOC有什么好处吗？</h2><h2 id="或者换个问法：本来我可以new出来的对象，为什么我要交由Spring-IOC容器管理呢？"><a href="#或者换个问法：本来我可以new出来的对象，为什么我要交由Spring-IOC容器管理呢？" class="headerlink" title="或者换个问法：本来我可以new出来的对象，为什么我要交由Spring IOC容器管理呢？"></a>或者换个问法：本来我可以new出来的对象，为什么我要交由Spring IOC容器管理呢？</h2><ol>
-<li>主要的好处在于「将对象集中统一管理」并且「降低耦合度」</li>
-<li>如果面试官理解了「工厂模式」，那就知道为什么我们不直接new对象</li>
-<li>要说理由的话，可以举很多例子，比如说：</li>
-<li>我用SpringIOC可以方便单元测试、对象创建复杂、对象依赖复杂、单例等等的，什么都可以交给Spring IOC</li>
-<li>理论上自己new出来的都可以解决上面的问题，Spring在各种场景组合下有可能不是最优解</li>
-<li>但new出来的你要自己管理，可能你得自己写工厂，得实现一大套的东西才能满足需求</li>
-<li>写着写着有可能还是Spring的那一套</li>
-<li>但现在Spring现在已经帮你实现了啊！</li>
-<li>如果项目里的对象都是就new下就完事了，没有多个实现类，那没事，不用Spring也没啥问题</li>
-<li>并且Spring核心不仅仅IOC啊，除了把对象创建出来，还有一整套的Bean生命周期管理</li>
-<li>比如说你要实现对象增强，AOP不就有了吗？不然你还得自己创建代理</li>
-</ol>
-<h2 id="那你继续来聊下Spring-AOP呗？"><a href="#那你继续来聊下Spring-AOP呗？" class="headerlink" title="那你继续来聊下Spring AOP呗？"></a>那你继续来聊下Spring AOP呗？</h2><ol>
-<li>Spring AOP解决的是非业务代码抽取的问题</li>
-<li>AOP底层的技术是动态代理，在Spring 内实现依赖的是BeanPostProcessor</li>
-<li>比如我们需要在方法上注入些「重复性」的非业务代码，就可以利用Spring AOP</li>
-<li>所谓的「面向切面编程」在我理解下其实就是在方法前后增加非业务代码</li>
-</ol>
-<h2 id="那你在工作中实际用到过AOP去优化你的代码吗？"><a href="#那你在工作中实际用到过AOP去优化你的代码吗？" class="headerlink" title="那你在工作中实际用到过AOP去优化你的代码吗？"></a>那你在工作中实际用到过AOP去优化你的代码吗？</h2><ol>
-<li>·有的。当时我用AOP来对我们公司现有的监控客户端进行封装</li>
-<li>一个系统离不开监控，监控基本的指标有QPS、RT、ERROR等等</li>
-<li>对外暴露的监控客户端只能在代码里写对应的上报信息（灵活，但会与业务代码掺杂在一起）</li>
-<li>于是我利用注解+AOP的方式封装了一把，只要方法&#x2F;类上带有我自定义的注解</li>
-<li>方法被调用时，就会上报AQS、RT等信息实现了非业务代码与业务代码分离的效果</li>
-</ol>
-<h2 id="了解，你们项目一般是怎么把对象交给IOC容器管理的？"><a href="#了解，你们项目一般是怎么把对象交给IOC容器管理的？" class="headerlink" title="了解，你们项目一般是怎么把对象交给IOC容器管理的？"></a>了解，你们项目一般是怎么把对象交给IOC容器管理的？</h2><h2 id="换个问法：一般是怎么定义Bean的？"><a href="#换个问法：一般是怎么定义Bean的？" class="headerlink" title="换个问法：一般是怎么定义Bean的？"></a>换个问法：一般是怎么定义Bean的？</h2><ol>
-<li>Spring提供了4种方式，分别是：<br>1）：注解2）：XML3）：JavaConfig 4）：基于Groovy 的DSL配置</li>
-<li>一般项目我们用注解或XML比较多，少部分用JavaConfig</li>
-<li>日常写业务代码一般用注解来定义各种对象，责任链这种一般配置在XML「注解」解决不了的就用JavaConfig</li>
-<li>总体而言，还是得看项目的代码风格吧</li>
-<li>反正就是定义元数据，能给到Spring解析就好了</li>
-</ol>
-<h2 id="要不来聊聊你使用Spring的感受？"><a href="#要不来聊聊你使用Spring的感受？" class="headerlink" title="要不来聊聊你使用Spring的感受？"></a>要不来聊聊你使用Spring的感受？</h2><ol>
-<li>当我还是初学Spring的时候，我觉得Spring很麻烦，需要有一大堆的配置信息才能跑起来</li>
-<li>光是搭建环境就需要耗费我好长的时间</li>
-<li>毕竟版本冲突，依赖冲突什么的就可能个下午就过去了</li>
-<li>但毕竟一个系统环境只搭一次嘛，所以还好（后来用上了SpringBoot这又更方便了）</li>
-<li>回来，IOC和AOP在工作用的时候还是很爽的</li>
-<li>毕竟搞个注解什么的，配置下就可以把对象交给Spring管理了</li>
-<li>配合Spring的生态，@Transactional注解什么的，都好用得飞起</li>
-<li>不过，Spring给我们封装得太好了</li>
-<li>经常就会有奇奇怪怪的”bug”出现，也踩过很多的坑了</li>
-<li>Bean经常没办法创建成功，导致项目启动失败..</li>
-<li>对象的循环依赖问题.</li>
-<li>同一个接口，多个实现，识别不出我要创建哪个对象.</li>
-<li>为什么catch了异常，Spring事务为什么还会自动回滚..</li>
-<li>等等等</li>
-</ol>
-<h2 id="循环以来"><a href="#循环以来" class="headerlink" title="循环以来"></a>循环以来</h2><ol>
-<li><p>到这里，Spring整个解决循环依赖问题的实现思路已经比较清楚了。对于整体过程，读者朋友只要理解两点：</p>
-<ul>
-<li>Spring是通过递归的方式获取目标bean及其所依赖的bean的；</li>
-<li>Spring实例化一个bean的时候，是分两步进行的，首先实例化目标bean，然后为其注入属性。</li>
-</ul>
-<p>结合这两点，也就是说，Spring在实例化一个bean的时候，是首先递归的实例化其所依赖的所有bean，直到某个bean没有依赖其他bean，此时就会将该实例返回，然后反递归的将获取到的bean设置为各个上层bean的属性的。</p>
-</li>
-</ol>
 
       
     </div>
