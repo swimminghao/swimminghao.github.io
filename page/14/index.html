@@ -276,7 +276,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/3c567306/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/e7520fcc/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/lion.png">
@@ -294,7 +294,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/3c567306/" class="post-title-link" itemprop="url">8、【对线面试官】AQS & ReentrantLock</a>
+          <a href="/posts/e7520fcc/" class="post-title-link" itemprop="url">经典动态规划：高楼扔鸡蛋</a>
         </h2>
 
         <div class="post-meta-container">
@@ -315,7 +315,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-10 09:48:07" itemprop="dateModified" datetime="2022-03-10T09:48:07+08:00">2022-03-10</time>
+      <time title="修改时间：2022-03-10 11:51:52" itemprop="dateModified" datetime="2022-03-10T11:51:52+08:00">2022-03-10</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -336,8 +336,8 @@
     </span>
     <span class="post-meta-item-text">Waline：</span>
   
-    <a title="waline" href="/posts/3c567306/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/3c567306/" data-xid="/posts/3c567306/" itemprop="commentCount"></span>
+    <a title="waline" href="/posts/e7520fcc/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/e7520fcc/" data-xid="/posts/e7520fcc/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -348,14 +348,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>2.4k</span>
+      <span>3.5k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>2 分钟</span>
+      <span>3 分钟</span>
     </span>
 </div>
 
@@ -366,77 +366,62 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="8、【对线面试官】AQS-amp-ReentrantLock"><a href="#8、【对线面试官】AQS-amp-ReentrantLock" class="headerlink" title="8、【对线面试官】AQS &amp; ReentrantLock"></a>8、【对线面试官】AQS &amp; ReentrantLock</h1><h2 id="今天我们来聊聊lock锁吧？"><a href="#今天我们来聊聊lock锁吧？" class="headerlink" title="今天我们来聊聊lock锁吧？"></a>今天我们来聊聊lock锁吧？</h2><h2 id="你知道什么叫做公平和非公平锁吗"><a href="#你知道什么叫做公平和非公平锁吗" class="headerlink" title="你知道什么叫做公平和非公平锁吗"></a>你知道什么叫做公平和非公平锁吗</h2><ol>
-<li>公平锁指的就是：在竞争环境下，先到临界区的线程比后到的线程一定更快地获取得到锁</li>
-<li>那非公平就很好理解了：先到临界区的线程未必比后到的线程更快地获取得到锁</li>
-</ol>
-<h2 id="如果让你实现的话，你怎么实现公平和非公平锁？"><a href="#如果让你实现的话，你怎么实现公平和非公平锁？" class="headerlink" title="如果让你实现的话，你怎么实现公平和非公平锁？"></a>如果让你实现的话，你怎么实现公平和非公平锁？</h2><ol>
-<li>公平锁可以把竞争的线程放在一个先进先出的队列上</li>
-<li>只要持有锁的线程执行完了，唤醒队列的下一个线程去获取锁就好了</li>
-<li>非公平锁的概念上面已经提到了：后到的线程可能比前到临界区的线程获取得到锁</li>
-<li>那实现也很简单，线程先尝试能不能获取得到锁，如果获取得到锁了就执行同步代码了</li>
-<li>如果获取不到锁，那就再把这个线程放到队列呗</li>
-<li>所以公平和非公平的区别就是：线程执行同步代码块时，是否会去尝试获取锁。</li>
-<li>如果会尝试获取锁，那就是非公平的。如果不会尝试获取锁，直接进队列，再等待唤醒，那就是公平的。</li>
-</ol>
-<h2 id="为什么要进队列呢？线程一直尝试获取锁不就行了么？"><a href="#为什么要进队列呢？线程一直尝试获取锁不就行了么？" class="headerlink" title="为什么要进队列呢？线程一直尝试获取锁不就行了么？"></a>为什么要进队列呢？线程一直尝试获取锁不就行了么？</h2><ol>
-<li>一直尝试获取锁，专业点就叫做自旋，需要耗费资源的。</li>
-<li>多个线程一直在自旋，而且大多数都是竞争失败的，哪有人会这样实现的</li>
-<li>不会吧，不会吧，你不会就是这样实现的吧</li>
-</ol>
-<h2 id="那上次面试所问的synchronized锁是公平的还是非公平的？"><a href="#那上次面试所问的synchronized锁是公平的还是非公平的？" class="headerlink" title="那上次面试所问的synchronized锁是公平的还是非公平的？"></a>那上次面试所问的synchronized锁是公平的还是非公平的？</h2><ol>
-<li>非公平的。</li>
-<li>偏向锁很好理解，如果当前线程ID与markword存储的不相等，则CAS尝试更换线程ID，CAS成功就获取得到锁了</li>
-<li>CAS失败则升级为轻量级锁</li>
-<li>轻量级锁实际上也是通过CAS来抢占锁资源（只不过多了拷贝Mark Word到Lock Record的过程）</li>
-<li>抢占成功到锁就归属给该线程了，但自旋失败一定次数后升级重量级锁</li>
-<li>重量级锁通过monitor对象中的队列存储线程，但线程进入队列前，还是会先尝试获取得到锁，如果能获取不到才进入线程等待队列中</li>
-<li>综上所述，synchronized无论处理哪种锁，都是先尝试获取，获取不到才升级||放到队列上的，所以是非公平的</li>
-</ol>
-<h2 id="嗯，讲得挺仔细的。AQS你了解吗？"><a href="#嗯，讲得挺仔细的。AQS你了解吗？" class="headerlink" title="嗯，讲得挺仔细的。AQS你了解吗？"></a>嗯，讲得挺仔细的。AQS你了解吗？</h2><ol>
-<li>嗯嗯，AQS全称叫做AbstractQueuedSynchronizer</li>
-<li>是可以给我们实现锁的一个 「框架」，内部实现的关键就是维护了一个先进先出的队列以及state状态变量</li>
-<li>先进先出队列存储的载体叫做Node节点，该节点标识着当前的状态值、是独占还是共享模式以及它的前驱和后继节点等等信息</li>
-<li>简单理解就是：AQS定义了模板，具体实现由各个子类完成。</li>
-<li>总体的流程可以总结为：会把需要等待的线程以Node的形式放到这个先进先出的队列上，state变量则表示为当前锁的状态。</li>
-<li>像ReentrantLock、 ReentrantReadWrite Lock、 CountDownLatch、 Semaphore 这些常用的实现类都是基于AQS实现的</li>
-<li>AQS支持两种模式：独占（锁只会被一个线程独占）和共享（多个线程可同时执行）</li>
-</ol>
-<h2 id="你以ReentrantLock来讲讲加锁和解锁的过程呗"><a href="#你以ReentrantLock来讲讲加锁和解锁的过程呗" class="headerlink" title="你以ReentrantLock来讲讲加锁和解锁的过程呗"></a>你以ReentrantLock来讲讲加锁和解锁的过程呗</h2><ul>
-<li>以非公平锁为了，我们在外界调用lock方法的时候，源码是这样实现的<ol>
-<li>CAS尝试获取锁，获取成功则可以执行同步代码</li>
-<li>CAS获取失败，则调用acquire方法acquire方法实际上就是AQS的模板方法</li>
-<li>acquire首先会调用子类的tryAcquire 方法（又回到了ReentrantLock中）</li>
-<li>tryAcquire方法实际上会判断当前的state是否等于0，等于0说明没有线程持有锁，则又尝试CAS直接获取锁</li>
-<li>如果CAS获取成功，则可以执行同步代码</li>
-<li>如果CAS获取失败，那判断当前线程是否就持有锁，如果是持有的锁，那更新state的值，获取得到锁（这里其实就是处理可重入的逻辑）</li>
-<li>CAS失败&amp;&amp;非重入的情况，则回到try Acquire方法执行「入队列」的操作</li>
-<li>将节点入队列之后，会判断「前驱节点」是不是头节点，如果是头结点又会用CAS尝试获取锁</li>
-<li>如果是「前驱节点」是头节点并获取得到锁，则把当前节点设置为头结点，并且将前驱节点置空（实际上就是原有的头节点已经释放锁了）</li>
-<li>没获取得到锁，则判断前驱节点的状态是否为SIGNAL，如果不是，则找到合法的前驱节点，并使用CAS将状态设置为SIGNAL</li>
-<li>最后调用park将当前线程挂起</li>
-</ol>
-</li>
-</ul>
-<h2 id="你说了一大堆，麻烦使用压缩算法压缩下加锁的过程。"><a href="#你说了一大堆，麻烦使用压缩算法压缩下加锁的过程。" class="headerlink" title="你说了一大堆，麻烦使用压缩算法压缩下加锁的过程。"></a>你说了一大堆，麻烦使用压缩算法压缩下加锁的过程。</h2><p>压缩后：当线程CAS获取锁失败，将当前线程入队列，把前驱节点状态设置为SIGNAL状态，并将自己挂起。</p>
-<h2 id="为什么要设置前驱节点为-SIGNAL状态，有啥用？"><a href="#为什么要设置前驱节点为-SIGNAL状态，有啥用？" class="headerlink" title="为什么要设置前驱节点为 SIGNAL状态，有啥用？"></a>为什么要设置前驱节点为 SIGNAL状态，有啥用？</h2><ol>
-<li>其实就是表示后继节点需要被唤醒,你咋啥都不知道啊？跟你沟通有点烦.我先把解锁的过程说下吧<ul>
-<li>外界调用unlock方法时，实际上会调用AQS的release方法，而release方法会调用子类tryRelease方法（又回到了ReentrantLock中）</li>
-<li>tryRelease会把state一直减（锁重入可使state&gt;1），直至到0，说明当前线程已经把锁释放了</li>
-<li>随后从队尾往前找节点状态需要&lt;0，并离头节点最近的节点进行唤醒</li>
-</ul>
-</li>
-<li>唤醒之后，被唤醒的线程则尝试使用CAS获取锁，假设获取锁得到则把头节点给干掉，把自己设置为头节点成</li>
-<li>解锁的逻辑非常简单哈</li>
-<li>压缩一下：把state置0，唤醒头结点下一个合法的节点，被唤醒的节点线程自然就会去获取锁</li>
-<li>回到上一个问题，为什么要设置前驱节点为SIGNAL状态</li>
-<li>其实归终结底就是为了判断节点的状态，去做些处理。</li>
-<li>Node中节点的状态有4种，分别是：CA NCELLED(1)、 SIGNAL(-1)、 CONDITI ON（-2）、 PROPAGATE（-3）和0。</li>
-<li>在ReentrantLock解锁的时候，会判断节点的状态是否小于0，小于等于0才说明需要被唤醒</li>
-<li>另外一提的是：公平锁的实现与非公平锁是很像的，只不过在获取锁时不会直接尝试使用CAS来获取锁。</li>
-<li>只有当队列没节点并且state为0时才会去获取锁，不然都会把当前线程放到队列中</li>
-</ol>
-<h2 id="流程图"><a href="#流程图" class="headerlink" title="流程图"></a>流程图</h2><p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/eK7qe3_20211027174549.png"></p>
+          <h1 id="经典动态规划：高楼扔鸡蛋"><a href="#经典动态规划：高楼扔鸡蛋" class="headerlink" title="经典动态规划：高楼扔鸡蛋"></a>经典动态规划：高楼扔鸡蛋</h1><p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/mp/appmsgalbum?__biz=MzAxODQxMDM0Mw==&action=getalbum&album_id=1318881141113536512&scene=173&from_msgid=2247484675&from_itemidx=1&count=3&nolastread=1#wechat_redirect">手把手刷动态规划 25个</a></p>
+<h2 id="预计阅读时间：7-分钟"><a href="#预计阅读时间：7-分钟" class="headerlink" title="预计阅读时间：7 分钟"></a>预计阅读时间：7 分钟</h2><p>今天要聊一个很经典的算法问题，若干层楼，若干个鸡蛋，让你算出最少的尝试次数，找到鸡蛋恰好摔不碎的那层楼。国内大厂以及谷歌脸书面试都经常考察这道题，只不过他们觉得扔鸡蛋太浪费，改成扔杯子，扔破碗什么的。</p>
+<p>具体的问题等会再说，但是这道题的解法技巧很多，光动态规划就好几种效率不同的思路，最后还有一种极其高效数学解法。秉承咱们号一贯的作风，拒绝奇技淫巧，拒绝过于诡异的技巧，因为这些技巧无法举一反三，学了不太划算。</p>
+<p>下面就来用我们一直强调的动态规划通用思路来研究一下这道题。</p>
+<h2 id="一、解析题目"><a href="#一、解析题目" class="headerlink" title="一、解析题目"></a>一、解析题目</h2><p>题目是这样：你面前有一栋从 1 到<code>N</code>共<code>N</code>层的楼，然后给你<code>K</code>个鸡蛋（<code>K</code>至少为 1）。现在确定这栋楼存在楼层<code>0 &lt;= F &lt;= N</code>，在这层楼将鸡蛋扔下去，鸡蛋<strong>恰好没摔碎</strong>（高于<code>F</code>的楼层都会碎，低于<code>F</code>的楼层都不会碎）。现在问你，<strong>最坏</strong>情况下，你<strong>至少</strong>要扔几次鸡蛋，才能<strong>确定</strong>这个楼层<code>F</code>呢？</p>
+<p>PS：F 可以为 0，比如说鸡蛋在 1 层都能摔碎，那么 F &#x3D; 0。</p>
+<p>也就是让你找摔不碎鸡蛋的最高楼层<code>F</code>，但什么叫「最坏情况」下「至少」要扔几次呢？我们分别举个例子就明白了。</p>
+<p>比方说<strong>现在先不管鸡蛋个数的限制</strong>，有 7 层楼，你怎么去找鸡蛋恰好摔碎的那层楼？</p>
+<p>最原始的方式就是线性扫描：我先在 1 楼扔一下，没碎，我再去 2 楼扔一下，没碎，我再去 3 楼……</p>
+<p>以这种策略，<strong>最坏</strong>情况应该就是我试到第 7 层鸡蛋也没碎（<code>F = 7</code>），也就是我扔了 7 次鸡蛋。</p>
+<p>现在你应该理解什么叫做「最坏情况」下了，<strong>鸡蛋破碎一定发生在搜索区间穷尽时</strong>，不会说你在第 1 层摔一下鸡蛋就碎了，这是你运气好，不是最坏情况。</p>
+<p>现在再来理解一下什么叫「至少」要扔几次。依然不考虑鸡蛋个数限制，同样是 7 层楼，我们可以优化策略。</p>
+<p>最好的策略是使用二分查找思路，我先去第<code>(1 + 7) / 2 = 4</code>层扔一下：</p>
+<p>如果碎了说明<code>F</code>小于 4，我就去第<code>(1 + 3) / 2 = 2</code>层试……</p>
+<p>如果没碎说明<code>F</code>大于等于 4，我就去第<code>(5 + 7) / 2 = 6</code>层试……</p>
+<p>以这种策略，<strong>最坏</strong>情况应该是试到第 7 层鸡蛋还没碎（<code>F = 7</code>），或者鸡蛋一直碎到第 1 层（<code>F = 0</code>）。然而无论那种最坏情况，只需要试<code>log7</code>向上取整等于 3 次，比刚才的 7 次要少，这就是所谓的<strong>至少</strong>要扔几次。</p>
+<p>PS：这有点像 Big O 表示法计算算法的复杂度。</p>
+<p>实际上，如果不限制鸡蛋个数的话，二分思路显然可以得到最少尝试的次数，但问题是，<strong>现在给你了鸡蛋个数的限制<code>K</code>，直接使用二分思路就不行了</strong>。</p>
+<p>比如说只给你 1 个鸡蛋，7 层楼，你敢用二分吗？你直接去第 4 层扔一下，如果鸡蛋没碎还好，但如果碎了你就没有鸡蛋继续测试了，无法确定鸡蛋恰好摔不碎的楼层<code>F</code>了。这种情况下只能用线性扫描的方法，算法返回结果应该是 7。</p>
+<p>有的读者也许会有这种想法：二分查找排除楼层的速度无疑是最快的，那干脆先用二分查找，等到只剩 1 个鸡蛋的时候再执行线性扫描，这样得到的结果是不是就是最少的扔鸡蛋次数呢？</p>
+<p>很遗憾，并不是，比如说把楼层变高一些，100 层，给你 2 个鸡蛋，你在 50 层扔一下，碎了，那就只能线性扫描 1～49 层了，最坏情况下要扔 50 次。</p>
+<p>如果不要「二分」，变成「五分」「十分」都会大幅减少最坏情况下的尝试次数。比方说第一个鸡蛋每隔十层楼扔，在哪里碎了第二个鸡蛋一个个线性扫描，总共不会超过 20 次。</p>
+<p>最优解其实是 14 次。最优策略非常多，而且并没有什么规律可言。</p>
+<p>说了这么多废话，就是确保大家理解了题目的意思，而且认识到这个题目确实复杂，就连我们手算都不容易，如何用算法解决呢？</p>
+<h2 id="二、思路分析"><a href="#二、思路分析" class="headerlink" title="二、思路分析"></a>二、思路分析</h2><p>对动态规划问题，直接套我们以前多次强调的框架即可：这个问题有什么「状态」，有什么「选择」，然后穷举。</p>
+<p>**「状态」很明显，就是当前拥有的鸡蛋数<code>K</code>和需要测试的楼层数<code>N</code>**。随着测试的进行，鸡蛋个数可能减少，楼层的搜索范围会减小，这就是状态的变化。</p>
+<p><strong>「选择」其实就是去选择哪层楼扔鸡蛋</strong>。回顾刚才的线性扫描和二分思路，二分查找每次选择到楼层区间的中间去扔鸡蛋，而线性扫描选择一层层向上测试。不同的选择会造成状态的转移。</p>
+<p>现在明确了「状态」和「选择」，<strong>动态规划的基本思路就形成了</strong>：肯定是个二维的<code>dp</code>数组或者带有两个状态参数的<code>dp</code>函数来表示状态转移；外加一个 for 循环来遍历所有选择，择最优的选择更新结果 ：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"># 当前状态为 (K 个鸡蛋，N 层楼)</span><br><span class="line"># 返回这个状态下的最优结果</span><br><span class="line">def <span class="title function_">dp</span><span class="params">(K, N)</span>:</span><br><span class="line">    <span class="type">int</span> res</span><br><span class="line">    <span class="keyword">for</span> <span class="number">1</span> &lt;= i &lt;= N:</span><br><span class="line">        res = min(res, 这次在第 i 层楼扔鸡蛋)</span><br><span class="line">    <span class="keyword">return</span> res</span><br></pre></td></tr></table></figure>
+
+<p>这段伪码还没有展示递归和状态转移，不过大致的算法框架已经完成了。</p>
+<p>我们在第<code>i</code>层楼扔了鸡蛋之后，可能出现两种情况：鸡蛋碎了，鸡蛋没碎。<strong>注意，这时候状态转移就来了</strong>：</p>
+<p><strong>如果鸡蛋碎了</strong>，那么鸡蛋的个数<code>K</code>应该减一，搜索的楼层区间应该从<code>[1..N]</code>变为<code>[1..i-1]</code>共<code>i-1</code>层楼；</p>
+<p><strong>如果鸡蛋没碎</strong>，那么鸡蛋的个数<code>K</code>不变，搜索的楼层区间应该从 <code>[1..N]</code>变为<code>[i+1..N]</code>共<code>N-i</code>层楼。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/CvIp2u_20210429194724.png" alt="图片"></p>
+<p>PS：细心的读者可能会问，在第<code>i</code>层楼扔鸡蛋如果没碎，楼层的搜索区间缩小至上面的楼层，是不是应该包含第<code>i</code>层楼呀？不必，因为已经包含了。开头说了 F 是可以等于 0 的，向上递归后，第<code>i</code>层楼其实就相当于第 0 层，可以被取到，所以说并没有错误。</p>
+<p>因为我们要求的是<strong>最坏情况</strong>下扔鸡蛋的次数，所以鸡蛋在第<code>i</code>层楼碎没碎，取决于那种情况的结果<strong>更大</strong>：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">def <span class="title function_">dp</span><span class="params">(K, N)</span>:</span><br><span class="line">    <span class="keyword">for</span> <span class="number">1</span> &lt;= i &lt;= N:</span><br><span class="line">        # 最坏情况下的最少扔鸡蛋次数</span><br><span class="line">        res = min(res, </span><br><span class="line">                  max( </span><br><span class="line">                        dp(K - <span class="number">1</span>, i - <span class="number">1</span>), # 碎</span><br><span class="line">                        dp(K, N - i)      # 没碎</span><br><span class="line">                     ) + <span class="number">1</span> # 在第 i 楼扔了一次</span><br><span class="line">                 )</span><br><span class="line">    <span class="keyword">return</span> res</span><br></pre></td></tr></table></figure>
+
+<p>递归的 base case 很容易理解：当楼层数<code>N</code>等于 0 时，显然不需要扔鸡蛋；当鸡蛋数<code>K</code>为 1 时，显然只能线性扫描所有楼层：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">def <span class="title function_">dp</span><span class="params">(K, N)</span>:</span><br><span class="line">    <span class="type">if</span> <span class="variable">K</span> <span class="operator">=</span>= <span class="number">1</span>: <span class="keyword">return</span> N</span><br><span class="line">    <span class="type">if</span> <span class="variable">N</span> <span class="operator">=</span>= <span class="number">0</span>: <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">    ...</span><br></pre></td></tr></table></figure>
+
+<p>至此，其实这道题就解决了！只要添加一个备忘录消除重叠子问题即可：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">def <span class="title function_">superEggDrop</span><span class="params">(K: <span class="type">int</span>, N: <span class="type">int</span>)</span>:</span><br><span class="line"></span><br><span class="line">    memo = dict()</span><br><span class="line">    def <span class="title function_">dp</span><span class="params">(K, N)</span> -&gt; <span class="type">int</span>:</span><br><span class="line">        # base <span class="keyword">case</span></span><br><span class="line">        <span class="type">if</span> <span class="variable">K</span> <span class="operator">=</span>= <span class="number">1</span>: <span class="keyword">return</span> N</span><br><span class="line">        <span class="type">if</span> <span class="variable">N</span> <span class="operator">=</span>= <span class="number">0</span>: <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">        # 避免重复计算</span><br><span class="line">        <span class="keyword">if</span> (K, N) in memo:</span><br><span class="line">            <span class="keyword">return</span> memo[(K, N)]</span><br><span class="line"></span><br><span class="line">        res = <span class="type">float</span>(<span class="string">&#x27;INF&#x27;</span>)</span><br><span class="line">        # 穷举所有可能的选择</span><br><span class="line">        <span class="keyword">for</span> i in <span class="title function_">range</span><span class="params">(<span class="number">1</span>, N + <span class="number">1</span>)</span>:</span><br><span class="line">            res = min(res, </span><br><span class="line">                      max(</span><br><span class="line">                            dp(K, N - i), </span><br><span class="line">                            dp(K - <span class="number">1</span>, i - <span class="number">1</span>)</span><br><span class="line">                         ) + <span class="number">1</span></span><br><span class="line">                  )</span><br><span class="line">        # 记入备忘录</span><br><span class="line">        memo[(K, N)] = res</span><br><span class="line">        <span class="keyword">return</span> res</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> dp(K, N)</span><br></pre></td></tr></table></figure>
+
+<p>这个算法的时间复杂度是多少呢？<strong>动态规划算法的时间复杂度就是子问题个数 × 函数本身的复杂度</strong>。</p>
+<p>函数本身的复杂度就是忽略递归部分的复杂度，这里<code>dp</code>函数中有一个 for 循环，所以函数本身的复杂度是 O(N)。</p>
+<p>子问题个数也就是不同状态组合的总数，显然是两个状态的乘积，也就是 O(KN)。</p>
+<p>所以算法的总时间复杂度是 O(K*N^2), 空间复杂度为子问题个数，即 O(KN)。</p>
+<h2 id="三、疑难解答"><a href="#三、疑难解答" class="headerlink" title="三、疑难解答"></a>三、疑难解答</h2><p>这个问题很复杂，但是算法代码却十分简洁，这就是动态规划的特性，穷举加备忘录&#x2F;DP table 优化，真的没啥新意。</p>
+<p>首先，有读者可能不理解代码中为什么用一个 for 循环遍历楼层<code>[1..N]</code>，也许会把这个逻辑和之前探讨的线性扫描混为一谈。其实不是的，<strong>这只是在做一次「选择」</strong>。</p>
+<p>比方说你有 2 个鸡蛋，面对 10 层楼，你得拿一个鸡蛋去某一层楼扔对吧？那选择去哪一层楼扔呢？不知道，那就把这 10 层楼全试一遍。至于鸡蛋碎没碎，下次怎么选择不用你操心，有正确的状态转移，递归会算出每个选择的代价，我们取最优的那个就是最优解。</p>
+<p>其实，这个问题还有更好的解法，比如修改代码中的 for 循环为二分搜索，可以将时间复杂度降为 O(K<em>N</em>logN)；再改进动态规划解法可以进一步降为 O(KN)；使用数学方法解决，时间复杂度达到最优 O(K*logN)，空间复杂度达到 O(1)。</p>
+<p>二分的解法也有点误导性，你很可能以为它跟我们之前讨论的二分思路扔鸡蛋有关系，实际上没有半毛钱关系。能用二分搜索是因为状态转移方程的函数图像具有单调性，可以快速找到最小值。</p>
+<p>这里就不展开以上解法了，有兴趣的读者可以点击「阅读原文」查看。</p>
+<p>我觉得吧，我们这种解法就够了：<strong>找状态，做选择</strong>，足够清晰易懂，可流程化，可举一反三。掌握这套框架学有余力的话，二分查找的优化应该可以看懂，之后的优化也就随缘吧。</p>
 
       
     </div>
@@ -468,7 +453,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/ac3dc3bf/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/d0fbc9db/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/lion.png">
@@ -486,7 +471,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/ac3dc3bf/" class="post-title-link" itemprop="url">9、【对线面试官】线程池</a>
+          <a href="/posts/d0fbc9db/" class="post-title-link" itemprop="url">经典动态规划：高楼扔鸡蛋（进阶篇）</a>
         </h2>
 
         <div class="post-meta-container">
@@ -507,7 +492,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-10 09:48:07" itemprop="dateModified" datetime="2022-03-10T09:48:07+08:00">2022-03-10</time>
+      <time title="修改时间：2022-03-10 11:51:52" itemprop="dateModified" datetime="2022-03-10T11:51:52+08:00">2022-03-10</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -528,8 +513,8 @@
     </span>
     <span class="post-meta-item-text">Waline：</span>
   
-    <a title="waline" href="/posts/ac3dc3bf/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/ac3dc3bf/" data-xid="/posts/ac3dc3bf/" itemprop="commentCount"></span>
+    <a title="waline" href="/posts/d0fbc9db/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/d0fbc9db/" data-xid="/posts/d0fbc9db/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -540,7 +525,209 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>1.6k</span>
+      <span>4.6k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>4 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="经典动态规划：高楼扔鸡蛋（进阶篇）"><a href="#经典动态规划：高楼扔鸡蛋（进阶篇）" class="headerlink" title="经典动态规划：高楼扔鸡蛋（进阶篇）"></a>经典动态规划：高楼扔鸡蛋（进阶篇）</h1><p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/mp/appmsgalbum?__biz=MzAxODQxMDM0Mw==&action=getalbum&album_id=1318881141113536512&scene=173&from_msgid=2247484675&from_itemidx=1&count=3&nolastread=1#wechat_redirect">手把手刷动态规划 25个</a></p>
+<h2 id="预计阅读时间：9-分钟"><a href="#预计阅读时间：9-分钟" class="headerlink" title="预计阅读时间：9 分钟"></a>预计阅读时间：9 分钟</h2><p>我们在 <a target="_blank" rel="noopener" href="http://mp.weixin.qq.com/s?__biz=MzAxODQxMDM0Mw==&mid=2247484675&idx=1&sn=4a4ac1c0f1279530b42fedacc6cca6e6&chksm=9bd7fb0baca0721dda1eaa1d00b9a520672dc9d5c3be762eeca869be35d7ce232922ba8e928b&scene=21#wechat_redirect">上篇文章</a> 聊了高楼扔鸡蛋问题，讲了一种效率不是很高，但是较为容易理解的动态规划解法。后台很多读者问如何更高效地解决这个问题，今天就谈两种思路，来优化一下这个问题，分别是二分查找优化和重新定义状态转移。</p>
+<p>如果还不知道高楼扔鸡蛋问题的读者可以看下 <a target="_blank" rel="noopener" href="http://mp.weixin.qq.com/s?__biz=MzAxODQxMDM0Mw==&mid=2247484675&idx=1&sn=4a4ac1c0f1279530b42fedacc6cca6e6&chksm=9bd7fb0baca0721dda1eaa1d00b9a520672dc9d5c3be762eeca869be35d7ce232922ba8e928b&scene=21#wechat_redirect">经典动态规划：高楼扔鸡蛋</a>，<strong>那篇文章详解了题目的含义和基本的动态规划解题思路，请确保理解前文，<strong><strong>因为</strong></strong>今天的优化都是基于这个基本解法的</strong>。</p>
+<p>二分搜索的优化思路也许是我们可以尽力尝试写出的，而修改状态转移的解法可能是不容易想到的，可以借此见识一下动态规划算法设计的玄妙，当做思维拓展。</p>
+<h2 id="一、二分搜索优化"><a href="#一、二分搜索优化" class="headerlink" title="一、二分搜索优化"></a>一、二分搜索优化</h2><p>之前提到过这个解法，核心是因为状态转移方程的单调性，这里可以具体展开看看。</p>
+<p>题目要求最坏情况下至少需要扔几次鸡蛋才能测出鸡蛋恰好摔不碎的楼层<code>F</code>。首先简述一下原始动态规划的思路：</p>
+<p><strong>1</strong>、暴力穷举尝试在所有楼层<code>1 &lt;= i &lt;= N</code>扔鸡蛋，每次选择尝试次数<strong>最少</strong>的那一层；</p>
+<p><strong>2</strong>、每次扔鸡蛋有两种可能，要么碎，要么没碎；</p>
+<p><strong>3</strong>、如果鸡蛋碎了，<code>F</code>应该在第<code>i</code>层下面，否则，<code>F</code>应该在第<code>i</code>层上面；</p>
+<p><strong>4</strong>、鸡蛋是碎了还是没碎，取决于哪种情况下尝试次数<strong>更多</strong>，因为我们想求的是最坏情况下的结果。</p>
+<p>核心的状态转移代码是这段：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"># 当前状态为 K 个鸡蛋，面对 N 层楼</span><br><span class="line"># 返回这个状态下的最优结果</span><br><span class="line">def <span class="title function_">dp</span><span class="params">(K, N)</span>:</span><br><span class="line">    <span class="keyword">for</span> <span class="number">1</span> &lt;= i &lt;= N:</span><br><span class="line">        # 最坏情况下的最少扔鸡蛋次数</span><br><span class="line">        res = min(res, </span><br><span class="line">                  max( </span><br><span class="line">                        dp(K - <span class="number">1</span>, i - <span class="number">1</span>), # 碎</span><br><span class="line">                        dp(K, N - i)      # 没碎</span><br><span class="line">                     ) + <span class="number">1</span> # 在第 i 楼扔了一次</span><br><span class="line">                 )</span><br><span class="line">    <span class="keyword">return</span> </span><br></pre></td></tr></table></figure>
+
+<p>这个 for 循环就是下面这个状态转移方程的具体代码实现：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/CyPTgO_20210429195258.png" alt="图片"></p>
+<p>如果能够理解这个状态转移方程，那么就很容易理解二分查找的优化思路。</p>
+<p>首先我们根据<code>dp(K, N)</code>数组的定义（有<code>K</code>个鸡蛋面对<code>N</code>层楼，最少需要扔 dp(K, N) 次），<strong>很容易知道<code>K</code>固定时，这个函数随着<code>N</code>的增加一定是单调递增的</strong>，无论你策略多聪明，楼层增加的话，测试次数一定要增加。</p>
+<p>那么注意<code>dp(K - 1, i - 1)</code>和<code>dp(K, N - i)</code>这两个函数，其中<code>i</code>是从 1 到<code>N</code>单增的，如果我们固定<code>K</code>和<code>N</code>，<strong>把这两个函数看做关于<code>i</code>的函数，前者随着<code>i</code>的增加应该也是单调递增的，而后者随着<code>i</code>的增加应该是单调递减的</strong>：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/6NYUjf_20210429195215.png" alt="图片"></p>
+<p>这时候求二者的较大值，再求这些最大值之中的最小值，其实就是求这两条直线交点，也就是红色折线的最低点嘛。</p>
+<p>我们前文 <a target="_blank" rel="noopener" href="http://mp.weixin.qq.com/s?__biz=MzAxODQxMDM0Mw==&mid=2247484598&idx=1&sn=69edaf4a7f6bfd0b1185cae5d0689c1d&chksm=9bd7fabeaca073a8820bc93cb67a8e26fa9eaa1ab9717b7e3ac41b4aac12235067c8af3520d5&scene=21#wechat_redirect">二分搜索只能用来查找元素吗？</a>讲过，二分查找的运用很广泛，形如下面这种形式的 for 循环代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">    <span class="keyword">if</span> (isOK(i))</span><br><span class="line">        <span class="keyword">return</span> i;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>都很有可能可以运用二分查找来优化线性搜索的复杂度，回顾这两个<code>dp</code>函数的曲线，我们要找的最低点其实就是这种情况：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span>; i &lt;= N; i++) &#123;</span><br><span class="line">    <span class="keyword">if</span> (dp(K - <span class="number">1</span>, i - <span class="number">1</span>) == dp(K, N - i))</span><br><span class="line">        <span class="keyword">return</span> dp(K, N - i);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>熟悉二分搜索的同学肯定敏感地想到了，这不就是相当于求 Valley（山谷）值嘛，可以用二分查找来快速寻找这个点的，直接看代码吧，整体的思路还是一样，只是加快了搜索速度：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">def <span class="title function_">superEggDrop</span><span class="params">(self, K: <span class="type">int</span>, N: <span class="type">int</span>)</span> -&gt; <span class="type">int</span>:</span><br><span class="line"></span><br><span class="line">    memo = dict()</span><br><span class="line">    def <span class="title function_">dp</span><span class="params">(K, N)</span>:</span><br><span class="line">        <span class="type">if</span> <span class="variable">K</span> <span class="operator">=</span>= <span class="number">1</span>: <span class="keyword">return</span> N</span><br><span class="line">        <span class="type">if</span> <span class="variable">N</span> <span class="operator">=</span>= <span class="number">0</span>: <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">        <span class="keyword">if</span> (K, N) in memo:</span><br><span class="line">            <span class="keyword">return</span> memo[(K, N)]</span><br><span class="line"></span><br><span class="line">        # <span class="keyword">for</span> <span class="number">1</span> &lt;= i &lt;= N:</span><br><span class="line">        #     res = min(res, </span><br><span class="line">        #             max( </span><br><span class="line">        #                 dp(K - <span class="number">1</span>, i - <span class="number">1</span>), </span><br><span class="line">        #                 dp(K, N - i)      </span><br><span class="line">        #                 ) + <span class="number">1</span> </span><br><span class="line">        #             )</span><br><span class="line"></span><br><span class="line">        res = <span class="type">float</span>(<span class="string">&#x27;INF&#x27;</span>)</span><br><span class="line">        # 用二分搜索代替线性搜索</span><br><span class="line">        lo, hi = <span class="number">1</span>, N</span><br><span class="line">        <span class="keyword">while</span> lo &lt;= hi:</span><br><span class="line">            mid = (lo + hi) <span class="comment">// 2</span></span><br><span class="line">            broken = dp(K - <span class="number">1</span>, mid - <span class="number">1</span>) # 碎</span><br><span class="line">            not_broken = dp(K, N - mid) # 没碎</span><br><span class="line">            # res = min(max(碎，没碎) + <span class="number">1</span>)</span><br><span class="line">            <span class="keyword">if</span> broken &gt; not_broken:</span><br><span class="line">                hi = mid - <span class="number">1</span></span><br><span class="line">                res = min(res, broken + <span class="number">1</span>)</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                lo = mid + <span class="number">1</span></span><br><span class="line">                res = min(res, not_broken + <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">        memo[(K, N)] = res</span><br><span class="line">        <span class="keyword">return</span> res</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> dp(K, N)</span><br></pre></td></tr></table></figure>
+
+<p>这个算法的时间复杂度是多少呢？<strong>动态规划算法的时间复杂度就是子问题个数 × 函数本身的复杂度</strong>。</p>
+<p>函数本身的复杂度就是忽略递归部分的复杂度，这里<code>dp</code>函数中用了一个二分搜索，所以函数本身的复杂度是 O(logN)。</p>
+<p>子问题个数也就是不同状态组合的总数，显然是两个状态的乘积，也就是 O(KN)。</p>
+<p>所以算法的总时间复杂度是 O(K<em>N</em>logN), 空间复杂度 O(KN)。效率上比之前的算法 O(KN^2) 要高效不少。</p>
+<h2 id="二、重写状态转移"><a href="#二、重写状态转移" class="headerlink" title="二、重写状态转移"></a>二、重写状态转移</h2><p>前文 <a target="_blank" rel="noopener" href="http://mp.weixin.qq.com/s?__biz=MzAxODQxMDM0Mw==&mid=2247484469&idx=1&sn=e8d321c8ad62483874a997e9dd72da8f&chksm=9bd7fa3daca0732b316aa0afa58e70357e1cb7ab1fe0855d06bc4a852abb1b434c01c7dd19d6&scene=21#wechat_redirect">动态规划：不同的定义产生不同的解法</a> 就提过，找动态规划的状态转移本就是见仁见智，比较玄学的事情。不同的状态定义可以衍生出不同的解法，其解法和复杂程度都可能有巨大差异。这里就是一个很好的例子。</p>
+<p>再回顾一下我们之前定义的<code>dp</code>数组含义：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">def <span class="title function_">dp</span><span class="params">(k, n)</span> -&gt; <span class="type">int</span></span><br><span class="line"># 当前状态为 k 个鸡蛋，面对 n 层楼</span><br><span class="line"># 返回这个状态下最少的扔鸡蛋次数</span><br></pre></td></tr></table></figure>
+
+<p>用 dp 数组表示的话也是一样的：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">dp[k][n] = m</span><br><span class="line"># 当前状态为 k 个鸡蛋，面对 n 层楼</span><br><span class="line"># 这个状态下最少的扔鸡蛋次数为 m</span><br></pre></td></tr></table></figure>
+
+<p>按照这个定义，就是<strong>确定当前的鸡蛋个数和面对的楼层数，就知道最小扔鸡蛋次数</strong>。最终我们想要的答案就是<code>dp(K, N)</code>的结果。</p>
+<p>这种思路下，肯定要穷举所有可能的扔法的，用二分搜索优化也只是做了「剪枝」，减小了搜索空间，但本质思路没有变，只不过是更聪明的穷举。</p>
+<p>现在，我们稍微修改<code>dp</code>数组的定义，<strong>确定当前的鸡蛋个数和最多允许的扔鸡蛋次数，就知道能够确定<code>F</code>的最高楼层数</strong>。</p>
+<p>有点绕口，具体来说是这个意思：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">dp[k][m] = n</span><br><span class="line"># 当前有 k 个鸡蛋，可以尝试扔 m 次鸡蛋</span><br><span class="line"># 这个状态下，最坏情况下最多能确切测试一栋 n 层的楼</span><br><span class="line"></span><br><span class="line"># 比如说 dp[<span class="number">1</span>][<span class="number">7</span>] = <span class="number">7</span> 表示：</span><br><span class="line"># 现在有 <span class="number">1</span> 个鸡蛋，允许你扔 <span class="number">7</span> 次;</span><br><span class="line"># 这个状态下最多给你 <span class="number">7</span> 层楼，</span><br><span class="line"># 使得你可以确定楼层 F 使得鸡蛋恰好摔不碎</span><br><span class="line"># （一层一层线性探查嘛）</span><br></pre></td></tr></table></figure>
+
+<p>这其实就是我们原始思路的一个「反向」版本，我们先不管这种思路的状态转移怎么写，先来思考一下这种定义之下，最终想求的答案是什么？</p>
+<p>我们最终要求的其实是扔鸡蛋次数<code>m</code>，但是这时候<code>m</code>在状态之中而不是<code>dp</code>数组的结果，可以这样处理：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">superEggDrop</span><span class="params">(<span class="type">int</span> K, <span class="type">int</span> N)</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> <span class="variable">m</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (dp[K][m] &lt; N) &#123;</span><br><span class="line">        m++;</span><br><span class="line">        <span class="comment">// 状态转移...</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> m;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>题目不是<strong>给你<code>K</code>鸡蛋，<code>N</code>层楼，让你求最坏情况下最少的测试次数<code>m</code></strong> 吗？<code>while</code>循环结束的条件是<code>dp[K][m] == N</code>，也就是<strong>给你<code>K</code>个鸡蛋，允许测试<code>m</code>次，最坏情况下最多能测试<code>N</code>层楼</strong>。</p>
+<p>注意看这两段描述，是完全一样的！所以说这样组织代码是正确的，关键就是状态转移方程怎么找呢？还得从我们原始的思路开始讲。之前的解法配了这样图帮助大家理解状态转移思路：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/image-20210429195434229_20210429195434.png" alt="图片"></p>
+<p>这个图描述的仅仅是某一个楼层<code>i</code>，原始解法还得线性或者二分扫描所有楼层，要求最大值、最小值。但是现在这种<code>dp</code>定义根本不需要这些了，基于下面两个事实：</p>
+<p><strong>1、无论你在哪层楼扔鸡蛋，鸡蛋只可能摔碎或者没摔碎，碎了的话就测楼下，没碎的话就测楼上</strong>。</p>
+<p><strong>2、无论你上楼还是下楼，总的楼层数 &#x3D; 楼上的楼层数 + 楼下的楼层数 + 1（当前这层楼）</strong>。</p>
+<p>根据这个特点，可以写出下面的状态转移方程：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dp[k][m] = dp[k][m-<span class="number">1</span>] + dp[k-<span class="number">1</span>][m-<span class="number">1</span>] + <span class="number">1</span></span><br></pre></td></tr></table></figure>
+
+<p><strong><code>dp[k][m - 1]</code>就是楼上的楼层数</strong>，因为鸡蛋个数<code>k</code>不变，也就是鸡蛋没碎，扔鸡蛋次数<code>m</code>减一；</p>
+<p><strong><code>dp[k - 1][m - 1]</code>就是楼下的楼层数</strong>，因为鸡蛋个数<code>k</code>减一，也就是鸡蛋碎了，同时扔鸡蛋次数<code>m</code>减一。</p>
+<p>PS：这个<code>m</code>为什么要减一而不是加一？之前定义得很清楚，这个<code>m</code>是一个允许的次数上界，而不是扔了几次。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/72KWkN_20210429195454.png" alt="图片"></p>
+<p>至此，整个思路就完成了，只要把状态转移方程填进框架即可：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">superEggDrop</span><span class="params">(<span class="type">int</span> K, <span class="type">int</span> N)</span> &#123;</span><br><span class="line">    <span class="comment">// m 最多不会超过 N 次（线性扫描）</span></span><br><span class="line">    <span class="type">int</span>[][] dp = <span class="keyword">new</span> <span class="title class_">int</span>[K + <span class="number">1</span>][N + <span class="number">1</span>];</span><br><span class="line">    <span class="comment">// base case:</span></span><br><span class="line">    <span class="comment">// dp[0][..] = 0</span></span><br><span class="line">    <span class="comment">// dp[..][0] = 0</span></span><br><span class="line">    <span class="comment">// Java 默认初始化数组都为 0</span></span><br><span class="line">    <span class="type">int</span> <span class="variable">m</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (dp[K][m] &lt; N) &#123;</span><br><span class="line">        m++;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">k</span> <span class="operator">=</span> <span class="number">1</span>; k &lt;= K; k++)</span><br><span class="line">            dp[k][m] = dp[k][m - <span class="number">1</span>] + dp[k - <span class="number">1</span>][m - <span class="number">1</span>] + <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> m;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如果你还觉得这段代码有点难以理解，其实它就等同于这样写：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="type">int</span> <span class="variable">m</span> <span class="operator">=</span> <span class="number">1</span>; dp[K][m] &lt; N; m++)</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">k</span> <span class="operator">=</span> <span class="number">1</span>; k &lt;= K; k++)</span><br><span class="line">        dp[k][m] = dp[k][m - <span class="number">1</span>] + dp[k - <span class="number">1</span>][m - <span class="number">1</span>] + <span class="number">1</span>;</span><br></pre></td></tr></table></figure>
+
+<p>看到这种代码形式就熟悉多了吧，因为我们要求的不是<code>dp</code>数组里的值，而是某个符合条件的索引<code>m</code>，所以用<code>while</code>循环来找到这个<code>m</code>而已。</p>
+<p>这个算法的时间复杂度是多少？很明显就是两个嵌套循环的复杂度 O(KN)。</p>
+<p>另外注意到<code>dp[m][k]</code>转移只和左边和左上的两个状态有关，所以很容易优化成一维<code>dp</code>数组，这里就不写了。</p>
+<h2 id="三、进一步思考"><a href="#三、进一步思考" class="headerlink" title="三、进一步思考"></a>三、进一步思考</h2><p>再往下就要用一些数学方法了，不具体展开，就简单提一下思路吧。</p>
+<p>在刚才的思路之上，<strong>注意函数<code>dp(m, k)</code>是随着<code>m</code>单增的，因为鸡蛋个数<code>k</code>不变时，允许的测试次数越多，可测试的楼层就越高。</strong></p>
+<p>这里又可以借助二分搜索算法快速逼近<code>dp[K][m] == N</code>这个终止条件，时间复杂度进一步下降为 O(KlogN)，我们可以设<code>g(k,m)</code>等于……</p>
+<p>算了算了，打住吧。我觉得我们能够写出 O(K<em>N</em>logN) 的二分优化算法就行了，后面的这些解法呢，听个响鼓个掌就行了，把欲望限制在能力的范围之内才能拥有快乐！</p>
+<p>不过可以肯定的是，根据二分搜索代替线性扫描 m 的取值，代码的大致框架肯定是修改穷举 m 的 for 循环：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 把线性搜索改成二分搜索</span></span><br><span class="line"><span class="comment">// for (int m = 1; dp[K][m] &lt; N; m++)</span></span><br><span class="line"><span class="type">int</span> <span class="variable">lo</span> <span class="operator">=</span> <span class="number">1</span>, hi = N;</span><br><span class="line"><span class="keyword">while</span> (lo &lt; hi) &#123;</span><br><span class="line">    <span class="type">int</span> <span class="variable">mid</span> <span class="operator">=</span> (lo + hi) / <span class="number">2</span>;</span><br><span class="line">    <span class="keyword">if</span> (... &lt; N) &#123;</span><br><span class="line">        lo = ...</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        hi = ...</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">k</span> <span class="operator">=</span> <span class="number">1</span>; k &lt;= K; k++)</span><br><span class="line">        <span class="comment">// 状态转移方程</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>简单总结一下吧，<strong>第一个二分优化是利用了<code>dp</code>函数的单调性</strong>，用二分查找技巧快速搜索答案；<strong>第二种优化是巧妙地修改了状态转移方程</strong>，简化了求解了流程，但相应的，解题逻辑比较难以想到；后续还可以用一些数学方法和二分搜索进一步优化第二种解法，不过看了看镜子中的发量，算了。</p>
+<p>本文终，希望对你有一点启发。</p>
+
+      
+    </div>
+
+    
+    
+    
+
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>l
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/afbd7c28/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lion.png">
+      <meta itemprop="name" content="swimminghao">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="swimminghao's blog">
+      <meta itemprop="description" content="swimminghao的学习博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | swimminghao's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/afbd7c28/" class="post-title-link" itemprop="url">经典面试题：如何寻找最⻓回文子串</a>
+        </h2>
+
+        <div class="post-meta-container">
+
+          
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-03-10 11:51:52" itemprop="dateModified" datetime="2022-03-10T11:51:52+08:00">2022-03-10</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/posts/afbd7c28/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/afbd7c28/" data-xid="/posts/afbd7c28/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>1.3k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -558,300 +745,36 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="9、【对线面试官】线程池"><a href="#9、【对线面试官】线程池" class="headerlink" title="9、【对线面试官】线程池"></a>9、【对线面试官】线程池</h1><h2 id="今天来聊聊线程池呗，你对Java线程池了解多少？"><a href="#今天来聊聊线程池呗，你对Java线程池了解多少？" class="headerlink" title="今天来聊聊线程池呗，你对Java线程池了解多少？"></a>今天来聊聊线程池呗，你对Java线程池了解多少？</h2><h2 id="或者换个问法：为什么需要线程池？"><a href="#或者换个问法：为什么需要线程池？" class="headerlink" title="或者换个问法：为什么需要线程池？"></a>或者换个问法：为什么需要线程池？</h2><ol>
-<li>JVM在HotSpot的线程模型下，Java线程会一对一映射为内核线程</li>
-<li>这意味着，在Java中每次创建以及回收线程都会去内核创建以及回收</li>
-<li>这就有可能导致：创建和销毁线程所花费的时间和资源可能比处理的任务花费的时间和资源要更多</li>
-<li>线程池的出现是为了提高线程的复用性以及固定线程的数量！！！</li>
-</ol>
-<h2 id="你在项目中用到了线程池吗？"><a href="#你在项目中用到了线程池吗？" class="headerlink" title="你在项目中用到了线程池吗？"></a>你在项目中用到了线程池吗？</h2><ol>
-<li>嗯，用到的。我先说下背景吧</li>
-<li>我所负责的项目是消息管理平台，提供其中一个功能就是：运营会圈定人群，然后群发消息</li>
-<li>主要流程大致就是：创建模板-》定时-》群发消息-》用户收到消息</li>
-<li>运营圈定的人群实际上在模板上只是一个ID，我这边要通过ID去获取到HDFS文件</li>
-<li>对HDFS文件进行遍历，然后继续往下发</li>
-<li>「接收到定时任务，再对HDFS进行遍历」这里的处理，我用的就是线程池处理</li>
-</ol>
-<h2 id="为什么选择用线程池呢？"><a href="#为什么选择用线程池呢？" class="headerlink" title="为什么选择用线程池呢？"></a>为什么选择用线程池呢？</h2><ol>
-<li>HDFS遍历其实就是IO的操作，我把这个过程给异步化，为了提高系统的吞吐量，于是我这里用的线程池。</li>
-<li>即便遍历HDFS出现问题，我这边都有完备的监控和告警可以及时发现。</li>
-</ol>
-<h2 id="那你是怎么用线程池的呢？用Executors去创建的吗？"><a href="#那你是怎么用线程池的呢？用Executors去创建的吗？" class="headerlink" title="那你是怎么用线程池的呢？用Executors去创建的吗？"></a>那你是怎么用线程池的呢？用Executors去创建的吗？</h2><ol>
-<li>不是的，我这边用的ThreadPoolExecutor去创建线程池</li>
-<li>其实看阿里巴巴开发手册就有提到，不要使用Executors去创建线程。</li>
-<li>最主要的目的就是：使用ThreadPoolExecutor创建的线程你是更能了解线程池运行的规则，避免资源耗尽的风险</li>
-<li>ThreadPoolExecutor在构造的时候有几个重要的参数，分别是：<br>corePoolSize （核心线程数量） 、maxim umPoolSize（最大线程数量）、keepAli veTime（线程空余时间） 、workQueue（阻塞队列）、handler（任务拒绝策略）</li>
-<li>这几个参数应该很好理解哈，我就说下任务提交的流程，分别对应着几个参数的作用吧。<ul>
-<li>首先会判断运行线程数是否小于corePoolSize，如果小于，则直接创建新的线程执行任务</li>
-<li>如果大于corePoolSize，判断workQueue阻塞队列是否已满，如果还没满，则将任务放到阻塞队列中</li>
-<li>如果workQueue阻塞队列已经满了，则判断当前线程数是否大于maximumPoolSize，如果没大于则创建新的线程执行任务</li>
-<li>如果大于maximumPoolSize，则执行任务拒绝策略（具体就是你自己实现的handler)</li>
-</ul>
-</li>
-<li>这里有个点需要注意下，就是workQueu e阻塞队列满了，但当前线程数小于maximumPoolSize，这时候会创建新的线程执行任务</li>
-<li>源码就是这样实现的</li>
-<li>不过一般我们都是将corePoolSize和maximumPoolSize设置相同数量</li>
-<li>keepAliveTime指的就是，当前运行的线程数大于核心线程数了，只要空闲时间达到了，就会对线程进行回收</li>
-</ol>
-<h2 id="那我再问一个问题，你创建线程池肯定会指定线程数的嘛，你这块是怎么考量的。"><a href="#那我再问一个问题，你创建线程池肯定会指定线程数的嘛，你这块是怎么考量的。" class="headerlink" title="那我再问一个问题，你创建线程池肯定会指定线程数的嘛，你这块是怎么考量的。"></a>那我再问一个问题，你创建线程池肯定会指定线程数的嘛，你这块是怎么考量的。</h2><ol>
-<li>线程池指定线程数这块，首先要考量自己的业务是什么样的</li>
-<li>是cpu密集型的还是io密集型的，假设运行应用的机器CPU核心数是N</li>
-<li>那cpu密集型的可以先给到N+1，io密集型的可以给到2N去试试</li>
-<li>上面这个只是一个常见的经验做法，具体究竟开多少线程，需要压测才能比较准确地定下来</li>
-<li>线程不是说越大越好，在之前的面试我也提到过，多线程是为了充分利用CPU的资源</li>
-<li>如果设置的线程过多，线程大量有上下文切换，这一部分也会带来系统的开销，这就得不偿失了</li>
-</ol>
-<h2 id="ThreadPoolExecutor你看过源码吗？"><a href="#ThreadPoolExecutor你看过源码吗？" class="headerlink" title="ThreadPoolExecutor你看过源码吗？"></a>ThreadPoolExecutor你看过源码吗？</h2><ol>
-<li>看过的，其实上面说的ThreadPoolExecutor几个参数，在源码的顶部注释都有</li>
-<li>在执行的时候，重点就在于它维护了一个ctl参数，这个ctl参数的用高3位表示线程池的状态，低29位来表示线程的数量</li>
-<li>里边用到了大量的位运算符操作，具体细节我就忘了，但是流程还是上面所讲的</li>
-</ol>
+          <h1 id="经典面试题：如何寻找最⻓回文子串"><a href="#经典面试题：如何寻找最⻓回文子串" class="headerlink" title="经典面试题：如何寻找最⻓回文子串"></a>经典面试题：如何寻找最⻓回文子串</h1><h2 id="预计阅读时间：5-分钟"><a href="#预计阅读时间：5-分钟" class="headerlink" title="预计阅读时间：5 分钟"></a>预计阅读时间：5 分钟</h2><p>回文串是面试常常遇到的问题（虽然问题本身没啥意义），本文就告诉你回文串问题的核心思想是什么。</p>
+<p>首先，明确一下什：<strong>回文串就是正着读和反着读都一样的字符串</strong>。</p>
+<p>比如说字符串<code>aba</code>和<code>abba</code>都是回文串，因为它们对称，反过来还是和本身一样。反之，字符串<code>abac</code>就不是回文串。</p>
+<p>可以看到回文串的的长度可能是奇数，也可能是偶数，这就添加了回文串问题的难度，解决该类问题的核心是<strong>双指针</strong>。下面就通过一道最长回文子串的问题来具体理解一下回文串问题：</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/map09icNxZ4lLwdm05DtOeOPia4eSQF3HJWKPuI6XXSumtytXXkvgQPwO1szjiaWicF84yMiaIwmFyRic4RmocZz3qvw/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="图片"></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">string <span class="title function_">longestPalindrome</span><span class="params">(string s)</span> &#123;&#125;</span><br></pre></td></tr></table></figure>
 
-      
-    </div>
+<h3 id="一、思考"><a href="#一、思考" class="headerlink" title="一、思考"></a>一、思考</h3><p>对于这个问题，我们首先应该思考的是，给一个字符串<code>s</code>，如何在<code>s</code>中找到一个回文子串？</p>
+<p>有一个很有趣的思路：既然回文串是一个正着反着读都一样的字符串，那么如果我们把<code>s</code>反转，称为<code>s&#39;</code>，然后在<code>s</code>和<code>s&#39;</code>中寻找<strong>最长公共子串</strong>，这样应该就能找到最长回文子串。</p>
+<p>比如说字符串<code>abacd</code>，反过来是<code>dcaba</code>，它俩的最长公共子串是<code>aba</code>，也就是最长回文子串。</p>
+<p>但是这个思路是错误的，比如说字符串<code>aacxycaa</code>，反转之后是<code>aacyxcaa</code>，最长公共子串是<code>aac</code>，但是最长回文子串应该是<code>aa</code>。</p>
+<p>虽然这个思路不正确，但是<strong>这种把问题转化为其他形式的思考方式是非常值得提倡的</strong>。</p>
+<p>下面，就来说一下正确的思路，如何使用双指针。</p>
+<p><strong>寻找回文串的问题核心思想是：从中间开始向两边扩散来判断回文串</strong>。对于最长回文子串，就是这个意思：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> <span class="number">0</span> &lt;= i &lt; len(s):</span><br><span class="line">    找到以 s[i] 为中心的回文串</span><br><span class="line">    更新答案</span><br></pre></td></tr></table></figure>
 
-    
-    
-    
+<p>但是呢，我们刚才也说了，回文串的长度可能是奇数也可能是偶数，如果是<code>abba</code>这种情况，没有一个中心字符，上面的算法就没辙了。所以我们可以修改一下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> <span class="number">0</span> &lt;= i &lt; len(s):</span><br><span class="line">    找到以 s[i] 为中心的回文串</span><br><span class="line">    找到以 s[i] 和 s[i+<span class="number">1</span>] 为中心的回文串</span><br><span class="line">    更新答案</span><br></pre></td></tr></table></figure>
 
+<p>PS：读者可能发现这里的索引会越界，等会会处理。</p>
+<h3 id="二、代码实现"><a href="#二、代码实现" class="headerlink" title="二、代码实现"></a>二、代码实现</h3><p>按照上面的思路，先要实现一个函数来寻找最长回文串，这个函数是有点技巧的：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/HpyEbX_20210507183744.png" alt="图片"></p>
+<p>为什么要传入两个指针<code>l</code>和<code>r</code>呢？<strong>因为这样实现可以同时处理回文串长度为奇数和偶数的情况</strong>：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> <span class="number">0</span> &lt;= i &lt; len(s):</span><br><span class="line">    # 找到以 s[i] 为中心的回文串</span><br><span class="line">    palindrome(s, i, i)</span><br><span class="line">    # 找到以 s[i] 和 s[i+<span class="number">1</span>] 为中心的回文串</span><br><span class="line">    palindrome(s, i, i + <span class="number">1</span>)</span><br><span class="line">    更新答案</span><br></pre></td></tr></table></figure>
 
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>l
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/eb551b6f/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/lion.png">
-      <meta itemprop="name" content="swimminghao">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="swimminghao's blog">
-      <meta itemprop="description" content="swimminghao的学习博客">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | swimminghao's blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/eb551b6f/" class="post-title-link" itemprop="url">面试官“谈谈Spring中都用到了那些设计模式”。</a>
-        </h2>
-
-        <div class="post-meta-container">
-
-          
-
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-10 09:48:07" itemprop="dateModified" datetime="2022-03-10T09:48:07+08:00">2022-03-10</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="far fa-comment"></i>
-    </span>
-    <span class="post-meta-item-text">Waline：</span>
-  
-    <a title="waline" href="/posts/eb551b6f/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/eb551b6f/" data-xid="/posts/eb551b6f/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>10k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>9 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="面试官-“谈谈Spring中都用到了那些设计模式-”。"><a href="#面试官-“谈谈Spring中都用到了那些设计模式-”。" class="headerlink" title="面试官:“谈谈Spring中都用到了那些设计模式?”。"></a>面试官:“谈谈Spring中都用到了那些设计模式?”。</h1><p>JDK 中用到了那些设计模式?Spring 中用到了那些设计模式?这两个问题，在面试中比较常见。我在网上搜索了一下关于 Spring 中设计模式的讲解几乎都是千篇一律，而且大部分都年代久远。所以，花了几天时间自己总结了一下，由于我的个人能力有限，文中如有任何错误各位都可以指出。另外，文章篇幅有限，对于设计模式以及一些源码的解读我只是一笔带过，这篇文章的主要目的是回顾一下 Spring 中的常见的设计模式。</p>
-<p>Design Patterns(设计模式) 表示面向对象软件开发中最好的计算机编程实践。 Spring 框架中广泛使用了不同类型的设计模式，下面我们来看看到底有哪些设计模式?</p>
-<h2 id="控制反转-IoC-和依赖注入-DI"><a href="#控制反转-IoC-和依赖注入-DI" class="headerlink" title="控制反转(IoC)和依赖注入(DI)"></a>控制反转(IoC)和依赖注入(DI)</h2><p><strong>IoC(Inversion of Control,控制翻转)</strong> 是Spring 中一个非常非常重要的概念，它不是什么技术，而是一种解耦的设计思想。它的主要目的是借助于“第三方”(Spring 中的 IOC 容器) 实现具有依赖关系的对象之间的解耦(IOC容易管理对象，你只管使用即可)，从而降低代码之间的耦合度。<strong>IOC 是一个原则，而不是一个模式，以下模式（但不限于）实现了IoC原则。</strong></p>
-<p><img src="https://mmbiz.qpic.cn/mmbiz_png/iaIdQfEric9TwBuibJ4N5OTyAvJibFj8b7zhiaTcnFwmnfLqQQWwlWv2uNMZyiabexkUSuW24WAWAuL6cvzguu8JyYzw/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="图片"></p>
-<center>ioc-patterns</center>
-
-<p><strong>Spring IOC 容器就像是一个工厂一样，当我们需要创建一个对象的时候，只需要配置好配置文件&#x2F;注解即可，完全不用考虑对象是如何被创建出来的。</strong> IOC 容器负责创建对象，将对象连接在一起，配置这些对象，并从创建中处理这些对象的整个生命周期，直到它们被完全销毁。</p>
-<p>在实际项目中一个 Service 类如果有几百甚至上千个类作为它的底层，我们需要实例化这个 Service，你可能要每次都要搞清这个 Service 所有底层类的构造函数，这可能会把人逼疯。如果利用 IOC 的话，你只需要配置好，然后在需要的地方引用就行了，这大大增加了项目的可维护性且降低了开发难度。关于Spring IOC 的理解，推荐看这一下知乎的一个回答：<a target="_blank" rel="noopener" href="https://www.zhihu.com/question/23277575/answer/169698662">https://www.zhihu.com/question/23277575/answer/169698662</a> ，非常不错。</p>
-<p><strong>控制翻转怎么理解呢?</strong> 举个例子：”对象a 依赖了对象 b，当对象 a 需要使用 对象 b的时候必须自己去创建。但是当系统引入了 IOC 容器后， 对象a 和对象 b 之前就失去了直接的联系。这个时候，当对象 a 需要使用 对象 b的时候， 我们可以指定 IOC 容器去创建一个对象b注入到对象 a 中”。 对象 a 获得依赖对象 b 的过程,由主动行为变为了被动行为，控制权翻转，这就是控制反转名字的由来。</p>
-<p><strong>DI(Dependecy Inject,依赖注入)是实现控制反转的一种设计模式，依赖注入就是将实例变量传入到一个对象中去。</strong></p>
-<h2 id="工厂设计模式"><a href="#工厂设计模式" class="headerlink" title="工厂设计模式"></a>工厂设计模式</h2><p>Spring使用工厂模式可以通过 <code>BeanFactory</code> 或 <code>ApplicationContext</code> 创建 bean 对象。</p>
-<p><strong>两者对比：</strong></p>
-<ul>
-<li><code>BeanFactory</code> ：延迟注入(使用到某个 bean 的时候才会注入),相比于<code>BeanFactory</code>来说会占用更少的内存，程序启动速度更快。</li>
-<li><code>ApplicationContext</code> ：容器启动的时候，不管你用没用到，一次性创建所有 bean 。<code>BeanFactory</code> 仅提供了最基本的依赖注入支持，<code>ApplicationContext</code> 扩展了 <code>BeanFactory</code> ,除了有<code>BeanFactory</code>的功能还有额外更多功能，所以一般开发人员使用<code>ApplicationContext</code>会更多。</li>
-</ul>
-<p>ApplicationContext的三个实现类：</p>
-<ol>
-<li><code>ClassPathXmlApplication</code>：把上下文文件当成类路径资源。</li>
-<li><code>FileSystemXmlApplication</code>：从文件系统中的 XML 文件载入上下文定义信息。</li>
-<li><code>XmlWebApplicationContext</code>：从Web系统中的XML文件载入上下文定义信息。</li>
-</ol>
-<p>Example:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.springframework.context.ApplicationContext;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.support.FileSystemXmlApplicationContext;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">App</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">ApplicationContext</span> <span class="variable">context</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FileSystemXmlApplicationContext</span>(</span><br><span class="line">                <span class="string">&quot;C:/work/IOC Containers/springframework.applicationcontext/src/main/resources/bean-factory-config.xml&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="type">HelloApplicationContext</span> <span class="variable">obj</span> <span class="operator">=</span> (HelloApplicationContext) context.getBean(<span class="string">&quot;helloApplicationContext&quot;</span>);</span><br><span class="line">        obj.getMsg();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="单例设计模式"><a href="#单例设计模式" class="headerlink" title="单例设计模式"></a>单例设计模式</h2><p>在我们的系统中，有一些对象其实我们只需要一个，比如说：线程池、缓存、对话框、注册表、日志对象、充当打印机、显卡等设备驱动程序的对象。事实上，这一类对象只能有一个实例，如果制造出多个实例就可能会导致一些问题的产生，比如：程序的行为异常、资源使用过量、或者不一致性的结果。</p>
-<p><strong>使用单例模式的好处:</strong></p>
-<ul>
-<li>对于频繁使用的对象，可以省略创建对象所花费的时间，这对于那些重量级对象而言，是非常可观的一笔系统开销；</li>
-<li>由于 new 操作的次数减少，因而对系统内存的使用频率也会降低，这将减轻 GC 压力，缩短 GC 停顿时间。</li>
-</ul>
-<p><strong>Spring 中 bean 的默认作用域就是 singleton(单例)的。</strong> 除了 singleton 作用域，Spring 中 bean 还有下面几种作用域：</p>
-<ul>
-<li>prototype : 每次请求都会创建一个新的 bean 实例。</li>
-<li>request : 每一次HTTP请求都会产生一个新的bean，该bean仅在当前HTTP request内有效。</li>
-<li>session : 每一次HTTP请求都会产生一个新的 bean，该bean仅在当前 HTTP session 内有效。</li>
-<li>global-session： 全局session作用域，仅仅在基于portlet的web应用中才有意义，Spring5已经没有了。Portlet是能够生成语义代码(例如：HTML)片段的小型Java Web插件。它们基于portlet容器，可以像servlet一样处理HTTP请求。但是，与 servlet 不同，每个 portlet 都有不同的会话</li>
-</ul>
-<p><strong>Spring 实现单例的方式：</strong></p>
-<ul>
-<li>xml:<bean id="userService" class="top.snailclimb.UserService" scope="singleton"/>&#96;&#96;</li>
-<li>注解：<code>@Scope(value = &quot;singleton&quot;)</code></li>
-</ul>
-<p>Spring 通过 <code>ConcurrentHashMap</code> 实现单例注册表的特殊方式实现单例模式。Spring 实现单例的核心代码如下：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 通过 ConcurrentHashMap（线程安全） 实现单例注册表</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">final</span> Map&lt;String, Object&gt; singletonObjects = <span class="keyword">new</span> <span class="title class_">ConcurrentHashMap</span>&lt;String, Object&gt;(<span class="number">64</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> Object <span class="title function_">getSingleton</span><span class="params">(String beanName, ObjectFactory&lt;?&gt; singletonFactory)</span> &#123;</span><br><span class="line">        Assert.notNull(beanName, <span class="string">&quot;&#x27;beanName&#x27; must not be null&quot;</span>);</span><br><span class="line">        <span class="keyword">synchronized</span> (<span class="built_in">this</span>.singletonObjects) &#123;</span><br><span class="line">            <span class="comment">// 检查缓存中是否存在实例  </span></span><br><span class="line">            <span class="type">Object</span> <span class="variable">singletonObject</span> <span class="operator">=</span> <span class="built_in">this</span>.singletonObjects.get(beanName);</span><br><span class="line">            <span class="keyword">if</span> (singletonObject == <span class="literal">null</span>) &#123;</span><br><span class="line">                <span class="comment">//...省略了很多代码</span></span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    singletonObject = singletonFactory.getObject();</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="comment">//...省略了很多代码</span></span><br><span class="line">                <span class="comment">// 如果实例对象在不存在，我们注册到单例注册表中。</span></span><br><span class="line">                addSingleton(beanName, singletonObject);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> (singletonObject != NULL_OBJECT ? singletonObject : <span class="literal">null</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//将对象添加到单例注册表</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">addSingleton</span><span class="params">(String beanName, Object singletonObject)</span> &#123;</span><br><span class="line">            <span class="keyword">synchronized</span> (<span class="built_in">this</span>.singletonObjects) &#123;</span><br><span class="line">                <span class="built_in">this</span>.singletonObjects.put(beanName, (singletonObject != <span class="literal">null</span> ? singletonObject : NULL_OBJECT));</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="代理设计模式"><a href="#代理设计模式" class="headerlink" title="代理设计模式"></a>代理设计模式</h2><h3 id="代理模式在-AOP-中的应用"><a href="#代理模式在-AOP-中的应用" class="headerlink" title="代理模式在 AOP 中的应用"></a>代理模式在 AOP 中的应用</h3><p>AOP(Aspect-Oriented Programming:面向切面编程)能够将那些与业务无关，却为业务模块所共同调用的逻辑或责任（例如事务处理、日志管理、权限控制等）封装起来，便于减少系统的重复代码，降低模块间的耦合度，并有利于未来的可拓展性和可维护性。</p>
-<p><strong>Spring AOP 就是基于动态代理的</strong>，如果要代理的对象，实现了某个接口，那么Spring AOP会使用<strong>JDK Proxy</strong>，去创建代理对象，而对于没有实现接口的对象，就无法使用 JDK Proxy 去进行代理了，这时候Spring AOP会使用<strong>Cglib</strong> ，这时候Spring AOP会使用 <strong>Cglib</strong> 生成一个被代理对象的子类来作为代理，如下图所示：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/16qDep_20210809142649.png" alt="图片"></p>
-<center>SpringAOPProcess</center>
-
-<p>当然你也可以使用 AspectJ ,Spring AOP 已经集成了AspectJ ，AspectJ 应该算的上是 Java 生态系统中最完整的 AOP 框架了。</p>
-<p>使用 AOP 之后我们可以把一些通用功能抽象出来，在需要用到的地方直接使用即可，这样大大简化了代码量。我们需要增加新功能时也方便，这样也提高了系统扩展性。日志功能、事务管理等等场景都用到了 AOP 。</p>
-<h3 id="Spring-AOP-和-AspectJ-AOP-有什么区别"><a href="#Spring-AOP-和-AspectJ-AOP-有什么区别" class="headerlink" title="Spring AOP 和 AspectJ AOP 有什么区别?"></a>Spring AOP 和 AspectJ AOP 有什么区别?</h3><p><strong>Spring AOP 属于运行时增强，而 AspectJ 是编译时增强。</strong> Spring AOP 基于代理(Proxying)，而 AspectJ 基于字节码操作(Bytecode Manipulation)。</p>
-<p>Spring AOP 已经集成了 AspectJ ，AspectJ 应该算的上是 Java 生态系统中最完整的 AOP 框架了。AspectJ 相比于 Spring AOP 功能更加强大，但是 Spring AOP 相对来说更简单，</p>
-<p>如果我们的切面比较少，那么两者性能差异不大。但是，当切面太多的话，最好选择 AspectJ ，它比Spring AOP 快很多。</p>
-<h2 id="模板方法"><a href="#模板方法" class="headerlink" title="模板方法"></a>模板方法</h2><p>模板方法模式是一种行为设计模式，它定义一个操作中的算法的骨架，而将一些步骤延迟到子类中。 模板方法使得子类可以不改变一个算法的结构即可重定义该算法的某些特定步骤的实现方式。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/7MhBrj_20210809142855.png" alt="图片"></p>
-<center>模板方法UML图</center>
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title class_">Template</span> &#123;</span><br><span class="line">    <span class="comment">//这是我们的模板方法</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title function_">TemplateMethod</span><span class="params">()</span>&#123;</span><br><span class="line">        PrimitiveOperation1();  </span><br><span class="line">        PrimitiveOperation2();</span><br><span class="line">        PrimitiveOperation3();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">void</span>  <span class="title function_">PrimitiveOperation1</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="comment">//当前类实现</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//被子类实现的方法</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title function_">PrimitiveOperation2</span><span class="params">()</span>;</span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title function_">PrimitiveOperation3</span><span class="params">()</span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TemplateImpl</span> <span class="keyword">extends</span> <span class="title class_">Template</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">PrimitiveOperation2</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="comment">//当前类实现</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">PrimitiveOperation3</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="comment">//当前类实现</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>Spring 中 <code>jdbcTemplate</code>、<code>hibernateTemplate</code> 等以 Template 结尾的对数据库操作的类，它们就使用到了模板模式。一般情况下，我们都是使用继承的方式来实现模板模式，但是 Spring 并没有使用这种方式，而是使用Callback 模式与模板方法模式配合，既达到了代码复用的效果，同时增加了灵活性。</p>
-<h2 id="观察者模式"><a href="#观察者模式" class="headerlink" title="观察者模式"></a>观察者模式</h2><p>观察者模式是一种对象行为型模式。它表示的是一种对象与对象之间具有依赖关系，当一个对象发生改变的时候，这个对象所依赖的对象也会做出反应。Spring 事件驱动模型就是观察者模式很经典的一个应用。Spring 事件驱动模型非常有用，在很多场景都可以解耦我们的代码。比如我们每次添加商品的时候都需要重新更新商品索引，这个时候就可以利用观察者模式来解决这个问题。</p>
-<h3 id="Spring-事件驱动模型中的三种角色"><a href="#Spring-事件驱动模型中的三种角色" class="headerlink" title="Spring 事件驱动模型中的三种角色"></a>Spring 事件驱动模型中的三种角色</h3><h4 id="事件角色"><a href="#事件角色" class="headerlink" title="事件角色"></a>事件角色</h4><p><code>ApplicationEvent</code> (<code>org.springframework.context</code>包下)充当事件的角色,这是一个抽象类，它继承了<code>java.util.EventObject</code>并实现了 <code>java.io.Serializable</code>接口。</p>
-<p>Spring 中默认存在以下事件，他们都是对 <code>ApplicationContextEvent</code> 的实现(继承自<code>ApplicationContextEvent</code>)：</p>
-<ul>
-<li><code>ContextStartedEvent</code>：<code>ApplicationContext</code> 启动后触发的事件;</li>
-<li><code>ContextStoppedEvent</code>：<code>ApplicationContext</code> 停止后触发的事件;</li>
-<li><code>ContextRefreshedEvent</code>：<code>ApplicationContext</code> 初始化或刷新完成后触发的事件;</li>
-<li><code>ContextClosedEvent</code>：<code>ApplicationContext</code> 关闭后触发的事件。</li>
-</ul>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/tKwbDY_20210809143054.png" alt="图片"></p>
-<center>ApplicationEvent-Subclass</center>
-
-<h4 id="事件监听者角色"><a href="#事件监听者角色" class="headerlink" title="事件监听者角色"></a>事件监听者角色</h4><p><code>ApplicationListener</code> 充当了事件监听者角色，它是一个接口，里面只定义了一个 <code>onApplicationEvent（）</code>方法来处理<code>ApplicationEvent</code>。<code>ApplicationListener</code>接口类源码如下，可以看出接口定义看出接口中的事件只要实现了 <code>ApplicationEvent</code>就可以了。所以，在 Spring中我们只要实现 <code>ApplicationListener</code> 接口实现 <code>onApplicationEvent()</code> 方法即可完成监听事件</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> org.springframework.context;</span><br><span class="line"><span class="keyword">import</span> java.util.EventListener;</span><br><span class="line"><span class="meta">@FunctionalInterface</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">ApplicationListener</span>&lt;E <span class="keyword">extends</span> <span class="title class_">ApplicationEvent</span>&gt; <span class="keyword">extends</span> <span class="title class_">EventListener</span> &#123;</span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">onApplicationEvent</span><span class="params">(E var1)</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h4 id="事件发布者角色"><a href="#事件发布者角色" class="headerlink" title="事件发布者角色"></a>事件发布者角色</h4><p><code>ApplicationEventPublisher</code> 充当了事件的发布者，它也是一个接口。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@FunctionalInterface</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">ApplicationEventPublisher</span> &#123;</span><br><span class="line">    <span class="keyword">default</span> <span class="keyword">void</span> <span class="title function_">publishEvent</span><span class="params">(ApplicationEvent event)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.publishEvent((Object)event);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">publishEvent</span><span class="params">(Object var1)</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><code>ApplicationEventPublisher</code> 接口的<code>publishEvent（）</code>这个方法在<code>AbstractApplicationContext</code>类中被实现，阅读这个方法的实现，你会发现实际上事件真正是通过<code>ApplicationEventMulticaster</code>来广播出去的。具体内容过多，就不在这里分析了，后面可能会单独写一篇文章提到。</p>
-<h3 id="Spring-的事件流程总结"><a href="#Spring-的事件流程总结" class="headerlink" title="Spring 的事件流程总结"></a>Spring 的事件流程总结</h3><ol>
-<li>定义一个事件: 实现一个继承自 <code>ApplicationEvent</code>，并且写相应的构造函数；</li>
-<li>定义一个事件监听者：实现 <code>ApplicationListener</code> 接口，重写 <code>onApplicationEvent()</code> 方法；</li>
-<li>使用事件发布者发布消息: 可以通过 <code>ApplicationEventPublisher</code> 的 <code>publishEvent()</code> 方法发布消息。</li>
-</ol>
-<p>Example:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 定义一个事件,继承自ApplicationEvent并且写相应的构造函数</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">DemoEvent</span> <span class="keyword">extends</span> <span class="title class_">ApplicationEvent</span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">long</span> <span class="variable">serialVersionUID</span> <span class="operator">=</span> <span class="number">1L</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String message;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">DemoEvent</span><span class="params">(Object source,String message)</span>&#123;</span><br><span class="line">        <span class="built_in">super</span>(source);</span><br><span class="line">        <span class="built_in">this</span>.message = message;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getMessage</span><span class="params">()</span> &#123;</span><br><span class="line">         <span class="keyword">return</span> message;</span><br><span class="line">          &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 定义一个事件监听者,实现ApplicationListener接口，重写 onApplicationEvent() 方法；</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">DemoListener</span> <span class="keyword">implements</span> <span class="title class_">ApplicationListener</span>&lt;DemoEvent&gt;&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//使用onApplicationEvent接收消息</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">onApplicationEvent</span><span class="params">(DemoEvent event)</span> &#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">msg</span> <span class="operator">=</span> event.getMessage();</span><br><span class="line">        System.out.println(<span class="string">&quot;接收到的信息是：&quot;</span>+msg);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 发布事件，可以通过ApplicationEventPublisher  的 publishEvent() 方法发布消息。</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">DemoPublisher</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    ApplicationContext applicationContext;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">publish</span><span class="params">(String message)</span>&#123;</span><br><span class="line">        <span class="comment">//发布事件</span></span><br><span class="line">        applicationContext.publishEvent(<span class="keyword">new</span> <span class="title class_">DemoEvent</span>(<span class="built_in">this</span>, message));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>当调用 <code>DemoPublisher</code> 的 <code>publish()</code> 方法的时候，比如 <code>demoPublisher.publish(&quot;你好&quot;)</code> ，控制台就会打印出:<code>接收到的信息是：你好</code> 。</p>
-<h2 id="适配器模式"><a href="#适配器模式" class="headerlink" title="适配器模式"></a>适配器模式</h2><p>适配器模式(Adapter Pattern) 将一个接口转换成客户希望的另一个接口，适配器模式使接口不兼容的那些类可以一起工作，其别名为包装器(Wrapper)。</p>
-<h3 id="spring-AOP中的适配器模式"><a href="#spring-AOP中的适配器模式" class="headerlink" title="spring AOP中的适配器模式"></a>spring AOP中的适配器模式</h3><p>我们知道 Spring AOP 的实现是基于代理模式，但是 Spring AOP 的增强或通知(Advice)使用到了适配器模式，与之相关的接口是<code>AdvisorAdapter</code> 。Advice 常用的类型有：<code>BeforeAdvice</code>（目标方法调用前,前置通知）、<code>AfterAdvice</code>（目标方法调用后,后置通知）、<code>AfterReturningAdvice</code>(目标方法执行结束后，return之前)等等。每个类型Advice（通知）都有对应的拦截器:<code>MethodBeforeAdviceInterceptor</code>、<code>AfterReturningAdviceAdapter</code>、<code>AfterReturningAdviceInterceptor</code>。Spring预定义的通知要通过对应的适配器，适配成 <code>MethodInterceptor</code>接口(方法拦截器)类型的对象（如：<code>MethodBeforeAdviceInterceptor</code> 负责适配 <code>MethodBeforeAdvice</code>）。</p>
-<h3 id="spring-MVC中的适配器模式"><a href="#spring-MVC中的适配器模式" class="headerlink" title="spring MVC中的适配器模式"></a>spring MVC中的适配器模式</h3><p>在Spring MVC中，<code>DispatcherServlet</code> 根据请求信息调用 <code>HandlerMapping</code>，解析请求对应的 <code>Handler</code>。解析到对应的 <code>Handler</code>（也就是我们平常说的 <code>Controller</code> 控制器）后，开始由<code>HandlerAdapter</code> 适配器处理。<code>HandlerAdapter</code> 作为期望接口，具体的适配器实现类用于对目标类进行适配，<code>Controller</code> 作为需要适配的类。</p>
-<p><strong>为什么要在 Spring MVC 中使用适配器模式？</strong> Spring MVC 中的 <code>Controller</code> 种类众多，不同类型的 <code>Controller</code> 通过不同的方法来对请求进行处理。如果不利用适配器模式的话，<code>DispatcherServlet</code> 直接获取对应类型的 <code>Controller</code>，需要的自行来判断，像下面这段代码一样：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(mappedHandler.getHandler() <span class="keyword">instanceof</span> MultiActionController)&#123;  </span><br><span class="line">   ((MultiActionController)mappedHandler.getHandler()).xxx  </span><br><span class="line">&#125;<span class="keyword">else</span> <span class="keyword">if</span>(mappedHandler.getHandler() <span class="keyword">instanceof</span> XXX)&#123;  </span><br><span class="line">    ...  </span><br><span class="line">&#125;<span class="keyword">else</span> <span class="keyword">if</span>(...)&#123;  </span><br><span class="line">   ...  </span><br><span class="line">&#125;  </span><br></pre></td></tr></table></figure>
-
-<p>假如我们再增加一个 <code>Controller</code>类型就要在上面代码中再加入一行 判断语句，这种形式就使得程序难以维护，也违反了设计模式中的开闭原则 – 对扩展开放，对修改关闭。</p>
-<h2 id="装饰者模式"><a href="#装饰者模式" class="headerlink" title="装饰者模式"></a>装饰者模式</h2><p>装饰者模式可以动态地给对象添加一些额外的属性或行为。相比于使用继承，装饰者模式更加灵活。简单点儿说就是当我们需要修改原有的功能，但我们又不愿直接去修改原有的代码时，设计一个Decorator套在原有代码外面。其实在 JDK 中就有很多地方用到了装饰者模式，比如 <code>InputStream</code>家族，<code>InputStream</code> 类下有 <code>FileInputStream</code> (读取文件)、<code>BufferedInputStream</code> (增加缓存,使读取文件速度大大提升)等子类都在不修改<code>InputStream</code> 代码的情况下扩展了它的功能。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/TRTmlJ_20210809143212.png" alt="图片"></p>
-<center>
-  装饰者模式示意图
-</center>
-
-<p>Spring 中配置 DataSource 的时候，DataSource 可能是不同的数据库和数据源。我们能否根据客户的需求在少修改原有类的代码下动态切换不同的数据源？这个时候就要用到装饰者模式(这一点我自己还没太理解具体原理)。Spring 中用到的包装器模式在类名上含有 <code>Wrapper</code>或者 <code>Decorator</code>。这些类基本上都是动态地给一个对象添加一些额外的职责</p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>Spring 框架中用到了哪些设计模式：</p>
-<ul>
-<li><strong>工厂设计模式</strong> : Spring使用工厂模式通过 <code>BeanFactory</code>、<code>ApplicationContext</code> 创建 bean 对象。</li>
-<li><strong>代理设计模式</strong> : Spring AOP 功能的实现。</li>
-<li><strong>单例设计模式</strong> : Spring 中的 Bean 默认都是单例的。</li>
-<li><strong>模板方法模式</strong> : Spring 中 <code>jdbcTemplate</code>、<code>hibernateTemplate</code> 等以 Template 结尾的对数据库操作的类，它们就使用到了模板模式。</li>
-<li><strong>包装器设计模式</strong> : 我们的项目需要连接多个数据库，而且不同的客户在每次访问中根据需要会去访问不同的数据库。这种模式让我们可以根据客户的需求能够动态切换不同的数据源。</li>
-<li><strong>观察者模式:</strong> Spring 事件驱动模型就是观察者模式很经典的一个应用。</li>
-<li><strong>适配器模式</strong> :Spring AOP 的增强或通知(Advice)使用到了适配器模式、spring MVC 中也是用到了适配器模式适配<code>Controller</code>。</li>
-<li>……</li>
-</ul>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
-<li>《Spring技术内幕》</li>
-<li><a target="_blank" rel="noopener" href="https://blog.eduonix.com/java-programming-2/learn-design-patterns-used-spring-framework/">https://blog.eduonix.com/java-programming-2/learn-design-patterns-used-spring-framework/</a></li>
-<li><a target="_blank" rel="noopener" href="http://blog.yeamin.top/2018/03/27/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F-Spring%E5%8D%95%E4%BE%8B%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/">http://blog.yeamin.top/2018/03/27/单例模式-Spring单例实现原理分析/</a></li>
-<li><a target="_blank" rel="noopener" href="https://www.tutorialsteacher.com/ioc/inversion-of-control">https://www.tutorialsteacher.com/ioc/inversion-of-control</a></li>
-<li><a target="_blank" rel="noopener" href="https://design-patterns.readthedocs.io/zh_CN/latest/behavioral_patterns/observer.html">https://design-patterns.readthedocs.io/zh_CN/latest/behavioral_patterns/observer.html</a></li>
-<li><a target="_blank" rel="noopener" href="https://juejin.im/post/5a8eb261f265da4e9e307230">https://juejin.im/post/5a8eb261f265da4e9e307230</a></li>
-<li><a target="_blank" rel="noopener" href="https://juejin.im/post/5ba28986f265da0abc2b6084">https://juejin.im/post/5ba28986f265da0abc2b6084</a></li>
-</ul>
+<p>下面看下<code>longestPalindrome</code>的完整代码：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/VFGLHs_20210507183807.png" alt="图片"></p>
+<p>至此，这道最长回文子串的问题就解决了，时间复杂度 O(N^2)，空间复杂度 O(1)。</p>
+<p>值得一提的是，这个问题可以用动态规划方法解决，时间复杂度一样，但是空间复杂度至少要 O(N^2) 来存储 DP table。这道题是少有的动态规划非最优解法的问题。</p>
+<p>另外，这个问题还有一个巧妙的解法，时间复杂度只需要 O(N)，不过该解法比较复杂，我个人认为没必要掌握。该算法的名字叫 Manacher’s Algorithm（马拉车算法），有兴趣的读者可以自行搜索一下。</p>
 
       
     </div>
