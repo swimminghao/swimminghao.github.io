@@ -276,188 +276,6 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/d38e357c/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/lion.png">
-      <meta itemprop="name" content="swimminghao">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="swimminghao's blog">
-      <meta itemprop="description" content="swimminghao的学习博客">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | swimminghao's blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/d38e357c/" class="post-title-link" itemprop="url">3、【对线面试官】Java NIO</a>
-        </h2>
-
-        <div class="post-meta-container">
-
-          
-
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-10 09:48:07" itemprop="dateModified" datetime="2022-03-10T09:48:07+08:00">2022-03-10</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="far fa-comment"></i>
-    </span>
-    <span class="post-meta-item-text">Waline：</span>
-  
-    <a title="waline" href="/posts/d38e357c/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/d38e357c/" data-xid="/posts/d38e357c/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>4.9k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>4 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="3、【对线面试官】Java-NIO"><a href="#3、【对线面试官】Java-NIO" class="headerlink" title="3、【对线面试官】Java NIO"></a>3、【对线面试官】Java NIO</h1><h2 id="这次咱们就来聊聊Java的NIO呗？你对NIO有多少了解？"><a href="#这次咱们就来聊聊Java的NIO呗？你对NIO有多少了解？" class="headerlink" title="这次咱们就来聊聊Java的NIO呗？你对NIO有多少了解？"></a>这次咱们就来聊聊Java的NIO呗？你对NIO有多少了解？</h2><ol>
-<li>嗯，我对Java NIO还是有一定的了解的，NIO是JDK1.4开始有的，其目的是为了提高速度。NIO翻译成no-blockingo或者newio都无所谓啦，反正都说得通</li>
-</ol>
-<h2 id="在真实项目中写过NIO相关"><a href="#在真实项目中写过NIO相关" class="headerlink" title="在真实项目中写过NIO相关"></a>在真实项目中写过NIO相关</h2><ol>
-<li>这块在我所负责的系统中，一般用不上N10，要不我跟你讲讲NIO相关的知识点呗？</li>
-</ol>
-<h2 id="可以吧，你先来讲讲NIO和传统IO有什么区别吧"><a href="#可以吧，你先来讲讲NIO和传统IO有什么区别吧" class="headerlink" title="可以吧，你先来讲讲NIO和传统IO有什么区别吧"></a>可以吧，你先来讲讲NIO和传统IO有什么区别吧</h2><ol>
-<li>传统IO是一次一个字节地处理数据，NIO是以块（缓冲区）的形式处理数据。最主要的是，NIO可以实现非阻塞，而传统IO只能是阻塞的。</li>
-<li>IO的实际场景是文件IO和网络IO，NIO 在网络IO场景下提升就尤其明显了。</li>
-<li>在Java NIO有三个核心部分组成。分别是Buffer（缓冲区）、Channel（管道）以及Selector（选择器）</li>
-<li>可以简单的理解为：Buffer是存储数据的地方，Channel是运输数据的载体，而Selector用于检查多个Channel的状态变更情况，</li>
-</ol>
-<h2 id="有写过相关的Demo代码吗？"><a href="#有写过相关的Demo代码吗？" class="headerlink" title="有写过相关的Demo代码吗？"></a>有写过相关的Demo代码吗？</h2><ol>
-<li><p>我曾经写过一个NIO Demo，面试官可以看看。</p>
-</li>
-<li><p>大概的实现就是：服务端接收图片后保存，能够通知客户端已经收到图片。而客户端发送图片给客户端，并接收服务端的响应</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//服务端</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">NoBlockServer</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException &#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 1.获取通道</span></span><br><span class="line">        <span class="type">ServerSocketChannel</span> <span class="variable">server</span> <span class="operator">=</span> ServerSocketChannel.open();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 2.切换成非阻塞模式</span></span><br><span class="line">        server.configureBlocking(<span class="literal">false</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 3. 绑定连接</span></span><br><span class="line">        server.bind(<span class="keyword">new</span> <span class="title class_">InetSocketAddress</span>(<span class="number">6666</span>));</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 4. 获取选择器</span></span><br><span class="line">        <span class="type">Selector</span> <span class="variable">selector</span> <span class="operator">=</span> Selector.open();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 4.1将通道注册到选择器上，指定接收“监听通道”事件</span></span><br><span class="line">        server.register(selector, SelectionKey.OP_ACCEPT);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 5. 轮训地获取选择器上已“就绪”的事件---&gt;只要select()&gt;0，说明已就绪</span></span><br><span class="line">        <span class="keyword">while</span> (selector.select() &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="comment">// 6. 获取当前选择器所有注册的“选择键”(已就绪的监听事件)</span></span><br><span class="line">            Iterator&lt;SelectionKey&gt; iterator = selector.selectedKeys().iterator();</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 7. 获取已“就绪”的事件，(不同的事件做不同的事)</span></span><br><span class="line">            <span class="keyword">while</span> (iterator.hasNext()) &#123;</span><br><span class="line"></span><br><span class="line">                <span class="type">SelectionKey</span> <span class="variable">selectionKey</span> <span class="operator">=</span> iterator.next();</span><br><span class="line"></span><br><span class="line">                <span class="comment">// 接收事件就绪</span></span><br><span class="line">                <span class="keyword">if</span> (selectionKey.isAcceptable()) &#123;</span><br><span class="line"></span><br><span class="line">                    <span class="comment">// 8. 获取客户端的链接</span></span><br><span class="line">                    <span class="type">SocketChannel</span> <span class="variable">client</span> <span class="operator">=</span> server.accept();</span><br><span class="line"></span><br><span class="line">                    <span class="comment">// 8.1 切换成非阻塞状态</span></span><br><span class="line">                    client.configureBlocking(<span class="literal">false</span>);</span><br><span class="line"></span><br><span class="line">                    <span class="comment">// 8.2 注册到选择器上--&gt;拿到客户端的连接为了读取通道的数据(监听读就绪事件)</span></span><br><span class="line">                    client.register(selector, SelectionKey.OP_READ);</span><br><span class="line"></span><br><span class="line">                &#125; <span class="keyword">else</span> <span class="keyword">if</span> (selectionKey.isReadable()) &#123; <span class="comment">// 读事件就绪</span></span><br><span class="line"></span><br><span class="line">                    <span class="comment">// 9. 获取当前选择器读就绪状态的通道</span></span><br><span class="line">                    <span class="type">SocketChannel</span> <span class="variable">client</span> <span class="operator">=</span> (SocketChannel) selectionKey.channel();</span><br><span class="line"></span><br><span class="line">                    <span class="comment">// 9.1读取数据</span></span><br><span class="line">                    <span class="type">ByteBuffer</span> <span class="variable">buffer</span> <span class="operator">=</span> ByteBuffer.allocate(<span class="number">1024</span>);</span><br><span class="line"></span><br><span class="line">                    <span class="comment">// 9.2得到文件通道，将客户端传递过来的图片写到本地项目下(写模式、没有则创建)</span></span><br><span class="line">                    <span class="type">FileChannel</span> <span class="variable">outChannel</span> <span class="operator">=</span> FileChannel.open(Paths.get(<span class="string">&quot;2.png&quot;</span>), StandardOpenOption.WRITE, StandardOpenOption.CREATE);</span><br><span class="line"></span><br><span class="line">                    <span class="keyword">while</span> (client.read(buffer) &gt; <span class="number">0</span>) &#123;</span><br><span class="line">                        <span class="comment">// 在读之前都要切换成读模式</span></span><br><span class="line">                        buffer.flip();</span><br><span class="line"></span><br><span class="line">                        outChannel.write(buffer);</span><br><span class="line"></span><br><span class="line">                        <span class="comment">// 读完切换成写模式，能让管道继续读取文件的数据</span></span><br><span class="line">                        buffer.clear();</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="comment">// 10. 取消选择键(已经处理过的事件，就应该取消掉了)</span></span><br><span class="line">                iterator.remove();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//客户端</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">NoBlockClient</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException &#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 1. 获取通道</span></span><br><span class="line">        <span class="type">SocketChannel</span> <span class="variable">socketChannel</span> <span class="operator">=</span> SocketChannel.open(<span class="keyword">new</span> <span class="title class_">InetSocketAddress</span>(<span class="string">&quot;127.0.0.1&quot;</span>, <span class="number">6666</span>));</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 1.1切换成非阻塞模式</span></span><br><span class="line">        socketChannel.configureBlocking(<span class="literal">false</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 1.2获取选择器</span></span><br><span class="line">        <span class="type">Selector</span> <span class="variable">selector</span> <span class="operator">=</span> Selector.open();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 1.3将通道注册到选择器中，获取服务端返回的数据</span></span><br><span class="line">        socketChannel.register(selector, SelectionKey.OP_READ);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 2. 发送一张图片给服务端吧</span></span><br><span class="line">        <span class="type">FileChannel</span> <span class="variable">fileChannel</span> <span class="operator">=</span> FileChannel.open(Paths.get(<span class="string">&quot;X:\\Users\\ozc\\Desktop\\面试造火箭\\1.png&quot;</span>), StandardOpenOption.READ);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 3.要使用NIO，有了Channel，就必然要有Buffer，Buffer是与数据打交道的呢</span></span><br><span class="line">        <span class="type">ByteBuffer</span> <span class="variable">buffer</span> <span class="operator">=</span> ByteBuffer.allocate(<span class="number">1024</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 4.读取本地文件(图片)，发送到服务器</span></span><br><span class="line">        <span class="keyword">while</span> (fileChannel.read(buffer) != -<span class="number">1</span>) &#123;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 在读之前都要切换成读模式</span></span><br><span class="line">            buffer.flip();</span><br><span class="line"></span><br><span class="line">            socketChannel.write(buffer);</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 读完切换成写模式，能让管道继续读取文件的数据</span></span><br><span class="line">            buffer.clear();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 5. 轮训地获取选择器上已“就绪”的事件---&gt;只要select()&gt;0，说明已就绪</span></span><br><span class="line">        <span class="keyword">while</span> (selector.select() &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="comment">// 6. 获取当前选择器所有注册的“选择键”(已就绪的监听事件)</span></span><br><span class="line">            Iterator&lt;SelectionKey&gt; iterator = selector.selectedKeys().iterator();</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 7. 获取已“就绪”的事件，(不同的事件做不同的事)</span></span><br><span class="line">            <span class="keyword">while</span> (iterator.hasNext()) &#123;</span><br><span class="line"></span><br><span class="line">                <span class="type">SelectionKey</span> <span class="variable">selectionKey</span> <span class="operator">=</span> iterator.next();</span><br><span class="line"></span><br><span class="line">                <span class="comment">// 8. 读事件就绪</span></span><br><span class="line">                <span class="keyword">if</span> (selectionKey.isReadable()) &#123;</span><br><span class="line"></span><br><span class="line">                    <span class="comment">// 8.1得到对应的通道</span></span><br><span class="line">                    <span class="type">SocketChannel</span> <span class="variable">channel</span> <span class="operator">=</span> (SocketChannel) selectionKey.channel();</span><br><span class="line"></span><br><span class="line">                    <span class="type">ByteBuffer</span> <span class="variable">responseBuffer</span> <span class="operator">=</span> ByteBuffer.allocate(<span class="number">1024</span>);</span><br><span class="line"></span><br><span class="line">                    <span class="comment">// 9. 知道服务端要返回响应的数据给客户端，客户端在这里接收</span></span><br><span class="line">                    <span class="type">int</span> <span class="variable">readBytes</span> <span class="operator">=</span> channel.read(responseBuffer);</span><br><span class="line"></span><br><span class="line">                    <span class="keyword">if</span> (readBytes &gt; <span class="number">0</span>) &#123;</span><br><span class="line">                        <span class="comment">// 切换读模式</span></span><br><span class="line">                        responseBuffer.flip();</span><br><span class="line">                        System.out.println(<span class="keyword">new</span> <span class="title class_">String</span>(responseBuffer.array(), <span class="number">0</span>, readBytes));</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                <span class="comment">// 10. 取消选择键(已经处理过的事件，就应该取消掉了)</span></span><br><span class="line">                iterator.remove();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="就考考相关的概念原理呗"><a href="#就考考相关的概念原理呗" class="headerlink" title="就考考相关的概念原理呗"></a>就考考相关的概念原理呗</h2><h3 id="你知道IO模型有几种吗"><a href="#你知道IO模型有几种吗" class="headerlink" title="你知道IO模型有几种吗"></a>你知道IO模型有几种吗</h3><ol>
-<li>在Unix下IO模型分别有：阻塞IO、非阻塞IO、IO复用、信号驱动以及异步I&#x2F;0。在开发中碰得最多的就是阻塞I0、非阻塞IO以及IO复用。</li>
-</ol>
-<h3 id="来重点讲讲-O复用模型吧"><a href="#来重点讲讲-O复用模型吧" class="headerlink" title="来重点讲讲|O复用模型吧"></a>来重点讲讲|O复用模型吧</h3><ol>
-<li>我就以Linux系统为例好了，我们都知道Linux对文件的操作实际上就是通过文件描述符（fd）</li>
-<li>1O复用模型指的就是：通过一个进程监听多个文件描述符，一旦某个文件描述符准备就绪，就去通知程序做相对应的处理</li>
-<li>这种以通知的方式，优势并不是对于单个连接能处理得更快，而是在于它能处理更多的连接。</li>
-<li>在Linux下IO复用模型用的函数有select&#x2F;poll和epoll</li>
-</ol>
-<h3 id="那你来讲讲这select和epll函数的区别呗？"><a href="#那你来讲讲这select和epll函数的区别呗？" class="headerlink" title="那你来讲讲这select和epll函数的区别呗？"></a>那你来讲讲这select和epll函数的区别呗？</h3><ul>
-<li><p>select</p>
-<ol>
-<li>select函数它支持最大的连接数是1024或 2048，因为在select函数下要传入fd_set参数，这个fd_set的大小要么1024或2048（其实就看操作系统的位数）</li>
-<li>fd_set就是bitmap的数据结构，可以简单理解为只要位为0，那说明还没数据到缓冲区，只要位为1，那说明数据已经到缓冲区。</li>
-<li>而select函数做的就是每次将fd_set遍历，判断标志位有没有发现变化，如果有变化则通知程序做中断处理。</li>
-</ol>
-</li>
-<li><p>epoll</p>
-<ol>
-<li>epoll是在Linux2.6内核正式提出，完善了select的一些缺点。</li>
-<li>它定义了epoll_event结构体来处理，不存在最大连接数的限制。</li>
-<li>并且它不像select函数每次把所有的文件描述符（fd）都遍历，简单理解就是epoll把就绪的文件描述符（fd）专门维护了一块空间，每次从就绪列表里边拿就好了，不再进行对所有文件描述符（fd）进行遍历。</li>
-</ol>
-</li>
-</ul>
-</li>
-</ol>
-<h3 id="嗯，了解了，另外你知道什么叫做零拷贝吗？"><a href="#嗯，了解了，另外你知道什么叫做零拷贝吗？" class="headerlink" title="嗯，了解了，另外你知道什么叫做零拷贝吗？"></a>嗯，了解了，另外你知道什么叫做零拷贝吗？</h3><ol>
-<li>知道的。我们以读操作为例，假设用户程序发起一次读请求。</li>
-<li>其实会调用read相关的「系统函数」，然后会从用户态切换到内核态，随后CPU会告诉DMA去磁盘把数据拷贝到内核空间。</li>
-<li>等到「内核缓冲区」真正有数据之后，CPU会把「内核缓存区」数据拷贝到「用户缓冲区」，最终用户程序才能获取到。</li>
-<li>稍微解释一下上面的意思~</li>
-<li>为了保证内核的安全，操作系统将虚拟空间划分为「用户空间」和「内核空间」，所以在读系统数据的时候会有状态切换</li>
-<li>因为应用程序不能直接去读取硬盘的数据。从上面描述可知读写需要依赖「内核缓冲区」</li>
-<li>一次读操作会让DMA拷贝（direct memory access 直接内存拷贝，不使用cpu）将磁盘数据拷贝到内核缓冲区，CPU将内核缓冲区数据拷贝到用户缓冲区。</li>
-<li>所谓的零拷贝就是将「CPU将内核缓冲区数据拷贝到用户缓冲区」这次CPU拷贝给省去，来提高效率和性能</li>
-<li>常见的零拷贝技术有mmap（内核缓冲区与用户缓冲区的共享） 、sendfile（系统底层函数支持）。</li>
-<li>零拷贝可以提高数据传输的性能，这块在Kafka等框架也有相关的实践。</li>
-</ol>
-
-      
-    </div>
-
-    
-    
-    
-
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>l
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://example.com/posts/986aa405/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -586,188 +404,6 @@
 <li>动态代理这一技术在实际或者框架原理中是非常常见的</li>
 <li>像上面所讲的Mybatis不用写实现类，只写接口就可以执行SQL，又或是SpringAOP等等好用的技术，实际上用的就是动态代理。</li>
 </ol>
-
-      
-    </div>
-
-    
-    
-    
-
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>l
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/986aa405/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/lion.png">
-      <meta itemprop="name" content="swimminghao">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="swimminghao's blog">
-      <meta itemprop="description" content="swimminghao的学习博客">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | swimminghao's blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/986aa405/" class="post-title-link" itemprop="url">5、【对线面试官】多线程基础</a>
-        </h2>
-
-        <div class="post-meta-container">
-
-          
-
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-10 09:48:07" itemprop="dateModified" datetime="2022-03-10T09:48:07+08:00">2022-03-10</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="far fa-comment"></i>
-    </span>
-    <span class="post-meta-item-text">Waline：</span>
-  
-    <a title="waline" href="/posts/986aa405/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/986aa405/" data-xid="/posts/986aa405/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>2.2k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>2 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="5、【对线面试官】多线程基础"><a href="#5、【对线面试官】多线程基础" class="headerlink" title="5、【对线面试官】多线程基础"></a>5、【对线面试官】多线程基础</h1><h2 id="首先你来讲讲进程和线程的区别吧？"><a href="#首先你来讲讲进程和线程的区别吧？" class="headerlink" title="首先你来讲讲进程和线程的区别吧？"></a>首先你来讲讲进程和线程的区别吧？</h2><ol>
-<li>进程是系统进行资源分配和调度的独立单位，每一个进程都有它自己的内存空间和系统资源</li>
-<li>进程实现多处理机环境下的进程调度，分派，切换时，都需要花费较大的时间和空间开销</li>
-<li>为了提高系统的执行效率，减少处理机的空转时间和调度切换的时间，以及便于系统管理，所以有了线程，线程取代了进程了调度的基本功能</li>
-<li>简单来说，进程作为资源分配的基本单位，线程作为资源调度的基本单位</li>
-</ol>
-<h2 id="那我们为什么要用多线程呢？你平时工作中用得多吗？"><a href="#那我们为什么要用多线程呢？你平时工作中用得多吗？" class="headerlink" title="那我们为什么要用多线程呢？你平时工作中用得多吗？"></a>那我们为什么要用多线程呢？你平时工作中用得多吗？</h2><ol>
-<li>使用多线程最主要的原因是提高系统的资源利用率。</li>
-<li>现在CPU基本都是多核的，如果你只用单线程，那就是只用到了一个核心，其他的核心就相当于空闲在那里了。</li>
-<li>在平时工作中多线程是随时都可见的。</li>
-<li>比如说，我们系统Web服务器用的是Tomcat，Tomcat处理每一个请求都会从线程连接池里边用一个线程去处理。</li>
-<li>又比如说，我们用连接数据库会用对应的连接池Druid&#x2F;C3P0&#x2F;DBCP等等</li>
-<li>等等这些都用了多线程的。</li>
-<li>上面这些框架已经帮我们屏蔽掉「手写」多线程的问题</li>
-</ol>
-<h3 id="嗯，了解，那你实际开发中有用过吗？"><a href="#嗯，了解，那你实际开发中有用过吗？" class="headerlink" title="嗯，了解，那你实际开发中有用过吗？"></a>嗯，了解，那你实际开发中有用过吗？</h3><ol>
-<li><p>当然有了，在我所负责的系统也会用到多线程的。</p>
-</li>
-<li><p>比如说，现在要跑一个定时任务，该任务的链路执行时间和过程都非常长，我这边就用一个线程池将该定时任务的请求进行处理。</p>
-</li>
-<li><p>这样做的好处就是可以及时返回结果给调用方，能够提高系统的吞吐量。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 请求直接交给线程池来处理</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">push</span><span class="params">(PushParam pushParam)</span> &#123;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    pushServiceThreadExecutor.submit(() -&gt; &#123;</span><br><span class="line">      handler(pushParam);</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">    logger.error(<span class="string">&quot;pushServiceThreadExecutor error, exception&#123;&#125;:&quot;</span>, e);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>还有就是我的系统中用了很多生产者与消费者模式，会用多个线程去消费队列的消息，来提高并发度</p>
-</li>
-</ol>
-<h2 id="你如果在项目中用到了多线程，那肯定得考虑线程安全的问题的吧"><a href="#你如果在项目中用到了多线程，那肯定得考虑线程安全的问题的吧" class="headerlink" title="你如果在项目中用到了多线程，那肯定得考虑线程安全的问题的吧"></a>你如果在项目中用到了多线程，那肯定得考虑线程安全的问题的吧</h2><ol>
-<li>在我的理解下，在Java世界里边，所谓线程安全就是多个线程去执行某类，这个类始终能表现出正确的行为，那么这个类就是线程安全的。</li>
-<li>比如我有一个count变量，在service方法不断的累加这个count变量。</li>
-<li>假设相同的条件下，count变量每次执行的结果都是相同，那我们就可以说是线程安全的干</li>
-<li>显然下面的代码肯定不是线程安全的</li>
-</ol>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">UnsafeCountingServlet</span> <span class="keyword">extends</span> <span class="title class_">GenericServlet</span> <span class="keyword">implements</span> <span class="title class_">Servlet</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">long</span> <span class="variable">count</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">long</span> <span class="title function_">getCount</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> count;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">service</span><span class="params">(ServletRequest servletRequest, ServletResponse servletResponse)</span> <span class="keyword">throws</span> ServletException, IOException &#123;</span><br><span class="line"></span><br><span class="line">        ++count;</span><br><span class="line">        <span class="comment">// To something else...</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="那你平时是怎么解决，或者怎么思考线程安全问题的呢？"><a href="#那你平时是怎么解决，或者怎么思考线程安全问题的呢？" class="headerlink" title="那你平时是怎么解决，或者怎么思考线程安全问题的呢？"></a>那你平时是怎么解决，或者怎么思考线程安全问题的呢？</h2><ol>
-<li>其实大部分时间我们在代码里边都没有显式去处理线程安全问题，因为这大部分都由框架所做了。</li>
-<li>正如上面提到的Tomcat、Druid、SpringMVC等等。</li>
-<li>很多时候，我们判断是否要处理线程安全问题，就看有没有多个线程同时访问一个共享变量。</li>
-<li>像SpringMVC这种，我们日常开发时，不涉及到操作同一个成员变量，那我们就很少需要考虑线程安全问题。</li>
-<li>我个人解决线程安全问题的思路有以下：<ul>
-<li>能不能保证操作的原子性，考虑atomi c包下的类够不够我们使用。</li>
-<li>能不能保证操作的可见性，考虑volatil e关键字够不够我们使用</li>
-<li>如果涉及到对线程的控制（比如一次能使用多少个线程，当前线程触发的条件是否依赖其他线程的结果），考虑CountDownLatch&#x2F;Semaphore等等。</li>
-<li>如果是集合，考虑java.util.concurrent 包下的集合类。</li>
-<li>如果synchronized无法满足，考虑lock 包下的类</li>
-</ul>
-</li>
-<li>总的来说，就是先判断有没有线程安全问题，如果存在则根据具体的情况去判断使用什么方式去处理线程安全的问题。</li>
-<li>虽然synchronized很牛逼，但无脑使用synchronized会影响我们程序的性能的。</li>
-</ol>
-<h2 id="死锁你了解吗？什么情况会造成死锁？要是你能给我讲清楚死锁，我就录取你了"><a href="#死锁你了解吗？什么情况会造成死锁？要是你能给我讲清楚死锁，我就录取你了" class="headerlink" title="死锁你了解吗？什么情况会造成死锁？要是你能给我讲清楚死锁，我就录取你了"></a>死锁你了解吗？什么情况会造成死锁？要是你能给我讲清楚死锁，我就录取你了</h2><ol>
-<li>要是你录取我，我就给你讲清楚死锁</li>
-<li>造成死锁的原因可以简单概括为：当前线程拥有其他线程需要的资源，当前线程等待其他线程已拥有的资源，都不放弃自己拥有的资源。</li>
-<li>避免死锁的方式一般有以下方案：<ul>
-<li>固定加锁的顺序，比如我们可以使用Hash值的大小来确定加锁的先后</li>
-<li>尽可能缩减加锁的范围，等到操作共享变量的时候才加锁。</li>
-<li>使用可释放的定时锁（一段时间申请不到锁的权限了，直接释放掉）</li>
-</ul>
-</li>
-</ol>
-<h2 id="价值体现"><a href="#价值体现" class="headerlink" title="价值体现"></a>价值体现</h2><p>嗯，其实我想问，就是我要是..去到贵公司是做什么内容？还有就是..</p>
 
       
     </div>
@@ -1089,6 +725,188 @@
 </ul>
 </li>
 </ol>
+
+      
+    </div>
+
+    
+    
+    
+
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>l
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/986aa405/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lion.png">
+      <meta itemprop="name" content="swimminghao">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="swimminghao's blog">
+      <meta itemprop="description" content="swimminghao的学习博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | swimminghao's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/986aa405/" class="post-title-link" itemprop="url">5、【对线面试官】多线程基础</a>
+        </h2>
+
+        <div class="post-meta-container">
+
+          
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-03-10 09:48:07" itemprop="dateModified" datetime="2022-03-10T09:48:07+08:00">2022-03-10</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/posts/986aa405/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/986aa405/" data-xid="/posts/986aa405/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>2.2k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>2 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="5、【对线面试官】多线程基础"><a href="#5、【对线面试官】多线程基础" class="headerlink" title="5、【对线面试官】多线程基础"></a>5、【对线面试官】多线程基础</h1><h2 id="首先你来讲讲进程和线程的区别吧？"><a href="#首先你来讲讲进程和线程的区别吧？" class="headerlink" title="首先你来讲讲进程和线程的区别吧？"></a>首先你来讲讲进程和线程的区别吧？</h2><ol>
+<li>进程是系统进行资源分配和调度的独立单位，每一个进程都有它自己的内存空间和系统资源</li>
+<li>进程实现多处理机环境下的进程调度，分派，切换时，都需要花费较大的时间和空间开销</li>
+<li>为了提高系统的执行效率，减少处理机的空转时间和调度切换的时间，以及便于系统管理，所以有了线程，线程取代了进程了调度的基本功能</li>
+<li>简单来说，进程作为资源分配的基本单位，线程作为资源调度的基本单位</li>
+</ol>
+<h2 id="那我们为什么要用多线程呢？你平时工作中用得多吗？"><a href="#那我们为什么要用多线程呢？你平时工作中用得多吗？" class="headerlink" title="那我们为什么要用多线程呢？你平时工作中用得多吗？"></a>那我们为什么要用多线程呢？你平时工作中用得多吗？</h2><ol>
+<li>使用多线程最主要的原因是提高系统的资源利用率。</li>
+<li>现在CPU基本都是多核的，如果你只用单线程，那就是只用到了一个核心，其他的核心就相当于空闲在那里了。</li>
+<li>在平时工作中多线程是随时都可见的。</li>
+<li>比如说，我们系统Web服务器用的是Tomcat，Tomcat处理每一个请求都会从线程连接池里边用一个线程去处理。</li>
+<li>又比如说，我们用连接数据库会用对应的连接池Druid&#x2F;C3P0&#x2F;DBCP等等</li>
+<li>等等这些都用了多线程的。</li>
+<li>上面这些框架已经帮我们屏蔽掉「手写」多线程的问题</li>
+</ol>
+<h3 id="嗯，了解，那你实际开发中有用过吗？"><a href="#嗯，了解，那你实际开发中有用过吗？" class="headerlink" title="嗯，了解，那你实际开发中有用过吗？"></a>嗯，了解，那你实际开发中有用过吗？</h3><ol>
+<li><p>当然有了，在我所负责的系统也会用到多线程的。</p>
+</li>
+<li><p>比如说，现在要跑一个定时任务，该任务的链路执行时间和过程都非常长，我这边就用一个线程池将该定时任务的请求进行处理。</p>
+</li>
+<li><p>这样做的好处就是可以及时返回结果给调用方，能够提高系统的吞吐量。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 请求直接交给线程池来处理</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">push</span><span class="params">(PushParam pushParam)</span> &#123;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    pushServiceThreadExecutor.submit(() -&gt; &#123;</span><br><span class="line">      handler(pushParam);</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">    logger.error(<span class="string">&quot;pushServiceThreadExecutor error, exception&#123;&#125;:&quot;</span>, e);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>还有就是我的系统中用了很多生产者与消费者模式，会用多个线程去消费队列的消息，来提高并发度</p>
+</li>
+</ol>
+<h2 id="你如果在项目中用到了多线程，那肯定得考虑线程安全的问题的吧"><a href="#你如果在项目中用到了多线程，那肯定得考虑线程安全的问题的吧" class="headerlink" title="你如果在项目中用到了多线程，那肯定得考虑线程安全的问题的吧"></a>你如果在项目中用到了多线程，那肯定得考虑线程安全的问题的吧</h2><ol>
+<li>在我的理解下，在Java世界里边，所谓线程安全就是多个线程去执行某类，这个类始终能表现出正确的行为，那么这个类就是线程安全的。</li>
+<li>比如我有一个count变量，在service方法不断的累加这个count变量。</li>
+<li>假设相同的条件下，count变量每次执行的结果都是相同，那我们就可以说是线程安全的干</li>
+<li>显然下面的代码肯定不是线程安全的</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">UnsafeCountingServlet</span> <span class="keyword">extends</span> <span class="title class_">GenericServlet</span> <span class="keyword">implements</span> <span class="title class_">Servlet</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">long</span> <span class="variable">count</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">long</span> <span class="title function_">getCount</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> count;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">service</span><span class="params">(ServletRequest servletRequest, ServletResponse servletResponse)</span> <span class="keyword">throws</span> ServletException, IOException &#123;</span><br><span class="line"></span><br><span class="line">        ++count;</span><br><span class="line">        <span class="comment">// To something else...</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="那你平时是怎么解决，或者怎么思考线程安全问题的呢？"><a href="#那你平时是怎么解决，或者怎么思考线程安全问题的呢？" class="headerlink" title="那你平时是怎么解决，或者怎么思考线程安全问题的呢？"></a>那你平时是怎么解决，或者怎么思考线程安全问题的呢？</h2><ol>
+<li>其实大部分时间我们在代码里边都没有显式去处理线程安全问题，因为这大部分都由框架所做了。</li>
+<li>正如上面提到的Tomcat、Druid、SpringMVC等等。</li>
+<li>很多时候，我们判断是否要处理线程安全问题，就看有没有多个线程同时访问一个共享变量。</li>
+<li>像SpringMVC这种，我们日常开发时，不涉及到操作同一个成员变量，那我们就很少需要考虑线程安全问题。</li>
+<li>我个人解决线程安全问题的思路有以下：<ul>
+<li>能不能保证操作的原子性，考虑atomi c包下的类够不够我们使用。</li>
+<li>能不能保证操作的可见性，考虑volatil e关键字够不够我们使用</li>
+<li>如果涉及到对线程的控制（比如一次能使用多少个线程，当前线程触发的条件是否依赖其他线程的结果），考虑CountDownLatch&#x2F;Semaphore等等。</li>
+<li>如果是集合，考虑java.util.concurrent 包下的集合类。</li>
+<li>如果synchronized无法满足，考虑lock 包下的类</li>
+</ul>
+</li>
+<li>总的来说，就是先判断有没有线程安全问题，如果存在则根据具体的情况去判断使用什么方式去处理线程安全的问题。</li>
+<li>虽然synchronized很牛逼，但无脑使用synchronized会影响我们程序的性能的。</li>
+</ol>
+<h2 id="死锁你了解吗？什么情况会造成死锁？要是你能给我讲清楚死锁，我就录取你了"><a href="#死锁你了解吗？什么情况会造成死锁？要是你能给我讲清楚死锁，我就录取你了" class="headerlink" title="死锁你了解吗？什么情况会造成死锁？要是你能给我讲清楚死锁，我就录取你了"></a>死锁你了解吗？什么情况会造成死锁？要是你能给我讲清楚死锁，我就录取你了</h2><ol>
+<li>要是你录取我，我就给你讲清楚死锁</li>
+<li>造成死锁的原因可以简单概括为：当前线程拥有其他线程需要的资源，当前线程等待其他线程已拥有的资源，都不放弃自己拥有的资源。</li>
+<li>避免死锁的方式一般有以下方案：<ul>
+<li>固定加锁的顺序，比如我们可以使用Hash值的大小来确定加锁的先后</li>
+<li>尽可能缩减加锁的范围，等到操作共享变量的时候才加锁。</li>
+<li>使用可释放的定时锁（一段时间申请不到锁的权限了，直接释放掉）</li>
+</ul>
+</li>
+</ol>
+<h2 id="价值体现"><a href="#价值体现" class="headerlink" title="价值体现"></a>价值体现</h2><p>嗯，其实我想问，就是我要是..去到贵公司是做什么内容？还有就是..</p>
 
       
     </div>
@@ -1727,6 +1545,184 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/117b65dd/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lion.png">
+      <meta itemprop="name" content="swimminghao">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="swimminghao's blog">
+      <meta itemprop="description" content="swimminghao的学习博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | swimminghao's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/117b65dd/" class="post-title-link" itemprop="url">动态规划设计之最长递增子序列</a>
+        </h2>
+
+        <div class="post-meta-container">
+
+          
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-03-10 11:51:52" itemprop="dateModified" datetime="2022-03-10T11:51:52+08:00">2022-03-10</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/posts/117b65dd/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/117b65dd/" data-xid="/posts/117b65dd/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>2.5k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>2 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="动态规划设计之最长递增子序列"><a href="#动态规划设计之最长递增子序列" class="headerlink" title="动态规划设计之最长递增子序列"></a>动态规划设计之最长递增子序列</h1><h2 id="预计阅读时间：-9-分钟"><a href="#预计阅读时间：-9-分钟" class="headerlink" title="预计阅读时间： 9 分钟"></a>预计阅读时间： 9 分钟</h2><p>很多读者反应，就算看了前文 <a target="_blank" rel="noopener" href="http://mp.weixin.qq.com/s?__biz=MzU0MDg5OTYyOQ==&mid=2247483818&idx=1&sn=6035f861d1b2bfd0178e842f26ac4836&chksm=fb3361e8cc44e8fe331154bfd32bd7b3b4f159bfad5d38d4a6b0b9f0d7e3485b93b828ee72cc&scene=21#wechat_redirect">动态规划详解</a>，了解了动态规划的套路，也不会写状态转移方程，没有思路，怎么办？本文就借助「最长递增子序列」来讲一种设计动态规划的通用技巧：数学归纳思想。</p>
+<p>最长递增子序列（Longest Increasing Subsequence，简写 LIS）是比较经典的一个问题，比较容易想到的是动态规划解法，时间复杂度 O(N^2)，我们借这个问题来由浅入深讲解如何写动态规划。</p>
+<p>比较难想到的是利用二分查找，时间复杂度是 O(NlogN)，我们通过一种简单的纸牌游戏来辅助理解这种巧妙的解法。</p>
+<p>先看一下题目，很容易理解：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/MEAMGr_20210715222744.png" alt="图片"></p>
+<p>注意「子序列」和「子串」这两个名词的区别，子串一定是连续的，而子序列不一定是连续的。下面先来一步一步设计动态规划算法解决这个问题。</p>
+<h2 id="一、动态规划解法"><a href="#一、动态规划解法" class="headerlink" title="一、动态规划解法"></a>一、动态规划解法</h2><p><strong>动态规划的核心设计思想是数学归纳法。</strong></p>
+<p>相信大家对数学归纳法都不陌生，高中就学过，而且思路很简单。比如我们想证明一个数学结论，那么我们先假设这个结论在 k&lt;n 时成立，然后想办法证明 k&#x3D;<em>n</em> 的时候此结论也成立。如果能够证明出来，那么就说明这个结论对于 k 等于任何数都成立。</p>
+<p>类似的，我们设计动态规划算法，不是需要一个 dp 数组吗？我们可以假设 <em>dp</em>[0…<em>i</em>−1] 都已经被算出来了，然后问自己：怎么通过这些结果算出<em>dp[i] ?</em></p>
+<p>直接拿最长递增子序列这个问题举例你就明白了。不过，首先要定义清楚 dp 数组的含义，即 dp[i] 的值到底代表着什么？</p>
+<p><strong>我们的定义是这样的：****dp[i] 表示以 nums[i] 这个数结尾的最长递增子序列的长度。</strong></p>
+<p>举个例子：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/S9DvIE_20210715222829.png" alt="图片"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/vrYoH4_20210715222841.png" alt="图片"></p>
+<p>算法演进的过程是这样的：<img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/640_20210715222950.gif" alt="图片"></p>
+<p>根据这个定义，我们的最终结果（子序列的最大长度）应该是 dp 数组中的最大值。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="variable">res</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; dp.length; i++) &#123;</span><br><span class="line">    res = Math.max(res, dp[i]);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> res;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>读者也许会问，刚才这个过程中每个 dp[i] 的结果是我们肉眼看出来的，我们应该怎么设计算法逻辑来正确计算每个 dp[i] 呢？</p>
+<p>这就是动态规划的重头戏了，要思考如何进行状态转移，这里就可以使用数学归纳的思想：</p>
+<p>我们已经知道了 <em>d**p</em>[0…4] 的所有结果，我们如何通过这些已知结果推出 <em>d**p</em>[5] 呢？</p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/xpC5LY_20210715223016.png" alt="图片"></p>
+<p>根据刚才我们对 dp 数组的定义，现在想求 dp[5] 的值，也就是想求以 nums[5] 为结尾的最长递增子序列。</p>
+<p>nums[5] &#x3D; 3，既然是递增子序列，我们只要找到前面那些结尾比 3 小的子序列，然后把 3 接到最后，就可以形成一个新的递增子序列，而且这个新的子序列长度加一。</p>
+<p>当然，可能形成很多种新的子序列，但是我们只要最长的，把最长子序列的长度作为 dp[5] 的值即可。</p>
+<p>![图片](<a target="_blank" rel="noopener" href="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/640">https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/640</a> (1)_20210715223303.gif)</p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/QksgN5_20210715223039.png" alt="图片"></p>
+<p>这段代码的逻辑就可以算出 dp[5]。到这里，这道算法题我们就基本做完了。读者也许会问，我们刚才只是算了 dp[5] 呀，dp[4], dp[3] 这些怎么算呢？</p>
+<p>类似数学归纳法，你已经可以通过 dp[0…4] 算出 dp[5] 了，那么任意 dp[i] 你肯定都可以算出来：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/9CYook_20210715223056.png" alt="图片"></p>
+<p>还有一个细节问题，就是 base case。dp 数组应该全部初始化为 1，因为子序列最少也要包含自己，所以长度最小为 1。下面我们看一下完整代码：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/image-20210715223113307_20210715223113.png" alt="图片"></p>
+<p>至此，这道题就解决了，时间复杂度 O(N^2)。总结一下动态规划的设计流程：</p>
+<p>首先明确 dp 数组所存数据的含义。这步很重要，如果不得当或者不够清晰，会阻碍之后的步骤。</p>
+<p>然后根据 dp 数组的定义，运用数学归纳法的思想，假设 <em>d**p</em>[0…<em>i</em>−1] 都已知，想办法求出 <em>d**p</em>[<em>i</em>]，一旦这一步完成，整个题目基本就解决了。</p>
+<p>但如果无法完成这一步，很可能就是 dp 数组的定义不够恰当，需要重新定义 dp 数组的含义；或者可能是 dp 数组存储的信息还不够，不足以推出下一步的答案，需要把 dp 数组扩大成二维数组甚至三维数组。</p>
+<h2 id="二、二分查找解法"><a href="#二、二分查找解法" class="headerlink" title="二、二分查找解法"></a>二、二分查找解法</h2><p>这个解法的时间复杂度会将为 O(NlogN)，但是说实话，正常人基本想不到这种解法（也许玩过某些纸牌游戏的人可以想出来）。所以如果大家了解一下就好，正常情况下能够给出动态规划解法就已经很不错了。</p>
+<p>根据题目的意思，我都很难想象这个问题竟然能和二分查找扯上关系。其实最长递增子序列和一种叫做 patience game 的纸牌游戏有关，甚至有一种排序方法就叫做 patience sorting（耐心排序）。</p>
+<p>为了简单起见，后文跳过所有数学证明，通过一个简化的例子来理解一下思路。</p>
+<p>首先，给你一排扑克牌，我们像遍历数组那样从左到右一张一张处理这些扑克牌，最终要把这些牌分成若干堆。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/DFBLV6_20210715223123.png" alt="图片"></p>
+<p>处理这些扑克牌要遵循以下规则：</p>
+<p>只能把点数小的牌压到点数比它大的牌上。如果当前牌点数较大没有可以放置的堆，则新建一个堆，把这张牌放进去。如果当前牌有多个堆可供选择，则选择最左边的堆放置。</p>
+<p>比如说上述的扑克牌最终会被分成这样 5 堆（我们认为 A 的值是最大的，而不是 1）。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/image-20210715223138612_20210715223138.png" alt="图片"></p>
+<p>为什么遇到多个可选择堆的时候要放到最左边的堆上呢？因为这样可以保证牌堆顶的牌有序（2, 4, 7, 8, Q），证明略。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/Cnd9HF_20210715223145.png" alt="图片"></p>
+<p>按照上述规则执行，可以算出最长递增子序列，牌的堆数就是我们想求的最长递增子序列的长度，证明略。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/8SHDGY_20210715223158.png" alt="图片"></p>
+<p>我们只要把处理扑克牌的过程编程写出来即可。每次处理一张扑克牌不是要找一个合适的牌堆顶来放吗，牌堆顶的牌不是有序吗，这就能用到二分查找了：用二分查找来搜索当前牌应放置的位置。</p>
+<p>PS：旧文 <a target="_blank" rel="noopener" href="http://mp.weixin.qq.com/s?__biz=MzU0MDg5OTYyOQ==&mid=2247484090&idx=1&sn=5635cf1c4fd8a8570b63c7ae9b4304c2&chksm=fb3362f8cc44ebee0a19a4cfba7f2e13923e05f47e15f2e99a1f42b01aeee83b946aceac3d4c&scene=21#wechat_redirect">二分查找算法详解</a> 详细介绍了二分查找的细节及变体，这里就完美应用上了。如果没读过强烈建议阅读。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/f6Golz_20210715223219.png" alt="图片"></p>
+<p>至此，二分查找的解法也讲解完毕。</p>
+<p>这个解法确实很难想到。首先涉及数学证明，谁能想到按照这些规则执行，就能得到最长递增子序列呢？其次还有二分查找的运用，要是对二分查找的细节不清楚，给了思路也很难写对。</p>
+<p>所以，这个方法作为思维拓展好了。但动态规划的设计方法应该完全理解：假设之前的答案已知，利用数学归纳的思想正确进行状态的推演转移，最终得到答案。</p>
+
+      
+    </div>
+
+    
+    
+    
+
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>l
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://example.com/posts/995671e7/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1897,7 +1893,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/117b65dd/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/e775a8f2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/lion.png">
@@ -1915,7 +1911,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/117b65dd/" class="post-title-link" itemprop="url">动态规划设计之最长递增子序列</a>
+          <a href="/posts/e775a8f2/" class="post-title-link" itemprop="url">回溯算法和动态规划，到底谁是谁爹</a>
         </h2>
 
         <div class="post-meta-container">
@@ -1957,8 +1953,8 @@
     </span>
     <span class="post-meta-item-text">Waline：</span>
   
-    <a title="waline" href="/posts/117b65dd/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/117b65dd/" data-xid="/posts/117b65dd/" itemprop="commentCount"></span>
+    <a title="waline" href="/posts/e775a8f2/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/e775a8f2/" data-xid="/posts/e775a8f2/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -1969,14 +1965,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>2.5k</span>
+      <span>6k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>2 分钟</span>
+      <span>5 分钟</span>
     </span>
 </div>
 
@@ -1987,63 +1983,94 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="动态规划设计之最长递增子序列"><a href="#动态规划设计之最长递增子序列" class="headerlink" title="动态规划设计之最长递增子序列"></a>动态规划设计之最长递增子序列</h1><h2 id="预计阅读时间：-9-分钟"><a href="#预计阅读时间：-9-分钟" class="headerlink" title="预计阅读时间： 9 分钟"></a>预计阅读时间： 9 分钟</h2><p>很多读者反应，就算看了前文 <a target="_blank" rel="noopener" href="http://mp.weixin.qq.com/s?__biz=MzU0MDg5OTYyOQ==&mid=2247483818&idx=1&sn=6035f861d1b2bfd0178e842f26ac4836&chksm=fb3361e8cc44e8fe331154bfd32bd7b3b4f159bfad5d38d4a6b0b9f0d7e3485b93b828ee72cc&scene=21#wechat_redirect">动态规划详解</a>，了解了动态规划的套路，也不会写状态转移方程，没有思路，怎么办？本文就借助「最长递增子序列」来讲一种设计动态规划的通用技巧：数学归纳思想。</p>
-<p>最长递增子序列（Longest Increasing Subsequence，简写 LIS）是比较经典的一个问题，比较容易想到的是动态规划解法，时间复杂度 O(N^2)，我们借这个问题来由浅入深讲解如何写动态规划。</p>
-<p>比较难想到的是利用二分查找，时间复杂度是 O(NlogN)，我们通过一种简单的纸牌游戏来辅助理解这种巧妙的解法。</p>
-<p>先看一下题目，很容易理解：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/MEAMGr_20210715222744.png" alt="图片"></p>
-<p>注意「子序列」和「子串」这两个名词的区别，子串一定是连续的，而子序列不一定是连续的。下面先来一步一步设计动态规划算法解决这个问题。</p>
-<h2 id="一、动态规划解法"><a href="#一、动态规划解法" class="headerlink" title="一、动态规划解法"></a>一、动态规划解法</h2><p><strong>动态规划的核心设计思想是数学归纳法。</strong></p>
-<p>相信大家对数学归纳法都不陌生，高中就学过，而且思路很简单。比如我们想证明一个数学结论，那么我们先假设这个结论在 k&lt;n 时成立，然后想办法证明 k&#x3D;<em>n</em> 的时候此结论也成立。如果能够证明出来，那么就说明这个结论对于 k 等于任何数都成立。</p>
-<p>类似的，我们设计动态规划算法，不是需要一个 dp 数组吗？我们可以假设 <em>dp</em>[0…<em>i</em>−1] 都已经被算出来了，然后问自己：怎么通过这些结果算出<em>dp[i] ?</em></p>
-<p>直接拿最长递增子序列这个问题举例你就明白了。不过，首先要定义清楚 dp 数组的含义，即 dp[i] 的值到底代表着什么？</p>
-<p><strong>我们的定义是这样的：****dp[i] 表示以 nums[i] 这个数结尾的最长递增子序列的长度。</strong></p>
-<p>举个例子：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/S9DvIE_20210715222829.png" alt="图片"></p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/vrYoH4_20210715222841.png" alt="图片"></p>
-<p>算法演进的过程是这样的：<img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/640_20210715222950.gif" alt="图片"></p>
-<p>根据这个定义，我们的最终结果（子序列的最大长度）应该是 dp 数组中的最大值。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="variable">res</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; dp.length; i++) &#123;</span><br><span class="line">    res = Math.max(res, dp[i]);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> res;</span><br></pre></td></tr></table></figure>
+          <h1 id="回溯算法和动态规划，到底谁是谁爹？"><a href="#回溯算法和动态规划，到底谁是谁爹？" class="headerlink" title="回溯算法和动态规划，到底谁是谁爹？"></a>回溯算法和动态规划，到底谁是谁爹？</h1><p>我们前文经常说回溯算法和递归算法有点类似，有的问题如果实在想不出状态转移方程，尝试用回溯算法暴力解决也是一个聪明的策略，总比写不出来解法强。</p>
+<p>那么，回溯算法和动态规划到底是啥关系？它俩都涉及递归，算法模板看起来还挺像的，都涉及做「选择」，真的酷似父与子。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/RGwzua_20210422224714.png" alt="图片"></p>
+<p>那么，它俩具体有啥区别呢？回溯算法和动态规划之间，是否可能互相转化呢？</p>
+<p>今天就用力扣第 494 题「目标和」来详细对比一下回溯算法和动态规划，真可谓群魔乱舞：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/fMFTnw_20210422224839.png" alt="图片"></p>
+<p>注意，给出的例子 <code>nums</code> 全是 1，但实际上可以是任意正整数哦。</p>
+<h2 id="一、回溯思路"><a href="#一、回溯思路" class="headerlink" title="一、回溯思路"></a>一、回溯思路</h2><p>其实我第一眼看到这个题目，花了两分钟就写出了一个回溯解法。</p>
+<p>任何算法的核心都是穷举，回溯算法就是一个暴力穷举算法，前文 <a target="_blank" rel="noopener" href="http://mp.weixin.qq.com/s?__biz=MzAxODQxMDM0Mw==&mid=2247484709&idx=1&sn=1c24a5c41a5a255000532e83f38f2ce4&chksm=9bd7fb2daca0723be888b30345e2c5e64649fc31a00b05c27a0843f349e2dd9363338d0dac61&scene=21#wechat_redirect">回溯算法解题框架</a> 就写了回溯算法框架：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">backtrack</span>(<span class="params">路径, 选择列表</span>):</span><br><span class="line">    <span class="keyword">if</span> 满足结束条件:</span><br><span class="line">        result.add(路径)</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> 选择 <span class="keyword">in</span> 选择列表:</span><br><span class="line">        做选择</span><br><span class="line">        backtrack(路径, 选择列表)</span><br><span class="line">        撤销选择</span><br></pre></td></tr></table></figure>
 
+<p>关键就是搞清楚什么是「选择」，而对于这道题，「选择」不是明摆着的吗？</p>
+<p>**对于每个数字 <code>nums[i]</code>，我们可以选择给一个正号 <code>+</code> 或者一个负号 <code>-</code>**，然后利用回溯模板穷举出来所有可能的结果，数一数到底有几种组合能够凑出 <code>target</code> 不就行了嘛？</p>
+<p>伪码思路如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">def <span class="title function_">backtrack</span><span class="params">(nums, i)</span>:</span><br><span class="line">    <span class="type">if</span> <span class="variable">i</span> <span class="operator">=</span>= len(nums):</span><br><span class="line">        <span class="keyword">if</span> 达到 target:</span><br><span class="line">            result += <span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> op in &#123; +<span class="number">1</span>, -<span class="number">1</span> &#125;:</span><br><span class="line">        选择 op * nums[i]</span><br><span class="line">        # 穷举 nums[i + <span class="number">1</span>] 的选择</span><br><span class="line">        backtrack(nums, i + <span class="number">1</span>)</span><br><span class="line">        撤销选择</span><br></pre></td></tr></table></figure>
 
+<p>如果看过我们之前的几篇回溯算法文章，这个代码可以说是比较简单的了：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="variable">result</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 主函数 */</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">findTargetSumWays</span><span class="params">(<span class="type">int</span>[] nums, <span class="type">int</span> target)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (nums.length == <span class="number">0</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    backtrack(nums, <span class="number">0</span>, target);</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 回溯算法模板 */</span></span><br><span class="line"><span class="keyword">void</span> <span class="title function_">backtrack</span><span class="params">(<span class="type">int</span>[] nums, <span class="type">int</span> i, <span class="type">int</span> rest)</span> &#123;</span><br><span class="line">    <span class="comment">// base case</span></span><br><span class="line">    <span class="keyword">if</span> (i == nums.length) &#123;</span><br><span class="line">        <span class="keyword">if</span> (rest == <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="comment">// 说明恰好凑出 target</span></span><br><span class="line">            result++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 给 nums[i] 选择 - 号</span></span><br><span class="line">    rest += nums[i];</span><br><span class="line">    <span class="comment">// 穷举 nums[i + 1]</span></span><br><span class="line">    backtrack(nums, i + <span class="number">1</span>, rest);</span><br><span class="line">    <span class="comment">// 撤销选择</span></span><br><span class="line">    rest -= nums[i]; </span><br><span class="line"></span><br><span class="line">    <span class="comment">// 给 nums[i] 选择 + 号</span></span><br><span class="line">    rest -= nums[i];</span><br><span class="line">    <span class="comment">// 穷举 nums[i + 1]</span></span><br><span class="line">    backtrack(nums, i + <span class="number">1</span>, rest);</span><br><span class="line">    <span class="comment">// 撤销选择</span></span><br><span class="line">    rest += nums[i];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>读者也许会问，刚才这个过程中每个 dp[i] 的结果是我们肉眼看出来的，我们应该怎么设计算法逻辑来正确计算每个 dp[i] 呢？</p>
-<p>这就是动态规划的重头戏了，要思考如何进行状态转移，这里就可以使用数学归纳的思想：</p>
-<p>我们已经知道了 <em>d**p</em>[0…4] 的所有结果，我们如何通过这些已知结果推出 <em>d**p</em>[5] 呢？</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/xpC5LY_20210715223016.png" alt="图片"></p>
-<p>根据刚才我们对 dp 数组的定义，现在想求 dp[5] 的值，也就是想求以 nums[5] 为结尾的最长递增子序列。</p>
-<p>nums[5] &#x3D; 3，既然是递增子序列，我们只要找到前面那些结尾比 3 小的子序列，然后把 3 接到最后，就可以形成一个新的递增子序列，而且这个新的子序列长度加一。</p>
-<p>当然，可能形成很多种新的子序列，但是我们只要最长的，把最长子序列的长度作为 dp[5] 的值即可。</p>
-<p>![图片](<a target="_blank" rel="noopener" href="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/640">https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/640</a> (1)_20210715223303.gif)</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/QksgN5_20210715223039.png" alt="图片"></p>
-<p>这段代码的逻辑就可以算出 dp[5]。到这里，这道算法题我们就基本做完了。读者也许会问，我们刚才只是算了 dp[5] 呀，dp[4], dp[3] 这些怎么算呢？</p>
-<p>类似数学归纳法，你已经可以通过 dp[0…4] 算出 dp[5] 了，那么任意 dp[i] 你肯定都可以算出来：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/9CYook_20210715223056.png" alt="图片"></p>
-<p>还有一个细节问题，就是 base case。dp 数组应该全部初始化为 1，因为子序列最少也要包含自己，所以长度最小为 1。下面我们看一下完整代码：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/image-20210715223113307_20210715223113.png" alt="图片"></p>
-<p>至此，这道题就解决了，时间复杂度 O(N^2)。总结一下动态规划的设计流程：</p>
-<p>首先明确 dp 数组所存数据的含义。这步很重要，如果不得当或者不够清晰，会阻碍之后的步骤。</p>
-<p>然后根据 dp 数组的定义，运用数学归纳法的思想，假设 <em>d**p</em>[0…<em>i</em>−1] 都已知，想办法求出 <em>d**p</em>[<em>i</em>]，一旦这一步完成，整个题目基本就解决了。</p>
-<p>但如果无法完成这一步，很可能就是 dp 数组的定义不够恰当，需要重新定义 dp 数组的含义；或者可能是 dp 数组存储的信息还不够，不足以推出下一步的答案，需要把 dp 数组扩大成二维数组甚至三维数组。</p>
-<h2 id="二、二分查找解法"><a href="#二、二分查找解法" class="headerlink" title="二、二分查找解法"></a>二、二分查找解法</h2><p>这个解法的时间复杂度会将为 O(NlogN)，但是说实话，正常人基本想不到这种解法（也许玩过某些纸牌游戏的人可以想出来）。所以如果大家了解一下就好，正常情况下能够给出动态规划解法就已经很不错了。</p>
-<p>根据题目的意思，我都很难想象这个问题竟然能和二分查找扯上关系。其实最长递增子序列和一种叫做 patience game 的纸牌游戏有关，甚至有一种排序方法就叫做 patience sorting（耐心排序）。</p>
-<p>为了简单起见，后文跳过所有数学证明，通过一个简化的例子来理解一下思路。</p>
-<p>首先，给你一排扑克牌，我们像遍历数组那样从左到右一张一张处理这些扑克牌，最终要把这些牌分成若干堆。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/DFBLV6_20210715223123.png" alt="图片"></p>
-<p>处理这些扑克牌要遵循以下规则：</p>
-<p>只能把点数小的牌压到点数比它大的牌上。如果当前牌点数较大没有可以放置的堆，则新建一个堆，把这张牌放进去。如果当前牌有多个堆可供选择，则选择最左边的堆放置。</p>
-<p>比如说上述的扑克牌最终会被分成这样 5 堆（我们认为 A 的值是最大的，而不是 1）。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/image-20210715223138612_20210715223138.png" alt="图片"></p>
-<p>为什么遇到多个可选择堆的时候要放到最左边的堆上呢？因为这样可以保证牌堆顶的牌有序（2, 4, 7, 8, Q），证明略。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/Cnd9HF_20210715223145.png" alt="图片"></p>
-<p>按照上述规则执行，可以算出最长递增子序列，牌的堆数就是我们想求的最长递增子序列的长度，证明略。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/8SHDGY_20210715223158.png" alt="图片"></p>
-<p>我们只要把处理扑克牌的过程编程写出来即可。每次处理一张扑克牌不是要找一个合适的牌堆顶来放吗，牌堆顶的牌不是有序吗，这就能用到二分查找了：用二分查找来搜索当前牌应放置的位置。</p>
-<p>PS：旧文 <a target="_blank" rel="noopener" href="http://mp.weixin.qq.com/s?__biz=MzU0MDg5OTYyOQ==&mid=2247484090&idx=1&sn=5635cf1c4fd8a8570b63c7ae9b4304c2&chksm=fb3362f8cc44ebee0a19a4cfba7f2e13923e05f47e15f2e99a1f42b01aeee83b946aceac3d4c&scene=21#wechat_redirect">二分查找算法详解</a> 详细介绍了二分查找的细节及变体，这里就完美应用上了。如果没读过强烈建议阅读。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/f6Golz_20210715223219.png" alt="图片"></p>
-<p>至此，二分查找的解法也讲解完毕。</p>
-<p>这个解法确实很难想到。首先涉及数学证明，谁能想到按照这些规则执行，就能得到最长递增子序列呢？其次还有二分查找的运用，要是对二分查找的细节不清楚，给了思路也很难写对。</p>
-<p>所以，这个方法作为思维拓展好了。但动态规划的设计方法应该完全理解：假设之前的答案已知，利用数学归纳的思想正确进行状态的推演转移，最终得到答案。</p>
+<p>有的读者可能问，选择 <code>-</code> 的时候，为什么是 <code>rest += nums[i]</code>，选择 <code>+</code> 的时候，为什么是 <code>rest -= nums[i]</code> 呢，是不是写反了？</p>
+<p>不是的，「如何凑出 <code>target</code>」和「如何把 <code>target</code> 减到 0」其实是一样的。我们这里选择后者，因为前者必须给 <code>backtrack</code> 函数多加一个参数，我觉得不美观：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> <span class="title function_">backtrack</span><span class="params">(<span class="type">int</span>[] nums, <span class="type">int</span> i, <span class="type">int</span> sum, <span class="type">int</span> target)</span> &#123;</span><br><span class="line">    <span class="comment">// base case</span></span><br><span class="line">    <span class="keyword">if</span> (i == nums.length) &#123;</span><br><span class="line">        <span class="keyword">if</span> (sum == target) &#123;</span><br><span class="line">            result++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>因此，如果我们给 <code>nums[i]</code> 选择 <code>+</code> 号，就要让 <code>rest - nums[i]</code>，反之亦然。</p>
+<p>以上回溯算法可以解决这个问题，时间复杂度为 <code>O(2^N)</code>，<code>N</code> 为 <code>nums</code> 的大小。这个复杂度怎么算的？回忆前文 <a target="_blank" rel="noopener" href="http://mp.weixin.qq.com/s?__biz=MzAxODQxMDM0Mw==&mid=2247484852&idx=1&sn=85b50b8b0470bb4897e517955f4e5002&chksm=9bd7fbbcaca072aa75e2a241064a403fde1e579d57ab846cd8537a54253ceb2c8b93cc3bf38e&scene=21#wechat_redirect">学习数据结构和算法的框架思维</a>，发现这个回溯算法就是个二叉树的遍历问题：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> <span class="title function_">backtrack</span><span class="params">(<span class="type">int</span>[] nums, <span class="type">int</span> i, <span class="type">int</span> rest)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (i == nums.length) &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    backtrack(nums, i + <span class="number">1</span>, rest - nums[i]);</span><br><span class="line">    backtrack(nums, i + <span class="number">1</span>, rest + nums[i]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>树的高度就是 <code>nums</code> 的长度嘛，所以说时间复杂度就是这棵二叉树的节点数，为 <code>O(2^N)</code>，其实是非常低效的。</p>
+<p>那么，这个问题如何用动态规划思想进行优化呢？</p>
+<h2 id="二、消除重叠子问题"><a href="#二、消除重叠子问题" class="headerlink" title="二、消除重叠子问题"></a>二、消除重叠子问题</h2><p>动态规划之所以比暴力算法快，是因为动态规划技巧消除了重叠子问题。</p>
+<p>如何发现重叠子问题？看是否可能出现重复的「状态」。对于递归函数来说，函数参数中会变的参数就是「状态」，对于 <code>backtrack</code> 函数来说，会变的参数为 <code>i</code> 和 <code>rest</code>。</p>
+<p>前文 动态规划之编辑距离 说了一种一眼看出重叠子问题的方法，先抽象出递归框架：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> <span class="title function_">backtrack</span><span class="params">(<span class="type">int</span> i, <span class="type">int</span> rest)</span> &#123;</span><br><span class="line">    backtrack(i + <span class="number">1</span>, rest - nums[i]);</span><br><span class="line">    backtrack(i + <span class="number">1</span>, rest + nums[i]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>举个简单的例子，如果 <code>nums[i] = 0</code>，会发生什么？</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> <span class="title function_">backtrack</span><span class="params">(<span class="type">int</span> i, <span class="type">int</span> rest)</span> &#123;</span><br><span class="line">    backtrack(i + <span class="number">1</span>, rest);</span><br><span class="line">    backtrack(i + <span class="number">1</span>, rest);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>你看，这样就出现了两个「状态」完全相同的递归函数，无疑这样的递归计算就是重复的。<strong>这就是重叠子问题，而且只要我们能够找到一个重叠子问题，那一定还存在很多的重叠子问题</strong>。</p>
+<p>因此，状态 <code>(i, rest)</code> 是可以用备忘录技巧进行优化的：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">findTargetSumWays</span><span class="params">(<span class="type">int</span>[] nums, <span class="type">int</span> target)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (nums.length == <span class="number">0</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">return</span> dp(nums, <span class="number">0</span>, target);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 备忘录</span></span><br><span class="line">HashMap&lt;String, Integer&gt; memo = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line"><span class="type">int</span> <span class="title function_">dp</span><span class="params">(<span class="type">int</span>[] nums, <span class="type">int</span> i, <span class="type">int</span> rest)</span> &#123;</span><br><span class="line">    <span class="comment">// base case</span></span><br><span class="line">    <span class="keyword">if</span> (i == nums.length) &#123;</span><br><span class="line">        <span class="keyword">if</span> (rest == <span class="number">0</span>) <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 把它俩转成字符串才能作为哈希表的键</span></span><br><span class="line">    <span class="type">String</span> <span class="variable">key</span> <span class="operator">=</span> i + <span class="string">&quot;,&quot;</span> + rest;</span><br><span class="line">    <span class="comment">// 避免重复计算</span></span><br><span class="line">    <span class="keyword">if</span> (memo.containsKey(key)) &#123;</span><br><span class="line">        <span class="keyword">return</span> memo.get(key);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 还是穷举</span></span><br><span class="line">    <span class="type">int</span> <span class="variable">result</span> <span class="operator">=</span> dp(nums, i + <span class="number">1</span>, rest - nums[i]) + dp(nums, i + <span class="number">1</span>, rest + nums[i]);</span><br><span class="line">    <span class="comment">// 记入备忘录</span></span><br><span class="line">    memo.put(key, result);</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>以前我们都是用 Python 的元组配合哈希表 <code>dict</code> 来做备忘录的，其他语言没有元组，可以用把「状态」转化为字符串作为哈希表的键，这是一个常用的小技巧。</p>
+<p>这个解法通过备忘录消除了很多重叠子问题，效率有一定的提升，但是这就结束了吗？</p>
+<h2 id="三、动态规划"><a href="#三、动态规划" class="headerlink" title="三、动态规划"></a>三、动态规划</h2><p>事情没有这么简单，先来算一算，消除重叠子问题之后，算法的时间复杂度是多少？其实最坏情况下依然是 <code>O(2^N)</code>。</p>
+<p>为什么呢？因为我们只不过恰好发现了重叠子问题，顺手用备忘录技巧给优化了，但是底层思路没有变，依然是暴力穷举的回溯算法，依然在遍历一棵二叉树。<strong>这只能叫对回溯算法进行了「剪枝」，提升了算法在某些情况下的效率</strong>，但算不上质的飞跃。</p>
+<p>其实，这个问题可以转化为一个子集划分问题，而子集划分问题又是一个典型的背包问题。动态规划总是这么玄学，让人摸不着头脑……</p>
+<p>首先，如果我们把 <code>nums</code> 划分成两个子集 <code>A</code> 和 <code>B</code>，分别代表分配 <code>+</code> 的数和分配 <code>-</code> 的数，那么他们和 <code>target</code> 存在如下关系：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sum(A) - sum(B) = target</span><br><span class="line"><span class="title function_">sum</span><span class="params">(A)</span> = target + sum(B)</span><br><span class="line">sum(A) + sum(A) = target + sum(B) + sum(A)</span><br><span class="line"><span class="number">2</span> * sum(A) = target + sum(nums)</span><br></pre></td></tr></table></figure>
+
+<p>综上，可以推出 <code>sum(A) = (target + sum(nums)) / 2</code>，也就是把原问题转化成：**<code>nums</code> 中存在几个子集 <code>A</code>，使得 <code>A</code> 中元素的和为 <code>(target + sum(nums)) / 2</code>**？</p>
+<p>类似的子集划分问题我们前文 <a target="_blank" rel="noopener" href="http://mp.weixin.qq.com/s?__biz=MzAxODQxMDM0Mw==&mid=2247485103&idx=1&sn=8a9752e18ed528e5c18d973dcd134260&chksm=9bd7f8a7aca071b14c736a30ef7b23b80914c676414b01f8269808ef28da48eb13e90a432fff&scene=21#wechat_redirect">经典背包问题：子集划分</a> 讲过，现在实现这么一个函数：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 计算 nums 中有几个子集的和为 sum */</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">subsets</span><span class="params">(<span class="type">int</span>[] nums, <span class="type">int</span> sum)</span> &#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后，可以这样调用这个函数：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">findTargetSumWays</span><span class="params">(<span class="type">int</span>[] nums, <span class="type">int</span> target)</span> &#123;</span><br><span class="line">    <span class="type">int</span> <span class="variable">sum</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> n : nums) sum += n;</span><br><span class="line">    <span class="comment">// 这两种情况，不可能存在合法的子集划分</span></span><br><span class="line">    <span class="keyword">if</span> (sum &lt; target || (sum + target) % <span class="number">2</span> == <span class="number">1</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> subsets(nums, (sum + target) / <span class="number">2</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>好的，变成背包问题的标准形式：</p>
+<p><strong>有一个背包，容量为 <code>sum</code>，现在给你 <code>N</code> 个物品，第 <code>i</code> 个物品的重量为 <code>nums[i - 1]</code>（注意 <code>1 &lt;= i &lt;= N</code>），每个物品只有一个，请问你有几种不同的方法能够恰好装满这个背包</strong>？</p>
+<p>现在，这就是一个正宗的动态规划问题了，下面按照我们一直强调的动态规划套路走流程：</p>
+<p><strong>第一步要明确两点，「状态」和「选择」</strong>。</p>
+<p>对于背包问题，这个都是一样的，状态就是「背包的容量」和「可选择的物品」，选择就是「装进背包」或者「不装进背包」。</p>
+<p><strong>第二步要明确 <code>dp</code> 数组的定义</strong>。</p>
+<p>按照背包问题的套路，可以给出如下定义：</p>
+<p><code>dp[i][j] = x</code> 表示，若只在前 <code>i</code> 个物品中选择，若当前背包的容量为 <code>j</code>，则最多有 <code>x</code> 种方法可以恰好装满背包。</p>
+<p>翻译成我们探讨的子集问题就是，若只在 <code>nums</code> 的前 <code>i</code> 个元素中选择，若目标和为 <code>j</code>，则最多有 <code>x</code> 种方法划分子集。</p>
+<p>根据这个定义，显然 <code>dp[0][..] = 0</code>，因为没有物品的话，根本没办法装背包；<code>dp[..][0] = 1</code>，因为如果背包的最大载重为 0，「什么都不装」就是唯一的一种装法。</p>
+<p>我们所求的答案就是 <code>dp[N][sum]</code>，即使用所有 <code>N</code> 个物品，有几种方法可以装满容量为 <code>sum</code> 的背包。</p>
+<p><strong>第三步，根据「选择」，思考状态转移的逻辑</strong>。</p>
+<p>回想刚才的 <code>dp</code> 数组含义，可以根据「选择」对 <code>dp[i][j]</code> 得到以下状态转移：</p>
+<p>如果不把 <code>nums[i]</code> 算入子集，<strong>或者说你不把这第 <code>i</code> 个物品装入背包</strong>，那么恰好装满背包的方法数就取决于上一个状态 <code>dp[i-1][j]</code>，继承之前的结果。</p>
+<p>如果把 <code>nums[i]</code> 算入子集，<strong>或者说你把这第 <code>i</code> 个物品装入了背包</strong>，那么只要看前 <code>i - 1</code> 个物品有几种方法可以装满 <code>j - nums[i-1]</code> 的重量就行了，所以取决于状态 <code>dp[i-1][j-nums[i-1]]</code>。</p>
+<p>PS：注意我们说的 <code>i</code> 是从 1 开始算的，而数组 <code>nums</code> 的索引时从 0 开始算的，所以 <code>nums[i-1]</code> 代表的是第 <code>i</code> 个物品的重量，<code>j - nums[i-1]</code> 就是背包装入物品 <code>i</code> 之后还剩下的容量。</p>
+<p><strong>由于 <code>dp[i][j]</code> 为装满背包的总方法数，所以应该以上两种选择的结果求和，得到状态转移方程</strong>：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dp[i][j] = dp[i-<span class="number">1</span>][j] + dp[i-<span class="number">1</span>][j-nums[i-<span class="number">1</span>]];</span><br></pre></td></tr></table></figure>
+
+<p>然后，根据状态转移方程写出动态规划算法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 计算 nums 中有几个子集的和为 sum */</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">subsets</span><span class="params">(<span class="type">int</span>[] nums, <span class="type">int</span> sum)</span> &#123;</span><br><span class="line">    <span class="type">int</span> <span class="variable">n</span> <span class="operator">=</span> nums.length;</span><br><span class="line">    <span class="type">int</span>[][] dp = <span class="keyword">new</span> <span class="title class_">int</span>[n + <span class="number">1</span>][sum + <span class="number">1</span>];</span><br><span class="line">    <span class="comment">// base case</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt;= n; i++) &#123;</span><br><span class="line">        dp[i][<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">0</span>; j &lt;= sum; j++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (j &gt;= nums[i-<span class="number">1</span>]) &#123;</span><br><span class="line">                <span class="comment">// 两种选择的结果之和</span></span><br><span class="line">                dp[i][j] = dp[i-<span class="number">1</span>][j] + dp[i-<span class="number">1</span>][j-nums[i-<span class="number">1</span>]];</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="comment">// 背包的空间不足，只能选择不装物品 i</span></span><br><span class="line">                dp[i][j] = dp[i-<span class="number">1</span>][j];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> dp[n][sum];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后，发现这个 <code>dp[i][j]</code> 只和前一行 <code>dp[i-1][..]</code> 有关，那么肯定可以优化成一维 <code>dp</code>：</p>
+<figure class="highlight axapta"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 计算 nums 中有几个子集的和为 sum */</span></span><br><span class="line"><span class="built_in">int</span> subsets(<span class="built_in">int</span>[] nums, <span class="built_in">int</span> <span class="keyword">sum</span>) &#123;</span><br><span class="line">    <span class="built_in">int</span> n = nums.length;</span><br><span class="line">    <span class="built_in">int</span>[] dp = <span class="keyword">new</span> <span class="built_in">int</span>[<span class="keyword">sum</span> + <span class="number">1</span>];</span><br><span class="line">    <span class="comment">// base case</span></span><br><span class="line">    dp[<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="built_in">int</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">        <span class="comment">// j 要从后往前遍历</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="built_in">int</span> j = <span class="keyword">sum</span>; j &gt;= <span class="number">0</span>; j--) &#123;</span><br><span class="line">            <span class="comment">// 状态转移方程</span></span><br><span class="line">            <span class="keyword">if</span> (j &gt;= nums[i<span class="number">-1</span>]) &#123;</span><br><span class="line">                dp[j] = dp[j] + dp[j-nums[i<span class="number">-1</span>]];</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                dp[j] = dp[j];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> dp[<span class="keyword">sum</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>对照二维 <code>dp</code>，只要把 <code>dp</code> 数组的第一个维度全都去掉就行了，唯一的区别就是这里的 <code>j</code> 要从后往前遍历，原因如下</strong>：</p>
+<p>因为二维压缩到一维的根本原理是，<code>dp[j]</code> 和 <code>dp[j-nums[i-1]]</code> 还没被新结果覆盖的时候，相当于二维 <code>dp</code> 中的 <code>dp[i-1][j]</code> 和 <code>dp[i-1][j-nums[i-1]]</code>。</p>
+<p>那么，我们就要做到：<strong>在计算新的 <code>dp[j]</code> 的时候，<code>dp[j]</code> 和 <code>dp[j-nums[i-1]]</code> 还是上一轮外层 for 循环的结果</strong>。</p>
+<p>如果你从前往后遍历一维 <code>dp</code> 数组，<code>dp[j]</code> 显然是没问题的，但是 <code>dp[j-nums[i-1]]</code> 已经不是上一轮外层 for 循环的结果了，这里就会使用错误的状态，当然得不到正确的答案。</p>
+<p>现在，这道题算是彻底解决了。</p>
+<p>总结一下，回溯算法虽好，但是复杂度高，即便消除一些冗余计算，也只是「剪枝」，没有本质的改进。而动态规划就比较玄学了，经过各种改造，从一个加减法问题变成子集问题，又变成背包问题，经过各种套路写出解法，又搞出状态压缩，还得反向遍历。</p>
+<p>现在搞得我都忘了自己是来干嘛的了。嗯，这也许就是动态规划的魅力吧。</p>
 
       
     </div>
