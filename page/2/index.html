@@ -1490,7 +1490,7 @@
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-abbrlink --save</span><br></pre></td></tr></table></figure>
 
 <blockquote>
-<p>执行此命令可能会不成功，提示你缺少相应的依赖，比如babel-eslint、mini-css-extract-plugin、webpack-cli…<br>使用npm命令安装即可，比如npm install <a href="mailto:&#101;&#115;&#108;&#105;&#x6e;&#x74;&#x40;&#52;&#x2e;&#x78;">&#101;&#115;&#108;&#105;&#x6e;&#x74;&#x40;&#52;&#x2e;&#x78;</a> babel-eslint@8 –save-dev</p>
+<p>执行此命令可能会不成功，提示你缺少相应的依赖，比如babel-eslint、mini-css-extract-plugin、webpack-cli…<br>使用npm命令安装即可，比如npm install <a href="mailto:&#101;&#x73;&#x6c;&#105;&#x6e;&#116;&#64;&#x34;&#x2e;&#x78;">&#101;&#x73;&#x6c;&#105;&#x6e;&#116;&#64;&#x34;&#x2e;&#x78;</a> babel-eslint@8 –save-dev</p>
 </blockquote>
 <p>修改根目录站点配置文件<code>config.yml</code>，改为：</p>
 <figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">permalink:</span> <span class="string">posts/:abbrlink/</span></span><br><span class="line"><span class="attr">abbrlink:</span></span><br><span class="line">	<span class="attr">alg:</span> <span class="string">crc32</span>   <span class="comment">#算法： crc16(default) and crc32</span></span><br><span class="line">	<span class="attr">rep:</span> <span class="string">hex</span>     <span class="comment">#进制： dec(default) and hex</span></span><br></pre></td></tr></table></figure>
@@ -1724,6 +1724,142 @@
 <h4 id="2-技术支撑"><a href="#2-技术支撑" class="headerlink" title="2 技术支撑"></a>2 技术支撑</h4><p>halo支持导入markdown文件，所以主要问题为hexo的markdown博客源码文件的获取<br>hexo文章存储路径为 source&#x2F;_posts ，有多层级文件夹，可以简单地理解成文件IO操作获取文章内容。<br>但关键是存储在git上，这里可以用JGit进行操作。<br>同时，JGit支持获取两次commit之间的文件变化情况。<br>即可以捕获到文章的增删改操作，而不用每次都全量地同步。</p>
 <h4 id="3-成果"><a href="#3-成果" class="headerlink" title="3 成果"></a>3 成果</h4><p>又处理了一些细节问题，最终还是自己做了个haloSyncServer同步程序，<br>封装成docker，放服务器上跑，实现同步。<br>待整理后开源。</p>
 <p>2021年11月更新<br>开源地址为：<a target="_blank" rel="noopener" href="https://github.com/linshenkx/haloSyncServer">https://github.com/linshenkx/haloSyncServer</a><br>效果<br><a target="_blank" rel="noopener" href="https://lian-gallery.oss-cn-guangzhou.aliyuncs.com/img/1637394238(1).jpg"><img src="https://lian-gallery.oss-cn-guangzhou.aliyuncs.com/img/1637394238(1).jpg" alt="img"></a></p>
+
+      
+    </div>
+
+    
+    
+    
+
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>l
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/5624fad4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lion.png">
+      <meta itemprop="name" content="swimminghao">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="swimminghao's blog">
+      <meta itemprop="description" content="swimminghao的学习博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | swimminghao's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/5624fad4/" class="post-title-link" itemprop="url">Dockerfile</a>
+        </h2>
+
+        <div class="post-meta-container">
+
+          
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-03-13 12:56:04" itemprop="dateModified" datetime="2022-03-13T12:56:04+08:00">2022-03-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/posts/5624fad4/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/5624fad4/" data-xid="/posts/5624fad4/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>2.2k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>2 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="Docker相关指令"><a href="#Docker相关指令" class="headerlink" title="Docker相关指令"></a>Docker相关指令</h1><h2 id="docker镜像运行以及日志"><a href="#docker镜像运行以及日志" class="headerlink" title="docker镜像运行以及日志"></a>docker镜像运行以及日志</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">❯ docker run --restart=always -d --name holer-client -e PARAMS=<span class="string">&quot;www.swimminghao.top 6060 51c45156bf1c4a82b4e6ffff2150b65e&quot;</span> swimminghao/holer-client:latest</span><br><span class="line">❯ docker run -d --name holer-server --restart=always -p 600:600 -p 6060:6060 -p 6443:6443 -p 11000-11010:11000-11010 swimminghao/holer-server:latest</span><br><span class="line">❯ docker logs -f 1ed9a5d6f0cc</span><br></pre></td></tr></table></figure>
+
+<h2 id="Dockerfile-打包jar成docker镜像"><a href="#Dockerfile-打包jar成docker镜像" class="headerlink" title="Dockerfile 打包jar成docker镜像"></a>Dockerfile 打包jar成docker镜像</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">❯ docker build -t swimminghao/holer-client:latest .</span><br></pre></td></tr></table></figure>
+
+<h2 id="docker容器停止以及镜像删除"><a href="#docker容器停止以及镜像删除" class="headerlink" title="docker容器停止以及镜像删除"></a>docker容器停止以及镜像删除</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">❯ docker ps -a</span><br><span class="line">❯ docker pull seanhongxing/holer-server</span><br><span class="line">❯ docker stop f8ca94969ba0 &amp;&amp; docker <span class="built_in">rm</span> f8ca94969ba0</span><br><span class="line">❯ docker image <span class="built_in">ls</span> -a</span><br><span class="line">❯ docker image <span class="built_in">rm</span> f8ca94969ba0</span><br></pre></td></tr></table></figure>
+
+<h2 id="docker镜像反推Dockerfile："><a href="#docker镜像反推Dockerfile：" class="headerlink" title="docker镜像反推Dockerfile："></a>docker镜像反推Dockerfile：</h2><h3 id="1、指令"><a href="#1、指令" class="headerlink" title="1、指令"></a>1、指令</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">❯ docker <span class="built_in">history</span> &lt;83d576a828a8&gt; --format <span class="string">&quot;&#123;&#123;.CreatedBy&#125;&#125;&quot;</span> --no-trunc |<span class="built_in">tac</span> | awk <span class="string">&#x27;&#123;if($3~/nop/)&#123;for(i=1;i&lt;=3;i++)&#123;$i=&quot;&quot;&#125;;print substr($0,4)&#125;else&#123;print &quot;RUN&quot;,$0&#125;&#125;&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="2、bash脚本"><a href="#2、bash脚本" class="headerlink" title="2、bash脚本"></a>2、bash脚本</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">❯ bash decompile.sh seanhongxing/holer-server</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="comment">#########################################################################</span></span><br><span class="line"><span class="comment"># File Name: dockerfile.sh</span></span><br><span class="line"><span class="comment"># Author: www.linuxea.com</span></span><br><span class="line"><span class="comment"># Version: 1</span></span><br><span class="line"><span class="comment"># Created Time: Thu 14 Feb 2019 10:52:01 AM CST</span></span><br><span class="line"><span class="comment">#########################################################################</span></span><br><span class="line"><span class="keyword">case</span> <span class="string">&quot;<span class="variable">$OSTYPE</span>&quot;</span> <span class="keyword">in</span></span><br><span class="line">    linux*)</span><br><span class="line">        docker <span class="built_in">history</span> --no-trunc --format <span class="string">&quot;&#123;&#123;.CreatedBy&#125;&#125;&quot;</span> <span class="variable">$1</span> | <span class="comment"># extract information from layers</span></span><br><span class="line">        <span class="built_in">tac</span>                                                    | <span class="comment"># reverse the file</span></span><br><span class="line">        sed <span class="string">&#x27;s,^\(|3.*\)\?/bin/\(ba\)\?sh -c,RUN,&#x27;</span>             | <span class="comment"># change /bin/(ba)?sh calls to RUN</span></span><br><span class="line">        sed <span class="string">&#x27;s,^RUN #(nop) *,,&#x27;</span>                                | <span class="comment"># remove RUN #(nop) calls for ENV,LABEL...</span></span><br><span class="line">        sed <span class="string">&#x27;s,  *&amp;&amp;  *, \\\n \&amp;\&amp; ,g&#x27;</span>                           <span class="comment"># pretty print multi command lines following Docker best practices</span></span><br><span class="line">    ;;</span><br><span class="line">    darwin*)</span><br><span class="line">        docker <span class="built_in">history</span> --no-trunc --format <span class="string">&quot;&#123;&#123;.CreatedBy&#125;&#125;&quot;</span> <span class="variable">$1</span> | <span class="comment"># extract information from layers</span></span><br><span class="line">        <span class="built_in">tail</span> -r                                                | <span class="comment"># reverse the file</span></span><br><span class="line">        sed -E <span class="string">&#x27;s,^(\|3.*)?/bin/(ba)?sh -c,RUN,&#x27;</span>               | <span class="comment"># change /bin/(ba)?sh calls to RUN</span></span><br><span class="line">        sed <span class="string">&#x27;s,^RUN #(nop) *,,&#x27;</span>                                | <span class="comment"># remove RUN #(nop) calls for ENV,LABEL...</span></span><br><span class="line">        sed $<span class="string">&#x27;s,  *&amp;&amp;  *, \\\ \\\n \&amp;\&amp; ,g&#x27;</span>                      <span class="comment"># pretty print multi command lines following Docker best practices</span></span><br><span class="line">    ;;</span><br><span class="line">    *)</span><br><span class="line">        <span class="built_in">echo</span> <span class="string">&quot;unknown OSTYPE: <span class="variable">$OSTYPE</span>&quot;</span></span><br><span class="line">    ;;</span><br><span class="line"><span class="keyword">esac</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="docker镜像下载jar包"><a href="#docker镜像下载jar包" class="headerlink" title="docker镜像下载jar包"></a>docker镜像下载jar包</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">//镜像导出</span><br><span class="line">❯ docker save -o ./client.tar seanhongxing/holer-client:latest</span><br><span class="line">//容器导出</span><br><span class="line">❯ docker <span class="built_in">export</span> seanhongxing/holer-client &gt; ./client.tar</span><br></pre></td></tr></table></figure>
+
+<p><strong>注：分层，jar包在某一层</strong></p>
 
       
     </div>
@@ -2222,170 +2358,6 @@ header, .context-menu, .megamenu-content, footer { font-family: "Segoe UI", Aria
 <div  id='write'  class = 'is-node'><h1><a name="git指令" class="md-header-anchor"></a><span>git指令</span></h1><h2><a name="一般来说日常使用只要记住下图6个命令就可以了但是熟练使用恐怕要记住60～100个命令" class="md-header-anchor"></a><span>一般来说，日常使用只要记住下图6个命令，就可以了。但是熟练使用，恐怕要记住60～100个命令。</span></h2><p><img src='/home/xh/OneDrive/learning/bg2015120901.png' alt='' referrerPolicy='no-referrer' /></p><p><code>workspace：工作区</code></p><p><code>Index/Stage：暂存区</code></p><p><code>Repository：仓库区（或本地仓库）</code></p><p><code>Remote：远程仓库</code></p><ul><li><span>述任务及修改内容，填写要发布的前后端应用和提测、上线时间，以及研发负责人、研发人员、测试负责人。</span></li></ul><ol><li><h2><a name="将测试报告已解密）通过ftp上传" class="md-header-anchor"></a><span>将测试报告（已解密）通过ftp上传</span></h2><ul><li><span>将上传报告名加到app-sz-artemis中的ReportRecognitionServiceTest类</span></li><li><strong><span>（注）报告提前解密，保证准时完成上线。上传报告名必须以模板名开头：例，xikang1.田淑梅.pdf</span></strong></li></ul></li><li><h2><a name="提交项目到dev与release分支" class="md-header-anchor"></a><span>提交项目到dev与release分支</span></h2><ul><li><span>首先commit&amp;push sz-artemis-common 项目（因为sz-artemis-report-parser、sz-artemis-report-api、app-sz-artemis均依赖于它），然后c&amp;p sz-artimis-report-parser，最后c&amp;p app-sz-artemis。</span></li><li><strong><span>（注）先push到dev分支，再push到release分支，release分支严格遵守格式：例，release-2019-09-05</span></strong></li></ul></li><li><h2><a name="通过rocketchat编译" class="md-header-anchor"></a><span>通过Rocket.chat编译</span></h2><ul><li><span>使用Rocket.chat编译，严格按照步骤3里的顺序，并注意指令正确。每编译完一个项目到</span><a href='http://118.178.137.55:8089/job' target='_blank' class='url'>http://118.178.137.55:8089/job</a><span>下查看console output，是否编译成功。</span></li><li><strong><span>（注）指令格式：@Gerty b sz-artemis-common；@Gerty b sz-artemis-report-parser；@Gerty b sz-artemis-api；@Gerty b test_sz-artemis</span></strong></li></ul></li><li><h2><a name="自测" class="md-header-anchor"></a><span>自测</span></h2><ul><li><span>通过识别回归测试工具，进行自测,查看测试通过的状况以及与以往测试用例集相异的excel结果</span></li><li><span>若excel结果无差异，或差异在可接受范围以内，则测试通过，并将本次测试产生的测试用例覆盖历史测试用例。</span></li><li><span>测试通过则可上线。</span></li></ul></li><li><h2><a name="发jira链接" class="md-header-anchor"></a><span>发jira链接</span></h2><ul><li><span>链接发顾璟琛审核，之后发方雷部署。</span></li></ul></li></ol><p>&nbsp;</p></div>
 </body>
 </html>
-      
-    </div>
-
-    
-    
-    
-
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>l
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/473fac3a/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/lion.png">
-      <meta itemprop="name" content="swimminghao">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="swimminghao's blog">
-      <meta itemprop="description" content="swimminghao的学习博客">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | swimminghao's blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/473fac3a/" class="post-title-link" itemprop="url">github 上传大文件100MB姿势</a>
-        </h2>
-
-        <div class="post-meta-container">
-
-          
-
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-13 12:56:04" itemprop="dateModified" datetime="2022-03-13T12:56:04+08:00">2022-03-13</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="far fa-comment"></i>
-    </span>
-    <span class="post-meta-item-text">Waline：</span>
-  
-    <a title="waline" href="/posts/473fac3a/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/473fac3a/" data-xid="/posts/473fac3a/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>475</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>1 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="github-上传大文件100MB姿势"><a href="#github-上传大文件100MB姿势" class="headerlink" title="github 上传大文件100MB姿势"></a>github 上传大文件100MB姿势</h1><p>具体就是安装<a target="_blank" rel="noopener" href="https://link.jianshu.com/?t=https://git-lfs.github.com">git-lfs</a>，先下载，然后就是一顿操作：</p>
-<ol>
-<li><p>先在web建立一个空仓库</p>
-</li>
-<li><p>然后建立跟仓库名一样的文件夹，并执行初始化命令：<code>git init</code></p>
-</li>
-<li><p>然后执行<code>git lfs install</code></p>
-</li>
-<li><p>然后添加你要上传的文件名或后缀名：<code>git lfs track &#39;*.zip&#39;</code></p>
-</li>
-<li><p>然后就把生成的  <code>.gitattributes</code>文件，先传到远程仓库</p>
-<ul>
-<li><code>git add .gitattributes</code></li>
-</ul>
-</li>
-</ol>
-<ul>
-<li><code>git commit -m &#39;large - init file&#39;</code><ul>
-<li><code>git push -u origin master:master</code> # 第一次要这样执行，后面再传就<code>git push</code>就行。</li>
-</ul>
-</li>
-</ul>
-<ol start="6">
-<li><p>然后就可以正常添加上传大文件了！</p>
-<ul>
-<li><code>git add bigfile.zip</code></li>
-<li><code>git commit -m &#39;upload Big file.&#39;</code></li>
-<li><code>git push</code> # 第一次要这样执行，后面再传就<code>git push</code>就行。</li>
-</ul>
-</li>
-</ol>
-<hr>
-<ul>
-<li><p>删除远程仓库文件，但本地文件不删除，如</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bigfile.<span class="built_in">zip</span></span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><code>git rm bigfile.zip</code></li>
-<li><code>git commit -m &#39;rm bigfile.zip&#39;</code></li>
-<li><code>git push</code></li>
-</ul>
-</li>
-</ul>
-
       
     </div>
 
