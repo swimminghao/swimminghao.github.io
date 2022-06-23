@@ -429,7 +429,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/58f7b356/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/f78aff48/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/lion.png">
@@ -447,7 +447,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/58f7b356/" class="post-title-link" itemprop="url">11、【对线面试官】CountDownLatch和CyclicBarrier</a>
+          <a href="/posts/f78aff48/" class="post-title-link" itemprop="url">13、【对线面试官】Map</a>
         </h2>
 
         <div class="post-meta-container">
@@ -489,8 +489,8 @@
     </span>
     <span class="post-meta-item-text">Waline：</span>
   
-    <a title="waline" href="/posts/58f7b356/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/58f7b356/" data-xid="/posts/58f7b356/" itemprop="commentCount"></span>
+    <a title="waline" href="/posts/f78aff48/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/f78aff48/" data-xid="/posts/f78aff48/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -501,14 +501,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>1.6k</span>
+      <span>2.7k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>1 分钟</span>
+      <span>2 分钟</span>
     </span>
 </div>
 
@@ -519,45 +519,74 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="11、【对线面试官】CountDownLatch和CyclicBarrier"><a href="#11、【对线面试官】CountDownLatch和CyclicBarrier" class="headerlink" title="11、【对线面试官】CountDownLatch和CyclicBarrier"></a>11、【对线面试官】CountDownLatch和CyclicBarrier</h1><h2 id="我现在有个场景：现在我有50个任务，这50个任务在完成之后，才能执行下一个「函数」，要是你，你怎么设计？"><a href="#我现在有个场景：现在我有50个任务，这50个任务在完成之后，才能执行下一个「函数」，要是你，你怎么设计？" class="headerlink" title="我现在有个场景：现在我有50个任务，这50个任务在完成之后，才能执行下一个「函数」，要是你，你怎么设计？"></a>我现在有个场景：现在我有50个任务，这50个任务在完成之后，才能执行下一个「函数」，要是你，你怎么设计？</h2><ol>
-<li>可以用JDK给我们提供的线程工具类，CountDownLatch和CyclicBarrier都可以完成这个需求。</li>
-<li>这两个类都可以等到线程完成之后，才去执行某些操作</li>
-</ol>
-<h2 id="那既然都能实现的话？那CountDownLatch和CyclicBarrier有什么什么区别呢？"><a href="#那既然都能实现的话？那CountDownLatch和CyclicBarrier有什么什么区别呢？" class="headerlink" title="那既然都能实现的话？那CountDownLatch和CyclicBarrier有什么什么区别呢？"></a>那既然都能实现的话？那CountDownLatch和CyclicBarrier有什么什么区别呢？</h2><ul>
-<li>主要的区别就是CountDownLatch用完了，就结束了，没法复用。而CyclicBarrier不一样，它可以复用。</li>
-<li>比如说，你得给我解释：CountDownLatch和CyclicBarrier都是线程同步的工具类<br>od</li>
-<li>CountDownLatch允许一个或多个线程一直等待，直到这些线程完成它们的操作</li>
-<li>而CyclicBarrier不一样，它往往是当线程到达某状态后，暂停下来等待其他线程等到所有线程均到达以后，才继续执行</li>
-<li>可以发现这两者的等待主体是不一样的。</li>
-<li>CountDownLatch调用await（）通常是主线程&#x2F;调用线程，而CyclicBarrier调用await（）是在任务线程调用的</li>
-<li>所以，CyclicBarrier中的阻塞的是任务的线程，而主线程是不受影响的</li>
-<li>简单叙述完这些基本概念后，可以特意抛出这两个类都是基于AQS实现的</li>
-<li>countDownLatch<ol>
-<li>前面提到了CountDownLatch也是基于AQS实现的，它的实现机制很简单</li>
-<li>当我们在构建CountDownLatch对象时，传入的值其实就会赋值给AQS的关键变量state</li>
-<li>执行countDown方法时，其实就是利用CAS将state-1<br>执行await方法时，其实就是判断state是否为0，不为0则加入到队列中，将该线程阻塞掉（除了头结点）</li>
-<li>因为头节点会一直自旋等待state为0，当state为0时，头节点把剩余的在队列中阻塞的节点也一并唤醒</li>
-</ol>
-</li>
-<li>CycllicBarrier<ol>
-<li>从源码不难发现的是，它没有像CountDo wnLatch和ReentrantLock使用AQS的stat e变量，而CyclicBarrier是直接借助ReentrantLock加上Condition等待唤醒的功能进而实现的</li>
-<li>在构建CyclicBarrier时，传入的值会赋值给CyclicBarrier内部维护count变量，也会赋值给parties变量（这是可以复用的关键）</li>
-<li>每次调用await时，会将count-1，操作count值是直接使用ReentrantLock来保证线程安全性</li>
-<li>如果count不为0，则添加则condition队列中</li>
-<li>如果count等于0时，则把节点从condition队列添加至AQS的队列中进行全部唤醒，并且将parties的值重新赋值为count的值（实现复用）</li>
-</ol>
-</li>
+          <h1 id="13、【对线面试官】Map"><a href="#13、【对线面试官】Map" class="headerlink" title="13、【对线面试官】Map"></a>13、【对线面试官】Map</h1><h2 id="今天来讲讲Map吧，你对Map了解多少？就讲JDK1-8就好咯"><a href="#今天来讲讲Map吧，你对Map了解多少？就讲JDK1-8就好咯" class="headerlink" title="今天来讲讲Map吧，你对Map了解多少？就讲JDK1.8就好咯"></a>今天来讲讲Map吧，你对Map了解多少？就讲JDK1.8就好咯</h2><ul>
+<li>Map在Java里边是一个接口，常见的实现类有HashMap、 LinkedHashMap、TreeMap和ConcurrentHashMap</li>
 </ul>
-<h2 id="那如果是这样的话，那我多次用CountDownLatch不也可以解决问题吗？"><a href="#那如果是这样的话，那我多次用CountDownLatch不也可以解决问题吗？" class="headerlink" title="那如果是这样的话，那我多次用CountDownLatch不也可以解决问题吗？"></a>那如果是这样的话，那我多次用CountDownLatch不也可以解决问题吗？</h2><ol>
-<li>是这样的，我提出了个场景，它确实很像可以用CountDownLatch和CyclicBarrier解决</li>
-<li>但是，作为面试者的你可以尝试向我获取更多的信息</li>
-<li>我可没说一个任务就用一个线程处理哦</li>
-<li>放一步讲，即便我是想考察CountDownLatch和CyclicBarrier的知识，但是过程也是很重要的。我会看你在这个过程中思考的以及沟通</li>
+<ol>
+<li>在Java里边，哈希表的实现由数组+链表所组成</li>
+<li>HashMap底层数据结构是数组+链表&#x2F;红黑树</li>
+<li>LinkedHashMap底层数据结构是数组+链表+双向链表</li>
+<li>TreeMap底层数据结构是红黑树</li>
+<li>而ConcurrentHashMap底层数据结构也是数组+链表&#x2F;红黑树</li>
 </ol>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ol>
-<li>CountDownlatch基于AQS实现，会将构造CountDownLatch的入参传递至state，countDown（）就是在利用CAS将state减- 1，await（）实际就是让头节点一直在等待s tate为0时，释放所有等待的线程</li>
-<li>而CyclicBarrier则利用ReentrantLock和Condition，自身维护了count和parties变量。每次调用await将count-1，并将线程加入到condition队列上。等到count为0时，则将condition队列的节点移交至AQS队列，并全部释放。</li>
-<li></li>
+<h2 id="我们先以HashMap开始吧，你能讲讲当你new一个HashMap的时候，会发生什么吗？"><a href="#我们先以HashMap开始吧，你能讲讲当你new一个HashMap的时候，会发生什么吗？" class="headerlink" title="我们先以HashMap开始吧，你能讲讲当你new一个HashMap的时候，会发生什么吗？"></a>我们先以HashMap开始吧，你能讲讲当你new一个HashMap的时候，会发生什么吗？</h2><ol>
+<li>如果我们不指定，默认HashMap的大小为16，负载因子的大小为0.75</li>
+<li>还有就是：HashMap的大小只能是2次幂的，假设你传一个10进去，实际上最终HashMap的大小是16，你传一个7进去，HashMap最终的大小是8，具体的实现在tableSizeFor可以看到。</li>
+<li>我们把元素放进HashMap的时候，需要算出这个元素所在的位置（hash）</li>
+<li>在HashMap里用的是位运算来代替取模，能够更加高效地算出该元素所在的位置</li>
+<li>为什么HashMap的大小只能是2次幂，因为只有大小为2次幂时，才能合理用位运算替代取模。</li>
+<li>而负载因子的大小决定着哈希表的扩容和哈希冲突。</li>
+<li>比如现在我默认的HashMap大小为16，负载因子为0.75，这意味着数组最多只能放12个元素，一旦超过12个元素，则哈希表需要扩容</li>
+<li>怎么算出是12呢？很简单，就是16*0.7 5。每次put元素进去的时候，都会检查HashMap的大小有没有超过这个阈值，如果有，则需要扩容。</li>
+<li>鉴于上面的说法（HashMap的大小只能是2次幂），所以扩容的时候时候默认是扩原来的2倍</li>
+<li>还有就是扩容这个操作肯定是耗时的，那能不能把负载因子调高一点，比如我要调至为1，那我的HashMap就等到16个元素的时候才扩容呢。</li>
+<li>当然是可以的，但是不推荐。负载因子调高了，这意味着哈希冲突的概率会增高，哈希冲突概率增高，同样会耗时（因为查找的速度变慢了）</li>
+</ol>
+<h2 id="算了。我还想继续问下，在put元素的时候，传递的Key是怎么算哈希值的？"><a href="#算了。我还想继续问下，在put元素的时候，传递的Key是怎么算哈希值的？" class="headerlink" title="算了。我还想继续问下，在put元素的时候，传递的Key是怎么算哈希值的？"></a>算了。我还想继续问下，在put元素的时候，传递的Key是怎么算哈希值的？</h2><ol>
+<li>实现就在hash方法上，可以发现的是，它是先算出正常的哈希值，然后与高16位做异或运算，产生最终的哈希值。</li>
+<li>这样做的好处可以增加了随机性，减少了碰撞冲突的可能性。</li>
+</ol>
+<h2 id="你简单再说下put和get方法的实现吧"><a href="#你简单再说下put和get方法的实现吧" class="headerlink" title="你简单再说下put和get方法的实现吧"></a>你简单再说下put和get方法的实现吧</h2><ol>
+<li>在put的时候，首先对key做hash运算，计算出该key所在的index。</li>
+<li>如果没碰撞，直接放到数组中，如果碰撞了，需要判断目前数据结构是链表还是红黑树，根据不同的情况来进行插入。</li>
+<li>假设key是相同的，则替换到原来的值。最后判断哈希表是否满了（当前哈希表大小*负载因子），如果满了，则扩容</li>
+<li>在get的时候，还是对key做hash运算，计算出该key所在的index，然后判断是否有hash冲突</li>
+<li>假设没有冲突直接返回，假设有冲突则判断当前数据结构是链表还是红黑树，分别从不同的数据结构中取出。</li>
+</ol>
+<h2 id="那在HashMap中是怎么判断一个元素是否相同的呢？"><a href="#那在HashMap中是怎么判断一个元素是否相同的呢？" class="headerlink" title="那在HashMap中是怎么判断一个元素是否相同的呢？"></a>那在HashMap中是怎么判断一个元素是否相同的呢？</h2><ol>
+<li>首先会比较hash值，随后会用&#x3D;&#x3D;运算符和equals（）来判断该元素是否相同。</li>
+<li>说白了就是：如果只有hash值相同，那说明该元素哈希冲突了，如果hash值和equals（）|| &#x3D;&#x3D;都相同，那说明该元素是同个。</li>
+</ol>
+<h2 id="你说HashMap的数据结构是数组-链表-x2F-红黑树，那什么情况拿下才会用到红黑树呢？"><a href="#你说HashMap的数据结构是数组-链表-x2F-红黑树，那什么情况拿下才会用到红黑树呢？" class="headerlink" title="你说HashMap的数据结构是数组+链表&#x2F;红黑树，那什么情况拿下才会用到红黑树呢？"></a>你说HashMap的数据结构是数组+链表&#x2F;红黑树，那什么情况拿下才会用到红黑树呢？</h2><ol>
+<li>当数组的大小大于64且链表的大小大于8的时候才会将链表改为红黑树，当红黑树大小为6时，会退化为链表。</li>
+<li>这里转红黑树退化为链表的操作主要出于查询和插入时对性能的考量。</li>
+<li>链表查询时间复杂度O（N），插入时间复杂度O（1），红黑树查询和插入时间复杂度O（logN）</li>
+</ol>
+<h2 id="你在日常开始中LinkedHashMap用的多吗？"><a href="#你在日常开始中LinkedHashMap用的多吗？" class="headerlink" title="你在日常开始中LinkedHashMap用的多吗？"></a>你在日常开始中LinkedHashMap用的多吗？</h2><ol>
+<li>在前面也提到了，LinkedHashMap底层结构是数组+链表+双向链表，实际上它继承了HashMap，在HashMap的基础上维护了一个双向链表</li>
+<li>有了这个双向链表，我们的插入可以是有序的，这里的有序不是指大小有序而是插入有序</li>
+<li>LinkedHashMap在遍历的时候实际用的是双向链表来遍历的，所以LinkedHashMap的大小不会影响到遍历的性能</li>
+</ol>
+<h2 id="那TreeMap呢？"><a href="#那TreeMap呢？" class="headerlink" title="那TreeMap呢？"></a>那TreeMap呢？</h2><ol>
+<li>TreeMap在现实开发中用得也不多，Tre eMap的底层数据结构是红黑树</li>
+<li>TreeMap的key不能为null（如果为null，那还怎么排序呢），TreeMap有序是通过Comparator来进行比较的，如果comparator为null，那么就使用自然顺序</li>
+</ol>
+<h2 id="再来讲讲线程安全的Map吧？-HashMap是线程安全的吗？"><a href="#再来讲讲线程安全的Map吧？-HashMap是线程安全的吗？" class="headerlink" title="再来讲讲线程安全的Map吧？ HashMap是线程安全的吗？"></a>再来讲讲线程安全的Map吧？ HashMap是线程安全的吗？</h2><ol>
+<li>HashMap不是线程安全的，在多线程环境下，HashMap有可能会有数据丢失和获取不了最新数据的问题，比如说：线程Aput进去了，线程Bget不出来。</li>
+<li>想要线程安全，一般使用ConcurrentHashMap</li>
+<li>ConcurrentHashMap是线程安全的Map 实现类，它在juc包下的。</li>
+<li>线程安全的Map实现类除了ConcurrentHashMap还有一个叫做Hashtable。</li>
+<li>当然了，也可以使用Collections来包装出一个线程安全的Map。</li>
+<li>但无论是Hashtable还是Collections包装出来的都比较低效（因为是直接在外层套synchronize），所以我们一般有线程安全问题考量的，都使用ConcurrentHashMap</li>
+<li>ConcurrentHashMap的底层数据结构是数组+链表&#x2F;红黑树，它能支持高并发的访问和更新，是线程安全的。</li>
+<li>ConcurrentHashMap通过在部分加锁和利用CAS算法来实现同步，在get的时候没有加锁，Node都用了volatile给修饰。</li>
+<li>在扩容时，会给每个线程分配对应的区间，并且为了防止putVal导致数据不一致，会给线程的所负责的区间加锁</li>
+</ol>
+<h2 id="嗯，你可以给我讲讲JDK7和JDK8中HashMap和ConcurrentHashMap的区别吗？"><a href="#嗯，你可以给我讲讲JDK7和JDK8中HashMap和ConcurrentHashMap的区别吗？" class="headerlink" title="嗯，你可以给我讲讲JDK7和JDK8中HashMap和ConcurrentHashMap的区别吗？"></a>嗯，你可以给我讲讲JDK7和JDK8中HashMap和ConcurrentHashMap的区别吗？</h2><ol>
+<li>我在学习的时候也看过JDK7的HashMap和ConcurrentHashMap，其实还是有很多不一样的地方</li>
+<li>比如JDK7的HashMap在扩容时是头插法，在JDK8就变成了尾插法，在JDK7的HashMap还没有引入红黑树</li>
+<li>ConcurrentHashMap在JDK7还是使用分段锁的方式来实现，而JDK8就又不一样了。但JDK7细节我大多数都忘了。</li>
+<li>我就没用过JDK7的API，我想着现在最低应该也是用JDK8了吧？所以我就没去仔细看了。</li>
 </ol>
 
       
@@ -775,7 +804,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/f78aff48/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/58f7b356/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/lion.png">
@@ -793,7 +822,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/f78aff48/" class="post-title-link" itemprop="url">13、【对线面试官】Map</a>
+          <a href="/posts/58f7b356/" class="post-title-link" itemprop="url">11、【对线面试官】CountDownLatch和CyclicBarrier</a>
         </h2>
 
         <div class="post-meta-container">
@@ -835,8 +864,8 @@
     </span>
     <span class="post-meta-item-text">Waline：</span>
   
-    <a title="waline" href="/posts/f78aff48/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/f78aff48/" data-xid="/posts/f78aff48/" itemprop="commentCount"></span>
+    <a title="waline" href="/posts/58f7b356/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/58f7b356/" data-xid="/posts/58f7b356/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -847,14 +876,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>2.7k</span>
+      <span>1.6k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>2 分钟</span>
+      <span>1 分钟</span>
     </span>
 </div>
 
@@ -865,74 +894,45 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="13、【对线面试官】Map"><a href="#13、【对线面试官】Map" class="headerlink" title="13、【对线面试官】Map"></a>13、【对线面试官】Map</h1><h2 id="今天来讲讲Map吧，你对Map了解多少？就讲JDK1-8就好咯"><a href="#今天来讲讲Map吧，你对Map了解多少？就讲JDK1-8就好咯" class="headerlink" title="今天来讲讲Map吧，你对Map了解多少？就讲JDK1.8就好咯"></a>今天来讲讲Map吧，你对Map了解多少？就讲JDK1.8就好咯</h2><ul>
-<li>Map在Java里边是一个接口，常见的实现类有HashMap、 LinkedHashMap、TreeMap和ConcurrentHashMap</li>
+          <h1 id="11、【对线面试官】CountDownLatch和CyclicBarrier"><a href="#11、【对线面试官】CountDownLatch和CyclicBarrier" class="headerlink" title="11、【对线面试官】CountDownLatch和CyclicBarrier"></a>11、【对线面试官】CountDownLatch和CyclicBarrier</h1><h2 id="我现在有个场景：现在我有50个任务，这50个任务在完成之后，才能执行下一个「函数」，要是你，你怎么设计？"><a href="#我现在有个场景：现在我有50个任务，这50个任务在完成之后，才能执行下一个「函数」，要是你，你怎么设计？" class="headerlink" title="我现在有个场景：现在我有50个任务，这50个任务在完成之后，才能执行下一个「函数」，要是你，你怎么设计？"></a>我现在有个场景：现在我有50个任务，这50个任务在完成之后，才能执行下一个「函数」，要是你，你怎么设计？</h2><ol>
+<li>可以用JDK给我们提供的线程工具类，CountDownLatch和CyclicBarrier都可以完成这个需求。</li>
+<li>这两个类都可以等到线程完成之后，才去执行某些操作</li>
+</ol>
+<h2 id="那既然都能实现的话？那CountDownLatch和CyclicBarrier有什么什么区别呢？"><a href="#那既然都能实现的话？那CountDownLatch和CyclicBarrier有什么什么区别呢？" class="headerlink" title="那既然都能实现的话？那CountDownLatch和CyclicBarrier有什么什么区别呢？"></a>那既然都能实现的话？那CountDownLatch和CyclicBarrier有什么什么区别呢？</h2><ul>
+<li>主要的区别就是CountDownLatch用完了，就结束了，没法复用。而CyclicBarrier不一样，它可以复用。</li>
+<li>比如说，你得给我解释：CountDownLatch和CyclicBarrier都是线程同步的工具类<br>od</li>
+<li>CountDownLatch允许一个或多个线程一直等待，直到这些线程完成它们的操作</li>
+<li>而CyclicBarrier不一样，它往往是当线程到达某状态后，暂停下来等待其他线程等到所有线程均到达以后，才继续执行</li>
+<li>可以发现这两者的等待主体是不一样的。</li>
+<li>CountDownLatch调用await（）通常是主线程&#x2F;调用线程，而CyclicBarrier调用await（）是在任务线程调用的</li>
+<li>所以，CyclicBarrier中的阻塞的是任务的线程，而主线程是不受影响的</li>
+<li>简单叙述完这些基本概念后，可以特意抛出这两个类都是基于AQS实现的</li>
+<li>countDownLatch<ol>
+<li>前面提到了CountDownLatch也是基于AQS实现的，它的实现机制很简单</li>
+<li>当我们在构建CountDownLatch对象时，传入的值其实就会赋值给AQS的关键变量state</li>
+<li>执行countDown方法时，其实就是利用CAS将state-1<br>执行await方法时，其实就是判断state是否为0，不为0则加入到队列中，将该线程阻塞掉（除了头结点）</li>
+<li>因为头节点会一直自旋等待state为0，当state为0时，头节点把剩余的在队列中阻塞的节点也一并唤醒</li>
+</ol>
+</li>
+<li>CycllicBarrier<ol>
+<li>从源码不难发现的是，它没有像CountDo wnLatch和ReentrantLock使用AQS的stat e变量，而CyclicBarrier是直接借助ReentrantLock加上Condition等待唤醒的功能进而实现的</li>
+<li>在构建CyclicBarrier时，传入的值会赋值给CyclicBarrier内部维护count变量，也会赋值给parties变量（这是可以复用的关键）</li>
+<li>每次调用await时，会将count-1，操作count值是直接使用ReentrantLock来保证线程安全性</li>
+<li>如果count不为0，则添加则condition队列中</li>
+<li>如果count等于0时，则把节点从condition队列添加至AQS的队列中进行全部唤醒，并且将parties的值重新赋值为count的值（实现复用）</li>
+</ol>
+</li>
 </ul>
-<ol>
-<li>在Java里边，哈希表的实现由数组+链表所组成</li>
-<li>HashMap底层数据结构是数组+链表&#x2F;红黑树</li>
-<li>LinkedHashMap底层数据结构是数组+链表+双向链表</li>
-<li>TreeMap底层数据结构是红黑树</li>
-<li>而ConcurrentHashMap底层数据结构也是数组+链表&#x2F;红黑树</li>
+<h2 id="那如果是这样的话，那我多次用CountDownLatch不也可以解决问题吗？"><a href="#那如果是这样的话，那我多次用CountDownLatch不也可以解决问题吗？" class="headerlink" title="那如果是这样的话，那我多次用CountDownLatch不也可以解决问题吗？"></a>那如果是这样的话，那我多次用CountDownLatch不也可以解决问题吗？</h2><ol>
+<li>是这样的，我提出了个场景，它确实很像可以用CountDownLatch和CyclicBarrier解决</li>
+<li>但是，作为面试者的你可以尝试向我获取更多的信息</li>
+<li>我可没说一个任务就用一个线程处理哦</li>
+<li>放一步讲，即便我是想考察CountDownLatch和CyclicBarrier的知识，但是过程也是很重要的。我会看你在这个过程中思考的以及沟通</li>
 </ol>
-<h2 id="我们先以HashMap开始吧，你能讲讲当你new一个HashMap的时候，会发生什么吗？"><a href="#我们先以HashMap开始吧，你能讲讲当你new一个HashMap的时候，会发生什么吗？" class="headerlink" title="我们先以HashMap开始吧，你能讲讲当你new一个HashMap的时候，会发生什么吗？"></a>我们先以HashMap开始吧，你能讲讲当你new一个HashMap的时候，会发生什么吗？</h2><ol>
-<li>如果我们不指定，默认HashMap的大小为16，负载因子的大小为0.75</li>
-<li>还有就是：HashMap的大小只能是2次幂的，假设你传一个10进去，实际上最终HashMap的大小是16，你传一个7进去，HashMap最终的大小是8，具体的实现在tableSizeFor可以看到。</li>
-<li>我们把元素放进HashMap的时候，需要算出这个元素所在的位置（hash）</li>
-<li>在HashMap里用的是位运算来代替取模，能够更加高效地算出该元素所在的位置</li>
-<li>为什么HashMap的大小只能是2次幂，因为只有大小为2次幂时，才能合理用位运算替代取模。</li>
-<li>而负载因子的大小决定着哈希表的扩容和哈希冲突。</li>
-<li>比如现在我默认的HashMap大小为16，负载因子为0.75，这意味着数组最多只能放12个元素，一旦超过12个元素，则哈希表需要扩容</li>
-<li>怎么算出是12呢？很简单，就是16*0.7 5。每次put元素进去的时候，都会检查HashMap的大小有没有超过这个阈值，如果有，则需要扩容。</li>
-<li>鉴于上面的说法（HashMap的大小只能是2次幂），所以扩容的时候时候默认是扩原来的2倍</li>
-<li>还有就是扩容这个操作肯定是耗时的，那能不能把负载因子调高一点，比如我要调至为1，那我的HashMap就等到16个元素的时候才扩容呢。</li>
-<li>当然是可以的，但是不推荐。负载因子调高了，这意味着哈希冲突的概率会增高，哈希冲突概率增高，同样会耗时（因为查找的速度变慢了）</li>
-</ol>
-<h2 id="算了。我还想继续问下，在put元素的时候，传递的Key是怎么算哈希值的？"><a href="#算了。我还想继续问下，在put元素的时候，传递的Key是怎么算哈希值的？" class="headerlink" title="算了。我还想继续问下，在put元素的时候，传递的Key是怎么算哈希值的？"></a>算了。我还想继续问下，在put元素的时候，传递的Key是怎么算哈希值的？</h2><ol>
-<li>实现就在hash方法上，可以发现的是，它是先算出正常的哈希值，然后与高16位做异或运算，产生最终的哈希值。</li>
-<li>这样做的好处可以增加了随机性，减少了碰撞冲突的可能性。</li>
-</ol>
-<h2 id="你简单再说下put和get方法的实现吧"><a href="#你简单再说下put和get方法的实现吧" class="headerlink" title="你简单再说下put和get方法的实现吧"></a>你简单再说下put和get方法的实现吧</h2><ol>
-<li>在put的时候，首先对key做hash运算，计算出该key所在的index。</li>
-<li>如果没碰撞，直接放到数组中，如果碰撞了，需要判断目前数据结构是链表还是红黑树，根据不同的情况来进行插入。</li>
-<li>假设key是相同的，则替换到原来的值。最后判断哈希表是否满了（当前哈希表大小*负载因子），如果满了，则扩容</li>
-<li>在get的时候，还是对key做hash运算，计算出该key所在的index，然后判断是否有hash冲突</li>
-<li>假设没有冲突直接返回，假设有冲突则判断当前数据结构是链表还是红黑树，分别从不同的数据结构中取出。</li>
-</ol>
-<h2 id="那在HashMap中是怎么判断一个元素是否相同的呢？"><a href="#那在HashMap中是怎么判断一个元素是否相同的呢？" class="headerlink" title="那在HashMap中是怎么判断一个元素是否相同的呢？"></a>那在HashMap中是怎么判断一个元素是否相同的呢？</h2><ol>
-<li>首先会比较hash值，随后会用&#x3D;&#x3D;运算符和equals（）来判断该元素是否相同。</li>
-<li>说白了就是：如果只有hash值相同，那说明该元素哈希冲突了，如果hash值和equals（）|| &#x3D;&#x3D;都相同，那说明该元素是同个。</li>
-</ol>
-<h2 id="你说HashMap的数据结构是数组-链表-x2F-红黑树，那什么情况拿下才会用到红黑树呢？"><a href="#你说HashMap的数据结构是数组-链表-x2F-红黑树，那什么情况拿下才会用到红黑树呢？" class="headerlink" title="你说HashMap的数据结构是数组+链表&#x2F;红黑树，那什么情况拿下才会用到红黑树呢？"></a>你说HashMap的数据结构是数组+链表&#x2F;红黑树，那什么情况拿下才会用到红黑树呢？</h2><ol>
-<li>当数组的大小大于64且链表的大小大于8的时候才会将链表改为红黑树，当红黑树大小为6时，会退化为链表。</li>
-<li>这里转红黑树退化为链表的操作主要出于查询和插入时对性能的考量。</li>
-<li>链表查询时间复杂度O（N），插入时间复杂度O（1），红黑树查询和插入时间复杂度O（logN）</li>
-</ol>
-<h2 id="你在日常开始中LinkedHashMap用的多吗？"><a href="#你在日常开始中LinkedHashMap用的多吗？" class="headerlink" title="你在日常开始中LinkedHashMap用的多吗？"></a>你在日常开始中LinkedHashMap用的多吗？</h2><ol>
-<li>在前面也提到了，LinkedHashMap底层结构是数组+链表+双向链表，实际上它继承了HashMap，在HashMap的基础上维护了一个双向链表</li>
-<li>有了这个双向链表，我们的插入可以是有序的，这里的有序不是指大小有序而是插入有序</li>
-<li>LinkedHashMap在遍历的时候实际用的是双向链表来遍历的，所以LinkedHashMap的大小不会影响到遍历的性能</li>
-</ol>
-<h2 id="那TreeMap呢？"><a href="#那TreeMap呢？" class="headerlink" title="那TreeMap呢？"></a>那TreeMap呢？</h2><ol>
-<li>TreeMap在现实开发中用得也不多，Tre eMap的底层数据结构是红黑树</li>
-<li>TreeMap的key不能为null（如果为null，那还怎么排序呢），TreeMap有序是通过Comparator来进行比较的，如果comparator为null，那么就使用自然顺序</li>
-</ol>
-<h2 id="再来讲讲线程安全的Map吧？-HashMap是线程安全的吗？"><a href="#再来讲讲线程安全的Map吧？-HashMap是线程安全的吗？" class="headerlink" title="再来讲讲线程安全的Map吧？ HashMap是线程安全的吗？"></a>再来讲讲线程安全的Map吧？ HashMap是线程安全的吗？</h2><ol>
-<li>HashMap不是线程安全的，在多线程环境下，HashMap有可能会有数据丢失和获取不了最新数据的问题，比如说：线程Aput进去了，线程Bget不出来。</li>
-<li>想要线程安全，一般使用ConcurrentHashMap</li>
-<li>ConcurrentHashMap是线程安全的Map 实现类，它在juc包下的。</li>
-<li>线程安全的Map实现类除了ConcurrentHashMap还有一个叫做Hashtable。</li>
-<li>当然了，也可以使用Collections来包装出一个线程安全的Map。</li>
-<li>但无论是Hashtable还是Collections包装出来的都比较低效（因为是直接在外层套synchronize），所以我们一般有线程安全问题考量的，都使用ConcurrentHashMap</li>
-<li>ConcurrentHashMap的底层数据结构是数组+链表&#x2F;红黑树，它能支持高并发的访问和更新，是线程安全的。</li>
-<li>ConcurrentHashMap通过在部分加锁和利用CAS算法来实现同步，在get的时候没有加锁，Node都用了volatile给修饰。</li>
-<li>在扩容时，会给每个线程分配对应的区间，并且为了防止putVal导致数据不一致，会给线程的所负责的区间加锁</li>
-</ol>
-<h2 id="嗯，你可以给我讲讲JDK7和JDK8中HashMap和ConcurrentHashMap的区别吗？"><a href="#嗯，你可以给我讲讲JDK7和JDK8中HashMap和ConcurrentHashMap的区别吗？" class="headerlink" title="嗯，你可以给我讲讲JDK7和JDK8中HashMap和ConcurrentHashMap的区别吗？"></a>嗯，你可以给我讲讲JDK7和JDK8中HashMap和ConcurrentHashMap的区别吗？</h2><ol>
-<li>我在学习的时候也看过JDK7的HashMap和ConcurrentHashMap，其实还是有很多不一样的地方</li>
-<li>比如JDK7的HashMap在扩容时是头插法，在JDK8就变成了尾插法，在JDK7的HashMap还没有引入红黑树</li>
-<li>ConcurrentHashMap在JDK7还是使用分段锁的方式来实现，而JDK8就又不一样了。但JDK7细节我大多数都忘了。</li>
-<li>我就没用过JDK7的API，我想着现在最低应该也是用JDK8了吧？所以我就没去仔细看了。</li>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ol>
+<li>CountDownlatch基于AQS实现，会将构造CountDownLatch的入参传递至state，countDown（）就是在利用CAS将state减- 1，await（）实际就是让头节点一直在等待s tate为0时，释放所有等待的线程</li>
+<li>而CyclicBarrier则利用ReentrantLock和Condition，自身维护了count和parties变量。每次调用await将count-1，并将线程加入到condition队列上。等到count为0时，则将condition队列的节点移交至AQS队列，并全部释放。</li>
+<li></li>
 </ol>
 
       
@@ -1550,181 +1550,6 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/36f701ea/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/lion.png">
-      <meta itemprop="name" content="swimminghao">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="swimminghao's blog">
-      <meta itemprop="description" content="swimminghao的学习博客">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | swimminghao's blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/36f701ea/" class="post-title-link" itemprop="url">17、【对线面试官】Redis基础</a>
-        </h2>
-
-        <div class="post-meta-container">
-
-          
-
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-10 09:48:07" itemprop="dateModified" datetime="2022-03-10T09:48:07+08:00">2022-03-10</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="far fa-comment"></i>
-    </span>
-    <span class="post-meta-item-text">Waline：</span>
-  
-    <a title="waline" href="/posts/36f701ea/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/36f701ea/" data-xid="/posts/36f701ea/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>1.7k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>2 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="17、【对线面试官】Redis基础"><a href="#17、【对线面试官】Redis基础" class="headerlink" title="17、【对线面试官】Redis基础"></a>17、【对线面试官】Redis基础</h1><h2 id="你先来讲讲为什么要用Redis吧？"><a href="#你先来讲讲为什么要用Redis吧？" class="headerlink" title="你先来讲讲为什么要用Redis吧？"></a>你先来讲讲为什么要用Redis吧？</h2><ol>
-<li>我个人是这样理解的：无论Redis也好、MySQL也好、HDFS也好、HBase也好</li>
-<li>他们都是存储数据的地方</li>
-<li>因为它们的设计理念的不同，我们会根据不同的应用场景使用不同的存储</li>
-<li>像Redis一般我们会把它用作于缓存</li>
-<li>当然啦，日常有的应用场景比较简单，用个HashMap也能解决很多的问题了，没必要上Redis</li>
-<li>这就好比，有的单机限流可能应对某些场景就够用了，也没必要说一定要上分布式限流把系统搞得复杂</li>
-</ol>
-<h2 id="那你在项目里有用到Redis吗？怎么用的？"><a href="#那你在项目里有用到Redis吗？怎么用的？" class="headerlink" title="那你在项目里有用到Redis吗？怎么用的？"></a>那你在项目里有用到Redis吗？怎么用的？</h2><ol>
-<li>Redis肯定是用到的，我负责的项目几乎都会有Redisl的踪影</li>
-<li>我举几个我这边项目用的案例呗？</li>
-<li>我这边负责消息管理平台，简单来说就是发消息的</li>
-<li>那发完消息肯定我们是得知道消息有没有下发成功的，是吧？</li>
-<li>于是我们系统有一套完整的链路追踪体系</li>
-<li>其中实时的数据我们就用Redis来进行存储，有实时肯定就会有离线的嘛（离线的数据我们是存储到Hive的）</li>
-<li>对消息进行实时链路追踪，我这边就用了Redis好几种的数据结构，分别有Set、List和Hash</li>
-<li>我再稍微铺垫下链路追踪的背景吧~</li>
-<li>要在消息管理平台发消息，首先得在后台新建一个「模板」，有模板自然会有一个模板ID</li>
-<li>对模板D进行扩展，比如说加上日期和固定的业务参数，形成的ID可以唯一标识某个模板的下发链路</li>
-<li>在系统上，我这边叫它为UMPID</li>
-<li>在发送入口处会对所有需要下发的消息打上UMPID，然后在关键链路上打上对应的点位</li>
-<li>接下来的工作就是清洗出统一的模型，然后根据不同维度进行处理啦。比如说：</li>
-<li>我要看某一天下发的所有模板有哪些，那只要我把清洗出来后数据的，将对应UMPID扔到了Set就好了</li>
-<li>我要看某一个模板的消息下发的整体链路情况，那我以UMPID为Key，Value是Hash结构，Key是state，Value则是人数</li>
-<li>这里的state我们在下发的过程中打的关键点位，比如接收到消息打个51，消息被去重了打个61，消息成功下发了打个81…</li>
-<li>以UMPID为Key，Hash结构的Key（State）进行不断的累加，就可以实现某一个模板的消息下发的整体链路情况</li>
-<li>我要看某个用户当天下发的消息有哪些，以及这些消息的整体链路是如何。</li>
-<li>这边我用的是List结构，Key是userld，Value则是UMPID+state（关键点位）+processTime（处理时间）</li>
-</ol>
-<ul>
-<li>简单来说，就是通过Redis丰富的数据结构来实现对下发消息多个维度的统计</li>
-<li>不同的应用场景选择不同的数据结构，再等到透出做处理的时候，就变得十分简单了</li>
-<li>消息下发过程中去重或者一般正常的场景就直接Key-Value就能符合需求了</li>
-<li>像bitmap、hyperloglogs、sortset、steam等等这些数据结构在我所负责的项目用得是真不多</li>
-<li>要是我有机会去到贵公司，贵公司有相关的应用场景，我相信我也很快就能掌握</li>
-<li>这些数据结构底层都由对应的object来支撑着，objecti记录对应的「编码」</li>
-<li>其实就是会根据key-value存储的数量或者长度来使用选择不同的底层数据结构实现</li>
-<li>比如说：ziplist压缩列表这个底层数据结构有可能上层的实现是list、hash和sortset</li>
-<li>Hash结构的底层数据结构可能是hash和ziplist</li>
-<li>在节省内存和性能的考量之中切换,Redis还是有点屌的啊。</li>
-</ul>
-<h2 id="就你上面那个实时链路场景，可以用其他的存储替代吗？"><a href="#就你上面那个实时链路场景，可以用其他的存储替代吗？" class="headerlink" title="就你上面那个实时链路场景，可以用其他的存储替代吗？"></a>就你上面那个实时链路场景，可以用其他的存储替代吗？</h2><ol>
-<li>嗯，理论上是可以的（或许可以尝试用HBase），但总体来说没这么好吧</li>
-<li>因为Redis拥有丰富的数据结构，在透出的时候，处理会非常的方便。</li>
-<li>如果不用Redis的话，还得做很多解析的工作</li>
-<li>并且，我那场景的并发还是相当大的（就一条消息发送，可能就产生10条记录）</li>
-<li>监控峰值命令处理数会去到20K+QPS，当然了，这场景我肯定用了Pipeline的（不然处理会慢很多）</li>
-<li>综合上面并发量和实时性以及数据结构，用Redis：是一个比较好的选择。</li>
-</ol>
-<h2 id="你觉得为什么Redis可以这么快？"><a href="#你觉得为什么Redis可以这么快？" class="headerlink" title="你觉得为什么Redis可以这么快？"></a>你觉得为什么Redis可以这么快？</h2><ol>
-<li>首先，它是纯内存操作，内存本身就很快</li>
-<li>其次，它是单线程的，Redis服务器核心是基于非阻塞的O多路复用机制，单线程避免了多线程的频繁上下文切换问题</li>
-<li>至于这个单线程，其实官网也有过说明（：表示使用Redis往往的瓶颈在于内与和网络，而不在于CPU</li>
-</ol>
-
-      
-    </div>
-
-    
-    
-    
-
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>l
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://example.com/posts/eb97ef3e/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1876,6 +1701,181 @@
 <h2 id="那要不来讲讲扩容和Redisl的架构吧？-1"><a href="#那要不来讲讲扩容和Redisl的架构吧？-1" class="headerlink" title="那要不来讲讲扩容和Redisl的架构吧？"></a>那要不来讲讲扩容和Redisl的架构吧？</h2><ol>
 <li>Redis的官网啊，看了这么多技术官网，我觉得Redis的官网弄得是真不错</li>
 <li>《Redis设计与实现》这本书也挺不错的</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>l
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/36f701ea/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lion.png">
+      <meta itemprop="name" content="swimminghao">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="swimminghao's blog">
+      <meta itemprop="description" content="swimminghao的学习博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | swimminghao's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/36f701ea/" class="post-title-link" itemprop="url">17、【对线面试官】Redis基础</a>
+        </h2>
+
+        <div class="post-meta-container">
+
+          
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-03-10 09:48:07" itemprop="dateModified" datetime="2022-03-10T09:48:07+08:00">2022-03-10</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/posts/36f701ea/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/36f701ea/" data-xid="/posts/36f701ea/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>1.7k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>2 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="17、【对线面试官】Redis基础"><a href="#17、【对线面试官】Redis基础" class="headerlink" title="17、【对线面试官】Redis基础"></a>17、【对线面试官】Redis基础</h1><h2 id="你先来讲讲为什么要用Redis吧？"><a href="#你先来讲讲为什么要用Redis吧？" class="headerlink" title="你先来讲讲为什么要用Redis吧？"></a>你先来讲讲为什么要用Redis吧？</h2><ol>
+<li>我个人是这样理解的：无论Redis也好、MySQL也好、HDFS也好、HBase也好</li>
+<li>他们都是存储数据的地方</li>
+<li>因为它们的设计理念的不同，我们会根据不同的应用场景使用不同的存储</li>
+<li>像Redis一般我们会把它用作于缓存</li>
+<li>当然啦，日常有的应用场景比较简单，用个HashMap也能解决很多的问题了，没必要上Redis</li>
+<li>这就好比，有的单机限流可能应对某些场景就够用了，也没必要说一定要上分布式限流把系统搞得复杂</li>
+</ol>
+<h2 id="那你在项目里有用到Redis吗？怎么用的？"><a href="#那你在项目里有用到Redis吗？怎么用的？" class="headerlink" title="那你在项目里有用到Redis吗？怎么用的？"></a>那你在项目里有用到Redis吗？怎么用的？</h2><ol>
+<li>Redis肯定是用到的，我负责的项目几乎都会有Redisl的踪影</li>
+<li>我举几个我这边项目用的案例呗？</li>
+<li>我这边负责消息管理平台，简单来说就是发消息的</li>
+<li>那发完消息肯定我们是得知道消息有没有下发成功的，是吧？</li>
+<li>于是我们系统有一套完整的链路追踪体系</li>
+<li>其中实时的数据我们就用Redis来进行存储，有实时肯定就会有离线的嘛（离线的数据我们是存储到Hive的）</li>
+<li>对消息进行实时链路追踪，我这边就用了Redis好几种的数据结构，分别有Set、List和Hash</li>
+<li>我再稍微铺垫下链路追踪的背景吧~</li>
+<li>要在消息管理平台发消息，首先得在后台新建一个「模板」，有模板自然会有一个模板ID</li>
+<li>对模板D进行扩展，比如说加上日期和固定的业务参数，形成的ID可以唯一标识某个模板的下发链路</li>
+<li>在系统上，我这边叫它为UMPID</li>
+<li>在发送入口处会对所有需要下发的消息打上UMPID，然后在关键链路上打上对应的点位</li>
+<li>接下来的工作就是清洗出统一的模型，然后根据不同维度进行处理啦。比如说：</li>
+<li>我要看某一天下发的所有模板有哪些，那只要我把清洗出来后数据的，将对应UMPID扔到了Set就好了</li>
+<li>我要看某一个模板的消息下发的整体链路情况，那我以UMPID为Key，Value是Hash结构，Key是state，Value则是人数</li>
+<li>这里的state我们在下发的过程中打的关键点位，比如接收到消息打个51，消息被去重了打个61，消息成功下发了打个81…</li>
+<li>以UMPID为Key，Hash结构的Key（State）进行不断的累加，就可以实现某一个模板的消息下发的整体链路情况</li>
+<li>我要看某个用户当天下发的消息有哪些，以及这些消息的整体链路是如何。</li>
+<li>这边我用的是List结构，Key是userld，Value则是UMPID+state（关键点位）+processTime（处理时间）</li>
+</ol>
+<ul>
+<li>简单来说，就是通过Redis丰富的数据结构来实现对下发消息多个维度的统计</li>
+<li>不同的应用场景选择不同的数据结构，再等到透出做处理的时候，就变得十分简单了</li>
+<li>消息下发过程中去重或者一般正常的场景就直接Key-Value就能符合需求了</li>
+<li>像bitmap、hyperloglogs、sortset、steam等等这些数据结构在我所负责的项目用得是真不多</li>
+<li>要是我有机会去到贵公司，贵公司有相关的应用场景，我相信我也很快就能掌握</li>
+<li>这些数据结构底层都由对应的object来支撑着，objecti记录对应的「编码」</li>
+<li>其实就是会根据key-value存储的数量或者长度来使用选择不同的底层数据结构实现</li>
+<li>比如说：ziplist压缩列表这个底层数据结构有可能上层的实现是list、hash和sortset</li>
+<li>Hash结构的底层数据结构可能是hash和ziplist</li>
+<li>在节省内存和性能的考量之中切换,Redis还是有点屌的啊。</li>
+</ul>
+<h2 id="就你上面那个实时链路场景，可以用其他的存储替代吗？"><a href="#就你上面那个实时链路场景，可以用其他的存储替代吗？" class="headerlink" title="就你上面那个实时链路场景，可以用其他的存储替代吗？"></a>就你上面那个实时链路场景，可以用其他的存储替代吗？</h2><ol>
+<li>嗯，理论上是可以的（或许可以尝试用HBase），但总体来说没这么好吧</li>
+<li>因为Redis拥有丰富的数据结构，在透出的时候，处理会非常的方便。</li>
+<li>如果不用Redis的话，还得做很多解析的工作</li>
+<li>并且，我那场景的并发还是相当大的（就一条消息发送，可能就产生10条记录）</li>
+<li>监控峰值命令处理数会去到20K+QPS，当然了，这场景我肯定用了Pipeline的（不然处理会慢很多）</li>
+<li>综合上面并发量和实时性以及数据结构，用Redis：是一个比较好的选择。</li>
+</ol>
+<h2 id="你觉得为什么Redis可以这么快？"><a href="#你觉得为什么Redis可以这么快？" class="headerlink" title="你觉得为什么Redis可以这么快？"></a>你觉得为什么Redis可以这么快？</h2><ol>
+<li>首先，它是纯内存操作，内存本身就很快</li>
+<li>其次，它是单线程的，Redis服务器核心是基于非阻塞的O多路复用机制，单线程避免了多线程的频繁上下文切换问题</li>
+<li>至于这个单线程，其实官网也有过说明（：表示使用Redis往往的瓶颈在于内与和网络，而不在于CPU</li>
 </ol>
 
       
