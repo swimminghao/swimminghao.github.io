@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-loading-bar.css">
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.10.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="一个函数秒杀 2Sum 3Sum 4Sum 问题经常刷 LeetCode 的读者肯定知道鼎鼎有名的 twoSum 问题，我们的旧文 Two Sum 问题的核心思想 对 twoSum 的几个变种做了解析。 但是除了 twoSum 问题，LeetCode 上面还有 3Sum，4Sum 问题，我估计以后出个 5Sum，6Sum 也不是不可能。 那么，对于这种问题有没有什么好办法用套路解决呢？本文就由浅入">
+<meta property="og:type" content="article">
+<meta property="og:title" content="一个函数秒杀 2Sum 3Sum 4Sum 问题">
+<meta property="og:url" content="http://example.com/posts/2df4ba17/index.html">
+<meta property="og:site_name" content="swimminghao&#39;s blog">
+<meta property="og:description" content="一个函数秒杀 2Sum 3Sum 4Sum 问题经常刷 LeetCode 的读者肯定知道鼎鼎有名的 twoSum 问题，我们的旧文 Two Sum 问题的核心思想 对 twoSum 的几个变种做了解析。 但是除了 twoSum 问题，LeetCode 上面还有 3Sum，4Sum 问题，我估计以后出个 5Sum，6Sum 也不是不可能。 那么，对于这种问题有没有什么好办法用套路解决呢？本文就由浅入">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/EQzz7o_20210427105202.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/MUV5CJ_20210427105255.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/GjaUGB_20210427105438.png">
+<meta property="article:published_time" content="2022-02-28T11:57:47.000Z">
+<meta property="article:modified_time" content="2022-06-30T14:11:48.641Z">
+<meta property="article:author" content="swimminghao">
+<meta property="article:tag" content="感悟">
+<meta property="article:tag" content="算法">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/EQzz7o_20210427105202.png">
+
+
+<link rel="canonical" href="http://example.com/posts/2df4ba17/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/posts/2df4ba17/","path":"posts/2df4ba17/","title":"一个函数秒杀 2Sum 3Sum 4Sum 问题"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>一个函数秒杀 2Sum 3Sum 4Sum 问题 | swimminghao's blog</title>
+  
+
+
+
+
+<link rel="dns-prefetch" href="waline-server-nu.vercel.app"><link rel="stylesheet" href="//cdn.jsdelivr.net/gh/theme-next/theme-next-needmoreshare2@1/needsharebutton.min.css"><style>
+#needsharebutton-postbottom {
+  cursor: pointer;
+  height: 26px;
+  margin-top: 10px;
+  position: relative;
+}
+#needsharebutton-postbottom .btn {
+  border: 1px solid $btn-default-border-color;
+  border-radius: 3px;
+  display: initial;
+  padding: 1px 4px;
+}
+</style>
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">swimminghao's blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">学习博客</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">34</span></a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">8</span></a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">136</span></a></li>
+        <li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%80%E4%B8%AA%E5%87%BD%E6%95%B0%E7%A7%92%E6%9D%80-2Sum-3Sum-4Sum-%E9%97%AE%E9%A2%98"><span class="nav-number">1.</span> <span class="nav-text">一个函数秒杀 2Sum 3Sum 4Sum 问题</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81twoSum-%E9%97%AE%E9%A2%98"><span class="nav-number">1.1.</span> <span class="nav-text">一、twoSum 问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E3%80%813Sum-%E9%97%AE%E9%A2%98"><span class="nav-number">1.1.1.</span> <span class="nav-text">二、3Sum 问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E3%80%814Sum-%E9%97%AE%E9%A2%98"><span class="nav-number">1.1.2.</span> <span class="nav-text">三、4Sum 问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%9B%E3%80%81100Sum-%E9%97%AE%E9%A2%98%EF%BC%9F"><span class="nav-number">1.1.3.</span> <span class="nav-text">四、100Sum 问题？</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="swimminghao"
+      src="/images/lion.png">
+  <p class="site-author-name" itemprop="name">swimminghao</p>
+  <div class="site-description" itemprop="description">swimminghao的学习博客</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">136</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">34</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/swimminghao" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;swimminghao" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:swimminghao0@gmail.com" title="E-Mail → mailto:swimminghao0@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/swimminghao" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;swimminghao" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://plus.google.com/yourname" title="Google → https:&#x2F;&#x2F;plus.google.com&#x2F;yourname" rel="noopener" target="_blank"><i class="fab fa-google fa-fw"></i>Google</a>
+      </span>
+  </div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdn.jsdelivr.net/npm/@creativecommons/vocabulary@2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+<!-- recent posts -->
+    <div class="links-of-blogroll motion-element links-of-blogroll-block">
+        <div class="links-of-blogroll-title recent-posts-title">
+	    <i class="fa fa-history " aria-hidden="true"></i>
+            近期文章
+	</div>
+	<ul class="links-of-blogroll-list recent-posts-list">
+	        <li class="my-links-of-blogroll-item">
+		    <a href="/posts/c30e6297/" title="Hexo博客文章加密" target="">
+		    Hexo博客文章加密
+		    </a>
+		</li>
+	        <li class="my-links-of-blogroll-item">
+		    <a href="/posts/4a17b156/" title="hexo-start" target="">
+		    hexo-start
+		    </a>
+		</li>
+	        <li class="my-links-of-blogroll-item">
+		    <a href="/posts/5acbe4b2/" title="WSL2 中访问宿主机 Windows 的代理" target="">
+		    WSL2 中访问宿主机 Windows 的代理
+		    </a>
+		</li>
+	        <li class="my-links-of-blogroll-item">
+		    <a href="/posts/5f1a845d/" title="linux 中为 cp 和 mv 命令添加进度条" target="">
+		    linux 中为 cp 和 mv 命令添加进度条
+		    </a>
+		</li>
+	        <li class="my-links-of-blogroll-item">
+		    <a href="/posts/143a11e3/" title="zsh必备插件" target="">
+		    zsh必备插件
+		    </a>
+		</li>
+	</ul>
+    </div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/2df4ba17/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lion.png">
+      <meta itemprop="name" content="swimminghao">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="swimminghao's blog">
+      <meta itemprop="description" content="swimminghao的学习博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="一个函数秒杀 2Sum 3Sum 4Sum 问题 | swimminghao's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          一个函数秒杀 2Sum 3Sum 4Sum 问题
+        </h1>
+
+        <div class="post-meta-container">
+
+          
+              <i class="fa fa-thumb-tack"></i>
+              <font color=7D26CD>置顶</font>
+              <span class="post-meta-divider">|</span>
+          
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-06-30 22:11:48" itemprop="dateModified" datetime="2022-06-30T22:11:48+08:00">2022-06-30</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/posts/2df4ba17/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/2df4ba17/" data-xid="/posts/2df4ba17/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>7.8k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>7 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="一个函数秒杀-2Sum-3Sum-4Sum-问题"><a href="#一个函数秒杀-2Sum-3Sum-4Sum-问题" class="headerlink" title="一个函数秒杀 2Sum 3Sum 4Sum 问题"></a>一个函数秒杀 2Sum 3Sum 4Sum 问题</h1><p>经常刷 LeetCode 的读者肯定知道鼎鼎有名的 <code>twoSum</code> 问题，我们的旧文 <a target="_blank" rel="noopener" href="http://mp.weixin.qq.com/s?__biz=MzAxODQxMDM0Mw==&mid=2247484474&idx=1&sn=dfbadbe6e17d695a1907e2adcd9f0d3c&chksm=9bd7fa32aca0732406829a6d1de34b7e3144af239cc25e014f5349d73cea952d5f2b0473345a&scene=21#wechat_redirect">Two Sum 问题的核心思想</a> 对 <code>twoSum</code> 的几个变种做了解析。</p>
+<p>但是除了 <code>twoSum</code> 问题，LeetCode 上面还有 <code>3Sum</code>，<code>4Sum</code> 问题，我估计以后出个 <code>5Sum</code>，<code>6Sum</code> 也不是不可能。</p>
+<p>那么，对于这种问题有没有什么好办法用套路解决呢？本文就由浅入深，层层推进，用一个函数来解决所有 <code>nSum</code> 类型的问题。</p>
+<h2 id="一、twoSum-问题"><a href="#一、twoSum-问题" class="headerlink" title="一、twoSum 问题"></a>一、twoSum 问题</h2><p>[leetcode1](<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/two-sum/">1. 两数之和 - 力扣（LeetCode） (leetcode-cn.com)</a>)</p>
+<p>力扣上的 twoSum 问题，题目要求返回的是索引，这里我来编一道 twoSum 题目，不要返回索引，返回元素的值：</p>
+<p>如果假设输入一个数组 <code>nums</code> 和一个目标和 <code>target</code>，<strong>请你返回 <code>nums</code> 中能够凑出 <code>target</code> 的两个元素的值</strong>，比如输入 <code>nums = [5,3,1,6], target = 9</code>，那么算法返回两个元素 <code>[3,6]</code>。可以假设只有且仅有一对儿元素可以凑出 <code>target</code>。</p>
+<p>我们可以先对 <code>nums</code> 排序，然后利用前文「<a target="_blank" rel="noopener" href="http://mp.weixin.qq.com/s?__biz=MzAxODQxMDM0Mw==&mid=2247484505&idx=1&sn=0e9517f7c4021df0e6146c6b2b0c4aba&chksm=9bd7fa51aca07347009c591c403b3228f41617806429e738165bd58d60220bf8f15f92ff8a2e&scene=21#wechat_redirect">双指针技巧汇总</a>」写过的左右双指针技巧，从两端相向而行就行了：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;<span class="type">int</span>&gt; <span class="title function_">twoSum</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums, <span class="type">int</span> target)</span> &#123;</span><br><span class="line">    <span class="comment">// 先对数组排序</span></span><br><span class="line">    sort(nums.begin(), nums.end());</span><br><span class="line">    <span class="comment">// 左右指针</span></span><br><span class="line">    <span class="type">int</span> <span class="variable">lo</span> <span class="operator">=</span> <span class="number">0</span>, hi = nums.size() - <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span> (lo &lt; hi) &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">sum</span> <span class="operator">=</span> nums[lo] + nums[hi];</span><br><span class="line">        <span class="comment">// 根据 sum 和 target 的比较，移动左右指针</span></span><br><span class="line">        <span class="keyword">if</span> (sum &lt; target) &#123;</span><br><span class="line">            lo++;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (sum &gt; target) &#123;</span><br><span class="line">            hi--;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (sum == target) &#123;</span><br><span class="line">            <span class="keyword">return</span> &#123;nums[lo], nums[hi]&#125;;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> &#123;&#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这样就可以解决这个问题，不过我们要继续魔改题目，把这个题目变得更泛化，更困难一点：</p>
+<p><strong><code>nums</code> 中可能有多对儿元素之和都等于 <code>target</code>，请你的算法返回所有和为 <code>target</code> 的元素对儿，其中不能出现重复</strong>。</p>
+<p>函数签名如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; <span class="title function_">twoSumTarget</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums, <span class="type">int</span> target)</span>;</span><br></pre></td></tr></table></figure>
+
+<p>比如说输入为 <code>nums = [1,3,1,2,2,3], target = 4</code>，那么算法返回的结果就是：<code>[[1,3],[2,2]]</code>。</p>
+<p>对于修改后的问题，关键难点是现在可能有多个和为 <code>target</code> 的数对儿，还不能重复，比如上述例子中 <code>[1,3]</code> 和 <code>[3,1]</code> 就算重复，只能算一次。</p>
+<p>首先，基本思路肯定还是排序加双指针：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; <span class="title function_">twoSumTarget</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums, <span class="type">int</span> target &#123;</span></span><br><span class="line"><span class="params">    // 先对数组排序</span></span><br><span class="line"><span class="params">    sort(nums.begin()</span>, nums.end());</span><br><span class="line">    vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; res;</span><br><span class="line">    <span class="type">int</span> <span class="variable">lo</span> <span class="operator">=</span> <span class="number">0</span>, hi = nums.size() - <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span> (lo &lt; hi) &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">sum</span> <span class="operator">=</span> nums[lo] + nums[hi];</span><br><span class="line">        <span class="comment">// 根据 sum 和 target 的比较，移动左右指针</span></span><br><span class="line">        <span class="keyword">if</span>      (sum &lt; target) lo++;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (sum &gt; target) hi--;</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            res.push_back(&#123;lo, hi&#125;);</span><br><span class="line">            lo++; hi--;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>但是，这样实现会造成重复的结果，比如说 <code>nums = [1,1,1,2,2,3,3], target = 4</code>，得到的结果中 <code>[1,3]</code> 肯定会重复。</p>
+<p>出问题的地方在于 <code>sum == target</code> 条件的 if 分支，当给 <code>res</code> 加入一次结果后，<code>lo</code> 和 <code>hi</code> 不应该改变 1 的同时，还应该跳过所有重复的元素：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/EQzz7o_20210427105202.png" alt="图片"></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> (lo &lt; hi) &#123;</span><br><span class="line">    <span class="type">int</span> <span class="variable">sum</span> <span class="operator">=</span> nums[lo] + nums[hi];</span><br><span class="line">    <span class="comment">// 记录索引 lo 和 hi 最初对应的值</span></span><br><span class="line">    <span class="type">int</span> <span class="variable">left</span> <span class="operator">=</span> nums[lo], right = nums[hi];</span><br><span class="line">    <span class="keyword">if</span> (sum &lt; target)      lo++;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (sum &gt; target) hi--;</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        res.push_back(&#123;left, right&#125;);</span><br><span class="line">        <span class="comment">// 跳过所有重复的元素</span></span><br><span class="line">        <span class="keyword">while</span> (lo &lt; hi &amp;&amp; nums[lo] == left) lo++;</span><br><span class="line">        <span class="keyword">while</span> (lo &lt; hi &amp;&amp; nums[hi] == right) hi--;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这样就可以保证一个答案只被添加一次，重复的结果都会被跳过，可以得到正确的答案。不过，受这个思路的启发，其实前两个 if 分支也是可以做一点效率优化，跳过相同的元素：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; <span class="title function_">twoSumTarget</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums, <span class="type">int</span> target)</span> &#123;</span><br><span class="line">    <span class="comment">// nums 数组必须有序</span></span><br><span class="line">    sort(nums.begin(), nums.end());</span><br><span class="line">    <span class="type">int</span> <span class="variable">lo</span> <span class="operator">=</span> <span class="number">0</span>, hi = nums.size() - <span class="number">1</span>;</span><br><span class="line">    vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; res;</span><br><span class="line">    <span class="keyword">while</span> (lo &lt; hi) &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">sum</span> <span class="operator">=</span> nums[lo] + nums[hi];</span><br><span class="line">        <span class="type">int</span> <span class="variable">left</span> <span class="operator">=</span> nums[lo], right = nums[hi];</span><br><span class="line">        <span class="keyword">if</span> (sum &lt; target) &#123;</span><br><span class="line">            <span class="keyword">while</span> (lo &lt; hi &amp;&amp; nums[lo] == left) lo++;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (sum &gt; target) &#123;</span><br><span class="line">            <span class="keyword">while</span> (lo &lt; hi &amp;&amp; nums[hi] == right) hi--;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            res.push_back(&#123;left, right&#125;);</span><br><span class="line">            <span class="keyword">while</span> (lo &lt; hi &amp;&amp; nums[lo] == left) lo++;</span><br><span class="line">            <span class="keyword">while</span> (lo &lt; hi &amp;&amp; nums[hi] == right) hi--;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这样，一个通用化的 <code>twoSum</code> 函数就写出来了，请确保你理解了该算法的逻辑，我们后面解决 <code>3Sum</code> 和 <code>4Sum</code> 的时候会复用这个函数。</p>
+<p>这个函数的时间复杂度非常容易看出来，双指针操作的部分虽然有那么多 while 循环，但是时间复杂度还是 <code>O(N)</code>，而排序的时间复杂度是 <code>O(NlogN)</code>，所以这个函数的时间复杂度是 <code>O(NlogN)</code>。</p>
+<h3 id="二、3Sum-问题"><a href="#二、3Sum-问题" class="headerlink" title="二、3Sum 问题"></a>二、3Sum 问题</h3><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/3sum/">Leetcode15</a></p>
+<p>这是力扣第 15 题「三数之和」：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/MUV5CJ_20210427105255.png" alt="图片"></p>
+<p>题目就是让我们找 <code>nums</code> 中和为 0 的三个元素，返回所有可能的三元组（triple），函数签名如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; <span class="title function_">threeSum</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums)</span>;</span><br></pre></td></tr></table></figure>
+
+<p>这样，我们再泛化一下题目，不要光和为 0 的三元组了，计算和为 <code>target</code> 的三元组吧，同上面的 <code>twoSum</code> 一样，也不允许重复的结果：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; <span class="title function_">threeSum</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums)</span> &#123;</span><br><span class="line">    <span class="comment">// 求和为 0 的三元组</span></span><br><span class="line">    <span class="keyword">return</span> threeSumTarget(nums, <span class="number">0</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; <span class="title function_">threeSumTarget</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums, <span class="type">int</span> target)</span> &#123;</span><br><span class="line">    <span class="comment">// 输入数组 nums，返回所有和为 target 的三元组</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这个问题怎么解决呢？<strong>很简单，穷举呗</strong>。现在我们想找和为 <code>target</code> 的三个数字，那么对于第一个数字，可能是什么？<code>nums</code> 中的每一个元素 <code>nums[i]</code> 都有可能！</p>
+<p>那么，确定了第一个数字之后，剩下的两个数字可以是什么呢？其实就是和为 <code>target - nums[i]</code> 的两个数字呗，那不就是 <code>twoSum</code> 函数解决的问题么🤔</p>
+<p>可以直接写代码了，需要把 <code>twoSum</code> 函数稍作修改即可复用：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 从 nums[start] 开始，计算有序数组</span></span><br><span class="line"><span class="comment"> * nums 中所有和为 target 的二元组 */</span></span><br><span class="line">vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; <span class="title function_">twoSumTarget</span><span class="params">(</span></span><br><span class="line"><span class="params">    vector&lt;<span class="type">int</span>&gt;&amp; nums, <span class="type">int</span> start, <span class="type">int</span> target)</span> &#123;</span><br><span class="line">    <span class="comment">// 左指针改为从 start 开始，其他不变</span></span><br><span class="line">    <span class="type">int</span> <span class="variable">lo</span> <span class="operator">=</span> start, hi = nums.size() - <span class="number">1</span>;</span><br><span class="line">    vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; res;</span><br><span class="line">    <span class="keyword">while</span> (lo &lt; hi) &#123;</span><br><span class="line">        ...</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 计算数组 nums 中所有和为 target 的三元组 */</span></span><br><span class="line">vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; <span class="title function_">threeSumTarget</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums, <span class="type">int</span> target)</span> &#123;</span><br><span class="line">    <span class="comment">// 数组得排个序</span></span><br><span class="line">    sort(nums.begin(), nums.end());</span><br><span class="line">    <span class="type">int</span> <span class="variable">n</span> <span class="operator">=</span> nums.size();</span><br><span class="line">    vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; res;</span><br><span class="line">    <span class="comment">// 穷举 threeSum 的第一个数</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">        <span class="comment">// 对 target - nums[i] 计算 twoSum</span></span><br><span class="line">        vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; </span><br><span class="line">            tuples = twoSumTarget(nums, i + <span class="number">1</span>, target - nums[i]);</span><br><span class="line">        <span class="comment">// 如果存在满足条件的二元组，再加上 nums[i] 就是结果三元组</span></span><br><span class="line">        <span class="keyword">for</span> (vector&lt;<span class="type">int</span>&gt;&amp; tuple : tuples) &#123;</span><br><span class="line">            tuple.push_back(nums[i]);</span><br><span class="line">            res.push_back(tuple);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 跳过第一个数字重复的情况，否则会出现重复结果</span></span><br><span class="line">        <span class="keyword">while</span> (i &lt; n - <span class="number">1</span> &amp;&amp; nums[i] == nums[i + <span class="number">1</span>]) i++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>需要注意的是，类似 <code>twoSum</code>，<code>3Sum</code> 的结果也可能重复，比如输入是 <code>nums = [1,1,1,2,3], target = 6</code>，结果就会重复。</p>
+<p><strong>关键点在于，不能让第一个数重复，至于后面的两个数，我们复用的 <code>twoSum</code> 函数会保证它们不重复</strong>。所以代码中必须用一个 while 循环来保证 <code>3Sum</code> 中第一个元素不重复。</p>
+<p>至此，<code>3Sum</code> 问题就解决了，时间复杂度不难算，排序的复杂度为 <code>O(NlogN)</code>，<code>twoSumTarget</code> 函数中的双指针操作为 <code>O(N)</code>，<code>threeSumTarget</code> 函数在 for 循环中调用 <code>twoSumTarget</code> 所以总的时间复杂度就是 <code>O(NlogN + N^2) = O(N^2)</code>。</p>
+<h3 id="三、4Sum-问题"><a href="#三、4Sum-问题" class="headerlink" title="三、4Sum 问题"></a>三、4Sum 问题</h3><p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/4sum/">Leetcode18</a></p>
+<p>这是力扣第 18 题「四数之和」：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/GjaUGB_20210427105438.png" alt="图片"></p>
+<p>函数签名如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; <span class="title function_">fourSum</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums, <span class="type">int</span> target)</span>;</span><br></pre></td></tr></table></figure>
+
+<p>都到这份上了，<code>4Sum</code> 完全就可以用相同的思路：穷举第一个数字，然后调用 <code>3Sum</code> 函数计算剩下三个数，最后组合出和为 <code>target</code> 的四元组。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; <span class="title function_">fourSum</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums, <span class="type">int</span> target)</span> &#123;</span><br><span class="line">    <span class="comment">// 数组需要排序</span></span><br><span class="line">    sort(nums.begin(), nums.end());</span><br><span class="line">    <span class="type">int</span> <span class="variable">n</span> <span class="operator">=</span> nums.size();</span><br><span class="line">    vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; res;</span><br><span class="line">    <span class="comment">// 穷举 fourSum 的第一个数</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">        <span class="comment">// 对 target - nums[i] 计算 threeSum</span></span><br><span class="line">        vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; </span><br><span class="line">            triples = threeSumTarget(nums, i + <span class="number">1</span>, target - nums[i]);</span><br><span class="line">        <span class="comment">// 如果存在满足条件的三元组，再加上 nums[i] 就是结果四元组</span></span><br><span class="line">        <span class="keyword">for</span> (vector&lt;<span class="type">int</span>&gt;&amp; triple : triples) &#123;</span><br><span class="line">            triple.push_back(nums[i]);</span><br><span class="line">            res.push_back(triple);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// fourSum 的第一个数不能重复</span></span><br><span class="line">        <span class="keyword">while</span> (i &lt; n - <span class="number">1</span> &amp;&amp; nums[i] == nums[i + <span class="number">1</span>]) i++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 从 nums[start] 开始，计算有序数组</span></span><br><span class="line"><span class="comment"> * nums 中所有和为 target 的三元组 */</span></span><br><span class="line">vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; </span><br><span class="line">    <span class="title function_">threeSumTarget</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums, <span class="type">int</span> start, <span class="type">int</span> target)</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">n</span> <span class="operator">=</span> nums.size();</span><br><span class="line">        vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; res;</span><br><span class="line">        <span class="comment">// i 从 start 开始穷举，其他都不变</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> start; i &lt; n; i++) &#123;</span><br><span class="line">            ...</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br></pre></td></tr></table></figure>
+
+<p>这样，按照相同的套路，<code>4Sum</code> 问题就解决了，时间复杂度的分析和之前类似，for 循环中调用了 <code>threeSumTarget</code> 函数，所以总的时间复杂度就是 <code>O(N^3)</code>。</p>
+<h3 id="四、100Sum-问题？"><a href="#四、100Sum-问题？" class="headerlink" title="四、100Sum 问题？"></a>四、100Sum 问题？</h3><p>在 LeetCode 上，<code>4Sum</code> 就到头了，<strong>但是回想刚才写 <code>3Sum</code> 和 <code>4Sum</code> 的过程，实际上是遵循相同的模式的</strong>。我相信你只要稍微修改一下 <code>4Sum</code> 的函数就可以复用并解决 <code>5Sum</code> 问题，然后解决 <code>6Sum</code> 问题……</p>
+<p>那么，如果我让你求 <code>100Sum</code> 问题，怎么办呢？其实我们可以观察上面这些解法，统一出一个 <code>nSum</code> 函数：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 注意：调用这个函数之前一定要先给 nums 排序 */</span></span><br><span class="line">vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; <span class="title function_">nSumTarget</span><span class="params">(</span></span><br><span class="line"><span class="params">    vector&lt;<span class="type">int</span>&gt;&amp; nums, <span class="type">int</span> n, <span class="type">int</span> start, <span class="type">int</span> target)</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> <span class="variable">sz</span> <span class="operator">=</span> nums.size();</span><br><span class="line">    vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; res;</span><br><span class="line">    <span class="comment">// 至少是 2Sum，且数组大小不应该小于 n</span></span><br><span class="line">    <span class="keyword">if</span> (n &lt; <span class="number">2</span> || sz &lt; n) <span class="keyword">return</span> res;</span><br><span class="line">    <span class="comment">// 2Sum 是 base case</span></span><br><span class="line">    <span class="keyword">if</span> (n == <span class="number">2</span>) &#123;</span><br><span class="line">        <span class="comment">// 双指针那一套操作</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">lo</span> <span class="operator">=</span> start, hi = sz - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span> (lo &lt; hi) &#123;</span><br><span class="line">            <span class="type">int</span> <span class="variable">sum</span> <span class="operator">=</span> nums[lo] + nums[hi];</span><br><span class="line">            <span class="type">int</span> <span class="variable">left</span> <span class="operator">=</span> nums[lo], right = nums[hi];</span><br><span class="line">            <span class="keyword">if</span> (sum &lt; target) &#123;</span><br><span class="line">                <span class="keyword">while</span> (lo &lt; hi &amp;&amp; nums[lo] == left) lo++;</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (sum &gt; target) &#123;</span><br><span class="line">                <span class="keyword">while</span> (lo &lt; hi &amp;&amp; nums[hi] == right) hi--;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                res.push_back(&#123;left, right&#125;);</span><br><span class="line">                <span class="keyword">while</span> (lo &lt; hi &amp;&amp; nums[lo] == left) lo++;</span><br><span class="line">                <span class="keyword">while</span> (lo &lt; hi &amp;&amp; nums[hi] == right) hi--;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">// n &gt; 2 时，递归计算 (n-1)Sum 的结果</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> start; i &lt; sz; i++) &#123;</span><br><span class="line">            vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; </span><br><span class="line">                sub = nSumTarget(nums, n - <span class="number">1</span>, i + <span class="number">1</span>, target - nums[i]);</span><br><span class="line">            <span class="keyword">for</span> (vector&lt;<span class="type">int</span>&gt;&amp; arr : sub) &#123;</span><br><span class="line">                <span class="comment">// (n-1)Sum 加上 nums[i] 就是 nSum</span></span><br><span class="line">                arr.push_back(nums[i]);</span><br><span class="line">                res.push_back(arr);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">while</span> (i &lt; sz - <span class="number">1</span> &amp;&amp; nums[i] == nums[i + <span class="number">1</span>]) i++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>嗯，看起来很长，实际上就是把之前的题目解法合并起来了，<code>n == 2</code> 时是 <code>twoSum</code> 的双指针解法，<code>n &gt; 2</code> 时就是穷举第一个数字，然后递归调用计算 <code>(n-1)Sum</code>，组装答案。</p>
+<p><strong>需要注意的是，调用这个 <code>nSum</code> 函数之前一定要先给 <code>nums</code> 数组排序</strong>，因为 <code>nSum</code> 是一个递归函数，如果在 <code>nSum</code> 函数里调用排序函数，那么每次递归都会进行没有必要的排序，效率会非常低。</p>
+<p>比如说现在我们写 LeetCode 上的 <code>4Sum</code> 问题：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; <span class="title function_">fourSum</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums, <span class="type">int</span> target)</span> &#123;</span><br><span class="line">    sort(nums.begin(), nums.end());</span><br><span class="line">    <span class="comment">// n 为 4，从 nums[0] 开始计算和为 target 的四元组</span></span><br><span class="line">    <span class="keyword">return</span> nSumTarget(nums, <span class="number">4</span>, <span class="number">0</span>, target);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>再比如 LeetCode 的 <code>3Sum</code> 问题，找 <code>target == 0</code> 的三元组：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; <span class="title function_">threeSum</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums)</span> &#123;</span><br><span class="line">    sort(nums.begin(), nums.end());</span><br><span class="line">    <span class="comment">// n 为 3，从 nums[0] 开始计算和为 0 的三元组</span></span><br><span class="line">    <span class="keyword">return</span> nSumTarget(nums, <span class="number">3</span>, <span class="number">0</span>, <span class="number">0</span>);        </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>那么，如果让你计算 <code>100Sum</code> 问题，直接调用这个函数就完事儿了。</p>
+
+    </div>
+
+    
+    
+    
+
+
+    <div>
+      
+        <div>
+    
+      <div style="text-align:center;color: #ccc;font-size:20px;">------------- 本 文 结 束&nbsp&nbsp&nbsp&nbsp&nbsp感 谢 您 的 阅 读 -------------</div>
+    
+</div>
+
+      
+    </div>
+
+    <footer class="post-footer"><div class="post-widgets">
+      <div id="needsharebutton-postbottom">
+        <span class="btn">
+          <i class="fa fa-share-alt" aria-hidden="true"></i>
+        </span>
+      </div>
+    </div>
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>swimminghao
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://example.com/posts/2df4ba17/" title="一个函数秒杀 2Sum 3Sum 4Sum 问题">http://example.com/posts/2df4ba17/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/%E6%84%9F%E6%82%9F/" rel="tag"><i class="fa fa-tag"></i> 感悟</a>
+              <a href="/tags/%E7%AE%97%E6%B3%95/" rel="tag"><i class="fa fa-tag"></i> 算法</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/posts/995671e7/" rel="prev" title="动态规划答疑篇">
+                  <i class="fa fa-chevron-left"></i> 动态规划答疑篇
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/posts/ac3dc3bf/" rel="next" title="9、【对线面试官】线程池">
+                  9、【对线面试官】线程池 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>l
+
+
+
+
+
+
+    <div class="comments" id="waline-comments"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">swimminghao</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">1m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">15:11</span>
+  </span>
+</div>
+
+<span id="sitetime"></span>
+<script language=javascript>
+    function siteTime(){
+        window.setTimeout("siteTime()", 1000);
+        var seconds = 1000;
+        var minutes = seconds * 60;
+        var hours = minutes * 60;
+        var days = hours * 24;
+        var years = days * 365;
+        var today = new Date();
+        var todayYear = today.getFullYear();
+        var todayMonth = today.getMonth()+1;
+        var todayDate = today.getDate();
+        var todayHour = today.getHours();
+        var todayMinute = today.getMinutes();
+        var todaySecond = today.getSeconds();
+        /* Date.UTC() -- 返回date对象距世界标准时间(UTC)1970年1月1日午夜之间的毫秒数(时间戳)
+        year - 作为date对象的年份，为4位年份值
+        month - 0-11之间的整数，做为date对象的月份
+        day - 1-31之间的整数，做为date对象的天数
+        hours - 0(午夜24点)-23之间的整数，做为date对象的小时数
+        minutes - 0-59之间的整数，做为date对象的分钟数
+        seconds - 0-59之间的整数，做为date对象的秒数
+        microseconds - 0-999之间的整数，做为date对象的毫秒数 */
+        var t1 = Date.UTC(2022,02,28,00,00,00); //你的建站时间
+        var t2 = Date.UTC(todayYear,todayMonth,todayDate,todayHour,todayMinute,todaySecond);
+        var diff = t2-t1;
+        var diffYears = Math.floor(diff/years);
+        var diffDays = Math.floor((diff/days)-diffYears*365);
+        var diffHours = Math.floor((diff-(diffYears*365+diffDays)*days)/hours);
+        var diffMinutes = Math.floor((diff-(diffYears*365+diffDays)*days-diffHours*hours)/minutes);
+        var diffSeconds = Math.floor((diff-(diffYears*365+diffDays)*days-diffHours*hours-diffMinutes*minutes)/seconds);
+        document.getElementById("sitetime").innerHTML=" 本站已安全运行 "+diffYears+" Year "+diffDays+" Days "+diffHours+" Hours "+diffMinutes+" m "+diffSeconds+" s";
+    }
+    siteTime();
+</script>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        访问人数：<span id="busuanzi_value_site_uv"></span>
+      </span>人
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+       访问总量：<span id="busuanzi_value_site_pv"></span>
+      </span>次
+    </span>
+
+
+<!--
+  本文总阅读量：<span id="busuanzi_value_page_pv"></span>次
+-->
+
+</div>
+
+
+<!--
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+--><script color="0,0,255" opacity="0.5" zIndex="-1" count="99" src="https://cdn.jsdelivr.net/npm/canvas-nest.js@1/dist/canvas-nest.js"></script>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<script class="next-config" data-name="waline" type="application/json">{"lang":"zh-cn","enable":true,"serverURL":"waline-server-nu.vercel.app","placeholder":"请文明评论呀","avatar":"mm","pageSize":10,"visitor":false,"comment_count":true,"requiredFields":[],"meta":["nick","mail","link"],"libUrl":"https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js","el":"#waline-comments","path":"/posts/2df4ba17/"}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.waline.el).then(() => 
+    NexT.utils.getScript(CONFIG.waline.libUrl, { condition: window.Waline })
+  ).then(() => {
+    new Waline(CONFIG.waline);
+  });
+});
+</script>
+  <script src="//cdn.jsdelivr.net/gh/theme-next/theme-next-needmoreshare2@1/needsharebutton.min.js"></script>
+  <script>
+      pbOptions = {};
+        pbOptions.iconStyle = "default";
+        pbOptions.boxForm = "horizontal";
+        pbOptions.position = "middleCenter";
+        pbOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+  </script>
+</body>
+</html>
