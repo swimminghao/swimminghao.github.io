@@ -276,7 +276,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/a269a036/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/986aa405/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/lion.png">
@@ -294,7 +294,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/a269a036/" class="post-title-link" itemprop="url">jvm调优</a>
+          <a href="/posts/986aa405/" class="post-title-link" itemprop="url">5、【对线面试官】多线程基础</a>
         </h2>
 
         <div class="post-meta-container">
@@ -315,7 +315,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-13 12:56:04" itemprop="dateModified" datetime="2022-03-13T12:56:04+08:00">2022-03-13</time>
+      <time title="修改时间：2022-03-10 09:48:07" itemprop="dateModified" datetime="2022-03-10T09:48:07+08:00">2022-03-10</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -336,177 +336,8 @@
     </span>
     <span class="post-meta-item-text">Waline：</span>
   
-    <a title="waline" href="/posts/a269a036/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/a269a036/" data-xid="/posts/a269a036/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>2.1k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>2 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="jvm调优"><a href="#jvm调优" class="headerlink" title="jvm调优"></a>jvm调优</h1><h2 id="一、优化系统的思路"><a href="#一、优化系统的思路" class="headerlink" title="一、优化系统的思路"></a>一、优化系统的思路</h2><p>没有jvm调优经历</p>
-<ol>
-<li>一般来说关系型数据库是先到瓶颈，首先排查是否为数据库的问题<br>（这个过程中就需要评估自己建的索引是否合理、是否需要引入分布式缓存、是否需要分库分表等等</li>
-<li>然后，我们会考虑是否需要扩容（横向和纵向都会考虑）<br>（这个过程中我们会怀疑是系统的压力过大或者是系统的硬件能力不足导致系统频繁出现问题）</li>
-<li>接着，应用代码层面上排查并优化<br>（扩容是不能无止境的，里头里外都是钱阿，这个过程中我们会审视自己写的代码是否存在资源浪费的问题，又或者是在逻辑上可存在优化的地方，比如说通过并行的方式处理某些请求)</li>
-<li>再接着，JVM层面上排查并优化<br>（审视完代码之后，这个过程我们观察J VM是否存在多次GC问题等等）</li>
-<li>最后，网络和操作系统层面排查<br>（这个过程查看内存&#x2F;CPU&#x2F;网络&#x2F;硬盘读写指标是否正常等等）</li>
-</ol>
-<p><strong>绝大多数情况下，到第三步就结束了，一般经过「运维团队」给我们设置的JVM和机器上的参数，已经满足绝大多数的需求了。</strong></p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/ymDKDD_20210923115445.png"></p>
-<h2 id="二、举例子"><a href="#二、举例子" class="headerlink" title="二、举例子"></a>二、举例子</h2><p>之前有过其他团队在「大促」发现接口处理超时的问题，那时候查各种监控怀疑是FULLGC频率稍大所导致的</p>
-<ol>
-<li>第一想法不是说去调节各种JVM参数来进行优化，而是直接加机器（用最粗暴的方法，解决问题是最简单的，扩容YYDS）</li>
-<li>不过，我是学过JVM相关的调优命令和思路的。<br>在我的理解下，调优JVM其实就是在「理解」JVM内存结构以及各种垃圾收集器前提下，结合自己的现有的业务来「调整参数」，使自己的应用能够正常稳定运行。<ul>
-<li>一般调优JVM我们认为会有几种指标可以参考：「吞吐量」、「停顿时间」和「垃圾回收频率」</li>
-<li>基于这些指标，我们就有可能需要调整：<ol>
-<li>内存区域大小以及相关策略（比如整块堆内存占多少、新生代占多少、老年代占多少、Survivor占多少、晋升老年代的条件等等）<br>比如（-Xmx：设置堆的最大值、-Xms：设置堆的初始值、-Xmn：表示年轻代的大小、-XX：SurvivorRatio：伊甸区和幸存区的比例等等）<br>按经验来说：I0密集型的可以稍微把「年轻代」空间加大些，因为大多数对象都是在年轻代就会灭亡。内存计算密集型的可以稍微把「老年代」空间加大些，对象存活时间会更长些）</li>
-<li>垃圾回收器（选择合适的垃圾回收器，以及各个垃圾回收器的各种调优参数）<br>比如（-XX：+UseG1GC：指定JVM使用的垃圾回收器为G1、-XX：MaxGCPause Millis：设置目标停顿时间、-XX：InitiatingHeapOccupancyPercent：当整个堆内存使用达到一定比例，全局并发标记阶段就会被启动等等）<br>没错，这些都是因地制宜，具体问题具体分析（前提是得懂JVM的各种基础知识，基础知识都不懂，谈何调优）<br>在大多数场景下，JVM已经能够达到「开箱即用」</li>
-</ol>
-</li>
-</ul>
-</li>
-</ol>
-<h2 id="三、调优工具"><a href="#三、调优工具" class="headerlink" title="三、调优工具"></a>三、调优工具</h2><p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/Ixx1QR_20210923115955.png"></p>
-<p>一般我们是「遇到问题」之后才进行调优的，而遇到问题后需要利用各种的 「工具」 进行排查</p>
-<ol>
-<li>通过jps命令查看Java进程「基础」信息（进程号、主类）。这个命令很常用的就是用来看当前服务器有多少Java进程在运行，它们的进程号和加载主类是啥</li>
-<li>通过jstat命令查看Java进程「统计类」相关的信息（类加载、编译相关信息统计，各个内存区域GC概况和统计）。这个命令很常用于看GC的情况</li>
-<li>通过jinfo命令来查看和调整Java进程的「运行参数」</li>
-<li>通过jmap命令来查看Java进程的「内存信息」。这个命令很常用于把JVM内存信息dump到文件，然后再用MAT（Memory Analyzer tool内存解析工具）把文件进行分析</li>
-<li>通过jstack命令来查看JVM「线程信息」。这个命令用常用语排查死锁相关的问题</li>
-<li>还有近期比较热门的Arthas（阿里开源的诊断工具），涵盖了上面很多命令的功能且自带图形化界面。这也是我这边常用的排查和分析工具</li>
-</ol>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/HzOR97_20210923141932.png"></p>
-<h2 id="四、jvm的jit优化技术"><a href="#四、jvm的jit优化技术" class="headerlink" title="四、jvm的jit优化技术"></a>四、jvm的jit优化技术</h2><p>JIT优化技术比较出名的有两种：方法内联和逃逸分析</p>
-<ol>
-<li>所谓方法内联就是把「目标方法」的代码复制到「调用的方法」中，避免发生真实的方法调用因为每次方法调用都会生成栈帧（压栈出栈记录方法调用位置等等）会带来一定的性能损耗，所以「方法内联」的优化可以提高一定的性能<br>在JVM中也有相关的参数给予我们指定 (-XX:MaxFreqlnlineSize、 -XX:MaxInli neSize等等）</li>
-<li>而「逃逸分析」则是判断一个对象是否被外部方法引用或外部线程访问的分析技术，如果「没有被引用」，就可以对其进行优化<br>下面我举几个可优化的例子（思路）：<ul>
-<li>1.锁消除（同步忽略）：该对象只在方法内部被访问，不会被别的地方引用，那么就一定是线程安全的，可以把锁相关的代码给忽略掉0</li>
-<li>2.栈上分配：该对象只会在方法内部被访问，直接将对象分配在「栈」中（Java默认是将对象分配在「堆」中，是需要通过JVM垃圾回收期进行回收，需要损耗一定的性能，而栈内分配则快很多）</li>
-<li>3.标量替换&#x2F;分离对象：当程序真正执行的时候可以不创建这个对象，而直接创建它的成员变量来代替。将对象拆分后，可以分配对象的成员变量在栈或寄存器上，原本的对象就无需分配内存空间了</li>
-</ul>
-</li>
-</ol>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/D1Gg1I_20210923142207.png"></p>
-<p>不过扯了这么多，不同的JVM版本对JIT的优化都不太相同</p>
-<p>这里也只能算是一个参考</p>
-<p>线上在使用的JVM也不知道有没有做了这么些优化.</p>
-
-      
-    </div>
-
-    
-    
-    
-
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>l
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/c77b99c1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/lion.png">
-      <meta itemprop="name" content="swimminghao">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="swimminghao's blog">
-      <meta itemprop="description" content="swimminghao的学习博客">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | swimminghao's blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/c77b99c1/" class="post-title-link" itemprop="url">使用java8实现List中对象属性的去重</a>
-        </h2>
-
-        <div class="post-meta-container">
-
-          
-
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-13 12:56:04" itemprop="dateModified" datetime="2022-03-13T12:56:04+08:00">2022-03-13</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E8%AF%AD%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">语法</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="far fa-comment"></i>
-    </span>
-    <span class="post-meta-item-text">Waline：</span>
-  
-    <a title="waline" href="/posts/c77b99c1/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/c77b99c1/" data-xid="/posts/c77b99c1/" itemprop="commentCount"></span>
+    <a title="waline" href="/posts/986aa405/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/986aa405/" data-xid="/posts/986aa405/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -535,23 +366,67 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="使用java8实现List中对象属性的去重"><a href="#使用java8实现List中对象属性的去重" class="headerlink" title="使用java8实现List中对象属性的去重"></a>使用java8实现List中对象属性的去重</h1><p>今天在工作的时候遇到了一个问题，就是List的去重，不想用双重for，感觉太low，不想用for+Map，感觉应该有更好的方法，于是，google之。发现java8的stream流能完美解决这个问题。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">List&lt;BookInfoVo&gt; list</span><br></pre></td></tr></table></figure>
-<p>比如在 BookInfoVo 中有一个 recordId 属性,现在需要对此去重.</p>
-<p>怎么办呢?</p>
-<p>有两种方法:</p>
-<ul>
-<li>第一种: 不使用java8 的 Stream<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> List&lt;BookInfoVo&gt; <span class="title function_">removeDupliByRecordId</span><span class="params">(List&lt;BookInfoVo&gt; books)</span> &#123;</span><br><span class="line">	Set&lt;BookInfoVo&gt; bookSet = <span class="keyword">new</span> <span class="title class_">TreeSet</span>&lt;&gt;((o1, o2)-&gt;o1.getRecordId().compareTo(o2.getRecordId()));</span><br><span class="line">          personSet.addAll(books);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;BookInfoVo&gt;(bookSet);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-这也是大多数人第一想到的,借助 TreeSet 去重,其中 TreeSet 的其中一个构造函数接收一个排序的算法,同时这也会用到 TreeSet 的去重策略上.<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Constructs a new, empty tree set, sorted according to the specified</span></span><br><span class="line"><span class="comment">     * comparator.  All elements inserted into the set must be &lt;i&gt;mutually</span></span><br><span class="line"><span class="comment">     * comparable&lt;/i&gt; by the specified comparator: &#123;<span class="doctag">@code</span> comparator.compare(e1,</span></span><br><span class="line"><span class="comment">     * e2)&#125; must not throw a &#123;<span class="doctag">@code</span> ClassCastException&#125; for any elements</span></span><br><span class="line"><span class="comment">     * &#123;<span class="doctag">@code</span> e1&#125; and &#123;<span class="doctag">@code</span> e2&#125; in the set.  If the user attempts to add</span></span><br><span class="line"><span class="comment">     * an element to the set that violates this constraint, the</span></span><br><span class="line"><span class="comment">     * &#123;<span class="doctag">@code</span> add&#125; call will throw a &#123;<span class="doctag">@code</span> ClassCastException&#125;.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> comparator the comparator that will be used to order this set.</span></span><br><span class="line"><span class="comment">     *        If &#123;<span class="doctag">@code</span> null&#125;, the &#123;<span class="doctag">@linkplain</span> Comparable natural</span></span><br><span class="line"><span class="comment">     *        ordering&#125; of the elements will be used.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line"><span class="keyword">public</span> <span class="title function_">TreeSet</span><span class="params">(Comparator&lt;? <span class="built_in">super</span> E&gt; comparator)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>(<span class="keyword">new</span> <span class="title class_">TreeMap</span>&lt;&gt;(comparator));</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></li>
-<li>第二种: 炫酷的java8写法]<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*方法二:炫酷的java8写法*/</span></span><br><span class="line">ArrayList&lt;BookInfoVo&gt; distinctLiost = list.stream()</span><br><span class="line">                  .collect(</span><br><span class="line">                          Collectors.collectingAndThen(</span><br><span class="line">                                  Collectors.toCollection(() -&gt; <span class="keyword">new</span> <span class="title class_">TreeSet</span>&lt;&gt;(Comparator.comparingLong(BookInfoVo::getRecordId))), ArrayList::<span class="keyword">new</span>)</span><br><span class="line">                  );</span><br></pre></td></tr></table></figure>
-当然也可以根据多个属性去重<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ArrayList&lt;BookInfoVo&gt; distinctLiost = list.stream().collect(Collectors.collectingAndThen(</span><br><span class="line">  Collectors.toCollection(() -&gt; <span class="keyword">new</span> <span class="title class_">TreeSet</span>&lt;&gt;(Comparator.comparing(o -&gt; o.getName() + <span class="string">&quot;;&quot;</span> + o.getAuthor()))), ArrayList::<span class="keyword">new</span>)</span><br></pre></td></tr></table></figure>
-如果没有第一种方法做铺垫,我们很可能一脸懵逼.</li>
+          <h1 id="5、【对线面试官】多线程基础"><a href="#5、【对线面试官】多线程基础" class="headerlink" title="5、【对线面试官】多线程基础"></a>5、【对线面试官】多线程基础</h1><h2 id="首先你来讲讲进程和线程的区别吧？"><a href="#首先你来讲讲进程和线程的区别吧？" class="headerlink" title="首先你来讲讲进程和线程的区别吧？"></a>首先你来讲讲进程和线程的区别吧？</h2><ol>
+<li>进程是系统进行资源分配和调度的独立单位，每一个进程都有它自己的内存空间和系统资源</li>
+<li>进程实现多处理机环境下的进程调度，分派，切换时，都需要花费较大的时间和空间开销</li>
+<li>为了提高系统的执行效率，减少处理机的空转时间和调度切换的时间，以及便于系统管理，所以有了线程，线程取代了进程了调度的基本功能</li>
+<li>简单来说，进程作为资源分配的基本单位，线程作为资源调度的基本单位</li>
+</ol>
+<h2 id="那我们为什么要用多线程呢？你平时工作中用得多吗？"><a href="#那我们为什么要用多线程呢？你平时工作中用得多吗？" class="headerlink" title="那我们为什么要用多线程呢？你平时工作中用得多吗？"></a>那我们为什么要用多线程呢？你平时工作中用得多吗？</h2><ol>
+<li>使用多线程最主要的原因是提高系统的资源利用率。</li>
+<li>现在CPU基本都是多核的，如果你只用单线程，那就是只用到了一个核心，其他的核心就相当于空闲在那里了。</li>
+<li>在平时工作中多线程是随时都可见的。</li>
+<li>比如说，我们系统Web服务器用的是Tomcat，Tomcat处理每一个请求都会从线程连接池里边用一个线程去处理。</li>
+<li>又比如说，我们用连接数据库会用对应的连接池Druid&#x2F;C3P0&#x2F;DBCP等等</li>
+<li>等等这些都用了多线程的。</li>
+<li>上面这些框架已经帮我们屏蔽掉「手写」多线程的问题</li>
+</ol>
+<h3 id="嗯，了解，那你实际开发中有用过吗？"><a href="#嗯，了解，那你实际开发中有用过吗？" class="headerlink" title="嗯，了解，那你实际开发中有用过吗？"></a>嗯，了解，那你实际开发中有用过吗？</h3><ol>
+<li><p>当然有了，在我所负责的系统也会用到多线程的。</p>
+</li>
+<li><p>比如说，现在要跑一个定时任务，该任务的链路执行时间和过程都非常长，我这边就用一个线程池将该定时任务的请求进行处理。</p>
+</li>
+<li><p>这样做的好处就是可以及时返回结果给调用方，能够提高系统的吞吐量。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 请求直接交给线程池来处理</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">push</span><span class="params">(PushParam pushParam)</span> &#123;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    pushServiceThreadExecutor.submit(() -&gt; &#123;</span><br><span class="line">      handler(pushParam);</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">    logger.error(<span class="string">&quot;pushServiceThreadExecutor error, exception&#123;&#125;:&quot;</span>, e);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>还有就是我的系统中用了很多生产者与消费者模式，会用多个线程去消费队列的消息，来提高并发度</p>
+</li>
+</ol>
+<h2 id="你如果在项目中用到了多线程，那肯定得考虑线程安全的问题的吧"><a href="#你如果在项目中用到了多线程，那肯定得考虑线程安全的问题的吧" class="headerlink" title="你如果在项目中用到了多线程，那肯定得考虑线程安全的问题的吧"></a>你如果在项目中用到了多线程，那肯定得考虑线程安全的问题的吧</h2><ol>
+<li>在我的理解下，在Java世界里边，所谓线程安全就是多个线程去执行某类，这个类始终能表现出正确的行为，那么这个类就是线程安全的。</li>
+<li>比如我有一个count变量，在service方法不断的累加这个count变量。</li>
+<li>假设相同的条件下，count变量每次执行的结果都是相同，那我们就可以说是线程安全的干</li>
+<li>显然下面的代码肯定不是线程安全的</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">UnsafeCountingServlet</span> <span class="keyword">extends</span> <span class="title class_">GenericServlet</span> <span class="keyword">implements</span> <span class="title class_">Servlet</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">long</span> <span class="variable">count</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">long</span> <span class="title function_">getCount</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> count;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">service</span><span class="params">(ServletRequest servletRequest, ServletResponse servletResponse)</span> <span class="keyword">throws</span> ServletException, IOException &#123;</span><br><span class="line"></span><br><span class="line">        ++count;</span><br><span class="line">        <span class="comment">// To something else...</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="那你平时是怎么解决，或者怎么思考线程安全问题的呢？"><a href="#那你平时是怎么解决，或者怎么思考线程安全问题的呢？" class="headerlink" title="那你平时是怎么解决，或者怎么思考线程安全问题的呢？"></a>那你平时是怎么解决，或者怎么思考线程安全问题的呢？</h2><ol>
+<li>其实大部分时间我们在代码里边都没有显式去处理线程安全问题，因为这大部分都由框架所做了。</li>
+<li>正如上面提到的Tomcat、Druid、SpringMVC等等。</li>
+<li>很多时候，我们判断是否要处理线程安全问题，就看有没有多个线程同时访问一个共享变量。</li>
+<li>像SpringMVC这种，我们日常开发时，不涉及到操作同一个成员变量，那我们就很少需要考虑线程安全问题。</li>
+<li>我个人解决线程安全问题的思路有以下：<ul>
+<li>能不能保证操作的原子性，考虑atomi c包下的类够不够我们使用。</li>
+<li>能不能保证操作的可见性，考虑volatil e关键字够不够我们使用</li>
+<li>如果涉及到对线程的控制（比如一次能使用多少个线程，当前线程触发的条件是否依赖其他线程的结果），考虑CountDownLatch&#x2F;Semaphore等等。</li>
+<li>如果是集合，考虑java.util.concurrent 包下的集合类。</li>
+<li>如果synchronized无法满足，考虑lock 包下的类</li>
 </ul>
-<p>其实理解起来也不难:</p>
-<p>关键在于Collectors.collectingAndThen( Collectors.toCollection(() -&gt; new TreeSet&lt;&gt;(Comparator.comparingLong(BookInfoVo::getRecordId))), ArrayList::new)的理解,</p>
-<p>collectingAndThen 这个方法的意思是: 将收集的结果转换为另一种类型: collectingAndThen,</p>
-<p>因此上面的方法可以理解为,把 new TreeSet&lt;&gt;(Comparator.comparingLong(BookInfoVo::getRecordId))这个set转换为 ArrayList,这个结合第一种方法不难理解.</p>
-<p>可以看到java8这种写法真是炫酷又强大!!!</p>
+</li>
+<li>总的来说，就是先判断有没有线程安全问题，如果存在则根据具体的情况去判断使用什么方式去处理线程安全的问题。</li>
+<li>虽然synchronized很牛逼，但无脑使用synchronized会影响我们程序的性能的。</li>
+</ol>
+<h2 id="死锁你了解吗？什么情况会造成死锁？要是你能给我讲清楚死锁，我就录取你了"><a href="#死锁你了解吗？什么情况会造成死锁？要是你能给我讲清楚死锁，我就录取你了" class="headerlink" title="死锁你了解吗？什么情况会造成死锁？要是你能给我讲清楚死锁，我就录取你了"></a>死锁你了解吗？什么情况会造成死锁？要是你能给我讲清楚死锁，我就录取你了</h2><ol>
+<li>要是你录取我，我就给你讲清楚死锁</li>
+<li>造成死锁的原因可以简单概括为：当前线程拥有其他线程需要的资源，当前线程等待其他线程已拥有的资源，都不放弃自己拥有的资源。</li>
+<li>避免死锁的方式一般有以下方案：<ul>
+<li>固定加锁的顺序，比如我们可以使用Hash值的大小来确定加锁的先后</li>
+<li>尽可能缩减加锁的范围，等到操作共享变量的时候才加锁。</li>
+<li>使用可释放的定时锁（一段时间申请不到锁的权限了，直接释放掉）</li>
+</ul>
+</li>
+</ol>
+<h2 id="价值体现"><a href="#价值体现" class="headerlink" title="价值体现"></a>价值体现</h2><p>嗯，其实我想问，就是我要是..去到贵公司是做什么内容？还有就是..</p>
 
       
     </div>
@@ -583,7 +458,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/8537f75f/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/561aa315/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/lion.png">
@@ -601,7 +476,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/8537f75f/" class="post-title-link" itemprop="url">双亲委派机制</a>
+          <a href="/posts/561aa315/" class="post-title-link" itemprop="url">38、【对线面试官】HTTP</a>
         </h2>
 
         <div class="post-meta-container">
@@ -622,7 +497,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-13 12:56:04" itemprop="dateModified" datetime="2022-03-13T12:56:04+08:00">2022-03-13</time>
+      <time title="修改时间：2022-03-10 09:48:07" itemprop="dateModified" datetime="2022-03-10T09:48:07+08:00">2022-03-10</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -643,8 +518,8 @@
     </span>
     <span class="post-meta-item-text">Waline：</span>
   
-    <a title="waline" href="/posts/8537f75f/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/8537f75f/" data-xid="/posts/8537f75f/" itemprop="commentCount"></span>
+    <a title="waline" href="/posts/561aa315/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/561aa315/" data-xid="/posts/561aa315/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -655,14 +530,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>1.8k</span>
+      <span>1.4k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>2 分钟</span>
+      <span>1 分钟</span>
     </span>
 </div>
 
@@ -673,53 +548,224 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="双亲委派机制"><a href="#双亲委派机制" class="headerlink" title="双亲委派机制"></a>双亲委派机制</h1><h2 id="一、双亲委派机制"><a href="#一、双亲委派机制" class="headerlink" title="一、双亲委派机制"></a>一、双亲委派机制</h2><ol>
-<li><p>class文件是通过类加载器加载到jvm中的</p>
+          <h1 id="今天要不来聊聊HTTP吧"><a href="#今天要不来聊聊HTTP吧" class="headerlink" title="今天要不来聊聊HTTP吧"></a>今天要不来聊聊HTTP吧</h1><h2 id="今天要不来聊聊HTTP吧？"><a href="#今天要不来聊聊HTTP吧？" class="headerlink" title="今天要不来聊聊HTTP吧？"></a>今天要不来聊聊HTTP吧？</h2><ul>
+<li>HTTP「协议」是客户端和服务器「交互」的一种通迅的格式<ul>
+<li>所谓的「协议」实际上就是双方约定好的「格式」，让双方都能看得懂的东西而已</li>
+<li>所谓的交互实际上就是「请求」和「响应」</li>
+</ul>
 </li>
-<li><p>为了防止内存中存在多份同样的字节码，使用了双亲委派机制（不会自己加载类，而是把请求委托给父加载器去完成，依次向上）</p>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/KF4FUG_20211230112604.png"></p>
+<h2 id="那你知道HTTP各个版本之间的区别吗？"><a href="#那你知道HTTP各个版本之间的区别吗？" class="headerlink" title="那你知道HTTP各个版本之间的区别吗？"></a>那你知道HTTP各个版本之间的区别吗？</h2><ul>
+<li>HTP1.0默认是短连接，每次与服务器交互，都需要新开一个连接</li>
+<li>HTTP1.1版本最主要的是「默认持久连接」。只要客户端服务端没有断开TCP连接，就一直保持连接，可以发送多次HTTP请求</li>
+<li>其次就是「断点续传」（ Chunked transfer-coding）。利用HTTP消息头使用分块传输编码，将实体主体分块进行传输</li>
+<li>HTTP&#x2F;2不再以文本的方式传输，采用「二进制分帧层」，对头部进行了「压缩」，支持「流控」，最主要就是HTTP&#x2F;2是支持「多路复用」的（通过单一的TCP连接「并行」发起多个的请求和响应消息）</li>
+<li>HTTP&#x2F;3跟前面版本最大的区别就是：HTTP1.x和HTTP&#x2F;2底层都是TCP，而HTTP&#x2F;3底层是UDP。使用HTTP&#x2F;3能够減少RTT「往返时延」（TCP三次握手，TLS握手）</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/8se2HT_20211230113041.png"></p>
+<h2 id="嗯，稍微打断下。我知道HTTP1-1版本有个管线化（-pipelining）理论，但默认是关闭的。管线化这个跟HTTP-x2F-2的「多路复用」是很类似的，它们有什么区别呀？"><a href="#嗯，稍微打断下。我知道HTTP1-1版本有个管线化（-pipelining）理论，但默认是关闭的。管线化这个跟HTTP-x2F-2的「多路复用」是很类似的，它们有什么区别呀？" class="headerlink" title="嗯，稍微打断下。我知道HTTP1.1版本有个管线化（ pipelining）理论，但默认是关闭的。管线化这个跟HTTP&#x2F;2的「多路复用」是很类似的，它们有什么区别呀？"></a>嗯，稍微打断下。我知道HTTP1.1版本有个管线化（ pipelining）理论，但默认是关闭的。管线化这个跟HTTP&#x2F;2的「多路复用」是很类似的，它们有什么区别呀？</h2><ul>
+<li><p>HTTP1.1提出的「管线化」只能「串行」（一个响应必须完全返回后，下个请求才会开始传输）</p>
 </li>
-<li><p>jdk本地方法类一般有根加载器（BootStrap Loader） 装载，jdk内部实现的扩展类一般由扩展加载器（ExtClassLoader），程序中的类文件则有系统加载器（AppClassLoader）装载</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/W7CetM_20210922105555.png"></p>
+<li><p>HTTP&#x2F;2多路复用则是利用「分帧」数据流，把HTTP协议分解为「互不依赖」的帧（为每个帧「标序」发送，接收回来的时候按序重组），进而可以「乱序」发送避免「一定程度上」的队首阻塞问题</p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/MC43LZ_20211230112912.png"></p>
 </li>
+<li><p>但是，无论是HTTP1.1还是HTTP&#x2F;2，respanel响应的「处理顺序」总是需要跟request请求顺序保持一致的。假如某个请求的 response响应慢了，还是同样会有阻塞的问题</p>
+</li>
+<li><p>这受限于HTTP底层的传输协议是TCP，没办法完全解決「线头阻塞」的问题</p>
+</li>
+</ul>
+<h2 id="那你了解HTPS的过程吗？"><a href="#那你了解HTPS的过程吗？" class="headerlink" title="那你了解HTPS的过程吗？"></a>那你了解HTPS的过程吗？</h2><ul>
+<li><p>对于HTTPS，我的理解下：就是「安全」的HTTP协议（客户端与服务端的传输链路中进行加密）</p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/pOPVGJ_20211230113132.png"></p>
+</li>
+<li><p>HTPS首先要解決的是：认证的问题</p>
+<ul>
+<li>客户端是需要确切地知道服务端是不是「真实」，所以在HTPS中会有一个角色：CA（公信机构）</li>
+<li>服务端在使用HTTPSI前，需要去认证的CA机构申请一份「数字证书」。数字证书里包含有证书持有者、证书有效期「服务器公钥」等信息</li>
+<li>CA机构也有自己的一份公私钥，在发布数字证书之前，会用自己的「私钥」对这份数字证书进行加密</li>
+<li>等到客户端请求服务器的时候，服务端返回证书给客户端。客户端用CA的公钥对证书解密（因为CA是公信机构，会内置到浏览器或操作系统中，所以客户端会有公钥）。这个时候，客户端会判断这个「证书是否可信有无被簒改」</li>
+<li>私钥加密，公钥解密我们叫做「数字签名」（这种方式可以查看有无被簒改）</li>
+<li>到这里，就解决了「认证」的问题，至少客户端能保证是在跟「真实的服务器」进行通信。</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/D1hA0I_20211230113315.png"></p>
+</li>
+<li><p>保密问题</p>
+<ul>
+<li>客户端与服务器的通讯内容在传输中不会泄露给第三方</li>
+<li>客户端从CA拿到数字证书后，就能拿到服务端的公钥</li>
+<li>客户端生成一个Key作为「对称加密」的秘钥，用服务端的「公钥加密」传给服务端</li>
+<li>服务端用自己的「私钥解密」客户端的数据，得到对称加密的秘钥</li>
+<li>之后客户端与服务端就可以使用「对称加密的秘钥」愉快地发送和接收消息</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/oU2mh1_20211230113435.png"></p>
+</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>l
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/844cde9b/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lion.png">
+      <meta itemprop="name" content="swimminghao">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="swimminghao's blog">
+      <meta itemprop="description" content="swimminghao的学习博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | swimminghao's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/844cde9b/" class="post-title-link" itemprop="url">7、【对线面试官】synchronized</a>
+        </h2>
+
+        <div class="post-meta-container">
+
+          
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-03-10 09:48:07" itemprop="dateModified" datetime="2022-03-10T09:48:07+08:00">2022-03-10</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/posts/844cde9b/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/844cde9b/" data-xid="/posts/844cde9b/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>1.5k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>1 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="7、【对线面试官】synchronized"><a href="#7、【对线面试官】synchronized" class="headerlink" title="7、【对线面试官】synchronized"></a>7、【对线面试官】synchronized</h1><h2 id="今天我们来聊聊synchronized吧？"><a href="#今天我们来聊聊synchronized吧？" class="headerlink" title="今天我们来聊聊synchronized吧？"></a>今天我们来聊聊synchronized吧？</h2><ol>
+<li>synchronized是一种互斥锁，一次只能允许一个线程进入被锁住的代码块</li>
+<li>synchronized是Java的一个关键字，它能够将代码块&#x2F;方法锁起来</li>
+<li>如果synchronized修饰的是实例方法，对应的锁则是对象实例</li>
+<li>如果synchronized修饰的是静态方法，对应的锁则是当前类的Class实例</li>
+<li>如果synchronized修饰的是代码块，对应的锁则是传入synchronized的对象实例</li>
 </ol>
-<h2 id="二、如何打破双亲委派机制"><a href="#二、如何打破双亲委派机制" class="headerlink" title="二、如何打破双亲委派机制"></a>二、如何打破双亲委派机制</h2><ol>
-<li>只要我加载类的时候，不是从AppClassLoader→ExtClassLoader→BootStrap Loader这个顺序找，那就是打破了。</li>
-<li>因为加载class核心的方法在LoaderClass类的loadClass()方法上（双亲委派机制的核心实现上）</li>
-<li>只要我自定义个ClassLoader，重写loadClass方法（不依照往上开始寻找类加载器），那就算是打破双亲委派机制了。</li>
+<h2 id="嗯，要不你来讲讲synchronized的原理呗？"><a href="#嗯，要不你来讲讲synchronized的原理呗？" class="headerlink" title="嗯，要不你来讲讲synchronized的原理呗？"></a>嗯，要不你来讲讲synchronized的原理呗？</h2><ol>
+<li>通过反编译可以发现</li>
+<li>当修饰方法时，编译器会生成ACC_SYNCHRONIZED关键字用来标识</li>
+<li>当修饰代码块时，会依赖monitorenter和monitorexit指令</li>
+<li>但前面已经说了，无论synchronized修饰的是方法还是代码块，对应的锁都是一个实例（对象）</li>
+<li>在内存中，对象一般由三部分组成，分别是对象头、对象实际数据和对齐填充</li>
+<li>重点在于对象头，对象头又由几部分组成，但我们重点关注对象头Mark Word的信息就好了</li>
+<li>Mark Word会记录对象关于锁的信息</li>
+<li>又因为每个对象都会有一个与之对应的monitor对象，monitor对象中存储着当前持有锁的线程以及等待锁的线程队列</li>
+<li>了解Mark Word和monitor对象是理解synchronized原理的前提</li>
 </ol>
-<h2 id="三、破坏双亲委派机制的场景"><a href="#三、破坏双亲委派机制的场景" class="headerlink" title="三、破坏双亲委派机制的场景"></a>三、破坏双亲委派机制的场景</h2><ol>
-<li>tomcat：初学部署项目时，我们是把war包放到tomcat的webapp下，意味着tomcat可以运行多个web应用程序</li>
-<li>那假设我现在有2个web应用程序，都有一个类，叫做User，并且它们的类全限定名都一样，比如：都是com.xxxxx.User。但是它们的具体实现是不一样的</li>
-<li>那么tomcat是如何保证它们不会冲突的呢？</li>
-<li>答案就是：tomcat给每个web应用创建了一个类加载器实例（WebAppClassLoader），该加载器重写了loadClass方法，优先加载当前应用目录下的类，如果当前找不到，才一层一层往上找。这样就做到了web应用层级的隔离。</li>
+<h2 id="嗯，听说synchronized锁在JDK1-6之后做了很多的优化，这块你了解多少呢？"><a href="#嗯，听说synchronized锁在JDK1-6之后做了很多的优化，这块你了解多少呢？" class="headerlink" title="嗯，听说synchronized锁在JDK1.6之后做了很多的优化，这块你了解多少呢？"></a>嗯，听说synchronized锁在JDK1.6之后做了很多的优化，这块你了解多少呢？</h2><ol>
+<li>其实是这样的，在JDK1.6之前是重量级锁，线程进入同步代码块&#x2F;方法时</li>
+<li>monitor对象就会把当前进入线程的Id进行存储，设置Mark Word的monitor对象地址，并把阻塞的线程存储到monitor的等待线程队列中</li>
+<li>它加锁是依赖底层操作系统的mutex相关指令实现，所以会有用户态和内核态之间的切换，性能损耗十分明显</li>
+<li>而JDK1.6以后引入偏向锁和轻量级锁在JVM层面实现加锁的逻辑，不依赖底层操作系统，就没有切换的消耗</li>
+<li>所以，Mark Word对锁的状态记录一共有4种：无锁、偏向锁、轻量级锁和重量级锁</li>
 </ol>
-<h2 id="四、tomcat还有别的类加载器吗"><a href="#四、tomcat还有别的类加载器吗" class="headerlink" title="四、tomcat还有别的类加载器吗"></a>四、tomcat还有别的类加载器吗</h2><ol>
-<li><p>并不是web应用下的所有依赖都是需要隔离的，比如redis就是可以web应用之间共享的</p>
+<h3 id="简单来说说偏向锁、轻量级锁和重量级锁吧"><a href="#简单来说说偏向锁、轻量级锁和重量级锁吧" class="headerlink" title="简单来说说偏向锁、轻量级锁和重量级锁吧"></a>简单来说说偏向锁、轻量级锁和重量级锁吧</h3><ol>
+<li>偏向锁指的就是JVM会认为只有某个线程才会执行同步代码（没有竞争的环境）</li>
+<li>所以在Mark Word会直接记录线程ID，只要线程来执行代码了，会比对线程ID是否相等，相等则当前线程能直接获取得到锁，执行同步代码</li>
+<li>如果不相等，则用CAS来尝试修改当前的线程ID，如果CAS修改成功，那还是能获取得到锁，执行同步代码</li>
+<li>如果CAS失败了，说明有竞争环境，此时会对偏向锁撤销，升级为轻量级锁。</li>
+<li>在轻量级锁状态下，当前线程会在栈帧下创建Lock Record，LockRecord会把 Mark Word的信息拷贝进去，且有个Owner指针指向加锁的对象由由</li>
+<li>线程执行到同步代码时，则用CAS试图将Mark Word的指向到线程栈帧的LockRecord，假设CAS修改成功，则获取得到轻量级锁</li>
+<li>假设修改失败，则自旋（重试），自旋一定次数后，则升级为重量级锁</li>
+<li>简单总结一下<ul>
+<li>synchronized锁原来只有重量级锁，依赖操作系统的mutex指令，需要用户态和内核态切换，性能损耗十分明显</li>
+<li>重量级锁用到monitor对象而偏向锁则在Mark Word记录线程ID进行比对、轻量级锁则是拷贝Mark Word到Lock Record，用CAS+自旋的方式获取。</li>
+</ul>
 </li>
-<li><p>因为如果版本相同，没必要每个web应用都独自加载一份</p>
+<li>引入了偏向锁和轻量级锁，就是为了在不同的使用场景使用不同的锁，进而提高效率。<br>锁只有升级，没有降级<ul>
+<li>只有一个线程进入临界区，偏向锁</li>
+<li>多个线程交替进入临界区，轻量级锁</li>
+<li>多线程同时进入临界区，重量级锁</li>
+</ul>
 </li>
-<li><p>做法很简单，tomcat就在WebAppClassLoader上加了个父类加载器（SharedClassLoader），如果WebAppClassLoader自身没有加载到某个类，那就委托ShaerClassLoader去加载。（无非就是把需要应用程序之间需要共享的类放到一个共享目录下,SharedClassLoader）读共享目录的类就好了</p>
-</li>
-<li><p>为了隔离web应用与tomcat本身的类，又有类加载器（CatalinaClassLoader）来装载tomcat本身的依赖</p>
-</li>
-<li><p>如果tomcat本身的类的依赖和web应用还需要共享，那么还有类加载器（CommonClassLoader）来装载进而达到共享</p>
-</li>
-<li><p>各个类加载器的加载目录可以到tomcat的catalina.properties配置文件上查看</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/5TeCHY_20210922111755.png"></p>
-</li>
-</ol>
-<h2 id="五、jdbc"><a href="#五、jdbc" class="headerlink" title="五、jdbc"></a>五、jdbc</h2><ol>
-<li>有没有破坏双亲委派机制，见仁见智</li>
-<li>jdbc定义类接口，具体实现类由各个厂商进行实现（比如Mysql）</li>
-<li>类加载有个规则：如果一个类由类加载器A加载，那么这个类的依赖类也是有相同的类加载器加载</li>
-<li>我们用jdbc的时候，是使用DriverManager进而获取Connection，DriverManager在java.sql包下，显然是有BootStrap类加载器进行装载</li>
-<li>当我们使用DriverManager.getConnection()时，得到的是一定是厂商实现的类</li>
-<li>但BootStrap 加载器显然不可以加载各个厂商实现的类，这些实现类又没在java包中，怎么可能加载到呢</li>
-<li>DriverManager的解决方案是：在DriverManager初始化时，得到上下文加载器，去获取Connection时，是使用上下文加载器去加载Connection的，而这里的线程上下文加载器实际上还是（AppClassLoader）</li>
-<li>在获取Connection的时候，还是先找到ExtClassLoader和B o o t S t ra p C la s sLoader，只不过这两加载器肯定是加载不到的，最终会有AppClassLoader进行加载</li>
-<li>那这种情况，有的人觉得破坏了双亲委派机制，因为本来明明应该是有BootStrapClassLoader进行加载的，结果你来了一手线程上下文加载器，改掉了类加载器</li>
-<li>有的人觉得没破坏双亲委派机制，只是改成了由线程上下文加载器进行类加载，但是还是遵守依次往上找父类加载，都找不到时才由自身加载。认为原则上没有改变。</li>
-<li>我觉得这不重要，重要的是弄懂底层原理</li>
 </ol>
 
       
@@ -752,7 +798,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/74cfd586/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/ac3dc3bf/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/lion.png">
@@ -770,7 +816,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/74cfd586/" class="post-title-link" itemprop="url">java8类型互转</a>
+          <a href="/posts/ac3dc3bf/" class="post-title-link" itemprop="url">9、【对线面试官】线程池</a>
         </h2>
 
         <div class="post-meta-container">
@@ -791,7 +837,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-05-16 16:20:40" itemprop="dateModified" datetime="2022-05-16T16:20:40+08:00">2022-05-16</time>
+      <time title="修改时间：2022-03-10 09:48:07" itemprop="dateModified" datetime="2022-03-10T09:48:07+08:00">2022-03-10</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -799,7 +845,7 @@
       </span>
       <span class="post-meta-item-text">分类于</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E8%AF%AD%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">语法</span></a>
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
         </span>
     </span>
 
@@ -812,8 +858,8 @@
     </span>
     <span class="post-meta-item-text">Waline：</span>
   
-    <a title="waline" href="/posts/74cfd586/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/74cfd586/" data-xid="/posts/74cfd586/" itemprop="commentCount"></span>
+    <a title="waline" href="/posts/ac3dc3bf/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/ac3dc3bf/" data-xid="/posts/ac3dc3bf/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -824,14 +870,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>6.4k</span>
+      <span>1.6k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>6 分钟</span>
+      <span>1 分钟</span>
     </span>
 </div>
 
@@ -842,108 +888,54 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="java8类型互转"><a href="#java8类型互转" class="headerlink" title="java8类型互转"></a>java8类型互转</h1><h2 id="List-lt-Integer-gt-、int-、Integer-相互转换"><a href="#List-lt-Integer-gt-、int-、Integer-相互转换" class="headerlink" title="List&lt; Integer &gt;、int[ ]、Integer[ ]相互转换"></a>List&lt; Integer &gt;、int[ ]、Integer[ ]相互转换</h2><p>[toc]</p>
-<p>下文中出现的list、ints、integers分别代表一个列表、一个int数组、一个Integer数组。<br>它们之间所谓的转化，其实是 复制数据，互不干扰，可以理解为深拷贝。</p>
-<h3 id="int-转-List-lt-Integer-gt"><a href="#int-转-List-lt-Integer-gt" class="headerlink" title="int[ ] 转 List&lt; Integer &gt;"></a>int[ ] 转 List&lt; Integer &gt;</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Integer&gt; list = Arrays.stream(ints).boxed().collect(Collectors.toList());</span><br></pre></td></tr></table></figure>
-
-<p>Arrays.stream(ints) 之后返回的类型是 IntStream，IntStream 是一个接口继承自 BaseStream，BaseStream 又继承自AutoCloseable。所以我把IntStream看成一个方便对每个整数做操作的数据流。</p>
-<p>之后调用了 boxed()，它的作用是对每个整数进行装箱，基本类型流转换为对象流，返回的是 Stream<Integer>，Stream 也是继承自 BaseStream。所以这一步的作用是把 IntStream 转换成了 Stream<Integer>。</p>
-<p>最后通过collect方法将数据流 (Stream<Integer>) 收集成了集合 ( List<Integer>)，这里 collect 方法里传入的是一个收集器 (Collector)，它通过 Collectors.toList() 产生。</p>
-<p>小结：</p>
-<ol>
-<li>Arrays.stream(ints) 将基本类型数组转换为基本类型流。 int[ ] &#x3D;&gt; IntStream</li>
-<li>.boxed() 将基本类型流转换为对象流。 &#x3D;&gt; Stream&lt; Integer &gt;</li>
-<li>.collect(Collectors.toList()) 将对象流收集为集合。 &#x3D;&gt; List&lt; Integer &gt;</li>
+          <h1 id="9、【对线面试官】线程池"><a href="#9、【对线面试官】线程池" class="headerlink" title="9、【对线面试官】线程池"></a>9、【对线面试官】线程池</h1><h2 id="今天来聊聊线程池呗，你对Java线程池了解多少？"><a href="#今天来聊聊线程池呗，你对Java线程池了解多少？" class="headerlink" title="今天来聊聊线程池呗，你对Java线程池了解多少？"></a>今天来聊聊线程池呗，你对Java线程池了解多少？</h2><h2 id="或者换个问法：为什么需要线程池？"><a href="#或者换个问法：为什么需要线程池？" class="headerlink" title="或者换个问法：为什么需要线程池？"></a>或者换个问法：为什么需要线程池？</h2><ol>
+<li>JVM在HotSpot的线程模型下，Java线程会一对一映射为内核线程</li>
+<li>这意味着，在Java中每次创建以及回收线程都会去内核创建以及回收</li>
+<li>这就有可能导致：创建和销毁线程所花费的时间和资源可能比处理的任务花费的时间和资源要更多</li>
+<li>线程池的出现是为了提高线程的复用性以及固定线程的数量！！！</li>
 </ol>
-<h3 id="int-转-List-lt-List-lt-Integer-gt-gt"><a href="#int-转-List-lt-List-lt-Integer-gt-gt" class="headerlink" title="int[ ] [ ] 转 List&lt;  List &lt; Integer &gt;  &gt;"></a>int[ ] [ ] 转 List&lt;  List &lt; Integer &gt;  &gt;</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">temp</span> <span class="operator">=</span> Arrays.deepToString(fooArr).replaceAll(<span class="string">&quot;\\[&quot;</span>,<span class="string">&quot;&quot;</span>).replaceAll(<span class="string">&quot;\\]&quot;</span>,<span class="string">&quot;&quot;</span>);</span><br><span class="line">List&lt;String&gt; fooList = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;(Arrays.asList(<span class="string">&quot;,&quot;</span>)); <span class="comment">//不对</span></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">List&lt;List&lt;Integer&gt;&gt; collect2 = Arrays.Stream(ints1).map(ar -&gt; Arrays.stream(ar).boxed().collect(Collectors.toList())).collect(Collectors.toList());</span><br></pre></td></tr></table></figure>
-
-<h3 id="int-转-Integer"><a href="#int-转-Integer" class="headerlink" title="int[ ] 转 Integer[ ]"></a>int[ ] 转 Integer[ ]</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Integer[] integers = Arrays.stream(ints).boxed().toArray(Integer[]::<span class="keyword">new</span>);</span><br></pre></td></tr></table></figure>
-
-<p>一样的内容就不重复了，toArray(T[ ] :: new) 方法返回基本类型数组。<br>小结：</p>
-<ol>
-<li>Arrays.stream(ints) 将基本类型数组转换为基本类型流。 int[ ] &#x3D;&gt; IntStream</li>
-<li>.boxed() 将基本类型流转换为对象流。&#x3D;&gt; Stream&lt; Integer &gt;</li>
-<li>.toArray(Integer[ ]::new) 将对象流转换为对象数组。&#x3D;&gt; Integer[ ]</li>
+<h2 id="你在项目中用到了线程池吗？"><a href="#你在项目中用到了线程池吗？" class="headerlink" title="你在项目中用到了线程池吗？"></a>你在项目中用到了线程池吗？</h2><ol>
+<li>嗯，用到的。我先说下背景吧</li>
+<li>我所负责的项目是消息管理平台，提供其中一个功能就是：运营会圈定人群，然后群发消息</li>
+<li>主要流程大致就是：创建模板-》定时-》群发消息-》用户收到消息</li>
+<li>运营圈定的人群实际上在模板上只是一个ID，我这边要通过ID去获取到HDFS文件</li>
+<li>对HDFS文件进行遍历，然后继续往下发</li>
+<li>「接收到定时任务，再对HDFS进行遍历」这里的处理，我用的就是线程池处理</li>
 </ol>
-<h3 id="int-转-Integer-1"><a href="#int-转-Integer-1" class="headerlink" title="int[ ] [ ]转 Integer[ ] [ ]"></a>int[ ] [ ]转 Integer[ ] [ ]</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Integer[][] integers3 = Arrays.stream(ints1).map(ints -&gt; Arrays.stream(ints).boxed().toArray(Integer[]::<span class="keyword">new</span>)).toArray(Integer[][]::<span class="keyword">new</span>);</span><br></pre></td></tr></table></figure>
-
-<h3 id="Integer-转-List-lt-Integer-gt"><a href="#Integer-转-List-lt-Integer-gt" class="headerlink" title="Integer[ ] 转 List&lt; Integer &gt;"></a>Integer[ ] 转 List&lt; Integer &gt;</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Integer&gt; list = Arrays.asList(integers);</span><br></pre></td></tr></table></figure>
-
-<p>这个就很简单了，通过Arrays类里的asList方法将数组装换为List。值得注意：</p>
-<p>asList 返回的是 Arrays 里的静态私有类 ArrayList，而不是 java.util 里的 ArrayList，它无法自动扩容。</p>
-<p>可以用下面2种方法生成可扩容的ArrayList：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Integer&gt; list = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;(Arrays.asList(integers)); </span><br></pre></td></tr></table></figure>
-
-<p>或者</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Integer&gt; list = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;(); </span><br><span class="line">Collections.addAll(list, integers);</span><br></pre></td></tr></table></figure>
-
-<h3 id="Integer-转-List-lt-List-lt-Integer-gt-gt"><a href="#Integer-转-List-lt-List-lt-Integer-gt-gt" class="headerlink" title="Integer[ ] [ ]转 List&lt; List &lt; Integer &gt; &gt;"></a>Integer[ ] [ ]转 List&lt; List &lt; Integer &gt; &gt;</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Integer[][] a = &#123;&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>&#125;,&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>&#125;&#125;;</span><br><span class="line">List&lt;List&lt;Integer&gt;&gt; lists = Arrays.stream(a).map(Arrays::asList).collect(Collectors.toList());</span><br></pre></td></tr></table></figure>
-
-<h3 id="Integer-转-int"><a href="#Integer-转-int" class="headerlink" title="Integer[ ] 转 int[ ]"></a>Integer[ ] 转 int[ ]</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span>[] ints = Arrays.stream(integers).mapToInt(Integer::valueOf).toArray();</span><br></pre></td></tr></table></figure>
-
-<p>map的意思是把每一个元素进行同样的操作。mapToInt的意思是把每一个元素转换为int。mapToInt(Integer::valueOf)方法返回的是IntStream。<br>小结：</p>
-<ol>
-<li>Arrays.stream(integers) 将对象数组转换为对象流。 Integer[ ] &#x3D;&gt; Stream&lt; Integer &gt;</li>
-<li>.mapToInt(Integer::valueOf) 将对象流转换成基本类型流。&#x3D;&gt; IntStream</li>
-<li>.toArray() 将基本类型流转换为基本类型数组。 &#x3D;&gt; int[ ]</li>
+<h2 id="为什么选择用线程池呢？"><a href="#为什么选择用线程池呢？" class="headerlink" title="为什么选择用线程池呢？"></a>为什么选择用线程池呢？</h2><ol>
+<li>HDFS遍历其实就是IO的操作，我把这个过程给异步化，为了提高系统的吞吐量，于是我这里用的线程池。</li>
+<li>即便遍历HDFS出现问题，我这边都有完备的监控和告警可以及时发现。</li>
 </ol>
-<h3 id="Integer-转-int-1"><a href="#Integer-转-int-1" class="headerlink" title="Integer[ ] [ ]转 int[ ] [ ]"></a>Integer[ ] [ ]转 int[ ] [ ]</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Integer[][] a = &#123;&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>&#125;,&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>&#125;&#125;;      </span><br><span class="line"><span class="type">int</span>[][] ints1 = Arrays.stream(a).map(a1 -&gt; Arrays.stream(a1).mapToInt(Integer::valueOf).toArray()).toArray(<span class="type">int</span>[][]::<span class="keyword">new</span>);</span><br></pre></td></tr></table></figure>
-
-<h3 id="List-lt-Integer-gt-转-int"><a href="#List-lt-Integer-gt-转-int" class="headerlink" title="List&lt; Integer &gt; 转 int[ ]"></a>List&lt; Integer &gt; 转 int[ ]</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span>[] ints = list.stream().mapToInt(Integer::valueOf).toArray();</span><br></pre></td></tr></table></figure>
-
-<p>经过上面的说明，相信这里已经很好理解了，直接小结。<br>小结：</p>
-<ol>
-<li>list.stream() 将列表转换为对象流。List&lt; Integer &gt; &#x3D;&gt; Stream&lt; Integer &gt;</li>
-<li>.mapToInt(Integer::valueOf) 将对象流转换为基本数据类型流。&#x3D;&gt; IntStream</li>
-<li>.toArray() 将基本数据类型流转换为基本类型数组。&#x3D;&gt;int[ ]</li>
+<h2 id="那你是怎么用线程池的呢？用Executors去创建的吗？"><a href="#那你是怎么用线程池的呢？用Executors去创建的吗？" class="headerlink" title="那你是怎么用线程池的呢？用Executors去创建的吗？"></a>那你是怎么用线程池的呢？用Executors去创建的吗？</h2><ol>
+<li>不是的，我这边用的ThreadPoolExecutor去创建线程池</li>
+<li>其实看阿里巴巴开发手册就有提到，不要使用Executors去创建线程。</li>
+<li>最主要的目的就是：使用ThreadPoolExecutor创建的线程你是更能了解线程池运行的规则，避免资源耗尽的风险</li>
+<li>ThreadPoolExecutor在构造的时候有几个重要的参数，分别是：<br>corePoolSize （核心线程数量） 、maxim umPoolSize（最大线程数量）、keepAli veTime（线程空余时间） 、workQueue（阻塞队列）、handler（任务拒绝策略）</li>
+<li>这几个参数应该很好理解哈，我就说下任务提交的流程，分别对应着几个参数的作用吧。<ul>
+<li>首先会判断运行线程数是否小于corePoolSize，如果小于，则直接创建新的线程执行任务</li>
+<li>如果大于corePoolSize，判断workQueue阻塞队列是否已满，如果还没满，则将任务放到阻塞队列中</li>
+<li>如果workQueue阻塞队列已经满了，则判断当前线程数是否大于maximumPoolSize，如果没大于则创建新的线程执行任务</li>
+<li>如果大于maximumPoolSize，则执行任务拒绝策略（具体就是你自己实现的handler)</li>
+</ul>
+</li>
+<li>这里有个点需要注意下，就是workQueu e阻塞队列满了，但当前线程数小于maximumPoolSize，这时候会创建新的线程执行任务</li>
+<li>源码就是这样实现的</li>
+<li>不过一般我们都是将corePoolSize和maximumPoolSize设置相同数量</li>
+<li>keepAliveTime指的就是，当前运行的线程数大于核心线程数了，只要空闲时间达到了，就会对线程进行回收</li>
 </ol>
-<h3 id="List-lt-List-lt-Integer-gt-gt-转-int"><a href="#List-lt-List-lt-Integer-gt-gt-转-int" class="headerlink" title="List&lt; List &lt; Integer &gt; &gt; 转 int[ ] [ ]"></a>List&lt; List &lt; Integer &gt; &gt; 转 int[ ] [ ]</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">List&lt;List&lt;Integer&gt;&gt; lists = ...;</span><br><span class="line"><span class="type">int</span>[][] arrays = lists.stream()                                <span class="comment">// Stream&lt;List&lt;Integer&gt;&gt;</span></span><br><span class="line">        .map(list -&gt; list.stream().mapToInt(i -&gt; i).toArray()) <span class="comment">// Stream&lt;int[]&gt;</span></span><br><span class="line">        .toArray(<span class="type">int</span>[][]::<span class="keyword">new</span>);</span><br></pre></td></tr></table></figure>
-
-<h3 id="List-lt-Integer-gt-转-Integer"><a href="#List-lt-Integer-gt-转-Integer" class="headerlink" title="List&lt; Integer &gt; 转 Integer[ ]"></a>List&lt; Integer &gt; 转 Integer[ ]</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Integer[] integers = list.toArray(<span class="keyword">new</span> <span class="title class_">Integer</span>[list.size()]);</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Integer[] integers = list.stream().toArray(Integer[]::<span class="keyword">new</span>); <span class="comment">//不推荐</span></span><br></pre></td></tr></table></figure>
-
-<p>这个也很简单，方法里的参数是一个数组，所以要规定长度。也有无参的方法，但是要进行转型，所以不推荐使用。</p>
-<h3 id="List-lt-List-lt-Integer-gt-gt-转-Integer"><a href="#List-lt-List-lt-Integer-gt-gt-转-Integer" class="headerlink" title="List&lt; List &lt; Integer &gt; &gt; 转 Integer[ ] [ ]"></a>List&lt; List &lt; Integer &gt; &gt; 转 Integer[ ] [ ]</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">List&lt;List&lt;Integer&gt;&gt; lists = ...;</span><br><span class="line">Integer[][] arrays = lists.stream()                                <span class="comment">// Stream&lt;List&lt;Integer&gt;&gt;</span></span><br><span class="line">        .map(list -&gt; list.toArray(<span class="keyword">new</span> <span class="title class_">Integer</span>[list.size()])) <span class="comment">// Stream&lt;Integer[]&gt;</span></span><br><span class="line">        .toArray(Integer[][]::<span class="keyword">new</span>);</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Integer[][] arrays = lists.stream()                                <span class="comment">// Stream&lt;List&lt;Integer&gt;&gt;</span></span><br><span class="line">        .map(l -&gt; l.stream().toArray(String[]::<span class="keyword">new</span>)) <span class="comment">// Stream&lt;Integer[]&gt;</span></span><br><span class="line">        .toArray(Integer[][]::<span class="keyword">new</span>);</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Integer[][] arrays = lists.stream().map(List::toArray).toArray(Integer[][]::<span class="keyword">new</span>);</span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="List-lt-Character-gt-、char-、Character-相互转换"><a href="#List-lt-Character-gt-、char-、Character-相互转换" class="headerlink" title="List&lt; Character &gt;、char[ ]、Character[ ]相互转换"></a>List&lt; Character &gt;、char[ ]、Character[ ]相互转换</h2><h3 id="char-转-List-lt-Character-gt"><a href="#char-转-List-lt-Character-gt" class="headerlink" title="char[ ] 转 List&lt; Character &gt;"></a>char[ ] 转 List&lt; Character &gt;</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">char</span>[] chars = &#123;<span class="string">&#x27;a&#x27;</span>, <span class="string">&#x27;b&#x27;</span>, <span class="string">&#x27;c&#x27;</span>&#125;;</span><br><span class="line">List&lt;Character&gt; collect = <span class="keyword">new</span> <span class="title class_">String</span>(chars).chars().mapToObj(i -&gt; (<span class="type">char</span>) i).collect(Collectors.toList());</span><br></pre></td></tr></table></figure>
-
-<h3 id="char-转-List-lt-List-lt-Character-gt-gt"><a href="#char-转-List-lt-List-lt-Character-gt-gt" class="headerlink" title="char[ ] [ ] 转 List&lt;  List &lt; Character &gt;  &gt;"></a>char[ ] [ ] 转 List&lt;  List &lt; Character &gt;  &gt;</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">List&lt;List&lt;Character&gt;&gt; collect2 = Arrays.stream(ints1).map(chars1 -&gt; <span class="keyword">new</span> <span class="title class_">String</span>(chars1).chars().mapToObj(i -&gt; (<span class="type">char</span>) i).collect(Collectors.toList())).collect(Collectors.toList());</span><br></pre></td></tr></table></figure>
-
-<h3 id="char-转-Character"><a href="#char-转-Character" class="headerlink" title="char[ ] 转 Character[ ]"></a>char[ ] 转 Character[ ]</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">char</span>[] chars = &#123;<span class="string">&#x27;a&#x27;</span>, <span class="string">&#x27;b&#x27;</span>, <span class="string">&#x27;c&#x27;</span>&#125;;</span><br><span class="line">Character[] characters1 = <span class="keyword">new</span> <span class="title class_">String</span>(chars).chars().mapToObj(i -&gt; (<span class="type">char</span>) i).toArray(Character[]::<span class="keyword">new</span>);     </span><br></pre></td></tr></table></figure>
-
-<h3 id="char-转-Character-1"><a href="#char-转-Character-1" class="headerlink" title="char[ ] [ ]转 Character[ ] [ ]"></a>char[ ] [ ]转 Character[ ] [ ]</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Character[][] integers3 = Arrays.stream(ints1).map(chars -&gt; <span class="keyword">new</span> <span class="title class_">String</span>(chars).chars().mapToObj(i-&gt;(<span class="type">char</span>)i).toArray(Character[]::<span class="keyword">new</span>)).toArray(Character[][]::<span class="keyword">new</span>);</span><br></pre></td></tr></table></figure>
-
-<h3 id="Character-转-List-lt-Character-gt"><a href="#Character-转-List-lt-Character-gt" class="headerlink" title="Character[ ] 转 List&lt; Character &gt;"></a>Character[ ] 转 List&lt; Character &gt;</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Character&gt; collect2 = Arrays.stream(characters).collect(Collectors.toList());</span><br></pre></td></tr></table></figure>
-
-<h3 id="Character-转-List-lt-List-lt-Character-gt-gt"><a href="#Character-转-List-lt-List-lt-Character-gt-gt" class="headerlink" title="Character[ ] [ ]转 List&lt; List &lt; Character &gt; &gt;"></a>Character[ ] [ ]转 List&lt; List &lt; Character &gt; &gt;</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">List&lt;List&lt;Character&gt;&gt; lists = Arrays.stream(a).map(Arrays::asList).collect(Collectors.toList());</span><br></pre></td></tr></table></figure>
-
-<h3 id="Character-转-char"><a href="#Character-转-char" class="headerlink" title="Character[ ] 转 char[ ]"></a>Character[ ] 转 char[ ]</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">char</span>[] chars4 = Arrays.stream(characters1).map(String::valueOf).collect(Collectors.joining()).toCharArray();</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h3 id="Character-转-char-1"><a href="#Character-转-char-1" class="headerlink" title="Character[ ] [ ]转 char[ ] [ ]"></a>Character[ ] [ ]转 char[ ] [ ]</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">char</span>[][] ints1 = Arrays.stream(a).map(a1 -&gt; Arrays.stream(a1).map(String::valueOf).collect(Collectors.joining()).toCharArray()).toArray(<span class="type">char</span>[][]::<span class="keyword">new</span>);</span><br></pre></td></tr></table></figure>
-
-<h3 id="List-lt-Character-gt-转-char"><a href="#List-lt-Character-gt-转-char" class="headerlink" title="List&lt; Character &gt; 转 char[ ]"></a>List&lt; Character &gt; 转 char[ ]</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">char</span>[] value = characters.stream().map(String::valueOf).collect(Collectors.joining()).toCharArray();</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Character[] charArr = characters.toArray(<span class="keyword">new</span> <span class="title class_">Character</span>[characters.size()]);</span><br><span class="line"><span class="type">char</span>[] value = ArrayUtils.toPrimitive(charArr);</span><br></pre></td></tr></table></figure>
-
-<h3 id="List-lt-List-lt-Character-gt-gt-转-char"><a href="#List-lt-List-lt-Character-gt-gt-转-char" class="headerlink" title="List&lt; List &lt; Character &gt; &gt; 转 char[ ] [ ]"></a>List&lt; List &lt; Character &gt; &gt; 转 char[ ] [ ]</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">char</span>[][] arrays = lists.stream()                                <span class="comment">// Stream&lt;List&lt;Integer&gt;&gt;</span></span><br><span class="line">                .map(list -&gt; list.stream().map(String::valueOf).collect(Collectors.joining()).toCharArray()) <span class="comment">// Stream&lt;int[]&gt;</span></span><br><span class="line">                .toArray(<span class="type">char</span>[][]::<span class="keyword">new</span>);</span><br></pre></td></tr></table></figure>
-
-<h3 id="List-lt-Character-gt-转-Character"><a href="#List-lt-Character-gt-转-Character" class="headerlink" title="List&lt; Character &gt; 转 Character[ ]"></a>List&lt; Character &gt; 转 Character[ ]</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Character[] characters2 = Arrays.stream(characters1).toArray(Character[]::<span class="keyword">new</span>);</span><br></pre></td></tr></table></figure>
-
-<h3 id="List-lt-List-lt-Character-gt-gt-转-Character"><a href="#List-lt-List-lt-Character-gt-gt-转-Character" class="headerlink" title="List&lt; List &lt; Character &gt; &gt; 转 Character[ ] [ ]"></a>List&lt; List &lt; Character &gt; &gt; 转 Character[ ] [ ]</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Character[][] integers1 = lists.stream()                                <span class="comment">// Stream&lt;List&lt;Integer&gt;&gt;</span></span><br><span class="line">               .map(list -&gt; list.toArray(<span class="keyword">new</span> <span class="title class_">Character</span>[list.size()])).toArray(Character[][]::<span class="keyword">new</span>);</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Character[][] integers2 = lists.stream()                                <span class="comment">// Stream&lt;List&lt;Integer&gt;&gt;</span></span><br><span class="line">                .map(l -&gt; l.stream().toArray(Character[]::<span class="keyword">new</span>))</span><br><span class="line">                .toArray(Character[][]::<span class="keyword">new</span>);</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Character[][] integers = lists.stream().map(List::toArray).toArray(Character[][]::<span class="keyword">new</span>);</span><br></pre></td></tr></table></figure>
-
+<h2 id="那我再问一个问题，你创建线程池肯定会指定线程数的嘛，你这块是怎么考量的。"><a href="#那我再问一个问题，你创建线程池肯定会指定线程数的嘛，你这块是怎么考量的。" class="headerlink" title="那我再问一个问题，你创建线程池肯定会指定线程数的嘛，你这块是怎么考量的。"></a>那我再问一个问题，你创建线程池肯定会指定线程数的嘛，你这块是怎么考量的。</h2><ol>
+<li>线程池指定线程数这块，首先要考量自己的业务是什么样的</li>
+<li>是cpu密集型的还是io密集型的，假设运行应用的机器CPU核心数是N</li>
+<li>那cpu密集型的可以先给到N+1，io密集型的可以给到2N去试试</li>
+<li>上面这个只是一个常见的经验做法，具体究竟开多少线程，需要压测才能比较准确地定下来</li>
+<li>线程不是说越大越好，在之前的面试我也提到过，多线程是为了充分利用CPU的资源</li>
+<li>如果设置的线程过多，线程大量有上下文切换，这一部分也会带来系统的开销，这就得不偿失了</li>
+</ol>
+<h2 id="ThreadPoolExecutor你看过源码吗？"><a href="#ThreadPoolExecutor你看过源码吗？" class="headerlink" title="ThreadPoolExecutor你看过源码吗？"></a>ThreadPoolExecutor你看过源码吗？</h2><ol>
+<li>看过的，其实上面说的ThreadPoolExecutor几个参数，在源码的顶部注释都有</li>
+<li>在执行的时候，重点就在于它维护了一个ctl参数，这个ctl参数的用高3位表示线程池的状态，低29位来表示线程的数量</li>
+<li>里边用到了大量的位运算符操作，具体细节我就忘了，但是流程还是上面所讲的</li>
+</ol>
 
       
     </div>
@@ -2840,7 +2832,7 @@
 <p>从上面的实现机制可以看出，Redis的多线程部分只是用来处理网络数据的读写和协议解析，执行命令仍然是单线程顺序执行。所以我们不需要去考虑控制 key、lua、事务，LPUSH&#x2F;LPOP 等等的并发及线程安全问题。</p>
 <p><strong>9.Linux环境上如何安装Redis6.0.1（6.0的正式版是6.0.1）？</strong></p>
 <p>这个和安装其他版本的redis没有任何区别，整个流程跑下来也没有任何的坑，所以这里就不做描述了。唯一要注意的就是配置多线程数一定要小于cpu的核心数，查看核心数量命令：</p>
-<p>[<a href="mailto:&#114;&#x6f;&#111;&#x74;&#64;&#x63;&#x65;&#x6e;&#116;&#111;&#115;&#55;&#x2e;&#53;">&#114;&#x6f;&#111;&#x74;&#64;&#x63;&#x65;&#x6e;&#116;&#111;&#115;&#55;&#x2e;&#53;</a> ~]# lscpuArchitecture: x86_64CPU op-mode(s): 32-bit, 64-bitByte Order: Little EndianCPU(s): 4On-line CPU(s) list: 0-3</p>
+<p>[<a href="mailto:&#x72;&#111;&#111;&#116;&#x40;&#99;&#101;&#x6e;&#x74;&#x6f;&#115;&#55;&#x2e;&#x35;">&#x72;&#111;&#111;&#116;&#x40;&#99;&#101;&#x6e;&#x74;&#x6f;&#115;&#55;&#x2e;&#x35;</a> ~]# lscpuArchitecture: x86_64CPU op-mode(s): 32-bit, 64-bitByte Order: Little EndianCPU(s): 4On-line CPU(s) list: 0-3</p>
 <p><strong>10.Redis6.0的多线程和Memcached多线程模型进行对比</strong></p>
 <p>前些年memcached 是各大互联网公司常用的缓存方案，因此redis 和 memcached 的区别基本成了面试官缓存方面必问的面试题，最近几年memcached用的少了，基本都是 redis。</p>
 <p>不过随着Redis6.0加入了多线程特性，类似的问题可能还会出现，接下来我们只针对多线程模型来简单比较一下。</p>
@@ -3222,7 +3214,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/f0b74f41/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/759e745e/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/lion.png">
@@ -3240,7 +3232,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/f0b74f41/" class="post-title-link" itemprop="url">注释书写</a>
+          <a href="/posts/759e745e/" class="post-title-link" itemprop="url">6、【对线面试官】CAS</a>
         </h2>
 
         <div class="post-meta-container">
@@ -3261,7 +3253,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-13 12:56:04" itemprop="dateModified" datetime="2022-03-13T12:56:04+08:00">2022-03-13</time>
+      <time title="修改时间：2022-03-10 09:48:07" itemprop="dateModified" datetime="2022-03-10T09:48:07+08:00">2022-03-10</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -3269,7 +3261,7 @@
       </span>
       <span class="post-meta-item-text">分类于</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E8%AF%AD%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">语法</span></a>
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
         </span>
     </span>
 
@@ -3282,8 +3274,163 @@
     </span>
     <span class="post-meta-item-text">Waline：</span>
   
-    <a title="waline" href="/posts/f0b74f41/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/f0b74f41/" data-xid="/posts/f0b74f41/" itemprop="commentCount"></span>
+    <a title="waline" href="/posts/759e745e/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/759e745e/" data-xid="/posts/759e745e/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>1k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>1 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="6、【对线面试官】CAS"><a href="#6、【对线面试官】CAS" class="headerlink" title="6、【对线面试官】CAS"></a>6、【对线面试官】CAS</h1><h2 id="今天我们来聊聊CAS吧？你对CAS了解多少？"><a href="#今天我们来聊聊CAS吧？你对CAS了解多少？" class="headerlink" title="今天我们来聊聊CAS吧？你对CAS了解多少？"></a>今天我们来聊聊CAS吧？你对CAS了解多少？</h2><ol>
+<li>CAS的全称为compare and swap，比较并交换</li>
+<li>虽然翻译过来是「比较并交换」，但它是一个原子性的操作，对应到CPU指令为cmpxchg</li>
+<li>cpu指令你都知道？-&gt;这没什么，都是背的。</li>
+<li>回到CAS上吧，CAS的操作其实非常简单。</li>
+<li>CAS有三个操作数：当前值A、内存值V、要修改的新值B</li>
+<li>假设当前值A跟内存值V相等，那就将内存值V改成B</li>
+<li>假设当前值A跟内存值V不相等，要么就重试，要么就放弃更新</li>
+<li>将当前值与内存值进行对比，判断是否有被修改过，这就是CAS的核心</li>
+</ol>
+<h2 id="确实，那为什么要用CAS呢？"><a href="#确实，那为什么要用CAS呢？" class="headerlink" title="确实，那为什么要用CAS呢？"></a>确实，那为什么要用CAS呢？</h2><ol>
+<li>嗯，要讲到CAS就不得不说synchronized锁了，它是Java锁..然后..</li>
+<li>ok，其实就是synchronized锁每次只会让一个线程去操作共享资源</li>
+<li>而CAS相当于没有加锁，多个线程都可以直接操作共享资源，在实际去修改的时候才去判断能否修改成功</li>
+<li>在很多的情况下会synchronized锁要高效很多</li>
+<li>比如，对一个值进行累加，就没必要使用synchronized锁，使用juc包下的Atomic类就足以。</li>
+</ol>
+<h2 id="了解，那你知道CAS会有什么缺点吗？"><a href="#了解，那你知道CAS会有什么缺点吗？" class="headerlink" title="了解，那你知道CAS会有什么缺点吗？"></a>了解，那你知道CAS会有什么缺点吗？</h2><ol>
+<li>CAS有个缺点就是会带来ABA的问题</li>
+<li>从CAS更新的时候，我们可以发现它只比对当前值和内存值是否相等，这会带来个问题，下面我举例说明下：</li>
+<li>假设线程A读到当前值是10，可能线程B把值修改为100，然后线程C又把值修改为10。</li>
+<li>等到线程A拿到执行权时，因为当前值和内存值是一致的，线程A是可以修改的！</li>
+<li>站在线程A的角度来说，这个值是从未被修改的（：</li>
+<li>这是不合理的，因为我们从上帝的角度来看，这个变量已经被线程B和线程C修改过了。</li>
+<li>这就是所谓的ABA问题</li>
+<li>要解决ABA的问题，Java也提供了AtomicStampedReference类供我们用，说白了就是加了个版本，比对的就是内存值+版本是否一致</li>
+</ol>
+<h2 id="阿里巴巴开发手册提及到推荐使用LongAdder对象，比AtomicLong性能更好（减少乐观锁的重试次数）"><a href="#阿里巴巴开发手册提及到推荐使用LongAdder对象，比AtomicLong性能更好（减少乐观锁的重试次数）" class="headerlink" title="阿里巴巴开发手册提及到推荐使用LongAdder对象，比AtomicLong性能更好（减少乐观锁的重试次数）"></a>阿里巴巴开发手册提及到推荐使用LongAdder对象，比AtomicLong性能更好（减少乐观锁的重试次数）</h2><ol>
+<li>AtomicLong做累加的时候实际上就是多个线程操作同一个目标资源</li>
+<li>在高并发时，只有一个线程是执行成功的，其他的线程都会失败，不断自旋（重试），自旋会成为瓶颈</li>
+<li>而LongAdder的思想就是把要操作的目标资源「分散」到数组Cell中</li>
+<li>每个线程对自己的Cell变量的value进行原子操作，大大降低了失败的次数</li>
+<li>这就是为什么在高并发场景下，推荐使用LongAdder的原因</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>l
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/3c567306/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lion.png">
+      <meta itemprop="name" content="swimminghao">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="swimminghao's blog">
+      <meta itemprop="description" content="swimminghao的学习博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | swimminghao's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/3c567306/" class="post-title-link" itemprop="url">8、【对线面试官】AQS & ReentrantLock</a>
+        </h2>
+
+        <div class="post-meta-container">
+
+          
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-03-10 09:48:07" itemprop="dateModified" datetime="2022-03-10T09:48:07+08:00">2022-03-10</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/posts/3c567306/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/3c567306/" data-xid="/posts/3c567306/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -3312,259 +3459,77 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="注释书写规范"><a href="#注释书写规范" class="headerlink" title="注释书写规范"></a>注释书写规范</h1><ul>
-<li>一般情况下，源程序有效注释量必须在30％以上。注释的原则是有助于对程序的阅读理解，在该加的地方都加了，注释不宜太多也不能太少，注释语言必须准确、易懂、简洁。可以用注释统计工具来统计。<h2 id="一、类和接口的注释"><a href="#一、类和接口的注释" class="headerlink" title="一、类和接口的注释"></a>一、类和接口的注释</h2></li>
-</ul>
-<p><strong>1. 类外注释</strong></p>
-<blockquote>
-<p>该注释放在 package 关键字之后，class 或者 interface 关键字之前。</p>
-</blockquote>
-<ul>
-<li>说明：方便JavaDoc收集。<br>示例：</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.huawei.msg.relay.comm;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 注释内容</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">CommManager</span></span><br></pre></td></tr></table></figure>
-<ul>
-<li>类和接口的注释内容：类的注释主要是一句话功能简述、功能详细描述。<br>格式：<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 〈一句话功能简述〉</span></span><br><span class="line"><span class="comment"> * 〈功能详细描述〉</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure></li>
-<li>描述部分说明该类或者接口的功能、作用、使用方法和注意事项。<br>示例：<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * LogManager 类集中控制对日志读写的操作。</span></span><br><span class="line"><span class="comment"> * 全部为静态变量和静态方法，对外提供统一接口。分配对应日志类型的读写器，</span></span><br><span class="line"><span class="comment"> * 读取或写入符合条件的日志纪录。</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure></li>
-</ul>
-<p><strong>2. 类内注释</strong></p>
-<blockquote>
-<p>类属性、公有和保护方法必须写注释。geter、seter方法不用写注释</p>
-</blockquote>
-<p>  示例：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 注释内容</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">private</span> String logType;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 注释内容</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">write</span><span class="params">()</span></span><br></pre></td></tr></table></figure>
-<p>1).成员变量注释内容：成员变量的意义、目的、功能，可能被用到的地方。<br>2).公有和保护方法注释内容：列出方法的一句话功能    简述、功能详细描述、输入参数、输出参数、返回值、违例等。<br>格式：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 〈一句话功能简述〉</span></span><br><span class="line"><span class="comment"> * 〈功能详细描述〉</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span>  [参数1] [in或out]  [参数1说明]</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span>  [参数2] [in或out]  [参数2说明]</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span> [返回类型说明]</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@exception</span>/throws [违例类型] [违例说明]</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
-<p>说明： @exception或throws 列出可能仍出的异常。<br>示例：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 用MD5算法计算输入字符串的32位摘要</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> sIn [in] 待处理的字符串</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> sOut [out] sIn的32为摘要，调用函数负责new sOut对象</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span> boolean</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="type">boolean</span> <span class="title function_">getMd5</span><span class="params">(String sIn, StringBuffer sOut)</span> </span><br></pre></td></tr></table></figure>
-<p>说明：<br>1）.注释应与其描述的代码相近，对代码的注释应放在其上方或右方（对单条语句的注释）相邻位置，不可放在下面，如放于上方则需与其上面的代码用空行隔开。<br>2）.注释与所描述内容进行同样的缩排。<br>3）.将注释与其上面的代码用空行隔开。<br>示例：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//注释</span></span><br><span class="line">program code <span class="title function_">one</span></span><br><span class="line"><span class="params">(空一格)</span>   </span><br><span class="line"><span class="comment">//注释</span></span><br><span class="line">program code two</span><br></pre></td></tr></table></figure>
-<h2 id="二、方法与复杂逻辑的注释"><a href="#二、方法与复杂逻辑的注释" class="headerlink" title="二、方法与复杂逻辑的注释"></a>二、方法与复杂逻辑的注释</h2><blockquote>
-<p>对变量的定义和分支语句（条件分支、循环语句等）对复杂的分支必须编写注释，如果时间允许，建议对所有分支语句写注释。</p>
-</blockquote>
-<p>说明：这些语句往往是程序实现某一特定功能的关键，对于维护人员来说，良好的注释帮助更好的理解程序，有时甚至优于看设计文档。</p>
-<ol>
-<li>switch语句</li>
+          <h1 id="8、【对线面试官】AQS-amp-ReentrantLock"><a href="#8、【对线面试官】AQS-amp-ReentrantLock" class="headerlink" title="8、【对线面试官】AQS &amp; ReentrantLock"></a>8、【对线面试官】AQS &amp; ReentrantLock</h1><h2 id="今天我们来聊聊lock锁吧？"><a href="#今天我们来聊聊lock锁吧？" class="headerlink" title="今天我们来聊聊lock锁吧？"></a>今天我们来聊聊lock锁吧？</h2><h2 id="你知道什么叫做公平和非公平锁吗"><a href="#你知道什么叫做公平和非公平锁吗" class="headerlink" title="你知道什么叫做公平和非公平锁吗"></a>你知道什么叫做公平和非公平锁吗</h2><ol>
+<li>公平锁指的就是：在竞争环境下，先到临界区的线程比后到的线程一定更快地获取得到锁</li>
+<li>那非公平就很好理解了：先到临界区的线程未必比后到的线程更快地获取得到锁</li>
 </ol>
-<ul>
-<li>switch语句下的case语句，如果因为特殊情况需要处理完一个case后进入下一个case处理，必须在该case语句处理完、下一个case语句前加上明确的注释。</li>
-<li>说明：这样比较清楚程序编写者的意图，有效防止无故遗漏break语句。</li>
-</ul>
-<ol start="2">
-<li>边写代码边注释</li>
+<h2 id="如果让你实现的话，你怎么实现公平和非公平锁？"><a href="#如果让你实现的话，你怎么实现公平和非公平锁？" class="headerlink" title="如果让你实现的话，你怎么实现公平和非公平锁？"></a>如果让你实现的话，你怎么实现公平和非公平锁？</h2><ol>
+<li>公平锁可以把竞争的线程放在一个先进先出的队列上</li>
+<li>只要持有锁的线程执行完了，唤醒队列的下一个线程去获取锁就好了</li>
+<li>非公平锁的概念上面已经提到了：后到的线程可能比前到临界区的线程获取得到锁</li>
+<li>那实现也很简单，线程先尝试能不能获取得到锁，如果获取得到锁了就执行同步代码了</li>
+<li>如果获取不到锁，那就再把这个线程放到队列呗</li>
+<li>所以公平和非公平的区别就是：线程执行同步代码块时，是否会去尝试获取锁。</li>
+<li>如果会尝试获取锁，那就是非公平的。如果不会尝试获取锁，直接进队列，再等待唤醒，那就是公平的。</li>
 </ol>
-<ul>
-<li>修改代码同时修改相应的注释，以保证注释与代码的一致性。不再有用的注释要删除。</li>
-</ul>
-<ol start="3">
-<li>避免在注释中使用缩写</li>
+<h2 id="为什么要进队列呢？线程一直尝试获取锁不就行了么？"><a href="#为什么要进队列呢？线程一直尝试获取锁不就行了么？" class="headerlink" title="为什么要进队列呢？线程一直尝试获取锁不就行了么？"></a>为什么要进队列呢？线程一直尝试获取锁不就行了么？</h2><ol>
+<li>一直尝试获取锁，专业点就叫做自旋，需要耗费资源的。</li>
+<li>多个线程一直在自旋，而且大多数都是竞争失败的，哪有人会这样实现的</li>
+<li>不会吧，不会吧，你不会就是这样实现的吧</li>
 </ol>
-<ul>
-<li>在使用缩写时或之前，应对缩写进行必要的说明，特别是不常用缩写。</li>
-</ul>
-<ol start="4">
-<li>用中文注释，禁止用英文写注释。<h2 id="建议"><a href="#建议" class="headerlink" title="建议"></a>建议</h2></li>
-<li>避免在一行代码或表达式的中间插入注释。</li>
+<h2 id="那上次面试所问的synchronized锁是公平的还是非公平的？"><a href="#那上次面试所问的synchronized锁是公平的还是非公平的？" class="headerlink" title="那上次面试所问的synchronized锁是公平的还是非公平的？"></a>那上次面试所问的synchronized锁是公平的还是非公平的？</h2><ol>
+<li>非公平的。</li>
+<li>偏向锁很好理解，如果当前线程ID与markword存储的不相等，则CAS尝试更换线程ID，CAS成功就获取得到锁了</li>
+<li>CAS失败则升级为轻量级锁</li>
+<li>轻量级锁实际上也是通过CAS来抢占锁资源（只不过多了拷贝Mark Word到Lock Record的过程）</li>
+<li>抢占成功到锁就归属给该线程了，但自旋失败一定次数后升级重量级锁</li>
+<li>重量级锁通过monitor对象中的队列存储线程，但线程进入队列前，还是会先尝试获取得到锁，如果能获取不到才进入线程等待队列中</li>
+<li>综上所述，synchronized无论处理哪种锁，都是先尝试获取，获取不到才升级||放到队列上的，所以是非公平的</li>
 </ol>
-<ul>
-<li>说明：除非必要，不应在代码或表达中间插入注释，否则容易使代码可理解性变差。</li>
-</ul>
-<ol start="2">
-<li>通过对函数或过程、变量、结构等正确的命名以及合理地组织代码的结构，使代码成为自注释的。</li>
+<h2 id="嗯，讲得挺仔细的。AQS你了解吗？"><a href="#嗯，讲得挺仔细的。AQS你了解吗？" class="headerlink" title="嗯，讲得挺仔细的。AQS你了解吗？"></a>嗯，讲得挺仔细的。AQS你了解吗？</h2><ol>
+<li>嗯嗯，AQS全称叫做AbstractQueuedSynchronizer</li>
+<li>是可以给我们实现锁的一个 「框架」，内部实现的关键就是维护了一个先进先出的队列以及state状态变量</li>
+<li>先进先出队列存储的载体叫做Node节点，该节点标识着当前的状态值、是独占还是共享模式以及它的前驱和后继节点等等信息</li>
+<li>简单理解就是：AQS定义了模板，具体实现由各个子类完成。</li>
+<li>总体的流程可以总结为：会把需要等待的线程以Node的形式放到这个先进先出的队列上，state变量则表示为当前锁的状态。</li>
+<li>像ReentrantLock、 ReentrantReadWrite Lock、 CountDownLatch、 Semaphore 这些常用的实现类都是基于AQS实现的</li>
+<li>AQS支持两种模式：独占（锁只会被一个线程独占）和共享（多个线程可同时执行）</li>
 </ol>
-<ul>
-<li>说明：清晰准确的函数、变量等的命名，可增加代码可读性，并减少不必要的注释。</li>
-</ul>
-<ol start="3">
-<li>在代码的功能、意图层次上进行注释，提供有用、额外的信息。</li>
+<h2 id="你以ReentrantLock来讲讲加锁和解锁的过程呗"><a href="#你以ReentrantLock来讲讲加锁和解锁的过程呗" class="headerlink" title="你以ReentrantLock来讲讲加锁和解锁的过程呗"></a>你以ReentrantLock来讲讲加锁和解锁的过程呗</h2><ul>
+<li>以非公平锁为了，我们在外界调用lock方法的时候，源码是这样实现的<ol>
+<li>CAS尝试获取锁，获取成功则可以执行同步代码</li>
+<li>CAS获取失败，则调用acquire方法acquire方法实际上就是AQS的模板方法</li>
+<li>acquire首先会调用子类的tryAcquire 方法（又回到了ReentrantLock中）</li>
+<li>tryAcquire方法实际上会判断当前的state是否等于0，等于0说明没有线程持有锁，则又尝试CAS直接获取锁</li>
+<li>如果CAS获取成功，则可以执行同步代码</li>
+<li>如果CAS获取失败，那判断当前线程是否就持有锁，如果是持有的锁，那更新state的值，获取得到锁（这里其实就是处理可重入的逻辑）</li>
+<li>CAS失败&amp;&amp;非重入的情况，则回到try Acquire方法执行「入队列」的操作</li>
+<li>将节点入队列之后，会判断「前驱节点」是不是头节点，如果是头结点又会用CAS尝试获取锁</li>
+<li>如果是「前驱节点」是头节点并获取得到锁，则把当前节点设置为头结点，并且将前驱节点置空（实际上就是原有的头节点已经释放锁了）</li>
+<li>没获取得到锁，则判断前驱节点的状态是否为SIGNAL，如果不是，则找到合法的前驱节点，并使用CAS将状态设置为SIGNAL</li>
+<li>最后调用park将当前线程挂起</li>
 </ol>
-<ul>
-<li>说明：注释的目的是解释代码的目的、功能和采用的方法，提供代码以外的信息，帮助读者理解代码，防止没必要的重复注释信息。</li>
-<li>示例：如下注释意义不大。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 如果 receiveFlag 为真</span></span><br><span class="line"><span class="keyword">if</span> (receiveFlag)</span><br></pre></td></tr></table></figure></li>
-<li>而如下的注释则给出了额外有用的信息。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 如果从连结收到消息 </span></span><br><span class="line"><span class="keyword">if</span> (receiveFlag)</span><br></pre></td></tr></table></figure></li>
-</ul>
-<ol start="4">
-<li>在程序块的结束行右方加注释标记，以表明某程序块的结束。</li>
-</ol>
-<ul>
-<li>说明：当代码段较长，特别是多重嵌套时，这样做可以使代码更清晰，更便于阅读。</li>
-<li>示例：参见如下例子。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (...)</span><br><span class="line">&#123;</span><br><span class="line">    program code1</span><br><span class="line">    <span class="title function_">while</span> <span class="params">(index &lt; MAX_INDEX)</span></span><br><span class="line">    &#123;</span><br><span class="line">        program code2</span><br><span class="line">    &#125; <span class="comment">// end of while (index &lt; MAX_INDEX) // 指明该条while语句结束</span></span><br><span class="line">&#125; <span class="comment">// end of  if (...) // 指明是哪条if语句结束</span></span><br></pre></td></tr></table></figure></li>
-</ul>
-<ol start="5">
-<li>方法内的单行注释使用 &#x2F;&#x2F;。</li>
-</ol>
-<ul>
-<li>说明：调试程序的时候可以方便的使用 &#x2F;* 。。。*&#x2F; 注释掉一长段程序。</li>
-</ul>
-<ol start="6">
-<li>注释使用中文注释和中文标点，不得用英文写注释。方法和类描述的第一句话尽量使用简洁明了的话概括一下功能，然后加以句号。接下来的部分可以详细描述。</li>
-</ol>
-<ul>
-<li>说明：JavaDoc工具收集简介的时候使用选取第一句话。</li>
-</ul>
-<ol start="7">
-<li>顺序实现流程的说明使用1、2、3、4在每个实现步骤部分的代码前面进行注释。</li>
-</ol>
-<ul>
-<li>示例：如下是对设置属性的流程注释<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//1、 判断输入参数是否有效。</span></span><br><span class="line">...</span><br><span class="line"><span class="comment">// 2、设置本地变量。</span></span><br><span class="line">...</span><br></pre></td></tr></table></figure></li>
-</ul>
-<ol start="8">
-<li>一些复杂的算法代码需要说明。</li>
-</ol>
-<ul>
-<li>示例：这里主要是对闰年算法的说明。<br><code>java //1. 如果能被4整除，是闰年； //2. 如果能被100整除，不是闰年.； //3. 如果能被400整除，是闰年.。 </code>星期五, 23. 八月 2019 07:42下午</li>
-</ul>
-<p>**</p>
-<hr>
-<p>**</p>
-
-      
-    </div>
-
-    
-    
-    
-
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>l
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/5bf4d040/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/lion.png">
-      <meta itemprop="name" content="swimminghao">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="swimminghao's blog">
-      <meta itemprop="description" content="swimminghao的学习博客">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | swimminghao's blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/5bf4d040/" class="post-title-link" itemprop="url">线程与进程</a>
-        </h2>
-
-        <div class="post-meta-container">
-
-          
-
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-13 12:56:04" itemprop="dateModified" datetime="2022-03-13T12:56:04+08:00">2022-03-13</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="far fa-comment"></i>
-    </span>
-    <span class="post-meta-item-text">Waline：</span>
-  
-    <a title="waline" href="/posts/5bf4d040/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/5bf4d040/" data-xid="/posts/5bf4d040/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>1.3k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>1 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="线程与进程"><a href="#线程与进程" class="headerlink" title="线程与进程"></a>线程与进程</h1><h1 id="一、进程"><a href="#一、进程" class="headerlink" title="一、进程"></a>一、进程</h1><ol>
-<li>计算机内存空间</li>
-</ol>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/RqW68w_20210909173200.png"></p>
-<p>​        用户空间装着用户进程需要使用的资源，比如你在程序代码里开一个数组， 这个数组肯定存在用户空间;内核空间存放内核进程需要加载的系统资源， 这一些资源一般是不允许用户访问的。但是注意有的用户进程会共享一些内 核空间的资源，比如一些动态链接库等等。</p>
-<ol start="2">
-<li><p><strong>对于操作系统，进程就是一个数据结构</strong>，直接看 Linux 的源码:</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">task_struct</span> &#123;</span></span><br><span class="line">  		<span class="comment">// 进程状态</span></span><br><span class="line">      <span class="type">long</span> state; </span><br><span class="line">  		<span class="comment">// 虚拟内存结构体</span></span><br><span class="line">      <span class="class"><span class="keyword">struct</span> <span class="title">mm_struct</span> *<span class="title">mm</span>;</span> </span><br><span class="line">  		<span class="comment">// 进程号</span></span><br><span class="line">      <span class="type">pid_t</span> pid;</span><br><span class="line">      <span class="comment">// 指向父进程的指针</span></span><br><span class="line">      <span class="class"><span class="keyword">struct</span> <span class="title">task_struct</span> __<span class="title">rcu</span> *<span class="title">parent</span>;</span> </span><br><span class="line">      <span class="comment">// 一个数组，包含该进程打开的文件指针 </span></span><br><span class="line">  		<span class="class"><span class="keyword">struct</span> <span class="title">files_struct</span> *<span class="title">files</span>;</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<p>​        其中比较有意思的是 mm 指针和 files 指针。</p>
-<p>​        mm 指针指向：进程的虚拟内存，也就是载入资源和可执行文件的地方;</p>
-<p>​        files 指针指向：一个数组，这个数组里装着所有该进程打开的文件的指针。</p>
 </li>
+</ul>
+<h2 id="你说了一大堆，麻烦使用压缩算法压缩下加锁的过程。"><a href="#你说了一大堆，麻烦使用压缩算法压缩下加锁的过程。" class="headerlink" title="你说了一大堆，麻烦使用压缩算法压缩下加锁的过程。"></a>你说了一大堆，麻烦使用压缩算法压缩下加锁的过程。</h2><p>压缩后：当线程CAS获取锁失败，将当前线程入队列，把前驱节点状态设置为SIGNAL状态，并将自己挂起。</p>
+<h2 id="为什么要设置前驱节点为-SIGNAL状态，有啥用？"><a href="#为什么要设置前驱节点为-SIGNAL状态，有啥用？" class="headerlink" title="为什么要设置前驱节点为 SIGNAL状态，有啥用？"></a>为什么要设置前驱节点为 SIGNAL状态，有啥用？</h2><ol>
+<li>其实就是表示后继节点需要被唤醒,你咋啥都不知道啊？跟你沟通有点烦.我先把解锁的过程说下吧<ul>
+<li>外界调用unlock方法时，实际上会调用AQS的release方法，而release方法会调用子类tryRelease方法（又回到了ReentrantLock中）</li>
+<li>tryRelease会把state一直减（锁重入可使state&gt;1），直至到0，说明当前线程已经把锁释放了</li>
+<li>随后从队尾往前找节点状态需要&lt;0，并离头节点最近的节点进行唤醒</li>
+</ul>
+</li>
+<li>唤醒之后，被唤醒的线程则尝试使用CAS获取锁，假设获取锁得到则把头节点给干掉，把自己设置为头节点成</li>
+<li>解锁的逻辑非常简单哈</li>
+<li>压缩一下：把state置0，唤醒头结点下一个合法的节点，被唤醒的节点线程自然就会去获取锁</li>
+<li>回到上一个问题，为什么要设置前驱节点为SIGNAL状态</li>
+<li>其实归终结底就是为了判断节点的状态，去做些处理。</li>
+<li>Node中节点的状态有4种，分别是：CA NCELLED(1)、 SIGNAL(-1)、 CONDITI ON（-2）、 PROPAGATE（-3）和0。</li>
+<li>在ReentrantLock解锁的时候，会判断节点的状态是否小于0，小于等于0才说明需要被唤醒</li>
+<li>另外一提的是：公平锁的实现与非公平锁是很像的，只不过在获取锁时不会直接尝试使用CAS来获取锁。</li>
+<li>只有当队列没节点并且state为0时才会去获取锁，不然都会把当前线程放到队列中</li>
 </ol>
-<h2 id="二、文件描述符"><a href="#二、文件描述符" class="headerlink" title="二、文件描述符"></a>二、文件描述符</h2><p>​        <strong>每个进程被创建时，</strong> <strong>files</strong> <strong>的前三位被填入默认值，分别指向标准输入 流、标准输出流、标准错误流。我们常说的「文件描述符」就是指这个文件 指针数组的索引（0，1，2）</strong>，所以程序的文件描述符默认情况下 <strong>0 是输入，1 是输出， 2 是错误。</strong></p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/image-20210909224717097_20210909224717.png"></p>
-<p>​        linux一切皆文件，对于一般的计算机，输入流是键盘，输出流是显示器，错误流也是显示器， 所以现在这个进程和内核连了三根线。因为硬件都是由内核管理的，我们的 进程需要通过「系统调用」让内核进程访问硬件资源。</p>
-<p>​        如果我们写的程序需要其他资源，比如打开一个文件进行读写，这也很简 单，进行系统调用，让内核把文件打开，这个文件就会被放到 files 的第 4 个位置:</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/ex9iww_20210909225018.png"></p>
-<p><strong>输入重定向</strong>：command &lt; file.txt，file[0]指向file.txt,程序从file[0]读取数据</p>
-<p><strong>输出重定向</strong>：command &gt; file.txt，file[1]指向file.txt， 程序像file[1]写入数据</p>
-<p><strong>管道符</strong>：cmd1 | cmd2 把一个进程的输出流和另一个进程的输入流接起 一条「管道」，数据就在其中传递</p>
-<p><strong>注意：</strong>一个简单的 files 数组，进程通过简单的文件描述符访问相应资源， 具体细节交于操作系统，有效解耦，优美高效。</p>
-<h2 id="三、线程是什么"><a href="#三、线程是什么" class="headerlink" title="三、线程是什么"></a>三、线程是什么</h2><p>​            之所以Linux 中线程和进程基本没有区别呢，因为从 Linux 内核的角度来看，并没有把线程和进程区别对待。<strong>都是用</strong> <strong>task_struct</strong> <strong>结构表示的，唯一的 区别就是共享的数据区域不同</strong>。</p>
-<p>​        换句话说，线程看起来跟进程没有区别，只是线程的某些数据区域和其父进 程是共享的，而子进程是拷⻉副本，而不是共享。就比如说， mm 结构 和 files 结构在线程中都是共享的，我画两张图你就明白了:</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/X1GvhJ_20210909230142.png"></p>
-<p><strong>注意：</strong>对于新建进程时内存区域拷 ⻉的问题，Linux 采用了 copy-on-write 的策略优化，也就是并不真正复制父 进程的内存空间，而是等到需要写操作时才去复制。<strong>所以</strong> <strong>Linux</strong> <strong>中新建进 程和新建线程都是很迅速的</strong>。</p>
+<h2 id="流程图"><a href="#流程图" class="headerlink" title="流程图"></a>流程图</h2><p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/eK7qe3_20211027174549.png"></p>
 
       
     </div>
@@ -3596,7 +3561,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/4d79f088/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/eb551b6f/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/lion.png">
@@ -3614,7 +3579,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/4d79f088/" class="post-title-link" itemprop="url">面试官：说说你了解class文件吗？</a>
+          <a href="/posts/eb551b6f/" class="post-title-link" itemprop="url">面试官“谈谈Spring中都用到了那些设计模式”。</a>
         </h2>
 
         <div class="post-meta-container">
@@ -3635,7 +3600,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-13 12:56:04" itemprop="dateModified" datetime="2022-03-13T12:56:04+08:00">2022-03-13</time>
+      <time title="修改时间：2022-03-10 09:48:07" itemprop="dateModified" datetime="2022-03-10T09:48:07+08:00">2022-03-10</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -3656,8 +3621,8 @@
     </span>
     <span class="post-meta-item-text">Waline：</span>
   
-    <a title="waline" href="/posts/4d79f088/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/4d79f088/" data-xid="/posts/4d79f088/" itemprop="commentCount"></span>
+    <a title="waline" href="/posts/eb551b6f/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/eb551b6f/" data-xid="/posts/eb551b6f/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -3668,14 +3633,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>2.8k</span>
+      <span>10k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>3 分钟</span>
+      <span>9 分钟</span>
     </span>
 </div>
 
@@ -3686,34 +3651,131 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="面试官：说说你了解class文件吗？"><a href="#面试官：说说你了解class文件吗？" class="headerlink" title="面试官：说说你了解class文件吗？"></a>面试官：说说你了解class文件吗？</h1><p><strong>本文思维导图：</strong></p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2rLXEs_20210507091957.png" alt="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2rLXEs_20210507091957.png"></p>
-<h2 id="Class类文件结构"><a href="#Class类文件结构" class="headerlink" title="Class类文件结构"></a>Class类文件结构</h2><h2 id="为什么Java可以一次编译到处运行？JVM无关性"><a href="#为什么Java可以一次编译到处运行？JVM无关性" class="headerlink" title="为什么Java可以一次编译到处运行？JVM无关性"></a>为什么Java可以一次编译到处运行？JVM无关性</h2><p>与平台无关性是建立在操作系统上，虚拟机厂商提供了许多可以运行在各种不同平台的虚拟机，它们都可以载入和执行字节码，从而实现程序的“一次编写，到处运行”。</p>
-<p>各种不同平台的虚拟机与所有平台都统一使用的程序存储格式——字节码（Byte Code）是构成平台无关性的基石，也是语言无关性的基础。Java 虚拟机不和包括 Java 在内的任何语言绑定，它只与“Class 文件”这种特定的二进制文件格式所关联，Class 文件中包含了 Java 虚拟机指令集和符号表以及若干其他辅助信息。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/ZGOAdI_20210507092208.png" alt="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/ZGOAdI_20210507092208.png"></p>
-<h2 id="Class-类文件"><a href="#Class-类文件" class="headerlink" title="Class  类文件"></a>Class  类文件</h2><p>Java 技术能够一直保持非常好的向后兼容性，这点 Class 文件结构的稳定性功不可没。Java 已经发展到 14 版本，但是 class 文件结构的内容，绝大部分在JDK1.2 时代就已经定义好了。虽然 JDK1.2 的内容比较古老，但是 java 发展经历了十余个大版本，但是每次基本上知识在原有结构基础上新增内容、扩充功能，并未对定义的内容做修改。</p>
-<p>任何一个 Class 文件都对应着唯一一个类或接口的定义信息，但反过来说，Class 文件实际上它并不一定以磁盘文件的形式存在（比如可以动态生成、或者直接送入类加载器中）。</p>
-<p>Class 文件是一组以 8 位字节为基础单位的二进制流。</p>
-<h2 id="工具介绍"><a href="#工具介绍" class="headerlink" title="工具介绍"></a>工具介绍</h2><p>Sublime：查看 16 进制的编辑器<br>javap：javap 是 JDK 自带的反解析工具。它的作用是将 .class 字节码文件解析成可读的文件格式。<br>在使用 javap 时我一般会添加 -v 参数，尽量多打印一些信息。同时，我也会使用 -p 参数，打印一些私有的字段和方法。<br>jclasslib：如果你不太习惯使用命令行的操作，还可以使用 jclasslib，jclasslib 是一个图形化的工具，能够更加直观的查看字节码中的内容。它还分门别类的对类中的各个部分进行了整理，非常的人性化。同时，它还提供了 Idea 的插件，你可以从 plugins 中搜索到它。</p>
-<h2 id="Class-文件格式"><a href="#Class-文件格式" class="headerlink" title="Class  文件格式"></a>Class  文件格式</h2><p>从一个 Class 文件开始，整个 Class 文件的格式就是一个二进制的字节流。各个数据项目严格按照顺序紧凑地排列在 Class 文件之中，中间没有添加任何分隔符，这使得整个 Class 文件中存储的内容几乎全部是程序运行的必要数据，没有空隙存在。</p>
-<p>Class 文件格式采用一种类似于 C 语言结构体的伪结构来存储数据，这种伪结构中只有两种数据类型：无符号数和表。</p>
-<p>无符号数属于基本的数据类型，以 u1、u2、u4、u8 来分别代表 1 个字节（一个字节是由两位 16 进制数组成 （<strong>1个16进制数&#x3D;4个二进制数 8个二进制数&#x3D;一个字节</strong>））、2 个字节、4 个字节和 8 个字节的无符号数，无符号数可以用来描述数字、索引引用、数量值或者按照 UTF-8 编码构成字符串值。</p>
-<p>表是由多个无符号数或者其他表作为数据项构成的复合数据类型，所有表都习惯性地以“_info”结尾。表用于描述有层次关系的复合结构的数据，整个Class 文件本质上就是一张表。</p>
-<h2 id="Class-文件格式详解"><a href="#Class-文件格式详解" class="headerlink" title="Class  文件格式详解"></a>Class  文件格式详解</h2><p>Class 的结构不像 XML 等描述语言，由于它没有任何分隔符号，所以在其中的数据项，无论是顺序还是数量，都是被严格限定的，哪个字节代表什么含义，长度是多少，先后顺序如何，都不允许改变。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/mwHImZ_20210507115741.png" alt="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/mwHImZ_20210507115741.png"></p>
-<p>按顺序包括：</p>
-<h3 id="魔数与-Class-文件的版本"><a href="#魔数与-Class-文件的版本" class="headerlink" title="魔数与 Class  文件的版本"></a>魔数与 Class  文件的版本</h3><p>每个 Class 文件的头 4 个字节称为魔数（Magic Number），它的唯一作用是确定这个文件是否为一个能被虚拟机接受的 Class 文件。使用魔数而不是扩展名来进行识别主要是基于安全方面的考虑，因为文件扩展名可以随意地改动。文件格式的制定者可以自由地选择魔数值，只要这个魔数值还没有被广泛采用过同时又不会引起混淆即可。</p>
-<p>紧接着魔数的 4 个字节存储的是 Class 文件  的版本号：第 5 和第 6 个字节是次版本号（MinorVersion），第 7 和第 8 个字节是主版本号（Major Version）。</p>
-<p>Java 的版本号是从 45 开始的，JDK 1.1 之后的每个 JDK 大版本发布主版本号向上加 1 高版本的 JDK 能向下兼容以前版本的 Class 文件，但不能运行以后版本的 Class 文件，即使文件格式并未发生任何变化，虚拟机也必须拒绝执行超过其版本号的 Class 文件。<img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/1xvCIr_20210507115713.png" style = "width:20px height:1px" />代表 JDK1.8（16 进制的 34，换成 10 进制就是 52）</p>
-<h2 id="常量池"><a href="#常量池" class="headerlink" title="常量池"></a>常量池</h2><p>常量池中常量的数量是不固定的，所以在常量池的入口需要放置一项 u2 类型的数据，代表常量池容量计数值（constant_pool_count）。与 Java 中语言习惯不一样的是，这个容量计数是从 1 而不是 0 开始的</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/L7NUe4_20210507115859.png"></p>
-<p>常量池中主要存放两大类常量：字面量（Literal）和符号引用（Symbolic References）。<br>字面量比较接近于 Java 语言层面的常量概念，如文本字符串、声明为 final 的常量值等。<br>符号引用则属于编译原理方面的概念，包括了下面三类常量：类和接口的全限定名（Fully Qualified Name）、字段的名称和描述符（Descriptor）、方法的名称和描述符</p>
-<h3 id="访问标志"><a href="#访问标志" class="headerlink" title="访问标志"></a>访问标志</h3><p>用于识别一些类或者接口层次的访问信息，包括：这个 Class 是类还是接口；是否定义为 public 类型；是否定义为 abstract 类型；如果是类的话，是否被声明为 final 等</p>
-<h3 id="类索引、父类索引与接口索引集合"><a href="#类索引、父类索引与接口索引集合" class="headerlink" title="类索引、父类索引与接口索引集合"></a>类索引、父类索引与接口索引集合</h3><p>这三项数据来确定类的继承关系。类索引用于确定这个类的全限定名，父类索引用于确定这个类的父类的全限定名。由于 Java 语言不允许多重继承，所以父类索引只有一个，除了 java.lang.Object 之外，所有的 Java 类都有父类，因此除了java.lang.Object 外，所有 Java 类的父类索引都不为 0。接口索引集合就用来描述这个类实现了哪些接口，这些被实现的接口将按 implements 语句（如果这个类本身是一个接口，则应当是 extends 语句）后的接口顺序从左到右排列在接口索引集合中</p>
-<h3 id="字段表集合"><a href="#字段表集合" class="headerlink" title="字段表集合"></a>字段表集合</h3><p>描述接口或者类中声明的变量。字段（field）包括类级变量以及实例级变量。<br>而字段叫什么名字、字段被定义为什么数据类型，这些都是无法固定的，只能引用常量池中的常量来描述。字段表集合中不会列出从超类或者父接口中继承而来的字段，但有可能列出原本 Java 代码之中不存在的字段，譬如在内部类中为了保持对外部类的访问性，会自动添加指向外部类实例的字段。</p>
-<h3 id="方法表集合"><a href="#方法表集合" class="headerlink" title="方法表集合"></a>方法表集合</h3><p>描述了方法的定义，但是方法里的 Java 代码，经过编译器编译成字节码指令后，存放在属性表集合中的方法属性表集合中一个名为“Code”的属性里面。</p>
-<p>与字段表集合相类似的，如果父类方法在子类中没有被重写（Override），方法表集合中就不会出现来自父类的方法信息。但同样的，有可能会出现由编译器自动添加的方法，最典型的便是类构造器“＜clinit＞”方法和实例构造器“＜init＞”</p>
-<h3 id="属性表集合"><a href="#属性表集合" class="headerlink" title="属性表集合"></a>属性表集合</h3><p>存储 Class 文件、字段表、方法表都自己的属性表集合，以用于描述某些场景专有的信息。如方法的代码就存储在 Code 属性表中。</p>
+          <h1 id="面试官-“谈谈Spring中都用到了那些设计模式-”。"><a href="#面试官-“谈谈Spring中都用到了那些设计模式-”。" class="headerlink" title="面试官:“谈谈Spring中都用到了那些设计模式?”。"></a>面试官:“谈谈Spring中都用到了那些设计模式?”。</h1><p>JDK 中用到了那些设计模式?Spring 中用到了那些设计模式?这两个问题，在面试中比较常见。我在网上搜索了一下关于 Spring 中设计模式的讲解几乎都是千篇一律，而且大部分都年代久远。所以，花了几天时间自己总结了一下，由于我的个人能力有限，文中如有任何错误各位都可以指出。另外，文章篇幅有限，对于设计模式以及一些源码的解读我只是一笔带过，这篇文章的主要目的是回顾一下 Spring 中的常见的设计模式。</p>
+<p>Design Patterns(设计模式) 表示面向对象软件开发中最好的计算机编程实践。 Spring 框架中广泛使用了不同类型的设计模式，下面我们来看看到底有哪些设计模式?</p>
+<h2 id="控制反转-IoC-和依赖注入-DI"><a href="#控制反转-IoC-和依赖注入-DI" class="headerlink" title="控制反转(IoC)和依赖注入(DI)"></a>控制反转(IoC)和依赖注入(DI)</h2><p><strong>IoC(Inversion of Control,控制翻转)</strong> 是Spring 中一个非常非常重要的概念，它不是什么技术，而是一种解耦的设计思想。它的主要目的是借助于“第三方”(Spring 中的 IOC 容器) 实现具有依赖关系的对象之间的解耦(IOC容易管理对象，你只管使用即可)，从而降低代码之间的耦合度。<strong>IOC 是一个原则，而不是一个模式，以下模式（但不限于）实现了IoC原则。</strong></p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/iaIdQfEric9TwBuibJ4N5OTyAvJibFj8b7zhiaTcnFwmnfLqQQWwlWv2uNMZyiabexkUSuW24WAWAuL6cvzguu8JyYzw/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="图片"></p>
+<center>ioc-patterns</center>
+
+<p><strong>Spring IOC 容器就像是一个工厂一样，当我们需要创建一个对象的时候，只需要配置好配置文件&#x2F;注解即可，完全不用考虑对象是如何被创建出来的。</strong> IOC 容器负责创建对象，将对象连接在一起，配置这些对象，并从创建中处理这些对象的整个生命周期，直到它们被完全销毁。</p>
+<p>在实际项目中一个 Service 类如果有几百甚至上千个类作为它的底层，我们需要实例化这个 Service，你可能要每次都要搞清这个 Service 所有底层类的构造函数，这可能会把人逼疯。如果利用 IOC 的话，你只需要配置好，然后在需要的地方引用就行了，这大大增加了项目的可维护性且降低了开发难度。关于Spring IOC 的理解，推荐看这一下知乎的一个回答：<a target="_blank" rel="noopener" href="https://www.zhihu.com/question/23277575/answer/169698662">https://www.zhihu.com/question/23277575/answer/169698662</a> ，非常不错。</p>
+<p><strong>控制翻转怎么理解呢?</strong> 举个例子：”对象a 依赖了对象 b，当对象 a 需要使用 对象 b的时候必须自己去创建。但是当系统引入了 IOC 容器后， 对象a 和对象 b 之前就失去了直接的联系。这个时候，当对象 a 需要使用 对象 b的时候， 我们可以指定 IOC 容器去创建一个对象b注入到对象 a 中”。 对象 a 获得依赖对象 b 的过程,由主动行为变为了被动行为，控制权翻转，这就是控制反转名字的由来。</p>
+<p><strong>DI(Dependecy Inject,依赖注入)是实现控制反转的一种设计模式，依赖注入就是将实例变量传入到一个对象中去。</strong></p>
+<h2 id="工厂设计模式"><a href="#工厂设计模式" class="headerlink" title="工厂设计模式"></a>工厂设计模式</h2><p>Spring使用工厂模式可以通过 <code>BeanFactory</code> 或 <code>ApplicationContext</code> 创建 bean 对象。</p>
+<p><strong>两者对比：</strong></p>
+<ul>
+<li><code>BeanFactory</code> ：延迟注入(使用到某个 bean 的时候才会注入),相比于<code>BeanFactory</code>来说会占用更少的内存，程序启动速度更快。</li>
+<li><code>ApplicationContext</code> ：容器启动的时候，不管你用没用到，一次性创建所有 bean 。<code>BeanFactory</code> 仅提供了最基本的依赖注入支持，<code>ApplicationContext</code> 扩展了 <code>BeanFactory</code> ,除了有<code>BeanFactory</code>的功能还有额外更多功能，所以一般开发人员使用<code>ApplicationContext</code>会更多。</li>
+</ul>
+<p>ApplicationContext的三个实现类：</p>
+<ol>
+<li><code>ClassPathXmlApplication</code>：把上下文文件当成类路径资源。</li>
+<li><code>FileSystemXmlApplication</code>：从文件系统中的 XML 文件载入上下文定义信息。</li>
+<li><code>XmlWebApplicationContext</code>：从Web系统中的XML文件载入上下文定义信息。</li>
+</ol>
+<p>Example:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.springframework.context.ApplicationContext;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.support.FileSystemXmlApplicationContext;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">App</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">ApplicationContext</span> <span class="variable">context</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FileSystemXmlApplicationContext</span>(</span><br><span class="line">                <span class="string">&quot;C:/work/IOC Containers/springframework.applicationcontext/src/main/resources/bean-factory-config.xml&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="type">HelloApplicationContext</span> <span class="variable">obj</span> <span class="operator">=</span> (HelloApplicationContext) context.getBean(<span class="string">&quot;helloApplicationContext&quot;</span>);</span><br><span class="line">        obj.getMsg();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="单例设计模式"><a href="#单例设计模式" class="headerlink" title="单例设计模式"></a>单例设计模式</h2><p>在我们的系统中，有一些对象其实我们只需要一个，比如说：线程池、缓存、对话框、注册表、日志对象、充当打印机、显卡等设备驱动程序的对象。事实上，这一类对象只能有一个实例，如果制造出多个实例就可能会导致一些问题的产生，比如：程序的行为异常、资源使用过量、或者不一致性的结果。</p>
+<p><strong>使用单例模式的好处:</strong></p>
+<ul>
+<li>对于频繁使用的对象，可以省略创建对象所花费的时间，这对于那些重量级对象而言，是非常可观的一笔系统开销；</li>
+<li>由于 new 操作的次数减少，因而对系统内存的使用频率也会降低，这将减轻 GC 压力，缩短 GC 停顿时间。</li>
+</ul>
+<p><strong>Spring 中 bean 的默认作用域就是 singleton(单例)的。</strong> 除了 singleton 作用域，Spring 中 bean 还有下面几种作用域：</p>
+<ul>
+<li>prototype : 每次请求都会创建一个新的 bean 实例。</li>
+<li>request : 每一次HTTP请求都会产生一个新的bean，该bean仅在当前HTTP request内有效。</li>
+<li>session : 每一次HTTP请求都会产生一个新的 bean，该bean仅在当前 HTTP session 内有效。</li>
+<li>global-session： 全局session作用域，仅仅在基于portlet的web应用中才有意义，Spring5已经没有了。Portlet是能够生成语义代码(例如：HTML)片段的小型Java Web插件。它们基于portlet容器，可以像servlet一样处理HTTP请求。但是，与 servlet 不同，每个 portlet 都有不同的会话</li>
+</ul>
+<p><strong>Spring 实现单例的方式：</strong></p>
+<ul>
+<li>xml:<bean id="userService" class="top.snailclimb.UserService" scope="singleton"/>&#96;&#96;</li>
+<li>注解：<code>@Scope(value = &quot;singleton&quot;)</code></li>
+</ul>
+<p>Spring 通过 <code>ConcurrentHashMap</code> 实现单例注册表的特殊方式实现单例模式。Spring 实现单例的核心代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 通过 ConcurrentHashMap（线程安全） 实现单例注册表</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">final</span> Map&lt;String, Object&gt; singletonObjects = <span class="keyword">new</span> <span class="title class_">ConcurrentHashMap</span>&lt;String, Object&gt;(<span class="number">64</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> Object <span class="title function_">getSingleton</span><span class="params">(String beanName, ObjectFactory&lt;?&gt; singletonFactory)</span> &#123;</span><br><span class="line">        Assert.notNull(beanName, <span class="string">&quot;&#x27;beanName&#x27; must not be null&quot;</span>);</span><br><span class="line">        <span class="keyword">synchronized</span> (<span class="built_in">this</span>.singletonObjects) &#123;</span><br><span class="line">            <span class="comment">// 检查缓存中是否存在实例  </span></span><br><span class="line">            <span class="type">Object</span> <span class="variable">singletonObject</span> <span class="operator">=</span> <span class="built_in">this</span>.singletonObjects.get(beanName);</span><br><span class="line">            <span class="keyword">if</span> (singletonObject == <span class="literal">null</span>) &#123;</span><br><span class="line">                <span class="comment">//...省略了很多代码</span></span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    singletonObject = singletonFactory.getObject();</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="comment">//...省略了很多代码</span></span><br><span class="line">                <span class="comment">// 如果实例对象在不存在，我们注册到单例注册表中。</span></span><br><span class="line">                addSingleton(beanName, singletonObject);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> (singletonObject != NULL_OBJECT ? singletonObject : <span class="literal">null</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//将对象添加到单例注册表</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">addSingleton</span><span class="params">(String beanName, Object singletonObject)</span> &#123;</span><br><span class="line">            <span class="keyword">synchronized</span> (<span class="built_in">this</span>.singletonObjects) &#123;</span><br><span class="line">                <span class="built_in">this</span>.singletonObjects.put(beanName, (singletonObject != <span class="literal">null</span> ? singletonObject : NULL_OBJECT));</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="代理设计模式"><a href="#代理设计模式" class="headerlink" title="代理设计模式"></a>代理设计模式</h2><h3 id="代理模式在-AOP-中的应用"><a href="#代理模式在-AOP-中的应用" class="headerlink" title="代理模式在 AOP 中的应用"></a>代理模式在 AOP 中的应用</h3><p>AOP(Aspect-Oriented Programming:面向切面编程)能够将那些与业务无关，却为业务模块所共同调用的逻辑或责任（例如事务处理、日志管理、权限控制等）封装起来，便于减少系统的重复代码，降低模块间的耦合度，并有利于未来的可拓展性和可维护性。</p>
+<p><strong>Spring AOP 就是基于动态代理的</strong>，如果要代理的对象，实现了某个接口，那么Spring AOP会使用<strong>JDK Proxy</strong>，去创建代理对象，而对于没有实现接口的对象，就无法使用 JDK Proxy 去进行代理了，这时候Spring AOP会使用<strong>Cglib</strong> ，这时候Spring AOP会使用 <strong>Cglib</strong> 生成一个被代理对象的子类来作为代理，如下图所示：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/16qDep_20210809142649.png" alt="图片"></p>
+<center>SpringAOPProcess</center>
+
+<p>当然你也可以使用 AspectJ ,Spring AOP 已经集成了AspectJ ，AspectJ 应该算的上是 Java 生态系统中最完整的 AOP 框架了。</p>
+<p>使用 AOP 之后我们可以把一些通用功能抽象出来，在需要用到的地方直接使用即可，这样大大简化了代码量。我们需要增加新功能时也方便，这样也提高了系统扩展性。日志功能、事务管理等等场景都用到了 AOP 。</p>
+<h3 id="Spring-AOP-和-AspectJ-AOP-有什么区别"><a href="#Spring-AOP-和-AspectJ-AOP-有什么区别" class="headerlink" title="Spring AOP 和 AspectJ AOP 有什么区别?"></a>Spring AOP 和 AspectJ AOP 有什么区别?</h3><p><strong>Spring AOP 属于运行时增强，而 AspectJ 是编译时增强。</strong> Spring AOP 基于代理(Proxying)，而 AspectJ 基于字节码操作(Bytecode Manipulation)。</p>
+<p>Spring AOP 已经集成了 AspectJ ，AspectJ 应该算的上是 Java 生态系统中最完整的 AOP 框架了。AspectJ 相比于 Spring AOP 功能更加强大，但是 Spring AOP 相对来说更简单，</p>
+<p>如果我们的切面比较少，那么两者性能差异不大。但是，当切面太多的话，最好选择 AspectJ ，它比Spring AOP 快很多。</p>
+<h2 id="模板方法"><a href="#模板方法" class="headerlink" title="模板方法"></a>模板方法</h2><p>模板方法模式是一种行为设计模式，它定义一个操作中的算法的骨架，而将一些步骤延迟到子类中。 模板方法使得子类可以不改变一个算法的结构即可重定义该算法的某些特定步骤的实现方式。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/7MhBrj_20210809142855.png" alt="图片"></p>
+<center>模板方法UML图</center>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title class_">Template</span> &#123;</span><br><span class="line">    <span class="comment">//这是我们的模板方法</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title function_">TemplateMethod</span><span class="params">()</span>&#123;</span><br><span class="line">        PrimitiveOperation1();  </span><br><span class="line">        PrimitiveOperation2();</span><br><span class="line">        PrimitiveOperation3();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">void</span>  <span class="title function_">PrimitiveOperation1</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="comment">//当前类实现</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//被子类实现的方法</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title function_">PrimitiveOperation2</span><span class="params">()</span>;</span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title function_">PrimitiveOperation3</span><span class="params">()</span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TemplateImpl</span> <span class="keyword">extends</span> <span class="title class_">Template</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">PrimitiveOperation2</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="comment">//当前类实现</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">PrimitiveOperation3</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="comment">//当前类实现</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Spring 中 <code>jdbcTemplate</code>、<code>hibernateTemplate</code> 等以 Template 结尾的对数据库操作的类，它们就使用到了模板模式。一般情况下，我们都是使用继承的方式来实现模板模式，但是 Spring 并没有使用这种方式，而是使用Callback 模式与模板方法模式配合，既达到了代码复用的效果，同时增加了灵活性。</p>
+<h2 id="观察者模式"><a href="#观察者模式" class="headerlink" title="观察者模式"></a>观察者模式</h2><p>观察者模式是一种对象行为型模式。它表示的是一种对象与对象之间具有依赖关系，当一个对象发生改变的时候，这个对象所依赖的对象也会做出反应。Spring 事件驱动模型就是观察者模式很经典的一个应用。Spring 事件驱动模型非常有用，在很多场景都可以解耦我们的代码。比如我们每次添加商品的时候都需要重新更新商品索引，这个时候就可以利用观察者模式来解决这个问题。</p>
+<h3 id="Spring-事件驱动模型中的三种角色"><a href="#Spring-事件驱动模型中的三种角色" class="headerlink" title="Spring 事件驱动模型中的三种角色"></a>Spring 事件驱动模型中的三种角色</h3><h4 id="事件角色"><a href="#事件角色" class="headerlink" title="事件角色"></a>事件角色</h4><p><code>ApplicationEvent</code> (<code>org.springframework.context</code>包下)充当事件的角色,这是一个抽象类，它继承了<code>java.util.EventObject</code>并实现了 <code>java.io.Serializable</code>接口。</p>
+<p>Spring 中默认存在以下事件，他们都是对 <code>ApplicationContextEvent</code> 的实现(继承自<code>ApplicationContextEvent</code>)：</p>
+<ul>
+<li><code>ContextStartedEvent</code>：<code>ApplicationContext</code> 启动后触发的事件;</li>
+<li><code>ContextStoppedEvent</code>：<code>ApplicationContext</code> 停止后触发的事件;</li>
+<li><code>ContextRefreshedEvent</code>：<code>ApplicationContext</code> 初始化或刷新完成后触发的事件;</li>
+<li><code>ContextClosedEvent</code>：<code>ApplicationContext</code> 关闭后触发的事件。</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/tKwbDY_20210809143054.png" alt="图片"></p>
+<center>ApplicationEvent-Subclass</center>
+
+<h4 id="事件监听者角色"><a href="#事件监听者角色" class="headerlink" title="事件监听者角色"></a>事件监听者角色</h4><p><code>ApplicationListener</code> 充当了事件监听者角色，它是一个接口，里面只定义了一个 <code>onApplicationEvent（）</code>方法来处理<code>ApplicationEvent</code>。<code>ApplicationListener</code>接口类源码如下，可以看出接口定义看出接口中的事件只要实现了 <code>ApplicationEvent</code>就可以了。所以，在 Spring中我们只要实现 <code>ApplicationListener</code> 接口实现 <code>onApplicationEvent()</code> 方法即可完成监听事件</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> org.springframework.context;</span><br><span class="line"><span class="keyword">import</span> java.util.EventListener;</span><br><span class="line"><span class="meta">@FunctionalInterface</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">ApplicationListener</span>&lt;E <span class="keyword">extends</span> <span class="title class_">ApplicationEvent</span>&gt; <span class="keyword">extends</span> <span class="title class_">EventListener</span> &#123;</span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">onApplicationEvent</span><span class="params">(E var1)</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="事件发布者角色"><a href="#事件发布者角色" class="headerlink" title="事件发布者角色"></a>事件发布者角色</h4><p><code>ApplicationEventPublisher</code> 充当了事件的发布者，它也是一个接口。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@FunctionalInterface</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">ApplicationEventPublisher</span> &#123;</span><br><span class="line">    <span class="keyword">default</span> <span class="keyword">void</span> <span class="title function_">publishEvent</span><span class="params">(ApplicationEvent event)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.publishEvent((Object)event);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">publishEvent</span><span class="params">(Object var1)</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>ApplicationEventPublisher</code> 接口的<code>publishEvent（）</code>这个方法在<code>AbstractApplicationContext</code>类中被实现，阅读这个方法的实现，你会发现实际上事件真正是通过<code>ApplicationEventMulticaster</code>来广播出去的。具体内容过多，就不在这里分析了，后面可能会单独写一篇文章提到。</p>
+<h3 id="Spring-的事件流程总结"><a href="#Spring-的事件流程总结" class="headerlink" title="Spring 的事件流程总结"></a>Spring 的事件流程总结</h3><ol>
+<li>定义一个事件: 实现一个继承自 <code>ApplicationEvent</code>，并且写相应的构造函数；</li>
+<li>定义一个事件监听者：实现 <code>ApplicationListener</code> 接口，重写 <code>onApplicationEvent()</code> 方法；</li>
+<li>使用事件发布者发布消息: 可以通过 <code>ApplicationEventPublisher</code> 的 <code>publishEvent()</code> 方法发布消息。</li>
+</ol>
+<p>Example:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 定义一个事件,继承自ApplicationEvent并且写相应的构造函数</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">DemoEvent</span> <span class="keyword">extends</span> <span class="title class_">ApplicationEvent</span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">long</span> <span class="variable">serialVersionUID</span> <span class="operator">=</span> <span class="number">1L</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String message;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">DemoEvent</span><span class="params">(Object source,String message)</span>&#123;</span><br><span class="line">        <span class="built_in">super</span>(source);</span><br><span class="line">        <span class="built_in">this</span>.message = message;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getMessage</span><span class="params">()</span> &#123;</span><br><span class="line">         <span class="keyword">return</span> message;</span><br><span class="line">          &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 定义一个事件监听者,实现ApplicationListener接口，重写 onApplicationEvent() 方法；</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">DemoListener</span> <span class="keyword">implements</span> <span class="title class_">ApplicationListener</span>&lt;DemoEvent&gt;&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//使用onApplicationEvent接收消息</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">onApplicationEvent</span><span class="params">(DemoEvent event)</span> &#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">msg</span> <span class="operator">=</span> event.getMessage();</span><br><span class="line">        System.out.println(<span class="string">&quot;接收到的信息是：&quot;</span>+msg);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 发布事件，可以通过ApplicationEventPublisher  的 publishEvent() 方法发布消息。</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">DemoPublisher</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    ApplicationContext applicationContext;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">publish</span><span class="params">(String message)</span>&#123;</span><br><span class="line">        <span class="comment">//发布事件</span></span><br><span class="line">        applicationContext.publishEvent(<span class="keyword">new</span> <span class="title class_">DemoEvent</span>(<span class="built_in">this</span>, message));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>当调用 <code>DemoPublisher</code> 的 <code>publish()</code> 方法的时候，比如 <code>demoPublisher.publish(&quot;你好&quot;)</code> ，控制台就会打印出:<code>接收到的信息是：你好</code> 。</p>
+<h2 id="适配器模式"><a href="#适配器模式" class="headerlink" title="适配器模式"></a>适配器模式</h2><p>适配器模式(Adapter Pattern) 将一个接口转换成客户希望的另一个接口，适配器模式使接口不兼容的那些类可以一起工作，其别名为包装器(Wrapper)。</p>
+<h3 id="spring-AOP中的适配器模式"><a href="#spring-AOP中的适配器模式" class="headerlink" title="spring AOP中的适配器模式"></a>spring AOP中的适配器模式</h3><p>我们知道 Spring AOP 的实现是基于代理模式，但是 Spring AOP 的增强或通知(Advice)使用到了适配器模式，与之相关的接口是<code>AdvisorAdapter</code> 。Advice 常用的类型有：<code>BeforeAdvice</code>（目标方法调用前,前置通知）、<code>AfterAdvice</code>（目标方法调用后,后置通知）、<code>AfterReturningAdvice</code>(目标方法执行结束后，return之前)等等。每个类型Advice（通知）都有对应的拦截器:<code>MethodBeforeAdviceInterceptor</code>、<code>AfterReturningAdviceAdapter</code>、<code>AfterReturningAdviceInterceptor</code>。Spring预定义的通知要通过对应的适配器，适配成 <code>MethodInterceptor</code>接口(方法拦截器)类型的对象（如：<code>MethodBeforeAdviceInterceptor</code> 负责适配 <code>MethodBeforeAdvice</code>）。</p>
+<h3 id="spring-MVC中的适配器模式"><a href="#spring-MVC中的适配器模式" class="headerlink" title="spring MVC中的适配器模式"></a>spring MVC中的适配器模式</h3><p>在Spring MVC中，<code>DispatcherServlet</code> 根据请求信息调用 <code>HandlerMapping</code>，解析请求对应的 <code>Handler</code>。解析到对应的 <code>Handler</code>（也就是我们平常说的 <code>Controller</code> 控制器）后，开始由<code>HandlerAdapter</code> 适配器处理。<code>HandlerAdapter</code> 作为期望接口，具体的适配器实现类用于对目标类进行适配，<code>Controller</code> 作为需要适配的类。</p>
+<p><strong>为什么要在 Spring MVC 中使用适配器模式？</strong> Spring MVC 中的 <code>Controller</code> 种类众多，不同类型的 <code>Controller</code> 通过不同的方法来对请求进行处理。如果不利用适配器模式的话，<code>DispatcherServlet</code> 直接获取对应类型的 <code>Controller</code>，需要的自行来判断，像下面这段代码一样：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(mappedHandler.getHandler() <span class="keyword">instanceof</span> MultiActionController)&#123;  </span><br><span class="line">   ((MultiActionController)mappedHandler.getHandler()).xxx  </span><br><span class="line">&#125;<span class="keyword">else</span> <span class="keyword">if</span>(mappedHandler.getHandler() <span class="keyword">instanceof</span> XXX)&#123;  </span><br><span class="line">    ...  </span><br><span class="line">&#125;<span class="keyword">else</span> <span class="keyword">if</span>(...)&#123;  </span><br><span class="line">   ...  </span><br><span class="line">&#125;  </span><br></pre></td></tr></table></figure>
+
+<p>假如我们再增加一个 <code>Controller</code>类型就要在上面代码中再加入一行 判断语句，这种形式就使得程序难以维护，也违反了设计模式中的开闭原则 – 对扩展开放，对修改关闭。</p>
+<h2 id="装饰者模式"><a href="#装饰者模式" class="headerlink" title="装饰者模式"></a>装饰者模式</h2><p>装饰者模式可以动态地给对象添加一些额外的属性或行为。相比于使用继承，装饰者模式更加灵活。简单点儿说就是当我们需要修改原有的功能，但我们又不愿直接去修改原有的代码时，设计一个Decorator套在原有代码外面。其实在 JDK 中就有很多地方用到了装饰者模式，比如 <code>InputStream</code>家族，<code>InputStream</code> 类下有 <code>FileInputStream</code> (读取文件)、<code>BufferedInputStream</code> (增加缓存,使读取文件速度大大提升)等子类都在不修改<code>InputStream</code> 代码的情况下扩展了它的功能。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/TRTmlJ_20210809143212.png" alt="图片"></p>
+<center>
+  装饰者模式示意图
+</center>
+
+<p>Spring 中配置 DataSource 的时候，DataSource 可能是不同的数据库和数据源。我们能否根据客户的需求在少修改原有类的代码下动态切换不同的数据源？这个时候就要用到装饰者模式(这一点我自己还没太理解具体原理)。Spring 中用到的包装器模式在类名上含有 <code>Wrapper</code>或者 <code>Decorator</code>。这些类基本上都是动态地给一个对象添加一些额外的职责</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>Spring 框架中用到了哪些设计模式：</p>
+<ul>
+<li><strong>工厂设计模式</strong> : Spring使用工厂模式通过 <code>BeanFactory</code>、<code>ApplicationContext</code> 创建 bean 对象。</li>
+<li><strong>代理设计模式</strong> : Spring AOP 功能的实现。</li>
+<li><strong>单例设计模式</strong> : Spring 中的 Bean 默认都是单例的。</li>
+<li><strong>模板方法模式</strong> : Spring 中 <code>jdbcTemplate</code>、<code>hibernateTemplate</code> 等以 Template 结尾的对数据库操作的类，它们就使用到了模板模式。</li>
+<li><strong>包装器设计模式</strong> : 我们的项目需要连接多个数据库，而且不同的客户在每次访问中根据需要会去访问不同的数据库。这种模式让我们可以根据客户的需求能够动态切换不同的数据源。</li>
+<li><strong>观察者模式:</strong> Spring 事件驱动模型就是观察者模式很经典的一个应用。</li>
+<li><strong>适配器模式</strong> :Spring AOP 的增强或通知(Advice)使用到了适配器模式、spring MVC 中也是用到了适配器模式适配<code>Controller</code>。</li>
+<li>……</li>
+</ul>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li>《Spring技术内幕》</li>
+<li><a target="_blank" rel="noopener" href="https://blog.eduonix.com/java-programming-2/learn-design-patterns-used-spring-framework/">https://blog.eduonix.com/java-programming-2/learn-design-patterns-used-spring-framework/</a></li>
+<li><a target="_blank" rel="noopener" href="http://blog.yeamin.top/2018/03/27/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F-Spring%E5%8D%95%E4%BE%8B%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/">http://blog.yeamin.top/2018/03/27/单例模式-Spring单例实现原理分析/</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.tutorialsteacher.com/ioc/inversion-of-control">https://www.tutorialsteacher.com/ioc/inversion-of-control</a></li>
+<li><a target="_blank" rel="noopener" href="https://design-patterns.readthedocs.io/zh_CN/latest/behavioral_patterns/observer.html">https://design-patterns.readthedocs.io/zh_CN/latest/behavioral_patterns/observer.html</a></li>
+<li><a target="_blank" rel="noopener" href="https://juejin.im/post/5a8eb261f265da4e9e307230">https://juejin.im/post/5a8eb261f265da4e9e307230</a></li>
+<li><a target="_blank" rel="noopener" href="https://juejin.im/post/5ba28986f265da0abc2b6084">https://juejin.im/post/5ba28986f265da0abc2b6084</a></li>
+</ul>
 
       
     </div>
@@ -3937,7 +3999,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/b88ac6ea/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/565f63a6/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/lion.png">
@@ -3955,7 +4017,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/b88ac6ea/" class="post-title-link" itemprop="url">2020年工作总结</a>
+          <a href="/posts/565f63a6/" class="post-title-link" itemprop="url">法拍房</a>
         </h2>
 
         <div class="post-meta-container">
@@ -3984,7 +4046,7 @@
       </span>
       <span class="post-meta-item-text">分类于</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%80%BB%E7%BB%93/" itemprop="url" rel="index"><span itemprop="name">总结</span></a>
+          <a href="/categories/%E6%8C%A3%E9%92%B1/" itemprop="url" rel="index"><span itemprop="name">挣钱</span></a>
         </span>
     </span>
 
@@ -3997,8 +4059,8 @@
     </span>
     <span class="post-meta-item-text">Waline：</span>
   
-    <a title="waline" href="/posts/b88ac6ea/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/b88ac6ea/" data-xid="/posts/b88ac6ea/" itemprop="commentCount"></span>
+    <a title="waline" href="/posts/565f63a6/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/565f63a6/" data-xid="/posts/565f63a6/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -4009,7 +4071,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>425</span>
+      <span>997</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -4027,43 +4089,26 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="2020年工作总结"><a href="#2020年工作总结" class="headerlink" title="2020年工作总结"></a>2020年工作总结</h1><h3 id="1-工作内容"><a href="#1-工作内容" class="headerlink" title="1.工作内容"></a>1.工作内容</h3><ul>
-<li><p>开发、上线了60多家机构模板</p>
-</li>
-<li><p>完成64万多历史未走识别模板报告导入athena处理的数据清洗</p>
-</li>
-<li><p>完成word、ppt、xps等格式报告转pdf功能的调研和开发</p>
-</li>
-<li><p>日常的机构模板异常、改动的修复</p>
-</li>
-<li><p>根据相应需求对识别服务做了一些改动和优化</p>
-<h3 id="2-收获"><a href="#2-收获" class="headerlink" title="2. 收获"></a>2. 收获</h3></li>
-<li><p>对模板可能出现的问题，积累了一定的经验，可以快速的定位解决</p>
-</li>
-<li><p>对面向对象编程有了更深的理解，分层次展现、分级别访问、封装对象之间各种关系</p>
-</li>
-<li><p>工作的条理性更加清晰，能够分清主次和轻重缓急。在开发时间仓促的情况下，能够详细计划。</p>
-</li>
-<li><p>能够更快地理解每个需求背后的逻辑和需要做的一些事情</p>
-<h3 id="3-好的、坏的"><a href="#3-好的、坏的" class="headerlink" title="3. 好的、坏的"></a>3. 好的、坏的</h3></li>
-</ul>
-<p><strong>好的</strong></p>
-<ul>
-<li>通过学习、调研，能够独立解决一些疑难问题</li>
-<li>沟通、做事的逻辑有所提升，能够独立完成一部分工作，承担自己的责任。</li>
-<li>代码更加规范了</li>
-</ul>
-<p><strong>坏的</strong></p>
-<ul>
-<li><p>业务中所用到的技术，理解得还不够全面</p>
-</li>
-<li><p>业务开发中遇到的问题，经验欠缺，处理起来还不够熟练</p>
-<h3 id="4-计划"><a href="#4-计划" class="headerlink" title="4. 计划"></a>4. 计划</h3></li>
-<li><p>一个项目中，涉及的技术很多，有的不懂的需要加强学习</p>
-</li>
-<li><p>争取明年4月份，识别率能够达到80%吧</p>
-</li>
-</ul>
+          <h1 id="法拍房"><a href="#法拍房" class="headerlink" title="法拍房"></a>法拍房</h1><p>以前玩过法拍房。</p>
+<p>答案是：买卖不破租赁，没辙儿。</p>
+<p>而且存在租赁的情况法院必然会在拍卖前告知，可能你冲动之下不看仔细就瞎jb拍了。人家租赁合同估计做得也没啥原则性的漏洞（正常情况下房主计划断供之前就准备好一切了，还能等到拍卖完了才想起来临时抱佛脚？），否则你也不会跑来知乎问问题。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/QYXpiS_20220218115144.png" alt="img"><img src="https://pic1.zhimg.com/80/v2-f9c3fc9a2e3b9fb55e4d44eb4ac8ccfc_1440w.jpg?source=1940ef5c" alt="img">知乎懂哥太多了，民法典上写得清清楚楚的东西还要来杠</p>
+<p>给想玩法拍房的人一个建议。</p>
+<p>以前我玩法拍房，都是先找银行的熟人把银行的不良贷款列一份名单给我。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/in9h58_20220218115220.png" alt="img"></p>
+<p>看上哪套房子，就联系银行把该房的债权买下来，（银行-〉有资质的第三方机构-〉个人，具体步骤结尾有补充）（即房主欠银行的钱变成房主欠我的钱）。银行本来就不是拍卖机构，拍卖周期又可能比较长，银行一般急着回笼资金节约流程巴不得有人把债权买走，还会打折卖。之后自己成了债权人，就可以在拍卖信息上把联系电话留成自己的。</p>
+<p>有买家想了解这套房，就会打我的电话，这时我会告诉买家这套房有一些问题，比如就存在题主说的“有超长租赁合同”之类的。买家一听这房子藏雷，就不打算买了。</p>
+<p>最后想买的买家全都被我劝退，没有任何人和我竞争，这时我再让合伙人出手竞拍（债权人不能买，所以需要一个合伙人），于是这套房子就被我以起拍价买下来了。</p>
+<p>你们要买<a target="_blank" rel="noopener" href="https://www.zhihu.com/search?q=%E6%B3%95%E6%8B%8D%E6%88%BF&search_source=Entity&hybrid_search_source=Entity&hybrid_search_extra=%7B%22sourceType%22:%22answer%22,%22sourceId%22:2336153412%7D">法拍房</a>的可以参考这个方法。</p>
+<hr>
+<h3 id="没想到这里还有杠精，是因为我把这路子免费分享出来，知道的人多了会挡你财路？"><a href="#没想到这里还有杠精，是因为我把这路子免费分享出来，知道的人多了会挡你财路？" class="headerlink" title="没想到这里还有杠精，是因为我把这路子免费分享出来，知道的人多了会挡你财路？"></a>没想到这里还有杠精，是因为我把这路子免费分享出来，知道的人多了会挡你财路？</h3><h3 id="补充细节："><a href="#补充细节：" class="headerlink" title="补充细节："></a>补充细节：</h3><p>1，债权不能直接从银行到个人，需要经手有资质的第三方机构，比如拍卖行。具体步骤：挑好房子谈好折扣——打款到拍卖行——和银行签债转协议——银行债转公示——<a target="_blank" rel="noopener" href="https://www.zhihu.com/search?q=%E5%85%AC%E8%AF%81%E5%A4%84&search_source=Entity&hybrid_search_source=Entity&hybrid_search_extra=%7B%22sourceType%22:%22answer%22,%22sourceId%22:2336153412%7D">公证处</a>债权公证——法院出债转文书——诉讼主体变更——接手债权。</p>
+<p>2，法拍房如果出现意外情况，处理较繁琐。我以前只出资投债权赚差价，不沾房子本身。不认识熟人的散户建议联系专门的拍卖中介机构，不会多收你几个钱。中介也是按上面说的这些流程走的。</p>
+<hr>
+<p>最后声明：</p>
+<p>知乎杠精太多了。</p>
+<p>我回答这个问题仅仅只是因为关注动态里蹦出来了这个问题，而我正好以前在这个领域玩过一段时间，所以顺手答一下。我本人是原神和vtb领域的答主，对金融方面的流量不感兴趣，更何况还是知乎这种公认变现价值低的劣质流量。</p>
+<p>另外本人自前年底去年初住建部全国巡视指导发政策后就不再玩房了，不打广告不为自己引流（当然你可以去b站关注一下嘉然），也不接受网友任何投资与资金往来。答主绝不可能以任何形式问你要钱、拉你进任何形式的群聊、让你注册任何形式的账号等等。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/oXAOjg_20220218115620.png" alt="img"><img src="https://pic3.zhimg.com/80/v2-dc62303b7e3ec727fb12e80bcb36d58d_1440w.jpg?source=1940ef5c" alt="img"></p>
 
       
     </div>
