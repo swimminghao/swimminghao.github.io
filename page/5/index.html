@@ -276,7 +276,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/a269a036/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/638ae112/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/lion.png">
@@ -294,7 +294,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/a269a036/" class="post-title-link" itemprop="url">jvm调优</a>
+          <a href="/posts/638ae112/" class="post-title-link" itemprop="url">java垃圾回收机制</a>
         </h2>
 
         <div class="post-meta-container">
@@ -336,8 +336,8 @@
     </span>
     <span class="post-meta-item-text">Waline：</span>
   
-    <a title="waline" href="/posts/a269a036/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/a269a036/" data-xid="/posts/a269a036/" itemprop="commentCount"></span>
+    <a title="waline" href="/posts/638ae112/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/638ae112/" data-xid="/posts/638ae112/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -348,7 +348,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>2.1k</span>
+      <span>2.7k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -366,192 +366,90 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="jvm调优"><a href="#jvm调优" class="headerlink" title="jvm调优"></a>jvm调优</h1><h2 id="一、优化系统的思路"><a href="#一、优化系统的思路" class="headerlink" title="一、优化系统的思路"></a>一、优化系统的思路</h2><p>没有jvm调优经历</p>
-<ol>
-<li>一般来说关系型数据库是先到瓶颈，首先排查是否为数据库的问题<br>（这个过程中就需要评估自己建的索引是否合理、是否需要引入分布式缓存、是否需要分库分表等等</li>
-<li>然后，我们会考虑是否需要扩容（横向和纵向都会考虑）<br>（这个过程中我们会怀疑是系统的压力过大或者是系统的硬件能力不足导致系统频繁出现问题）</li>
-<li>接着，应用代码层面上排查并优化<br>（扩容是不能无止境的，里头里外都是钱阿，这个过程中我们会审视自己写的代码是否存在资源浪费的问题，又或者是在逻辑上可存在优化的地方，比如说通过并行的方式处理某些请求)</li>
-<li>再接着，JVM层面上排查并优化<br>（审视完代码之后，这个过程我们观察J VM是否存在多次GC问题等等）</li>
-<li>最后，网络和操作系统层面排查<br>（这个过程查看内存&#x2F;CPU&#x2F;网络&#x2F;硬盘读写指标是否正常等等）</li>
-</ol>
-<p><strong>绝大多数情况下，到第三步就结束了，一般经过「运维团队」给我们设置的JVM和机器上的参数，已经满足绝大多数的需求了。</strong></p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/ymDKDD_20210923115445.png"></p>
-<h2 id="二、举例子"><a href="#二、举例子" class="headerlink" title="二、举例子"></a>二、举例子</h2><p>之前有过其他团队在「大促」发现接口处理超时的问题，那时候查各种监控怀疑是FULLGC频率稍大所导致的</p>
-<ol>
-<li>第一想法不是说去调节各种JVM参数来进行优化，而是直接加机器（用最粗暴的方法，解决问题是最简单的，扩容YYDS）</li>
-<li>不过，我是学过JVM相关的调优命令和思路的。<br>在我的理解下，调优JVM其实就是在「理解」JVM内存结构以及各种垃圾收集器前提下，结合自己的现有的业务来「调整参数」，使自己的应用能够正常稳定运行。<ul>
-<li>一般调优JVM我们认为会有几种指标可以参考：「吞吐量」、「停顿时间」和「垃圾回收频率」</li>
-<li>基于这些指标，我们就有可能需要调整：<ol>
-<li>内存区域大小以及相关策略（比如整块堆内存占多少、新生代占多少、老年代占多少、Survivor占多少、晋升老年代的条件等等）<br>比如（-Xmx：设置堆的最大值、-Xms：设置堆的初始值、-Xmn：表示年轻代的大小、-XX：SurvivorRatio：伊甸区和幸存区的比例等等）<br>按经验来说：I0密集型的可以稍微把「年轻代」空间加大些，因为大多数对象都是在年轻代就会灭亡。内存计算密集型的可以稍微把「老年代」空间加大些，对象存活时间会更长些）</li>
-<li>垃圾回收器（选择合适的垃圾回收器，以及各个垃圾回收器的各种调优参数）<br>比如（-XX：+UseG1GC：指定JVM使用的垃圾回收器为G1、-XX：MaxGCPause Millis：设置目标停顿时间、-XX：InitiatingHeapOccupancyPercent：当整个堆内存使用达到一定比例，全局并发标记阶段就会被启动等等）<br>没错，这些都是因地制宜，具体问题具体分析（前提是得懂JVM的各种基础知识，基础知识都不懂，谈何调优）<br>在大多数场景下，JVM已经能够达到「开箱即用」</li>
-</ol>
-</li>
+          <h1 id="java垃圾回收"><a href="#java垃圾回收" class="headerlink" title="java垃圾回收"></a>java垃圾回收</h1><h2 id="一、jvm内存结构"><a href="#一、jvm内存结构" class="headerlink" title="一、jvm内存结构"></a>一、jvm内存结构</h2><p>嗯，前面提到了堆分了「新生代」和 「老年代」，「新生代」又分为「Eden」和「Survivor」区，「Survivor」区又分为「From Survivor」和「To Survivor」区</p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/TOrLy1_20210922150656.png"></p>
+<h2 id="二、垃圾回收机制"><a href="#二、垃圾回收机制" class="headerlink" title="二、垃圾回收机制"></a>二、垃圾回收机制</h2><ul>
+<li>背景</li>
 </ul>
-</li>
-</ol>
-<h2 id="三、调优工具"><a href="#三、调优工具" class="headerlink" title="三、调优工具"></a>三、调优工具</h2><p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/Ixx1QR_20210923115955.png"></p>
-<p>一般我们是「遇到问题」之后才进行调优的，而遇到问题后需要利用各种的 「工具」 进行排查</p>
-<ol>
-<li>通过jps命令查看Java进程「基础」信息（进程号、主类）。这个命令很常用的就是用来看当前服务器有多少Java进程在运行，它们的进程号和加载主类是啥</li>
-<li>通过jstat命令查看Java进程「统计类」相关的信息（类加载、编译相关信息统计，各个内存区域GC概况和统计）。这个命令很常用于看GC的情况</li>
-<li>通过jinfo命令来查看和调整Java进程的「运行参数」</li>
-<li>通过jmap命令来查看Java进程的「内存信息」。这个命令很常用于把JVM内存信息dump到文件，然后再用MAT（Memory Analyzer tool内存解析工具）把文件进行分析</li>
-<li>通过jstack命令来查看JVM「线程信息」。这个命令用常用语排查死锁相关的问题</li>
-<li>还有近期比较热门的Arthas（阿里开源的诊断工具），涵盖了上面很多命令的功能且自带图形化界面。这也是我这边常用的排查和分析工具</li>
-</ol>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/HzOR97_20210923141932.png"></p>
-<h2 id="四、jvm的jit优化技术"><a href="#四、jvm的jit优化技术" class="headerlink" title="四、jvm的jit优化技术"></a>四、jvm的jit优化技术</h2><p>JIT优化技术比较出名的有两种：方法内联和逃逸分析</p>
-<ol>
-<li>所谓方法内联就是把「目标方法」的代码复制到「调用的方法」中，避免发生真实的方法调用因为每次方法调用都会生成栈帧（压栈出栈记录方法调用位置等等）会带来一定的性能损耗，所以「方法内联」的优化可以提高一定的性能<br>在JVM中也有相关的参数给予我们指定 (-XX:MaxFreqlnlineSize、 -XX:MaxInli neSize等等）</li>
-<li>而「逃逸分析」则是判断一个对象是否被外部方法引用或外部线程访问的分析技术，如果「没有被引用」，就可以对其进行优化<br>下面我举几个可优化的例子（思路）：<ul>
-<li>1.锁消除（同步忽略）：该对象只在方法内部被访问，不会被别的地方引用，那么就一定是线程安全的，可以把锁相关的代码给忽略掉0</li>
-<li>2.栈上分配：该对象只会在方法内部被访问，直接将对象分配在「栈」中（Java默认是将对象分配在「堆」中，是需要通过JVM垃圾回收期进行回收，需要损耗一定的性能，而栈内分配则快很多）</li>
-<li>3.标量替换&#x2F;分离对象：当程序真正执行的时候可以不创建这个对象，而直接创建它的成员变量来代替。将对象拆分后，可以分配对象的成员变量在栈或寄存器上，原本的对象就无需分配内存空间了</li>
-</ul>
-</li>
-</ol>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/D1Gg1I_20210923142207.png"></p>
-<p>不过扯了这么多，不同的JVM版本对JIT的优化都不太相同</p>
-<p>这里也只能算是一个参考</p>
-<p>线上在使用的JVM也不知道有没有做了这么些优化.</p>
-
-      
-    </div>
-
-    
-    
-    
-
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>l
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/c77b99c1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/lion.png">
-      <meta itemprop="name" content="swimminghao">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="swimminghao's blog">
-      <meta itemprop="description" content="swimminghao的学习博客">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | swimminghao's blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/c77b99c1/" class="post-title-link" itemprop="url">使用java8实现List中对象属性的去重</a>
-        </h2>
-
-        <div class="post-meta-container">
-
-          
-
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-13 12:56:04" itemprop="dateModified" datetime="2022-03-13T12:56:04+08:00">2022-03-13</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E8%AF%AD%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">语法</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="far fa-comment"></i>
-    </span>
-    <span class="post-meta-item-text">Waline：</span>
-  
-    <a title="waline" href="/posts/c77b99c1/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/c77b99c1/" data-xid="/posts/c77b99c1/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>2.2k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>2 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="使用java8实现List中对象属性的去重"><a href="#使用java8实现List中对象属性的去重" class="headerlink" title="使用java8实现List中对象属性的去重"></a>使用java8实现List中对象属性的去重</h1><p>今天在工作的时候遇到了一个问题，就是List的去重，不想用双重for，感觉太low，不想用for+Map，感觉应该有更好的方法，于是，google之。发现java8的stream流能完美解决这个问题。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">List&lt;BookInfoVo&gt; list</span><br></pre></td></tr></table></figure>
-<p>比如在 BookInfoVo 中有一个 recordId 属性,现在需要对此去重.</p>
-<p>怎么办呢?</p>
-<p>有两种方法:</p>
+<p>我们使用Java的时候，会创建很多对象，但我们未曾「手动」将这些对象进行清除；<br>而如果用C&#x2F;C++语言的时候，用完是需要自己free（释放）掉的；<br>那为什么在写Java的时候不用我们自己手动释放”垃圾”呢？原因很简单，JVM帮我们做了（自动回收垃圾）</p>
 <ul>
-<li>第一种: 不使用java8 的 Stream<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> List&lt;BookInfoVo&gt; <span class="title function_">removeDupliByRecordId</span><span class="params">(List&lt;BookInfoVo&gt; books)</span> &#123;</span><br><span class="line">	Set&lt;BookInfoVo&gt; bookSet = <span class="keyword">new</span> <span class="title class_">TreeSet</span>&lt;&gt;((o1, o2)-&gt;o1.getRecordId().compareTo(o2.getRecordId()));</span><br><span class="line">          personSet.addAll(books);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;BookInfoVo&gt;(bookSet);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-这也是大多数人第一想到的,借助 TreeSet 去重,其中 TreeSet 的其中一个构造函数接收一个排序的算法,同时这也会用到 TreeSet 的去重策略上.<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Constructs a new, empty tree set, sorted according to the specified</span></span><br><span class="line"><span class="comment">     * comparator.  All elements inserted into the set must be &lt;i&gt;mutually</span></span><br><span class="line"><span class="comment">     * comparable&lt;/i&gt; by the specified comparator: &#123;<span class="doctag">@code</span> comparator.compare(e1,</span></span><br><span class="line"><span class="comment">     * e2)&#125; must not throw a &#123;<span class="doctag">@code</span> ClassCastException&#125; for any elements</span></span><br><span class="line"><span class="comment">     * &#123;<span class="doctag">@code</span> e1&#125; and &#123;<span class="doctag">@code</span> e2&#125; in the set.  If the user attempts to add</span></span><br><span class="line"><span class="comment">     * an element to the set that violates this constraint, the</span></span><br><span class="line"><span class="comment">     * &#123;<span class="doctag">@code</span> add&#125; call will throw a &#123;<span class="doctag">@code</span> ClassCastException&#125;.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> comparator the comparator that will be used to order this set.</span></span><br><span class="line"><span class="comment">     *        If &#123;<span class="doctag">@code</span> null&#125;, the &#123;<span class="doctag">@linkplain</span> Comparable natural</span></span><br><span class="line"><span class="comment">     *        ordering&#125; of the elements will be used.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line"><span class="keyword">public</span> <span class="title function_">TreeSet</span><span class="params">(Comparator&lt;? <span class="built_in">super</span> E&gt; comparator)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>(<span class="keyword">new</span> <span class="title class_">TreeMap</span>&lt;&gt;(comparator));</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></li>
-<li>第二种: 炫酷的java8写法]<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*方法二:炫酷的java8写法*/</span></span><br><span class="line">ArrayList&lt;BookInfoVo&gt; distinctLiost = list.stream()</span><br><span class="line">                  .collect(</span><br><span class="line">                          Collectors.collectingAndThen(</span><br><span class="line">                                  Collectors.toCollection(() -&gt; <span class="keyword">new</span> <span class="title class_">TreeSet</span>&lt;&gt;(Comparator.comparingLong(BookInfoVo::getRecordId))), ArrayList::<span class="keyword">new</span>)</span><br><span class="line">                  );</span><br></pre></td></tr></table></figure>
-当然也可以根据多个属性去重<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ArrayList&lt;BookInfoVo&gt; distinctLiost = list.stream().collect(Collectors.collectingAndThen(</span><br><span class="line">  Collectors.toCollection(() -&gt; <span class="keyword">new</span> <span class="title class_">TreeSet</span>&lt;&gt;(Comparator.comparing(o -&gt; o.getName() + <span class="string">&quot;;&quot;</span> + o.getAuthor()))), ArrayList::<span class="keyword">new</span>)</span><br></pre></td></tr></table></figure>
-如果没有第一种方法做铺垫,我们很可能一脸懵逼.</li>
+<li>垃圾定义</li>
 </ul>
-<p>其实理解起来也不难:</p>
-<p>关键在于Collectors.collectingAndThen( Collectors.toCollection(() -&gt; new TreeSet&lt;&gt;(Comparator.comparingLong(BookInfoVo::getRecordId))), ArrayList::new)的理解,</p>
-<p>collectingAndThen 这个方法的意思是: 将收集的结果转换为另一种类型: collectingAndThen,</p>
-<p>因此上面的方法可以理解为,把 new TreeSet&lt;&gt;(Comparator.comparingLong(BookInfoVo::getRecordId))这个set转换为 ArrayList,这个结合第一种方法不难理解.</p>
-<p>可以看到java8这种写法真是炫酷又强大!!!</p>
+<p>我个人对垃圾的定义：只要对象不再被使用了，那我们就认为该对象就是垃圾，对象所占用的空间就可以被回收</p>
+<ul>
+<li><p>判断垃圾不再被使用</p>
+<p>常用算法有2个：引用计数法、可达性分析法</p>
+</li>
+</ul>
+<ol>
+<li><p>引用计数法思路很简单：当对象被引用则+1，但对象引用失败则-1。当计数器为0时，说明对象不再被引用，可以被可回收<br><strong>缺点</strong>：引用计数法最明显的缺点就是：如果对象存在循环依赖，那就无法定位该对象是否应该被回收（A依赖B，B依赖A）</p>
+</li>
+<li><p>另一种就是可达性分析法：它从「GCR oots」开始向下搜索，当对象到「GCRoots」都没有任何引用相连时，说明对象是不可用的，可以被回收。<br>「GC Roots」是一组必须「活跃」的引用。<br>从「GC Root」出发，程序通过直接引用或者间接引用，能够找到可能正在被使用的对象。</p>
+<p>例子：比如我们上次不是聊到JVM内存结构中的虚拟机栈吗，虚拟机栈里不是有栈帧吗，栈帧不是有局部变量吗？局部变量不就存储着引用嘛。<br>那如果栈帧位于虚拟机栈的栈顶，是不是说明这个栈帧是活跃的（换言之，是线程正在被调用的）<br>既然是线程正在调用的，那栈帧里的指向「堆」的对象引用，是不是一定是「活跃」的引用？</p>
+<p>所以，当前活跃的栈帧指向堆里的对象引用就可以是「GCRoots」</p>
+<p>当然，比如类的静态变量引用是「GCRootS」，被「Java本地方法」所引用的对象也是「GCRoots」等等。。。<br><strong>即</strong>：回到理解的重点：「GCRoots」是一组必须「活跃」的「引用」，只要跟「GCRoots」没有直接或者间接引用相连，那就是垃圾<br><strong>JVM用的就是</strong>「可达性分析算法」来判断对象是否为垃圾</p>
+</li>
+</ol>
+<ul>
+<li>垃圾回收第一步就是<strong>标记</strong></li>
+</ul>
+<p>标记哪些没有被「GC Roots」引用的对象</p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/wZPvLi_20210923092156.png"></p>
+<ul>
+<li><p>标记完后就可以清除了</p>
+<ul>
+<li><p>标记完之后，我们就可以选择直接「清除」，只要不被「GCRoots」关联的，都可以干掉过程非常简单粗暴。</p>
+<p><strong>但也存在很明显的问题</strong><br>直接清除会有「<strong>内存碎片</strong>」的问题：可能我有10M的空余内存，但程序申请9M内存空间却申请不下来（10M的内存空间是垃圾清除后的，不连续的）</p>
+</li>
+<li><p><strong>那解决「内存碎片」的问题也比较简单粗暴，「标记」完，不直接「清除」</strong><br>我把「标记」存活的对象「复制」到另一块空间，复制完了之后，直接把原有的整块空间给干掉！这样就没有内存碎片的问题了<br><strong>这种做法缺点又很明显</strong>：<strong>内存利用率低</strong>，得有一块新的区域给我复制（移动）过去</p>
+</li>
+<li><p>还有一种「折中」的办法，我未必要有一块「大的完整空间」才能解决内存碎片的问题，我只要能在「当前区域」内进行移动<br>把存活的对象移到一边，把垃圾移到一边，那再将垃圾一起删除掉，不就没有内存碎片了嘛，专业术语叫做<strong>整理</strong>。</p>
+</li>
+</ul>
+</li>
+<li><p>年轻代、老年代<br>「垃圾回收」是会导致「stop the word」 （应用停止访问）<br>理解「stop the word」应该很简单吧：回收垃圾的时候，程序是有短暂的时间不能正常继续运作啊。不然JVM在回收的时候，用户线程还「不停止」继续分配修改引用，JVM怎么搞（：</p>
+<p>经过研究表明：大部分对象的生命周期都很短，而只有少部分对象可能会存活很长时间</p>
+<ul>
+<li><p>为了使「stop the word」持续的时间尽可能短以及提高并发式GC所能应付的内存分配速率<br>在很多的垃圾收集器上都会在「物理」或者「逻辑」上，把这两类对象进行区分司P<br>死得快的对象所占的区域叫做「年轻代」，活得久的对象所占的区域叫做「老年代」</p>
+<p>（jdk8及以下分年轻代、老年代；高版本的垃圾收集器ZGC,是没有分代的概念的）</p>
+</li>
+</ul>
+</li>
+<li><p>垃圾回收过程：对应几种垃圾回收算法</p>
+<p>其实在前面更前面提到了垃圾回收的过程，其实就对应着几种「垃圾回收算法」分别是：<br><strong>标记清除算法、标记复制算法和标记整理算法【「标记」「复制」「整理」】</strong></p>
+</li>
+<li><p>jdk8生产环境下常见垃圾回收器</p>
+<p>「年轻代」的垃圾收集器有：Serial、Parallel Scavenge、 ParNew<br>「老年代」的垃圾收集器有：Serial Old、 Parallel Old、CMS</p>
+<ul>
+<li>看着垃圾收集器有很多，其实还是非常好理解的。Serial是单线程的，Parallel是多线程</li>
+<li>这些垃圾收集器实际上就是「实现了」垃圾回收算法（标记复制、标记整理以及标记清除算法）</li>
+<li>CMS是比较新的垃圾收集器，它的特点是能够尽可能减少「stopthe word」时间。在垃圾回收时让用户线程和GC线程能够并发执行！</li>
+<li>「年轻代」的垃圾收集器使用的都是「标记复制算法」<br>所以在「堆内存」划分中，将年轻代划分出Survivor区（Survivor From和Survivor To），目的就是为了有一块完整的内存空间供垃圾回收器进行拷贝（移动），而新对象都是放入Eden区的。</li>
+<li>我下面重新画下「堆内存」的图，因为它们的大小是有默认的比例的</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/E2SJMc_20210923095854.png"></p>
+</li>
+<li><p>新生代何时会变老年代<br>分2种情况：</p>
+<ol>
+<li>如果对象太大了，就会直接进入老年代（对象创建时就很大 || Survivor区没办法存下该对象）</li>
+<li>如果对象太老了，那就会晋升至老年代（每发生一次MinorGC，存活的对象年龄+1，达到默认值15则晋升老年代 || 动态对象年龄判定可以进入老年代）<ul>
+<li>当Eden区空间不足时，就会触发MinorGC</li>
+<li>那在「年轻代」GC的时候，从GC Roots出发，那不也会扫描到「老年代」的对象吗？那那那..不就相当于全堆扫描吗？<ul>
+<li>这JVM里也有解决办法的。下我的看法<br>HotSpot虚拟机「老的GC」（G1以下） 是要求整个GC堆在连续的地址空间上<br>所以会有一条分界线（一侧是老年代，另一侧是年轻代），所以可以通过「地址」就可以判断对象在哪个分代上如</li>
+<li>当做MonorGC的时候，从GCRoots出发，如果发现「老年代」的对象，那就不往下走了（MonorGC对老年代的区域毫无兴趣）</li>
+</ul>
+</li>
+<li>但又有个问题，那如果年轻代」的对象被「老年代」引用了呢？（老年代对象持有年轻代对象的引用），这时候肯定是不能回收掉「年轻代」的对象的?<ul>
+<li>HotSpot虚拟机下有「card table」（卡表）来避免全局扫描「老年代」对象</li>
+<li>「堆内存」的每一小块区域形成「卡页」，卡表实际上就是卡页的集合。当判断一个卡页中有存在对象的跨代引用时，将这个页标记为「脏页」</li>
+<li>那知道了「卡表」之后，就很好办了。每次MinorGC的时候只需要去「卡表」找到「脏页」，找到后加入至GCRoot，而不用去遍历整个「老年代」的对象了。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
 
       
     </div>
@@ -1061,6 +959,313 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/a269a036/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lion.png">
+      <meta itemprop="name" content="swimminghao">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="swimminghao's blog">
+      <meta itemprop="description" content="swimminghao的学习博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | swimminghao's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/a269a036/" class="post-title-link" itemprop="url">jvm调优</a>
+        </h2>
+
+        <div class="post-meta-container">
+
+          
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-03-13 12:56:04" itemprop="dateModified" datetime="2022-03-13T12:56:04+08:00">2022-03-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/posts/a269a036/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/a269a036/" data-xid="/posts/a269a036/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>2.1k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>2 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="jvm调优"><a href="#jvm调优" class="headerlink" title="jvm调优"></a>jvm调优</h1><h2 id="一、优化系统的思路"><a href="#一、优化系统的思路" class="headerlink" title="一、优化系统的思路"></a>一、优化系统的思路</h2><p>没有jvm调优经历</p>
+<ol>
+<li>一般来说关系型数据库是先到瓶颈，首先排查是否为数据库的问题<br>（这个过程中就需要评估自己建的索引是否合理、是否需要引入分布式缓存、是否需要分库分表等等</li>
+<li>然后，我们会考虑是否需要扩容（横向和纵向都会考虑）<br>（这个过程中我们会怀疑是系统的压力过大或者是系统的硬件能力不足导致系统频繁出现问题）</li>
+<li>接着，应用代码层面上排查并优化<br>（扩容是不能无止境的，里头里外都是钱阿，这个过程中我们会审视自己写的代码是否存在资源浪费的问题，又或者是在逻辑上可存在优化的地方，比如说通过并行的方式处理某些请求)</li>
+<li>再接着，JVM层面上排查并优化<br>（审视完代码之后，这个过程我们观察J VM是否存在多次GC问题等等）</li>
+<li>最后，网络和操作系统层面排查<br>（这个过程查看内存&#x2F;CPU&#x2F;网络&#x2F;硬盘读写指标是否正常等等）</li>
+</ol>
+<p><strong>绝大多数情况下，到第三步就结束了，一般经过「运维团队」给我们设置的JVM和机器上的参数，已经满足绝大多数的需求了。</strong></p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/ymDKDD_20210923115445.png"></p>
+<h2 id="二、举例子"><a href="#二、举例子" class="headerlink" title="二、举例子"></a>二、举例子</h2><p>之前有过其他团队在「大促」发现接口处理超时的问题，那时候查各种监控怀疑是FULLGC频率稍大所导致的</p>
+<ol>
+<li>第一想法不是说去调节各种JVM参数来进行优化，而是直接加机器（用最粗暴的方法，解决问题是最简单的，扩容YYDS）</li>
+<li>不过，我是学过JVM相关的调优命令和思路的。<br>在我的理解下，调优JVM其实就是在「理解」JVM内存结构以及各种垃圾收集器前提下，结合自己的现有的业务来「调整参数」，使自己的应用能够正常稳定运行。<ul>
+<li>一般调优JVM我们认为会有几种指标可以参考：「吞吐量」、「停顿时间」和「垃圾回收频率」</li>
+<li>基于这些指标，我们就有可能需要调整：<ol>
+<li>内存区域大小以及相关策略（比如整块堆内存占多少、新生代占多少、老年代占多少、Survivor占多少、晋升老年代的条件等等）<br>比如（-Xmx：设置堆的最大值、-Xms：设置堆的初始值、-Xmn：表示年轻代的大小、-XX：SurvivorRatio：伊甸区和幸存区的比例等等）<br>按经验来说：I0密集型的可以稍微把「年轻代」空间加大些，因为大多数对象都是在年轻代就会灭亡。内存计算密集型的可以稍微把「老年代」空间加大些，对象存活时间会更长些）</li>
+<li>垃圾回收器（选择合适的垃圾回收器，以及各个垃圾回收器的各种调优参数）<br>比如（-XX：+UseG1GC：指定JVM使用的垃圾回收器为G1、-XX：MaxGCPause Millis：设置目标停顿时间、-XX：InitiatingHeapOccupancyPercent：当整个堆内存使用达到一定比例，全局并发标记阶段就会被启动等等）<br>没错，这些都是因地制宜，具体问题具体分析（前提是得懂JVM的各种基础知识，基础知识都不懂，谈何调优）<br>在大多数场景下，JVM已经能够达到「开箱即用」</li>
+</ol>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="三、调优工具"><a href="#三、调优工具" class="headerlink" title="三、调优工具"></a>三、调优工具</h2><p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/Ixx1QR_20210923115955.png"></p>
+<p>一般我们是「遇到问题」之后才进行调优的，而遇到问题后需要利用各种的 「工具」 进行排查</p>
+<ol>
+<li>通过jps命令查看Java进程「基础」信息（进程号、主类）。这个命令很常用的就是用来看当前服务器有多少Java进程在运行，它们的进程号和加载主类是啥</li>
+<li>通过jstat命令查看Java进程「统计类」相关的信息（类加载、编译相关信息统计，各个内存区域GC概况和统计）。这个命令很常用于看GC的情况</li>
+<li>通过jinfo命令来查看和调整Java进程的「运行参数」</li>
+<li>通过jmap命令来查看Java进程的「内存信息」。这个命令很常用于把JVM内存信息dump到文件，然后再用MAT（Memory Analyzer tool内存解析工具）把文件进行分析</li>
+<li>通过jstack命令来查看JVM「线程信息」。这个命令用常用语排查死锁相关的问题</li>
+<li>还有近期比较热门的Arthas（阿里开源的诊断工具），涵盖了上面很多命令的功能且自带图形化界面。这也是我这边常用的排查和分析工具</li>
+</ol>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/HzOR97_20210923141932.png"></p>
+<h2 id="四、jvm的jit优化技术"><a href="#四、jvm的jit优化技术" class="headerlink" title="四、jvm的jit优化技术"></a>四、jvm的jit优化技术</h2><p>JIT优化技术比较出名的有两种：方法内联和逃逸分析</p>
+<ol>
+<li>所谓方法内联就是把「目标方法」的代码复制到「调用的方法」中，避免发生真实的方法调用因为每次方法调用都会生成栈帧（压栈出栈记录方法调用位置等等）会带来一定的性能损耗，所以「方法内联」的优化可以提高一定的性能<br>在JVM中也有相关的参数给予我们指定 (-XX:MaxFreqlnlineSize、 -XX:MaxInli neSize等等）</li>
+<li>而「逃逸分析」则是判断一个对象是否被外部方法引用或外部线程访问的分析技术，如果「没有被引用」，就可以对其进行优化<br>下面我举几个可优化的例子（思路）：<ul>
+<li>1.锁消除（同步忽略）：该对象只在方法内部被访问，不会被别的地方引用，那么就一定是线程安全的，可以把锁相关的代码给忽略掉0</li>
+<li>2.栈上分配：该对象只会在方法内部被访问，直接将对象分配在「栈」中（Java默认是将对象分配在「堆」中，是需要通过JVM垃圾回收期进行回收，需要损耗一定的性能，而栈内分配则快很多）</li>
+<li>3.标量替换&#x2F;分离对象：当程序真正执行的时候可以不创建这个对象，而直接创建它的成员变量来代替。将对象拆分后，可以分配对象的成员变量在栈或寄存器上，原本的对象就无需分配内存空间了</li>
+</ul>
+</li>
+</ol>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/D1Gg1I_20210923142207.png"></p>
+<p>不过扯了这么多，不同的JVM版本对JIT的优化都不太相同</p>
+<p>这里也只能算是一个参考</p>
+<p>线上在使用的JVM也不知道有没有做了这么些优化.</p>
+
+      
+    </div>
+
+    
+    
+    
+
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>l
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/c77b99c1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lion.png">
+      <meta itemprop="name" content="swimminghao">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="swimminghao's blog">
+      <meta itemprop="description" content="swimminghao的学习博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | swimminghao's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/c77b99c1/" class="post-title-link" itemprop="url">使用java8实现List中对象属性的去重</a>
+        </h2>
+
+        <div class="post-meta-container">
+
+          
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-03-13 12:56:04" itemprop="dateModified" datetime="2022-03-13T12:56:04+08:00">2022-03-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E8%AF%AD%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">语法</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/posts/c77b99c1/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/c77b99c1/" data-xid="/posts/c77b99c1/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>2.2k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>2 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="使用java8实现List中对象属性的去重"><a href="#使用java8实现List中对象属性的去重" class="headerlink" title="使用java8实现List中对象属性的去重"></a>使用java8实现List中对象属性的去重</h1><p>今天在工作的时候遇到了一个问题，就是List的去重，不想用双重for，感觉太low，不想用for+Map，感觉应该有更好的方法，于是，google之。发现java8的stream流能完美解决这个问题。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">List&lt;BookInfoVo&gt; list</span><br></pre></td></tr></table></figure>
+<p>比如在 BookInfoVo 中有一个 recordId 属性,现在需要对此去重.</p>
+<p>怎么办呢?</p>
+<p>有两种方法:</p>
+<ul>
+<li>第一种: 不使用java8 的 Stream<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> List&lt;BookInfoVo&gt; <span class="title function_">removeDupliByRecordId</span><span class="params">(List&lt;BookInfoVo&gt; books)</span> &#123;</span><br><span class="line">	Set&lt;BookInfoVo&gt; bookSet = <span class="keyword">new</span> <span class="title class_">TreeSet</span>&lt;&gt;((o1, o2)-&gt;o1.getRecordId().compareTo(o2.getRecordId()));</span><br><span class="line">          personSet.addAll(books);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;BookInfoVo&gt;(bookSet);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+这也是大多数人第一想到的,借助 TreeSet 去重,其中 TreeSet 的其中一个构造函数接收一个排序的算法,同时这也会用到 TreeSet 的去重策略上.<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Constructs a new, empty tree set, sorted according to the specified</span></span><br><span class="line"><span class="comment">     * comparator.  All elements inserted into the set must be &lt;i&gt;mutually</span></span><br><span class="line"><span class="comment">     * comparable&lt;/i&gt; by the specified comparator: &#123;<span class="doctag">@code</span> comparator.compare(e1,</span></span><br><span class="line"><span class="comment">     * e2)&#125; must not throw a &#123;<span class="doctag">@code</span> ClassCastException&#125; for any elements</span></span><br><span class="line"><span class="comment">     * &#123;<span class="doctag">@code</span> e1&#125; and &#123;<span class="doctag">@code</span> e2&#125; in the set.  If the user attempts to add</span></span><br><span class="line"><span class="comment">     * an element to the set that violates this constraint, the</span></span><br><span class="line"><span class="comment">     * &#123;<span class="doctag">@code</span> add&#125; call will throw a &#123;<span class="doctag">@code</span> ClassCastException&#125;.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> comparator the comparator that will be used to order this set.</span></span><br><span class="line"><span class="comment">     *        If &#123;<span class="doctag">@code</span> null&#125;, the &#123;<span class="doctag">@linkplain</span> Comparable natural</span></span><br><span class="line"><span class="comment">     *        ordering&#125; of the elements will be used.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line"><span class="keyword">public</span> <span class="title function_">TreeSet</span><span class="params">(Comparator&lt;? <span class="built_in">super</span> E&gt; comparator)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>(<span class="keyword">new</span> <span class="title class_">TreeMap</span>&lt;&gt;(comparator));</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></li>
+<li>第二种: 炫酷的java8写法]<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*方法二:炫酷的java8写法*/</span></span><br><span class="line">ArrayList&lt;BookInfoVo&gt; distinctLiost = list.stream()</span><br><span class="line">                  .collect(</span><br><span class="line">                          Collectors.collectingAndThen(</span><br><span class="line">                                  Collectors.toCollection(() -&gt; <span class="keyword">new</span> <span class="title class_">TreeSet</span>&lt;&gt;(Comparator.comparingLong(BookInfoVo::getRecordId))), ArrayList::<span class="keyword">new</span>)</span><br><span class="line">                  );</span><br></pre></td></tr></table></figure>
+当然也可以根据多个属性去重<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ArrayList&lt;BookInfoVo&gt; distinctLiost = list.stream().collect(Collectors.collectingAndThen(</span><br><span class="line">  Collectors.toCollection(() -&gt; <span class="keyword">new</span> <span class="title class_">TreeSet</span>&lt;&gt;(Comparator.comparing(o -&gt; o.getName() + <span class="string">&quot;;&quot;</span> + o.getAuthor()))), ArrayList::<span class="keyword">new</span>)</span><br></pre></td></tr></table></figure>
+如果没有第一种方法做铺垫,我们很可能一脸懵逼.</li>
+</ul>
+<p>其实理解起来也不难:</p>
+<p>关键在于Collectors.collectingAndThen( Collectors.toCollection(() -&gt; new TreeSet&lt;&gt;(Comparator.comparingLong(BookInfoVo::getRecordId))), ArrayList::new)的理解,</p>
+<p>collectingAndThen 这个方法的意思是: 将收集的结果转换为另一种类型: collectingAndThen,</p>
+<p>因此上面的方法可以理解为,把 new TreeSet&lt;&gt;(Comparator.comparingLong(BookInfoVo::getRecordId))这个set转换为 ArrayList,这个结合第一种方法不难理解.</p>
+<p>可以看到java8这种写法真是炫酷又强大!!!</p>
+
+      
+    </div>
+
+    
+    
+    
+
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>l
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://example.com/posts/8537f75f/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1230,7 +1435,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/f0b74f41/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/74cfd586/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/lion.png">
@@ -1248,7 +1453,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/f0b74f41/" class="post-title-link" itemprop="url">注释书写</a>
+          <a href="/posts/74cfd586/" class="post-title-link" itemprop="url">java8类型互转</a>
         </h2>
 
         <div class="post-meta-container">
@@ -1269,7 +1474,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-13 12:56:04" itemprop="dateModified" datetime="2022-03-13T12:56:04+08:00">2022-03-13</time>
+      <time title="修改时间：2022-05-16 16:20:40" itemprop="dateModified" datetime="2022-05-16T16:20:40+08:00">2022-05-16</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -1290,8 +1495,8 @@
     </span>
     <span class="post-meta-item-text">Waline：</span>
   
-    <a title="waline" href="/posts/f0b74f41/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/f0b74f41/" data-xid="/posts/f0b74f41/" itemprop="commentCount"></span>
+    <a title="waline" href="/posts/74cfd586/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/74cfd586/" data-xid="/posts/74cfd586/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -1302,14 +1507,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>2.4k</span>
+      <span>6.4k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>2 分钟</span>
+      <span>6 分钟</span>
     </span>
 </div>
 
@@ -1320,111 +1525,108 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="注释书写规范"><a href="#注释书写规范" class="headerlink" title="注释书写规范"></a>注释书写规范</h1><ul>
-<li>一般情况下，源程序有效注释量必须在30％以上。注释的原则是有助于对程序的阅读理解，在该加的地方都加了，注释不宜太多也不能太少，注释语言必须准确、易懂、简洁。可以用注释统计工具来统计。<h2 id="一、类和接口的注释"><a href="#一、类和接口的注释" class="headerlink" title="一、类和接口的注释"></a>一、类和接口的注释</h2></li>
-</ul>
-<p><strong>1. 类外注释</strong></p>
-<blockquote>
-<p>该注释放在 package 关键字之后，class 或者 interface 关键字之前。</p>
-</blockquote>
-<ul>
-<li>说明：方便JavaDoc收集。<br>示例：</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.huawei.msg.relay.comm;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 注释内容</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">CommManager</span></span><br></pre></td></tr></table></figure>
-<ul>
-<li>类和接口的注释内容：类的注释主要是一句话功能简述、功能详细描述。<br>格式：<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 〈一句话功能简述〉</span></span><br><span class="line"><span class="comment"> * 〈功能详细描述〉</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure></li>
-<li>描述部分说明该类或者接口的功能、作用、使用方法和注意事项。<br>示例：<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * LogManager 类集中控制对日志读写的操作。</span></span><br><span class="line"><span class="comment"> * 全部为静态变量和静态方法，对外提供统一接口。分配对应日志类型的读写器，</span></span><br><span class="line"><span class="comment"> * 读取或写入符合条件的日志纪录。</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure></li>
-</ul>
-<p><strong>2. 类内注释</strong></p>
-<blockquote>
-<p>类属性、公有和保护方法必须写注释。geter、seter方法不用写注释</p>
-</blockquote>
-<p>  示例：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 注释内容</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">private</span> String logType;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 注释内容</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">write</span><span class="params">()</span></span><br></pre></td></tr></table></figure>
-<p>1).成员变量注释内容：成员变量的意义、目的、功能，可能被用到的地方。<br>2).公有和保护方法注释内容：列出方法的一句话功能    简述、功能详细描述、输入参数、输出参数、返回值、违例等。<br>格式：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 〈一句话功能简述〉</span></span><br><span class="line"><span class="comment"> * 〈功能详细描述〉</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span>  [参数1] [in或out]  [参数1说明]</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span>  [参数2] [in或out]  [参数2说明]</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span> [返回类型说明]</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@exception</span>/throws [违例类型] [违例说明]</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
-<p>说明： @exception或throws 列出可能仍出的异常。<br>示例：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 用MD5算法计算输入字符串的32位摘要</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> sIn [in] 待处理的字符串</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> sOut [out] sIn的32为摘要，调用函数负责new sOut对象</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span> boolean</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="type">boolean</span> <span class="title function_">getMd5</span><span class="params">(String sIn, StringBuffer sOut)</span> </span><br></pre></td></tr></table></figure>
-<p>说明：<br>1）.注释应与其描述的代码相近，对代码的注释应放在其上方或右方（对单条语句的注释）相邻位置，不可放在下面，如放于上方则需与其上面的代码用空行隔开。<br>2）.注释与所描述内容进行同样的缩排。<br>3）.将注释与其上面的代码用空行隔开。<br>示例：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//注释</span></span><br><span class="line">program code <span class="title function_">one</span></span><br><span class="line"><span class="params">(空一格)</span>   </span><br><span class="line"><span class="comment">//注释</span></span><br><span class="line">program code two</span><br></pre></td></tr></table></figure>
-<h2 id="二、方法与复杂逻辑的注释"><a href="#二、方法与复杂逻辑的注释" class="headerlink" title="二、方法与复杂逻辑的注释"></a>二、方法与复杂逻辑的注释</h2><blockquote>
-<p>对变量的定义和分支语句（条件分支、循环语句等）对复杂的分支必须编写注释，如果时间允许，建议对所有分支语句写注释。</p>
-</blockquote>
-<p>说明：这些语句往往是程序实现某一特定功能的关键，对于维护人员来说，良好的注释帮助更好的理解程序，有时甚至优于看设计文档。</p>
+          <h1 id="java8类型互转"><a href="#java8类型互转" class="headerlink" title="java8类型互转"></a>java8类型互转</h1><h2 id="List-lt-Integer-gt-、int-、Integer-相互转换"><a href="#List-lt-Integer-gt-、int-、Integer-相互转换" class="headerlink" title="List&lt; Integer &gt;、int[ ]、Integer[ ]相互转换"></a>List&lt; Integer &gt;、int[ ]、Integer[ ]相互转换</h2><p>[toc]</p>
+<p>下文中出现的list、ints、integers分别代表一个列表、一个int数组、一个Integer数组。<br>它们之间所谓的转化，其实是 复制数据，互不干扰，可以理解为深拷贝。</p>
+<h3 id="int-转-List-lt-Integer-gt"><a href="#int-转-List-lt-Integer-gt" class="headerlink" title="int[ ] 转 List&lt; Integer &gt;"></a>int[ ] 转 List&lt; Integer &gt;</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Integer&gt; list = Arrays.stream(ints).boxed().collect(Collectors.toList());</span><br></pre></td></tr></table></figure>
+
+<p>Arrays.stream(ints) 之后返回的类型是 IntStream，IntStream 是一个接口继承自 BaseStream，BaseStream 又继承自AutoCloseable。所以我把IntStream看成一个方便对每个整数做操作的数据流。</p>
+<p>之后调用了 boxed()，它的作用是对每个整数进行装箱，基本类型流转换为对象流，返回的是 Stream<Integer>，Stream 也是继承自 BaseStream。所以这一步的作用是把 IntStream 转换成了 Stream<Integer>。</p>
+<p>最后通过collect方法将数据流 (Stream<Integer>) 收集成了集合 ( List<Integer>)，这里 collect 方法里传入的是一个收集器 (Collector)，它通过 Collectors.toList() 产生。</p>
+<p>小结：</p>
 <ol>
-<li>switch语句</li>
+<li>Arrays.stream(ints) 将基本类型数组转换为基本类型流。 int[ ] &#x3D;&gt; IntStream</li>
+<li>.boxed() 将基本类型流转换为对象流。 &#x3D;&gt; Stream&lt; Integer &gt;</li>
+<li>.collect(Collectors.toList()) 将对象流收集为集合。 &#x3D;&gt; List&lt; Integer &gt;</li>
 </ol>
-<ul>
-<li>switch语句下的case语句，如果因为特殊情况需要处理完一个case后进入下一个case处理，必须在该case语句处理完、下一个case语句前加上明确的注释。</li>
-<li>说明：这样比较清楚程序编写者的意图，有效防止无故遗漏break语句。</li>
-</ul>
-<ol start="2">
-<li>边写代码边注释</li>
+<h3 id="int-转-List-lt-List-lt-Integer-gt-gt"><a href="#int-转-List-lt-List-lt-Integer-gt-gt" class="headerlink" title="int[ ] [ ] 转 List&lt;  List &lt; Integer &gt;  &gt;"></a>int[ ] [ ] 转 List&lt;  List &lt; Integer &gt;  &gt;</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">temp</span> <span class="operator">=</span> Arrays.deepToString(fooArr).replaceAll(<span class="string">&quot;\\[&quot;</span>,<span class="string">&quot;&quot;</span>).replaceAll(<span class="string">&quot;\\]&quot;</span>,<span class="string">&quot;&quot;</span>);</span><br><span class="line">List&lt;String&gt; fooList = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;(Arrays.asList(<span class="string">&quot;,&quot;</span>)); <span class="comment">//不对</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">List&lt;List&lt;Integer&gt;&gt; collect2 = Arrays.Stream(ints1).map(ar -&gt; Arrays.stream(ar).boxed().collect(Collectors.toList())).collect(Collectors.toList());</span><br></pre></td></tr></table></figure>
+
+<h3 id="int-转-Integer"><a href="#int-转-Integer" class="headerlink" title="int[ ] 转 Integer[ ]"></a>int[ ] 转 Integer[ ]</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Integer[] integers = Arrays.stream(ints).boxed().toArray(Integer[]::<span class="keyword">new</span>);</span><br></pre></td></tr></table></figure>
+
+<p>一样的内容就不重复了，toArray(T[ ] :: new) 方法返回基本类型数组。<br>小结：</p>
+<ol>
+<li>Arrays.stream(ints) 将基本类型数组转换为基本类型流。 int[ ] &#x3D;&gt; IntStream</li>
+<li>.boxed() 将基本类型流转换为对象流。&#x3D;&gt; Stream&lt; Integer &gt;</li>
+<li>.toArray(Integer[ ]::new) 将对象流转换为对象数组。&#x3D;&gt; Integer[ ]</li>
 </ol>
-<ul>
-<li>修改代码同时修改相应的注释，以保证注释与代码的一致性。不再有用的注释要删除。</li>
-</ul>
-<ol start="3">
-<li>避免在注释中使用缩写</li>
+<h3 id="int-转-Integer-1"><a href="#int-转-Integer-1" class="headerlink" title="int[ ] [ ]转 Integer[ ] [ ]"></a>int[ ] [ ]转 Integer[ ] [ ]</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Integer[][] integers3 = Arrays.stream(ints1).map(ints -&gt; Arrays.stream(ints).boxed().toArray(Integer[]::<span class="keyword">new</span>)).toArray(Integer[][]::<span class="keyword">new</span>);</span><br></pre></td></tr></table></figure>
+
+<h3 id="Integer-转-List-lt-Integer-gt"><a href="#Integer-转-List-lt-Integer-gt" class="headerlink" title="Integer[ ] 转 List&lt; Integer &gt;"></a>Integer[ ] 转 List&lt; Integer &gt;</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Integer&gt; list = Arrays.asList(integers);</span><br></pre></td></tr></table></figure>
+
+<p>这个就很简单了，通过Arrays类里的asList方法将数组装换为List。值得注意：</p>
+<p>asList 返回的是 Arrays 里的静态私有类 ArrayList，而不是 java.util 里的 ArrayList，它无法自动扩容。</p>
+<p>可以用下面2种方法生成可扩容的ArrayList：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Integer&gt; list = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;(Arrays.asList(integers)); </span><br></pre></td></tr></table></figure>
+
+<p>或者</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Integer&gt; list = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;(); </span><br><span class="line">Collections.addAll(list, integers);</span><br></pre></td></tr></table></figure>
+
+<h3 id="Integer-转-List-lt-List-lt-Integer-gt-gt"><a href="#Integer-转-List-lt-List-lt-Integer-gt-gt" class="headerlink" title="Integer[ ] [ ]转 List&lt; List &lt; Integer &gt; &gt;"></a>Integer[ ] [ ]转 List&lt; List &lt; Integer &gt; &gt;</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Integer[][] a = &#123;&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>&#125;,&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>&#125;&#125;;</span><br><span class="line">List&lt;List&lt;Integer&gt;&gt; lists = Arrays.stream(a).map(Arrays::asList).collect(Collectors.toList());</span><br></pre></td></tr></table></figure>
+
+<h3 id="Integer-转-int"><a href="#Integer-转-int" class="headerlink" title="Integer[ ] 转 int[ ]"></a>Integer[ ] 转 int[ ]</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span>[] ints = Arrays.stream(integers).mapToInt(Integer::valueOf).toArray();</span><br></pre></td></tr></table></figure>
+
+<p>map的意思是把每一个元素进行同样的操作。mapToInt的意思是把每一个元素转换为int。mapToInt(Integer::valueOf)方法返回的是IntStream。<br>小结：</p>
+<ol>
+<li>Arrays.stream(integers) 将对象数组转换为对象流。 Integer[ ] &#x3D;&gt; Stream&lt; Integer &gt;</li>
+<li>.mapToInt(Integer::valueOf) 将对象流转换成基本类型流。&#x3D;&gt; IntStream</li>
+<li>.toArray() 将基本类型流转换为基本类型数组。 &#x3D;&gt; int[ ]</li>
 </ol>
-<ul>
-<li>在使用缩写时或之前，应对缩写进行必要的说明，特别是不常用缩写。</li>
-</ul>
-<ol start="4">
-<li>用中文注释，禁止用英文写注释。<h2 id="建议"><a href="#建议" class="headerlink" title="建议"></a>建议</h2></li>
-<li>避免在一行代码或表达式的中间插入注释。</li>
+<h3 id="Integer-转-int-1"><a href="#Integer-转-int-1" class="headerlink" title="Integer[ ] [ ]转 int[ ] [ ]"></a>Integer[ ] [ ]转 int[ ] [ ]</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Integer[][] a = &#123;&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>&#125;,&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>&#125;&#125;;      </span><br><span class="line"><span class="type">int</span>[][] ints1 = Arrays.stream(a).map(a1 -&gt; Arrays.stream(a1).mapToInt(Integer::valueOf).toArray()).toArray(<span class="type">int</span>[][]::<span class="keyword">new</span>);</span><br></pre></td></tr></table></figure>
+
+<h3 id="List-lt-Integer-gt-转-int"><a href="#List-lt-Integer-gt-转-int" class="headerlink" title="List&lt; Integer &gt; 转 int[ ]"></a>List&lt; Integer &gt; 转 int[ ]</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span>[] ints = list.stream().mapToInt(Integer::valueOf).toArray();</span><br></pre></td></tr></table></figure>
+
+<p>经过上面的说明，相信这里已经很好理解了，直接小结。<br>小结：</p>
+<ol>
+<li>list.stream() 将列表转换为对象流。List&lt; Integer &gt; &#x3D;&gt; Stream&lt; Integer &gt;</li>
+<li>.mapToInt(Integer::valueOf) 将对象流转换为基本数据类型流。&#x3D;&gt; IntStream</li>
+<li>.toArray() 将基本数据类型流转换为基本类型数组。&#x3D;&gt;int[ ]</li>
 </ol>
-<ul>
-<li>说明：除非必要，不应在代码或表达中间插入注释，否则容易使代码可理解性变差。</li>
-</ul>
-<ol start="2">
-<li>通过对函数或过程、变量、结构等正确的命名以及合理地组织代码的结构，使代码成为自注释的。</li>
-</ol>
-<ul>
-<li>说明：清晰准确的函数、变量等的命名，可增加代码可读性，并减少不必要的注释。</li>
-</ul>
-<ol start="3">
-<li>在代码的功能、意图层次上进行注释，提供有用、额外的信息。</li>
-</ol>
-<ul>
-<li>说明：注释的目的是解释代码的目的、功能和采用的方法，提供代码以外的信息，帮助读者理解代码，防止没必要的重复注释信息。</li>
-<li>示例：如下注释意义不大。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 如果 receiveFlag 为真</span></span><br><span class="line"><span class="keyword">if</span> (receiveFlag)</span><br></pre></td></tr></table></figure></li>
-<li>而如下的注释则给出了额外有用的信息。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 如果从连结收到消息 </span></span><br><span class="line"><span class="keyword">if</span> (receiveFlag)</span><br></pre></td></tr></table></figure></li>
-</ul>
-<ol start="4">
-<li>在程序块的结束行右方加注释标记，以表明某程序块的结束。</li>
-</ol>
-<ul>
-<li>说明：当代码段较长，特别是多重嵌套时，这样做可以使代码更清晰，更便于阅读。</li>
-<li>示例：参见如下例子。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (...)</span><br><span class="line">&#123;</span><br><span class="line">    program code1</span><br><span class="line">    <span class="title function_">while</span> <span class="params">(index &lt; MAX_INDEX)</span></span><br><span class="line">    &#123;</span><br><span class="line">        program code2</span><br><span class="line">    &#125; <span class="comment">// end of while (index &lt; MAX_INDEX) // 指明该条while语句结束</span></span><br><span class="line">&#125; <span class="comment">// end of  if (...) // 指明是哪条if语句结束</span></span><br></pre></td></tr></table></figure></li>
-</ul>
-<ol start="5">
-<li>方法内的单行注释使用 &#x2F;&#x2F;。</li>
-</ol>
-<ul>
-<li>说明：调试程序的时候可以方便的使用 &#x2F;* 。。。*&#x2F; 注释掉一长段程序。</li>
-</ul>
-<ol start="6">
-<li>注释使用中文注释和中文标点，不得用英文写注释。方法和类描述的第一句话尽量使用简洁明了的话概括一下功能，然后加以句号。接下来的部分可以详细描述。</li>
-</ol>
-<ul>
-<li>说明：JavaDoc工具收集简介的时候使用选取第一句话。</li>
-</ul>
-<ol start="7">
-<li>顺序实现流程的说明使用1、2、3、4在每个实现步骤部分的代码前面进行注释。</li>
-</ol>
-<ul>
-<li>示例：如下是对设置属性的流程注释<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//1、 判断输入参数是否有效。</span></span><br><span class="line">...</span><br><span class="line"><span class="comment">// 2、设置本地变量。</span></span><br><span class="line">...</span><br></pre></td></tr></table></figure></li>
-</ul>
-<ol start="8">
-<li>一些复杂的算法代码需要说明。</li>
-</ol>
-<ul>
-<li>示例：这里主要是对闰年算法的说明。<br><code>java //1. 如果能被4整除，是闰年； //2. 如果能被100整除，不是闰年.； //3. 如果能被400整除，是闰年.。 </code>星期五, 23. 八月 2019 07:42下午</li>
-</ul>
-<p>**</p>
-<hr>
-<p>**</p>
+<h3 id="List-lt-List-lt-Integer-gt-gt-转-int"><a href="#List-lt-List-lt-Integer-gt-gt-转-int" class="headerlink" title="List&lt; List &lt; Integer &gt; &gt; 转 int[ ] [ ]"></a>List&lt; List &lt; Integer &gt; &gt; 转 int[ ] [ ]</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">List&lt;List&lt;Integer&gt;&gt; lists = ...;</span><br><span class="line"><span class="type">int</span>[][] arrays = lists.stream()                                <span class="comment">// Stream&lt;List&lt;Integer&gt;&gt;</span></span><br><span class="line">        .map(list -&gt; list.stream().mapToInt(i -&gt; i).toArray()) <span class="comment">// Stream&lt;int[]&gt;</span></span><br><span class="line">        .toArray(<span class="type">int</span>[][]::<span class="keyword">new</span>);</span><br></pre></td></tr></table></figure>
+
+<h3 id="List-lt-Integer-gt-转-Integer"><a href="#List-lt-Integer-gt-转-Integer" class="headerlink" title="List&lt; Integer &gt; 转 Integer[ ]"></a>List&lt; Integer &gt; 转 Integer[ ]</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Integer[] integers = list.toArray(<span class="keyword">new</span> <span class="title class_">Integer</span>[list.size()]);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Integer[] integers = list.stream().toArray(Integer[]::<span class="keyword">new</span>); <span class="comment">//不推荐</span></span><br></pre></td></tr></table></figure>
+
+<p>这个也很简单，方法里的参数是一个数组，所以要规定长度。也有无参的方法，但是要进行转型，所以不推荐使用。</p>
+<h3 id="List-lt-List-lt-Integer-gt-gt-转-Integer"><a href="#List-lt-List-lt-Integer-gt-gt-转-Integer" class="headerlink" title="List&lt; List &lt; Integer &gt; &gt; 转 Integer[ ] [ ]"></a>List&lt; List &lt; Integer &gt; &gt; 转 Integer[ ] [ ]</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">List&lt;List&lt;Integer&gt;&gt; lists = ...;</span><br><span class="line">Integer[][] arrays = lists.stream()                                <span class="comment">// Stream&lt;List&lt;Integer&gt;&gt;</span></span><br><span class="line">        .map(list -&gt; list.toArray(<span class="keyword">new</span> <span class="title class_">Integer</span>[list.size()])) <span class="comment">// Stream&lt;Integer[]&gt;</span></span><br><span class="line">        .toArray(Integer[][]::<span class="keyword">new</span>);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Integer[][] arrays = lists.stream()                                <span class="comment">// Stream&lt;List&lt;Integer&gt;&gt;</span></span><br><span class="line">        .map(l -&gt; l.stream().toArray(String[]::<span class="keyword">new</span>)) <span class="comment">// Stream&lt;Integer[]&gt;</span></span><br><span class="line">        .toArray(Integer[][]::<span class="keyword">new</span>);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Integer[][] arrays = lists.stream().map(List::toArray).toArray(Integer[][]::<span class="keyword">new</span>);</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="List-lt-Character-gt-、char-、Character-相互转换"><a href="#List-lt-Character-gt-、char-、Character-相互转换" class="headerlink" title="List&lt; Character &gt;、char[ ]、Character[ ]相互转换"></a>List&lt; Character &gt;、char[ ]、Character[ ]相互转换</h2><h3 id="char-转-List-lt-Character-gt"><a href="#char-转-List-lt-Character-gt" class="headerlink" title="char[ ] 转 List&lt; Character &gt;"></a>char[ ] 转 List&lt; Character &gt;</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">char</span>[] chars = &#123;<span class="string">&#x27;a&#x27;</span>, <span class="string">&#x27;b&#x27;</span>, <span class="string">&#x27;c&#x27;</span>&#125;;</span><br><span class="line">List&lt;Character&gt; collect = <span class="keyword">new</span> <span class="title class_">String</span>(chars).chars().mapToObj(i -&gt; (<span class="type">char</span>) i).collect(Collectors.toList());</span><br></pre></td></tr></table></figure>
+
+<h3 id="char-转-List-lt-List-lt-Character-gt-gt"><a href="#char-转-List-lt-List-lt-Character-gt-gt" class="headerlink" title="char[ ] [ ] 转 List&lt;  List &lt; Character &gt;  &gt;"></a>char[ ] [ ] 转 List&lt;  List &lt; Character &gt;  &gt;</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">List&lt;List&lt;Character&gt;&gt; collect2 = Arrays.stream(ints1).map(chars1 -&gt; <span class="keyword">new</span> <span class="title class_">String</span>(chars1).chars().mapToObj(i -&gt; (<span class="type">char</span>) i).collect(Collectors.toList())).collect(Collectors.toList());</span><br></pre></td></tr></table></figure>
+
+<h3 id="char-转-Character"><a href="#char-转-Character" class="headerlink" title="char[ ] 转 Character[ ]"></a>char[ ] 转 Character[ ]</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">char</span>[] chars = &#123;<span class="string">&#x27;a&#x27;</span>, <span class="string">&#x27;b&#x27;</span>, <span class="string">&#x27;c&#x27;</span>&#125;;</span><br><span class="line">Character[] characters1 = <span class="keyword">new</span> <span class="title class_">String</span>(chars).chars().mapToObj(i -&gt; (<span class="type">char</span>) i).toArray(Character[]::<span class="keyword">new</span>);     </span><br></pre></td></tr></table></figure>
+
+<h3 id="char-转-Character-1"><a href="#char-转-Character-1" class="headerlink" title="char[ ] [ ]转 Character[ ] [ ]"></a>char[ ] [ ]转 Character[ ] [ ]</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Character[][] integers3 = Arrays.stream(ints1).map(chars -&gt; <span class="keyword">new</span> <span class="title class_">String</span>(chars).chars().mapToObj(i-&gt;(<span class="type">char</span>)i).toArray(Character[]::<span class="keyword">new</span>)).toArray(Character[][]::<span class="keyword">new</span>);</span><br></pre></td></tr></table></figure>
+
+<h3 id="Character-转-List-lt-Character-gt"><a href="#Character-转-List-lt-Character-gt" class="headerlink" title="Character[ ] 转 List&lt; Character &gt;"></a>Character[ ] 转 List&lt; Character &gt;</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Character&gt; collect2 = Arrays.stream(characters).collect(Collectors.toList());</span><br></pre></td></tr></table></figure>
+
+<h3 id="Character-转-List-lt-List-lt-Character-gt-gt"><a href="#Character-转-List-lt-List-lt-Character-gt-gt" class="headerlink" title="Character[ ] [ ]转 List&lt; List &lt; Character &gt; &gt;"></a>Character[ ] [ ]转 List&lt; List &lt; Character &gt; &gt;</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">List&lt;List&lt;Character&gt;&gt; lists = Arrays.stream(a).map(Arrays::asList).collect(Collectors.toList());</span><br></pre></td></tr></table></figure>
+
+<h3 id="Character-转-char"><a href="#Character-转-char" class="headerlink" title="Character[ ] 转 char[ ]"></a>Character[ ] 转 char[ ]</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">char</span>[] chars4 = Arrays.stream(characters1).map(String::valueOf).collect(Collectors.joining()).toCharArray();</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="Character-转-char-1"><a href="#Character-转-char-1" class="headerlink" title="Character[ ] [ ]转 char[ ] [ ]"></a>Character[ ] [ ]转 char[ ] [ ]</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">char</span>[][] ints1 = Arrays.stream(a).map(a1 -&gt; Arrays.stream(a1).map(String::valueOf).collect(Collectors.joining()).toCharArray()).toArray(<span class="type">char</span>[][]::<span class="keyword">new</span>);</span><br></pre></td></tr></table></figure>
+
+<h3 id="List-lt-Character-gt-转-char"><a href="#List-lt-Character-gt-转-char" class="headerlink" title="List&lt; Character &gt; 转 char[ ]"></a>List&lt; Character &gt; 转 char[ ]</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">char</span>[] value = characters.stream().map(String::valueOf).collect(Collectors.joining()).toCharArray();</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Character[] charArr = characters.toArray(<span class="keyword">new</span> <span class="title class_">Character</span>[characters.size()]);</span><br><span class="line"><span class="type">char</span>[] value = ArrayUtils.toPrimitive(charArr);</span><br></pre></td></tr></table></figure>
+
+<h3 id="List-lt-List-lt-Character-gt-gt-转-char"><a href="#List-lt-List-lt-Character-gt-gt-转-char" class="headerlink" title="List&lt; List &lt; Character &gt; &gt; 转 char[ ] [ ]"></a>List&lt; List &lt; Character &gt; &gt; 转 char[ ] [ ]</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">char</span>[][] arrays = lists.stream()                                <span class="comment">// Stream&lt;List&lt;Integer&gt;&gt;</span></span><br><span class="line">                .map(list -&gt; list.stream().map(String::valueOf).collect(Collectors.joining()).toCharArray()) <span class="comment">// Stream&lt;int[]&gt;</span></span><br><span class="line">                .toArray(<span class="type">char</span>[][]::<span class="keyword">new</span>);</span><br></pre></td></tr></table></figure>
+
+<h3 id="List-lt-Character-gt-转-Character"><a href="#List-lt-Character-gt-转-Character" class="headerlink" title="List&lt; Character &gt; 转 Character[ ]"></a>List&lt; Character &gt; 转 Character[ ]</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Character[] characters2 = Arrays.stream(characters1).toArray(Character[]::<span class="keyword">new</span>);</span><br></pre></td></tr></table></figure>
+
+<h3 id="List-lt-List-lt-Character-gt-gt-转-Character"><a href="#List-lt-List-lt-Character-gt-gt-转-Character" class="headerlink" title="List&lt; List &lt; Character &gt; &gt; 转 Character[ ] [ ]"></a>List&lt; List &lt; Character &gt; &gt; 转 Character[ ] [ ]</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Character[][] integers1 = lists.stream()                                <span class="comment">// Stream&lt;List&lt;Integer&gt;&gt;</span></span><br><span class="line">               .map(list -&gt; list.toArray(<span class="keyword">new</span> <span class="title class_">Character</span>[list.size()])).toArray(Character[][]::<span class="keyword">new</span>);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Character[][] integers2 = lists.stream()                                <span class="comment">// Stream&lt;List&lt;Integer&gt;&gt;</span></span><br><span class="line">                .map(l -&gt; l.stream().toArray(Character[]::<span class="keyword">new</span>))</span><br><span class="line">                .toArray(Character[][]::<span class="keyword">new</span>);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Character[][] integers = lists.stream().map(List::toArray).toArray(Character[][]::<span class="keyword">new</span>);</span><br></pre></td></tr></table></figure>
+
 
       
     </div>
@@ -1456,7 +1658,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/43d73074/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/498f0b66/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/lion.png">
@@ -1474,7 +1676,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/43d73074/" class="post-title-link" itemprop="url">JAVA基础</a>
+          <a href="/posts/498f0b66/" class="post-title-link" itemprop="url">JAVA</a>
         </h2>
 
         <div class="post-meta-container">
@@ -1516,8 +1718,8 @@
     </span>
     <span class="post-meta-item-text">Waline：</span>
   
-    <a title="waline" href="/posts/43d73074/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/43d73074/" data-xid="/posts/43d73074/" itemprop="commentCount"></span>
+    <a title="waline" href="/posts/498f0b66/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/498f0b66/" data-xid="/posts/498f0b66/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -1528,14 +1730,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>114k</span>
+      <span>116k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>1:44</span>
+      <span>1:46</span>
     </span>
 </div>
 
@@ -1559,7 +1761,7 @@
 </ul>
 </li>
 <li><a href="#http%E5%8D%8F%E8%AE%AE"><strong>HTTP协议</strong></a><ul>
-<li><a href="#1http%E5%8D%8F%E8%AE%AE10_11_20">1、HTTP协议1.0_1.1_2.0</a></li>
+<li><a href="#1http%E5%8D%8F%E8%AE%AE10_11_20">1、HTTP协议<em>1.0_1.1_2.0</em></a></li>
 <li><a href="#2http%E4%B8%8Ehttps%E4%B9%8B%E9%97%B4%E7%9A%84%E5%8C%BA%E5%88%AB">2、HTTP与HTTPS之间的区别</a></li>
 <li><a href="#3get%E5%92%8Cpost%E8%AF%B7%E6%B1%82%E5%8C%BA%E5%88%AB"><strong>3、Get和Post请求区别</strong></a></li>
 <li><a href="#4http%E5%B8%B8%E8%A7%81%E5%93%8D%E5%BA%94%E7%8A%B6%E6%80%81%E7%A0%81"><strong>4、HTTP常见响应状态码</strong></a></li>
@@ -2425,6 +2627,23 @@
 <p><strong>实现方式</strong>：</p>
 <p>​    <strong>饿汉式</strong>：线程安全速度快</p>
 <p>​    <strong>懒汉式</strong>：双重检测锁，第一次减少锁的开销、第二次防止重复、volatile防止重排序导致实例化未完成</p>
+<p><strong>为什么要 double-check？</strong></p>
+<p>我们先来看第二次的 check，这时你需要考虑这样一种情况，有两个线程同时调用 getInstance 方法，由于 singleton 是空的 ，因此两个线程都可以通过第一重的 if 判断；然后由于锁机制的存在，会有一个线程先进入同步语句，并进入第二重 if 判断 ，而另外的一个线程就会在外面等待。</p>
+<p>不过，当第一个线程执行完 new Singleton() 语句后，就会退出 synchronized 保护的区域，这时如果没有第二重 if (singleton &#x3D;&#x3D; null) 判断的话，那么第二个线程也会创建一个实例，此时就破坏了单例，这肯定是不行的。</p>
+<p>而对于第一个 check 而言，如果去掉它，那么所有线程都会串行执行，效率低下，所以两个 check 都是需要保留的。</p>
+<p><strong>在双重检查锁模式中为什么需要使用 volatile 关键字?</strong></p>
+<p>在java内存模型中，volatile 关键字作用可以是保证可见性或者禁止指令重排。这里是因为 singleton &#x3D; new Singleton() ，它并非是一个原子操作，事实上，在 JVM 中上述语句至少做了以下这 3 件事：</p>
+<ul>
+<li>第一步是给 singleton 分配内存空间；</li>
+<li>第二步开始调用 Singleton 的构造函数等，来初始化 singleton；</li>
+<li>第三步，将 singleton 对象指向分配的内存空间（执行完这步 singleton 就不是 null 了）。</li>
+</ul>
+<p>这里需要留意一下 1-2-3 的顺序，因为存在指令重排序的优化，也就是说第 2 步和第 3 步的顺序是不能保证的，最终的执行顺序，可能是 1-2-3，也有可能是 1-3-2。</p>
+<p>如果是 1-3-2，那么在第 3 步执行完以后，singleton 就不是 null 了，可是这时第 2 步并没有执行，singleton 对象未完成初始化，它的属性的值可能不是我们所预期的值。假设此时线程 2 进入 getInstance 方法，由于 singleton 已经不是 null 了，所以会通过第一重检查并直接返回，但其实这时的 singleton 并没有完成初始化，所以使用这个实例的时候会报错，详细流程如下图所示：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/EKNSfp_20210917165416.png"></p>
+<p>线程 1 首先执行新建实例的第一步，也就是分配单例对象的内存空间，由于线程 1 被重排序，所以执行了新建实例的第三步，也就是把 singleton 指向之前分配出来的内存地址，在这第三步执行之后，singleton 对象便不再是 null。</p>
+<p>这时线程 2 进入 getInstance 方法，判断 singleton 对象不是 null，紧接着线程 2 就返回 singleton 对象并使用，由于没有初始化，所以报错了。最后，线程 1 “姗姗来迟”，才开始执行新建实例的第二步——初始化对象，可是这时的初始化已经晚了，因为前面已经报错了。</p>
+<p>使用了 volatile 之后，相当于是表明了该字段的更新可能是在其他线程中发生的，因此应确保在读取另一个线程写入的值时，可以顺利执行接下来所需的操作。在 JDK 5 以及后续版本所使用的 JMM 中，在使用了 volatile 后，会一定程度禁止相关语句的重排序，从而避免了上述由于重排序所导致的读取到不完整对象的问题的发生。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Singleton</span>&#123;</span><br><span class="line">  <span class="keyword">private</span> <span class="title function_">Singleton</span><span class="params">()</span>&#123;&#125;</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">volatile</span> <span class="keyword">static</span> Singleton singleton;</span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="title function_">getInstance</span><span class="params">()</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(singleton == <span class="literal">null</span>)&#123;</span><br><span class="line">      <span class="keyword">synchronized</span>(Singleton.class)&#123;</span><br><span class="line">        <span class="keyword">if</span>(singleton == <span class="literal">null</span>)&#123;</span><br><span class="line">          singleton = <span class="keyword">new</span> <span class="title class_">Singleton</span>();</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> singleton;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>​    <strong>静态内部类</strong>：线程安全利用率高</p>
@@ -2443,8 +2662,41 @@
 <h4 id="3、抽象工厂模式"><a href="#3、抽象工厂模式" class="headerlink" title="3、抽象工厂模式"></a>3、抽象工厂模式</h4><p>​    提供一个接口，用于创建相关或者依赖对象的家族，并由此进行约束。</p>
 <p><strong>优点：</strong>可以在类的内部对产品族进行约束</p>
 <p><strong>缺点</strong>：假如产品族中需要增加一个新的产品，则几乎所有的工厂类都需要进行修改。</p>
-<div style="page-break-after: always;"></div>
-
+<h4 id="4、设计模式中工厂方法与抽象工厂之间的区别联系"><a href="#4、设计模式中工厂方法与抽象工厂之间的区别联系" class="headerlink" title="4、设计模式中工厂方法与抽象工厂之间的区别联系"></a>4、设计模式中工厂方法与抽象工厂之间的区别联系</h4><p>首先来看看两者的定义区别：</p>
+<ul>
+<li>工厂模式 定义一个用于创建对象的接口，让子类决定实例化哪一个类</li>
+<li>抽象工厂模式 为创建一组相关或相互依赖的对象提供一个接口，而且无需指定他们的具体类</li>
+</ul>
+<p>个人觉得这个区别在于产品，如果产品单一，最合适用工厂模式，但是如果有多个业务品种、业务分类时，通过抽象工厂模式产生需要的对象是一种非常好的解决方式。 再通俗深化理解下：工厂模式针对的是一个产品等级结构 ，抽象工厂模式针对的是面向多个产品等级结构的。</p>
+<p>再来看看工厂方法模式与抽象工厂模式对比：</p>
+<table>
+<thead>
+<tr>
+<th>工厂方法模式</th>
+<th>抽象工厂模式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>针对的是单个产品等级结构</td>
+<td>针对的是面向多个产品等级结构</td>
+</tr>
+<tr>
+<td>一个抽象产品类</td>
+<td>多个抽象产品类</td>
+</tr>
+<tr>
+<td>可以派生出多个具体产品类</td>
+<td>每个抽象产品类可以派生出多个具体产品类</td>
+</tr>
+<tr>
+<td>一个抽象工厂类，可以派生出多个具体工厂类</td>
+<td>一个抽象工厂类，可以派生出多个具体工厂类</td>
+</tr>
+<tr>
+<td>每个具体工厂类只能创建一个具体产品类的实例</td>
+<td>每个具体工厂类可以创建多个具体产品类的实例</td>
+</tr>
+</tbody></table>
 <h2 id="面试题"><a href="#面试题" class="headerlink" title="面试题"></a>面试题</h2><h3 id="构造方法"><a href="#构造方法" class="headerlink" title="构造方法"></a>构造方法</h3><p>构造方法可以被重载，只有当类中没有显性声明任何构造方法时，才会有默认构造方法。</p>
 <p>构造方法没有返回值，构造方法的作用是创建新对象。</p>
 <h3 id="初始化块"><a href="#初始化块" class="headerlink" title="初始化块"></a>初始化块</h3><p>静态初始化块的优先级最高，会最先执行，在非静态初始化块之前执行。</p>
@@ -2492,7 +2744,7 @@
 <p><strong>虚拟机栈：</strong></p>
 <p>​        虚拟机栈<strong>是线程私有的</strong>，他的生命周期和线程的生命周期是一致的。里面装的是一个一个的<strong>栈帧</strong>，每一个方法在执行的时候都会创建一个栈帧，栈帧中用来存放（<strong>局部变量表</strong>、<strong>操作数栈</strong> 、<strong>动态链接</strong> 、<strong>返回地址</strong>）；在Java虚拟机规范中，对此区域规定了两种异常状况：如果线程请求的栈深度大于虚拟机所允许的深度，将会抛出<strong>StackOverflowError</strong>异常；如果虚拟机栈动态扩展时无法申请到足够的内存，就会抛出<strong>OutOfMemoryError</strong>异常。</p>
 <ul>
-<li><p><strong>局部变量表：</strong>局部变量表是一组变量值存储空间，用来存放<strong>方法参数</strong>、方法内部定义的<strong>局部变量</strong>。底层是变量槽（variable slot）</p>
+<li><p><strong>局部变量表：</strong>局部变量表是一组变量值存储空间，用来存放<strong>方法参数</strong>、方法内部定义的<strong>局部变量</strong>。底层是变量槽（variable slot）<strong>（注意：java分成员变量、局部变量）</strong></p>
 </li>
 <li><p><strong>操作数栈：</strong>是用来记录一个方法在执行的过程中，<strong>字节码指令向操作数栈中进行入栈和出栈的过程</strong>。大小在编译的时候已经确定了，当一个方法刚开始执行的时候，操作数栈中是空发的，在方法执行的过程中会有各种<strong>字节码指令</strong>往操作数栈中<strong>入栈和出栈</strong>。</p>
 </li>
@@ -2508,10 +2760,11 @@
 <p><strong>PC程序计数器：</strong></p>
 <p>​        PC，指的是存放下一条指令的位置的一个指针。它是一块较小的内存空间，且是<strong>线程私有</strong>的。由于线程的切换，CPU在执行的过程中，需要记住原线程的下一条指令的位置，所以每一个线程都需要有自己的PC。</p>
 <h4 id="2、堆内存分配策略"><a href="#2、堆内存分配策略" class="headerlink" title="2、堆内存分配策略"></a><strong>2、堆内存分配策略</strong></h4><p><img src="https://tva1.sinaimg.cn/large/008eGmZEly1gobnjl5glvj30l10h9jrt.jpg" alt="img"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/Hm2wXK_20210918154730.png"></p>
 <ul>
 <li><p>对象优先分配在Eden区，如果Eden区没有足够的空间进行分配时，虚拟机执行一次MinorGC。而那些无需回收的存活对象，将会进到 Survivor 的 From 区（From 区内存不足时，直接进入 Old 区）。</p>
 </li>
-<li><p>大对象直接进入老年代（需要大量连续内存空间的对象）。这样做的目的是避免在Eden区和两个Survivor区之间发生大量的内存拷贝（新生代采用复制算法收集内存）。</p>
+<li><p>大对象直接进入老年代（<strong>需要大量连续内存空间的对象</strong>）。这样做的目的是避免在Eden区和两个Survivor区之间发生大量的内存拷贝（新生代采用复制算法收集内存）。</p>
 </li>
 <li><p>长期存活的对象进入老年代。虚拟机为每个对象定义了一个年龄（Age Count）计数器，如果对象经过了1次Minor GC那么对象会进入Survivor区，之后每经过一次Minor GC那么对象的年龄加1，直到达到阀值（默认15次），对象进入老年区。</p>
 <p>（<strong>动态对象年龄判定</strong>：程序从年龄最小的对象开始累加，如果累加的对象大小，大于幸存区的一半，则将当前的对象 age 作为新的阈值，年龄大于此阈值的对象则直接进入老年代）</p>
@@ -2519,17 +2772,25 @@
 <li><p>每次进行Minor GC或者大对象直接进入老年区时，JVM会计算所需空间大小如小于老年区的剩余值大小，则进行一次<strong>Full GC</strong>。</p>
 </li>
 </ul>
-<h4 id="3、创建一个对象的步骤"><a href="#3、创建一个对象的步骤" class="headerlink" title="3、创建一个对象的步骤"></a><strong>3、创建一个对象的步骤</strong></h4><p><strong>步骤：类加载检查、分配内存、初始化零值、设置对象头、执行init方法</strong></p>
+<h4 id="3、创建一个对象的步骤"><a href="#3、创建一个对象的步骤" class="headerlink" title="3、创建一个对象的步骤"></a><strong>3、创建一个对象的步骤</strong></h4><p><strong>步骤：类加载检查、分配内存、初始化对象（包括：初始化零值、设置对象头、执行init方法）、将创建的对象指向分配的内存</strong></p>
 <p><strong>①类加载检查：</strong> </p>
 <p>​        虚拟机遇到 new 指令时，⾸先去检查是否能在常量池中定位到这个类的符号引⽤，并且检查这个符号引⽤代表的类是否已被加载过、解析和初始化过。如果没有，那必须先执⾏相应的类加载过程。</p>
 <p><strong>②分配内存：</strong></p>
 <p>​         在类加载检查通过后，接下来虚拟机将为新⽣对象分配内存，分配⽅式有 <strong>“指针碰撞”</strong> 和 <strong>“空闲列表”</strong> 两种，选择那种分配⽅式由 Java 堆是否规整决定，⽽Java堆是否规整⼜由所采⽤的垃圾收集器是否带有压缩整理功能决定。</p>
-<p><strong>③初始化零值：</strong></p>
+<p><strong>③初始化对象</strong></p>
+<ul>
+<li><strong>初始化零值：</strong></li>
+</ul>
 <p>​         内存分配完成后，虚拟机需要将分配到的内存空间都初始化为零值，这⼀步操作保证了对象的实例字段在 Java 代码中可以不赋初始值就直接使⽤，程序能访问到这些字段的数据类型所对应的零值。</p>
-<p><strong>④设置对象头：</strong> </p>
+<ul>
+<li><strong>设置对象头：</strong></li>
+</ul>
 <p>​        初始化零值完成之后，虚拟机要对对象进⾏必要的设置，例如这个对象是那个类的实例、如何才能找到类的元数据信息、对象的哈希吗、对象的 GC 分代年龄等信息。 这些信息存放在对象头中。 另外，根据虚拟机当前运⾏状态的不同，如是否启⽤偏向锁等，对象头会有不同的设置⽅式。</p>
-<p><strong>⑤执⾏ init ⽅法：</strong> </p>
+<ul>
+<li><strong>执⾏ init ⽅法：</strong></li>
+</ul>
 <p>​        从虚拟机的视⻆来看，⼀个新的对象已经产⽣了，但从Java 程序的视⻆来看， <init> ⽅法还没有执⾏，所有的字段都还为零。所以⼀般来说（除循环依赖），执⾏ new 指令之后会接着执⾏  <init> ⽅法，这样⼀个真正可⽤的对象才算产⽣出来。</p>
+<p><strong>④将创建的对象指向分配的内存</strong></p>
 <h4 id="4、对象引用"><a href="#4、对象引用" class="headerlink" title="4、对象引用"></a>4、<strong>对象引用</strong></h4><p>普通的对象引用关系就是<strong>强引用</strong>。</p>
 <p><strong>软引用</strong>用于维护一些可有可无的对象。只有在<strong>内存不足时，系统则会回收软引用对象</strong>，如果回收了软引用对象之后仍然没有足够的内存，才会抛出内存溢出异常。</p>
 <p><strong>弱引用</strong>对象相比软引用来说，要更加无用一些，它拥有更短的生命周期，当 JVM 进行垃圾回收时，<strong>无论内存是否充足</strong>，都会回收被弱引用关联的对象。</p>
@@ -2542,14 +2803,15 @@
 <p><strong>加载阶段：</strong></p>
 <p>​        1.通过一个类的全限定名来获取定义此类的二进制字节流。</p>
 <p>​        2.将这个字节流所代表的静态存储结构转化为方法区的运行时数据结构。</p>
-<p>​        3.在Java堆中生成一个代表这个类的java.lang.class对象，作为方法区这些数据的访问入口。</p>
+<p>​        3.在Java堆中生成一个代表这个类的java.lang.class对象，作为访问方法区这些数据的入口。</p>
 <p><strong>验证阶段：</strong></p>
 <p>​        1.文件格式验证（是否符合Class文件格式的规范，并且能被当前版本的虚拟机处理）</p>
 <p>​        2.元数据验证（对字节码描述的信息进行语意分析，以保证其描述的信息符合Java语言规范要求）</p>
 <p>​        3.字节码验证（保证被校验类的方法在运行时不会做出危害虚拟机安全的行为）</p>
 <p>​        4.符号引用验证（虚拟机将符号引用转化为直接引用时，解析阶段中发生）</p>
 <p><strong>准备阶段：</strong></p>
-<p>​        准备阶段是正式为类变量分配内存并设置类变量初始值的阶段。将对象初始化为“零”值</p>
+<p>​        准备阶段是正式为类变量（成员变量）分配内存并设置类变量初始值的阶段。将对象初始化为“零”值。</p>
+<p>这一步只会给那些静态变量设置一个初始的值，而那些实例变量是在实例化对象时进行分配的。</p>
 <p><strong>解析阶段：</strong></p>
 <p>​        解析阶段时虚拟机将常量池内的符号引用替换为直接引用的过程。</p>
 <p>​        <strong>字符串常量池</strong>：堆上，默认class文件的静态常量池</p>
@@ -2559,7 +2821,7 @@
 <h4 id="1、双亲委派机制"><a href="#1、双亲委派机制" class="headerlink" title="1、双亲委派机制"></a><strong>1、双亲委派机制</strong></h4><p>​        每⼀个类都有⼀个对应它的类加载器。系统中的 ClassLoder 在协同⼯作的时候会默认使⽤ 双亲委派模型 。即在类加载的时候，系统会⾸先判断当前类是否被加载过。已经被加载的类会直接返回，否则才会尝试加载。加载的时候，⾸先会把该请求委派该⽗类加载器的  loadClass() 处理，因此所有的请求最终都应该传送到顶层的启动类加载器  BootstrapClassLoader 中。当⽗类加载器⽆法处理时，才由⾃⼰来处理。当⽗类加载器为null时，会使⽤启动类加载器  BootstrapClassLoader 作为⽗类加载器。</p>
 <p><img src="https://tva1.sinaimg.cn/large/008eGmZEly1gobn5lh4f6j30hk08rjso.jpg" alt="img"></p>
 <p><strong>使用好处：</strong></p>
-<p>​        此机制保证JDK核心类的优先加载；使得Java程序的稳定运⾏，可以避免类的重复加载，也保证了 Java 的核⼼ API 不被篡改。如果不⽤没有使⽤双亲委派模型，⽽是每个类加载器加载⾃⼰的话就会出现⼀些问题，⽐如我们编写⼀个称为  java.lang.Object 类的话，那么程序运⾏的时候，系统就会出现多个不同的Object 类。</p>
+<p>​        此机制保证JDK核心类的优先加载；使得Java程序的稳定运⾏，可以避免类的重复加载，也保证了 Java 的核⼼ API 不被篡改。如果不⽤使⽤双亲委派模型，⽽是每个类加载器加载⾃⼰的话就会出现⼀些问题，⽐如我们编写⼀个称为  java.lang.Object 类的话，那么程序运⾏的时候，系统就会出现多个不同的Object 类。</p>
 <p><strong>破坏双亲委派机制：</strong></p>
 <ul>
 <li><p>可以⾃⼰定义⼀个类加载器，重写loadClass方法；</p>
@@ -3609,6 +3871,7 @@
 <p>（2）在通过聚集索引定位到行记录；</p>
 <p>这就是所谓的<strong>回表查询</strong>，先定位主键值，再定位行记录，它的性能较扫一遍索引树更低。</p>
 <p><strong>覆盖索引</strong>：主键索引&#x3D;&#x3D;聚簇索引&#x3D;&#x3D;覆盖索引</p>
+<p>​    覆盖索引（covering index ，或称为索引覆盖）就是把单列的非主键 索引 修改为多字段的联合索引,  在一棵索引数上 就找到了想要的数据, 不需要去主键索引树上,再检索一遍  这个现象,称之为 索引覆盖.</p>
 <p>​    如果where条件的列和返回的数据在一个索引中，那么不需要回查表，那么就叫覆盖索引。</p>
 <p><strong>实现覆盖索引</strong>：常见的方法是，将被查询的字段，建立到联合索引里去。</p>
 <h4 id="3、Explain及优化"><a href="#3、Explain及优化" class="headerlink" title="3、Explain及优化"></a>3、Explain及优化</h4><p>参考：<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/8fab76bbf448">https://www.jianshu.com/p/8fab76bbf448</a></p>
@@ -3617,6 +3880,7 @@
 <p><strong>索引优化：</strong></p>
 <p>​    ①最左前缀索引：like只用于’string%’，语句中的&#x3D;和in会动态调整顺序</p>
 <p>​    ②唯一索引：唯一键区分度在0.1以上</p>
+<p>​        区分度的公式是count(distinct col)&#x2F;count(*)，表示字段不重复的比例，比例越大我们扫描的记录数越少，唯一键的区分度是1，而一些状态、性别字段可能在<a target="_blank" rel="noopener" href="http://lib.csdn.net/base/hadoop">大数据</a>面前区分度就 是0，那可能有人会问，这个比例有什么经验值吗？使用场景不同，这个值也很难确定，一般需要join的字段我们都要求是0.1以上，即平均1条扫描10条 记录</p>
 <p>​    ③无法使用索引：!&#x3D;  、is null 、 or、&gt;&lt; 、（<strong>5.7以后根据数量自动判定）in 、not in</strong></p>
 <p>​    ④联合索引：避免select * ，查询列使用覆盖索引</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SELECT uid From user Where gid = 2 order by ctime asc limit 10</span><br><span class="line">ALTER TABLE user add index idx_gid_ctime_uid(gid,ctime,uid) #创建联合覆盖索引，避免回表查询</span><br></pre></td></tr></table></figure>
@@ -5749,6 +6013,232 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/f0b74f41/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lion.png">
+      <meta itemprop="name" content="swimminghao">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="swimminghao's blog">
+      <meta itemprop="description" content="swimminghao的学习博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | swimminghao's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/f0b74f41/" class="post-title-link" itemprop="url">注释书写</a>
+        </h2>
+
+        <div class="post-meta-container">
+
+          
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-03-13 12:56:04" itemprop="dateModified" datetime="2022-03-13T12:56:04+08:00">2022-03-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E8%AF%AD%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">语法</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/posts/f0b74f41/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/f0b74f41/" data-xid="/posts/f0b74f41/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>2.4k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>2 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="注释书写规范"><a href="#注释书写规范" class="headerlink" title="注释书写规范"></a>注释书写规范</h1><ul>
+<li>一般情况下，源程序有效注释量必须在30％以上。注释的原则是有助于对程序的阅读理解，在该加的地方都加了，注释不宜太多也不能太少，注释语言必须准确、易懂、简洁。可以用注释统计工具来统计。<h2 id="一、类和接口的注释"><a href="#一、类和接口的注释" class="headerlink" title="一、类和接口的注释"></a>一、类和接口的注释</h2></li>
+</ul>
+<p><strong>1. 类外注释</strong></p>
+<blockquote>
+<p>该注释放在 package 关键字之后，class 或者 interface 关键字之前。</p>
+</blockquote>
+<ul>
+<li>说明：方便JavaDoc收集。<br>示例：</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.huawei.msg.relay.comm;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 注释内容</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">CommManager</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>类和接口的注释内容：类的注释主要是一句话功能简述、功能详细描述。<br>格式：<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 〈一句话功能简述〉</span></span><br><span class="line"><span class="comment"> * 〈功能详细描述〉</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure></li>
+<li>描述部分说明该类或者接口的功能、作用、使用方法和注意事项。<br>示例：<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * LogManager 类集中控制对日志读写的操作。</span></span><br><span class="line"><span class="comment"> * 全部为静态变量和静态方法，对外提供统一接口。分配对应日志类型的读写器，</span></span><br><span class="line"><span class="comment"> * 读取或写入符合条件的日志纪录。</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<p><strong>2. 类内注释</strong></p>
+<blockquote>
+<p>类属性、公有和保护方法必须写注释。geter、seter方法不用写注释</p>
+</blockquote>
+<p>  示例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 注释内容</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">private</span> String logType;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 注释内容</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">write</span><span class="params">()</span></span><br></pre></td></tr></table></figure>
+<p>1).成员变量注释内容：成员变量的意义、目的、功能，可能被用到的地方。<br>2).公有和保护方法注释内容：列出方法的一句话功能    简述、功能详细描述、输入参数、输出参数、返回值、违例等。<br>格式：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 〈一句话功能简述〉</span></span><br><span class="line"><span class="comment"> * 〈功能详细描述〉</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span>  [参数1] [in或out]  [参数1说明]</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span>  [参数2] [in或out]  [参数2说明]</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span> [返回类型说明]</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@exception</span>/throws [违例类型] [违例说明]</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+<p>说明： @exception或throws 列出可能仍出的异常。<br>示例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 用MD5算法计算输入字符串的32位摘要</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> sIn [in] 待处理的字符串</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> sOut [out] sIn的32为摘要，调用函数负责new sOut对象</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span> boolean</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="type">boolean</span> <span class="title function_">getMd5</span><span class="params">(String sIn, StringBuffer sOut)</span> </span><br></pre></td></tr></table></figure>
+<p>说明：<br>1）.注释应与其描述的代码相近，对代码的注释应放在其上方或右方（对单条语句的注释）相邻位置，不可放在下面，如放于上方则需与其上面的代码用空行隔开。<br>2）.注释与所描述内容进行同样的缩排。<br>3）.将注释与其上面的代码用空行隔开。<br>示例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//注释</span></span><br><span class="line">program code <span class="title function_">one</span></span><br><span class="line"><span class="params">(空一格)</span>   </span><br><span class="line"><span class="comment">//注释</span></span><br><span class="line">program code two</span><br></pre></td></tr></table></figure>
+<h2 id="二、方法与复杂逻辑的注释"><a href="#二、方法与复杂逻辑的注释" class="headerlink" title="二、方法与复杂逻辑的注释"></a>二、方法与复杂逻辑的注释</h2><blockquote>
+<p>对变量的定义和分支语句（条件分支、循环语句等）对复杂的分支必须编写注释，如果时间允许，建议对所有分支语句写注释。</p>
+</blockquote>
+<p>说明：这些语句往往是程序实现某一特定功能的关键，对于维护人员来说，良好的注释帮助更好的理解程序，有时甚至优于看设计文档。</p>
+<ol>
+<li>switch语句</li>
+</ol>
+<ul>
+<li>switch语句下的case语句，如果因为特殊情况需要处理完一个case后进入下一个case处理，必须在该case语句处理完、下一个case语句前加上明确的注释。</li>
+<li>说明：这样比较清楚程序编写者的意图，有效防止无故遗漏break语句。</li>
+</ul>
+<ol start="2">
+<li>边写代码边注释</li>
+</ol>
+<ul>
+<li>修改代码同时修改相应的注释，以保证注释与代码的一致性。不再有用的注释要删除。</li>
+</ul>
+<ol start="3">
+<li>避免在注释中使用缩写</li>
+</ol>
+<ul>
+<li>在使用缩写时或之前，应对缩写进行必要的说明，特别是不常用缩写。</li>
+</ul>
+<ol start="4">
+<li>用中文注释，禁止用英文写注释。<h2 id="建议"><a href="#建议" class="headerlink" title="建议"></a>建议</h2></li>
+<li>避免在一行代码或表达式的中间插入注释。</li>
+</ol>
+<ul>
+<li>说明：除非必要，不应在代码或表达中间插入注释，否则容易使代码可理解性变差。</li>
+</ul>
+<ol start="2">
+<li>通过对函数或过程、变量、结构等正确的命名以及合理地组织代码的结构，使代码成为自注释的。</li>
+</ol>
+<ul>
+<li>说明：清晰准确的函数、变量等的命名，可增加代码可读性，并减少不必要的注释。</li>
+</ul>
+<ol start="3">
+<li>在代码的功能、意图层次上进行注释，提供有用、额外的信息。</li>
+</ol>
+<ul>
+<li>说明：注释的目的是解释代码的目的、功能和采用的方法，提供代码以外的信息，帮助读者理解代码，防止没必要的重复注释信息。</li>
+<li>示例：如下注释意义不大。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 如果 receiveFlag 为真</span></span><br><span class="line"><span class="keyword">if</span> (receiveFlag)</span><br></pre></td></tr></table></figure></li>
+<li>而如下的注释则给出了额外有用的信息。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 如果从连结收到消息 </span></span><br><span class="line"><span class="keyword">if</span> (receiveFlag)</span><br></pre></td></tr></table></figure></li>
+</ul>
+<ol start="4">
+<li>在程序块的结束行右方加注释标记，以表明某程序块的结束。</li>
+</ol>
+<ul>
+<li>说明：当代码段较长，特别是多重嵌套时，这样做可以使代码更清晰，更便于阅读。</li>
+<li>示例：参见如下例子。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (...)</span><br><span class="line">&#123;</span><br><span class="line">    program code1</span><br><span class="line">    <span class="title function_">while</span> <span class="params">(index &lt; MAX_INDEX)</span></span><br><span class="line">    &#123;</span><br><span class="line">        program code2</span><br><span class="line">    &#125; <span class="comment">// end of while (index &lt; MAX_INDEX) // 指明该条while语句结束</span></span><br><span class="line">&#125; <span class="comment">// end of  if (...) // 指明是哪条if语句结束</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<ol start="5">
+<li>方法内的单行注释使用 &#x2F;&#x2F;。</li>
+</ol>
+<ul>
+<li>说明：调试程序的时候可以方便的使用 &#x2F;* 。。。*&#x2F; 注释掉一长段程序。</li>
+</ul>
+<ol start="6">
+<li>注释使用中文注释和中文标点，不得用英文写注释。方法和类描述的第一句话尽量使用简洁明了的话概括一下功能，然后加以句号。接下来的部分可以详细描述。</li>
+</ol>
+<ul>
+<li>说明：JavaDoc工具收集简介的时候使用选取第一句话。</li>
+</ul>
+<ol start="7">
+<li>顺序实现流程的说明使用1、2、3、4在每个实现步骤部分的代码前面进行注释。</li>
+</ol>
+<ul>
+<li>示例：如下是对设置属性的流程注释<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//1、 判断输入参数是否有效。</span></span><br><span class="line">...</span><br><span class="line"><span class="comment">// 2、设置本地变量。</span></span><br><span class="line">...</span><br></pre></td></tr></table></figure></li>
+</ul>
+<ol start="8">
+<li>一些复杂的算法代码需要说明。</li>
+</ol>
+<ul>
+<li>示例：这里主要是对闰年算法的说明。<br><code>java //1. 如果能被4整除，是闰年； //2. 如果能被100整除，不是闰年.； //3. 如果能被400整除，是闰年.。 </code>星期五, 23. 八月 2019 07:42下午</li>
+</ul>
+<p>**</p>
+<hr>
+<p>**</p>
+
+      
+    </div>
+
+    
+    
+    
+
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>l
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://example.com/posts/5bf4d040/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -6015,382 +6505,6 @@
 <h3 id="方法表集合"><a href="#方法表集合" class="headerlink" title="方法表集合"></a>方法表集合</h3><p>描述了方法的定义，但是方法里的 Java 代码，经过编译器编译成字节码指令后，存放在属性表集合中的方法属性表集合中一个名为“Code”的属性里面。</p>
 <p>与字段表集合相类似的，如果父类方法在子类中没有被重写（Override），方法表集合中就不会出现来自父类的方法信息。但同样的，有可能会出现由编译器自动添加的方法，最典型的便是类构造器“＜clinit＞”方法和实例构造器“＜init＞”</p>
 <h3 id="属性表集合"><a href="#属性表集合" class="headerlink" title="属性表集合"></a>属性表集合</h3><p>存储 Class 文件、字段表、方法表都自己的属性表集合，以用于描述某些场景专有的信息。如方法的代码就存储在 Code 属性表中。</p>
-
-      
-    </div>
-
-    
-    
-    
-
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>l
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/74cfd586/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/lion.png">
-      <meta itemprop="name" content="swimminghao">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="swimminghao's blog">
-      <meta itemprop="description" content="swimminghao的学习博客">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | swimminghao's blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/74cfd586/" class="post-title-link" itemprop="url">java8类型互转</a>
-        </h2>
-
-        <div class="post-meta-container">
-
-          
-
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-05-16 16:20:40" itemprop="dateModified" datetime="2022-05-16T16:20:40+08:00">2022-05-16</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E8%AF%AD%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">语法</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="far fa-comment"></i>
-    </span>
-    <span class="post-meta-item-text">Waline：</span>
-  
-    <a title="waline" href="/posts/74cfd586/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/74cfd586/" data-xid="/posts/74cfd586/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>6.4k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>6 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="java8类型互转"><a href="#java8类型互转" class="headerlink" title="java8类型互转"></a>java8类型互转</h1><h2 id="List-lt-Integer-gt-、int-、Integer-相互转换"><a href="#List-lt-Integer-gt-、int-、Integer-相互转换" class="headerlink" title="List&lt; Integer &gt;、int[ ]、Integer[ ]相互转换"></a>List&lt; Integer &gt;、int[ ]、Integer[ ]相互转换</h2><p>[toc]</p>
-<p>下文中出现的list、ints、integers分别代表一个列表、一个int数组、一个Integer数组。<br>它们之间所谓的转化，其实是 复制数据，互不干扰，可以理解为深拷贝。</p>
-<h3 id="int-转-List-lt-Integer-gt"><a href="#int-转-List-lt-Integer-gt" class="headerlink" title="int[ ] 转 List&lt; Integer &gt;"></a>int[ ] 转 List&lt; Integer &gt;</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Integer&gt; list = Arrays.stream(ints).boxed().collect(Collectors.toList());</span><br></pre></td></tr></table></figure>
-
-<p>Arrays.stream(ints) 之后返回的类型是 IntStream，IntStream 是一个接口继承自 BaseStream，BaseStream 又继承自AutoCloseable。所以我把IntStream看成一个方便对每个整数做操作的数据流。</p>
-<p>之后调用了 boxed()，它的作用是对每个整数进行装箱，基本类型流转换为对象流，返回的是 Stream<Integer>，Stream 也是继承自 BaseStream。所以这一步的作用是把 IntStream 转换成了 Stream<Integer>。</p>
-<p>最后通过collect方法将数据流 (Stream<Integer>) 收集成了集合 ( List<Integer>)，这里 collect 方法里传入的是一个收集器 (Collector)，它通过 Collectors.toList() 产生。</p>
-<p>小结：</p>
-<ol>
-<li>Arrays.stream(ints) 将基本类型数组转换为基本类型流。 int[ ] &#x3D;&gt; IntStream</li>
-<li>.boxed() 将基本类型流转换为对象流。 &#x3D;&gt; Stream&lt; Integer &gt;</li>
-<li>.collect(Collectors.toList()) 将对象流收集为集合。 &#x3D;&gt; List&lt; Integer &gt;</li>
-</ol>
-<h3 id="int-转-List-lt-List-lt-Integer-gt-gt"><a href="#int-转-List-lt-List-lt-Integer-gt-gt" class="headerlink" title="int[ ] [ ] 转 List&lt;  List &lt; Integer &gt;  &gt;"></a>int[ ] [ ] 转 List&lt;  List &lt; Integer &gt;  &gt;</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">temp</span> <span class="operator">=</span> Arrays.deepToString(fooArr).replaceAll(<span class="string">&quot;\\[&quot;</span>,<span class="string">&quot;&quot;</span>).replaceAll(<span class="string">&quot;\\]&quot;</span>,<span class="string">&quot;&quot;</span>);</span><br><span class="line">List&lt;String&gt; fooList = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;(Arrays.asList(<span class="string">&quot;,&quot;</span>)); <span class="comment">//不对</span></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">List&lt;List&lt;Integer&gt;&gt; collect2 = Arrays.Stream(ints1).map(ar -&gt; Arrays.stream(ar).boxed().collect(Collectors.toList())).collect(Collectors.toList());</span><br></pre></td></tr></table></figure>
-
-<h3 id="int-转-Integer"><a href="#int-转-Integer" class="headerlink" title="int[ ] 转 Integer[ ]"></a>int[ ] 转 Integer[ ]</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Integer[] integers = Arrays.stream(ints).boxed().toArray(Integer[]::<span class="keyword">new</span>);</span><br></pre></td></tr></table></figure>
-
-<p>一样的内容就不重复了，toArray(T[ ] :: new) 方法返回基本类型数组。<br>小结：</p>
-<ol>
-<li>Arrays.stream(ints) 将基本类型数组转换为基本类型流。 int[ ] &#x3D;&gt; IntStream</li>
-<li>.boxed() 将基本类型流转换为对象流。&#x3D;&gt; Stream&lt; Integer &gt;</li>
-<li>.toArray(Integer[ ]::new) 将对象流转换为对象数组。&#x3D;&gt; Integer[ ]</li>
-</ol>
-<h3 id="int-转-Integer-1"><a href="#int-转-Integer-1" class="headerlink" title="int[ ] [ ]转 Integer[ ] [ ]"></a>int[ ] [ ]转 Integer[ ] [ ]</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Integer[][] integers3 = Arrays.stream(ints1).map(ints -&gt; Arrays.stream(ints).boxed().toArray(Integer[]::<span class="keyword">new</span>)).toArray(Integer[][]::<span class="keyword">new</span>);</span><br></pre></td></tr></table></figure>
-
-<h3 id="Integer-转-List-lt-Integer-gt"><a href="#Integer-转-List-lt-Integer-gt" class="headerlink" title="Integer[ ] 转 List&lt; Integer &gt;"></a>Integer[ ] 转 List&lt; Integer &gt;</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Integer&gt; list = Arrays.asList(integers);</span><br></pre></td></tr></table></figure>
-
-<p>这个就很简单了，通过Arrays类里的asList方法将数组装换为List。值得注意：</p>
-<p>asList 返回的是 Arrays 里的静态私有类 ArrayList，而不是 java.util 里的 ArrayList，它无法自动扩容。</p>
-<p>可以用下面2种方法生成可扩容的ArrayList：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Integer&gt; list = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;(Arrays.asList(integers)); </span><br></pre></td></tr></table></figure>
-
-<p>或者</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Integer&gt; list = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;(); </span><br><span class="line">Collections.addAll(list, integers);</span><br></pre></td></tr></table></figure>
-
-<h3 id="Integer-转-List-lt-List-lt-Integer-gt-gt"><a href="#Integer-转-List-lt-List-lt-Integer-gt-gt" class="headerlink" title="Integer[ ] [ ]转 List&lt; List &lt; Integer &gt; &gt;"></a>Integer[ ] [ ]转 List&lt; List &lt; Integer &gt; &gt;</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Integer[][] a = &#123;&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>&#125;,&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>&#125;&#125;;</span><br><span class="line">List&lt;List&lt;Integer&gt;&gt; lists = Arrays.stream(a).map(Arrays::asList).collect(Collectors.toList());</span><br></pre></td></tr></table></figure>
-
-<h3 id="Integer-转-int"><a href="#Integer-转-int" class="headerlink" title="Integer[ ] 转 int[ ]"></a>Integer[ ] 转 int[ ]</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span>[] ints = Arrays.stream(integers).mapToInt(Integer::valueOf).toArray();</span><br></pre></td></tr></table></figure>
-
-<p>map的意思是把每一个元素进行同样的操作。mapToInt的意思是把每一个元素转换为int。mapToInt(Integer::valueOf)方法返回的是IntStream。<br>小结：</p>
-<ol>
-<li>Arrays.stream(integers) 将对象数组转换为对象流。 Integer[ ] &#x3D;&gt; Stream&lt; Integer &gt;</li>
-<li>.mapToInt(Integer::valueOf) 将对象流转换成基本类型流。&#x3D;&gt; IntStream</li>
-<li>.toArray() 将基本类型流转换为基本类型数组。 &#x3D;&gt; int[ ]</li>
-</ol>
-<h3 id="Integer-转-int-1"><a href="#Integer-转-int-1" class="headerlink" title="Integer[ ] [ ]转 int[ ] [ ]"></a>Integer[ ] [ ]转 int[ ] [ ]</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Integer[][] a = &#123;&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>&#125;,&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>&#125;&#125;;      </span><br><span class="line"><span class="type">int</span>[][] ints1 = Arrays.stream(a).map(a1 -&gt; Arrays.stream(a1).mapToInt(Integer::valueOf).toArray()).toArray(<span class="type">int</span>[][]::<span class="keyword">new</span>);</span><br></pre></td></tr></table></figure>
-
-<h3 id="List-lt-Integer-gt-转-int"><a href="#List-lt-Integer-gt-转-int" class="headerlink" title="List&lt; Integer &gt; 转 int[ ]"></a>List&lt; Integer &gt; 转 int[ ]</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span>[] ints = list.stream().mapToInt(Integer::valueOf).toArray();</span><br></pre></td></tr></table></figure>
-
-<p>经过上面的说明，相信这里已经很好理解了，直接小结。<br>小结：</p>
-<ol>
-<li>list.stream() 将列表转换为对象流。List&lt; Integer &gt; &#x3D;&gt; Stream&lt; Integer &gt;</li>
-<li>.mapToInt(Integer::valueOf) 将对象流转换为基本数据类型流。&#x3D;&gt; IntStream</li>
-<li>.toArray() 将基本数据类型流转换为基本类型数组。&#x3D;&gt;int[ ]</li>
-</ol>
-<h3 id="List-lt-List-lt-Integer-gt-gt-转-int"><a href="#List-lt-List-lt-Integer-gt-gt-转-int" class="headerlink" title="List&lt; List &lt; Integer &gt; &gt; 转 int[ ] [ ]"></a>List&lt; List &lt; Integer &gt; &gt; 转 int[ ] [ ]</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">List&lt;List&lt;Integer&gt;&gt; lists = ...;</span><br><span class="line"><span class="type">int</span>[][] arrays = lists.stream()                                <span class="comment">// Stream&lt;List&lt;Integer&gt;&gt;</span></span><br><span class="line">        .map(list -&gt; list.stream().mapToInt(i -&gt; i).toArray()) <span class="comment">// Stream&lt;int[]&gt;</span></span><br><span class="line">        .toArray(<span class="type">int</span>[][]::<span class="keyword">new</span>);</span><br></pre></td></tr></table></figure>
-
-<h3 id="List-lt-Integer-gt-转-Integer"><a href="#List-lt-Integer-gt-转-Integer" class="headerlink" title="List&lt; Integer &gt; 转 Integer[ ]"></a>List&lt; Integer &gt; 转 Integer[ ]</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Integer[] integers = list.toArray(<span class="keyword">new</span> <span class="title class_">Integer</span>[list.size()]);</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Integer[] integers = list.stream().toArray(Integer[]::<span class="keyword">new</span>); <span class="comment">//不推荐</span></span><br></pre></td></tr></table></figure>
-
-<p>这个也很简单，方法里的参数是一个数组，所以要规定长度。也有无参的方法，但是要进行转型，所以不推荐使用。</p>
-<h3 id="List-lt-List-lt-Integer-gt-gt-转-Integer"><a href="#List-lt-List-lt-Integer-gt-gt-转-Integer" class="headerlink" title="List&lt; List &lt; Integer &gt; &gt; 转 Integer[ ] [ ]"></a>List&lt; List &lt; Integer &gt; &gt; 转 Integer[ ] [ ]</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">List&lt;List&lt;Integer&gt;&gt; lists = ...;</span><br><span class="line">Integer[][] arrays = lists.stream()                                <span class="comment">// Stream&lt;List&lt;Integer&gt;&gt;</span></span><br><span class="line">        .map(list -&gt; list.toArray(<span class="keyword">new</span> <span class="title class_">Integer</span>[list.size()])) <span class="comment">// Stream&lt;Integer[]&gt;</span></span><br><span class="line">        .toArray(Integer[][]::<span class="keyword">new</span>);</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Integer[][] arrays = lists.stream()                                <span class="comment">// Stream&lt;List&lt;Integer&gt;&gt;</span></span><br><span class="line">        .map(l -&gt; l.stream().toArray(String[]::<span class="keyword">new</span>)) <span class="comment">// Stream&lt;Integer[]&gt;</span></span><br><span class="line">        .toArray(Integer[][]::<span class="keyword">new</span>);</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Integer[][] arrays = lists.stream().map(List::toArray).toArray(Integer[][]::<span class="keyword">new</span>);</span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="List-lt-Character-gt-、char-、Character-相互转换"><a href="#List-lt-Character-gt-、char-、Character-相互转换" class="headerlink" title="List&lt; Character &gt;、char[ ]、Character[ ]相互转换"></a>List&lt; Character &gt;、char[ ]、Character[ ]相互转换</h2><h3 id="char-转-List-lt-Character-gt"><a href="#char-转-List-lt-Character-gt" class="headerlink" title="char[ ] 转 List&lt; Character &gt;"></a>char[ ] 转 List&lt; Character &gt;</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">char</span>[] chars = &#123;<span class="string">&#x27;a&#x27;</span>, <span class="string">&#x27;b&#x27;</span>, <span class="string">&#x27;c&#x27;</span>&#125;;</span><br><span class="line">List&lt;Character&gt; collect = <span class="keyword">new</span> <span class="title class_">String</span>(chars).chars().mapToObj(i -&gt; (<span class="type">char</span>) i).collect(Collectors.toList());</span><br></pre></td></tr></table></figure>
-
-<h3 id="char-转-List-lt-List-lt-Character-gt-gt"><a href="#char-转-List-lt-List-lt-Character-gt-gt" class="headerlink" title="char[ ] [ ] 转 List&lt;  List &lt; Character &gt;  &gt;"></a>char[ ] [ ] 转 List&lt;  List &lt; Character &gt;  &gt;</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">List&lt;List&lt;Character&gt;&gt; collect2 = Arrays.stream(ints1).map(chars1 -&gt; <span class="keyword">new</span> <span class="title class_">String</span>(chars1).chars().mapToObj(i -&gt; (<span class="type">char</span>) i).collect(Collectors.toList())).collect(Collectors.toList());</span><br></pre></td></tr></table></figure>
-
-<h3 id="char-转-Character"><a href="#char-转-Character" class="headerlink" title="char[ ] 转 Character[ ]"></a>char[ ] 转 Character[ ]</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">char</span>[] chars = &#123;<span class="string">&#x27;a&#x27;</span>, <span class="string">&#x27;b&#x27;</span>, <span class="string">&#x27;c&#x27;</span>&#125;;</span><br><span class="line">Character[] characters1 = <span class="keyword">new</span> <span class="title class_">String</span>(chars).chars().mapToObj(i -&gt; (<span class="type">char</span>) i).toArray(Character[]::<span class="keyword">new</span>);     </span><br></pre></td></tr></table></figure>
-
-<h3 id="char-转-Character-1"><a href="#char-转-Character-1" class="headerlink" title="char[ ] [ ]转 Character[ ] [ ]"></a>char[ ] [ ]转 Character[ ] [ ]</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Character[][] integers3 = Arrays.stream(ints1).map(chars -&gt; <span class="keyword">new</span> <span class="title class_">String</span>(chars).chars().mapToObj(i-&gt;(<span class="type">char</span>)i).toArray(Character[]::<span class="keyword">new</span>)).toArray(Character[][]::<span class="keyword">new</span>);</span><br></pre></td></tr></table></figure>
-
-<h3 id="Character-转-List-lt-Character-gt"><a href="#Character-转-List-lt-Character-gt" class="headerlink" title="Character[ ] 转 List&lt; Character &gt;"></a>Character[ ] 转 List&lt; Character &gt;</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Character&gt; collect2 = Arrays.stream(characters).collect(Collectors.toList());</span><br></pre></td></tr></table></figure>
-
-<h3 id="Character-转-List-lt-List-lt-Character-gt-gt"><a href="#Character-转-List-lt-List-lt-Character-gt-gt" class="headerlink" title="Character[ ] [ ]转 List&lt; List &lt; Character &gt; &gt;"></a>Character[ ] [ ]转 List&lt; List &lt; Character &gt; &gt;</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">List&lt;List&lt;Character&gt;&gt; lists = Arrays.stream(a).map(Arrays::asList).collect(Collectors.toList());</span><br></pre></td></tr></table></figure>
-
-<h3 id="Character-转-char"><a href="#Character-转-char" class="headerlink" title="Character[ ] 转 char[ ]"></a>Character[ ] 转 char[ ]</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">char</span>[] chars4 = Arrays.stream(characters1).map(String::valueOf).collect(Collectors.joining()).toCharArray();</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h3 id="Character-转-char-1"><a href="#Character-转-char-1" class="headerlink" title="Character[ ] [ ]转 char[ ] [ ]"></a>Character[ ] [ ]转 char[ ] [ ]</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">char</span>[][] ints1 = Arrays.stream(a).map(a1 -&gt; Arrays.stream(a1).map(String::valueOf).collect(Collectors.joining()).toCharArray()).toArray(<span class="type">char</span>[][]::<span class="keyword">new</span>);</span><br></pre></td></tr></table></figure>
-
-<h3 id="List-lt-Character-gt-转-char"><a href="#List-lt-Character-gt-转-char" class="headerlink" title="List&lt; Character &gt; 转 char[ ]"></a>List&lt; Character &gt; 转 char[ ]</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">char</span>[] value = characters.stream().map(String::valueOf).collect(Collectors.joining()).toCharArray();</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Character[] charArr = characters.toArray(<span class="keyword">new</span> <span class="title class_">Character</span>[characters.size()]);</span><br><span class="line"><span class="type">char</span>[] value = ArrayUtils.toPrimitive(charArr);</span><br></pre></td></tr></table></figure>
-
-<h3 id="List-lt-List-lt-Character-gt-gt-转-char"><a href="#List-lt-List-lt-Character-gt-gt-转-char" class="headerlink" title="List&lt; List &lt; Character &gt; &gt; 转 char[ ] [ ]"></a>List&lt; List &lt; Character &gt; &gt; 转 char[ ] [ ]</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">char</span>[][] arrays = lists.stream()                                <span class="comment">// Stream&lt;List&lt;Integer&gt;&gt;</span></span><br><span class="line">                .map(list -&gt; list.stream().map(String::valueOf).collect(Collectors.joining()).toCharArray()) <span class="comment">// Stream&lt;int[]&gt;</span></span><br><span class="line">                .toArray(<span class="type">char</span>[][]::<span class="keyword">new</span>);</span><br></pre></td></tr></table></figure>
-
-<h3 id="List-lt-Character-gt-转-Character"><a href="#List-lt-Character-gt-转-Character" class="headerlink" title="List&lt; Character &gt; 转 Character[ ]"></a>List&lt; Character &gt; 转 Character[ ]</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Character[] characters2 = Arrays.stream(characters1).toArray(Character[]::<span class="keyword">new</span>);</span><br></pre></td></tr></table></figure>
-
-<h3 id="List-lt-List-lt-Character-gt-gt-转-Character"><a href="#List-lt-List-lt-Character-gt-gt-转-Character" class="headerlink" title="List&lt; List &lt; Character &gt; &gt; 转 Character[ ] [ ]"></a>List&lt; List &lt; Character &gt; &gt; 转 Character[ ] [ ]</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Character[][] integers1 = lists.stream()                                <span class="comment">// Stream&lt;List&lt;Integer&gt;&gt;</span></span><br><span class="line">               .map(list -&gt; list.toArray(<span class="keyword">new</span> <span class="title class_">Character</span>[list.size()])).toArray(Character[][]::<span class="keyword">new</span>);</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Character[][] integers2 = lists.stream()                                <span class="comment">// Stream&lt;List&lt;Integer&gt;&gt;</span></span><br><span class="line">                .map(l -&gt; l.stream().toArray(Character[]::<span class="keyword">new</span>))</span><br><span class="line">                .toArray(Character[][]::<span class="keyword">new</span>);</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Character[][] integers = lists.stream().map(List::toArray).toArray(Character[][]::<span class="keyword">new</span>);</span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-
-    
-    
-    
-
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>l
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/2d4446ad/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/lion.png">
-      <meta itemprop="name" content="swimminghao">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="swimminghao's blog">
-      <meta itemprop="description" content="swimminghao的学习博客">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | swimminghao's blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/2d4446ad/" class="post-title-link" itemprop="url">10、【对线面试官】TreadLocal</a>
-        </h2>
-
-        <div class="post-meta-container">
-
-          
-
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-10 09:48:07" itemprop="dateModified" datetime="2022-03-10T09:48:07+08:00">2022-03-10</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="far fa-comment"></i>
-    </span>
-    <span class="post-meta-item-text">Waline：</span>
-  
-    <a title="waline" href="/posts/2d4446ad/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/2d4446ad/" data-xid="/posts/2d4446ad/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>982</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>1 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="10、【对线面试官】TreadLocal"><a href="#10、【对线面试官】TreadLocal" class="headerlink" title="10、【对线面试官】TreadLocal"></a>10、【对线面试官】TreadLocal</h1><h2 id="今天要不来聊聊ThreadLocal吧？"><a href="#今天要不来聊聊ThreadLocal吧？" class="headerlink" title="今天要不来聊聊ThreadLocal吧？"></a>今天要不来聊聊ThreadLocal吧？</h2><ol>
-<li>我个人对ThreadLocal理解就是</li>
-<li>它能够提供了线程的局部变量让每个线程都可以通过set&#x2F;get来对这个局部变量进行操作</li>
-<li>不会和其他线程的局部变量进行冲突，实现了线程的数据隔离</li>
-</ol>
-<h2 id="你在工作中有用到过ThreadLocal吗？"><a href="#你在工作中有用到过ThreadLocal吗？" class="headerlink" title="你在工作中有用到过ThreadLocal吗？"></a>你在工作中有用到过ThreadLocal吗？</h2><ol>
-<li>这块是真不多，不过还是有一处的。就是我们项目有个的DateUtils工具类</li>
-<li>这个工具类主要是对时间进行格式化</li>
-<li>格式化&#x2F;转化的实现是用的SimpleDateFormat</li>
-<li>但众所周知SimpleDateFormat不是线程安全的 ，所以我们就用ThreadLocal来让每个线程装载着自己的SimpleDateFormat对象</li>
-<li>以达到在格式化时间时，线程安全的目的</li>
-<li>在方法上创建SimpleDateFormat对象也没问题，但每调用一次就创建一次有点不优雅</li>
-<li>在工作中ThreadLocal的应用场景确实不多，但要不我给你讲讲Spring是怎么用的？</li>
-</ol>
-<h2 id="spring中的应用"><a href="#spring中的应用" class="headerlink" title="spring中的应用"></a>spring中的应用</h2><ol>
-<li>Spring提供了事务相关的操作，而我们知道事务是得保证一组操作同时成功或失败的</li>
-<li>这意味着我们一次事务的所有操作需要在同一个数据库连接上</li>
-<li>但是在我们日常写代码的时候是不需要关注这点的</li>
-<li>Spring就是用的ThreadLocal来实现，Th readLocal存储的类型是一个Map</li>
-<li>Map中的key是DataSource，value是C onnection（为了应对多数据源的情况，所以是一个Map）</li>
-<li>用了ThreadLocal保证了同一个线程获取一个Connection对象，从而保证一次事务的所有操作需要在同一个数据库连接上</li>
-</ol>
-<h2 id="你知道ThreadLocal内存泄露这个知识点吗？"><a href="#你知道ThreadLocal内存泄露这个知识点吗？" class="headerlink" title="你知道ThreadLocal内存泄露这个知识点吗？"></a>你知道ThreadLocal内存泄露这个知识点吗？</h2><ol>
-<li>了解的，要不我先来讲讲ThreadLocal的原理？<ul>
-<li>ThreadLocal是一个壳子，真正的存储结构是ThreadLocal里有ThreadLocalMap这么个内部类</li>
-<li>而有趣的是，ThreadLocalMap的引用是在Thread上定义的</li>
-<li>ThreadLocal本身并不存储值，它只是作为key来让线程从ThreadLocalMap获取value</li>
-<li>所以，得出的结论就是ThreadLocalMap该结构本身就在Thread下定义，而ThreadLocal只是作为key，存储set到ThreadLocalMap的变量当然是线程私有的咯</li>
-</ul>
-</li>
-</ol>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/NxSnnq_20211029171330.png"></p>
 
       
     </div>
