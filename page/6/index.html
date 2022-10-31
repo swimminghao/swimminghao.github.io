@@ -276,6 +276,159 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/2d4446ad/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lion.png">
+      <meta itemprop="name" content="swimminghao">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="swimminghao's blog">
+      <meta itemprop="description" content="swimminghao的学习博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | swimminghao's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/2d4446ad/" class="post-title-link" itemprop="url">10、【对线面试官】TreadLocal</a>
+        </h2>
+
+        <div class="post-meta-container">
+
+          
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-03-10 09:48:07" itemprop="dateModified" datetime="2022-03-10T09:48:07+08:00">2022-03-10</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/posts/2d4446ad/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/2d4446ad/" data-xid="/posts/2d4446ad/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>982</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>1 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="10、【对线面试官】TreadLocal"><a href="#10、【对线面试官】TreadLocal" class="headerlink" title="10、【对线面试官】TreadLocal"></a>10、【对线面试官】TreadLocal</h1><h2 id="今天要不来聊聊ThreadLocal吧？"><a href="#今天要不来聊聊ThreadLocal吧？" class="headerlink" title="今天要不来聊聊ThreadLocal吧？"></a>今天要不来聊聊ThreadLocal吧？</h2><ol>
+<li>我个人对ThreadLocal理解就是</li>
+<li>它能够提供了线程的局部变量让每个线程都可以通过set&#x2F;get来对这个局部变量进行操作</li>
+<li>不会和其他线程的局部变量进行冲突，实现了线程的数据隔离</li>
+</ol>
+<h2 id="你在工作中有用到过ThreadLocal吗？"><a href="#你在工作中有用到过ThreadLocal吗？" class="headerlink" title="你在工作中有用到过ThreadLocal吗？"></a>你在工作中有用到过ThreadLocal吗？</h2><ol>
+<li>这块是真不多，不过还是有一处的。就是我们项目有个的DateUtils工具类</li>
+<li>这个工具类主要是对时间进行格式化</li>
+<li>格式化&#x2F;转化的实现是用的SimpleDateFormat</li>
+<li>但众所周知SimpleDateFormat不是线程安全的 ，所以我们就用ThreadLocal来让每个线程装载着自己的SimpleDateFormat对象</li>
+<li>以达到在格式化时间时，线程安全的目的</li>
+<li>在方法上创建SimpleDateFormat对象也没问题，但每调用一次就创建一次有点不优雅</li>
+<li>在工作中ThreadLocal的应用场景确实不多，但要不我给你讲讲Spring是怎么用的？</li>
+</ol>
+<h2 id="spring中的应用"><a href="#spring中的应用" class="headerlink" title="spring中的应用"></a>spring中的应用</h2><ol>
+<li>Spring提供了事务相关的操作，而我们知道事务是得保证一组操作同时成功或失败的</li>
+<li>这意味着我们一次事务的所有操作需要在同一个数据库连接上</li>
+<li>但是在我们日常写代码的时候是不需要关注这点的</li>
+<li>Spring就是用的ThreadLocal来实现，Th readLocal存储的类型是一个Map</li>
+<li>Map中的key是DataSource，value是C onnection（为了应对多数据源的情况，所以是一个Map）</li>
+<li>用了ThreadLocal保证了同一个线程获取一个Connection对象，从而保证一次事务的所有操作需要在同一个数据库连接上</li>
+</ol>
+<h2 id="你知道ThreadLocal内存泄露这个知识点吗？"><a href="#你知道ThreadLocal内存泄露这个知识点吗？" class="headerlink" title="你知道ThreadLocal内存泄露这个知识点吗？"></a>你知道ThreadLocal内存泄露这个知识点吗？</h2><ol>
+<li>了解的，要不我先来讲讲ThreadLocal的原理？<ul>
+<li>ThreadLocal是一个壳子，真正的存储结构是ThreadLocal里有ThreadLocalMap这么个内部类</li>
+<li>而有趣的是，ThreadLocalMap的引用是在Thread上定义的</li>
+<li>ThreadLocal本身并不存储值，它只是作为key来让线程从ThreadLocalMap获取value</li>
+<li>所以，得出的结论就是ThreadLocalMap该结构本身就在Thread下定义，而ThreadLocal只是作为key，存储set到ThreadLocalMap的变量当然是线程私有的咯</li>
+</ul>
+</li>
+</ol>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/NxSnnq_20211029171330.png"></p>
+
+      
+    </div>
+
+    
+    
+    
+
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>l
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://example.com/posts/58f7b356/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1927,185 +2080,6 @@
 </li>
 </ol>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>Kafka能这么快的原因就是实现了并行、充分利用操作系统cache、顺序写和零拷贝</p>
-
-      
-    </div>
-
-    
-    
-    
-
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>l
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/ace2edeb/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/lion.png">
-      <meta itemprop="name" content="swimminghao">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="swimminghao's blog">
-      <meta itemprop="description" content="swimminghao的学习博客">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | swimminghao's blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/ace2edeb/" class="post-title-link" itemprop="url">21、【对线面试官】Mysql索引</a>
-        </h2>
-
-        <div class="post-meta-container">
-
-          
-
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-10 09:48:07" itemprop="dateModified" datetime="2022-03-10T09:48:07+08:00">2022-03-10</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="far fa-comment"></i>
-    </span>
-    <span class="post-meta-item-text">Waline：</span>
-  
-    <a title="waline" href="/posts/ace2edeb/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/ace2edeb/" data-xid="/posts/ace2edeb/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>1.8k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>2 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="21、【对线面试官】Mysql索引"><a href="#21、【对线面试官】Mysql索引" class="headerlink" title="21、【对线面试官】Mysql索引"></a>21、【对线面试官】Mysql索引</h1><h2 id="我看你简历上写了MySQL，对MySQL-InnoDB引擎的索引了解吗？"><a href="#我看你简历上写了MySQL，对MySQL-InnoDB引擎的索引了解吗？" class="headerlink" title="我看你简历上写了MySQL，对MySQL InnoDB引擎的索引了解吗？"></a>我看你简历上写了MySQL，对MySQL InnoDB引擎的索引了解吗？</h2><ol>
-<li>嗯啊，使用索引可以加快查询速度，其实上就是将无序的数据变成有序（有序就能加快检索速度）</li>
-<li>在InnoDB引擎中，索引的底层数据结构是**<code>B+树</code>**</li>
-</ol>
-<h2 id="那为什么不使用红黑树或者B树呢？"><a href="#那为什么不使用红黑树或者B树呢？" class="headerlink" title="那为什么不使用红黑树或者B树呢？"></a>那为什么不使用红黑树或者B树呢？</h2><ol>
-<li><p>MySQL的数据是存储在硬盘的，在查询时一般是不能「一次性」把全部数据加载到内存中</p>
-</li>
-<li><p>红黑树是「二叉查找树」的变种，一个Node节点只能存储一个Key和一个Value</p>
-</li>
-<li><p>B和B+树跟红黑树不一样，它们算是「多路搜索树」，相较于「二叉搜索树」而言，一个Node节点可以存储的信息会更多，「多路搜索树」的高度会比「二叉搜索树」更低。</p>
-</li>
-<li><p>了解了区别之后，其实就很容易发现，在数据不能一次加载至内存的场景下，数据需要被检索出来</p>
-</li>
-<li><p>选择B或B+树的理由就很充分了（一个Node节点存储信息更多（相较于二叉搜索树），树的高度更低，树的高度影响检索的速度）</p>
-</li>
-<li><p>B+树相对于B树而言，它又有两种特性。</p>
-<p>1）B+树非叶子节点不存储数据，在相同的数据量下，B+树更加矮壮。（这个应该不用多解释了，数据都存储在叶子节点上，非叶子节点的存储能存储更多的索引，所以整棵树就更加矮壮）</p>
-<p>2）B+树叶子节点之间组成一个链表，方便于遍历查询（遍历操作在MySQL中比较常见）</p>
-</li>
-<li><p>我稍微解释一下吧，你可以脑补下画面</p>
-</li>
-<li><p>我们在MySQL InnoDB引擎下，每创建一个索引，相当于生成了一颗B+树。</p>
-</li>
-<li><p>如果该索引是「聚集（聚簇）索引」，那当前B+树的叶子节点存储着「主键和当前行的数据」</p>
-</li>
-<li><p>如果该索引是「非聚簇索引小」，那当前B+树的叶子节点存储着「主键和当前索引列值」</p>
-</li>
-<li><p>比如写了一句sql：select*from user where id&gt;&#x3D;10，那只要定位到id为10的记录，然后在叶子节点之间通过遍历链表（叶子节点组成的链表），即可找到往后的记录了。</p>
-</li>
-<li><p>由于B树是会在非叶子节点也存储数据，要遍历的时候可能就得跨层检索，相对麻烦些。</p>
-</li>
-<li><p>基于树的层级以及业务使用场景的特性，所以MySQL选择了B+树作为索引的底层数据结构。</p>
-</li>
-<li><p>对于哈希结构，其实InnoDB引擎是「自适应」哈希索引的（hash索引的创建由lnnoDB存储引擎自动优化创建，我们是干预不了）</p>
-</li>
-</ol>
-<h2 id="你知道什么是回表吗？"><a href="#你知道什么是回表吗？" class="headerlink" title="你知道什么是回表吗？"></a>你知道什么是回表吗？</h2><ol>
-<li>所谓的回表其实就是，当我们使用非聚簇索引查询数据时，检索出来的数据可能包含其他列</li>
-<li>但走的索引树叶子节点只能查到当前列值以及主键ID，所以需要根据主键ID再去查一遍数据，得到SQL所需的列</li>
-<li>举个例子，我这边建了给订单号ID建了个索引，但我的SQL是：select orderld，orderName from orderdetail where orderld &#x3D; 123</li>
-<li>SQL走订单ID索引，但在订单ID的索引树的叶子节点只有orderld和ld，而我们还想检索出orderName，所以MySQL会拿到ID再去查出orderName给我们返回，这种操作就叫回表</li>
-</ol>
-<h2 id="如何避免回表"><a href="#如何避免回表" class="headerlink" title="如何避免回表"></a>如何避免回表</h2><ol>
-<li>想要避免回表，可以使用覆盖索引</li>
-<li>所谓的覆盖索引，实际上就是你想要查出的列刚好在叶子节点上都存在，比如我建了orderld和orderName.联合索引l，刚好我需要查询也是orderld和orderName，这些数据都存在索引树的叶子节点上，就不需要回表操作了。</li>
-</ol>
-<h2 id="既然你也提到了联合索引，我想问下你了解最左匹配原则吗"><a href="#既然你也提到了联合索引，我想问下你了解最左匹配原则吗" class="headerlink" title="既然你也提到了联合索引，我想问下你了解最左匹配原则吗"></a>既然你也提到了联合索引，我想问下你了解最左匹配原则吗</h2><ol>
-<li>嗯，要说明这个概念，还是举例子比较容易</li>
-<li>如有索引（a，b，c，d），查询条件a&#x3D;1and b&#x3D;2 and c&gt;3 and d&#x3D;4，则会在每个节点依次命中a、b、c，无法命中d</li>
-<li>先匹配最左边的，索引只能用于查找key是否存在（相等），遇到范围查询（&gt;、&lt;、between、like左匹配）等就不能进一步匹配了，后续退化为线性查找</li>
-<li>这就是最左匹配原则</li>
-</ol>
-<h2 id="嗯嗯，我还想问下你们主键是怎么生成的？"><a href="#嗯嗯，我还想问下你们主键是怎么生成的？" class="headerlink" title="嗯嗯，我还想问下你们主键是怎么生成的？"></a>嗯嗯，我还想问下你们主键是怎么生成的？</h2><p>主键就自增的</p>
-<h2 id="那假设我不用MySQL自增的主键，你觉得会有什么问题呢？"><a href="#那假设我不用MySQL自增的主键，你觉得会有什么问题呢？" class="headerlink" title="那假设我不用MySQL自增的主键，你觉得会有什么问题呢？"></a>那假设我不用MySQL自增的主键，你觉得会有什么问题呢？</h2><ol>
-<li>首先主键得保证它的唯一性和空间尽可能短吧，这两块是需要考虑的。</li>
-<li>另外，由于索引的特性（有序），如果生成像uuid类似的主键，那插入的的性能是比自增的要差的</li>
-<li>因为生成的uuid，在插入时有可能需要移动磁盘块（比如，块内的空间在当前时刻已经存储满了，但新生成的uuid需要插入已满的块内，就需要移动块的数据）</li>
-</ol>
 
       
     </div>
