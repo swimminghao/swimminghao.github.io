@@ -219,8 +219,8 @@
 	</div>
 	<ul class="links-of-blogroll-list recent-posts-list">
 	        <li class="my-links-of-blogroll-item">
-		    <a href="/posts/7f44bc11/" title="word技巧" target="">
-		    word技巧
+		    <a href="/posts/e78153dc/" title="Word技巧：如何使用正则表达式高效替换" target="">
+		    Word技巧：如何使用正则表达式高效替换
 		    </a>
 		</li>
 	        <li class="my-links-of-blogroll-item">
@@ -267,159 +267,6 @@
 
 
     <div class="main-inner index posts-expand">
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/2d4446ad/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/lion.png">
-      <meta itemprop="name" content="swimminghao">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="swimminghao's blog">
-      <meta itemprop="description" content="swimminghao的学习博客">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | swimminghao's blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/2d4446ad/" class="post-title-link" itemprop="url">10、【对线面试官】TreadLocal</a>
-        </h2>
-
-        <div class="post-meta-container">
-
-          
-
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-10 09:48:07" itemprop="dateModified" datetime="2022-03-10T09:48:07+08:00">2022-03-10</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="far fa-comment"></i>
-    </span>
-    <span class="post-meta-item-text">Waline：</span>
-  
-    <a title="waline" href="/posts/2d4446ad/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/2d4446ad/" data-xid="/posts/2d4446ad/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>982</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>1 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="10、【对线面试官】TreadLocal"><a href="#10、【对线面试官】TreadLocal" class="headerlink" title="10、【对线面试官】TreadLocal"></a>10、【对线面试官】TreadLocal</h1><h2 id="今天要不来聊聊ThreadLocal吧？"><a href="#今天要不来聊聊ThreadLocal吧？" class="headerlink" title="今天要不来聊聊ThreadLocal吧？"></a>今天要不来聊聊ThreadLocal吧？</h2><ol>
-<li>我个人对ThreadLocal理解就是</li>
-<li>它能够提供了线程的局部变量让每个线程都可以通过set&#x2F;get来对这个局部变量进行操作</li>
-<li>不会和其他线程的局部变量进行冲突，实现了线程的数据隔离</li>
-</ol>
-<h2 id="你在工作中有用到过ThreadLocal吗？"><a href="#你在工作中有用到过ThreadLocal吗？" class="headerlink" title="你在工作中有用到过ThreadLocal吗？"></a>你在工作中有用到过ThreadLocal吗？</h2><ol>
-<li>这块是真不多，不过还是有一处的。就是我们项目有个的DateUtils工具类</li>
-<li>这个工具类主要是对时间进行格式化</li>
-<li>格式化&#x2F;转化的实现是用的SimpleDateFormat</li>
-<li>但众所周知SimpleDateFormat不是线程安全的 ，所以我们就用ThreadLocal来让每个线程装载着自己的SimpleDateFormat对象</li>
-<li>以达到在格式化时间时，线程安全的目的</li>
-<li>在方法上创建SimpleDateFormat对象也没问题，但每调用一次就创建一次有点不优雅</li>
-<li>在工作中ThreadLocal的应用场景确实不多，但要不我给你讲讲Spring是怎么用的？</li>
-</ol>
-<h2 id="spring中的应用"><a href="#spring中的应用" class="headerlink" title="spring中的应用"></a>spring中的应用</h2><ol>
-<li>Spring提供了事务相关的操作，而我们知道事务是得保证一组操作同时成功或失败的</li>
-<li>这意味着我们一次事务的所有操作需要在同一个数据库连接上</li>
-<li>但是在我们日常写代码的时候是不需要关注这点的</li>
-<li>Spring就是用的ThreadLocal来实现，Th readLocal存储的类型是一个Map</li>
-<li>Map中的key是DataSource，value是C onnection（为了应对多数据源的情况，所以是一个Map）</li>
-<li>用了ThreadLocal保证了同一个线程获取一个Connection对象，从而保证一次事务的所有操作需要在同一个数据库连接上</li>
-</ol>
-<h2 id="你知道ThreadLocal内存泄露这个知识点吗？"><a href="#你知道ThreadLocal内存泄露这个知识点吗？" class="headerlink" title="你知道ThreadLocal内存泄露这个知识点吗？"></a>你知道ThreadLocal内存泄露这个知识点吗？</h2><ol>
-<li>了解的，要不我先来讲讲ThreadLocal的原理？<ul>
-<li>ThreadLocal是一个壳子，真正的存储结构是ThreadLocal里有ThreadLocalMap这么个内部类</li>
-<li>而有趣的是，ThreadLocalMap的引用是在Thread上定义的</li>
-<li>ThreadLocal本身并不存储值，它只是作为key来让线程从ThreadLocalMap获取value</li>
-<li>所以，得出的结论就是ThreadLocalMap该结构本身就在Thread下定义，而ThreadLocal只是作为key，存储set到ThreadLocalMap的变量当然是线程私有的咯</li>
-</ul>
-</li>
-</ol>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/NxSnnq_20211029171330.png"></p>
-
-      
-    </div>
-
-    
-    
-    
-
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>l
-
-
-
 
     
 
@@ -1332,6 +1179,181 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/36f701ea/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lion.png">
+      <meta itemprop="name" content="swimminghao">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="swimminghao's blog">
+      <meta itemprop="description" content="swimminghao的学习博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | swimminghao's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/36f701ea/" class="post-title-link" itemprop="url">17、【对线面试官】Redis基础</a>
+        </h2>
+
+        <div class="post-meta-container">
+
+          
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-03-10 09:48:07" itemprop="dateModified" datetime="2022-03-10T09:48:07+08:00">2022-03-10</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/posts/36f701ea/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/36f701ea/" data-xid="/posts/36f701ea/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>1.7k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>2 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="17、【对线面试官】Redis基础"><a href="#17、【对线面试官】Redis基础" class="headerlink" title="17、【对线面试官】Redis基础"></a>17、【对线面试官】Redis基础</h1><h2 id="你先来讲讲为什么要用Redis吧？"><a href="#你先来讲讲为什么要用Redis吧？" class="headerlink" title="你先来讲讲为什么要用Redis吧？"></a>你先来讲讲为什么要用Redis吧？</h2><ol>
+<li>我个人是这样理解的：无论Redis也好、MySQL也好、HDFS也好、HBase也好</li>
+<li>他们都是存储数据的地方</li>
+<li>因为它们的设计理念的不同，我们会根据不同的应用场景使用不同的存储</li>
+<li>像Redis一般我们会把它用作于缓存</li>
+<li>当然啦，日常有的应用场景比较简单，用个HashMap也能解决很多的问题了，没必要上Redis</li>
+<li>这就好比，有的单机限流可能应对某些场景就够用了，也没必要说一定要上分布式限流把系统搞得复杂</li>
+</ol>
+<h2 id="那你在项目里有用到Redis吗？怎么用的？"><a href="#那你在项目里有用到Redis吗？怎么用的？" class="headerlink" title="那你在项目里有用到Redis吗？怎么用的？"></a>那你在项目里有用到Redis吗？怎么用的？</h2><ol>
+<li>Redis肯定是用到的，我负责的项目几乎都会有Redisl的踪影</li>
+<li>我举几个我这边项目用的案例呗？</li>
+<li>我这边负责消息管理平台，简单来说就是发消息的</li>
+<li>那发完消息肯定我们是得知道消息有没有下发成功的，是吧？</li>
+<li>于是我们系统有一套完整的链路追踪体系</li>
+<li>其中实时的数据我们就用Redis来进行存储，有实时肯定就会有离线的嘛（离线的数据我们是存储到Hive的）</li>
+<li>对消息进行实时链路追踪，我这边就用了Redis好几种的数据结构，分别有Set、List和Hash</li>
+<li>我再稍微铺垫下链路追踪的背景吧~</li>
+<li>要在消息管理平台发消息，首先得在后台新建一个「模板」，有模板自然会有一个模板ID</li>
+<li>对模板D进行扩展，比如说加上日期和固定的业务参数，形成的ID可以唯一标识某个模板的下发链路</li>
+<li>在系统上，我这边叫它为UMPID</li>
+<li>在发送入口处会对所有需要下发的消息打上UMPID，然后在关键链路上打上对应的点位</li>
+<li>接下来的工作就是清洗出统一的模型，然后根据不同维度进行处理啦。比如说：</li>
+<li>我要看某一天下发的所有模板有哪些，那只要我把清洗出来后数据的，将对应UMPID扔到了Set就好了</li>
+<li>我要看某一个模板的消息下发的整体链路情况，那我以UMPID为Key，Value是Hash结构，Key是state，Value则是人数</li>
+<li>这里的state我们在下发的过程中打的关键点位，比如接收到消息打个51，消息被去重了打个61，消息成功下发了打个81…</li>
+<li>以UMPID为Key，Hash结构的Key（State）进行不断的累加，就可以实现某一个模板的消息下发的整体链路情况</li>
+<li>我要看某个用户当天下发的消息有哪些，以及这些消息的整体链路是如何。</li>
+<li>这边我用的是List结构，Key是userld，Value则是UMPID+state（关键点位）+processTime（处理时间）</li>
+</ol>
+<ul>
+<li>简单来说，就是通过Redis丰富的数据结构来实现对下发消息多个维度的统计</li>
+<li>不同的应用场景选择不同的数据结构，再等到透出做处理的时候，就变得十分简单了</li>
+<li>消息下发过程中去重或者一般正常的场景就直接Key-Value就能符合需求了</li>
+<li>像bitmap、hyperloglogs、sortset、steam等等这些数据结构在我所负责的项目用得是真不多</li>
+<li>要是我有机会去到贵公司，贵公司有相关的应用场景，我相信我也很快就能掌握</li>
+<li>这些数据结构底层都由对应的object来支撑着，objecti记录对应的「编码」</li>
+<li>其实就是会根据key-value存储的数量或者长度来使用选择不同的底层数据结构实现</li>
+<li>比如说：ziplist压缩列表这个底层数据结构有可能上层的实现是list、hash和sortset</li>
+<li>Hash结构的底层数据结构可能是hash和ziplist</li>
+<li>在节省内存和性能的考量之中切换,Redis还是有点屌的啊。</li>
+</ul>
+<h2 id="就你上面那个实时链路场景，可以用其他的存储替代吗？"><a href="#就你上面那个实时链路场景，可以用其他的存储替代吗？" class="headerlink" title="就你上面那个实时链路场景，可以用其他的存储替代吗？"></a>就你上面那个实时链路场景，可以用其他的存储替代吗？</h2><ol>
+<li>嗯，理论上是可以的（或许可以尝试用HBase），但总体来说没这么好吧</li>
+<li>因为Redis拥有丰富的数据结构，在透出的时候，处理会非常的方便。</li>
+<li>如果不用Redis的话，还得做很多解析的工作</li>
+<li>并且，我那场景的并发还是相当大的（就一条消息发送，可能就产生10条记录）</li>
+<li>监控峰值命令处理数会去到20K+QPS，当然了，这场景我肯定用了Pipeline的（不然处理会慢很多）</li>
+<li>综合上面并发量和实时性以及数据结构，用Redis：是一个比较好的选择。</li>
+</ol>
+<h2 id="你觉得为什么Redis可以这么快？"><a href="#你觉得为什么Redis可以这么快？" class="headerlink" title="你觉得为什么Redis可以这么快？"></a>你觉得为什么Redis可以这么快？</h2><ol>
+<li>首先，它是纯内存操作，内存本身就很快</li>
+<li>其次，它是单线程的，Redis服务器核心是基于非阻塞的O多路复用机制，单线程避免了多线程的频繁上下文切换问题</li>
+<li>至于这个单线程，其实官网也有过说明（：表示使用Redis往往的瓶颈在于内与和网络，而不在于CPU</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>l
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://example.com/posts/32e97c2c/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1519,181 +1541,6 @@
 <p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/q5B8nQ_20211228115227.png"></p>
 <p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/ldYlbE_20211228115337.png"></p>
 <p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/czgjnh_20211228115425.png"></p>
-
-      
-    </div>
-
-    
-    
-    
-
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>l
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/36f701ea/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/lion.png">
-      <meta itemprop="name" content="swimminghao">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="swimminghao's blog">
-      <meta itemprop="description" content="swimminghao的学习博客">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | swimminghao's blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/36f701ea/" class="post-title-link" itemprop="url">17、【对线面试官】Redis基础</a>
-        </h2>
-
-        <div class="post-meta-container">
-
-          
-
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-10 09:48:07" itemprop="dateModified" datetime="2022-03-10T09:48:07+08:00">2022-03-10</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="far fa-comment"></i>
-    </span>
-    <span class="post-meta-item-text">Waline：</span>
-  
-    <a title="waline" href="/posts/36f701ea/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/36f701ea/" data-xid="/posts/36f701ea/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>1.7k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>2 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="17、【对线面试官】Redis基础"><a href="#17、【对线面试官】Redis基础" class="headerlink" title="17、【对线面试官】Redis基础"></a>17、【对线面试官】Redis基础</h1><h2 id="你先来讲讲为什么要用Redis吧？"><a href="#你先来讲讲为什么要用Redis吧？" class="headerlink" title="你先来讲讲为什么要用Redis吧？"></a>你先来讲讲为什么要用Redis吧？</h2><ol>
-<li>我个人是这样理解的：无论Redis也好、MySQL也好、HDFS也好、HBase也好</li>
-<li>他们都是存储数据的地方</li>
-<li>因为它们的设计理念的不同，我们会根据不同的应用场景使用不同的存储</li>
-<li>像Redis一般我们会把它用作于缓存</li>
-<li>当然啦，日常有的应用场景比较简单，用个HashMap也能解决很多的问题了，没必要上Redis</li>
-<li>这就好比，有的单机限流可能应对某些场景就够用了，也没必要说一定要上分布式限流把系统搞得复杂</li>
-</ol>
-<h2 id="那你在项目里有用到Redis吗？怎么用的？"><a href="#那你在项目里有用到Redis吗？怎么用的？" class="headerlink" title="那你在项目里有用到Redis吗？怎么用的？"></a>那你在项目里有用到Redis吗？怎么用的？</h2><ol>
-<li>Redis肯定是用到的，我负责的项目几乎都会有Redisl的踪影</li>
-<li>我举几个我这边项目用的案例呗？</li>
-<li>我这边负责消息管理平台，简单来说就是发消息的</li>
-<li>那发完消息肯定我们是得知道消息有没有下发成功的，是吧？</li>
-<li>于是我们系统有一套完整的链路追踪体系</li>
-<li>其中实时的数据我们就用Redis来进行存储，有实时肯定就会有离线的嘛（离线的数据我们是存储到Hive的）</li>
-<li>对消息进行实时链路追踪，我这边就用了Redis好几种的数据结构，分别有Set、List和Hash</li>
-<li>我再稍微铺垫下链路追踪的背景吧~</li>
-<li>要在消息管理平台发消息，首先得在后台新建一个「模板」，有模板自然会有一个模板ID</li>
-<li>对模板D进行扩展，比如说加上日期和固定的业务参数，形成的ID可以唯一标识某个模板的下发链路</li>
-<li>在系统上，我这边叫它为UMPID</li>
-<li>在发送入口处会对所有需要下发的消息打上UMPID，然后在关键链路上打上对应的点位</li>
-<li>接下来的工作就是清洗出统一的模型，然后根据不同维度进行处理啦。比如说：</li>
-<li>我要看某一天下发的所有模板有哪些，那只要我把清洗出来后数据的，将对应UMPID扔到了Set就好了</li>
-<li>我要看某一个模板的消息下发的整体链路情况，那我以UMPID为Key，Value是Hash结构，Key是state，Value则是人数</li>
-<li>这里的state我们在下发的过程中打的关键点位，比如接收到消息打个51，消息被去重了打个61，消息成功下发了打个81…</li>
-<li>以UMPID为Key，Hash结构的Key（State）进行不断的累加，就可以实现某一个模板的消息下发的整体链路情况</li>
-<li>我要看某个用户当天下发的消息有哪些，以及这些消息的整体链路是如何。</li>
-<li>这边我用的是List结构，Key是userld，Value则是UMPID+state（关键点位）+processTime（处理时间）</li>
-</ol>
-<ul>
-<li>简单来说，就是通过Redis丰富的数据结构来实现对下发消息多个维度的统计</li>
-<li>不同的应用场景选择不同的数据结构，再等到透出做处理的时候，就变得十分简单了</li>
-<li>消息下发过程中去重或者一般正常的场景就直接Key-Value就能符合需求了</li>
-<li>像bitmap、hyperloglogs、sortset、steam等等这些数据结构在我所负责的项目用得是真不多</li>
-<li>要是我有机会去到贵公司，贵公司有相关的应用场景，我相信我也很快就能掌握</li>
-<li>这些数据结构底层都由对应的object来支撑着，objecti记录对应的「编码」</li>
-<li>其实就是会根据key-value存储的数量或者长度来使用选择不同的底层数据结构实现</li>
-<li>比如说：ziplist压缩列表这个底层数据结构有可能上层的实现是list、hash和sortset</li>
-<li>Hash结构的底层数据结构可能是hash和ziplist</li>
-<li>在节省内存和性能的考量之中切换,Redis还是有点屌的啊。</li>
-</ul>
-<h2 id="就你上面那个实时链路场景，可以用其他的存储替代吗？"><a href="#就你上面那个实时链路场景，可以用其他的存储替代吗？" class="headerlink" title="就你上面那个实时链路场景，可以用其他的存储替代吗？"></a>就你上面那个实时链路场景，可以用其他的存储替代吗？</h2><ol>
-<li>嗯，理论上是可以的（或许可以尝试用HBase），但总体来说没这么好吧</li>
-<li>因为Redis拥有丰富的数据结构，在透出的时候，处理会非常的方便。</li>
-<li>如果不用Redis的话，还得做很多解析的工作</li>
-<li>并且，我那场景的并发还是相当大的（就一条消息发送，可能就产生10条记录）</li>
-<li>监控峰值命令处理数会去到20K+QPS，当然了，这场景我肯定用了Pipeline的（不然处理会慢很多）</li>
-<li>综合上面并发量和实时性以及数据结构，用Redis：是一个比较好的选择。</li>
-</ol>
-<h2 id="你觉得为什么Redis可以这么快？"><a href="#你觉得为什么Redis可以这么快？" class="headerlink" title="你觉得为什么Redis可以这么快？"></a>你觉得为什么Redis可以这么快？</h2><ol>
-<li>首先，它是纯内存操作，内存本身就很快</li>
-<li>其次，它是单线程的，Redis服务器核心是基于非阻塞的O多路复用机制，单线程避免了多线程的频繁上下文切换问题</li>
-<li>至于这个单线程，其实官网也有过说明（：表示使用Redis往往的瓶颈在于内与和网络，而不在于CPU</li>
-</ol>
 
       
     </div>
@@ -2103,6 +1950,187 @@
 
 
 
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/c5b7e17d/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lion.png">
+      <meta itemprop="name" content="swimminghao">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="swimminghao's blog">
+      <meta itemprop="description" content="swimminghao的学习博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | swimminghao's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/c5b7e17d/" class="post-title-link" itemprop="url">20、【对线面试官】使用kafka会考虑什么问题</a>
+        </h2>
+
+        <div class="post-meta-container">
+
+          
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-03-10 09:48:07" itemprop="dateModified" datetime="2022-03-10T09:48:07+08:00">2022-03-10</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/posts/c5b7e17d/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/c5b7e17d/" data-xid="/posts/c5b7e17d/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>1.8k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>2 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="20、【对线面试官】使用kafka会考虑什么问题"><a href="#20、【对线面试官】使用kafka会考虑什么问题" class="headerlink" title="20、【对线面试官】使用kafka会考虑什么问题"></a>20、【对线面试官】使用kafka会考虑什么问题</h1><h2 id="你提到了你这边会从交易的消息报获取到订单的数据，然后做业务的处理；也提到了你用的是Kafka，我想问下，Kafka会丢数据吗？"><a href="#你提到了你这边会从交易的消息报获取到订单的数据，然后做业务的处理；也提到了你用的是Kafka，我想问下，Kafka会丢数据吗？" class="headerlink" title="你提到了你这边会从交易的消息报获取到订单的数据，然后做业务的处理；也提到了你用的是Kafka，我想问下，Kafka会丢数据吗？"></a>你提到了你这边会从交易的消息报获取到订单的数据，然后做业务的处理；也提到了你用的是Kafka，我想问下，Kafka会丢数据吗？</h2><ol>
+<li><p>嗯，使用Kafkal时，有可能会有以下场景会丢消息</p>
+</li>
+<li><p>比如说，我们用Producer发消息至Broke的时候，就有可能会丢消息</p>
+</li>
+<li><p>如果你不想丢消息，那在发送消息的时候，需要选择带有callBack的api进行发送</p>
+</li>
+<li><p>其实就意味着，如果你发送成功了，会回调告诉你已经发送成功了。如果失败了，那收到回调之后自己在业务上做重试就好了。</p>
+</li>
+<li><p>等到把消息发送到Brokerl以后，也有可能丢消息</p>
+</li>
+<li><p>一般我们的线上环境都是集群环境下嘛，但可能你发送的消息后broker就挂了，这时挂掉的broker还没来得及把数据同步给别的broker，数据就自然就丢了</p>
+</li>
+<li><p>发送到Broker之后，也不能保证数据就一定不丢了，毕竟Broker会把数据存储到磁盘之前，走的是操作系统缓存</p>
+</li>
+<li><p>也就是异步刷盘这个过程还有可能导致数据会丢</p>
+</li>
+<li><p>嗯，到这里其实我已经说了三个场景了，分别是：producer-》broker，broker-》broker之间同步，以及broker-》磁盘</p>
+</li>
+<li><p>要解决上面所讲的问题也比较简单，这块也没什么好说的…</p>
+</li>
+<li><p>不想丢数据，那就使用带有callback的api设置acks、retries、factor等等些参数来保证Producer发送的消息不会丢就好啦。</p>
+</li>
+</ol>
+<h2 id="一般来说，还是client消费broker丢消息的场景比较多；那你们在消费数据的时候是怎么保证数据的可靠性的呢？"><a href="#一般来说，还是client消费broker丢消息的场景比较多；那你们在消费数据的时候是怎么保证数据的可靠性的呢？" class="headerlink" title="一般来说，还是client消费broker丢消息的场景比较多；那你们在消费数据的时候是怎么保证数据的可靠性的呢？"></a>一般来说，还是client消费broker丢消息的场景比较多；那你们在消费数据的时候是怎么保证数据的可靠性的呢？</h2><ol>
+<li><p>首先，要想client端消费数据不能丢，肯定是不能使用autoCommit的，所以必须是手动提交的。</p>
+</li>
+<li><p>我们这边是这样实现的：</p>
+<p>一、从Kafka拉取消息、（一次批量拉取500条，这里主要看配置）<br>二、为每条拉取的消息分配一个msgld（递增）<br>三、将msgld存入内存队列（sortSet）中<br>四、使用Map存储msgld.与msg（有offset相关的信息）的映射关系</p>
+<p>五、当业务处理完消息后，ack时，获取当前处理的消息nsgld，然后从sortSet删除该msgld（此时代表已经处理过了）<br>六、接着与sortSet队列的首部第一个ld比较（其实就是最小的msgld），如果当前msgld&lt;&#x3D;sort Set第一个ID，则提交当前offset</p>
+<p>七、系统即便挂了，在下次重启时就会从sortSet队首的消息开始拉取，实现至少处理一次语义<br>八、会有少量的消息重复，但只要下游做好幂等就OK了</p>
+</li>
+</ol>
+<h2 id="嗯，你也提到了幂等，你们是怎么实现幂等性的呢？"><a href="#嗯，你也提到了幂等，你们是怎么实现幂等性的呢？" class="headerlink" title="嗯，你也提到了幂等，你们是怎么实现幂等性的呢？"></a>嗯，你也提到了幂等，你们是怎么实现幂等性的呢？</h2><ol>
+<li>嗯，还是以处理订单消息为例好了。</li>
+<li>幂等Key我们由订单编号+订单状态所组成（一笔订单的状态只会处理一次）</li>
+<li>在处理之前，我们首先会去查Redis：是否存在该Key，如果存在，则说明我们已经处理过了，直接丢掉</li>
+<li>如果Redis没处理过，则继续往下处理，最终的逻辑是将处理过的数据插入到业务DB上，再到最后把幂等Key插入到Redis上</li>
+<li>显然，单纯通过Redis是无法保证幂等的</li>
+<li>所以，Redis其实只是一个「前置」处理，最终的幂等性是依赖数据库的唯一Key来保证的（唯一Key实际上也是订单编号+状态）</li>
+<li>而插入DB是依赖事务的，所以是没问题的</li>
+<li>总的来说，就是通过Redis做前置处理，DB唯一索引做最终保证来实现幂等性的</li>
+</ol>
+<h2 id="你们那边遇到过顺序消费的问题吗？"><a href="#你们那边遇到过顺序消费的问题吗？" class="headerlink" title="你们那边遇到过顺序消费的问题吗？"></a>你们那边遇到过顺序消费的问题吗？</h2><ol>
+<li><p>嗯，也是有的，我举个例子</p>
+</li>
+<li><p>订单的状态比如有支付、确认收货、完成等等，而订单下还有计费、退款的消息报</p>
+</li>
+<li><p>理论上来说，支付的消息报肯定要比退款消息报先到嘛，但程序处理的过程中可不一定的嘛</p>
+</li>
+<li><p>所以在这边也是有消费顺序的问题（先处理了支付，才能退款啊）</p>
+</li>
+<li><p>但在广告场景下不是「强顺序」的，只要保证最终一致性就好了。</p>
+</li>
+<li><p>所以我们这边处理「乱序」消息的实现是这样的：</p>
+<p>1）宽表：将每一个订单状态，单独分出一个或多个独立的字段。消息来时只更新对应的字段就好，消息只会存在短暂的状态不一致问题，但是状态最终是一致的</p>
+<p>2）消息补偿机制：另一个进行消费相同topicl的数据，消息落盘，延迟处理。将消息与DB进行对比，如果发现数据不一致，再重新发送消息至主进程处理</p>
+<p>3）还有部分场景，可能我们只需要把相同userld&#x2F;orderld.发送到相同的partition（因为一个partition由一个Consumer消费），又能解决大部分消费顺序的问题了呢。</p>
+</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>l
+
+
+
+
   <nav class="pagination">
     <a class="extend prev" rel="prev" href="/page/5/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/">15</a><a class="extend next" rel="next" href="/page/7/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
@@ -2133,7 +2161,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">15:41</span>
+    <span title="站点阅读时长">15:44</span>
   </span>
 </div>
 
