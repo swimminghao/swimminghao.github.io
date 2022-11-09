@@ -276,185 +276,6 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/ace2edeb/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/lion.png">
-      <meta itemprop="name" content="swimminghao">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="swimminghao's blog">
-      <meta itemprop="description" content="swimminghao的学习博客">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | swimminghao's blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/ace2edeb/" class="post-title-link" itemprop="url">21、【对线面试官】Mysql索引</a>
-        </h2>
-
-        <div class="post-meta-container">
-
-          
-
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-10 09:48:07" itemprop="dateModified" datetime="2022-03-10T09:48:07+08:00">2022-03-10</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="far fa-comment"></i>
-    </span>
-    <span class="post-meta-item-text">Waline：</span>
-  
-    <a title="waline" href="/posts/ace2edeb/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/ace2edeb/" data-xid="/posts/ace2edeb/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>1.8k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>2 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="21、【对线面试官】Mysql索引"><a href="#21、【对线面试官】Mysql索引" class="headerlink" title="21、【对线面试官】Mysql索引"></a>21、【对线面试官】Mysql索引</h1><h2 id="我看你简历上写了MySQL，对MySQL-InnoDB引擎的索引了解吗？"><a href="#我看你简历上写了MySQL，对MySQL-InnoDB引擎的索引了解吗？" class="headerlink" title="我看你简历上写了MySQL，对MySQL InnoDB引擎的索引了解吗？"></a>我看你简历上写了MySQL，对MySQL InnoDB引擎的索引了解吗？</h2><ol>
-<li>嗯啊，使用索引可以加快查询速度，其实上就是将无序的数据变成有序（有序就能加快检索速度）</li>
-<li>在InnoDB引擎中，索引的底层数据结构是**<code>B+树</code>**</li>
-</ol>
-<h2 id="那为什么不使用红黑树或者B树呢？"><a href="#那为什么不使用红黑树或者B树呢？" class="headerlink" title="那为什么不使用红黑树或者B树呢？"></a>那为什么不使用红黑树或者B树呢？</h2><ol>
-<li><p>MySQL的数据是存储在硬盘的，在查询时一般是不能「一次性」把全部数据加载到内存中</p>
-</li>
-<li><p>红黑树是「二叉查找树」的变种，一个Node节点只能存储一个Key和一个Value</p>
-</li>
-<li><p>B和B+树跟红黑树不一样，它们算是「多路搜索树」，相较于「二叉搜索树」而言，一个Node节点可以存储的信息会更多，「多路搜索树」的高度会比「二叉搜索树」更低。</p>
-</li>
-<li><p>了解了区别之后，其实就很容易发现，在数据不能一次加载至内存的场景下，数据需要被检索出来</p>
-</li>
-<li><p>选择B或B+树的理由就很充分了（一个Node节点存储信息更多（相较于二叉搜索树），树的高度更低，树的高度影响检索的速度）</p>
-</li>
-<li><p>B+树相对于B树而言，它又有两种特性。</p>
-<p>1）B+树非叶子节点不存储数据，在相同的数据量下，B+树更加矮壮。（这个应该不用多解释了，数据都存储在叶子节点上，非叶子节点的存储能存储更多的索引，所以整棵树就更加矮壮）</p>
-<p>2）B+树叶子节点之间组成一个链表，方便于遍历查询（遍历操作在MySQL中比较常见）</p>
-</li>
-<li><p>我稍微解释一下吧，你可以脑补下画面</p>
-</li>
-<li><p>我们在MySQL InnoDB引擎下，每创建一个索引，相当于生成了一颗B+树。</p>
-</li>
-<li><p>如果该索引是「聚集（聚簇）索引」，那当前B+树的叶子节点存储着「主键和当前行的数据」</p>
-</li>
-<li><p>如果该索引是「非聚簇索引小」，那当前B+树的叶子节点存储着「主键和当前索引列值」</p>
-</li>
-<li><p>比如写了一句sql：select*from user where id&gt;&#x3D;10，那只要定位到id为10的记录，然后在叶子节点之间通过遍历链表（叶子节点组成的链表），即可找到往后的记录了。</p>
-</li>
-<li><p>由于B树是会在非叶子节点也存储数据，要遍历的时候可能就得跨层检索，相对麻烦些。</p>
-</li>
-<li><p>基于树的层级以及业务使用场景的特性，所以MySQL选择了B+树作为索引的底层数据结构。</p>
-</li>
-<li><p>对于哈希结构，其实InnoDB引擎是「自适应」哈希索引的（hash索引的创建由lnnoDB存储引擎自动优化创建，我们是干预不了）</p>
-</li>
-</ol>
-<h2 id="你知道什么是回表吗？"><a href="#你知道什么是回表吗？" class="headerlink" title="你知道什么是回表吗？"></a>你知道什么是回表吗？</h2><ol>
-<li>所谓的回表其实就是，当我们使用非聚簇索引查询数据时，检索出来的数据可能包含其他列</li>
-<li>但走的索引树叶子节点只能查到当前列值以及主键ID，所以需要根据主键ID再去查一遍数据，得到SQL所需的列</li>
-<li>举个例子，我这边建了给订单号ID建了个索引，但我的SQL是：select orderld，orderName from orderdetail where orderld &#x3D; 123</li>
-<li>SQL走订单ID索引，但在订单ID的索引树的叶子节点只有orderld和ld，而我们还想检索出orderName，所以MySQL会拿到ID再去查出orderName给我们返回，这种操作就叫回表</li>
-</ol>
-<h2 id="如何避免回表"><a href="#如何避免回表" class="headerlink" title="如何避免回表"></a>如何避免回表</h2><ol>
-<li>想要避免回表，可以使用覆盖索引</li>
-<li>所谓的覆盖索引，实际上就是你想要查出的列刚好在叶子节点上都存在，比如我建了orderld和orderName.联合索引l，刚好我需要查询也是orderld和orderName，这些数据都存在索引树的叶子节点上，就不需要回表操作了。</li>
-</ol>
-<h2 id="既然你也提到了联合索引，我想问下你了解最左匹配原则吗"><a href="#既然你也提到了联合索引，我想问下你了解最左匹配原则吗" class="headerlink" title="既然你也提到了联合索引，我想问下你了解最左匹配原则吗"></a>既然你也提到了联合索引，我想问下你了解最左匹配原则吗</h2><ol>
-<li>嗯，要说明这个概念，还是举例子比较容易</li>
-<li>如有索引（a，b，c，d），查询条件a&#x3D;1and b&#x3D;2 and c&gt;3 and d&#x3D;4，则会在每个节点依次命中a、b、c，无法命中d</li>
-<li>先匹配最左边的，索引只能用于查找key是否存在（相等），遇到范围查询（&gt;、&lt;、between、like左匹配）等就不能进一步匹配了，后续退化为线性查找</li>
-<li>这就是最左匹配原则</li>
-</ol>
-<h2 id="嗯嗯，我还想问下你们主键是怎么生成的？"><a href="#嗯嗯，我还想问下你们主键是怎么生成的？" class="headerlink" title="嗯嗯，我还想问下你们主键是怎么生成的？"></a>嗯嗯，我还想问下你们主键是怎么生成的？</h2><p>主键就自增的</p>
-<h2 id="那假设我不用MySQL自增的主键，你觉得会有什么问题呢？"><a href="#那假设我不用MySQL自增的主键，你觉得会有什么问题呢？" class="headerlink" title="那假设我不用MySQL自增的主键，你觉得会有什么问题呢？"></a>那假设我不用MySQL自增的主键，你觉得会有什么问题呢？</h2><ol>
-<li>首先主键得保证它的唯一性和空间尽可能短吧，这两块是需要考虑的。</li>
-<li>另外，由于索引的特性（有序），如果生成像uuid类似的主键，那插入的的性能是比自增的要差的</li>
-<li>因为生成的uuid，在插入时有可能需要移动磁盘块（比如，块内的空间在当前时刻已经存储满了，但新生成的uuid需要插入已满的块内，就需要移动块的数据）</li>
-</ol>
-
-      
-    </div>
-
-    
-    
-    
-
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>l
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://example.com/posts/c5b7e17d/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -604,6 +425,185 @@
 <p>2）消息补偿机制：另一个进行消费相同topicl的数据，消息落盘，延迟处理。将消息与DB进行对比，如果发现数据不一致，再重新发送消息至主进程处理</p>
 <p>3）还有部分场景，可能我们只需要把相同userld&#x2F;orderld.发送到相同的partition（因为一个partition由一个Consumer消费），又能解决大部分消费顺序的问题了呢。</p>
 </li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>l
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/ace2edeb/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lion.png">
+      <meta itemprop="name" content="swimminghao">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="swimminghao's blog">
+      <meta itemprop="description" content="swimminghao的学习博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | swimminghao's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/ace2edeb/" class="post-title-link" itemprop="url">21、【对线面试官】Mysql索引</a>
+        </h2>
+
+        <div class="post-meta-container">
+
+          
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-03-10 09:48:07" itemprop="dateModified" datetime="2022-03-10T09:48:07+08:00">2022-03-10</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/posts/ace2edeb/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/ace2edeb/" data-xid="/posts/ace2edeb/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>1.8k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>2 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="21、【对线面试官】Mysql索引"><a href="#21、【对线面试官】Mysql索引" class="headerlink" title="21、【对线面试官】Mysql索引"></a>21、【对线面试官】Mysql索引</h1><h2 id="我看你简历上写了MySQL，对MySQL-InnoDB引擎的索引了解吗？"><a href="#我看你简历上写了MySQL，对MySQL-InnoDB引擎的索引了解吗？" class="headerlink" title="我看你简历上写了MySQL，对MySQL InnoDB引擎的索引了解吗？"></a>我看你简历上写了MySQL，对MySQL InnoDB引擎的索引了解吗？</h2><ol>
+<li>嗯啊，使用索引可以加快查询速度，其实上就是将无序的数据变成有序（有序就能加快检索速度）</li>
+<li>在InnoDB引擎中，索引的底层数据结构是**<code>B+树</code>**</li>
+</ol>
+<h2 id="那为什么不使用红黑树或者B树呢？"><a href="#那为什么不使用红黑树或者B树呢？" class="headerlink" title="那为什么不使用红黑树或者B树呢？"></a>那为什么不使用红黑树或者B树呢？</h2><ol>
+<li><p>MySQL的数据是存储在硬盘的，在查询时一般是不能「一次性」把全部数据加载到内存中</p>
+</li>
+<li><p>红黑树是「二叉查找树」的变种，一个Node节点只能存储一个Key和一个Value</p>
+</li>
+<li><p>B和B+树跟红黑树不一样，它们算是「多路搜索树」，相较于「二叉搜索树」而言，一个Node节点可以存储的信息会更多，「多路搜索树」的高度会比「二叉搜索树」更低。</p>
+</li>
+<li><p>了解了区别之后，其实就很容易发现，在数据不能一次加载至内存的场景下，数据需要被检索出来</p>
+</li>
+<li><p>选择B或B+树的理由就很充分了（一个Node节点存储信息更多（相较于二叉搜索树），树的高度更低，树的高度影响检索的速度）</p>
+</li>
+<li><p>B+树相对于B树而言，它又有两种特性。</p>
+<p>1）B+树非叶子节点不存储数据，在相同的数据量下，B+树更加矮壮。（这个应该不用多解释了，数据都存储在叶子节点上，非叶子节点的存储能存储更多的索引，所以整棵树就更加矮壮）</p>
+<p>2）B+树叶子节点之间组成一个链表，方便于遍历查询（遍历操作在MySQL中比较常见）</p>
+</li>
+<li><p>我稍微解释一下吧，你可以脑补下画面</p>
+</li>
+<li><p>我们在MySQL InnoDB引擎下，每创建一个索引，相当于生成了一颗B+树。</p>
+</li>
+<li><p>如果该索引是「聚集（聚簇）索引」，那当前B+树的叶子节点存储着「主键和当前行的数据」</p>
+</li>
+<li><p>如果该索引是「非聚簇索引小」，那当前B+树的叶子节点存储着「主键和当前索引列值」</p>
+</li>
+<li><p>比如写了一句sql：select*from user where id&gt;&#x3D;10，那只要定位到id为10的记录，然后在叶子节点之间通过遍历链表（叶子节点组成的链表），即可找到往后的记录了。</p>
+</li>
+<li><p>由于B树是会在非叶子节点也存储数据，要遍历的时候可能就得跨层检索，相对麻烦些。</p>
+</li>
+<li><p>基于树的层级以及业务使用场景的特性，所以MySQL选择了B+树作为索引的底层数据结构。</p>
+</li>
+<li><p>对于哈希结构，其实InnoDB引擎是「自适应」哈希索引的（hash索引的创建由lnnoDB存储引擎自动优化创建，我们是干预不了）</p>
+</li>
+</ol>
+<h2 id="你知道什么是回表吗？"><a href="#你知道什么是回表吗？" class="headerlink" title="你知道什么是回表吗？"></a>你知道什么是回表吗？</h2><ol>
+<li>所谓的回表其实就是，当我们使用非聚簇索引查询数据时，检索出来的数据可能包含其他列</li>
+<li>但走的索引树叶子节点只能查到当前列值以及主键ID，所以需要根据主键ID再去查一遍数据，得到SQL所需的列</li>
+<li>举个例子，我这边建了给订单号ID建了个索引，但我的SQL是：select orderld，orderName from orderdetail where orderld &#x3D; 123</li>
+<li>SQL走订单ID索引，但在订单ID的索引树的叶子节点只有orderld和ld，而我们还想检索出orderName，所以MySQL会拿到ID再去查出orderName给我们返回，这种操作就叫回表</li>
+</ol>
+<h2 id="如何避免回表"><a href="#如何避免回表" class="headerlink" title="如何避免回表"></a>如何避免回表</h2><ol>
+<li>想要避免回表，可以使用覆盖索引</li>
+<li>所谓的覆盖索引，实际上就是你想要查出的列刚好在叶子节点上都存在，比如我建了orderld和orderName.联合索引l，刚好我需要查询也是orderld和orderName，这些数据都存在索引树的叶子节点上，就不需要回表操作了。</li>
+</ol>
+<h2 id="既然你也提到了联合索引，我想问下你了解最左匹配原则吗"><a href="#既然你也提到了联合索引，我想问下你了解最左匹配原则吗" class="headerlink" title="既然你也提到了联合索引，我想问下你了解最左匹配原则吗"></a>既然你也提到了联合索引，我想问下你了解最左匹配原则吗</h2><ol>
+<li>嗯，要说明这个概念，还是举例子比较容易</li>
+<li>如有索引（a，b，c，d），查询条件a&#x3D;1and b&#x3D;2 and c&gt;3 and d&#x3D;4，则会在每个节点依次命中a、b、c，无法命中d</li>
+<li>先匹配最左边的，索引只能用于查找key是否存在（相等），遇到范围查询（&gt;、&lt;、between、like左匹配）等就不能进一步匹配了，后续退化为线性查找</li>
+<li>这就是最左匹配原则</li>
+</ol>
+<h2 id="嗯嗯，我还想问下你们主键是怎么生成的？"><a href="#嗯嗯，我还想问下你们主键是怎么生成的？" class="headerlink" title="嗯嗯，我还想问下你们主键是怎么生成的？"></a>嗯嗯，我还想问下你们主键是怎么生成的？</h2><p>主键就自增的</p>
+<h2 id="那假设我不用MySQL自增的主键，你觉得会有什么问题呢？"><a href="#那假设我不用MySQL自增的主键，你觉得会有什么问题呢？" class="headerlink" title="那假设我不用MySQL自增的主键，你觉得会有什么问题呢？"></a>那假设我不用MySQL自增的主键，你觉得会有什么问题呢？</h2><ol>
+<li>首先主键得保证它的唯一性和空间尽可能短吧，这两块是需要考虑的。</li>
+<li>另外，由于索引的特性（有序），如果生成像uuid类似的主键，那插入的的性能是比自增的要差的</li>
+<li>因为生成的uuid，在插入时有可能需要移动磁盘块（比如，块内的空间在当前时刻已经存储满了，但新生成的uuid需要插入已满的块内，就需要移动块的数据）</li>
 </ol>
 
       
@@ -1673,194 +1673,6 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/6f64b3a6/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/lion.png">
-      <meta itemprop="name" content="swimminghao">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="swimminghao's blog">
-      <meta itemprop="description" content="swimminghao的学习博客">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | swimminghao's blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/6f64b3a6/" class="post-title-link" itemprop="url">28、【对线面试官】JVM内存模型</a>
-        </h2>
-
-        <div class="post-meta-container">
-
-          
-
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-10 09:48:07" itemprop="dateModified" datetime="2022-03-10T09:48:07+08:00">2022-03-10</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="far fa-comment"></i>
-    </span>
-    <span class="post-meta-item-text">Waline：</span>
-  
-    <a title="waline" href="/posts/6f64b3a6/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/6f64b3a6/" data-xid="/posts/6f64b3a6/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>1.6k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>1 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="28、【对线面试官】JVM内存模型"><a href="#28、【对线面试官】JVM内存模型" class="headerlink" title="28、【对线面试官】JVM内存模型"></a>28、【对线面试官】JVM内存模型</h1><h2 id="聊聊JVM的内存结构吧？"><a href="#聊聊JVM的内存结构吧？" class="headerlink" title="聊聊JVM的内存结构吧？"></a>聊聊JVM的内存结构吧？</h2><ul>
-<li>class文件会被类加载器装载至JVM中，并且JVM会负责程序「运行时」的「内存管理」</li>
-<li>而JVM的内存结构，往往指的就是JVM定义的「运行时数据区域」</li>
-<li>简单来说就分为了5大块：方法区、堆、程序计数器、虚拟机栈、本地方法栈</li>
-</ul>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/VHXC3i_20211229151038.png"></p>
-<h2 id="顺便讲下你这图上每个区域的内容"><a href="#顺便讲下你这图上每个区域的内容" class="headerlink" title="顺便讲下你这图上每个区域的内容"></a>顺便讲下你这图上每个区域的内容</h2><ul>
-<li>程序计数器<ul>
-<li>Java是多线程的语言，假设线程数大于CPU数，就很会有「线程切換」现象，切换意昧着「中断」和「恢复」，那自然就需要有一块区域来保存「当前线程的执行信息」</li>
-<li>所以，程序计数器就是用于记录各个线程执行的字节码的地址（分支、循环跳转、异常、线程恢复等都依赖于计数器）</li>
-</ul>
-</li>
-<li>虚拟机栈<ul>
-<li>每个线程在创建的时候都会创建一个虚拟机栈，每次方法调用都会创建一个「栈帧」。每个「栈帧」会包含几块内容：局部变量表、操作数栈、动态连接和返回地址</li>
-<li>作用：它保存方法的局部变量、部分变量的计算并参与了方法的调用和返回。</li>
-</ul>
-</li>
-</ul>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/GOLAU2_20211229151640.png"></p>
-<ul>
-<li><p>本地方法栈</p>
-<ul>
-<li>本地方法栈跟虚拟机栈的功能类似，虚拟机栈用于管理Java函数的调用，而本地方法栈则用于管理本地方法的调用。这里的「本地方法」指的是「非Java方法」，一般本地方法是使用C语言实现的。</li>
-</ul>
-</li>
-<li><p>方法区</p>
-<ul>
-<li>前面提到了运行时数据区这个「分区」是JVM的「规范」，具体的落地实现，不同的虚拟机厂商可能是不一样的</li>
-<li>所以「方法区」也只是JVM中规范的一部分</li>
-<li>Hotspot虚拟机，就会常常提到「永久代」这个词。 Hotspotl虚拟机在「JDK8前」用「永久代」实现了「方法区」，而很多其他厂商的虚拟机其实是没有「永久代」的概念的</li>
-<li>在JDK8中，已经用「元空间」来替代了「永久代」作为「方法区」的实现了</li>
-<li>方法区主要是用来存放已被虚拟机加载的「类相关信息」：包括类信息、常量池<ul>
-<li>类信息又包括了类的版本、字段、方法、接口和父类等信息。</li>
-<li>常量池又可以分「静态常量池」和「运行时常量池」<ul>
-<li>静态常量池主要存储的是「字面量」以及「符号引用」等信息，静态常量池也包括了我们说的「字符串常量池」。</li>
-<li>「运行时常量池」存储的是「类加载」时生成的「直接引用」等信息</li>
-<li>值得注意的是：从「逻辑分区」的角度而言「常量池」是属于「方法区」的</li>
-<li>但自从在「JDK7」以后，就已经把「运行时常量池」和「静态常量池」转移到了「堆」内存中进行存储</li>
-<li>对于「物理分区」来说「运行时常量池」和「静态常量池』就属于堆</li>
-</ul>
-</li>
-<li>总体来说，就是逻辑分区和物理实际存储的位置，是不一样的</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>堆</p>
-<ul>
-<li><p>「堆」是线程共享的区域，几乎类的实例和数组分配的内存都来自于它</p>
-</li>
-<li><p>「堆」被划分为「新生代」和「老年代」，「新生代」又被进一步划分为Eden和 Survivor区，最后 Survivor由From Survivor 和 To Survivor组成</p>
-</li>
-</ul>
-</li>
-</ul>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/Xm317A_20211229152833.png"></p>
-<h2 id="从「JDK8」已经把「方法区」的实现从「永久代」变成「元空间」，有什么区别？"><a href="#从「JDK8」已经把「方法区」的实现从「永久代」变成「元空间」，有什么区别？" class="headerlink" title="从「JDK8」已经把「方法区」的实现从「永久代」变成「元空间」，有什么区别？"></a>从「JDK8」已经把「方法区」的实现从「永久代」变成「元空间」，有什么区别？</h2><ul>
-<li>最主要的区别就是：「元空间」存储不在虚拟机中，而是使用本地内存，JVM不会再出现方法区的内存溢出，以往「永久代」经常因为内存不够用导致跑出OOM异常。</li>
-<li>按JDK8版本，总结起来其实就相当于：「类信息」是存储在「元空间」的（也有人把「类信息」这块叫做「类信息常量池」）</li>
-<li>而「常量池」用JDK7开始，从「物理存储」角度上就在「堆中」，这是没有变化的。</li>
-</ul>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/5Ha0EV_20211229152636.png"></p>
-<h2 id="JVM内存结构和Java內存模型有啥区别吧？"><a href="#JVM内存结构和Java內存模型有啥区别吧？" class="headerlink" title="JVM内存结构和Java內存模型有啥区别吧？"></a>JVM内存结构和Java內存模型有啥区别吧？</h2><ul>
-<li>Java内存模型是跟「并发」相关的，它是为了屏蔽底层细节而提出的规范，希望在上层（Java层面上）在操作内存时在不同的平台上也有相同的效果</li>
-<li>JVM内存结构（又称为运行时数据区域），它描述着当我们的 class文件加载至虚拟机后，各个分区的「逻辑结构」是如何的，每个分区承担的作用</li>
-</ul>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p><strong>JVM内存结构组成</strong>：JVM内存结构又称为「运行时数据区域」。主要有五部分组成：虚拟机栈、本地方法栈、程序计数器、方法区和堆。其中方法区和堆是线程共享的。虚拟机栈、本地方法栈以及程序计数器是线程隔离的。</p>
-
-      
-    </div>
-
-    
-    
-    
-
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>l
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://example.com/posts/e1774332/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2026,6 +1838,194 @@
 <p><strong>Java内存模型抽象结构</strong>：线程之间的「共享变量」存储在「主内存」中，每个线程都有自己私有的「本地内存」，「本地内存」存储了该线程以读&#x2F;写共享变量的副本。线程对变量的所有操作都必须在「本地内存」进行，而「不能直接读写主内存」的变量</p>
 <p><strong>happen-before规则</strong>：Java内存模型规定在某些场景下（一共8条），前面一个操作的结果对后续操作必须是可见的。这8条规则成为happen-before规则</p>
 <p><strong>volatile</strong>：volatile是Java的关键字，修饰的变量是可见性且有序的（不会被重排序）。可见性&amp;&amp;有序性，由Java内存模型定义的「内存屏障」完成，实际HotSpot虚拟机实现Java内存模型规范，汇编底层是通过Lock指令来实现。</p>
+
+      
+    </div>
+
+    
+    
+    
+
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>l
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/6f64b3a6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lion.png">
+      <meta itemprop="name" content="swimminghao">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="swimminghao's blog">
+      <meta itemprop="description" content="swimminghao的学习博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | swimminghao's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/6f64b3a6/" class="post-title-link" itemprop="url">28、【对线面试官】JVM内存模型</a>
+        </h2>
+
+        <div class="post-meta-container">
+
+          
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-03-10 09:48:07" itemprop="dateModified" datetime="2022-03-10T09:48:07+08:00">2022-03-10</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/posts/6f64b3a6/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/6f64b3a6/" data-xid="/posts/6f64b3a6/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>1.6k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>1 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="28、【对线面试官】JVM内存模型"><a href="#28、【对线面试官】JVM内存模型" class="headerlink" title="28、【对线面试官】JVM内存模型"></a>28、【对线面试官】JVM内存模型</h1><h2 id="聊聊JVM的内存结构吧？"><a href="#聊聊JVM的内存结构吧？" class="headerlink" title="聊聊JVM的内存结构吧？"></a>聊聊JVM的内存结构吧？</h2><ul>
+<li>class文件会被类加载器装载至JVM中，并且JVM会负责程序「运行时」的「内存管理」</li>
+<li>而JVM的内存结构，往往指的就是JVM定义的「运行时数据区域」</li>
+<li>简单来说就分为了5大块：方法区、堆、程序计数器、虚拟机栈、本地方法栈</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/VHXC3i_20211229151038.png"></p>
+<h2 id="顺便讲下你这图上每个区域的内容"><a href="#顺便讲下你这图上每个区域的内容" class="headerlink" title="顺便讲下你这图上每个区域的内容"></a>顺便讲下你这图上每个区域的内容</h2><ul>
+<li>程序计数器<ul>
+<li>Java是多线程的语言，假设线程数大于CPU数，就很会有「线程切換」现象，切换意昧着「中断」和「恢复」，那自然就需要有一块区域来保存「当前线程的执行信息」</li>
+<li>所以，程序计数器就是用于记录各个线程执行的字节码的地址（分支、循环跳转、异常、线程恢复等都依赖于计数器）</li>
+</ul>
+</li>
+<li>虚拟机栈<ul>
+<li>每个线程在创建的时候都会创建一个虚拟机栈，每次方法调用都会创建一个「栈帧」。每个「栈帧」会包含几块内容：局部变量表、操作数栈、动态连接和返回地址</li>
+<li>作用：它保存方法的局部变量、部分变量的计算并参与了方法的调用和返回。</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/GOLAU2_20211229151640.png"></p>
+<ul>
+<li><p>本地方法栈</p>
+<ul>
+<li>本地方法栈跟虚拟机栈的功能类似，虚拟机栈用于管理Java函数的调用，而本地方法栈则用于管理本地方法的调用。这里的「本地方法」指的是「非Java方法」，一般本地方法是使用C语言实现的。</li>
+</ul>
+</li>
+<li><p>方法区</p>
+<ul>
+<li>前面提到了运行时数据区这个「分区」是JVM的「规范」，具体的落地实现，不同的虚拟机厂商可能是不一样的</li>
+<li>所以「方法区」也只是JVM中规范的一部分</li>
+<li>Hotspot虚拟机，就会常常提到「永久代」这个词。 Hotspotl虚拟机在「JDK8前」用「永久代」实现了「方法区」，而很多其他厂商的虚拟机其实是没有「永久代」的概念的</li>
+<li>在JDK8中，已经用「元空间」来替代了「永久代」作为「方法区」的实现了</li>
+<li>方法区主要是用来存放已被虚拟机加载的「类相关信息」：包括类信息、常量池<ul>
+<li>类信息又包括了类的版本、字段、方法、接口和父类等信息。</li>
+<li>常量池又可以分「静态常量池」和「运行时常量池」<ul>
+<li>静态常量池主要存储的是「字面量」以及「符号引用」等信息，静态常量池也包括了我们说的「字符串常量池」。</li>
+<li>「运行时常量池」存储的是「类加载」时生成的「直接引用」等信息</li>
+<li>值得注意的是：从「逻辑分区」的角度而言「常量池」是属于「方法区」的</li>
+<li>但自从在「JDK7」以后，就已经把「运行时常量池」和「静态常量池」转移到了「堆」内存中进行存储</li>
+<li>对于「物理分区」来说「运行时常量池」和「静态常量池』就属于堆</li>
+</ul>
+</li>
+<li>总体来说，就是逻辑分区和物理实际存储的位置，是不一样的</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>堆</p>
+<ul>
+<li><p>「堆」是线程共享的区域，几乎类的实例和数组分配的内存都来自于它</p>
+</li>
+<li><p>「堆」被划分为「新生代」和「老年代」，「新生代」又被进一步划分为Eden和 Survivor区，最后 Survivor由From Survivor 和 To Survivor组成</p>
+</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/Xm317A_20211229152833.png"></p>
+<h2 id="从「JDK8」已经把「方法区」的实现从「永久代」变成「元空间」，有什么区别？"><a href="#从「JDK8」已经把「方法区」的实现从「永久代」变成「元空间」，有什么区别？" class="headerlink" title="从「JDK8」已经把「方法区」的实现从「永久代」变成「元空间」，有什么区别？"></a>从「JDK8」已经把「方法区」的实现从「永久代」变成「元空间」，有什么区别？</h2><ul>
+<li>最主要的区别就是：「元空间」存储不在虚拟机中，而是使用本地内存，JVM不会再出现方法区的内存溢出，以往「永久代」经常因为内存不够用导致跑出OOM异常。</li>
+<li>按JDK8版本，总结起来其实就相当于：「类信息」是存储在「元空间」的（也有人把「类信息」这块叫做「类信息常量池」）</li>
+<li>而「常量池」用JDK7开始，从「物理存储」角度上就在「堆中」，这是没有变化的。</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/5Ha0EV_20211229152636.png"></p>
+<h2 id="JVM内存结构和Java內存模型有啥区别吧？"><a href="#JVM内存结构和Java內存模型有啥区别吧？" class="headerlink" title="JVM内存结构和Java內存模型有啥区别吧？"></a>JVM内存结构和Java內存模型有啥区别吧？</h2><ul>
+<li>Java内存模型是跟「并发」相关的，它是为了屏蔽底层细节而提出的规范，希望在上层（Java层面上）在操作内存时在不同的平台上也有相同的效果</li>
+<li>JVM内存结构（又称为运行时数据区域），它描述着当我们的 class文件加载至虚拟机后，各个分区的「逻辑结构」是如何的，每个分区承担的作用</li>
+</ul>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p><strong>JVM内存结构组成</strong>：JVM内存结构又称为「运行时数据区域」。主要有五部分组成：虚拟机栈、本地方法栈、程序计数器、方法区和堆。其中方法区和堆是线程共享的。虚拟机栈、本地方法栈以及程序计数器是线程隔离的。</p>
 
       
     </div>
