@@ -276,7 +276,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/49c930c7/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/ace2edeb/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/lion.png">
@@ -294,7 +294,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/49c930c7/" class="post-title-link" itemprop="url">19、【对线面试官】kafka基础</a>
+          <a href="/posts/ace2edeb/" class="post-title-link" itemprop="url">21、【对线面试官】Mysql索引</a>
         </h2>
 
         <div class="post-meta-container">
@@ -336,8 +336,8 @@
     </span>
     <span class="post-meta-item-text">Waline：</span>
   
-    <a title="waline" href="/posts/49c930c7/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/49c930c7/" data-xid="/posts/49c930c7/" itemprop="commentCount"></span>
+    <a title="waline" href="/posts/ace2edeb/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/ace2edeb/" data-xid="/posts/ace2edeb/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -348,7 +348,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>1.7k</span>
+      <span>1.8k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -366,88 +366,64 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="19、【对线面试官】kafka基础"><a href="#19、【对线面试官】kafka基础" class="headerlink" title="19、【对线面试官】kafka基础"></a>19、【对线面试官】kafka基础</h1><h2 id="今天要不来聊聊消息队列吧？我看你项目不少地方都写到Kafka了-你简单说明下你使用Kafka的场景吧"><a href="#今天要不来聊聊消息队列吧？我看你项目不少地方都写到Kafka了-你简单说明下你使用Kafka的场景吧" class="headerlink" title="今天要不来聊聊消息队列吧？我看你项目不少地方都写到Kafka了.你简单说明下你使用Kafka的场景吧"></a>今天要不来聊聊消息队列吧？我看你项目不少地方都写到Kafka了.你简单说明下你使用Kafka的场景吧</h2><ol>
-<li><p>使用消息队列的目的总的来说可以有三种情况：解耦、异步和削峰</p>
+          <h1 id="21、【对线面试官】Mysql索引"><a href="#21、【对线面试官】Mysql索引" class="headerlink" title="21、【对线面试官】Mysql索引"></a>21、【对线面试官】Mysql索引</h1><h2 id="我看你简历上写了MySQL，对MySQL-InnoDB引擎的索引了解吗？"><a href="#我看你简历上写了MySQL，对MySQL-InnoDB引擎的索引了解吗？" class="headerlink" title="我看你简历上写了MySQL，对MySQL InnoDB引擎的索引了解吗？"></a>我看你简历上写了MySQL，对MySQL InnoDB引擎的索引了解吗？</h2><ol>
+<li>嗯啊，使用索引可以加快查询速度，其实上就是将无序的数据变成有序（有序就能加快检索速度）</li>
+<li>在InnoDB引擎中，索引的底层数据结构是**<code>B+树</code>**</li>
+</ol>
+<h2 id="那为什么不使用红黑树或者B树呢？"><a href="#那为什么不使用红黑树或者B树呢？" class="headerlink" title="那为什么不使用红黑树或者B树呢？"></a>那为什么不使用红黑树或者B树呢？</h2><ol>
+<li><p>MySQL的数据是存储在硬盘的，在查询时一般是不能「一次性」把全部数据加载到内存中</p>
 </li>
-<li><p>比如举我项目的例子吧，我现在维护一个消息管理平台系统，对外提供发送接口给各个业务方调用</p>
+<li><p>红黑树是「二叉查找树」的变种，一个Node节点只能存储一个Key和一个Value</p>
 </li>
-<li><p>他们调用接口之后，实际上『不是同步』下发了消息。</p>
+<li><p>B和B+树跟红黑树不一样，它们算是「多路搜索树」，相较于「二叉搜索树」而言，一个Node节点可以存储的信息会更多，「多路搜索树」的高度会比「二叉搜索树」更低。</p>
 </li>
-<li><p>在接口处理层只是把该条消息放到了消息队列上，随后就直接返回结果给接口调用者了。</p>
+<li><p>了解了区别之后，其实就很容易发现，在数据不能一次加载至内存的场景下，数据需要被检索出来</p>
 </li>
-<li><p>这样的好处就是：</p>
-<p>1）接口的吞吐量会大幅度提高（因为未做真正实际调用，接口RT会非常低）【异步】</p>
-<p>2）即便有大批量的消息调用接口都不会让系统受到影响（流量由消息队列承载）【削峰】</p>
+<li><p>选择B或B+树的理由就很充分了（一个Node节点存储信息更多（相较于二叉搜索树），树的高度更低，树的高度影响检索的速度）</p>
+</li>
+<li><p>B+树相对于B树而言，它又有两种特性。</p>
+<p>1）B+树非叶子节点不存储数据，在相同的数据量下，B+树更加矮壮。（这个应该不用多解释了，数据都存储在叶子节点上，非叶子节点的存储能存储更多的索引，所以整棵树就更加矮壮）</p>
+<p>2）B+树叶子节点之间组成一个链表，方便于遍历查询（遍历操作在MySQL中比较常见）</p>
+</li>
+<li><p>我稍微解释一下吧，你可以脑补下画面</p>
+</li>
+<li><p>我们在MySQL InnoDB引擎下，每创建一个索引，相当于生成了一颗B+树。</p>
+</li>
+<li><p>如果该索引是「聚集（聚簇）索引」，那当前B+树的叶子节点存储着「主键和当前行的数据」</p>
+</li>
+<li><p>如果该索引是「非聚簇索引小」，那当前B+树的叶子节点存储着「主键和当前索引列值」</p>
+</li>
+<li><p>比如写了一句sql：select*from user where id&gt;&#x3D;10，那只要定位到id为10的记录，然后在叶子节点之间通过遍历链表（叶子节点组成的链表），即可找到往后的记录了。</p>
+</li>
+<li><p>由于B树是会在非叶子节点也存储数据，要遍历的时候可能就得跨层检索，相对麻烦些。</p>
+</li>
+<li><p>基于树的层级以及业务使用场景的特性，所以MySQL选择了B+树作为索引的底层数据结构。</p>
+</li>
+<li><p>对于哈希结构，其实InnoDB引擎是「自适应」哈希索引的（hash索引的创建由lnnoDB存储引擎自动优化创建，我们是干预不了）</p>
 </li>
 </ol>
-<h2 id="有点抽象，再举个实际案例？"><a href="#有点抽象，再举个实际案例？" class="headerlink" title="有点抽象，再举个实际案例？"></a>有点抽象，再举个实际案例？</h2><ol>
-<li><p>又比如说，我这边还有个项目是广告订单归因工程，主要做的事情就是得到订单数据，给各个业务广告计算对应的佣金。</p>
-</li>
-<li><p>订单的数据是从消息队列里取出的</p>
-</li>
-<li><p>这样设计的好处就是：</p>
-<p>1）交易团队的同学只要把订单消息写到消息队列，该订单数据的Topic由各个业务方自行消费使用【解耦】【异步】</p>
-<p>2）即便下单QPS猛增，对下游业务无太大的感知（因为下游业务只消费消息队列的数据，不会直接影响到机器性能）【削峰】</p>
-</li>
+<h2 id="你知道什么是回表吗？"><a href="#你知道什么是回表吗？" class="headerlink" title="你知道什么是回表吗？"></a>你知道什么是回表吗？</h2><ol>
+<li>所谓的回表其实就是，当我们使用非聚簇索引查询数据时，检索出来的数据可能包含其他列</li>
+<li>但走的索引树叶子节点只能查到当前列值以及主键ID，所以需要根据主键ID再去查一遍数据，得到SQL所需的列</li>
+<li>举个例子，我这边建了给订单号ID建了个索引，但我的SQL是：select orderld，orderName from orderdetail where orderld &#x3D; 123</li>
+<li>SQL走订单ID索引，但在订单ID的索引树的叶子节点只有orderld和ld，而我们还想检索出orderName，所以MySQL会拿到ID再去查出orderName给我们返回，这种操作就叫回表</li>
 </ol>
-<h2 id="那我想问下，你觉得为什么消息队列能削峰？或者换个问法，为什么Kafka能承载这么大的QPS？"><a href="#那我想问下，你觉得为什么消息队列能削峰？或者换个问法，为什么Kafka能承载这么大的QPS？" class="headerlink" title="那我想问下，你觉得为什么消息队列能削峰？或者换个问法，为什么Kafka能承载这么大的QPS？"></a>那我想问下，你觉得为什么消息队列能削峰？或者换个问法，为什么Kafka能承载这么大的QPS？</h2><ol>
-<li><p>消息队列「最核心的功能就是把生产的数据存储起来，然后给各个业务把数据再读取出来。</p>
-</li>
-<li><p>跟我们处理请求时不一样，我们在业务处理时可能会调别人的接口，可能会需要去查数据库…等等等一系列的操作才行</p>
-</li>
-<li><p>这些业务操作都是非常耗时的，像Kafka在「存储」和「读取」这个过程中又做了很多的优化</p>
-</li>
-<li><p>举几个例子，比如说：</p>
-<p>1）我们往一个Topic发送消息或者读取消息时，实际内部是多个Partition在处理【并行】</p>
-<p>2）在存储消息时，Kafka内部是顺序写磁盘的，并且利用了操作系统的缓冲区来提高性能【append+cache】</p>
-<p>3）在读写数据中也减少CPU拷贝的次数【零拷贝】</p>
-</li>
+<h2 id="如何避免回表"><a href="#如何避免回表" class="headerlink" title="如何避免回表"></a>如何避免回表</h2><ol>
+<li>想要避免回表，可以使用覆盖索引</li>
+<li>所谓的覆盖索引，实际上就是你想要查出的列刚好在叶子节点上都存在，比如我建了orderld和orderName.联合索引l，刚好我需要查询也是orderld和orderName，这些数据都存在索引树的叶子节点上，就不需要回表操作了。</li>
 </ol>
-<h2 id="嗯，你既然提到减少CPU拷贝的次数，可以给我说下这项技术吗？"><a href="#嗯，你既然提到减少CPU拷贝的次数，可以给我说下这项技术吗？" class="headerlink" title="嗯，你既然提到减少CPU拷贝的次数，可以给我说下这项技术吗？"></a>嗯，你既然提到减少CPU拷贝的次数，可以给我说下这项技术吗？</h2><ol>
-<li><p>嗯，可以的，其实就是零拷贝技术。</p>
-</li>
-<li><p>比如我们正常调用read函数时，会发生以下的步骤（以读磁盘的数据为例）：</p>
-<p>1）DMA把磁盘数据拷贝到读内核缓存区</p>
-<p>2）CPU把读内核缓冲区的数据拷贝到用户空间</p>
-</li>
-<li><p>正常调用write函数时，会发生以下的步骤（数据写到网卡为例）：</p>
-<p>1）CPU把用户空间的数据拷贝到Socket内核缓存区</p>
-<p>2）DMA把Socket内核缓冲区的数据拷贝到网卡</p>
-</li>
-<li><p>可以发现完成「一次读写」需要2次DMA拷贝，2次CPU拷贝。</p>
-</li>
-<li><p>而DMA拷贝是省不了的，所谓的零拷贝技术就是把CPU的拷贝给省掉</p>
-</li>
-<li><p>并且为了避免用户进程直接操作内核，保证内核安全，应用程序在调用系统函数时，会发生上下文切换（上述的过程一共会发生4次）</p>
-</li>
-<li><p>目前零拷贝技术主要有：mmap和sendfile</p>
-</li>
-<li><p>比如说：mmap是将读缓冲区的地址和用户空间的地址进行映射，实现读内核缓冲区和应用缓冲区共享</p>
-</li>
-<li><p>从而减少了从读缓冲区到用户缓冲区的一次CPU拷贝</p>
-</li>
-<li><p>使用mmap的后一次读写就可以简化为：、</p>
-<p>一、DMA把硬盘数据拷贝到读内核缓冲</p>
-<p>二、CPU把读内核缓存区拷贝至Socket内核缓冲区。</p>
-<p>三、DMA把Socket内核缓冲区拷贝至网</p>
-</li>
-<li><p>由于读内核缓冲区与用户空间做了映射，所以会省了一次CPU拷贝</p>
-</li>
-<li><p>而sendfile+DMA Scatter&#x2F;Gather！则是把读内核缓存区的文件描述符&#x2F;长度信息发到Socket内核缓冲区，实现CPU零拷贝</p>
-</li>
-<li><p>使用sendfile+DMA Scatter&#x2F;Gather一次读写就可以简化为：</p>
-<p>1）DMA把硬盘数据拷贝至读内核缓冲区</p>
-<p>2）CPU把读缓冲区的文件描述符和长度信息发到Socket缓冲区。</p>
-<p>3）DMA根据文件描述符和数据长度从读内核缓冲区把数据拷贝至网卡</p>
-</li>
-<li><p>回到kafka上吧</p>
-</li>
-<li><p>从Producer-》Broker，Kafka是把网卡的数据持久化硬盘，用的是mmap（从2次<br>CPU拷贝减至1次） </p>
-</li>
-<li><p>从Broker-》Consumer，Kafka是从硬盘的数据发送至网卡，用的是sendFile（实<br>现CPU零拷贝）</p>
-</li>
+<h2 id="既然你也提到了联合索引，我想问下你了解最左匹配原则吗"><a href="#既然你也提到了联合索引，我想问下你了解最左匹配原则吗" class="headerlink" title="既然你也提到了联合索引，我想问下你了解最左匹配原则吗"></a>既然你也提到了联合索引，我想问下你了解最左匹配原则吗</h2><ol>
+<li>嗯，要说明这个概念，还是举例子比较容易</li>
+<li>如有索引（a，b，c，d），查询条件a&#x3D;1and b&#x3D;2 and c&gt;3 and d&#x3D;4，则会在每个节点依次命中a、b、c，无法命中d</li>
+<li>先匹配最左边的，索引只能用于查找key是否存在（相等），遇到范围查询（&gt;、&lt;、between、like左匹配）等就不能进一步匹配了，后续退化为线性查找</li>
+<li>这就是最左匹配原则</li>
 </ol>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>Kafka能这么快的原因就是实现了并行、充分利用操作系统cache、顺序写和零拷贝</p>
+<h2 id="嗯嗯，我还想问下你们主键是怎么生成的？"><a href="#嗯嗯，我还想问下你们主键是怎么生成的？" class="headerlink" title="嗯嗯，我还想问下你们主键是怎么生成的？"></a>嗯嗯，我还想问下你们主键是怎么生成的？</h2><p>主键就自增的</p>
+<h2 id="那假设我不用MySQL自增的主键，你觉得会有什么问题呢？"><a href="#那假设我不用MySQL自增的主键，你觉得会有什么问题呢？" class="headerlink" title="那假设我不用MySQL自增的主键，你觉得会有什么问题呢？"></a>那假设我不用MySQL自增的主键，你觉得会有什么问题呢？</h2><ol>
+<li>首先主键得保证它的唯一性和空间尽可能短吧，这两块是需要考虑的。</li>
+<li>另外，由于索引的特性（有序），如果生成像uuid类似的主键，那插入的的性能是比自增的要差的</li>
+<li>因为生成的uuid，在插入时有可能需要移动磁盘块（比如，块内的空间在当前时刻已经存储满了，但新生成的uuid需要插入已满的块内，就需要移动块的数据）</li>
+</ol>
 
       
     </div>
@@ -628,185 +604,6 @@
 <p>2）消息补偿机制：另一个进行消费相同topicl的数据，消息落盘，延迟处理。将消息与DB进行对比，如果发现数据不一致，再重新发送消息至主进程处理</p>
 <p>3）还有部分场景，可能我们只需要把相同userld&#x2F;orderld.发送到相同的partition（因为一个partition由一个Consumer消费），又能解决大部分消费顺序的问题了呢。</p>
 </li>
-</ol>
-
-      
-    </div>
-
-    
-    
-    
-
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>l
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/ace2edeb/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/lion.png">
-      <meta itemprop="name" content="swimminghao">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="swimminghao's blog">
-      <meta itemprop="description" content="swimminghao的学习博客">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | swimminghao's blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/ace2edeb/" class="post-title-link" itemprop="url">21、【对线面试官】Mysql索引</a>
-        </h2>
-
-        <div class="post-meta-container">
-
-          
-
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-10 09:48:07" itemprop="dateModified" datetime="2022-03-10T09:48:07+08:00">2022-03-10</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="far fa-comment"></i>
-    </span>
-    <span class="post-meta-item-text">Waline：</span>
-  
-    <a title="waline" href="/posts/ace2edeb/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/ace2edeb/" data-xid="/posts/ace2edeb/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>1.8k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>2 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="21、【对线面试官】Mysql索引"><a href="#21、【对线面试官】Mysql索引" class="headerlink" title="21、【对线面试官】Mysql索引"></a>21、【对线面试官】Mysql索引</h1><h2 id="我看你简历上写了MySQL，对MySQL-InnoDB引擎的索引了解吗？"><a href="#我看你简历上写了MySQL，对MySQL-InnoDB引擎的索引了解吗？" class="headerlink" title="我看你简历上写了MySQL，对MySQL InnoDB引擎的索引了解吗？"></a>我看你简历上写了MySQL，对MySQL InnoDB引擎的索引了解吗？</h2><ol>
-<li>嗯啊，使用索引可以加快查询速度，其实上就是将无序的数据变成有序（有序就能加快检索速度）</li>
-<li>在InnoDB引擎中，索引的底层数据结构是**<code>B+树</code>**</li>
-</ol>
-<h2 id="那为什么不使用红黑树或者B树呢？"><a href="#那为什么不使用红黑树或者B树呢？" class="headerlink" title="那为什么不使用红黑树或者B树呢？"></a>那为什么不使用红黑树或者B树呢？</h2><ol>
-<li><p>MySQL的数据是存储在硬盘的，在查询时一般是不能「一次性」把全部数据加载到内存中</p>
-</li>
-<li><p>红黑树是「二叉查找树」的变种，一个Node节点只能存储一个Key和一个Value</p>
-</li>
-<li><p>B和B+树跟红黑树不一样，它们算是「多路搜索树」，相较于「二叉搜索树」而言，一个Node节点可以存储的信息会更多，「多路搜索树」的高度会比「二叉搜索树」更低。</p>
-</li>
-<li><p>了解了区别之后，其实就很容易发现，在数据不能一次加载至内存的场景下，数据需要被检索出来</p>
-</li>
-<li><p>选择B或B+树的理由就很充分了（一个Node节点存储信息更多（相较于二叉搜索树），树的高度更低，树的高度影响检索的速度）</p>
-</li>
-<li><p>B+树相对于B树而言，它又有两种特性。</p>
-<p>1）B+树非叶子节点不存储数据，在相同的数据量下，B+树更加矮壮。（这个应该不用多解释了，数据都存储在叶子节点上，非叶子节点的存储能存储更多的索引，所以整棵树就更加矮壮）</p>
-<p>2）B+树叶子节点之间组成一个链表，方便于遍历查询（遍历操作在MySQL中比较常见）</p>
-</li>
-<li><p>我稍微解释一下吧，你可以脑补下画面</p>
-</li>
-<li><p>我们在MySQL InnoDB引擎下，每创建一个索引，相当于生成了一颗B+树。</p>
-</li>
-<li><p>如果该索引是「聚集（聚簇）索引」，那当前B+树的叶子节点存储着「主键和当前行的数据」</p>
-</li>
-<li><p>如果该索引是「非聚簇索引小」，那当前B+树的叶子节点存储着「主键和当前索引列值」</p>
-</li>
-<li><p>比如写了一句sql：select*from user where id&gt;&#x3D;10，那只要定位到id为10的记录，然后在叶子节点之间通过遍历链表（叶子节点组成的链表），即可找到往后的记录了。</p>
-</li>
-<li><p>由于B树是会在非叶子节点也存储数据，要遍历的时候可能就得跨层检索，相对麻烦些。</p>
-</li>
-<li><p>基于树的层级以及业务使用场景的特性，所以MySQL选择了B+树作为索引的底层数据结构。</p>
-</li>
-<li><p>对于哈希结构，其实InnoDB引擎是「自适应」哈希索引的（hash索引的创建由lnnoDB存储引擎自动优化创建，我们是干预不了）</p>
-</li>
-</ol>
-<h2 id="你知道什么是回表吗？"><a href="#你知道什么是回表吗？" class="headerlink" title="你知道什么是回表吗？"></a>你知道什么是回表吗？</h2><ol>
-<li>所谓的回表其实就是，当我们使用非聚簇索引查询数据时，检索出来的数据可能包含其他列</li>
-<li>但走的索引树叶子节点只能查到当前列值以及主键ID，所以需要根据主键ID再去查一遍数据，得到SQL所需的列</li>
-<li>举个例子，我这边建了给订单号ID建了个索引，但我的SQL是：select orderld，orderName from orderdetail where orderld &#x3D; 123</li>
-<li>SQL走订单ID索引，但在订单ID的索引树的叶子节点只有orderld和ld，而我们还想检索出orderName，所以MySQL会拿到ID再去查出orderName给我们返回，这种操作就叫回表</li>
-</ol>
-<h2 id="如何避免回表"><a href="#如何避免回表" class="headerlink" title="如何避免回表"></a>如何避免回表</h2><ol>
-<li>想要避免回表，可以使用覆盖索引</li>
-<li>所谓的覆盖索引，实际上就是你想要查出的列刚好在叶子节点上都存在，比如我建了orderld和orderName.联合索引l，刚好我需要查询也是orderld和orderName，这些数据都存在索引树的叶子节点上，就不需要回表操作了。</li>
-</ol>
-<h2 id="既然你也提到了联合索引，我想问下你了解最左匹配原则吗"><a href="#既然你也提到了联合索引，我想问下你了解最左匹配原则吗" class="headerlink" title="既然你也提到了联合索引，我想问下你了解最左匹配原则吗"></a>既然你也提到了联合索引，我想问下你了解最左匹配原则吗</h2><ol>
-<li>嗯，要说明这个概念，还是举例子比较容易</li>
-<li>如有索引（a，b，c，d），查询条件a&#x3D;1and b&#x3D;2 and c&gt;3 and d&#x3D;4，则会在每个节点依次命中a、b、c，无法命中d</li>
-<li>先匹配最左边的，索引只能用于查找key是否存在（相等），遇到范围查询（&gt;、&lt;、between、like左匹配）等就不能进一步匹配了，后续退化为线性查找</li>
-<li>这就是最左匹配原则</li>
-</ol>
-<h2 id="嗯嗯，我还想问下你们主键是怎么生成的？"><a href="#嗯嗯，我还想问下你们主键是怎么生成的？" class="headerlink" title="嗯嗯，我还想问下你们主键是怎么生成的？"></a>嗯嗯，我还想问下你们主键是怎么生成的？</h2><p>主键就自增的</p>
-<h2 id="那假设我不用MySQL自增的主键，你觉得会有什么问题呢？"><a href="#那假设我不用MySQL自增的主键，你觉得会有什么问题呢？" class="headerlink" title="那假设我不用MySQL自增的主键，你觉得会有什么问题呢？"></a>那假设我不用MySQL自增的主键，你觉得会有什么问题呢？</h2><ol>
-<li>首先主键得保证它的唯一性和空间尽可能短吧，这两块是需要考虑的。</li>
-<li>另外，由于索引的特性（有序），如果生成像uuid类似的主键，那插入的的性能是比自增的要差的</li>
-<li>因为生成的uuid，在插入时有可能需要移动磁盘块（比如，块内的空间在当前时刻已经存储满了，但新生成的uuid需要插入已满的块内，就需要移动块的数据）</li>
 </ol>
 
       
@@ -1876,6 +1673,194 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/6f64b3a6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lion.png">
+      <meta itemprop="name" content="swimminghao">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="swimminghao's blog">
+      <meta itemprop="description" content="swimminghao的学习博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | swimminghao's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/6f64b3a6/" class="post-title-link" itemprop="url">28、【对线面试官】JVM内存模型</a>
+        </h2>
+
+        <div class="post-meta-container">
+
+          
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-03-10 09:48:07" itemprop="dateModified" datetime="2022-03-10T09:48:07+08:00">2022-03-10</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/posts/6f64b3a6/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/6f64b3a6/" data-xid="/posts/6f64b3a6/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>1.6k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>1 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="28、【对线面试官】JVM内存模型"><a href="#28、【对线面试官】JVM内存模型" class="headerlink" title="28、【对线面试官】JVM内存模型"></a>28、【对线面试官】JVM内存模型</h1><h2 id="聊聊JVM的内存结构吧？"><a href="#聊聊JVM的内存结构吧？" class="headerlink" title="聊聊JVM的内存结构吧？"></a>聊聊JVM的内存结构吧？</h2><ul>
+<li>class文件会被类加载器装载至JVM中，并且JVM会负责程序「运行时」的「内存管理」</li>
+<li>而JVM的内存结构，往往指的就是JVM定义的「运行时数据区域」</li>
+<li>简单来说就分为了5大块：方法区、堆、程序计数器、虚拟机栈、本地方法栈</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/VHXC3i_20211229151038.png"></p>
+<h2 id="顺便讲下你这图上每个区域的内容"><a href="#顺便讲下你这图上每个区域的内容" class="headerlink" title="顺便讲下你这图上每个区域的内容"></a>顺便讲下你这图上每个区域的内容</h2><ul>
+<li>程序计数器<ul>
+<li>Java是多线程的语言，假设线程数大于CPU数，就很会有「线程切換」现象，切换意昧着「中断」和「恢复」，那自然就需要有一块区域来保存「当前线程的执行信息」</li>
+<li>所以，程序计数器就是用于记录各个线程执行的字节码的地址（分支、循环跳转、异常、线程恢复等都依赖于计数器）</li>
+</ul>
+</li>
+<li>虚拟机栈<ul>
+<li>每个线程在创建的时候都会创建一个虚拟机栈，每次方法调用都会创建一个「栈帧」。每个「栈帧」会包含几块内容：局部变量表、操作数栈、动态连接和返回地址</li>
+<li>作用：它保存方法的局部变量、部分变量的计算并参与了方法的调用和返回。</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/GOLAU2_20211229151640.png"></p>
+<ul>
+<li><p>本地方法栈</p>
+<ul>
+<li>本地方法栈跟虚拟机栈的功能类似，虚拟机栈用于管理Java函数的调用，而本地方法栈则用于管理本地方法的调用。这里的「本地方法」指的是「非Java方法」，一般本地方法是使用C语言实现的。</li>
+</ul>
+</li>
+<li><p>方法区</p>
+<ul>
+<li>前面提到了运行时数据区这个「分区」是JVM的「规范」，具体的落地实现，不同的虚拟机厂商可能是不一样的</li>
+<li>所以「方法区」也只是JVM中规范的一部分</li>
+<li>Hotspot虚拟机，就会常常提到「永久代」这个词。 Hotspotl虚拟机在「JDK8前」用「永久代」实现了「方法区」，而很多其他厂商的虚拟机其实是没有「永久代」的概念的</li>
+<li>在JDK8中，已经用「元空间」来替代了「永久代」作为「方法区」的实现了</li>
+<li>方法区主要是用来存放已被虚拟机加载的「类相关信息」：包括类信息、常量池<ul>
+<li>类信息又包括了类的版本、字段、方法、接口和父类等信息。</li>
+<li>常量池又可以分「静态常量池」和「运行时常量池」<ul>
+<li>静态常量池主要存储的是「字面量」以及「符号引用」等信息，静态常量池也包括了我们说的「字符串常量池」。</li>
+<li>「运行时常量池」存储的是「类加载」时生成的「直接引用」等信息</li>
+<li>值得注意的是：从「逻辑分区」的角度而言「常量池」是属于「方法区」的</li>
+<li>但自从在「JDK7」以后，就已经把「运行时常量池」和「静态常量池」转移到了「堆」内存中进行存储</li>
+<li>对于「物理分区」来说「运行时常量池」和「静态常量池』就属于堆</li>
+</ul>
+</li>
+<li>总体来说，就是逻辑分区和物理实际存储的位置，是不一样的</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>堆</p>
+<ul>
+<li><p>「堆」是线程共享的区域，几乎类的实例和数组分配的内存都来自于它</p>
+</li>
+<li><p>「堆」被划分为「新生代」和「老年代」，「新生代」又被进一步划分为Eden和 Survivor区，最后 Survivor由From Survivor 和 To Survivor组成</p>
+</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/Xm317A_20211229152833.png"></p>
+<h2 id="从「JDK8」已经把「方法区」的实现从「永久代」变成「元空间」，有什么区别？"><a href="#从「JDK8」已经把「方法区」的实现从「永久代」变成「元空间」，有什么区别？" class="headerlink" title="从「JDK8」已经把「方法区」的实现从「永久代」变成「元空间」，有什么区别？"></a>从「JDK8」已经把「方法区」的实现从「永久代」变成「元空间」，有什么区别？</h2><ul>
+<li>最主要的区别就是：「元空间」存储不在虚拟机中，而是使用本地内存，JVM不会再出现方法区的内存溢出，以往「永久代」经常因为内存不够用导致跑出OOM异常。</li>
+<li>按JDK8版本，总结起来其实就相当于：「类信息」是存储在「元空间」的（也有人把「类信息」这块叫做「类信息常量池」）</li>
+<li>而「常量池」用JDK7开始，从「物理存储」角度上就在「堆中」，这是没有变化的。</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/5Ha0EV_20211229152636.png"></p>
+<h2 id="JVM内存结构和Java內存模型有啥区别吧？"><a href="#JVM内存结构和Java內存模型有啥区别吧？" class="headerlink" title="JVM内存结构和Java內存模型有啥区别吧？"></a>JVM内存结构和Java內存模型有啥区别吧？</h2><ul>
+<li>Java内存模型是跟「并发」相关的，它是为了屏蔽底层细节而提出的规范，希望在上层（Java层面上）在操作内存时在不同的平台上也有相同的效果</li>
+<li>JVM内存结构（又称为运行时数据区域），它描述着当我们的 class文件加载至虚拟机后，各个分区的「逻辑结构」是如何的，每个分区承担的作用</li>
+</ul>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p><strong>JVM内存结构组成</strong>：JVM内存结构又称为「运行时数据区域」。主要有五部分组成：虚拟机栈、本地方法栈、程序计数器、方法区和堆。其中方法区和堆是线程共享的。虚拟机栈、本地方法栈以及程序计数器是线程隔离的。</p>
+
+      
+    </div>
+
+    
+    
+    
+
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>l
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://example.com/posts/e1774332/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2072,7 +2057,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/6f64b3a6/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/9544a93a/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/lion.png">
@@ -2090,7 +2075,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/6f64b3a6/" class="post-title-link" itemprop="url">28、【对线面试官】JVM内存模型</a>
+          <a href="/posts/9544a93a/" class="post-title-link" itemprop="url">29、【对线面试官】垃圾回收机制</a>
         </h2>
 
         <div class="post-meta-container">
@@ -2132,8 +2117,8 @@
     </span>
     <span class="post-meta-item-text">Waline：</span>
   
-    <a title="waline" href="/posts/6f64b3a6/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/6f64b3a6/" data-xid="/posts/6f64b3a6/" itemprop="commentCount"></span>
+    <a title="waline" href="/posts/9544a93a/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/9544a93a/" data-xid="/posts/9544a93a/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -2144,14 +2129,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>1.6k</span>
+      <span>2.8k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>1 分钟</span>
+      <span>3 分钟</span>
     </span>
 </div>
 
@@ -2162,73 +2147,124 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="28、【对线面试官】JVM内存模型"><a href="#28、【对线面试官】JVM内存模型" class="headerlink" title="28、【对线面试官】JVM内存模型"></a>28、【对线面试官】JVM内存模型</h1><h2 id="聊聊JVM的内存结构吧？"><a href="#聊聊JVM的内存结构吧？" class="headerlink" title="聊聊JVM的内存结构吧？"></a>聊聊JVM的内存结构吧？</h2><ul>
-<li>class文件会被类加载器装载至JVM中，并且JVM会负责程序「运行时」的「内存管理」</li>
-<li>而JVM的内存结构，往往指的就是JVM定义的「运行时数据区域」</li>
-<li>简单来说就分为了5大块：方法区、堆、程序计数器、虚拟机栈、本地方法栈</li>
-</ul>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/VHXC3i_20211229151038.png"></p>
-<h2 id="顺便讲下你这图上每个区域的内容"><a href="#顺便讲下你这图上每个区域的内容" class="headerlink" title="顺便讲下你这图上每个区域的内容"></a>顺便讲下你这图上每个区域的内容</h2><ul>
-<li>程序计数器<ul>
-<li>Java是多线程的语言，假设线程数大于CPU数，就很会有「线程切換」现象，切换意昧着「中断」和「恢复」，那自然就需要有一块区域来保存「当前线程的执行信息」</li>
-<li>所以，程序计数器就是用于记录各个线程执行的字节码的地址（分支、循环跳转、异常、线程恢复等都依赖于计数器）</li>
-</ul>
-</li>
-<li>虚拟机栈<ul>
-<li>每个线程在创建的时候都会创建一个虚拟机栈，每次方法调用都会创建一个「栈帧」。每个「栈帧」会包含几块内容：局部变量表、操作数栈、动态连接和返回地址</li>
-<li>作用：它保存方法的局部变量、部分变量的计算并参与了方法的调用和返回。</li>
-</ul>
-</li>
-</ul>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/GOLAU2_20211229151640.png"></p>
+          <h1 id="29、【对线面试官】垃圾回收机制"><a href="#29、【对线面试官】垃圾回收机制" class="headerlink" title="29、【对线面试官】垃圾回收机制"></a>29、【对线面试官】垃圾回收机制</h1><h2 id="聊聊Java的垃圾回收机制"><a href="#聊聊Java的垃圾回收机制" class="headerlink" title="聊聊Java的垃圾回收机制?"></a>聊聊Java的垃圾回收机制?</h2><p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/Xm317A_20211229152833.png"></p>
 <ul>
-<li><p>本地方法栈</p>
+<li>我们使用Java的时候，会创建很多对象，但我们未曾「手动」将这些对象进行清除,而如果用C++语言的时候，用完是需要自己free（释放）掉的</li>
+<li>写Java的时候不用自己手动释放”垃圾”呢？原因很简单，JVM帮我们做了（自动回收垃圾）</li>
+<li>垃圾的定义：只要对象不再被使用了，那我们就认为该对象就是垃圾，对象所占用的空间就可以被回收·</li>
+</ul>
+<h2 id="是怎么判断对象不再被使用的呢？"><a href="#是怎么判断对象不再被使用的呢？" class="headerlink" title="是怎么判断对象不再被使用的呢？"></a>是怎么判断对象不再被使用的呢？</h2><ul>
+<li><p>常用的算法有两个「引用计数法」和「可达性分析法」</p>
 <ul>
-<li>本地方法栈跟虚拟机栈的功能类似，虚拟机栈用于管理Java函数的调用，而本地方法栈则用于管理本地方法的调用。这里的「本地方法」指的是「非Java方法」，一般本地方法是使用C语言实现的。</li>
-</ul>
+<li><p>引用计数法思路很简单：当对象被引用则+1，但对象引用失败则-1。当计数器为0时，说明对象不再被引用，可以被可回收</p>
 </li>
-<li><p>方法区</p>
+<li><p>缺点就是：如果对象存在循环依赖，那就无法定位该对象，是否应该被回收（A依赖B，B依赖A）</p>
+</li>
+<li><p>是可达性分析法：它从「GC Roots」开始向下搜索，当对象到「GC Roots」都没有任何引用相连时，说明对象是不可用的，可以被回收</p>
 <ul>
-<li>前面提到了运行时数据区这个「分区」是JVM的「规范」，具体的落地实现，不同的虚拟机厂商可能是不一样的</li>
-<li>所以「方法区」也只是JVM中规范的一部分</li>
-<li>Hotspot虚拟机，就会常常提到「永久代」这个词。 Hotspotl虚拟机在「JDK8前」用「永久代」实现了「方法区」，而很多其他厂商的虚拟机其实是没有「永久代」的概念的</li>
-<li>在JDK8中，已经用「元空间」来替代了「永久代」作为「方法区」的实现了</li>
-<li>方法区主要是用来存放已被虚拟机加载的「类相关信息」：包括类信息、常量池<ul>
-<li>类信息又包括了类的版本、字段、方法、接口和父类等信息。</li>
-<li>常量池又可以分「静态常量池」和「运行时常量池」<ul>
-<li>静态常量池主要存储的是「字面量」以及「符号引用」等信息，静态常量池也包括了我们说的「字符串常量池」。</li>
-<li>「运行时常量池」存储的是「类加载」时生成的「直接引用」等信息</li>
-<li>值得注意的是：从「逻辑分区」的角度而言「常量池」是属于「方法区」的</li>
-<li>但自从在「JDK7」以后，就已经把「运行时常量池」和「静态常量池」转移到了「堆」内存中进行存储</li>
-<li>对于「物理分区」来说「运行时常量池」和「静态常量池』就属于堆</li>
-</ul>
+<li><p>「 GC Roots」是一组必须「活跃」的引用</p>
 </li>
-<li>总体来说，就是逻辑分区和物理实际存储的位置，是不一样的</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>堆</p>
+<li><p>从「 GC Root」出发，程序通过直接引用或者间接引用，能够找到可能正在被使用的对象</p>
 <ul>
-<li><p>「堆」是线程共享的区域，几乎类的实例和数组分配的内存都来自于它</p>
-</li>
-<li><p>「堆」被划分为「新生代」和「老年代」，「新生代」又被进一步划分为Eden和 Survivor区，最后 Survivor由From Survivor 和 To Survivor组成</p>
-</li>
+<li>比如：JVM内存结构中的虚拟机栈，虚拟机栈里的栈帧，栈帧中的局部变量，局部变量就存储着引用。</li>
+<li>那如果栈帧位于虚拟机栈的栈顶，是不是说明这个栈帧是活跃的（换言之，是线程正在被调用的）</li>
+<li>既然是线程正在调用的，那栈帧里的指向「堆」的对象引用，就一定是「活跃」的引用</li>
+<li>所以，当前活跃的栈帧指向堆里的对象引用就可以是「 GC Roots」</li>
 </ul>
 </li>
+<li><p>当然了，能作为「 GC Roots」也不单单只有上面那一块</p>
+<ul>
+<li>比如类的静态变量引用是「 GC Roots」，被「Java本地方法」所引用的对象也是「 GC Roots」等等</li>
 </ul>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/Xm317A_20211229152833.png"></p>
-<h2 id="从「JDK8」已经把「方法区」的实现从「永久代」变成「元空间」，有什么区别？"><a href="#从「JDK8」已经把「方法区」的实现从「永久代」变成「元空间」，有什么区别？" class="headerlink" title="从「JDK8」已经把「方法区」的实现从「永久代」变成「元空间」，有什么区别？"></a>从「JDK8」已经把「方法区」的实现从「永久代」变成「元空间」，有什么区别？</h2><ul>
-<li>最主要的区别就是：「元空间」存储不在虚拟机中，而是使用本地内存，JVM不会再出现方法区的内存溢出，以往「永久代」经常因为内存不够用导致跑出OOM异常。</li>
-<li>按JDK8版本，总结起来其实就相当于：「类信息」是存储在「元空间」的（也有人把「类信息」这块叫做「类信息常量池」）</li>
-<li>而「常量池」用JDK7开始，从「物理存储」角度上就在「堆中」，这是没有变化的。</li>
+</li>
+<li><p>「 GC Roots」是一组必须「活跃」的「引用」，只要跟「GC Roots」没有直接或者间接引用相连，那就是垃圾。JVM用的就是「可达性分析算法」来判断对象是否为垃圾</p>
+</li>
 </ul>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/5Ha0EV_20211229152636.png"></p>
-<h2 id="JVM内存结构和Java內存模型有啥区别吧？"><a href="#JVM内存结构和Java內存模型有啥区别吧？" class="headerlink" title="JVM内存结构和Java內存模型有啥区别吧？"></a>JVM内存结构和Java內存模型有啥区别吧？</h2><ul>
-<li>Java内存模型是跟「并发」相关的，它是为了屏蔽底层细节而提出的规范，希望在上层（Java层面上）在操作内存时在不同的平台上也有相同的效果</li>
-<li>JVM内存结构（又称为运行时数据区域），它描述着当我们的 class文件加载至虚拟机后，各个分区的「逻辑结构」是如何的，每个分区承担的作用</li>
+</li>
 </ul>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p><strong>JVM内存结构组成</strong>：JVM内存结构又称为「运行时数据区域」。主要有五部分组成：虚拟机栈、本地方法栈、程序计数器、方法区和堆。其中方法区和堆是线程共享的。虚拟机栈、本地方法栈以及程序计数器是线程隔离的。</p>
+</li>
+</ul>
+<h2 id="标记完，怎么删除的（垃圾回收算法）"><a href="#标记完，怎么删除的（垃圾回收算法）" class="headerlink" title="标记完，怎么删除的（垃圾回收算法）"></a>标记完，怎么删除的（垃圾回收算法）</h2><ul>
+<li>标记清除<ul>
+<li>缺点：直接清除会有「内存碎片」的问题：可能我有10M的空余内存，但程序申请9M内存空间却申请不下来（10M的内存空间是垃圾清除后的，不连续的）</li>
+</ul>
+</li>
+<li>标记复制<ul>
+<li>「标记」存活的对象「复制」到另一块空间，复制完了之后，直接把原有的整块空间给干掉！这样就没有内存碎片的问题了</li>
+<li>缺点：内存利用率低，得有一块新的区域给我复制（移动）过去</li>
+</ul>
+</li>
+<li>标记整理<ul>
+<li>当前区域内进行移动，存活对象一到一边，垃圾移到一边，再统一删除，就不会有内存碎片了</li>
+</ul>
+</li>
+</ul>
+<h2 id="老年代、年轻代"><a href="#老年代、年轻代" class="headerlink" title="老年代、年轻代"></a>老年代、年轻代</h2><ul>
+<li>大部分对象的生命周期都很短，而只有少部分对象可能会存活很长时间</li>
+<li>回收垃圾的时候，程序是有短暂的时间不能正常继续运作啊。（JVM在回收的时候，用户线程不能继续分配修改引用），为了使「 stop the word」持续的时间尽可能短以及提高并发式GC所能应付的内存分配速率</li>
+<li>所以很多的垃圾收集器上都会在「物理」或者「逻辑」上，把这两类对象进行区分<ul>
+<li>死得快的对象所占的区域叫做「年轻代」，活得久的对象所占的区域叫做「老年代」</li>
+<li>但也不是所有的「垃圾收集器」都会有，只不过我们现在线上用的可能都是JDK8，JDK8及以下所使用到的垃圾收集器都是有「分代」概念的</li>
+</ul>
+</li>
+</ul>
+<h2 id="垃圾收集器"><a href="#垃圾收集器" class="headerlink" title="垃圾收集器"></a>垃圾收集器</h2><ul>
+<li><p>垃圾回收的过程，其实就对应着几种「垃圾回收算法」分别是</p>
+<ul>
+<li>标记清除算法、标记复制算法和标记整理算法【「标记」「复制」「整理」】</li>
+</ul>
+</li>
+<li><p>「年轻代」的垃圾收集器有： Seria、Parallel Scavenge、 Pardew</p>
+<ul>
+<li>年轻代的垃圾回收器使用的都是「标记复制算法」</li>
+<li>所以在「堆内存」划分中，将年轻代划分出 Survivor区（ Survivor From和 ourvor To），目的就是为了有一块完整的内存空间供垃圾回收器进行拷贝（移动）</li>
+<li>新对象则放入Eden区</li>
+<li>堆内存大小默认比例：</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/6qtuUz_20211229160130.png"></p>
+</li>
+<li><p>「老年代」的垃圾收集器有： Serial Old、 Parallel Old、CMS</p>
+</li>
+<li><p>Serial是单线程的， Parallel是多线程。这些垃圾收集器实际上就是「实现了」垃圾回收算法（标记复制、标记整理以及标记清除算法）</p>
+</li>
+<li><p>CMS是「JDK8之前」是比较新的垃圾收集器，它的特点是能够尽可能减少「stop the word」时间。在垃圾回收时让用户线程和GC线程能够并发执行」</p>
+</li>
+</ul>
+<h2 id="新创建的对象一般是在「新生代」嘛，那在什么时候会到「老年代」中呢？"><a href="#新创建的对象一般是在「新生代」嘛，那在什么时候会到「老年代」中呢？" class="headerlink" title="新创建的对象一般是在「新生代」嘛，那在什么时候会到「老年代」中呢？"></a>新创建的对象一般是在「新生代」嘛，那在什么时候会到「老年代」中呢？</h2><ul>
+<li>两种情况<ul>
+<li>如果对象太大了，就会直接进入老年代（对象创建时就很大 或者 Survivor区没办法存下该对象）</li>
+<li>如果对象太老了，那就会晋升至老年代（每发生一次 Monor GC，存活的对象年龄+1，达到默认值15则晋升老年代）或者（动态对象年龄判定可以进入老年代）</li>
+</ul>
+</li>
+</ul>
+<h2 id="那-Monor-GC什么时候会触发呢？"><a href="#那-Monor-GC什么时候会触发呢？" class="headerlink" title="那 Monor GC什么时候会触发呢？"></a>那 Monor GC什么时候会触发呢？</h2><ul>
+<li>当Eden区空间不足时，就会触发 Monor GC</li>
+</ul>
+<h2 id="那在「年轻代」GC的时候，从-GC-Roots出发，那不也会扫描到「老年代」的对象吗？那那那-不就相当于全堆扫描吗？那这分代还有意义吗？"><a href="#那在「年轻代」GC的时候，从-GC-Roots出发，那不也会扫描到「老年代」的对象吗？那那那-不就相当于全堆扫描吗？那这分代还有意义吗？" class="headerlink" title="那在「年轻代」GC的时候，从 GC Roots出发，那不也会扫描到「老年代」的对象吗？那那那.不就相当于全堆扫描吗？那这分代还有意义吗？"></a>那在「年轻代」GC的时候，从 GC Roots出发，那不也会扫描到「老年代」的对象吗？那那那.不就相当于全堆扫描吗？那这分代还有意义吗？</h2><ul>
+<li><p>JVM解决方案</p>
+<ul>
+<li>Hotspot虚拟机「老的GC」（G1以下）是要求整个GC堆在连续的地址空间上</li>
+<li>所以会有一条分界线（一侧是老年代，另一侧是年轻代），所以可以通过「地址」就可以判断对象在哪个分代上、</li>
+<li>当做 Monor GCI的时候，从 GC Roots出发，如果发现「老年代」的对象，那就不往下走了（ Monor GC对老年代的区域毫无兴趣）</li>
+</ul>
+</li>
+</ul>
+<h2 id="但又有个问题，那如果「年轻代」的对象被「老年代」引用了呢？（老年代对象持有年轻代对象的引用），那时候肯定是不能回收掉「年轻代」的对象的？"><a href="#但又有个问题，那如果「年轻代」的对象被「老年代」引用了呢？（老年代对象持有年轻代对象的引用），那时候肯定是不能回收掉「年轻代」的对象的？" class="headerlink" title="但又有个问题，那如果「年轻代」的对象被「老年代」引用了呢？（老年代对象持有年轻代对象的引用），那时候肯定是不能回收掉「年轻代」的对象的？"></a>但又有个问题，那如果「年轻代」的对象被「老年代」引用了呢？（老年代对象持有年轻代对象的引用），那时候肯定是不能回收掉「年轻代」的对象的？</h2><ul>
+<li>解决方案<ul>
+<li>Hotspot虚拟机下有「 card table」（卡表）来避免全局扫描「老年代」对象</li>
+<li>「堆内存」的每一小块区域形成「卡页」，卡表实际上就是卡页的集合。当判断一个卡页中有存在对象的跨代引用时，将这个页标记为「脏页」</li>
+<li>那知道了「卡表」之后，就很好办了。每次 Monor GC的时候只需要去「卡表找到「脏页」，找到后加入至 GC Root，而不用去遍历整个「老年代」的对象了。</li>
+</ul>
+</li>
+</ul>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p><strong>什么是垃圾</strong>：只要对象不再被使用，那即是垃圾</p>
+<p><strong>如何判断为垃圾</strong>：可达性分析算法和引用计算算法，JVM使用的是可达性分析算法</p>
+<p><strong>什么是GC Roots</strong>：GC Roots是一组必须活跃的引用，跟GC Roots无关联的引用即是垃圾，可被回收</p>
+<p><strong>常见的垃圾回收算法</strong>：标记清除、标记复制、标记整理</p>
+<p><strong>为什么需要分代</strong>：大部分对象都死得早，只有少部分对象会存活很长时间。在堆内存上都会在物理或逻辑上进行分代，为了使「stop the word」持续的时间尽可能短以及提高并发式GC所能应付的内存分配速率。</p>
+<p><strong>Minor GC</strong>：当Eden区满了则触发，从GC Roots往下遍历，年轻代GC不关心老年代对象</p>
+<p><strong>什么是card table</strong>【卡表】：空间换时间（类似bitmap），能够避免扫描老年代的所有对象，进而顺利进行Minor GC （案例：老年代对象持有年轻代对象引用）</p>
+<p><strong>堆内存占比</strong>：年轻代占堆内存1&#x2F;3，老年代占堆内存2&#x2F;3。Eden区占年轻代8&#x2F;10，Survivor区占年轻代2&#x2F;10（其中From 和To 各站1&#x2F;10)</p>
 
       
     </div>
@@ -2282,7 +2318,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">15:49</span>
+    <span title="站点阅读时长">15:51</span>
   </span>
 </div>
 

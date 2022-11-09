@@ -634,9 +634,15 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2022-11-03 14:31:00 / 修改时间：14:47:20" itemprop="dateCreated datePublished" datetime="2022-11-03T14:31:00+08:00">2022-11-03</time>
+      <time title="创建时间：2022-11-03 14:31:00" itemprop="dateCreated datePublished" datetime="2022-11-03T14:31:00+08:00">2022-11-03</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-11-04 15:34:57" itemprop="dateModified" datetime="2022-11-04T15:34:57+08:00">2022-11-04</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -900,7 +906,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-11-02 10:40:57" itemprop="dateModified" datetime="2022-11-02T10:40:57+08:00">2022-11-02</time>
+      <time title="修改时间：2022-11-09 14:20:45" itemprop="dateModified" datetime="2022-11-09T14:20:45+08:00">2022-11-09</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -933,14 +939,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>3.5k</span>
+      <span>4.6k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>3 分钟</span>
+      <span>4 分钟</span>
     </span>
 </div>
 
@@ -1023,91 +1029,64 @@
 <p> </p>
 <h2 id="2-内容转置"><a href="#2-内容转置" class="headerlink" title="2. 内容转置"></a>2. 内容转置</h2><p>本节介绍了如何使用正则表达式转置姓名、转置日期。</p>
 <h3 id="2-1-转置姓名"><a href="#2-1-转置姓名" class="headerlink" title="2.1 转置姓名"></a>2.1 转置姓名</h3><p>第一步，启动 Word，打开一个新的空白文档。复制此文字，将它粘贴到该文档中。</p>
-<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Josh </span><span class="keyword">Barnhill</span></span><br><span class="line"><span class="keyword"></span>Doris Hartwig</span><br><span class="line">Tamara <span class="keyword">Johnston</span></span><br><span class="line"><span class="keyword"></span>Daniel <span class="keyword">Shimshoni</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">Josh Barnhill</span><br><span class="line">Doris Hartwig</span><br><span class="line">Tamara Johnston</span><br><span class="line">Daniel Shimshonig</span><br><span class="line"></span><br><span class="line">第二步，在「开始」选项卡上的「编辑」组中，单击「替换」以打开「查找和替换」对话框。</span><br><span class="line"></span><br><span class="line">第三步，选中「使用通配符」复选框。若没有看到「使用通配符」复选框，请单击「更多」，然后选中该复选框。没有选中该复选框时，Word 会将通配符视作文本。</span><br><span class="line"></span><br><span class="line">第四步，在「查找内容」框中键入 <span class="code">`(&lt;*&gt;) (&lt;*&gt;)`</span>。注：两组括号之间包含了空格。</span><br><span class="line"></span><br><span class="line">第五步，在「替换为」框中，键入 <span class="code">`\2, \1`</span>。注：在逗号和第二个斜杠之间包含了空格。然后单击「全部替换」。Word 会转置这些姓名并使用逗号分隔它们。</span><br><span class="line"></span><br><span class="line">![<span class="string">img</span>](<span class="link">https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/10/31/xFEc5V.png</span>)</span><br><span class="line"></span><br><span class="line">关于正则表达式，在第一个表达式 <span class="code">`(&lt;*&gt;) (&lt;*&gt;)`</span> 中：</span><br><span class="line"></span><br><span class="line"><span class="bullet">-</span> 星号 <span class="code">`*`</span> 代表任意字符串，会返回单词中的全部文本；</span><br><span class="line"><span class="bullet">-</span> 小于和大于符号 <span class="code">`&lt; &gt;`</span> 分别标记了每个单词的开始和结束。它们确保搜索会返回单个单词；</span><br><span class="line"><span class="bullet">-</span> 它们之间的括号和空格将单词拆分成不同的组，即 (第一个单词) 和 (第二个单词)。</span><br><span class="line"></span><br><span class="line">在第二个表达式 <span class="code">`\2, \1`</span> 中：</span><br><span class="line"></span><br><span class="line"><span class="bullet">-</span> 斜杠 <span class="code">`\`</span> 与数字放在一起充当占位符；</span><br><span class="line"><span class="bullet">-</span> 第一个占位符后的逗号，是在两个被转置的姓名之间插入想添加的标点符号；</span><br><span class="line"><span class="bullet">-</span> 该表达式含义是，写入第二个单词，添加逗号，写入第一个单词。</span><br><span class="line"></span><br><span class="line"><span class="section">### 2.2 转置日期</span></span><br><span class="line"></span><br><span class="line">第一步，启动 Word，打开一个新的空白文档。复制此文字，将它粘贴到该文档中。注意粘贴时只保留文本。</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>28th May 2003<br>1st Jun 2008<br>2nd Feb 2010<br>3rd Apr 2020</p>
+<figure class="highlight autohotkey"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">第二步，按照上文描述打开「查找和替换」对话框，并选中「使用通配符」复选框。</span><br><span class="line"></span><br><span class="line">第三步，在「查找内容」框中键入 `([<span class="number">0</span>-<span class="number">9</span>]&#123;<span class="number">1</span>,<span class="number">2</span>&#125;)([dhnrst]&#123;<span class="number">2</span>&#125;) (&lt;[ADFJMNOS]*&gt;) ([<span class="number">0</span>-<span class="number">9</span>]&#123;<span class="number">4</span>&#125;)`。</span><br><span class="line"></span><br><span class="line">第四步，在「替换为」框中，键入 `\<span class="number">3</span> \<span class="number">1</span>, \<span class="number">4</span>`。注：确保在每个字符集之间插入空格。</span><br><span class="line"></span><br><span class="line">第五步，单击「全部替换」。</span><br><span class="line"></span><br><span class="line"><span class="title">![img](https:</span>//cdn.jsdelivr.net/gh/swimminghao/picture@main/img/<span class="number">2022</span>/<span class="number">10</span>/<span class="number">31</span>/HuEomc.png)</span><br><span class="line"></span><br><span class="line">关于正则表达式，第一个表达式 `([<span class="number">0</span>-<span class="number">9</span>]&#123;<span class="number">1</span>,<span class="number">2</span>&#125;)([dhnrst]&#123;<span class="number">2</span>&#125;) (&lt;[ADFJMNOS]*&gt;) ([<span class="number">0</span>-<span class="number">9</span>]&#123;<span class="number">4</span>&#125;)` 的作用是将日期分解为四个部分，由多组括号来表示。具体来看：</span><br><span class="line"></span><br><span class="line">- 第一部分 `([<span class="number">0</span>-<span class="number">9</span>]&#123;<span class="number">1</span>,<span class="number">2</span>&#125;)`。数字范围 `[<span class="number">0</span>-<span class="number">9</span>]` 匹配第一个模式中的一位数数字。因为日期可以由两个数字组成，我们让搜索返回一位数或两位数的日期 `&#123;<span class="number">1</span>,<span class="number">2</span>&#125;`；</span><br><span class="line">- 第二部分由序数词组成。序数词包含 <span class="string">&quot;th&quot;</span>、<span class="string">&quot;nd&quot;</span>、<span class="string">&quot;st&quot;</span> 和 <span class="string">&quot;rd&quot;</span>，因此我们将这些字母添加到范围 `[dhnrst]` 中。因为序数词总是由两个字母组成，我们将字母计数限制为 <span class="number">2</span>，即 `([dhnrst]&#123;<span class="number">2</span>&#125;)`；</span><br><span class="line">- 第三部分是查找月份名的文本字符和通配符。所有月份名都以这些大写字母开头 <span class="string">&quot;ADFJMNOS&quot;</span>。我们不知道每个大写字母后有多少个字符，因此我们在它们之后使用星号 `*`。我们只对月份名本身感兴趣，因此我们使用 `&lt;` 和 `&gt;` 字符来将结果限制为单个单词，即 `(&lt;[ADFJMNOS]*&gt;)`；</span><br><span class="line">  - 星号 `*` 代表任意字符串，会返回单词中的全部文本；</span><br><span class="line">  - 小于和大于符号 `&lt; &gt;` 分别标记了每个单词的开始和结束，它们确保搜索会返回单个单词；</span><br><span class="line">- 第四部分为年。我们使用相同的数字范围，但这次我们将计数限制为四个字符 `([<span class="number">0</span>-<span class="number">9</span>]&#123;<span class="number">4</span>&#125;)`。</span><br><span class="line"></span><br><span class="line">在第二个表达式 `\<span class="number">2</span>, \<span class="number">1</span>` 中：</span><br><span class="line"></span><br><span class="line">- 斜杠 `\` 与数字放在一起充当占位符；</span><br><span class="line">- 第一个占位符后的逗号在两个被转置的姓名之间插入想添加的标点符号；</span><br><span class="line">- 该表达式的含义是，写入第二个单词，添加逗号，写入第一个单词。</span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">## <span class="number">3</span>. 批量换行</span><br><span class="line"></span><br><span class="line">本节介绍了如何使用正则表达式将 <span class="string">&quot;题号&quot;</span> 替换成 <span class="string">&quot;题号、+换行&quot;</span> 和将选项 <span class="string">&quot;B.&quot;</span> 替换成 <span class="string">&quot;换行符+B.&quot;</span>。</span><br><span class="line"></span><br><span class="line">### <span class="number">3.1</span> 题号后加换行符</span><br><span class="line"></span><br><span class="line">第一步，启动 Word，打开一个新的空白文档。复制此文字，将它粘贴到该文档中。</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>5、风险管理的主体是(  )<br>A、法人 B、个人 C、任何组织和个人 D、组织<br>6、风险管理效益的大小，取决于(  )<br>A、是否能以最小风险成本取得最大安全保障 B、是否能以最小风险成本取得最小安全保障 C、是否能以最大风险成本取得最小安全保障 D、是否能以最大风险成本取得最大安全保障<br>7、风险管理的方法分为(  )<br>A、控制型和财务型 B、自留型和转移型 C、控制型和转移型 D、自留型和控制型<br>8、利用签订销售、建筑、运输合同处理风险的风险管理方法是( )<br>A、财务型保险转移风险 B、财务型非保险转移风险 C、避免型风险管理 D、控制型风险管理</p>
+<pre><code>
+第二步，按照上文描述打开「查找和替换」对话框，并选中「使用通配符」复选框。
 
-<p>第二步，在「开始」选项卡上的「编辑」组中，单击「替换」以打开「查找和替换」对话框。</p>
-<p>第三步，选中「使用通配符」复选框。若没有看到「使用通配符」复选框，请单击「更多」，然后选中该复选框。没有选中该复选框时，Word 会将通配符视作文本。</p>
-<p>第四步，在「查找内容」框中键入 <code>(&lt;*&gt;) (&lt;*&gt;)</code>。注：两组括号之间包含了空格。</p>
-<p>第五步，在「替换为」框中，键入 <code>\2, \1</code>。注：在逗号和第二个斜杠之间包含了空格。然后单击「全部替换」。Word 会转置这些姓名并使用逗号分隔它们。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/10/31/xFEc5V.png" alt="img"></p>
-<p>关于正则表达式，在第一个表达式 <code>(&lt;*&gt;) (&lt;*&gt;)</code> 中：</p>
-<ul>
-<li>星号 <code>*</code> 代表任意字符串，会返回单词中的全部文本；</li>
-<li>小于和大于符号 <code>&lt; &gt;</code> 分别标记了每个单词的开始和结束。它们确保搜索会返回单个单词；</li>
-<li>它们之间的括号和空格将单词拆分成不同的组，即 (第一个单词) 和 (第二个单词)。</li>
-</ul>
-<p>在第二个表达式 <code>\2, \1</code> 中：</p>
-<ul>
-<li>斜杠 <code>\</code> 与数字放在一起充当占位符；</li>
-<li>第一个占位符后的逗号，是在两个被转置的姓名之间插入想添加的标点符号；</li>
-<li>该表达式含义是，写入第二个单词，添加逗号，写入第一个单词。</li>
-</ul>
-<h3 id="2-2-转置日期"><a href="#2-2-转置日期" class="headerlink" title="2.2 转置日期"></a>2.2 转置日期</h3><p>第一步，启动 Word，打开一个新的空白文档。复制此文字，将它粘贴到该文档中。注意粘贴时只保留文本。</p>
-<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">28th</span> May <span class="number">2003</span></span><br><span class="line"><span class="attribute">1st</span> Jun <span class="number">2008</span></span><br><span class="line"><span class="attribute">2nd</span> Feb <span class="number">2010</span></span><br><span class="line"><span class="attribute">3rd</span> Apr <span class="number">2020</span></span><br></pre></td></tr></table></figure>
+第三步，在「查找内容」框中键入 `(&lt;[0-9]&#123;1,2&#125;&gt;、)`。
 
-<p>第二步，按照上文描述打开「查找和替换」对话框，并选中「使用通配符」复选框。</p>
-<p>第三步，在「查找内容」框中键入 <code>([0-9]&#123;1,2&#125;)([dhnrst]&#123;2&#125;) (&lt;[ADFJMNOS]*&gt;) ([0-9]&#123;4&#125;)</code>。</p>
-<p>第四步，在「替换为」框中，键入 <code>\3 \1, \4</code>。注：确保在每个字符集之间插入空格。</p>
-<p>第五步，单击「全部替换」。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/10/31/HuEomc.png" alt="img"></p>
-<p>关于正则表达式，第一个表达式 <code>([0-9]&#123;1,2&#125;)([dhnrst]&#123;2&#125;) (&lt;[ADFJMNOS]*&gt;) ([0-9]&#123;4&#125;)</code> 的作用是将日期分解为四个部分，由多组括号来表示。具体来看：</p>
-<ul>
-<li>第一部分 <code>([0-9]&#123;1,2&#125;)</code>。数字范围 <code>[0-9]</code> 匹配第一个模式中的一位数数字。因为日期可以由两个数字组成，我们让搜索返回一位数或两位数的日期 <code>&#123;1,2&#125;</code>；</li>
-<li>第二部分由序数词组成。序数词包含 “th”、”nd”、”st” 和 “rd”，因此我们将这些字母添加到范围 <code>[dhnrst]</code> 中。因为序数词总是由两个字母组成，我们将字母计数限制为 2，即 <code>([dhnrst]&#123;2&#125;)</code>；</li>
-<li>第三部分是查找月份名的文本字符和通配符。所有月份名都以这些大写字母开头 “ADFJMNOS”。我们不知道每个大写字母后有多少个字符，因此我们在它们之后使用星号 <code>*</code>。我们只对月份名本身感兴趣，因此我们使用 <code>&lt;</code> 和 <code>&gt;</code> 字符来将结果限制为单个单词，即 <code>(&lt;[ADFJMNOS]*&gt;)</code>；<ul>
-<li>星号 <code>*</code> 代表任意字符串，会返回单词中的全部文本；</li>
-<li>小于和大于符号 <code>&lt; &gt;</code> 分别标记了每个单词的开始和结束，它们确保搜索会返回单个单词；</li>
-</ul>
-</li>
-<li>第四部分为年。我们使用相同的数字范围，但这次我们将计数限制为四个字符 <code>([0-9]&#123;4&#125;)</code>。</li>
-</ul>
-<p>在第二个表达式 <code>\2, \1</code> 中：</p>
-<ul>
-<li>斜杠 <code>\</code> 与数字放在一起充当占位符；</li>
-<li>第一个占位符后的逗号在两个被转置的姓名之间插入想添加的标点符号；</li>
-<li>该表达式的含义是，写入第二个单词，添加逗号，写入第一个单词。</li>
-</ul>
-<p> </p>
-<h2 id="3-批量换行"><a href="#3-批量换行" class="headerlink" title="3. 批量换行"></a>3. 批量换行</h2><p>本节介绍了如何使用正则表达式将 “题号” 替换成 “题号、+换行” 和将选项 “B.” 替换成 “换行符+B.”。</p>
-<h3 id="3-1-题号后加换行符"><a href="#3-1-题号后加换行符" class="headerlink" title="3.1 题号后加换行符"></a>3.1 题号后加换行符</h3><p>第一步，启动 Word，打开一个新的空白文档。复制此文字，将它粘贴到该文档中。</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">5</span>、风险管理的主体是(  )</span><br><span class="line"><span class="selector-tag">A</span>、法人 <span class="selector-tag">B</span>、个人 C、任何组织和个人 D、组织</span><br><span class="line"><span class="number">6</span>、风险管理效益的大小，取决于(  )</span><br><span class="line"><span class="selector-tag">A</span>、是否能以最小风险成本取得最大安全保障 <span class="selector-tag">B</span>、是否能以最小风险成本取得最小安全保障 C、是否能以最大风险成本取得最小安全保障 D、是否能以最大风险成本取得最大安全保障</span><br><span class="line"><span class="number">7</span>、风险管理的方法分为(  )</span><br><span class="line"><span class="selector-tag">A</span>、控制型和财务型 <span class="selector-tag">B</span>、自留型和转移型 C、控制型和转移型 D、自留型和控制型</span><br><span class="line"><span class="number">8</span>、利用签订销售、建筑、运输合同处理风险的风险管理方法是( )</span><br><span class="line"><span class="selector-tag">A</span>、财务型保险转移风险 <span class="selector-tag">B</span>、财务型非保险转移风险 C、避免型风险管理 D、控制型风险管理</span><br></pre></td></tr></table></figure>
+第四步，在「替换为」框中，键入 `\1^p`。注：确保在每个字符集之间插入空格。
 
-<p>第二步，按照上文描述打开「查找和替换」对话框，并选中「使用通配符」复选框。</p>
-<p>第三步，在「查找内容」框中键入 <code>(&lt;[0-9]&#123;1,2&#125;&gt;、)</code>。</p>
-<p>第四步，在「替换为」框中，键入 <code>\1^p</code>。注：确保在每个字符集之间插入空格。</p>
-<p>第五步，单击「全部替换」。</p>
-<p><img src="https://fig-lianxh.oss-cn-shenzhen.aliyuncs.com/%E4%BD%BF%E7%94%A8%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E5%92%8C%E9%80%9A%E9%85%8D%E7%AC%A6%E5%BF%AB%E9%80%9F%E6%9B%BF%E6%8D%A2_%E6%9D%8E%E5%B2%B8%E7%91%B6_Fig03.png" alt="img"></p>
-<p>关于正则表达式，在第一个表达式 <code>(&lt;[0-9]&#123;1,2&#125;&gt;、)</code> 中：</p>
-<ul>
-<li>小于和大于符号 <code>&lt; &gt;</code> 分别标记了每个单词的开始和结束；</li>
-<li><code>[0-9]</code> 代表匹配从 0 到 9 的数字；</li>
-<li><code>&#123;1,2&#125;</code> 代表数字有 1 到 2 位。如果是 <code>&#123;1,7&#125;</code>，就是数字有 1 到 7 位；</li>
-<li>顿号 <code>、</code> 则就代表字符串 “、”。</li>
-</ul>
-<p>在第二个表达式 <code>\1^p</code> 中：</p>
-<ul>
-<li><code>\1</code> 代表第一个变量；</li>
-<li><code>^p</code> 代表段落标记符号。</li>
-</ul>
-<h3 id="3-2-选项前加换行符"><a href="#3-2-选项前加换行符" class="headerlink" title="3.2 选项前加换行符"></a>3.2 选项前加换行符</h3><p>第一步，按照上文描述打开「查找和替换」对话框，并选中「使用通配符」复选框。</p>
-<p>第二步，在「查找内容」框中键入 <code>(&lt;[BCD]&#123;1,1&#125;&gt;)</code>。</p>
-<p>第三步，在「替换为」框中，键入 <code>^p\1</code>。注：确保在每个字符集之间插入空格。</p>
-<p>第四步，单击「全部替换」。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/10/31/M6LzD4.png" alt="img"></p>
-<h2 id="word手动目录添加点点"><a href="#word手动目录添加点点" class="headerlink" title="word手动目录添加点点"></a>word手动目录添加点点</h2><h2 id="手动目录制作"><a href="#手动目录制作" class="headerlink" title="手动目录制作"></a>手动目录制作</h2><p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/EGATLv_20221101192832.png"></p>
-<ol>
-<li>ctrl选中所有2级目录，然后通过标尺上的「左缩进」按钮，来将我们的2级目录缩进一下。</li>
-<li>手动添加页码，给每一章和节标题后面添加上页码数。 <strong>当然，这里你可以为你的页码添加括弧，或更多个性化内容</strong>。</li>
-</ol>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/54SLTD_20221101193048.png"></p>
-<ol start="3">
-<li>在每一章节标题与页码之间，按一下「Tab」键。</li>
-</ol>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/HlHA9m_20221101193120.png"></p>
-<ol start="4">
-<li>选中所有的目录内容，然后点击「开始」-「段落」-「段落设置」-「制表位」，在「制表位位置」中设置成“42”，这里大家可以查看自己页面中“标尺”来设定具体位置。「对齐方式」设为“居中”。最后，我们选择一种「前导符」，再点击“设置”按钮，确定即可。</li>
-</ol>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/KzDzXg_20221101193251.png"></p>
+第五步，单击「全部替换」。
+
+![img](https://fig-lianxh.oss-cn-shenzhen.aliyuncs.com/%E4%BD%BF%E7%94%A8%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E5%92%8C%E9%80%9A%E9%85%8D%E7%AC%A6%E5%BF%AB%E9%80%9F%E6%9B%BF%E6%8D%A2_%E6%9D%8E%E5%B2%B8%E7%91%B6_Fig03.png)
+
+关于正则表达式，在第一个表达式 `(&lt;[0-9]&#123;1,2&#125;&gt;、)` 中：
+
+- 小于和大于符号 `&lt; &gt;` 分别标记了每个单词的开始和结束；
+- `[0-9]` 代表匹配从 0 到 9 的数字；
+- `&#123;1,2&#125;` 代表数字有 1 到 2 位。如果是 `&#123;1,7&#125;`，就是数字有 1 到 7 位；
+- 顿号 `、` 则就代表字符串 &quot;、&quot;。
+
+在第二个表达式 `\1^p` 中：
+
+- `\1` 代表第一个变量；
+- `^p` 代表段落标记符号。
+
+### 3.2 选项前加换行符
+
+第一步，按照上文描述打开「查找和替换」对话框，并选中「使用通配符」复选框。
+
+第二步，在「查找内容」框中键入 `(&lt;[BCD]&#123;1,1&#125;&gt;)`。
+
+第三步，在「替换为」框中，键入 `^p\1`。注：确保在每个字符集之间插入空格。
+
+第四步，单击「全部替换」。
+
+![img](https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/10/31/M6LzD4.png)
+
+## word手动目录添加点点
+
+## 手动目录制作
+
+![](https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/EGATLv_20221101192832.png)
+
+1. ctrl选中所有2级目录，然后通过标尺上的「左缩进」按钮，来将我们的2级目录缩进一下。
+2. 手动添加页码，给每一章和节标题后面添加上页码数。 **当然，这里你可以为你的页码添加括弧，或更多个性化内容**。
+
+![](https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/54SLTD_20221101193048.png)
+
+3. 在每一章节标题与页码之间，按一下「Tab」键。
+
+![](https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/HlHA9m_20221101193120.png)
+
+4. 选中所有的目录内容，然后点击「开始」-「段落」-「段落设置」-「制表位」，在「制表位位置」中设置成“42”，这里大家可以查看自己页面中“标尺”来设定具体位置。「对齐方式」设为“居中”。最后，我们选择一种「前导符」，再点击“设置”按钮，确定即可。
+
+![](https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/KzDzXg_20221101193251.png)
+</code></pre>
 
       
     </div>
@@ -2452,7 +2431,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">15:49</span>
+    <span title="站点阅读时长">15:51</span>
   </span>
 </div>
 
