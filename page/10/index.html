@@ -219,8 +219,8 @@
 	</div>
 	<ul class="links-of-blogroll-list recent-posts-list">
 	        <li class="my-links-of-blogroll-item">
-		    <a href="/posts/e215f7cb/" title="NAS上搭建SS客户端" target="">
-		    NAS上搭建SS客户端
+		    <a href="/posts/e215f7cb/" title="V2ray Linux客户端v2rayA使用教程和全局代理" target="">
+		    V2ray Linux客户端v2rayA使用教程和全局代理
 		    </a>
 		</li>
 	        <li class="my-links-of-blogroll-item">
@@ -276,7 +276,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/3c567306/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/565f63a6/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/lion.png">
@@ -294,7 +294,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/3c567306/" class="post-title-link" itemprop="url">8、【对线面试官】AQS & ReentrantLock</a>
+          <a href="/posts/565f63a6/" class="post-title-link" itemprop="url">法拍房</a>
         </h2>
 
         <div class="post-meta-container">
@@ -315,7 +315,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-10 09:48:07" itemprop="dateModified" datetime="2022-03-10T09:48:07+08:00">2022-03-10</time>
+      <time title="修改时间：2022-03-11 11:12:36" itemprop="dateModified" datetime="2022-03-11T11:12:36+08:00">2022-03-11</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -323,7 +323,7 @@
       </span>
       <span class="post-meta-item-text">分类于</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+          <a href="/categories/%E6%8C%A3%E9%92%B1/" itemprop="url" rel="index"><span itemprop="name">挣钱</span></a>
         </span>
     </span>
 
@@ -336,8 +336,8 @@
     </span>
     <span class="post-meta-item-text">Waline：</span>
   
-    <a title="waline" href="/posts/3c567306/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/3c567306/" data-xid="/posts/3c567306/" itemprop="commentCount"></span>
+    <a title="waline" href="/posts/565f63a6/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/565f63a6/" data-xid="/posts/565f63a6/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -348,14 +348,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>2.4k</span>
+      <span>997</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>2 分钟</span>
+      <span>1 分钟</span>
     </span>
 </div>
 
@@ -366,77 +366,26 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="8、【对线面试官】AQS-amp-ReentrantLock"><a href="#8、【对线面试官】AQS-amp-ReentrantLock" class="headerlink" title="8、【对线面试官】AQS &amp; ReentrantLock"></a>8、【对线面试官】AQS &amp; ReentrantLock</h1><h2 id="今天我们来聊聊lock锁吧？"><a href="#今天我们来聊聊lock锁吧？" class="headerlink" title="今天我们来聊聊lock锁吧？"></a>今天我们来聊聊lock锁吧？</h2><h2 id="你知道什么叫做公平和非公平锁吗"><a href="#你知道什么叫做公平和非公平锁吗" class="headerlink" title="你知道什么叫做公平和非公平锁吗"></a>你知道什么叫做公平和非公平锁吗</h2><ol>
-<li>公平锁指的就是：在竞争环境下，先到临界区的线程比后到的线程一定更快地获取得到锁</li>
-<li>那非公平就很好理解了：先到临界区的线程未必比后到的线程更快地获取得到锁</li>
-</ol>
-<h2 id="如果让你实现的话，你怎么实现公平和非公平锁？"><a href="#如果让你实现的话，你怎么实现公平和非公平锁？" class="headerlink" title="如果让你实现的话，你怎么实现公平和非公平锁？"></a>如果让你实现的话，你怎么实现公平和非公平锁？</h2><ol>
-<li>公平锁可以把竞争的线程放在一个先进先出的队列上</li>
-<li>只要持有锁的线程执行完了，唤醒队列的下一个线程去获取锁就好了</li>
-<li>非公平锁的概念上面已经提到了：后到的线程可能比前到临界区的线程获取得到锁</li>
-<li>那实现也很简单，线程先尝试能不能获取得到锁，如果获取得到锁了就执行同步代码了</li>
-<li>如果获取不到锁，那就再把这个线程放到队列呗</li>
-<li>所以公平和非公平的区别就是：线程执行同步代码块时，是否会去尝试获取锁。</li>
-<li>如果会尝试获取锁，那就是非公平的。如果不会尝试获取锁，直接进队列，再等待唤醒，那就是公平的。</li>
-</ol>
-<h2 id="为什么要进队列呢？线程一直尝试获取锁不就行了么？"><a href="#为什么要进队列呢？线程一直尝试获取锁不就行了么？" class="headerlink" title="为什么要进队列呢？线程一直尝试获取锁不就行了么？"></a>为什么要进队列呢？线程一直尝试获取锁不就行了么？</h2><ol>
-<li>一直尝试获取锁，专业点就叫做自旋，需要耗费资源的。</li>
-<li>多个线程一直在自旋，而且大多数都是竞争失败的，哪有人会这样实现的</li>
-<li>不会吧，不会吧，你不会就是这样实现的吧</li>
-</ol>
-<h2 id="那上次面试所问的synchronized锁是公平的还是非公平的？"><a href="#那上次面试所问的synchronized锁是公平的还是非公平的？" class="headerlink" title="那上次面试所问的synchronized锁是公平的还是非公平的？"></a>那上次面试所问的synchronized锁是公平的还是非公平的？</h2><ol>
-<li>非公平的。</li>
-<li>偏向锁很好理解，如果当前线程ID与markword存储的不相等，则CAS尝试更换线程ID，CAS成功就获取得到锁了</li>
-<li>CAS失败则升级为轻量级锁</li>
-<li>轻量级锁实际上也是通过CAS来抢占锁资源（只不过多了拷贝Mark Word到Lock Record的过程）</li>
-<li>抢占成功到锁就归属给该线程了，但自旋失败一定次数后升级重量级锁</li>
-<li>重量级锁通过monitor对象中的队列存储线程，但线程进入队列前，还是会先尝试获取得到锁，如果能获取不到才进入线程等待队列中</li>
-<li>综上所述，synchronized无论处理哪种锁，都是先尝试获取，获取不到才升级||放到队列上的，所以是非公平的</li>
-</ol>
-<h2 id="嗯，讲得挺仔细的。AQS你了解吗？"><a href="#嗯，讲得挺仔细的。AQS你了解吗？" class="headerlink" title="嗯，讲得挺仔细的。AQS你了解吗？"></a>嗯，讲得挺仔细的。AQS你了解吗？</h2><ol>
-<li>嗯嗯，AQS全称叫做AbstractQueuedSynchronizer</li>
-<li>是可以给我们实现锁的一个 「框架」，内部实现的关键就是维护了一个先进先出的队列以及state状态变量</li>
-<li>先进先出队列存储的载体叫做Node节点，该节点标识着当前的状态值、是独占还是共享模式以及它的前驱和后继节点等等信息</li>
-<li>简单理解就是：AQS定义了模板，具体实现由各个子类完成。</li>
-<li>总体的流程可以总结为：会把需要等待的线程以Node的形式放到这个先进先出的队列上，state变量则表示为当前锁的状态。</li>
-<li>像ReentrantLock、 ReentrantReadWrite Lock、 CountDownLatch、 Semaphore 这些常用的实现类都是基于AQS实现的</li>
-<li>AQS支持两种模式：独占（锁只会被一个线程独占）和共享（多个线程可同时执行）</li>
-</ol>
-<h2 id="你以ReentrantLock来讲讲加锁和解锁的过程呗"><a href="#你以ReentrantLock来讲讲加锁和解锁的过程呗" class="headerlink" title="你以ReentrantLock来讲讲加锁和解锁的过程呗"></a>你以ReentrantLock来讲讲加锁和解锁的过程呗</h2><ul>
-<li>以非公平锁为了，我们在外界调用lock方法的时候，源码是这样实现的<ol>
-<li>CAS尝试获取锁，获取成功则可以执行同步代码</li>
-<li>CAS获取失败，则调用acquire方法acquire方法实际上就是AQS的模板方法</li>
-<li>acquire首先会调用子类的tryAcquire 方法（又回到了ReentrantLock中）</li>
-<li>tryAcquire方法实际上会判断当前的state是否等于0，等于0说明没有线程持有锁，则又尝试CAS直接获取锁</li>
-<li>如果CAS获取成功，则可以执行同步代码</li>
-<li>如果CAS获取失败，那判断当前线程是否就持有锁，如果是持有的锁，那更新state的值，获取得到锁（这里其实就是处理可重入的逻辑）</li>
-<li>CAS失败&amp;&amp;非重入的情况，则回到try Acquire方法执行「入队列」的操作</li>
-<li>将节点入队列之后，会判断「前驱节点」是不是头节点，如果是头结点又会用CAS尝试获取锁</li>
-<li>如果是「前驱节点」是头节点并获取得到锁，则把当前节点设置为头结点，并且将前驱节点置空（实际上就是原有的头节点已经释放锁了）</li>
-<li>没获取得到锁，则判断前驱节点的状态是否为SIGNAL，如果不是，则找到合法的前驱节点，并使用CAS将状态设置为SIGNAL</li>
-<li>最后调用park将当前线程挂起</li>
-</ol>
-</li>
-</ul>
-<h2 id="你说了一大堆，麻烦使用压缩算法压缩下加锁的过程。"><a href="#你说了一大堆，麻烦使用压缩算法压缩下加锁的过程。" class="headerlink" title="你说了一大堆，麻烦使用压缩算法压缩下加锁的过程。"></a>你说了一大堆，麻烦使用压缩算法压缩下加锁的过程。</h2><p>压缩后：当线程CAS获取锁失败，将当前线程入队列，把前驱节点状态设置为SIGNAL状态，并将自己挂起。</p>
-<h2 id="为什么要设置前驱节点为-SIGNAL状态，有啥用？"><a href="#为什么要设置前驱节点为-SIGNAL状态，有啥用？" class="headerlink" title="为什么要设置前驱节点为 SIGNAL状态，有啥用？"></a>为什么要设置前驱节点为 SIGNAL状态，有啥用？</h2><ol>
-<li>其实就是表示后继节点需要被唤醒,你咋啥都不知道啊？跟你沟通有点烦.我先把解锁的过程说下吧<ul>
-<li>外界调用unlock方法时，实际上会调用AQS的release方法，而release方法会调用子类tryRelease方法（又回到了ReentrantLock中）</li>
-<li>tryRelease会把state一直减（锁重入可使state&gt;1），直至到0，说明当前线程已经把锁释放了</li>
-<li>随后从队尾往前找节点状态需要&lt;0，并离头节点最近的节点进行唤醒</li>
-</ul>
-</li>
-<li>唤醒之后，被唤醒的线程则尝试使用CAS获取锁，假设获取锁得到则把头节点给干掉，把自己设置为头节点成</li>
-<li>解锁的逻辑非常简单哈</li>
-<li>压缩一下：把state置0，唤醒头结点下一个合法的节点，被唤醒的节点线程自然就会去获取锁</li>
-<li>回到上一个问题，为什么要设置前驱节点为SIGNAL状态</li>
-<li>其实归终结底就是为了判断节点的状态，去做些处理。</li>
-<li>Node中节点的状态有4种，分别是：CA NCELLED(1)、 SIGNAL(-1)、 CONDITI ON（-2）、 PROPAGATE（-3）和0。</li>
-<li>在ReentrantLock解锁的时候，会判断节点的状态是否小于0，小于等于0才说明需要被唤醒</li>
-<li>另外一提的是：公平锁的实现与非公平锁是很像的，只不过在获取锁时不会直接尝试使用CAS来获取锁。</li>
-<li>只有当队列没节点并且state为0时才会去获取锁，不然都会把当前线程放到队列中</li>
-</ol>
-<h2 id="流程图"><a href="#流程图" class="headerlink" title="流程图"></a>流程图</h2><p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/eK7qe3_20211027174549.png"></p>
+          <h1 id="法拍房"><a href="#法拍房" class="headerlink" title="法拍房"></a>法拍房</h1><p>以前玩过法拍房。</p>
+<p>答案是：买卖不破租赁，没辙儿。</p>
+<p>而且存在租赁的情况法院必然会在拍卖前告知，可能你冲动之下不看仔细就瞎jb拍了。人家租赁合同估计做得也没啥原则性的漏洞（正常情况下房主计划断供之前就准备好一切了，还能等到拍卖完了才想起来临时抱佛脚？），否则你也不会跑来知乎问问题。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/QYXpiS_20220218115144.png" alt="img"><img src="https://pic1.zhimg.com/80/v2-f9c3fc9a2e3b9fb55e4d44eb4ac8ccfc_1440w.jpg?source=1940ef5c" alt="img">知乎懂哥太多了，民法典上写得清清楚楚的东西还要来杠</p>
+<p>给想玩法拍房的人一个建议。</p>
+<p>以前我玩法拍房，都是先找银行的熟人把银行的不良贷款列一份名单给我。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/in9h58_20220218115220.png" alt="img"></p>
+<p>看上哪套房子，就联系银行把该房的债权买下来，（银行-〉有资质的第三方机构-〉个人，具体步骤结尾有补充）（即房主欠银行的钱变成房主欠我的钱）。银行本来就不是拍卖机构，拍卖周期又可能比较长，银行一般急着回笼资金节约流程巴不得有人把债权买走，还会打折卖。之后自己成了债权人，就可以在拍卖信息上把联系电话留成自己的。</p>
+<p>有买家想了解这套房，就会打我的电话，这时我会告诉买家这套房有一些问题，比如就存在题主说的“有超长租赁合同”之类的。买家一听这房子藏雷，就不打算买了。</p>
+<p>最后想买的买家全都被我劝退，没有任何人和我竞争，这时我再让合伙人出手竞拍（债权人不能买，所以需要一个合伙人），于是这套房子就被我以起拍价买下来了。</p>
+<p>你们要买<a target="_blank" rel="noopener" href="https://www.zhihu.com/search?q=%E6%B3%95%E6%8B%8D%E6%88%BF&search_source=Entity&hybrid_search_source=Entity&hybrid_search_extra=%7B%22sourceType%22:%22answer%22,%22sourceId%22:2336153412%7D">法拍房</a>的可以参考这个方法。</p>
+<hr>
+<h3 id="没想到这里还有杠精，是因为我把这路子免费分享出来，知道的人多了会挡你财路？"><a href="#没想到这里还有杠精，是因为我把这路子免费分享出来，知道的人多了会挡你财路？" class="headerlink" title="没想到这里还有杠精，是因为我把这路子免费分享出来，知道的人多了会挡你财路？"></a>没想到这里还有杠精，是因为我把这路子免费分享出来，知道的人多了会挡你财路？</h3><h3 id="补充细节："><a href="#补充细节：" class="headerlink" title="补充细节："></a>补充细节：</h3><p>1，债权不能直接从银行到个人，需要经手有资质的第三方机构，比如拍卖行。具体步骤：挑好房子谈好折扣——打款到拍卖行——和银行签债转协议——银行债转公示——<a target="_blank" rel="noopener" href="https://www.zhihu.com/search?q=%E5%85%AC%E8%AF%81%E5%A4%84&search_source=Entity&hybrid_search_source=Entity&hybrid_search_extra=%7B%22sourceType%22:%22answer%22,%22sourceId%22:2336153412%7D">公证处</a>债权公证——法院出债转文书——诉讼主体变更——接手债权。</p>
+<p>2，法拍房如果出现意外情况，处理较繁琐。我以前只出资投债权赚差价，不沾房子本身。不认识熟人的散户建议联系专门的拍卖中介机构，不会多收你几个钱。中介也是按上面说的这些流程走的。</p>
+<hr>
+<p>最后声明：</p>
+<p>知乎杠精太多了。</p>
+<p>我回答这个问题仅仅只是因为关注动态里蹦出来了这个问题，而我正好以前在这个领域玩过一段时间，所以顺手答一下。我本人是原神和vtb领域的答主，对金融方面的流量不感兴趣，更何况还是知乎这种公认变现价值低的劣质流量。</p>
+<p>另外本人自前年底去年初住建部全国巡视指导发政策后就不再玩房了，不打广告不为自己引流（当然你可以去b站关注一下嘉然），也不接受网友任何投资与资金往来。答主绝不可能以任何形式问你要钱、拉你进任何形式的群聊、让你注册任何形式的账号等等。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/oXAOjg_20220218115620.png" alt="img"><img src="https://pic3.zhimg.com/80/v2-dc62303b7e3ec727fb12e80bcb36d58d_1440w.jpg?source=1940ef5c" alt="img"></p>
 
       
     </div>
@@ -714,147 +663,6 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/565f63a6/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/lion.png">
-      <meta itemprop="name" content="swimminghao">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="swimminghao's blog">
-      <meta itemprop="description" content="swimminghao的学习博客">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | swimminghao's blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/565f63a6/" class="post-title-link" itemprop="url">法拍房</a>
-        </h2>
-
-        <div class="post-meta-container">
-
-          
-
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-11 11:12:36" itemprop="dateModified" datetime="2022-03-11T11:12:36+08:00">2022-03-11</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%8C%A3%E9%92%B1/" itemprop="url" rel="index"><span itemprop="name">挣钱</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="far fa-comment"></i>
-    </span>
-    <span class="post-meta-item-text">Waline：</span>
-  
-    <a title="waline" href="/posts/565f63a6/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/565f63a6/" data-xid="/posts/565f63a6/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>997</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>1 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="法拍房"><a href="#法拍房" class="headerlink" title="法拍房"></a>法拍房</h1><p>以前玩过法拍房。</p>
-<p>答案是：买卖不破租赁，没辙儿。</p>
-<p>而且存在租赁的情况法院必然会在拍卖前告知，可能你冲动之下不看仔细就瞎jb拍了。人家租赁合同估计做得也没啥原则性的漏洞（正常情况下房主计划断供之前就准备好一切了，还能等到拍卖完了才想起来临时抱佛脚？），否则你也不会跑来知乎问问题。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/QYXpiS_20220218115144.png" alt="img"><img src="https://pic1.zhimg.com/80/v2-f9c3fc9a2e3b9fb55e4d44eb4ac8ccfc_1440w.jpg?source=1940ef5c" alt="img">知乎懂哥太多了，民法典上写得清清楚楚的东西还要来杠</p>
-<p>给想玩法拍房的人一个建议。</p>
-<p>以前我玩法拍房，都是先找银行的熟人把银行的不良贷款列一份名单给我。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/in9h58_20220218115220.png" alt="img"></p>
-<p>看上哪套房子，就联系银行把该房的债权买下来，（银行-〉有资质的第三方机构-〉个人，具体步骤结尾有补充）（即房主欠银行的钱变成房主欠我的钱）。银行本来就不是拍卖机构，拍卖周期又可能比较长，银行一般急着回笼资金节约流程巴不得有人把债权买走，还会打折卖。之后自己成了债权人，就可以在拍卖信息上把联系电话留成自己的。</p>
-<p>有买家想了解这套房，就会打我的电话，这时我会告诉买家这套房有一些问题，比如就存在题主说的“有超长租赁合同”之类的。买家一听这房子藏雷，就不打算买了。</p>
-<p>最后想买的买家全都被我劝退，没有任何人和我竞争，这时我再让合伙人出手竞拍（债权人不能买，所以需要一个合伙人），于是这套房子就被我以起拍价买下来了。</p>
-<p>你们要买<a target="_blank" rel="noopener" href="https://www.zhihu.com/search?q=%E6%B3%95%E6%8B%8D%E6%88%BF&search_source=Entity&hybrid_search_source=Entity&hybrid_search_extra=%7B%22sourceType%22:%22answer%22,%22sourceId%22:2336153412%7D">法拍房</a>的可以参考这个方法。</p>
-<hr>
-<h3 id="没想到这里还有杠精，是因为我把这路子免费分享出来，知道的人多了会挡你财路？"><a href="#没想到这里还有杠精，是因为我把这路子免费分享出来，知道的人多了会挡你财路？" class="headerlink" title="没想到这里还有杠精，是因为我把这路子免费分享出来，知道的人多了会挡你财路？"></a>没想到这里还有杠精，是因为我把这路子免费分享出来，知道的人多了会挡你财路？</h3><h3 id="补充细节："><a href="#补充细节：" class="headerlink" title="补充细节："></a>补充细节：</h3><p>1，债权不能直接从银行到个人，需要经手有资质的第三方机构，比如拍卖行。具体步骤：挑好房子谈好折扣——打款到拍卖行——和银行签债转协议——银行债转公示——<a target="_blank" rel="noopener" href="https://www.zhihu.com/search?q=%E5%85%AC%E8%AF%81%E5%A4%84&search_source=Entity&hybrid_search_source=Entity&hybrid_search_extra=%7B%22sourceType%22:%22answer%22,%22sourceId%22:2336153412%7D">公证处</a>债权公证——法院出债转文书——诉讼主体变更——接手债权。</p>
-<p>2，法拍房如果出现意外情况，处理较繁琐。我以前只出资投债权赚差价，不沾房子本身。不认识熟人的散户建议联系专门的拍卖中介机构，不会多收你几个钱。中介也是按上面说的这些流程走的。</p>
-<hr>
-<p>最后声明：</p>
-<p>知乎杠精太多了。</p>
-<p>我回答这个问题仅仅只是因为关注动态里蹦出来了这个问题，而我正好以前在这个领域玩过一段时间，所以顺手答一下。我本人是原神和vtb领域的答主，对金融方面的流量不感兴趣，更何况还是知乎这种公认变现价值低的劣质流量。</p>
-<p>另外本人自前年底去年初住建部全国巡视指导发政策后就不再玩房了，不打广告不为自己引流（当然你可以去b站关注一下嘉然），也不接受网友任何投资与资金往来。答主绝不可能以任何形式问你要钱、拉你进任何形式的群聊、让你注册任何形式的账号等等。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/oXAOjg_20220218115620.png" alt="img"><img src="https://pic3.zhimg.com/80/v2-dc62303b7e3ec727fb12e80bcb36d58d_1440w.jpg?source=1940ef5c" alt="img"></p>
-
-      
-    </div>
-
-    
-    
-    
-
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>l
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://example.com/posts/d2168e68/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1047,6 +855,147 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/530fe413/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lion.png">
+      <meta itemprop="name" content="swimminghao">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="swimminghao's blog">
+      <meta itemprop="description" content="swimminghao的学习博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | swimminghao's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/530fe413/" class="post-title-link" itemprop="url">问答系统总结2</a>
+        </h2>
+
+        <div class="post-meta-container">
+
+          
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-03-11 10:41:30" itemprop="dateModified" datetime="2022-03-11T10:41:30+08:00">2022-03-11</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">学习</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/posts/530fe413/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/530fe413/" data-xid="/posts/530fe413/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>1.9k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>2 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="问答系统总结2"><a href="#问答系统总结2" class="headerlink" title="问答系统总结2"></a>问答系统总结2</h1><h2 id="1-开发工具GIt，idea"><a href="#1-开发工具GIt，idea" class="headerlink" title="1.开发工具GIt，idea"></a>1.开发工具GIt，idea</h2><ul>
+<li>我是把代码放到github上的，以便于代码版本管理，不能拷贝来拷贝去</li>
+<li>java语言&#x2F;规范最基础，要研究jvm，垃圾回收算法思路，根据什么样的规则，怎么回收申请的一些对象；参数可以配置，怎么配置，对应的后台运行又是怎么样的<h2 id="2-Spring-Boot，Velocity"><a href="#2-Spring-Boot，Velocity" class="headerlink" title="2.Spring Boot，Velocity"></a>2.Spring Boot，Velocity</h2></li>
+<li>spring框架：spring是怎么做的，view、controller、service是怎么连在一起的：spring是控制反转、依赖注入，解决了数据数据初始化一些问题，能够吧代码写得很简洁，然后脱颖而出，核心是怎么做的，数据初始化是怎么做的。面向切面的编程可以用在什么地方，spring的一般框架是mvc<br>：层是controller、中间层是service、底层是dao。为什么这么分？他比其他的区别是什么？对一些request包装了<br>   找spring一两点深入研究：我不仅仅是用了spring，我还研究了他某一个组件，他是怎么实现的？讲讲(闪光点）</li>
+<li>velocity（模板语言）<br> 我用了velocity，我发现了velocity里的很多东西和我学的java、c++都是一样的，他这个框架他把一些公用的都提取出来，前面的spring boot是个java框架，为什么要用velocity，因为我要前后端分离，view和后面的数据要分离，data是怎么传过来的，怎么解析的，他支持什么东西？（不仅仅用了这个东西，还有思想，解耦）<h2 id="3-mybatis"><a href="#3-mybatis" class="headerlink" title="3.mybatis"></a>3.mybatis</h2></li>
+<li>怎么把数据库的一些前后的读取给做了，怎么把xml里的多重条件，怎么做文法的解析，然后把这些条件给处理掉。<h2 id="4-登录-x2F-注册"><a href="#4-登录-x2F-注册" class="headerlink" title="4.登录&#x2F;注册"></a>4.登录&#x2F;注册</h2></li>
+<li>网站安全（salt）：密码为什么加了一个salt就变得安全？</li>
+<li>通过拦截器来实现的：拦截器的思想、框架，留好接口;拦截器实现登录注册：我在cookie里放了一个token，token怎么处理用户登录注册的：在用户登录注册的时候，会下发一个token，把token与用户信息关联起来，关联起来之后我为了优化token信息，把token放到数据库里（redis），设计一个分布式的统一登录系统，现在的互联网产品都是统一登录的，比如，登录qq之后，登录网页就不需要登录了，qq登录过的token直接注入到网页上去。这是个ssension共享问题：、</li>
+<li>保证数据安全：验证（邮件激活）<h2 id="5-前缀树"><a href="#5-前缀树" class="headerlink" title="5.前缀树"></a>5.前缀树</h2></li>
+<li>构造一个前缀树，通过一个有限状态机来实现一传文本是不是包含敏感词，繁杂度是多少 很重要：优点有哪些？为什么不用kmp，文本查找算法：<br>可以很快的加一些词汇过来；有扩展性，以及性能更提高<h2 id="6-redis"><a href="#6-redis" class="headerlink" title="6.redis"></a>6.redis</h2></li>
+<li>数据结构：跳列表，哈希，优先队列，list：我了解redis底层是怎么实现的，为什么他的效率很高，他的字符串是怎么保存的，做这个工程的时候我用在的异步队列上、排序上、异步框架<h2 id="7-异步框架"><a href="#7-异步框架" class="headerlink" title="7.异步框架"></a>7.异步框架</h2></li>
+</ul>
+<p>*思路：我这个网站附带的每一步操作可能附带的操作都非常多，为了更快的吧结果返回给用户，所以采用异步框架，自己写的，数据结构：使用redis的队列，因为redis能够保证线程同步；除了用队列，我还想过用有优先队列，这样我的异步框架能够把紧急的任务线处理掉。我这个异步框架：有消息的发射，消息的处理，事件的模型定义以及具体执行的eventhandle，我定义了一些公共接口把这些实现了。</p>
+<h2 id="8-邮件（smtp协议）"><a href="#8-邮件（smtp协议）" class="headerlink" title="8.邮件（smtp协议）"></a>8.邮件（smtp协议）</h2><ul>
+<li>做了一个简单邮件，怎么连接上服务器，我当时做这个的时候，ssl问题<br>，ssl理解，服务器需要ssl链接，为了安全服务器是怎么做的；java sdk 1.7 1.8的问题，1.8是需要换一个jar包的</li>
+<li>豆瓣电影排序：好的问题能挑选出来，互动越多，时间越新，评分越高。<h2 id="9-timeline（时间轴）"><a href="#9-timeline（时间轴）" class="headerlink" title="9.timeline（时间轴）"></a>9.timeline（时间轴）</h2></li>
+<li>肯定会问：为什么用推拉模式，用推实时性高能让好友快速得到消息，用拉能节省僵尸号、不是活跃用户的存储空间。怎么区分？最后把timeline组合起来‘timeline模板系统，每个新鲜事展向不一样，和velocity结合起来，后台存储的都是核心数据，每个数据对应的是一个模板，我把模板结合起来，我就能快速的把时间轴展示出来。<h2 id="10-爬虫"><a href="#10-爬虫" class="headerlink" title="10.爬虫"></a>10.爬虫</h2><h2 id="11-solr搜索"><a href="#11-solr搜索" class="headerlink" title="11.solr搜索"></a>11.solr搜索</h2></li>
+<li>搜索去重：对比相似度，敏感哈希算法，哈希算法：两个字符串稍微有一点点不一样，结构就是不一样的。可能头尾是不一样的，内容一样：采用敏感哈希算法把相似度求出来，区别：敏感哈希算法两个文档相似度很高，他生成的哈希值的比例是很相似的。<h2 id="12-单元测试-x2F-部署"><a href="#12-单元测试-x2F-部署" class="headerlink" title="12.单元测试&#x2F;部署"></a>12.单元测试&#x2F;部署</h2></li>
+<li>部署：运维，llinux nigix反向代理，与正向对比。负载均衡：为什么要负载均衡。</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>l
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://example.com/posts/ca06b5a9/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1170,147 +1119,6 @@
 <h2 id="12-单元测试-x2F-部署"><a href="#12-单元测试-x2F-部署" class="headerlink" title="12.单元测试&#x2F;部署"></a>12.单元测试&#x2F;部署</h2></li>
 <li><p>部署：运维，llinux nigix反向代理，与正向对比。负载均衡：为什么要负载均衡。</p>
 </li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>l
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/530fe413/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/lion.png">
-      <meta itemprop="name" content="swimminghao">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="swimminghao's blog">
-      <meta itemprop="description" content="swimminghao的学习博客">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | swimminghao's blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/530fe413/" class="post-title-link" itemprop="url">问答系统总结2</a>
-        </h2>
-
-        <div class="post-meta-container">
-
-          
-
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-11 10:41:30" itemprop="dateModified" datetime="2022-03-11T10:41:30+08:00">2022-03-11</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">学习</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="far fa-comment"></i>
-    </span>
-    <span class="post-meta-item-text">Waline：</span>
-  
-    <a title="waline" href="/posts/530fe413/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/530fe413/" data-xid="/posts/530fe413/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>1.9k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>2 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="问答系统总结2"><a href="#问答系统总结2" class="headerlink" title="问答系统总结2"></a>问答系统总结2</h1><h2 id="1-开发工具GIt，idea"><a href="#1-开发工具GIt，idea" class="headerlink" title="1.开发工具GIt，idea"></a>1.开发工具GIt，idea</h2><ul>
-<li>我是把代码放到github上的，以便于代码版本管理，不能拷贝来拷贝去</li>
-<li>java语言&#x2F;规范最基础，要研究jvm，垃圾回收算法思路，根据什么样的规则，怎么回收申请的一些对象；参数可以配置，怎么配置，对应的后台运行又是怎么样的<h2 id="2-Spring-Boot，Velocity"><a href="#2-Spring-Boot，Velocity" class="headerlink" title="2.Spring Boot，Velocity"></a>2.Spring Boot，Velocity</h2></li>
-<li>spring框架：spring是怎么做的，view、controller、service是怎么连在一起的：spring是控制反转、依赖注入，解决了数据数据初始化一些问题，能够吧代码写得很简洁，然后脱颖而出，核心是怎么做的，数据初始化是怎么做的。面向切面的编程可以用在什么地方，spring的一般框架是mvc<br>：层是controller、中间层是service、底层是dao。为什么这么分？他比其他的区别是什么？对一些request包装了<br>   找spring一两点深入研究：我不仅仅是用了spring，我还研究了他某一个组件，他是怎么实现的？讲讲(闪光点）</li>
-<li>velocity（模板语言）<br> 我用了velocity，我发现了velocity里的很多东西和我学的java、c++都是一样的，他这个框架他把一些公用的都提取出来，前面的spring boot是个java框架，为什么要用velocity，因为我要前后端分离，view和后面的数据要分离，data是怎么传过来的，怎么解析的，他支持什么东西？（不仅仅用了这个东西，还有思想，解耦）<h2 id="3-mybatis"><a href="#3-mybatis" class="headerlink" title="3.mybatis"></a>3.mybatis</h2></li>
-<li>怎么把数据库的一些前后的读取给做了，怎么把xml里的多重条件，怎么做文法的解析，然后把这些条件给处理掉。<h2 id="4-登录-x2F-注册"><a href="#4-登录-x2F-注册" class="headerlink" title="4.登录&#x2F;注册"></a>4.登录&#x2F;注册</h2></li>
-<li>网站安全（salt）：密码为什么加了一个salt就变得安全？</li>
-<li>通过拦截器来实现的：拦截器的思想、框架，留好接口;拦截器实现登录注册：我在cookie里放了一个token，token怎么处理用户登录注册的：在用户登录注册的时候，会下发一个token，把token与用户信息关联起来，关联起来之后我为了优化token信息，把token放到数据库里（redis），设计一个分布式的统一登录系统，现在的互联网产品都是统一登录的，比如，登录qq之后，登录网页就不需要登录了，qq登录过的token直接注入到网页上去。这是个ssension共享问题：、</li>
-<li>保证数据安全：验证（邮件激活）<h2 id="5-前缀树"><a href="#5-前缀树" class="headerlink" title="5.前缀树"></a>5.前缀树</h2></li>
-<li>构造一个前缀树，通过一个有限状态机来实现一传文本是不是包含敏感词，繁杂度是多少 很重要：优点有哪些？为什么不用kmp，文本查找算法：<br>可以很快的加一些词汇过来；有扩展性，以及性能更提高<h2 id="6-redis"><a href="#6-redis" class="headerlink" title="6.redis"></a>6.redis</h2></li>
-<li>数据结构：跳列表，哈希，优先队列，list：我了解redis底层是怎么实现的，为什么他的效率很高，他的字符串是怎么保存的，做这个工程的时候我用在的异步队列上、排序上、异步框架<h2 id="7-异步框架"><a href="#7-异步框架" class="headerlink" title="7.异步框架"></a>7.异步框架</h2></li>
-</ul>
-<p>*思路：我这个网站附带的每一步操作可能附带的操作都非常多，为了更快的吧结果返回给用户，所以采用异步框架，自己写的，数据结构：使用redis的队列，因为redis能够保证线程同步；除了用队列，我还想过用有优先队列，这样我的异步框架能够把紧急的任务线处理掉。我这个异步框架：有消息的发射，消息的处理，事件的模型定义以及具体执行的eventhandle，我定义了一些公共接口把这些实现了。</p>
-<h2 id="8-邮件（smtp协议）"><a href="#8-邮件（smtp协议）" class="headerlink" title="8.邮件（smtp协议）"></a>8.邮件（smtp协议）</h2><ul>
-<li>做了一个简单邮件，怎么连接上服务器，我当时做这个的时候，ssl问题<br>，ssl理解，服务器需要ssl链接，为了安全服务器是怎么做的；java sdk 1.7 1.8的问题，1.8是需要换一个jar包的</li>
-<li>豆瓣电影排序：好的问题能挑选出来，互动越多，时间越新，评分越高。<h2 id="9-timeline（时间轴）"><a href="#9-timeline（时间轴）" class="headerlink" title="9.timeline（时间轴）"></a>9.timeline（时间轴）</h2></li>
-<li>肯定会问：为什么用推拉模式，用推实时性高能让好友快速得到消息，用拉能节省僵尸号、不是活跃用户的存储空间。怎么区分？最后把timeline组合起来‘timeline模板系统，每个新鲜事展向不一样，和velocity结合起来，后台存储的都是核心数据，每个数据对应的是一个模板，我把模板结合起来，我就能快速的把时间轴展示出来。<h2 id="10-爬虫"><a href="#10-爬虫" class="headerlink" title="10.爬虫"></a>10.爬虫</h2><h2 id="11-solr搜索"><a href="#11-solr搜索" class="headerlink" title="11.solr搜索"></a>11.solr搜索</h2></li>
-<li>搜索去重：对比相似度，敏感哈希算法，哈希算法：两个字符串稍微有一点点不一样，结构就是不一样的。可能头尾是不一样的，内容一样：采用敏感哈希算法把相似度求出来，区别：敏感哈希算法两个文档相似度很高，他生成的哈希值的比例是很相似的。<h2 id="12-单元测试-x2F-部署"><a href="#12-单元测试-x2F-部署" class="headerlink" title="12.单元测试&#x2F;部署"></a>12.单元测试&#x2F;部署</h2></li>
-<li>部署：运维，llinux nigix反向代理，与正向对比。负载均衡：为什么要负载均衡。</li>
 </ul>
 
       
@@ -1470,6 +1278,141 @@
 <li><p>争取明年4月份，识别率能够达到80%吧</p>
 </li>
 </ul>
+
+      
+    </div>
+
+    
+    
+    
+
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>l
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/1ed54b1d/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lion.png">
+      <meta itemprop="name" content="swimminghao">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="swimminghao's blog">
+      <meta itemprop="description" content="swimminghao的学习博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | swimminghao's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/1ed54b1d/" class="post-title-link" itemprop="url">git对比两个分支</a>
+        </h2>
+
+        <div class="post-meta-container">
+
+          
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-03-11 11:12:36" itemprop="dateModified" datetime="2022-03-11T11:12:36+08:00">2022-03-11</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/posts/1ed54b1d/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/1ed54b1d/" data-xid="/posts/1ed54b1d/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>477</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>1 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="git-对比两个分支差异"><a href="#git-对比两个分支差异" class="headerlink" title="git 对比两个分支差异"></a>git 对比两个分支差异</h1><h3 id="1-显示出branch1和branch2中差异的部分"><a href="#1-显示出branch1和branch2中差异的部分" class="headerlink" title="1. 显示出branch1和branch2中差异的部分"></a>1. 显示出branch1和branch2中差异的部分</h3>  <figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="keyword">diff </span><span class="keyword">branch1 </span><span class="keyword">branch2 </span>--stat</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-显示指定文件的详细差异"><a href="#2-显示指定文件的详细差异" class="headerlink" title="2. 显示指定文件的详细差异"></a>2. 显示指定文件的详细差异</h3>  <figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="keyword">diff </span><span class="keyword">branch1 </span><span class="keyword">branch2 </span>具体文件路径</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-显示出所有有差异的文件的详细差异"><a href="#3-显示出所有有差异的文件的详细差异" class="headerlink" title="3. 显示出所有有差异的文件的详细差异"></a>3. 显示出所有有差异的文件的详细差异</h3>  <figure class="highlight gcode"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git diff bra<span class="symbol">nch1</span> bra<span class="symbol">nch2</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="4-查看branch1分支有，而branch2中没有的log"><a href="#4-查看branch1分支有，而branch2中没有的log" class="headerlink" title="4. 查看branch1分支有，而branch2中没有的log"></a>4. 查看branch1分支有，而branch2中没有的log</h3>  <figure class="highlight gcode"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git log bra<span class="symbol">nch1</span> ^bra<span class="symbol">nch2</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="5-查看branch2中比branch1中多提交了哪些内容"><a href="#5-查看branch2中比branch1中多提交了哪些内容" class="headerlink" title="5. 查看branch2中比branch1中多提交了哪些内容"></a>5. 查看branch2中比branch1中多提交了哪些内容</h3>  <figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">git</span></span> <span class="built_in">log</span> branch1..branch2`</span><br></pre></td></tr></table></figure>
+<p>  <strong>注意，列出来的是两个点后边（此处即dev）多提交的内容。</strong></p>
+<h3 id="6-不知道谁提交的多谁提交的少，单纯想知道有是吗不一样"><a href="#6-不知道谁提交的多谁提交的少，单纯想知道有是吗不一样" class="headerlink" title="6. 不知道谁提交的多谁提交的少，单纯想知道有是吗不一样"></a>6. 不知道谁提交的多谁提交的少，单纯想知道有是吗不一样</h3>  <figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">git</span></span> <span class="built_in">log</span> branch1...branch2</span><br></pre></td></tr></table></figure>
+
+<h3 id="7-在上述情况下，在显示出没个提交是在哪个分支上"><a href="#7-在上述情况下，在显示出没个提交是在哪个分支上" class="headerlink" title="7. 在上述情况下，在显示出没个提交是在哪个分支上"></a>7. 在上述情况下，在显示出没个提交是在哪个分支上</h3>  <figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">git</span></span> <span class="built_in">log</span> --lefg-right branch1...branch2</span><br></pre></td></tr></table></figure>
+<p>  <strong>注意 commit 后面的箭头，根据我们在 –left-right branch1…branch2 的顺序，左箭头 &lt; 表示是 branch1 的，右箭头 &gt; 表示是branch2的。</strong></p>
 
       
     </div>
@@ -2002,7 +1945,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/1ed54b1d/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/e5591b74/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/lion.png">
@@ -2020,7 +1963,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/1ed54b1d/" class="post-title-link" itemprop="url">git对比两个分支</a>
+          <a href="/posts/e5591b74/" class="post-title-link" itemprop="url">git推送文件夹到github仓库</a>
         </h2>
 
         <div class="post-meta-container">
@@ -2062,8 +2005,8 @@
     </span>
     <span class="post-meta-item-text">Waline：</span>
   
-    <a title="waline" href="/posts/1ed54b1d/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/1ed54b1d/" data-xid="/posts/1ed54b1d/" itemprop="commentCount"></span>
+    <a title="waline" href="/posts/e5591b74/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/e5591b74/" data-xid="/posts/e5591b74/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -2074,7 +2017,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>477</span>
+      <span>865</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -2092,20 +2035,40 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="git-对比两个分支差异"><a href="#git-对比两个分支差异" class="headerlink" title="git 对比两个分支差异"></a>git 对比两个分支差异</h1><h3 id="1-显示出branch1和branch2中差异的部分"><a href="#1-显示出branch1和branch2中差异的部分" class="headerlink" title="1. 显示出branch1和branch2中差异的部分"></a>1. 显示出branch1和branch2中差异的部分</h3>  <figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="keyword">diff </span><span class="keyword">branch1 </span><span class="keyword">branch2 </span>--stat</span><br></pre></td></tr></table></figure>
+          <h1 id="Git推送文件夹到github仓库"><a href="#Git推送文件夹到github仓库" class="headerlink" title="Git推送文件夹到github仓库"></a>Git推送文件夹到github仓库</h1><p>有时候我们可能会遇到当文件累积到了一定程度的时候，想使用 git 进行版本管理，或者推送到 Github 等远程仓库上。本文介绍如何将一个本地文件夹中已经存在的内容使用 git 进行管理，并推送至远程仓库，以及对其中可能出现的错误进行分析。</p>
+<h2 id="创建-git-仓库"><a href="#创建-git-仓库" class="headerlink" title="创建 git 仓库"></a>创建 git 仓库</h2><p>在该文件夹下初始化仓库：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git init</span><br></pre></td></tr></table></figure>
 
-<h3 id="2-显示指定文件的详细差异"><a href="#2-显示指定文件的详细差异" class="headerlink" title="2. 显示指定文件的详细差异"></a>2. 显示指定文件的详细差异</h3>  <figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="keyword">diff </span><span class="keyword">branch1 </span><span class="keyword">branch2 </span>具体文件路径</span><br></pre></td></tr></table></figure>
+<p>此时将会在此文件夹下创建一个空的仓库，产生一个 <code>.git</code>文件，会看到以下提示：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Initialized empty Git repository in FOLDERPATH/<span class="selector-class">.git</span>/</span><br></pre></td></tr></table></figure>
 
-<h3 id="3-显示出所有有差异的文件的详细差异"><a href="#3-显示出所有有差异的文件的详细差异" class="headerlink" title="3. 显示出所有有差异的文件的详细差异"></a>3. 显示出所有有差异的文件的详细差异</h3>  <figure class="highlight gcode"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git diff bra<span class="symbol">nch1</span> bra<span class="symbol">nch2</span></span><br></pre></td></tr></table></figure>
+<h2 id="将文件添加到暂存区"><a href="#将文件添加到暂存区" class="headerlink" title="将文件添加到暂存区"></a>将文件添加到暂存区</h2><p>使用以下命令：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git add .	</span><br></pre></td></tr></table></figure>
 
-<h3 id="4-查看branch1分支有，而branch2中没有的log"><a href="#4-查看branch1分支有，而branch2中没有的log" class="headerlink" title="4. 查看branch1分支有，而branch2中没有的log"></a>4. 查看branch1分支有，而branch2中没有的log</h3>  <figure class="highlight gcode"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git log bra<span class="symbol">nch1</span> ^bra<span class="symbol">nch2</span></span><br></pre></td></tr></table></figure>
+<p>此操作会将当前文件夹中所有文件添加到 git 仓库暂存区。</p>
+<h2 id="将文件提交到仓库"><a href="#将文件提交到仓库" class="headerlink" title="将文件提交到仓库"></a>将文件提交到仓库</h2><p><code>git add</code> 命令仅仅将文件暂存，但实际上还没有提交，实际上仓库中并没有这些文件，使用以下命令：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git commit</span><br></pre></td></tr></table></figure>
 
-<h3 id="5-查看branch2中比branch1中多提交了哪些内容"><a href="#5-查看branch2中比branch1中多提交了哪些内容" class="headerlink" title="5. 查看branch2中比branch1中多提交了哪些内容"></a>5. 查看branch2中比branch1中多提交了哪些内容</h3>  <figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">git</span></span> <span class="built_in">log</span> branch1..branch2`</span><br></pre></td></tr></table></figure>
-<p>  <strong>注意，列出来的是两个点后边（此处即dev）多提交的内容。</strong></p>
-<h3 id="6-不知道谁提交的多谁提交的少，单纯想知道有是吗不一样"><a href="#6-不知道谁提交的多谁提交的少，单纯想知道有是吗不一样" class="headerlink" title="6. 不知道谁提交的多谁提交的少，单纯想知道有是吗不一样"></a>6. 不知道谁提交的多谁提交的少，单纯想知道有是吗不一样</h3>  <figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">git</span></span> <span class="built_in">log</span> branch1...branch2</span><br></pre></td></tr></table></figure>
+<p>此时将会打开一个文件，用于记录提交说明，输入提交说明即可，若说明较为简短，也可以使用以下命令：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git commit -m &quot;YOUR COMMENT&quot;</span><br></pre></td></tr></table></figure>
 
-<h3 id="7-在上述情况下，在显示出没个提交是在哪个分支上"><a href="#7-在上述情况下，在显示出没个提交是在哪个分支上" class="headerlink" title="7. 在上述情况下，在显示出没个提交是在哪个分支上"></a>7. 在上述情况下，在显示出没个提交是在哪个分支上</h3>  <figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">git</span></span> <span class="built_in">log</span> --lefg-right branch1...branch2</span><br></pre></td></tr></table></figure>
-<p>  <strong>注意 commit 后面的箭头，根据我们在 –left-right branch1…branch2 的顺序，左箭头 &lt; 表示是 branch1 的，右箭头 &gt; 表示是branch2的。</strong></p>
+<h2 id="添加远程仓库"><a href="#添加远程仓库" class="headerlink" title="添加远程仓库"></a>添加远程仓库</h2><p>使用以下命令添加添加一个远程仓库：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote add origin YOUR_REMOTE_REPOSITORY_URL</span><br></pre></td></tr></table></figure>
+
+<p>or</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote set-url origin git<span class="keyword">@github</span>.com:ppreyer/first_app.git</span><br></pre></td></tr></table></figure>
+
+<p>其中 origin 相当于给远程仓库的名称，也就是相当于一个标识符。</p>
+<h2 id="推送至远程仓库"><a href="#推送至远程仓库" class="headerlink" title="推送至远程仓库"></a>推送至远程仓库</h2><p>使用以下命令将会将本地仓库中的内容推送至远程仓库的 master 分支：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push -u origin master</span><br></pre></td></tr></table></figure>
+
+<p>or</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push origin dev:master</span><br></pre></td></tr></table></figure>
+
+<p><strong>注意</strong>：如果之前忘记了<code>git commit</code> 的步骤，这里将会出现一个错误提示：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">error: src refspec master does not match any.</span><br></pre></td></tr></table></figure>
+
+<p>为什么会有这个报错呢？原因其实很简单，在没有使用 <code>git commit</code> 之前，由于这是一个新创建的<code>git</code>仓库，没有<code>master brench</code>，也就是并没有一个工作树可供推送至远程仓库，所以自然也就出错啦。</p>
 
       
     </div>
