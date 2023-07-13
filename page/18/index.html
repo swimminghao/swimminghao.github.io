@@ -1721,6 +1721,178 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/b8eb8241/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lion.png">
+      <meta itemprop="name" content="swimminghao">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="swimminghao's blog">
+      <meta itemprop="description" content="swimminghao的学习博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | swimminghao's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/b8eb8241/" class="post-title-link" itemprop="url">32、【对线面试官】如何实现幂等和去重？</a>
+        </h2>
+
+        <div class="post-meta-container">
+
+          
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-03-10 09:48:07" itemprop="dateModified" datetime="2022-03-10T09:48:07+08:00">2022-03-10</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/posts/b8eb8241/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/b8eb8241/" data-xid="/posts/b8eb8241/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>1.6k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>1 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="如何实现去重和幂等"><a href="#如何实现去重和幂等" class="headerlink" title="如何实现去重和幂等"></a>如何实现去重和幂等</h1><h2 id="去重与幂等"><a href="#去重与幂等" class="headerlink" title="去重与幂等"></a>去重与幂等</h2><ul>
+<li>区别<ul>
+<li>「去重」是对请求或者消息在「一定时间内」进行去重「N次」</li>
+<li>「幂等」则是保证请求或消息在「任意时间内」进行处理，都需要保证它的结果是一致</li>
+</ul>
+</li>
+<li>以项目举例，我维护的「消息管理平台」是有「去重」的功能的：「5分钟相同内容消息去重」「1小时内模板去重」「一天内渠道达到N次阈值去重」.</li>
+<li>再次强调下「幂等」和「去重」的本质：「唯一Key」+「存储」</li>
+</ul>
+<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><ul>
+<li>不同的业务场景，唯一Key是不一样的，由业务決定</li>
+<li>存储选择挺多的，比如「本地缓存」&#x2F;「 Redis」&#x2F;「 MYSQL」&#x2F;「 Hbase」等等，具体选取什么，也跟业务有关</li>
+<li>比如说，在「消息管理平台」这个场景下，我存储选择的「 Redis」（读写性能优越）， Redis也有「过期时间」方便解决「一定时间内」的问题</li>
+<li>而唯一Key，自然就是根据不同的业务构建不同的。</li>
+<li>比如说「5分钟相同内容消息去重」，我直接MD5请求参数作为唯一Key。「1小时模板去重」则是「模板ID+ userid」作为唯一Key，「ー天内渠道去重」则是「渠道ID+ userid」作为唯一Key.</li>
+</ul>
+<h2 id="提到了「去重」了，你听过布隆过滤器吗？"><a href="#提到了「去重」了，你听过布隆过滤器吗？" class="headerlink" title="提到了「去重」了，你听过布隆过滤器吗？"></a>提到了「去重」了，你听过布隆过滤器吗？</h2><ul>
+<li>布隆过滤器的底层数据结构可以理解为bitmap， bitmap也可以简单理解为是一个数组，元素只存储0和1，所以它占用的空间相对较小</li>
+<li>当一个元素要存入 bitmap时，其实是要去看存储到 bitmap的哪个位置，这时一般用的就是「哈希算法」，存进去的位置标记为1</li>
+<li>标记为1的位置表示存在，标记为0的位置标示不存在</li>
+<li>布隆过滤器是可以以较低的空间占用来判断元素是否存在进而用于去重，但是它也有对应的缺点</li>
+<li>只要使用哈希算法离不开「哈希冲突」，导致有存在「误判」的情况</li>
+<li>在布隆过滤器中，如果元素判定为存在，那该元素「未必」真实存在。如果元素判定为不存在，那就肯定是不存在</li>
+<li>这应该不用我多解释了吧？（结合「哈希算法」和「标记为1的位置表示存在，标记为0的位置表示不存在」这两者就能得出上面结论）</li>
+<li>布隆过滤器也不能「删除」元素（也是哈希算法的局限性，在布隆过滤器中是不能准确定位一个元素的）</li>
+<li>如果要用的话，布隆过滤器的实现可以直接上 guava已经实现好的，不过这个是单机的</li>
+<li>而分布式下的布隆过滤器，一般现在会用 Redis，但也不是每个公司都会部暑布隆过潓器的 Redis版（还是有局限，像我以前公司就没有）</li>
+<li>所以，目前我负责的项目都是没有用布隆过滤器的</li>
+</ul>
+<h2 id="去重开销大"><a href="#去重开销大" class="headerlink" title="去重开销大"></a>去重开销大</h2><ul>
+<li>如果「去重」开销比较大，可以考虑建立「多层过滤」的逻辑</li>
+<li>比如，先看看『本地缓存』能不能过滤一部分，剩下「强校验」交由『远程存储』（常见的 Redis或者DB）进行二次过滤</li>
+</ul>
+<h2 id="kafka场景"><a href="#kafka场景" class="headerlink" title="kafka场景"></a>kafka场景</h2><ul>
+<li>当时你说在处理订单时实现了 at least one+幂等</li>
+<li>幂等处理时：前置过滤使用的是 Redis，强一致校验时使用的是DB唯一索引，也是为了提高性能，唯一Key好像就是「订单编号+订单状态」</li>
+</ul>
+<h2 id="方案的场景适用"><a href="#方案的场景适用" class="headerlink" title="方案的场景适用"></a>方案的场景适用</h2><ol>
+<li>一般我们需要对数据强一致性校验，就直接上 MYSQL（DB），毕竟有事务的支持</li>
+<li>「本地缓存」如果业务适合，那可以作为一个「前置」判断</li>
+<li>Redis高性能读写，前置判断和后置均可</li>
+<li>而 Hbasel则一般用于庞大数据量的场景下（ Redis内存太贵，DB不够灵活也不适合单表存大量数据）</li>
+</ol>
+<h2 id="幂等"><a href="#幂等" class="headerlink" title="幂等"></a>幂等</h2><ul>
+<li>至于幂等，一般的方案下存储还是「Redis」和「数据库」</li>
+<li>最最最最常见的就是数据库「唯一索」来实现幂等（我所负责的好几个项目都是用这个）</li>
+<li>构建「唯一Key」是业务相关的事了（一般是用自己的业务ID进行拼接，生成一个有意义”的唯一Key</li>
+<li>当然，也有用「 Redis」和「 MYSQL」实现分布式锁来实现幂等的（：）</li>
+<li>但 Redis’分布式锁是不能完全保证安全的，而MNSL实现分布式锁（乐观锁和悲观锁），不过还是看业务吧，我是没用到过的</li>
+<li>网上有很多实现「幂等」的方案，本质上都是围绕着「存储」和「唯一Key」做了些变种，然后取了个名字</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>l
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://example.com/posts/63b182f/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1959,178 +2131,6 @@
 <p><strong>数据丢失</strong>：</p>
 <ul>
 <li>Redis的主从复制和故障转移阶段都有可能发生数据丢失问题（通过配置尽可能避免）</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>l
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/b8eb8241/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/lion.png">
-      <meta itemprop="name" content="swimminghao">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="swimminghao's blog">
-      <meta itemprop="description" content="swimminghao的学习博客">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | swimminghao's blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/b8eb8241/" class="post-title-link" itemprop="url">32、【对线面试官】如何实现幂等和去重？</a>
-        </h2>
-
-        <div class="post-meta-container">
-
-          
-
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-10 09:48:07" itemprop="dateModified" datetime="2022-03-10T09:48:07+08:00">2022-03-10</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="far fa-comment"></i>
-    </span>
-    <span class="post-meta-item-text">Waline：</span>
-  
-    <a title="waline" href="/posts/b8eb8241/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/b8eb8241/" data-xid="/posts/b8eb8241/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>1.6k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>1 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="如何实现去重和幂等"><a href="#如何实现去重和幂等" class="headerlink" title="如何实现去重和幂等"></a>如何实现去重和幂等</h1><h2 id="去重与幂等"><a href="#去重与幂等" class="headerlink" title="去重与幂等"></a>去重与幂等</h2><ul>
-<li>区别<ul>
-<li>「去重」是对请求或者消息在「一定时间内」进行去重「N次」</li>
-<li>「幂等」则是保证请求或消息在「任意时间内」进行处理，都需要保证它的结果是一致</li>
-</ul>
-</li>
-<li>以项目举例，我维护的「消息管理平台」是有「去重」的功能的：「5分钟相同内容消息去重」「1小时内模板去重」「一天内渠道达到N次阈值去重」.</li>
-<li>再次强调下「幂等」和「去重」的本质：「唯一Key」+「存储」</li>
-</ul>
-<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><ul>
-<li>不同的业务场景，唯一Key是不一样的，由业务決定</li>
-<li>存储选择挺多的，比如「本地缓存」&#x2F;「 Redis」&#x2F;「 MYSQL」&#x2F;「 Hbase」等等，具体选取什么，也跟业务有关</li>
-<li>比如说，在「消息管理平台」这个场景下，我存储选择的「 Redis」（读写性能优越）， Redis也有「过期时间」方便解决「一定时间内」的问题</li>
-<li>而唯一Key，自然就是根据不同的业务构建不同的。</li>
-<li>比如说「5分钟相同内容消息去重」，我直接MD5请求参数作为唯一Key。「1小时模板去重」则是「模板ID+ userid」作为唯一Key，「ー天内渠道去重」则是「渠道ID+ userid」作为唯一Key.</li>
-</ul>
-<h2 id="提到了「去重」了，你听过布隆过滤器吗？"><a href="#提到了「去重」了，你听过布隆过滤器吗？" class="headerlink" title="提到了「去重」了，你听过布隆过滤器吗？"></a>提到了「去重」了，你听过布隆过滤器吗？</h2><ul>
-<li>布隆过滤器的底层数据结构可以理解为bitmap， bitmap也可以简单理解为是一个数组，元素只存储0和1，所以它占用的空间相对较小</li>
-<li>当一个元素要存入 bitmap时，其实是要去看存储到 bitmap的哪个位置，这时一般用的就是「哈希算法」，存进去的位置标记为1</li>
-<li>标记为1的位置表示存在，标记为0的位置标示不存在</li>
-<li>布隆过滤器是可以以较低的空间占用来判断元素是否存在进而用于去重，但是它也有对应的缺点</li>
-<li>只要使用哈希算法离不开「哈希冲突」，导致有存在「误判」的情况</li>
-<li>在布隆过滤器中，如果元素判定为存在，那该元素「未必」真实存在。如果元素判定为不存在，那就肯定是不存在</li>
-<li>这应该不用我多解释了吧？（结合「哈希算法」和「标记为1的位置表示存在，标记为0的位置表示不存在」这两者就能得出上面结论）</li>
-<li>布隆过滤器也不能「删除」元素（也是哈希算法的局限性，在布隆过滤器中是不能准确定位一个元素的）</li>
-<li>如果要用的话，布隆过滤器的实现可以直接上 guava已经实现好的，不过这个是单机的</li>
-<li>而分布式下的布隆过滤器，一般现在会用 Redis，但也不是每个公司都会部暑布隆过潓器的 Redis版（还是有局限，像我以前公司就没有）</li>
-<li>所以，目前我负责的项目都是没有用布隆过滤器的</li>
-</ul>
-<h2 id="去重开销大"><a href="#去重开销大" class="headerlink" title="去重开销大"></a>去重开销大</h2><ul>
-<li>如果「去重」开销比较大，可以考虑建立「多层过滤」的逻辑</li>
-<li>比如，先看看『本地缓存』能不能过滤一部分，剩下「强校验」交由『远程存储』（常见的 Redis或者DB）进行二次过滤</li>
-</ul>
-<h2 id="kafka场景"><a href="#kafka场景" class="headerlink" title="kafka场景"></a>kafka场景</h2><ul>
-<li>当时你说在处理订单时实现了 at least one+幂等</li>
-<li>幂等处理时：前置过滤使用的是 Redis，强一致校验时使用的是DB唯一索引，也是为了提高性能，唯一Key好像就是「订单编号+订单状态」</li>
-</ul>
-<h2 id="方案的场景适用"><a href="#方案的场景适用" class="headerlink" title="方案的场景适用"></a>方案的场景适用</h2><ol>
-<li>一般我们需要对数据强一致性校验，就直接上 MYSQL（DB），毕竟有事务的支持</li>
-<li>「本地缓存」如果业务适合，那可以作为一个「前置」判断</li>
-<li>Redis高性能读写，前置判断和后置均可</li>
-<li>而 Hbasel则一般用于庞大数据量的场景下（ Redis内存太贵，DB不够灵活也不适合单表存大量数据）</li>
-</ol>
-<h2 id="幂等"><a href="#幂等" class="headerlink" title="幂等"></a>幂等</h2><ul>
-<li>至于幂等，一般的方案下存储还是「Redis」和「数据库」</li>
-<li>最最最最常见的就是数据库「唯一索」来实现幂等（我所负责的好几个项目都是用这个）</li>
-<li>构建「唯一Key」是业务相关的事了（一般是用自己的业务ID进行拼接，生成一个有意义”的唯一Key</li>
-<li>当然，也有用「 Redis」和「 MYSQL」实现分布式锁来实现幂等的（：）</li>
-<li>但 Redis’分布式锁是不能完全保证安全的，而MNSL实现分布式锁（乐观锁和悲观锁），不过还是看业务吧，我是没用到过的</li>
-<li>网上有很多实现「幂等」的方案，本质上都是围绕着「存储」和「唯一Key」做了些变种，然后取了个名字</li>
 </ul>
 
       
