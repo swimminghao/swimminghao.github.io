@@ -22,25 +22,28 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.10.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="swimminghao的学习博客">
-<meta property="og:type" content="website">
-<meta property="og:title" content="swimminghao&#39;s blog">
-<meta property="og:url" content="http://example.com/archives/2022/page/8/index.html">
+    <meta name="description" content="如何在同一台电脑上使用多个GitHub账号我们知道，如果使用ssh key去绑定GitHub账号，那么每次从同一台电脑上push代码的时候就不用输入密码，账号这些信息了。那如果有多个GitHub账号呢？比如我就有两个GitHub账号，一个是工作用的，一个是个人的。下面给大家介绍如何在同一台电脑上使用多个GitHub账号，并且每个账号都对应各自的ssh key。 1. 创建SSH key我们先创建对">
+<meta property="og:type" content="article">
+<meta property="og:title" content="如何在同一台电脑上使用多个GitHub账号">
+<meta property="og:url" content="http://example.com/posts/76ba13a7/index.html">
 <meta property="og:site_name" content="swimminghao&#39;s blog">
-<meta property="og:description" content="swimminghao的学习博客">
+<meta property="og:description" content="如何在同一台电脑上使用多个GitHub账号我们知道，如果使用ssh key去绑定GitHub账号，那么每次从同一台电脑上push代码的时候就不用输入密码，账号这些信息了。那如果有多个GitHub账号呢？比如我就有两个GitHub账号，一个是工作用的，一个是个人的。下面给大家介绍如何在同一台电脑上使用多个GitHub账号，并且每个账号都对应各自的ssh key。 1. 创建SSH key我们先创建对">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-07-14T01:12:00.000Z">
+<meta property="article:modified_time" content="2023-07-14T01:12:31.556Z">
 <meta property="article:author" content="swimminghao">
+<meta property="article:tag" content="git">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="http://example.com/archives/2022/page/8/">
+<link rel="canonical" href="http://example.com/posts/76ba13a7/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":false,"lang":"zh-CN","comments":"","permalink":"","path":"archives/2022/page/8/index.html","title":""}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/posts/76ba13a7/","path":"posts/76ba13a7/","title":"如何在同一台电脑上使用多个GitHub账号"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>归档 | swimminghao's blog</title>
+<title>如何在同一台电脑上使用多个GitHub账号 | swimminghao's blog</title>
   
 
 
@@ -83,7 +86,7 @@
 
     <a href="/" class="brand" rel="start">
       <i class="logo-line"></i>
-      <h1 class="site-title">swimminghao's blog</h1>
+      <p class="site-title">swimminghao's blog</p>
       <i class="logo-line"></i>
     </a>
       <p class="site-subtitle" itemprop="description">学习博客</p>
@@ -149,7 +152,7 @@
 
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-overview-active">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           文章目录
@@ -162,6 +165,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%9C%A8%E5%90%8C%E4%B8%80%E5%8F%B0%E7%94%B5%E8%84%91%E4%B8%8A%E4%BD%BF%E7%94%A8%E5%A4%9A%E4%B8%AAGitHub%E8%B4%A6%E5%8F%B7"><span class="nav-number">1.</span> <span class="nav-text">如何在同一台电脑上使用多个GitHub账号</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E5%88%9B%E5%BB%BASSH-key"><span class="nav-number">1.1.</span> <span class="nav-text">1. 创建SSH key</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E5%B0%86ssh-key%E6%B7%BB%E5%8A%A0%E5%88%B0%E4%B8%8D%E5%90%8CGitHub%E8%B4%A6%E5%8F%B7"><span class="nav-number">1.2.</span> <span class="nav-text">2. 将ssh key添加到不同GitHub账号</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E4%BD%BF%E7%94%A8ssh%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E9%85%8D%E7%BD%AE%E4%B8%8D%E5%90%8C%E8%B4%A6%E5%8F%B7%E4%BD%BF%E7%94%A8%E7%9A%84ssh-key"><span class="nav-number">1.3.</span> <span class="nav-text">3.  使用ssh配置文件配置不同账号使用的ssh key</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%E6%9C%AC%E5%9C%B0%E4%BB%93%E5%BA%93"><span class="nav-number">1.4.</span> <span class="nav-text">4. 本地仓库</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -266,234 +270,206 @@
 </noscript>
 
 
-    <div class="main-inner archive posts-collapse">
+    <div class="main-inner post posts-expand">
 
 
   
+
+
+<div class="post-block">
   
   
-  <div class="post-block">
-    <div class="post-content">
-      <div class="collection-title">
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/76ba13a7/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lion.png">
+      <meta itemprop="name" content="swimminghao">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="swimminghao's blog">
+      <meta itemprop="description" content="swimminghao的学习博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="如何在同一台电脑上使用多个GitHub账号 | swimminghao's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          如何在同一台电脑上使用多个GitHub账号
+        </h1>
+
+        <div class="post-meta-container">
+
+          
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2023-07-14 09:12:00 / 修改时间：09:12:31" itemprop="dateCreated datePublished" datetime="2023-07-14T09:12:00+08:00">2023-07-14</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/posts/76ba13a7/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/76ba13a7/" data-xid="/posts/76ba13a7/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>1.8k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>2 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="如何在同一台电脑上使用多个GitHub账号"><a href="#如何在同一台电脑上使用多个GitHub账号" class="headerlink" title="如何在同一台电脑上使用多个GitHub账号"></a>如何在同一台电脑上使用多个GitHub账号</h1><p>我们知道，如果使用ssh key去绑定GitHub账号，那么每次从同一台电脑上push代码的时候就不用输入密码，账号这些信息了。那如果有多个GitHub账号呢？比如我就有两个GitHub账号，一个是工作用的，一个是个人的。下面给大家介绍如何在同一台电脑上使用多个GitHub账号，并且每个账号都对应各自的ssh key。</p>
+<h2 id="1-创建SSH-key"><a href="#1-创建SSH-key" class="headerlink" title="1. 创建SSH key"></a>1. 创建SSH key</h2><p>我们先创建对应公钥和私钥：</p>
+<figure class="highlight arcade"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -b <span class="number">2048</span> -C <span class="string">&quot;nas&quot;</span> -f ~<span class="regexp">/.ssh/i</span>d_rsa.github</span><br></pre></td></tr></table></figure>
+
+<p>这个指令会创建一个公钥<code>~/.ssh/id_rsa.github.pub</code>和一个私钥在<code>~/.ssh</code>的目录下。我们可以将这对秘钥当成默认的，用于个人账户。</p>
+<p>用于工作的账号，使用下面的命令把公钥绑定到工作账号的邮箱<code>email@work.com</code>，并且，生成一个名为<code>id_rsa_work_user.pub</code>。</p>
+<figure class="highlight excel"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -<span class="built_in">t</span> rsa -C <span class="string">&quot;email@work.com&quot;</span> -f <span class="string">&quot;id_rsa_work_user&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>现在我们就有了两组不同的秘钥，<del>&#x2F;.ssh&#x2F;id_rsa.github和</del>&#x2F;.ssh&#x2F;id_rsa_work_user。</p>
+<h2 id="2-将ssh-key添加到不同GitHub账号"><a href="#2-将ssh-key添加到不同GitHub账号" class="headerlink" title="2. 将ssh key添加到不同GitHub账号"></a>2. 将ssh key添加到不同GitHub账号</h2><p>先来处理个人账号。我们用<code>pbcopy &lt; ~/.ssh/id_rsa.github.pub</code>拷贝公钥，然后登陆到GitHub。</p>
+<ul>
+<li>进入settings</li>
+<li>点击左边栏的SSH and GPG keys进入到SSH keys的编辑块</li>
+<li>点击New SSH key</li>
+<li>黏贴刚刚拷贝的内容到Key的编辑框里，并且在title的编辑框内给它取个名字</li>
+</ul>
+<p>然后登入到工作的GitHub账号，重复以上步骤，只不过这次是<code>pbcopy &lt; ~/.ssh/id_rsa_work_user.pub</code>。</p>
+<h2 id="3-使用ssh配置文件配置不同账号使用的ssh-key"><a href="#3-使用ssh配置文件配置不同账号使用的ssh-key" class="headerlink" title="3.  使用ssh配置文件配置不同账号使用的ssh key"></a>3.  使用ssh配置文件配置不同账号使用的ssh key</h2><p>打开ssh配置文件（**~&#x2F;.ssh&#x2F;config**），按照下面的样式去编辑：</p>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Personal account, - the default config</span></span><br><span class="line">Host github.com</span><br><span class="line">   HostName github.com</span><br><span class="line">   <span class="keyword">User</span> <span class="title">git</span></span><br><span class="line">   IdentityFile ~/.ssh/id_rsa.github</span><br><span class="line">    </span><br><span class="line"><span class="comment"># Work account</span></span><br><span class="line">Host github1.com</span><br><span class="line">   HostName github.com</span><br><span class="line">   <span class="keyword">User</span> <span class="title">git</span></span><br><span class="line">   IdentityFile ~/.ssh/id_rsa_work_user</span><br></pre></td></tr></table></figure>
+
+<p>Host是用来区分不同的Git账号，比如“github.com-work_user”你也可以取另外一个名字，但是使用ssh去clone仓库的时候，记得把拷贝过来的clone命令的时候，<strong>把命令中的github.com替换成对应的Git账号下的Host</strong>。比如，你需要在你的工作账号下克隆这个仓库<a href="mailto:&#103;&#105;&#x74;&#64;&#x67;&#x69;&#116;&#x68;&#117;&#98;&#x2e;&#x63;&#x6f;&#x6d;">&#103;&#105;&#x74;&#64;&#x67;&#x69;&#116;&#x68;&#117;&#98;&#x2e;&#x63;&#x6f;&#x6d;</a>:personal_account_name&#x2F;repo_name.git，这个就需要把‘github.com’替换成‘github.com-work_user’。</p>
+<h2 id="4-本地仓库"><a href="#4-本地仓库" class="headerlink" title="4. 本地仓库"></a>4. 本地仓库</h2><p>我们可以通过git remote -v看看本地仓库对应的远程仓库URL，检查该URL是否与要使用的GitHub主机匹配，否则更新远程原始URL。如果不匹配，可以通过下面这个命令更新：</p>
+<figure class="highlight dsconfig"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">git</span> <span class="string">remote</span> <span class="built_in">set-url</span> <span class="string">origin</span> <span class="string">git</span>@<span class="string">github</span>.<span class="string">com-worker_user:worker_user/</span><span class="string">repo_name</span>.<span class="string">git</span></span><br></pre></td></tr></table></figure>
+
+<p>注意替换@和冒号中间的字符串，它们对应你在ssh配置文件中配置的host。</p>
+<p>如果你要在本地创建一个全新的仓库。我们都知道使用git init，然后你在GitHub上创建一个仓库，同样需要在本地配置远程仓库的URL，像这样：</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote <span class="keyword">add</span><span class="language-bash"> origin git@github.com-work_user:work_user/repo_name.git </span></span><br></pre></td></tr></table></figure>
+
+<p>同样需要注意对应的host。</p>
+<p>好了。关于本地使用多个GitHub账号如何配置ssh key和host就介绍这么多。</p>
+
+    </div>
+
+    
+    
+    
+
+
+    <div>
+      
+        <div>
+    
+      <div style="text-align:center;color: #ccc;font-size:20px;">------------- 本 文 结 束&nbsp&nbsp&nbsp&nbsp&nbsp感 谢 您 的 阅 读 -------------</div>
+    
+</div>
+
+      
+    </div>
+
+    <footer class="post-footer"><div class="post-widgets">
+      <div id="needsharebutton-postbottom">
+        <span class="btn">
+          <i class="fa fa-share-alt" aria-hidden="true"></i>
+        </span>
+      </div>
+    </div>
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>swimminghao
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://example.com/posts/76ba13a7/" title="如何在同一台电脑上使用多个GitHub账号">http://example.com/posts/76ba13a7/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/git/" rel="tag"><i class="fa fa-tag"></i> git</a>
+          </div>
+
         
-        <span class="collection-header">太棒了! 目前共计 253 篇日志。 继续努力。</span>
-      </div>
 
-      
-    <div class="collection-year">
-      <span class="collection-header">2022</span>
-    </div>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2022-02-28T19:57:47+08:00"
-              content="2022-02-28">
-          02-28
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/posts/e1774332/" itemprop="url">
-            <span itemprop="name">27、【对线面试官】深入浅出Java内存模型</span>
-          </a>
-      </div>
-
-      
-    </header>
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/posts/7857b7ca/" rel="prev" title="EmbyServer 4.7.13.0 全端全功能免验证破解（非伪站验证）">
+                  <i class="fa fa-chevron-left"></i> EmbyServer 4.7.13.0 全端全功能免验证破解（非伪站验证）
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
   </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2022-02-28T19:57:47+08:00"
-              content="2022-02-28">
-          02-28
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/posts/6f64b3a6/" itemprop="url">
-            <span itemprop="name">28、【对线面试官】JVM内存模型</span>
-          </a>
-      </div>
-
-      
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2022-02-28T19:57:47+08:00"
-              content="2022-02-28">
-          02-28
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/posts/9544a93a/" itemprop="url">
-            <span itemprop="name">29、【对线面试官】垃圾回收机制</span>
-          </a>
-      </div>
-
-      
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2022-02-28T19:57:47+08:00"
-              content="2022-02-28">
-          02-28
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/posts/5a56f011/" itemprop="url">
-            <span itemprop="name">2、【对线面试官】今天来聊聊Java泛型</span>
-          </a>
-      </div>
-
-      
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2022-02-28T19:57:47+08:00"
-              content="2022-02-28">
-          02-28
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/posts/498f0b66/" itemprop="url">
-            <span itemprop="name">JAVA</span>
-          </a>
-      </div>
-
-      
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2022-02-28T19:57:47+08:00"
-              content="2022-02-28">
-          02-28
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/posts/6f559dce/" itemprop="url">
-            <span itemprop="name">30、【对线面试官】CMS垃圾回收器</span>
-          </a>
-      </div>
-
-      
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2022-02-28T19:57:47+08:00"
-              content="2022-02-28">
-          02-28
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/posts/e93a2b49/" itemprop="url">
-            <span itemprop="name">31、【对线面试官】G1垃圾收集器</span>
-          </a>
-      </div>
-
-      
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2022-02-28T19:57:47+08:00"
-              content="2022-02-28">
-          02-28
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/posts/b8eb8241/" itemprop="url">
-            <span itemprop="name">32、【对线面试官】如何实现幂等和去重？</span>
-          </a>
-      </div>
-
-      
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2022-02-28T19:57:47+08:00"
-              content="2022-02-28">
-          02-28
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/posts/63b182f/" itemprop="url">
-            <span itemprop="name">33、【对线面试官】Redis主从架构</span>
-          </a>
-      </div>
-
-      
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2022-02-28T19:57:47+08:00"
-              content="2022-02-28">
-          02-28
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/posts/f4ff0293/" itemprop="url">
-            <span itemprop="name">34、【对线面试官】Redis分片集群</span>
-          </a>
-      </div>
-
-      
-    </header>
-  </article>
+</div>l
 
 
-    </div>
-  </div>
-  
-  
-  
-  <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/archives/2022/page/7/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/archives/2022/">1</a><span class="space">&hellip;</span><a class="page-number" href="/archives/2022/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/archives/2022/page/9/">9</a><span class="space">&hellip;</span><a class="page-number" href="/archives/2022/page/16/">16</a><a class="extend next" rel="next" href="/archives/2022/page/9/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
-  </nav>
 
+
+
+
+    <div class="comments" id="waline-comments"></div>
 </div>
   </main>
 
@@ -614,7 +590,7 @@
 
 
 
-<script class="next-config" data-name="waline" type="application/json">{"lang":"zh-cn","enable":true,"serverURL":"waline-server-nu.vercel.app","placeholder":"请文明评论呀","avatar":"mm","pageSize":10,"visitor":false,"comment_count":true,"requiredFields":[],"meta":["nick","mail","link"],"libUrl":"https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js","el":"#waline-comments","path":"/archives/2022/page/8/"}</script>
+<script class="next-config" data-name="waline" type="application/json">{"lang":"zh-cn","enable":true,"serverURL":"waline-server-nu.vercel.app","placeholder":"请文明评论呀","avatar":"mm","pageSize":10,"visitor":false,"comment_count":true,"requiredFields":[],"meta":["nick","mail","link"],"libUrl":"https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js","el":"#waline-comments","path":"/posts/76ba13a7/"}</script>
 <script>
 document.addEventListener('page:loaded', () => {
   NexT.utils.loadComments(CONFIG.waline.el).then(() => 
