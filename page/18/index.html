@@ -276,187 +276,6 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/c5b7e17d/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/lion.png">
-      <meta itemprop="name" content="swimminghao">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="swimminghao's blog">
-      <meta itemprop="description" content="swimminghao的学习博客">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | swimminghao's blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/c5b7e17d/" class="post-title-link" itemprop="url">20、【对线面试官】使用kafka会考虑什么问题</a>
-        </h2>
-
-        <div class="post-meta-container">
-
-          
-
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-10 09:48:07" itemprop="dateModified" datetime="2022-03-10T09:48:07+08:00">2022-03-10</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="far fa-comment"></i>
-    </span>
-    <span class="post-meta-item-text">Waline：</span>
-  
-    <a title="waline" href="/posts/c5b7e17d/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/c5b7e17d/" data-xid="/posts/c5b7e17d/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>1.8k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>2 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="20、【对线面试官】使用kafka会考虑什么问题"><a href="#20、【对线面试官】使用kafka会考虑什么问题" class="headerlink" title="20、【对线面试官】使用kafka会考虑什么问题"></a>20、【对线面试官】使用kafka会考虑什么问题</h1><h2 id="你提到了你这边会从交易的消息报获取到订单的数据，然后做业务的处理；也提到了你用的是Kafka，我想问下，Kafka会丢数据吗？"><a href="#你提到了你这边会从交易的消息报获取到订单的数据，然后做业务的处理；也提到了你用的是Kafka，我想问下，Kafka会丢数据吗？" class="headerlink" title="你提到了你这边会从交易的消息报获取到订单的数据，然后做业务的处理；也提到了你用的是Kafka，我想问下，Kafka会丢数据吗？"></a>你提到了你这边会从交易的消息报获取到订单的数据，然后做业务的处理；也提到了你用的是Kafka，我想问下，Kafka会丢数据吗？</h2><ol>
-<li><p>嗯，使用Kafkal时，有可能会有以下场景会丢消息</p>
-</li>
-<li><p>比如说，我们用Producer发消息至Broke的时候，就有可能会丢消息</p>
-</li>
-<li><p>如果你不想丢消息，那在发送消息的时候，需要选择带有callBack的api进行发送</p>
-</li>
-<li><p>其实就意味着，如果你发送成功了，会回调告诉你已经发送成功了。如果失败了，那收到回调之后自己在业务上做重试就好了。</p>
-</li>
-<li><p>等到把消息发送到Brokerl以后，也有可能丢消息</p>
-</li>
-<li><p>一般我们的线上环境都是集群环境下嘛，但可能你发送的消息后broker就挂了，这时挂掉的broker还没来得及把数据同步给别的broker，数据就自然就丢了</p>
-</li>
-<li><p>发送到Broker之后，也不能保证数据就一定不丢了，毕竟Broker会把数据存储到磁盘之前，走的是操作系统缓存</p>
-</li>
-<li><p>也就是异步刷盘这个过程还有可能导致数据会丢</p>
-</li>
-<li><p>嗯，到这里其实我已经说了三个场景了，分别是：producer-》broker，broker-》broker之间同步，以及broker-》磁盘</p>
-</li>
-<li><p>要解决上面所讲的问题也比较简单，这块也没什么好说的…</p>
-</li>
-<li><p>不想丢数据，那就使用带有callback的api设置acks、retries、factor等等些参数来保证Producer发送的消息不会丢就好啦。</p>
-</li>
-</ol>
-<h2 id="一般来说，还是client消费broker丢消息的场景比较多；那你们在消费数据的时候是怎么保证数据的可靠性的呢？"><a href="#一般来说，还是client消费broker丢消息的场景比较多；那你们在消费数据的时候是怎么保证数据的可靠性的呢？" class="headerlink" title="一般来说，还是client消费broker丢消息的场景比较多；那你们在消费数据的时候是怎么保证数据的可靠性的呢？"></a>一般来说，还是client消费broker丢消息的场景比较多；那你们在消费数据的时候是怎么保证数据的可靠性的呢？</h2><ol>
-<li><p>首先，要想client端消费数据不能丢，肯定是不能使用autoCommit的，所以必须是手动提交的。</p>
-</li>
-<li><p>我们这边是这样实现的：</p>
-<p>一、从Kafka拉取消息、（一次批量拉取500条，这里主要看配置）<br>二、为每条拉取的消息分配一个msgld（递增）<br>三、将msgld存入内存队列（sortSet）中<br>四、使用Map存储msgld.与msg（有offset相关的信息）的映射关系</p>
-<p>五、当业务处理完消息后，ack时，获取当前处理的消息nsgld，然后从sortSet删除该msgld（此时代表已经处理过了）<br>六、接着与sortSet队列的首部第一个ld比较（其实就是最小的msgld），如果当前msgld&lt;&#x3D;sort Set第一个ID，则提交当前offset</p>
-<p>七、系统即便挂了，在下次重启时就会从sortSet队首的消息开始拉取，实现至少处理一次语义<br>八、会有少量的消息重复，但只要下游做好幂等就OK了</p>
-</li>
-</ol>
-<h2 id="嗯，你也提到了幂等，你们是怎么实现幂等性的呢？"><a href="#嗯，你也提到了幂等，你们是怎么实现幂等性的呢？" class="headerlink" title="嗯，你也提到了幂等，你们是怎么实现幂等性的呢？"></a>嗯，你也提到了幂等，你们是怎么实现幂等性的呢？</h2><ol>
-<li>嗯，还是以处理订单消息为例好了。</li>
-<li>幂等Key我们由订单编号+订单状态所组成（一笔订单的状态只会处理一次）</li>
-<li>在处理之前，我们首先会去查Redis：是否存在该Key，如果存在，则说明我们已经处理过了，直接丢掉</li>
-<li>如果Redis没处理过，则继续往下处理，最终的逻辑是将处理过的数据插入到业务DB上，再到最后把幂等Key插入到Redis上</li>
-<li>显然，单纯通过Redis是无法保证幂等的</li>
-<li>所以，Redis其实只是一个「前置」处理，最终的幂等性是依赖数据库的唯一Key来保证的（唯一Key实际上也是订单编号+状态）</li>
-<li>而插入DB是依赖事务的，所以是没问题的</li>
-<li>总的来说，就是通过Redis做前置处理，DB唯一索引做最终保证来实现幂等性的</li>
-</ol>
-<h2 id="你们那边遇到过顺序消费的问题吗？"><a href="#你们那边遇到过顺序消费的问题吗？" class="headerlink" title="你们那边遇到过顺序消费的问题吗？"></a>你们那边遇到过顺序消费的问题吗？</h2><ol>
-<li><p>嗯，也是有的，我举个例子</p>
-</li>
-<li><p>订单的状态比如有支付、确认收货、完成等等，而订单下还有计费、退款的消息报</p>
-</li>
-<li><p>理论上来说，支付的消息报肯定要比退款消息报先到嘛，但程序处理的过程中可不一定的嘛</p>
-</li>
-<li><p>所以在这边也是有消费顺序的问题（先处理了支付，才能退款啊）</p>
-</li>
-<li><p>但在广告场景下不是「强顺序」的，只要保证最终一致性就好了。</p>
-</li>
-<li><p>所以我们这边处理「乱序」消息的实现是这样的：</p>
-<p>1）宽表：将每一个订单状态，单独分出一个或多个独立的字段。消息来时只更新对应的字段就好，消息只会存在短暂的状态不一致问题，但是状态最终是一致的</p>
-<p>2）消息补偿机制：另一个进行消费相同topicl的数据，消息落盘，延迟处理。将消息与DB进行对比，如果发现数据不一致，再重新发送消息至主进程处理</p>
-<p>3）还有部分场景，可能我们只需要把相同userld&#x2F;orderld.发送到相同的partition（因为一个partition由一个Consumer消费），又能解决大部分消费顺序的问题了呢。</p>
-</li>
-</ol>
-
-      
-    </div>
-
-    
-    
-    
-
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>l
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://example.com/posts/ace2edeb/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -605,220 +424,6 @@
 <li>另外，由于索引的特性（有序），如果生成像uuid类似的主键，那插入的的性能是比自增的要差的</li>
 <li>因为生成的uuid，在插入时有可能需要移动磁盘块（比如，块内的空间在当前时刻已经存储满了，但新生成的uuid需要插入已满的块内，就需要移动块的数据）</li>
 </ol>
-
-      
-    </div>
-
-    
-    
-    
-
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>l
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/b4eb9a6c/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/lion.png">
-      <meta itemprop="name" content="swimminghao">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="swimminghao's blog">
-      <meta itemprop="description" content="swimminghao的学习博客">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | swimminghao's blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/b4eb9a6c/" class="post-title-link" itemprop="url">23、【对线面试官】InnoDB引擎中的事务</a>
-        </h2>
-
-        <div class="post-meta-container">
-
-          
-
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-10 09:48:07" itemprop="dateModified" datetime="2022-03-10T09:48:07+08:00">2022-03-10</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="far fa-comment"></i>
-    </span>
-    <span class="post-meta-item-text">Waline：</span>
-  
-    <a title="waline" href="/posts/b4eb9a6c/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/b4eb9a6c/" data-xid="/posts/b4eb9a6c/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>4k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>4 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="这次我想问下，你是怎么理解InnoDB引擎中的事务的？"><a href="#这次我想问下，你是怎么理解InnoDB引擎中的事务的？" class="headerlink" title="这次我想问下，你是怎么理解InnoDB引擎中的事务的？"></a>这次我想问下，你是怎么理解InnoDB引擎中的事务的？</h1><ol>
-<li>在我的理解下，事务可以使「一组操作」要么全部成功，要么全部失败</li>
-<li>事务其目的是为了「保证数据最终的一致性」。</li>
-<li>举个例子，我给你发支付宝转了888块红包。那自然我的支付宝余额会扣减888块，你的支付宝余额会增加888块。</li>
-<li>而事务就是保证我的余额扣减跟你的余额增添是同时成功或者同时失败的，这样这次转账就正常了</li>
-</ol>
-<h2 id="嗯，那你了解事务的几大特性吗？"><a href="#嗯，那你了解事务的几大特性吗？" class="headerlink" title="嗯，那你了解事务的几大特性吗？"></a>嗯，那你了解事务的几大特性吗？</h2><p>嗯，就是ACID嘛，分别是原子性（Atomicity）、一致性（Consistency）、隔离性（Isolation）、持久性（Durability）。</p>
-<ol>
-<li><p>原子性指的是：当前事务的操作要么同时成功，要么同时失败。原子性由undo Iog日志来保证，因为undo log记载着数据修改前的信息。</p>
-<p>1）比如我们要insert一条数据了，那undo Iog会记录的一条对应的delete日志。我们要update一条记录时，那undo log会记录之前的「旧值」的update记录。</p>
-<p>2）如果执行事务过程中出现异常的情况，那执行「回滚」。InnoDB引擎就是利用undo log记录下的数据，来将数据「恢复」到事务开始之前</p>
-</li>
-<li><p>隔离性指的是：在事务「并发」执行时，他们内部的操作不能互相干扰。</p>
-<p>1）如果多个事务可以在同一时刻操作同一份数据，那么就会可能会产生脏读、重复读、幻读的问题。</p>
-<p>2）于是，事务与事务之间需要存在「一定」的隔离。在nnoDB引擎中，定义了四种隔离级别供我们使用：分别是：read uncommit（读未提交）、read commit（读已提交）、repeatable read（可重复复读）、serializable（串行）</p>
-<p>3）不同的隔离级别对事务之间的隔离性是不一样的（级别越高事务隔离性越好，但性能就越低），而隔离性是由MySQL的各种锁来实现的，只是它屏蔽了加锁的细节。</p>
-</li>
-<li><p>持久性指的就是：一旦提交了事务，它对数据库的改变就应该是永久性的。说白了就是，会将数据持久化在硬盘上。</p>
-<p>1）而持久性由redo log日志来保证，当我们要修改数据时，MySQL是先把这条记录所在的「页」找到，然后把该页加载到内存中，将对应记录进行修改。</p>
-<p>2）为了防止内存修改完了，MySQL就挂掉了（如果内存改完，直接挂掉，那这次的修改相当于就丢失了）。</p>
-<p>3）MySQL引入了redo log，内存写完了，然后会写一份redo log，这份redo log记载着这次在某个页上做了什么修改。</p>
-<p>4）即便MySQL在中途挂了，我们还可以根据redo log：来对数据进行恢复。</p>
-<p>5）redo log是顺序写的，写入速度很快。并且它记录的是物理修改（xxxx页做了xxx修改），文件的体积很小，恢复速度也很快。</p>
-</li>
-<li><p>「一致性」可以理解为我们使用事务的「目的」，而「隔离性」「原子性」「持久性」均是为了保障「一致性」的手段，保证一致性需要由应用程序代码来保证</p>
-<p>1）比如，如果事务在发生的过程中，出现了异常情况，此时你就得回滚事务，而不是强行提交事务来导致数据不一致。</p>
-</li>
-</ol>
-<h2 id="刚才你也提到了隔离性嘛，然后你说在MySQL中有四种隔离级别，能分别来介绍下吗？"><a href="#刚才你也提到了隔离性嘛，然后你说在MySQL中有四种隔离级别，能分别来介绍下吗？" class="headerlink" title="刚才你也提到了隔离性嘛，然后你说在MySQL中有四种隔离级别，能分别来介绍下吗？"></a>刚才你也提到了隔离性嘛，然后你说在MySQL中有四种隔离级别，能分别来介绍下吗？</h2><ol>
-<li><p>嗯，为了讲清楚隔离级别，我顺带来说下MySQL锁相关的知识吧。</p>
-<p>1）在InnoDB引擎下，按锁的粒度分类，可以简单分为行锁和表锁。</p>
-<p>2）行锁实际上是作用在索引之上的（索引上次已经说过了，这里就不赘述了）</p>
-<p>3）当我们的SQL命中了索引，那锁住的就是命中条件内的索引节点（这种就是行锁），如果没有命中索引，那我们锁的就是整个索引树（表锁）。</p>
-<p>4）简单来说就是：锁住的是整棵树还是某几个节点，完全取决于SQL条件是否有命中到对应的索引节点。</p>
-<p>5）而行锁又可以简单分为读锁（共享锁、S锁）和写锁（排它锁、X锁）。</p>
-<p>6）读锁是共享的，多个事务可以同时读取同一个资源，但不允许其他事务修改。写锁是排他的，写锁会阻塞其他的写锁和读锁。</p>
-</li>
-<li><p>我现在就再回到隔离级别上吧，就直接以例子来说明啦。</p>
-<p>1）首先来说下read uncommit（读未提交）。比如说：A向B转账，A执行了转账语句，但A还没有提交事务，B读取数据，发现自己账户钱变多了！B跟A说，我已经收到钱了。A回滚事务【rollback】，等B再查看账户的钱时，发现钱并没有多。</p>
-<p>​    （1）简单的定义就是：事务B读取到了事务A还没提交的数据，这种用专业术语来说叫做「脏读」。</p>
-<p>​    （2）对于锁的维度而言，其实就是在read uncommit隔离级别下，读不会加任何锁，而写会加排他锁。读什么锁都不加，这就让排他锁无法排它了。</p>
-<p>​    （3）我们又知道，对于更新操作而言，lnnODB是肯定会加写锁的（数据库是不可能允许在同一时间，更新同一条记录的）。而读操作，如果不加任何锁，那就会造成上面的脏读。</p>
-<p>​    （4）脏读在生产环境下肯定是无法接受的，那如果读加锁的话，那意味着：当更新数据的时，就没办法读取了，这会极大地降低数据库性能。</p>
-<ul>
-<li><p>在MySQL InnoDB引擎层面，又有新的解决方案（解决加锁后读写性能问题），叫做MVCC（Multi-Version Concurrency Control）多版本并发控制</p>
-</li>
-<li><p>在MVCC下，就可以做到读写不阻塞，且避免了类似脏读这样的问题。那MVCC是怎么做的呢？</p>
-</li>
-<li><p>MVCC通过生成数据快照（Snapshot），并用这个快照来提供一定级别（语句级或事务级）的一致性读取</p>
-</li>
-</ul>
-<p>  （5）回到事务隔离级别下，针对于read commit（读已提交）隔离级别，它生成的就是语句级快照，而针对于repeatable read（可重复读），它生成的就是事务级的快照。</p>
-<p>2）前面提到过read uncommit隔离级别下会产生脏读，而read commit（读已提交）隔离级别解决了脏读</p>
-<p>​    （1）思想其实很简单：在读取的时候生成一个”版本号”，等到其他事务commit了之后，才会读取最新已commit的”版本号”数据。</p>
-<p>​    （2）比如说：事务A读取了记录（生成版本号），事务B修改了记录（此时加了写锁），事务A再读取的时候，是依据最新的版本号来读取的（当事务B执行commit了之后，会生成一个新的版本号），如果事务B还没有commit.那事务A读取的还是之前版本号的数据。</p>
-<p>​    （3）通过「版本」的概念，这样就解决了脏读的问题，而通过「版本」又可以对应快照的数据。read commit（读已提交）解决了脏读。</p>
-<p>3）read commit（读已提交）解决了脏读，但也会有其他并发的问题。「不可重复读」：一个事务读取到另外一个事务已经提交的数据，也就是说一个事务可以看到其他事务所做的修改。</p>
-<p>​    （1）不可重复读的例子：A查询数据库得到数据，B去修改数据库的数据，导致A多次查询数据库的结果都不一样【危害：A每次查询的结果都是受B的影响的】</p>
-<p>​    （2）了解MVCC基础之后，就很容易想到repeatable read（可重复复读）隔离级别是怎么避免不可重复读的问题了（前面也提到了）。</p>
-<p>​    （3）repeatable read（可重复复读）隔离级别是「事务级别」的快照！每次读取的都是「当前事务的版本」，即使当前数据被其他事务修改了（commit），也只会读取当前事务版本的数据。</p>
-<p>​    （4）在InnoDB引擎下的的repeatable read（可重复复读）隔离级别下，在MVCC下，快照读，已经解决了幻读的问题（因为它是读历史版本的数据）</p>
-<p>​    （5）而如果是当前读（比如select*from table for update），则需要配合间隙锁来解决幻读的问题。</p>
-<p>4）剩下的就是serializable（串行）隔离级别了，它的最高的隔离级别，相当于不允许事务的并发，事务与事务之间执行是串行的，它的效率最低，但同时也是最安全的。</p>
-</li>
-</ol>
-<h2 id="我看你提到了MVCC了，不妨来说下他的原理？"><a href="#我看你提到了MVCC了，不妨来说下他的原理？" class="headerlink" title="我看你提到了MVCC了，不妨来说下他的原理？"></a>我看你提到了MVCC了，不妨来说下他的原理？</h2><ol>
-<li>MVCC的主要是通过read view和undo log来实现的</li>
-<li>undo log前面也提到了，它会记录修改数据之前的信息，事务中的原子性就是通过undo log：来实现的。所以，有undo log可以帮我们找到「版本」的数据</li>
-<li>而read view实际上就是在查询时，lnnoDB会生成一个read view，read view有几个重要的字段，看下去就懂了</li>
-<li>分别是：trx ids（尚未提交commit的事务版本号集合），low limit id（下一次要生成的事务D值），low limit id（尚未提交版本号的事务D最小值）以及creator trx id（当前的事务版本号）</li>
-<li>在每行数据有两列隐藏的字段，分别是DB_TRX_ID（记录着当前ID）以及DB_ROLL _PTR（指向上一个版本数据在undolog里的位置指针）</li>
-<li>垫到这了，很容易就发现，MVCC其实就是靠「比对版本」来实现读写不阻塞，而版本的数据存在于undo log中。</li>
-<li>而针对于不同的隔离级别（read commit和repeatable read），无非就是read commit隔离级别下，每次都获取一个新的read view，repeatable read隔离级别则每次事务只获取一个read view</li>
-</ol>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ul>
-<li><p>事务为了保证数据的最终一致性</p>
-</li>
-<li><p>事务有四大特性，分别是原子性、一致性、隔离性、持久性</p>
-</li>
-<li><ul>
-<li>原子性由undo log保证</li>
-<li>持久性由redo log 保证</li>
-<li>隔离性由数据库隔离级别供我们选择，分别有read uncommit,read commit,repeatable read,serializable</li>
-<li>一致性是事务的目的，一致性由应用程序来保证</li>
-</ul>
-</li>
-<li><p>事务并发会存在各种问题，分别有脏读、重复读、幻读问题。上面的不同隔离级别可以解决掉由于并发事务所造成的问题，而隔离级别实际上就是由MySQL锁来实现的</p>
-</li>
-<li><p>频繁加锁会导致数据库性能低下，引入了MVCC多版本控制来实现读写不阻塞，提高数据库性能</p>
-</li>
-<li><p>MVCC原理即通过read view 以及undo log来实现</p>
-</li>
-</ul>
 
       
     </div>
@@ -1034,6 +639,220 @@
 <li>当索引解决不了慢查询时，一般由于业务表的数据量太大导致，利用空间换时间的思想（NOSQL、聚合、冗余…)</li>
 <li>当读写性能均遇到瓶颈时，先考虑能否升级数据库架构即可解决问题，若不能则需要考虑分库分表</li>
 <li>分库分表虽然能解决掉读写瓶颈，但同时会带来各种问题，需要提前调研解决方案和踩坑</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>l
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/b4eb9a6c/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lion.png">
+      <meta itemprop="name" content="swimminghao">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="swimminghao's blog">
+      <meta itemprop="description" content="swimminghao的学习博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | swimminghao's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/b4eb9a6c/" class="post-title-link" itemprop="url">23、【对线面试官】InnoDB引擎中的事务</a>
+        </h2>
+
+        <div class="post-meta-container">
+
+          
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-03-10 09:48:07" itemprop="dateModified" datetime="2022-03-10T09:48:07+08:00">2022-03-10</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/posts/b4eb9a6c/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/b4eb9a6c/" data-xid="/posts/b4eb9a6c/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>4k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>4 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="这次我想问下，你是怎么理解InnoDB引擎中的事务的？"><a href="#这次我想问下，你是怎么理解InnoDB引擎中的事务的？" class="headerlink" title="这次我想问下，你是怎么理解InnoDB引擎中的事务的？"></a>这次我想问下，你是怎么理解InnoDB引擎中的事务的？</h1><ol>
+<li>在我的理解下，事务可以使「一组操作」要么全部成功，要么全部失败</li>
+<li>事务其目的是为了「保证数据最终的一致性」。</li>
+<li>举个例子，我给你发支付宝转了888块红包。那自然我的支付宝余额会扣减888块，你的支付宝余额会增加888块。</li>
+<li>而事务就是保证我的余额扣减跟你的余额增添是同时成功或者同时失败的，这样这次转账就正常了</li>
+</ol>
+<h2 id="嗯，那你了解事务的几大特性吗？"><a href="#嗯，那你了解事务的几大特性吗？" class="headerlink" title="嗯，那你了解事务的几大特性吗？"></a>嗯，那你了解事务的几大特性吗？</h2><p>嗯，就是ACID嘛，分别是原子性（Atomicity）、一致性（Consistency）、隔离性（Isolation）、持久性（Durability）。</p>
+<ol>
+<li><p>原子性指的是：当前事务的操作要么同时成功，要么同时失败。原子性由undo Iog日志来保证，因为undo log记载着数据修改前的信息。</p>
+<p>1）比如我们要insert一条数据了，那undo Iog会记录的一条对应的delete日志。我们要update一条记录时，那undo log会记录之前的「旧值」的update记录。</p>
+<p>2）如果执行事务过程中出现异常的情况，那执行「回滚」。InnoDB引擎就是利用undo log记录下的数据，来将数据「恢复」到事务开始之前</p>
+</li>
+<li><p>隔离性指的是：在事务「并发」执行时，他们内部的操作不能互相干扰。</p>
+<p>1）如果多个事务可以在同一时刻操作同一份数据，那么就会可能会产生脏读、重复读、幻读的问题。</p>
+<p>2）于是，事务与事务之间需要存在「一定」的隔离。在nnoDB引擎中，定义了四种隔离级别供我们使用：分别是：read uncommit（读未提交）、read commit（读已提交）、repeatable read（可重复复读）、serializable（串行）</p>
+<p>3）不同的隔离级别对事务之间的隔离性是不一样的（级别越高事务隔离性越好，但性能就越低），而隔离性是由MySQL的各种锁来实现的，只是它屏蔽了加锁的细节。</p>
+</li>
+<li><p>持久性指的就是：一旦提交了事务，它对数据库的改变就应该是永久性的。说白了就是，会将数据持久化在硬盘上。</p>
+<p>1）而持久性由redo log日志来保证，当我们要修改数据时，MySQL是先把这条记录所在的「页」找到，然后把该页加载到内存中，将对应记录进行修改。</p>
+<p>2）为了防止内存修改完了，MySQL就挂掉了（如果内存改完，直接挂掉，那这次的修改相当于就丢失了）。</p>
+<p>3）MySQL引入了redo log，内存写完了，然后会写一份redo log，这份redo log记载着这次在某个页上做了什么修改。</p>
+<p>4）即便MySQL在中途挂了，我们还可以根据redo log：来对数据进行恢复。</p>
+<p>5）redo log是顺序写的，写入速度很快。并且它记录的是物理修改（xxxx页做了xxx修改），文件的体积很小，恢复速度也很快。</p>
+</li>
+<li><p>「一致性」可以理解为我们使用事务的「目的」，而「隔离性」「原子性」「持久性」均是为了保障「一致性」的手段，保证一致性需要由应用程序代码来保证</p>
+<p>1）比如，如果事务在发生的过程中，出现了异常情况，此时你就得回滚事务，而不是强行提交事务来导致数据不一致。</p>
+</li>
+</ol>
+<h2 id="刚才你也提到了隔离性嘛，然后你说在MySQL中有四种隔离级别，能分别来介绍下吗？"><a href="#刚才你也提到了隔离性嘛，然后你说在MySQL中有四种隔离级别，能分别来介绍下吗？" class="headerlink" title="刚才你也提到了隔离性嘛，然后你说在MySQL中有四种隔离级别，能分别来介绍下吗？"></a>刚才你也提到了隔离性嘛，然后你说在MySQL中有四种隔离级别，能分别来介绍下吗？</h2><ol>
+<li><p>嗯，为了讲清楚隔离级别，我顺带来说下MySQL锁相关的知识吧。</p>
+<p>1）在InnoDB引擎下，按锁的粒度分类，可以简单分为行锁和表锁。</p>
+<p>2）行锁实际上是作用在索引之上的（索引上次已经说过了，这里就不赘述了）</p>
+<p>3）当我们的SQL命中了索引，那锁住的就是命中条件内的索引节点（这种就是行锁），如果没有命中索引，那我们锁的就是整个索引树（表锁）。</p>
+<p>4）简单来说就是：锁住的是整棵树还是某几个节点，完全取决于SQL条件是否有命中到对应的索引节点。</p>
+<p>5）而行锁又可以简单分为读锁（共享锁、S锁）和写锁（排它锁、X锁）。</p>
+<p>6）读锁是共享的，多个事务可以同时读取同一个资源，但不允许其他事务修改。写锁是排他的，写锁会阻塞其他的写锁和读锁。</p>
+</li>
+<li><p>我现在就再回到隔离级别上吧，就直接以例子来说明啦。</p>
+<p>1）首先来说下read uncommit（读未提交）。比如说：A向B转账，A执行了转账语句，但A还没有提交事务，B读取数据，发现自己账户钱变多了！B跟A说，我已经收到钱了。A回滚事务【rollback】，等B再查看账户的钱时，发现钱并没有多。</p>
+<p>​    （1）简单的定义就是：事务B读取到了事务A还没提交的数据，这种用专业术语来说叫做「脏读」。</p>
+<p>​    （2）对于锁的维度而言，其实就是在read uncommit隔离级别下，读不会加任何锁，而写会加排他锁。读什么锁都不加，这就让排他锁无法排它了。</p>
+<p>​    （3）我们又知道，对于更新操作而言，lnnODB是肯定会加写锁的（数据库是不可能允许在同一时间，更新同一条记录的）。而读操作，如果不加任何锁，那就会造成上面的脏读。</p>
+<p>​    （4）脏读在生产环境下肯定是无法接受的，那如果读加锁的话，那意味着：当更新数据的时，就没办法读取了，这会极大地降低数据库性能。</p>
+<ul>
+<li><p>在MySQL InnoDB引擎层面，又有新的解决方案（解决加锁后读写性能问题），叫做MVCC（Multi-Version Concurrency Control）多版本并发控制</p>
+</li>
+<li><p>在MVCC下，就可以做到读写不阻塞，且避免了类似脏读这样的问题。那MVCC是怎么做的呢？</p>
+</li>
+<li><p>MVCC通过生成数据快照（Snapshot），并用这个快照来提供一定级别（语句级或事务级）的一致性读取</p>
+</li>
+</ul>
+<p>  （5）回到事务隔离级别下，针对于read commit（读已提交）隔离级别，它生成的就是语句级快照，而针对于repeatable read（可重复读），它生成的就是事务级的快照。</p>
+<p>2）前面提到过read uncommit隔离级别下会产生脏读，而read commit（读已提交）隔离级别解决了脏读</p>
+<p>​    （1）思想其实很简单：在读取的时候生成一个”版本号”，等到其他事务commit了之后，才会读取最新已commit的”版本号”数据。</p>
+<p>​    （2）比如说：事务A读取了记录（生成版本号），事务B修改了记录（此时加了写锁），事务A再读取的时候，是依据最新的版本号来读取的（当事务B执行commit了之后，会生成一个新的版本号），如果事务B还没有commit.那事务A读取的还是之前版本号的数据。</p>
+<p>​    （3）通过「版本」的概念，这样就解决了脏读的问题，而通过「版本」又可以对应快照的数据。read commit（读已提交）解决了脏读。</p>
+<p>3）read commit（读已提交）解决了脏读，但也会有其他并发的问题。「不可重复读」：一个事务读取到另外一个事务已经提交的数据，也就是说一个事务可以看到其他事务所做的修改。</p>
+<p>​    （1）不可重复读的例子：A查询数据库得到数据，B去修改数据库的数据，导致A多次查询数据库的结果都不一样【危害：A每次查询的结果都是受B的影响的】</p>
+<p>​    （2）了解MVCC基础之后，就很容易想到repeatable read（可重复复读）隔离级别是怎么避免不可重复读的问题了（前面也提到了）。</p>
+<p>​    （3）repeatable read（可重复复读）隔离级别是「事务级别」的快照！每次读取的都是「当前事务的版本」，即使当前数据被其他事务修改了（commit），也只会读取当前事务版本的数据。</p>
+<p>​    （4）在InnoDB引擎下的的repeatable read（可重复复读）隔离级别下，在MVCC下，快照读，已经解决了幻读的问题（因为它是读历史版本的数据）</p>
+<p>​    （5）而如果是当前读（比如select*from table for update），则需要配合间隙锁来解决幻读的问题。</p>
+<p>4）剩下的就是serializable（串行）隔离级别了，它的最高的隔离级别，相当于不允许事务的并发，事务与事务之间执行是串行的，它的效率最低，但同时也是最安全的。</p>
+</li>
+</ol>
+<h2 id="我看你提到了MVCC了，不妨来说下他的原理？"><a href="#我看你提到了MVCC了，不妨来说下他的原理？" class="headerlink" title="我看你提到了MVCC了，不妨来说下他的原理？"></a>我看你提到了MVCC了，不妨来说下他的原理？</h2><ol>
+<li>MVCC的主要是通过read view和undo log来实现的</li>
+<li>undo log前面也提到了，它会记录修改数据之前的信息，事务中的原子性就是通过undo log：来实现的。所以，有undo log可以帮我们找到「版本」的数据</li>
+<li>而read view实际上就是在查询时，lnnoDB会生成一个read view，read view有几个重要的字段，看下去就懂了</li>
+<li>分别是：trx ids（尚未提交commit的事务版本号集合），low limit id（下一次要生成的事务D值），low limit id（尚未提交版本号的事务D最小值）以及creator trx id（当前的事务版本号）</li>
+<li>在每行数据有两列隐藏的字段，分别是DB_TRX_ID（记录着当前ID）以及DB_ROLL _PTR（指向上一个版本数据在undolog里的位置指针）</li>
+<li>垫到这了，很容易就发现，MVCC其实就是靠「比对版本」来实现读写不阻塞，而版本的数据存在于undo log中。</li>
+<li>而针对于不同的隔离级别（read commit和repeatable read），无非就是read commit隔离级别下，每次都获取一个新的read view，repeatable read隔离级别则每次事务只获取一个read view</li>
+</ol>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ul>
+<li><p>事务为了保证数据的最终一致性</p>
+</li>
+<li><p>事务有四大特性，分别是原子性、一致性、隔离性、持久性</p>
+</li>
+<li><ul>
+<li>原子性由undo log保证</li>
+<li>持久性由redo log 保证</li>
+<li>隔离性由数据库隔离级别供我们选择，分别有read uncommit,read commit,repeatable read,serializable</li>
+<li>一致性是事务的目的，一致性由应用程序来保证</li>
+</ul>
+</li>
+<li><p>事务并发会存在各种问题，分别有脏读、重复读、幻读问题。上面的不同隔离级别可以解决掉由于并发事务所造成的问题，而隔离级别实际上就是由MySQL锁来实现的</p>
+</li>
+<li><p>频繁加锁会导致数据库性能低下，引入了MVCC多版本控制来实现读写不阻塞，提高数据库性能</p>
+</li>
+<li><p>MVCC原理即通过read view 以及undo log来实现</p>
+</li>
 </ul>
 
       
@@ -1869,6 +1688,194 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/6f64b3a6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lion.png">
+      <meta itemprop="name" content="swimminghao">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="swimminghao's blog">
+      <meta itemprop="description" content="swimminghao的学习博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | swimminghao's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/6f64b3a6/" class="post-title-link" itemprop="url">28、【对线面试官】JVM内存模型</a>
+        </h2>
+
+        <div class="post-meta-container">
+
+          
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-03-10 09:48:07" itemprop="dateModified" datetime="2022-03-10T09:48:07+08:00">2022-03-10</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/posts/6f64b3a6/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/6f64b3a6/" data-xid="/posts/6f64b3a6/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>1.6k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>1 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="28、【对线面试官】JVM内存模型"><a href="#28、【对线面试官】JVM内存模型" class="headerlink" title="28、【对线面试官】JVM内存模型"></a>28、【对线面试官】JVM内存模型</h1><h2 id="聊聊JVM的内存结构吧？"><a href="#聊聊JVM的内存结构吧？" class="headerlink" title="聊聊JVM的内存结构吧？"></a>聊聊JVM的内存结构吧？</h2><ul>
+<li>class文件会被类加载器装载至JVM中，并且JVM会负责程序「运行时」的「内存管理」</li>
+<li>而JVM的内存结构，往往指的就是JVM定义的「运行时数据区域」</li>
+<li>简单来说就分为了5大块：方法区、堆、程序计数器、虚拟机栈、本地方法栈</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/VHXC3i_20211229151038.png"></p>
+<h2 id="顺便讲下你这图上每个区域的内容"><a href="#顺便讲下你这图上每个区域的内容" class="headerlink" title="顺便讲下你这图上每个区域的内容"></a>顺便讲下你这图上每个区域的内容</h2><ul>
+<li>程序计数器<ul>
+<li>Java是多线程的语言，假设线程数大于CPU数，就很会有「线程切換」现象，切换意昧着「中断」和「恢复」，那自然就需要有一块区域来保存「当前线程的执行信息」</li>
+<li>所以，程序计数器就是用于记录各个线程执行的字节码的地址（分支、循环跳转、异常、线程恢复等都依赖于计数器）</li>
+</ul>
+</li>
+<li>虚拟机栈<ul>
+<li>每个线程在创建的时候都会创建一个虚拟机栈，每次方法调用都会创建一个「栈帧」。每个「栈帧」会包含几块内容：局部变量表、操作数栈、动态连接和返回地址</li>
+<li>作用：它保存方法的局部变量、部分变量的计算并参与了方法的调用和返回。</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/GOLAU2_20211229151640.png"></p>
+<ul>
+<li><p>本地方法栈</p>
+<ul>
+<li>本地方法栈跟虚拟机栈的功能类似，虚拟机栈用于管理Java函数的调用，而本地方法栈则用于管理本地方法的调用。这里的「本地方法」指的是「非Java方法」，一般本地方法是使用C语言实现的。</li>
+</ul>
+</li>
+<li><p>方法区</p>
+<ul>
+<li>前面提到了运行时数据区这个「分区」是JVM的「规范」，具体的落地实现，不同的虚拟机厂商可能是不一样的</li>
+<li>所以「方法区」也只是JVM中规范的一部分</li>
+<li>Hotspot虚拟机，就会常常提到「永久代」这个词。 Hotspotl虚拟机在「JDK8前」用「永久代」实现了「方法区」，而很多其他厂商的虚拟机其实是没有「永久代」的概念的</li>
+<li>在JDK8中，已经用「元空间」来替代了「永久代」作为「方法区」的实现了</li>
+<li>方法区主要是用来存放已被虚拟机加载的「类相关信息」：包括类信息、常量池<ul>
+<li>类信息又包括了类的版本、字段、方法、接口和父类等信息。</li>
+<li>常量池又可以分「静态常量池」和「运行时常量池」<ul>
+<li>静态常量池主要存储的是「字面量」以及「符号引用」等信息，静态常量池也包括了我们说的「字符串常量池」。</li>
+<li>「运行时常量池」存储的是「类加载」时生成的「直接引用」等信息</li>
+<li>值得注意的是：从「逻辑分区」的角度而言「常量池」是属于「方法区」的</li>
+<li>但自从在「JDK7」以后，就已经把「运行时常量池」和「静态常量池」转移到了「堆」内存中进行存储</li>
+<li>对于「物理分区」来说「运行时常量池」和「静态常量池』就属于堆</li>
+</ul>
+</li>
+<li>总体来说，就是逻辑分区和物理实际存储的位置，是不一样的</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>堆</p>
+<ul>
+<li><p>「堆」是线程共享的区域，几乎类的实例和数组分配的内存都来自于它</p>
+</li>
+<li><p>「堆」被划分为「新生代」和「老年代」，「新生代」又被进一步划分为Eden和 Survivor区，最后 Survivor由From Survivor 和 To Survivor组成</p>
+</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/Xm317A_20211229152833.png"></p>
+<h2 id="从「JDK8」已经把「方法区」的实现从「永久代」变成「元空间」，有什么区别？"><a href="#从「JDK8」已经把「方法区」的实现从「永久代」变成「元空间」，有什么区别？" class="headerlink" title="从「JDK8」已经把「方法区」的实现从「永久代」变成「元空间」，有什么区别？"></a>从「JDK8」已经把「方法区」的实现从「永久代」变成「元空间」，有什么区别？</h2><ul>
+<li>最主要的区别就是：「元空间」存储不在虚拟机中，而是使用本地内存，JVM不会再出现方法区的内存溢出，以往「永久代」经常因为内存不够用导致跑出OOM异常。</li>
+<li>按JDK8版本，总结起来其实就相当于：「类信息」是存储在「元空间」的（也有人把「类信息」这块叫做「类信息常量池」）</li>
+<li>而「常量池」用JDK7开始，从「物理存储」角度上就在「堆中」，这是没有变化的。</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/5Ha0EV_20211229152636.png"></p>
+<h2 id="JVM内存结构和Java內存模型有啥区别吧？"><a href="#JVM内存结构和Java內存模型有啥区别吧？" class="headerlink" title="JVM内存结构和Java內存模型有啥区别吧？"></a>JVM内存结构和Java內存模型有啥区别吧？</h2><ul>
+<li>Java内存模型是跟「并发」相关的，它是为了屏蔽底层细节而提出的规范，希望在上层（Java层面上）在操作内存时在不同的平台上也有相同的效果</li>
+<li>JVM内存结构（又称为运行时数据区域），它描述着当我们的 class文件加载至虚拟机后，各个分区的「逻辑结构」是如何的，每个分区承担的作用</li>
+</ul>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p><strong>JVM内存结构组成</strong>：JVM内存结构又称为「运行时数据区域」。主要有五部分组成：虚拟机栈、本地方法栈、程序计数器、方法区和堆。其中方法区和堆是线程共享的。虚拟机栈、本地方法栈以及程序计数器是线程隔离的。</p>
+
+      
+    </div>
+
+    
+    
+    
+
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>l
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://example.com/posts/9544a93a/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2108,7 +2115,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/6f64b3a6/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/6f559dce/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/lion.png">
@@ -2126,7 +2133,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/6f64b3a6/" class="post-title-link" itemprop="url">28、【对线面试官】JVM内存模型</a>
+          <a href="/posts/6f559dce/" class="post-title-link" itemprop="url">30、【对线面试官】CMS垃圾回收器</a>
         </h2>
 
         <div class="post-meta-container">
@@ -2168,8 +2175,8 @@
     </span>
     <span class="post-meta-item-text">Waline：</span>
   
-    <a title="waline" href="/posts/6f64b3a6/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/6f64b3a6/" data-xid="/posts/6f64b3a6/" itemprop="commentCount"></span>
+    <a title="waline" href="/posts/6f559dce/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/6f559dce/" data-xid="/posts/6f559dce/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -2180,14 +2187,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>1.6k</span>
+      <span>2.1k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>1 分钟</span>
+      <span>2 分钟</span>
     </span>
 </div>
 
@@ -2198,73 +2205,113 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="28、【对线面试官】JVM内存模型"><a href="#28、【对线面试官】JVM内存模型" class="headerlink" title="28、【对线面试官】JVM内存模型"></a>28、【对线面试官】JVM内存模型</h1><h2 id="聊聊JVM的内存结构吧？"><a href="#聊聊JVM的内存结构吧？" class="headerlink" title="聊聊JVM的内存结构吧？"></a>聊聊JVM的内存结构吧？</h2><ul>
-<li>class文件会被类加载器装载至JVM中，并且JVM会负责程序「运行时」的「内存管理」</li>
-<li>而JVM的内存结构，往往指的就是JVM定义的「运行时数据区域」</li>
-<li>简单来说就分为了5大块：方法区、堆、程序计数器、虚拟机栈、本地方法栈</li>
+          <h1 id="30、【对线面试官】CMS垃圾回收器"><a href="#30、【对线面试官】CMS垃圾回收器" class="headerlink" title="30、【对线面试官】CMS垃圾回收器"></a>30、【对线面试官】CMS垃圾回收器</h1><h2 id="今天还是来聊聊CMS垃圾收集器呗？"><a href="#今天还是来聊聊CMS垃圾收集器呗？" class="headerlink" title="今天还是来聊聊CMS垃圾收集器呗？"></a>今天还是来聊聊CMS垃圾收集器呗？</h2><ul>
+<li>如果用Seria和 Parallel系列的垃圾收集器：在垃圾回收的时，用户线程都会完全停止，直至垃圾回收结束！</li>
+<li>CMS的全称： Concurrent Mark Sweep，翻译过来是「并发标记清除」</li>
 </ul>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/VHXC3i_20211229151038.png"></p>
-<h2 id="顺便讲下你这图上每个区域的内容"><a href="#顺便讲下你这图上每个区域的内容" class="headerlink" title="顺便讲下你这图上每个区域的内容"></a>顺便讲下你这图上每个区域的内容</h2><ul>
-<li>程序计数器<ul>
-<li>Java是多线程的语言，假设线程数大于CPU数，就很会有「线程切換」现象，切换意昧着「中断」和「恢复」，那自然就需要有一块区域来保存「当前线程的执行信息」</li>
-<li>所以，程序计数器就是用于记录各个线程执行的字节码的地址（分支、循环跳转、异常、线程恢复等都依赖于计数器）</li>
-</ul>
-</li>
-<li>虚拟机栈<ul>
-<li>每个线程在创建的时候都会创建一个虚拟机栈，每次方法调用都会创建一个「栈帧」。每个「栈帧」会包含几块内容：局部变量表、操作数栈、动态连接和返回地址</li>
-<li>作用：它保存方法的局部变量、部分变量的计算并参与了方法的调用和返回。</li>
-</ul>
-</li>
-</ul>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/GOLAU2_20211229151640.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/1u2iZp_20211229164510.png"></p>
 <ul>
-<li><p>本地方法栈</p>
+<li>用CMS对比上面的垃圾收集器（ Seria和Parllel和 parNew）：它最大的不同点就是「并发」：在GC线程工作的时候，用户线程「不会完全停止」，用户线程在「部分场景下」与GC线程一起并发执行</li>
+<li>无论是什么垃圾收集器， Stop The Word&#x2F;是一定无法避免的！</li>
+<li>CMS只是在「部分」的GC场景下可以让GC线程与用户线程并发执行</li>
+<li>目的：为了避免「老年代GC」出现「长时间」的卡顿（ Stop The Word )</li>
+</ul>
+<h2 id="CMS工作流程"><a href="#CMS工作流程" class="headerlink" title="CMS工作流程"></a>CMS工作流程</h2><ul>
+<li><p>CMS可以简单分为5个步骤：初始标记、并发标记、并发预清理、重新标记以及并发清除</p>
 <ul>
-<li>本地方法栈跟虚拟机栈的功能类似，虚拟机栈用于管理Java函数的调用，而本地方法栈则用于管理本地方法的调用。这里的「本地方法」指的是「非Java方法」，一般本地方法是使用C语言实现的。</li>
-</ul>
+<li><p>从步骤可看出，CMS主要是实现了「标记清除」垃圾回收算法</p>
 </li>
-<li><p>方法区</p>
+<li><p>「初始标记」</p>
 <ul>
-<li>前面提到了运行时数据区这个「分区」是JVM的「规范」，具体的落地实现，不同的虚拟机厂商可能是不一样的</li>
-<li>所以「方法区」也只是JVM中规范的一部分</li>
-<li>Hotspot虚拟机，就会常常提到「永久代」这个词。 Hotspotl虚拟机在「JDK8前」用「永久代」实现了「方法区」，而很多其他厂商的虚拟机其实是没有「永久代」的概念的</li>
-<li>在JDK8中，已经用「元空间」来替代了「永久代」作为「方法区」的实现了</li>
-<li>方法区主要是用来存放已被虚拟机加载的「类相关信息」：包括类信息、常量池<ul>
-<li>类信息又包括了类的版本、字段、方法、接口和父类等信息。</li>
-<li>常量池又可以分「静态常量池」和「运行时常量池」<ul>
-<li>静态常量池主要存储的是「字面量」以及「符号引用」等信息，静态常量池也包括了我们说的「字符串常量池」。</li>
-<li>「运行时常量池」存储的是「类加载」时生成的「直接引用」等信息</li>
-<li>值得注意的是：从「逻辑分区」的角度而言「常量池」是属于「方法区」的</li>
-<li>但自从在「JDK7」以后，就已经把「运行时常量池」和「静态常量池」转移到了「堆」内存中进行存储</li>
-<li>对于「物理分区」来说「运行时常量池」和「静态常量池』就属于堆</li>
+<li>「初始标记」会标记 GCroots「直接关联」的对象以及「年轻代」指向「老年代」的对象</li>
+<li>「初始标记」这个过程是会发生 Stop The Word的。但这个阶段的速度算是很快的，因为没有「向下追溯」（只标记一层）</li>
 </ul>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/FqsTqd_20211229162246.png"></p>
 </li>
-<li>总体来说，就是逻辑分区和物理实际存储的位置，是不一样的</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>堆</p>
+<li><p>「并发标记」</p>
 <ul>
-<li><p>「堆」是线程共享的区域，几乎类的实例和数组分配的内存都来自于它</p>
+<li>「并发标记」这个过程是不会停止用户线程的（不会发生 Stop The Word）。这一阶段主要是从 GC Roots向下「追溯」，标记所有可达的对象</li>
+<li>并发标记」在GC的角度而言，是比较耗费时间的（需要追溯）</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/cUUH7w_20211229162544.png"></p>
 </li>
-<li><p>「堆」被划分为「新生代」和「老年代」，「新生代」又被进一步划分为Eden和 Survivor区，最后 Survivor由From Survivor 和 To Survivor组成</p>
+<li><p>「并发预处理」</p>
+<ul>
+<li>「并发预处理」这个阶段主要是：希望能减少下一个阶段「重新标记」所消耗的时间</li>
+<li>因为下一个阶段「重新标记」是需要Stop The World的，「并发标记」这个阶段由于用户线程是没有被挂起的，所以对象是有可能发生变化的</li>
+<li>可能有些对象，从新生代晋升到了老年代。可能有些对象，直接分配到了老年代（大对象）。可能老年代或者新生代的对象引用发生了变化</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/NeI2CU_20211229163018.png"></p>
+</li>
+<li><p>「重新标记」</p>
+<ul>
+<li>「重新标记」阶段会 Stop The Word，这个过程的停顿时间其实很大程度上取决于上面「并发预处理」阶段</li>
+<li>这是一个追赶的过程：边在标记存活对象，一边用户线程在执行产生垃圾）</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/o97JPO_20211229163156.png"></p>
+</li>
+<li><p>「并发清除」</p>
+<ul>
+<li>一边用户线程在执行，一边GC线程在回收不可达的对象</li>
+<li>这个过程，还是有可能用户线程在不断产生垃圾，但只能留到下一次GC进行处<br>理了，产生的这些垃圾被叫做“浮动垃圾”</li>
+<li>完了以后会重置CMS算法相关的内部数据，为下一次GC循环做准备</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/TJihOR_20211229163307.png"></p>
 </li>
 </ul>
 </li>
 </ul>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/Xm317A_20211229152833.png"></p>
-<h2 id="从「JDK8」已经把「方法区」的实现从「永久代」变成「元空间」，有什么区别？"><a href="#从「JDK8」已经把「方法区」的实现从「永久代」变成「元空间」，有什么区别？" class="headerlink" title="从「JDK8」已经把「方法区」的实现从「永久代」变成「元空间」，有什么区别？"></a>从「JDK8」已经把「方法区」的实现从「永久代」变成「元空间」，有什么区别？</h2><ul>
-<li>最主要的区别就是：「元空间」存储不在虚拟机中，而是使用本地内存，JVM不会再出现方法区的内存溢出，以往「永久代」经常因为内存不够用导致跑出OOM异常。</li>
-<li>按JDK8版本，总结起来其实就相当于：「类信息」是存储在「元空间」的（也有人把「类信息」这块叫做「类信息常量池」）</li>
-<li>而「常量池」用JDK7开始，从「物理存储」角度上就在「堆中」，这是没有变化的。</li>
+<h2 id="为什么要扫年轻代？"><a href="#为什么要扫年轻代？" class="headerlink" title="为什么要扫年轻代？"></a>为什么要扫年轻代？</h2><ul>
+<li>CMS主要回收老年代的对象。年轻代有可能会指向老年代的对象，不扫就不知道是不是垃圾了</li>
 </ul>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/5Ha0EV_20211229152636.png"></p>
-<h2 id="JVM内存结构和Java內存模型有啥区别吧？"><a href="#JVM内存结构和Java內存模型有啥区别吧？" class="headerlink" title="JVM内存结构和Java內存模型有啥区别吧？"></a>JVM内存结构和Java內存模型有啥区别吧？</h2><ul>
-<li>Java内存模型是跟「并发」相关的，它是为了屏蔽底层细节而提出的规范，希望在上层（Java层面上）在操作内存时在不同的平台上也有相同的效果</li>
-<li>JVM内存结构（又称为运行时数据区域），它描述着当我们的 class文件加载至虚拟机后，各个分区的「逻辑结构」是如何的，每个分区承担的作用</li>
+<h2 id="「并发预处理」问题解决"><a href="#「并发预处理」问题解决" class="headerlink" title="「并发预处理」问题解决"></a>「并发预处理」问题解决</h2><ul>
+<li>针对老年代的对象，其实还是可以借助类 card table的存储（将老年代对象发生变化所对应的卡页标记为 dirty）</li>
+<li>所以「并发预处理」这个阶段会扫描可能由于「并发标记」时导致老年代发生变化的对象，会再扫描一遍标记为diy的卡页</li>
+<li>对于新生代的对象，我们还是得遍历新生代来看看在「并发标记」过程中有没有对象引用了老年代.</li>
+<li>JVM里给我们提供了很多「参数」，有可能在这个过程中会触发一次minor GC（触发了 minor GC是意味着就可以更少地遍历新生代的对象）</li>
 </ul>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p><strong>JVM内存结构组成</strong>：JVM内存结构又称为「运行时数据区域」。主要有五部分组成：虚拟机栈、本地方法栈、程序计数器、方法区和堆。其中方法区和堆是线程共享的。虚拟机栈、本地方法栈以及程序计数器是线程隔离的。</p>
+<h2 id="相比G1，那你觉得CMS有什么缺点呢？"><a href="#相比G1，那你觉得CMS有什么缺点呢？" class="headerlink" title="相比G1，那你觉得CMS有什么缺点呢？"></a>相比G1，那你觉得CMS有什么缺点呢？</h2><ul>
+<li><p>1.空间需要预留：CMS垃圾收集器可以一边回收垃圾，一边处理用户线程，那需要在这个过程中保证有充足的内存空间供用户使用。</p>
+<ul>
+<li>如果CMS运行过程中预留的空间不够用了，会报错（ Concurrent Mode Failure），这时会启动 Serial Old垃圾收集器进行老年代的垃圾回收，会导致停顿的时间很长</li>
+</ul>
+</li>
+<li><p>2.内存碎片问题：CMS本质上是实现了「标记清除算法」的收集器（从过程就可以看得出），这会意味着会产生内存碎片</p>
+<ul>
+<li>由于碎片太多，又可能会导致内存空间不足所触发 full GC，CMS一般会在触发full GC这个过程对碎片进行整理</li>
+<li>整理涉及到「移动」&#x2F;「标记」，那这个过程肯定会 Stop The Word的，如果内存足够大（意味着可能装载的对象足够多），那这个过程卡顿也是需要一定的时间的。</li>
+</ul>
+</li>
+<li><p>使用CMS的弊端好像就是一个死循环</p>
+<ul>
+<li>1.内存碎片过多，导致空间利用率减低。</li>
+<li>2.空间本身就需要预留给用户线程使用，现在碎片内存又加剧了空间的问题，导致有可能垃圾收集器降级为 Serial old，卡顿时间更长</li>
+<li>3.要处理内存碎片的问题（整理），同样会卡顿</li>
+</ul>
+</li>
+</ul>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ul>
+<li><p>CMS把垃圾回收的过程给”细分”了，然后在某些阶段可以不停止用户线程，一边回收垃圾，一边处理请求，来减少每次垃圾回收时 Stop The Word的时间</p>
+</li>
+<li><p>中间也做了很多的优化（ dirty card标记、可能中途触发 minor gca等等，在我理解下，这些都提供了CMS的相关参数配置</p>
+</li>
+<li><p>CMS垃圾回收器设计目的：</p>
+<ul>
+<li>为了避免「老年代 GC」出现「长时间」的卡顿（Stop The World）</li>
+</ul>
+</li>
+<li><p>CMS垃圾回收器回收过程：</p>
+<ul>
+<li>初始标记、并发标记、并发预处理、重新标记和并发清除。初始标记以及重新标记这两个阶段会Stop The World</li>
+</ul>
+</li>
+<li><p>CMS垃圾回收器的弊端：</p>
+<ul>
+<li>会产生内存碎片&amp;&amp;需要空间预留：停顿时间是不可预知的</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/KNqlDT_20211229164021.png"></p>
 
       
     </div>
