@@ -219,6 +219,11 @@
 	</div>
 	<ul class="links-of-blogroll-list recent-posts-list">
 	        <li class="my-links-of-blogroll-item">
+		    <a href="/posts/1472c1b9/" title="自己拥有一台服务器可以做哪些很酷的事情？" target="">
+		    自己拥有一台服务器可以做哪些很酷的事情？
+		    </a>
+		</li>
+	        <li class="my-links-of-blogroll-item">
 		    <a href="/posts/ba6fe53d/" title="国内外核心期刊有哪些？" target="">
 		    国内外核心期刊有哪些？
 		    </a>
@@ -236,11 +241,6 @@
 	        <li class="my-links-of-blogroll-item">
 		    <a href="/posts/47991a9b/" title="华硕路由器内网host功能设置" target="">
 		    华硕路由器内网host功能设置
-		    </a>
-		</li>
-	        <li class="my-links-of-blogroll-item">
-		    <a href="/posts/b9a13838/" title="word图片自动编号" target="">
-		    word图片自动编号
 		    </a>
 		</li>
 	</ul>
@@ -276,7 +276,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/638ae112/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/cad299ae/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/lion.png">
@@ -294,7 +294,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/638ae112/" class="post-title-link" itemprop="url">java垃圾回收机制</a>
+          <a href="/posts/cad299ae/" class="post-title-link" itemprop="url">java学习路线图</a>
         </h2>
 
         <div class="post-meta-container">
@@ -336,8 +336,8 @@
     </span>
     <span class="post-meta-item-text">Waline：</span>
   
-    <a title="waline" href="/posts/638ae112/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/638ae112/" data-xid="/posts/638ae112/" itemprop="commentCount"></span>
+    <a title="waline" href="/posts/cad299ae/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/cad299ae/" data-xid="/posts/cad299ae/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -348,14 +348,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>2.7k</span>
+      <span>13k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>2 分钟</span>
+      <span>12 分钟</span>
     </span>
 </div>
 
@@ -366,90 +366,363 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="java垃圾回收"><a href="#java垃圾回收" class="headerlink" title="java垃圾回收"></a>java垃圾回收</h1><h2 id="一、jvm内存结构"><a href="#一、jvm内存结构" class="headerlink" title="一、jvm内存结构"></a>一、jvm内存结构</h2><p>嗯，前面提到了堆分了「新生代」和 「老年代」，「新生代」又分为「Eden」和「Survivor」区，「Survivor」区又分为「From Survivor」和「To Survivor」区</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/TOrLy1_20210922150656.png"></p>
-<h2 id="二、垃圾回收机制"><a href="#二、垃圾回收机制" class="headerlink" title="二、垃圾回收机制"></a>二、垃圾回收机制</h2><ul>
-<li>背景</li>
-</ul>
-<p>我们使用Java的时候，会创建很多对象，但我们未曾「手动」将这些对象进行清除；<br>而如果用C&#x2F;C++语言的时候，用完是需要自己free（释放）掉的；<br>那为什么在写Java的时候不用我们自己手动释放”垃圾”呢？原因很简单，JVM帮我们做了（自动回收垃圾）</p>
+          <h1 id="java学习路线图"><a href="#java学习路线图" class="headerlink" title="java学习路线图"></a>java学习路线图</h1><p>项目地址：</p>
 <ul>
-<li>垃圾定义</li>
+<li>Github地址：<a href="https://link.zhihu.com/?target=https://github.com/Snailclimb/JavaGuide">Snailclimb&#x2F;JavaGuide</a></li>
+<li>Gitee地址： <a href="https://link.zhihu.com/?target=https://gitee.com/SnailClimb/JavaGuide">SnailClimb&#x2F;JavaGuide</a>（Github 无法访问或者访问速度比较慢的小伙伴可以看码云上的对应内容）</li>
 </ul>
-<p>我个人对垃圾的定义：只要对象不再被使用了，那我们就认为该对象就是垃圾，对象所占用的空间就可以被回收</p>
+<p>这篇回答不会涉及到学习方法以及学习网站的推荐，我不想让篇幅太长，内容太杂，我希望留着下一篇文章专门来谈一谈。</p>
+<p>另外，这篇回答也不会涉及到计算机基础，也是为了保证内容的不至于太杂。计算基础相关的内容我也已经写好，预计会在五一同步给小伙伴们。</p>
+<p><img src="https://pic2.zhimg.com/50/v2-06c2cdc3e5d417486d1cb92687350ed4_hd.jpg?source=1940ef5c" alt="img"><img src="https://pic2.zhimg.com/80/v2-06c2cdc3e5d417486d1cb92687350ed4_720w.jpg?source=1940ef5c" alt="img"></p>
+<p>多说一句，对于编程初学者，我不太建议上来通过做项目学习。实践确实很重要，如果你没有编程基础的话，直接上手实战，很容易最后学个四不像。</p>
+<p>建议你在学习编程的初期尽量多看一些优质视频。跟着视频一步一步走，可以让你少踩很多坑，学习编程的信心也会增加。</p>
+<p><strong>概览：</strong></p>
+<p><img src="https://pic1.zhimg.com/50/v2-62586d6789e1a081cc3dc6efd7bdd289_hd.jpg?source=1940ef5c" alt="img"><img src="https://pic1.zhimg.com/80/v2-62586d6789e1a081cc3dc6efd7bdd289_720w.jpg?source=1940ef5c" alt="img"></p>
+<p>回答中的相关书籍我也已经同步到了 Github和Gitee上（有PDF版本可供下载），欢迎小伙伴们一起完善。</p>
 <ul>
-<li><p>判断垃圾不再被使用</p>
-<p>常用算法有2个：引用计数法、可达性分析法</p>
-</li>
+<li>Github地址：<a href="https://link.zhihu.com/?target=https://github.com/CodingDocs/awesome-cs">https://github.com/CodingDocs/awesome-cs</a></li>
+<li>码云地址：<a href="https://link.zhihu.com/?target=https://gitee.com/SnailClimb/awesome-cs">https://gitee.com/SnailClimb/awesome-cs</a> （Github无法访问或者访问速度比较慢的小伙伴可以看码云上的对应内容）</li>
 </ul>
+<h2 id="Java-基础"><a href="#Java-基础" class="headerlink" title="Java 基础"></a><strong>Java 基础</strong></h2><p>如果你之前没有学习过编程的话，我建议你可以看看视频教程。</p>
+<p>像尚硅谷的 <a href="https://link.zhihu.com/?target=https://www.bilibili.com/video/BV1Kb411W75N">《 Java 基础教程系列》</a>和韩顺平老师的<a href="https://link.zhihu.com/?target=https://www.bilibili.com/video/BV1fh411y7R8">《零基础 30 天学会 Java》</a>就很不错。</p>
+<p><img src="https://pic4.zhimg.com/50/v2-2217d04b42c6f79aa126432672133c25_hd.jpg?source=1940ef5c" alt="img"><img src="https://pic4.zhimg.com/80/v2-2217d04b42c6f79aa126432672133c25_720w.jpg?source=1940ef5c" alt="img"></p>
+<p>学习过 Java 的朋友，大部分应该都看过韩老师的课程吧！韩老师毕业于清华大学，录制的视频课程质量都非常高。内容易懂，并且不失严谨。</p>
+<p>韩老师的<a href="https://link.zhihu.com/?target=https://www.bilibili.com/video/BV1fh411y7R8">《零基础 30 天学会 Java》</a>系列不光会教你 Java 基础，还会帮你建立编程思想，让你知道学习了 Java 之后，你可以从事什么工作。</p>
+<p>看视频的同时，配套一本好书也是非常有作用的。</p>
+<p><strong><a href="https://link.zhihu.com/?target=https://book.douban.com/subject/2000732/">《Head First Java》</a></strong> 这本书在是入门 Java 的很不错的书籍 。</p>
+<p><img src="https://pic1.zhimg.com/50/v2-d264e3d06d0f86175c542c60a032fea4_hd.jpg?source=1940ef5c" alt="img"><img src="https://pic1.zhimg.com/80/v2-d264e3d06d0f86175c542c60a032fea4_720w.jpg?source=1940ef5c" alt="img"></p>
+<p>《Head First Java》这本书的内容很轻松有趣，可以说是我学习编程初期最喜欢的几本书之一了。同时，这本书也是我的 Java 启蒙书籍。我在学习 Java 的初期多亏了这本书的帮助，自己才算是跨进 Java 语言的大门。</p>
+<p>我觉得我在 Java 这块能够坚持下来，这本书有很大的功劳。我身边的的很多朋友学习 Java 初期都是看的这本书。</p>
+<p>有很多小伙伴就会问了：<strong>这本书适不适合编程新手阅读呢？</strong></p>
+<p>我个人觉得这本书还是挺适合编程新手阅读的，毕竟是 “Head First” 系列。</p>
+<p><img src="https://pic2.zhimg.com/50/v2-66d3ede459a86d010402186346189af1_hd.jpg?source=1940ef5c" alt="img"><img src="https://pic2.zhimg.com/80/v2-66d3ede459a86d010402186346189af1_720w.jpg?source=1940ef5c" alt="img"></p>
+<p><strong><a href="https://link.zhihu.com/?target=https://book.douban.com/subject/34898994/">《Java 核心技术卷 1+卷 2》</a></strong> 这两本书也非常不错。不过，这两本书的内容很多，全看的话比较费时间。我现在是把这两本书当做工具书来用，就比如我平时写文章的时候，碰到一些 Java 基础方面的问题，经常就翻看这两本来当做参考！</p>
+<p>我当时在大学的时候就买了两本放在寝室，没事的时候就翻翻。建议有点 Java 基础之后再读，介绍的还是比较深入和全面的，非常推荐。</p>
+<p><img src="https://pic2.zhimg.com/50/v2-bc98859a3b5e17b38c9d4606c1cd3ffd_hd.jpg?source=1940ef5c" alt="img"><img src="https://pic2.zhimg.com/80/v2-bc98859a3b5e17b38c9d4606c1cd3ffd_720w.jpg?source=1940ef5c" alt="img"></p>
+<p><strong><a href="https://link.zhihu.com/?target=https://book.douban.com/subject/2130190/">《Java 编程思想 》</a></strong> 这本书被很多人称之为 Java 领域的圣经（*感觉有点过了~~~*）。不太推荐编程初学者阅读，有点劝退的味道，稍微有点基础后阅读更好。</p>
+<p>我第一次看的时候还觉得有点枯燥，那时候还在上大二，看了 1&#x2F;3 就没看下去了。</p>
+<p><img src="https://pic2.zhimg.com/50/v2-e14d41b9f1dd4c9184466bb94c59401b_hd.jpg?source=1940ef5c" alt="img"><img src="https://pic2.zhimg.com/80/v2-e14d41b9f1dd4c9184466bb94c59401b_720w.jpg?source=1940ef5c" alt="img"></p>
+<p>另外，Java 8 算是一个里程碑式的版本，现在一般企业还是用 Java 8 比较多。掌握 Java 8 的一些新特性比如 Lambda、Strean API 还是挺有必要的。这块的话，我推荐 <strong><a href="https://link.zhihu.com/?target=https://book.douban.com/subject/26772632/">《Java 8 实战》</a></strong> 这本书。</p>
+<p>学完 Java 基础之后，你可以用自己学的东西实现一个简单的 Java 程序，也可以尝试用 Java 解决一些编程问题，以此来将自己学到的东西付诸于实践。</p>
+<p>不太建议学习 Java 基础的之后通过做游戏来巩固。为什么培训班喜欢通过这种方式呢？说白点就是为了找到你的 G 点。新手学习完 Java 基础后做游戏一般是不太现实的，还不如找一些简单的程序问题解决一下比如简单的算法题。</p>
+<p>记得多总结！打好基础！把自己重要的东西都记录下来。 API 文档放在自己可以看到的地方，以备自己可以随时查阅。为了能让自己写出更优秀的代码，《Effective Java》、《重构》 这两本书没事也可以看</p>
+<h2 id="并发"><a href="#并发" class="headerlink" title="并发"></a><strong>并发</strong></h2><p>多线程这部分内容稍微会比较难以理解和实践。如果你刚学完 Java 基础的话，我建议你学习并发这部分内容的时候，可以先简单地了解一下基础知识比如线程和进程的对比。到了后面，你对于 Java 了解的更深了之后，再回来仔细看看这部分的内容。</p>
+<p>下面是一些我比较推荐的书籍。</p>
+<p><strong><a href="https://link.zhihu.com/?target=https://book.douban.com/subject/30351286/">《Java 并发编程之美》</a></strong></p>
+<p><img src="https://pic2.zhimg.com/50/v2-2ca1ce12697e4368246b124cc5ebf295_hd.jpg?source=1940ef5c" alt="img"><img src="https://pic2.zhimg.com/80/v2-2ca1ce12697e4368246b124cc5ebf295_720w.jpg?source=1940ef5c" alt="img"></p>
+<p><em>这本书还是非常适合我们用来学习 Java 多线程的。这本书的讲解非常通俗易懂，作者从并发编程基础到实战都是信手拈来。</em></p>
+<p>另外，这本书的作者加多自身也会经常在网上发布各种技术文章。这本书也是加多大佬这么多年在多线程领域的沉淀所得的结果吧！他书中的内容基本都是结合代码讲解，非常有说服力！</p>
+<p><strong><a href="https://link.zhihu.com/?target=https://book.douban.com/subject/30358019/">《实战 Java 高并发程序设计》</a></strong></p>
+<p><img src="https://pic4.zhimg.com/50/v2-c83749f4bc91edbb131681d9f94f821f_hd.jpg?source=1940ef5c" alt="img"><img src="https://pic4.zhimg.com/80/v2-c83749f4bc91edbb131681d9f94f821f_720w.jpg?source=1940ef5c" alt="img"></p>
+<p>这个是我第二本要推荐的书籍，比较适合作为多线程入门&#x2F;进阶书籍来看。这本书内容同样是理论结合实战，对于每个知识点的讲解也比较通俗易懂，整体结构也比较清。</p>
+<p><strong><a href="https://link.zhihu.com/?target=https://github.com/RedSpider1/concurrent">《深入浅出 Java 多线程》</a></strong></p>
+<p><img src="https://pic4.zhimg.com/50/v2-b477244d7b3229167ea31aa2e16e3302_hd.jpg?source=1940ef5c" alt="img"><img src="https://pic4.zhimg.com/80/v2-b477244d7b3229167ea31aa2e16e3302_720w.jpg?source=1940ef5c" alt="img"></p>
+<p>这本书是几位大厂的大佬开源的。</p>
+<p>这几位作者为了写好《深入浅出 Java 多线程》这本书阅读了大量的 Java 多线程方面的书籍和博客，然后再加上他们的经验总结、Demo 实例、源码解析，最终才形成了这本书。</p>
+<p>这本书的质量也是非常过硬！给作者们点个赞！这本书有统一的排版规则和语言风格、清晰的表达方式和逻辑。并且每篇文章初稿写完后，作者们就会互相审校，合并到主分支时所有成员会再次审校，最后再通篇修订了三遍。</p>
+<p><strong><a href="https://link.zhihu.com/?target=https://book.douban.com/subject/35013531/">《Java 并发实现原理：JDK 源码剖析》</a></strong></p>
+<p><img src="https://pic1.zhimg.com/50/v2-9da660b9c3acde7a185d342c0dbbbb09_hd.jpg?source=1940ef5c" alt="img"><img src="https://pic1.zhimg.com/80/v2-9da660b9c3acde7a185d342c0dbbbb09_720w.jpg?source=1940ef5c" alt="img"></p>
+<p>这本书是去年也就是 2020 年新出的，所以，现在知道的人还不是很多。</p>
+<p>这本书主要是对 Java Concurrent 包中一些比较重要的源码进行了讲解，另外，像 JMM、happen-before、CAS 等等比较重要的并发知识这本书也都会一并介绍到。</p>
+<p>不论是你想要深入研究 Java 并发，还是说要准备面试，你都可以看看这本书。</p>
+<p>下面是我总结的一些关于并发的小问题，你可以拿来自测：</p>
 <ol>
-<li><p>引用计数法思路很简单：当对象被引用则+1，但对象引用失败则-1。当计数器为0时，说明对象不再被引用，可以被可回收<br><strong>缺点</strong>：引用计数法最明显的缺点就是：如果对象存在循环依赖，那就无法定位该对象是否应该被回收（A依赖B，B依赖A）</p>
-</li>
-<li><p>另一种就是可达性分析法：它从「GCR oots」开始向下搜索，当对象到「GCRoots」都没有任何引用相连时，说明对象是不可用的，可以被回收。<br>「GC Roots」是一组必须「活跃」的引用。<br>从「GC Root」出发，程序通过直接引用或者间接引用，能够找到可能正在被使用的对象。</p>
-<p>例子：比如我们上次不是聊到JVM内存结构中的虚拟机栈吗，虚拟机栈里不是有栈帧吗，栈帧不是有局部变量吗？局部变量不就存储着引用嘛。<br>那如果栈帧位于虚拟机栈的栈顶，是不是说明这个栈帧是活跃的（换言之，是线程正在被调用的）<br>既然是线程正在调用的，那栈帧里的指向「堆」的对象引用，是不是一定是「活跃」的引用？</p>
-<p>所以，当前活跃的栈帧指向堆里的对象引用就可以是「GCRoots」</p>
-<p>当然，比如类的静态变量引用是「GCRootS」，被「Java本地方法」所引用的对象也是「GCRoots」等等。。。<br><strong>即</strong>：回到理解的重点：「GCRoots」是一组必须「活跃」的「引用」，只要跟「GCRoots」没有直接或者间接引用相连，那就是垃圾<br><strong>JVM用的就是</strong>「可达性分析算法」来判断对象是否为垃圾</p>
-</li>
+<li>什么是线程和进程? 线程与进程的关系,区别及优缺点？</li>
+<li>说说并发与并行的区别?</li>
+<li>为什么要使用多线程呢?</li>
+<li>使用多线程可能带来什么问题?（内存泄漏、死锁、线程不安全等等）</li>
+<li>创建线程有哪几种方式？（a.继承 Thread 类;b.实现 Runnable 接口;c. 使用 Executor 框架;d.使用 FutureTask）</li>
+<li>说说线程的生命周期和状态?</li>
+<li>什么是上下文切换?</li>
+<li>什么是线程死锁?如何避免死锁?</li>
+<li>说说 sleep() 方法和 wait() 方法区别和共同点?</li>
+<li>Java 内存模型（JMM）、重排序与 happens-before 原则了解吗？</li>
+<li>synchronized 关键字、volatile 关键字</li>
+<li>ThreadLocal 有啥用（解决了什么问题）？怎么用？原理了解吗？内存泄露问题了解吗？</li>
+<li>为什么要用线程池？ThreadPoolExecutor 类的重要参数了解吗？ThreadPoolExecutor 饱和策略了解吗？线程池原理了解吗？几种常见的线程池了解吗？为什么不推荐使用FixedThreadPool？如何设置线程池的大小？</li>
+<li>AQS 了解么？原理？AQS 常用组件：Semaphore (信号量)、CountDownLatch （倒计时器） CyclicBarrier(循环栅栏)</li>
+<li>ReentrantLock 、 ReentrantReadWriteLock 、StampedLock（JDK8）</li>
+<li>CAS 了解么？原理？</li>
+<li>Atomic 原子类</li>
+<li>并发容器：ConcurrentHashMap 、 CopyOnWriteArrayList 、 ConcurrentLinkedQueue BlockingQueue 、ConcurrentSkipListMap</li>
+<li>Future 和 CompletableFuture</li>
+<li>……</li>
+</ol>
+<h2 id="JVM"><a href="#JVM" class="headerlink" title="JVM"></a><strong>JVM</strong></h2><p>对于 Java 程序员来说，JVM 帮助我们做了很多事情比如内存管理、垃圾回收等等。在 JVM 的帮助下，我们的程序出现内存泄漏这些问题的概率相对来说是比较低的。但是，这并不代表我们在日常开发工作中不会遇到。万一你在工作中遇到了 OOM 问题，你至少要知道如何去排查和解决问题吧！</p>
+<p>并且，就单纯从面试角度来说，JVM 是 Java 后端面试（大厂）中非常重要的一环。不论是应届还是社招，面试国内的一些大厂，你都会被问到很多 JVM 相关的问题（应届的话侧重理论，社招实践）。</p>
+<p>只有搞懂了 JVM 才有可能真正把 Java 语言“吃透”。学习 JVM 这部分的内容，一定要注意要实战和理论结合。</p>
+<p>书籍的话，**<a href="https://link.zhihu.com/?target=https://book.douban.com/subject/34907497/">《深入理解 Java 虚拟机》</a>** 这本书是首先要推荐的。</p>
+<p><img src="https://pic1.zhimg.com/50/v2-ef98840c238a19a70318ae9fa3ec7bf5_hd.jpg?source=1940ef5c" alt="img"><img src="https://pic1.zhimg.com/80/v2-ef98840c238a19a70318ae9fa3ec7bf5_720w.jpg?source=1940ef5c" alt="img"></p>
+<p>这本书就一句话形容：<strong>国产书籍中的战斗机，实实在在的优秀！</strong> （真心希望国内能有更多这样的优质书籍出现！加油！ ）</p>
+<p>这本书的第三版去年年底已经出来了，新增了很多实在的内容比如 ZGC 等新一代 GC 的原理剖析。目前豆瓣上是 9.6 的高分，  不   我就不多说了！</p>
+<p>不论是你面试还是你想要在 Java 领域学习的更深，你都离不开这本书籍。这本书不光要看，你还要多看几遍，里面都是干货。这本书里面还有一些需要自己实践的东西，我建议你也跟着实践一下。</p>
+<p>类似的书籍还有 <strong><a href="https://link.zhihu.com/?target=https://book.douban.com/subject/26354292/">《实战 Java 虚拟机》</a><strong>、</strong><a href="https://link.zhihu.com/?target=https://book.douban.com/subject/34935105/">《虚拟机设计与实现:以 JVM 为例》</a></strong> ，这两本都是非常不错的！</p>
+<p><img src="https://pic4.zhimg.com/50/v2-114035a0430694dd2562e5a136aa410b_hd.jpg?source=1940ef5c" alt="img"><img src="https://pic4.zhimg.com/80/v2-114035a0430694dd2562e5a136aa410b_720w.jpg?source=1940ef5c" alt="img"></p>
+<p>如果你对实战比较感兴趣，想要自己动手写一个简易的 JVM 的话，可以看看 <strong><a href="https://link.zhihu.com/?target=https://book.douban.com/subject/26802084/">《自己动手写 Java 虚拟机》</a></strong> 这本书。</p>
+<p><img src="https://pic3.zhimg.com/50/v2-171e35db906d0d4b330afe176a6ed823_hd.jpg?source=1940ef5c" alt="img"><img src="https://pic3.zhimg.com/80/v2-171e35db906d0d4b330afe176a6ed823_720w.jpg?source=1940ef5c" alt="img"></p>
+<p>书中的代码是基于 Go 语言实现的，搞懂了原理之后，你可以使用 Java 语言模仿着写一个，也算是练练手！ 如果你当前没有能力独立使用 Java 语言模仿着写一个的话，你也可以在网上找到很多基于 Java 语言版本的实现，比如<a href="https://link.zhihu.com/?target=https://zachaxy.github.io/tags/JVM/">《zachaxy 的手写 JVM 系列》</a> 。</p>
+<p>这本书目前在豆瓣有 8.2 的评分，我个人觉得张秀宏老师写的挺好的，这本书值得更高的评分。</p>
+<p>另外，R 大在豆瓣发的<a href="https://link.zhihu.com/?target=https://www.douban.com/doulist/2545443/">《从表到里学习 JVM 实现》</a>这篇文章中也推荐了很多不错的 JVM 相关的书籍，推荐小伙伴们去看看。</p>
+<p>再推荐两个视频给喜欢看视频学习的小伙伴。</p>
+<p>第 1 个是尚硅谷的宋红康老师讲的<a href="https://link.zhihu.com/?target=https://www.bilibili.com/video/BV1PJ411n7xZ">《JVM 全套教程》</a>。这个课程的内容非常硬，一共有接近 400 小节。</p>
+<p>课程的内容分为 3 部分：</p>
+<ol>
+<li>《内存与垃圾回收篇》</li>
+<li>《字节码与类的加载篇》</li>
+<li>《性能监控与调优篇》</li>
+</ol>
+<p><img src="https://pic2.zhimg.com/50/v2-4d2a238642281bdf1b8bda06b34eb8be_hd.jpg?source=1940ef5c" alt="img"><img src="https://pic2.zhimg.com/80/v2-4d2a238642281bdf1b8bda06b34eb8be_720w.jpg?source=1940ef5c" alt="img"></p>
+<p>第 2 个是你假笨大佬的 <strong><a href="https://link.zhihu.com/?target=https://club.perfma.com/course/438755/list">《JVM 参数【Memory 篇】》</a></strong> 教程，很厉害了！</p>
+<p><img src="https://pic4.zhimg.com/50/v2-30067f8554c7bd6089a87e971d14b069_hd.jpg?source=1940ef5c" alt="img"><img src="https://pic4.zhimg.com/80/v2-30067f8554c7bd6089a87e971d14b069_720w.jpg?source=1940ef5c" alt="img"></p>
+<p>下面是我总结的一些关于 JVM 的小问题，你可以拿来自测：</p>
+<ol>
+<li>什么是虚拟机？</li>
+<li>Java 内存区域是怎么划分的？大对象放在哪个内存区域？</li>
+<li>垃圾回收有哪些算法？GC 的流程</li>
+<li>什么是类加载？何时类加载？类加载流程？</li>
+<li>知道哪些类加载器。类加载器之间的关系？</li>
+<li>类加载器的双亲委派了解么？ 结合 Tomcat 说一下双亲委派（Tomcat 如何打破双亲委托机制？…）。</li>
+<li>常见调优参数有哪些？</li>
+<li>……</li>
+</ol>
+<h2 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a><strong>数据库</strong></h2><p>我们网站或 者 APP 的数据都是需要使用数据库来存储数据的。</p>
+<h3 id="MySQL"><a href="#MySQL" class="headerlink" title="MySQL"></a><strong>MySQL</strong></h3><p>一般企业项目开发中，使用 MySQL 比较多。如果你要学习 MySQL 的话，可以看下面这 3 本书籍：</p>
+<ul>
+<li><strong><a href="https://link.zhihu.com/?target=https://book.douban.com/subject/3354490/">《MySQL 必知必会》</a></strong> ：非常薄！非常适合 MySQL 新手阅读，很棒的入门教材。</li>
+<li><strong><a href="https://link.zhihu.com/?target=https://book.douban.com/subject/23008813/">《高性能 MySQL》</a></strong> ： MySQL 领域的经典之作！学习 MySQL 必看！属于进阶内容，主要教你如何更好地使用 MySQL 。既有有理论，又有实践！如果你没时间都看一遍的话，拿我建议第 5 章（创建高性能的索引） 、第 6 章（查询性能优化） 你你一定要认真看一下。</li>
+<li><strong><a href="https://link.zhihu.com/?target=https://book.douban.com/subject/24708143/">《MySQL 技术内幕》</a></strong> ：你想深入了解 MySQL 存储引擎的话，看这本书准没错！</li>
+</ul>
+<p><img src="https://pic2.zhimg.com/50/v2-3446cfaa214394ec7137ba34ca5362ba_hd.jpg?source=1940ef5c" alt="img"><img src="https://pic2.zhimg.com/80/v2-3446cfaa214394ec7137ba34ca5362ba_720w.jpg?source=1940ef5c" alt="img"></p>
+<p>视频的话，你可以看看动力节点的 <a href="https://link.zhihu.com/?target=https://www.bilibili.com/video/BV1fx411X7BD">《MySQL 数据库教程视频》</a>。这个视频基本上把 MySQL 的相关一些入门知识给介绍完了。</p>
+<p>学习了 MySQL 之后，务必确保自己掌握下面这些知识点：</p>
+<ol>
+<li>MySQL 常用命令 ：</li>
 </ol>
 <ul>
-<li>垃圾回收第一步就是<strong>标记</strong></li>
+<li>安全：登录、增加&#x2F;删除用户、备份数据和还原数据</li>
+<li>数据库操作： 建库建表&#x2F;删库删表、用户权限分配</li>
+<li>……</li>
 </ul>
-<p>标记哪些没有被「GC Roots」引用的对象</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/wZPvLi_20210923092156.png"></p>
-<ul>
-<li><p>标记完后就可以清除了</p>
-<ul>
-<li><p>标记完之后，我们就可以选择直接「清除」，只要不被「GCRoots」关联的，都可以干掉过程非常简单粗暴。</p>
-<p><strong>但也存在很明显的问题</strong><br>直接清除会有「<strong>内存碎片</strong>」的问题：可能我有10M的空余内存，但程序申请9M内存空间却申请不下来（10M的内存空间是垃圾清除后的，不连续的）</p>
-</li>
-<li><p><strong>那解决「内存碎片」的问题也比较简单粗暴，「标记」完，不直接「清除」</strong><br>我把「标记」存活的对象「复制」到另一块空间，复制完了之后，直接把原有的整块空间给干掉！这样就没有内存碎片的问题了<br><strong>这种做法缺点又很明显</strong>：<strong>内存利用率低</strong>，得有一块新的区域给我复制（移动）过去</p>
-</li>
-<li><p>还有一种「折中」的办法，我未必要有一块「大的完整空间」才能解决内存碎片的问题，我只要能在「当前区域」内进行移动<br>把存活的对象移到一边，把垃圾移到一边，那再将垃圾一起删除掉，不就没有内存碎片了嘛，专业术语叫做<strong>整理</strong>。</p>
-</li>
-</ul>
-</li>
-<li><p>年轻代、老年代<br>「垃圾回收」是会导致「stop the word」 （应用停止访问）<br>理解「stop the word」应该很简单吧：回收垃圾的时候，程序是有短暂的时间不能正常继续运作啊。不然JVM在回收的时候，用户线程还「不停止」继续分配修改引用，JVM怎么搞（：</p>
-<p>经过研究表明：大部分对象的生命周期都很短，而只有少部分对象可能会存活很长时间</p>
-<ul>
-<li><p>为了使「stop the word」持续的时间尽可能短以及提高并发式GC所能应付的内存分配速率<br>在很多的垃圾收集器上都会在「物理」或者「逻辑」上，把这两类对象进行区分司P<br>死得快的对象所占的区域叫做「年轻代」，活得久的对象所占的区域叫做「老年代」</p>
-<p>（jdk8及以下分年轻代、老年代；高版本的垃圾收集器ZGC,是没有分代的概念的）</p>
-</li>
-</ul>
-</li>
-<li><p>垃圾回收过程：对应几种垃圾回收算法</p>
-<p>其实在前面更前面提到了垃圾回收的过程，其实就对应着几种「垃圾回收算法」分别是：<br><strong>标记清除算法、标记复制算法和标记整理算法【「标记」「复制」「整理」】</strong></p>
-</li>
-<li><p>jdk8生产环境下常见垃圾回收器</p>
-<p>「年轻代」的垃圾收集器有：Serial、Parallel Scavenge、 ParNew<br>「老年代」的垃圾收集器有：Serial Old、 Parallel Old、CMS</p>
-<ul>
-<li>看着垃圾收集器有很多，其实还是非常好理解的。Serial是单线程的，Parallel是多线程</li>
-<li>这些垃圾收集器实际上就是「实现了」垃圾回收算法（标记复制、标记整理以及标记清除算法）</li>
-<li>CMS是比较新的垃圾收集器，它的特点是能够尽可能减少「stopthe word」时间。在垃圾回收时让用户线程和GC线程能够并发执行！</li>
-<li>「年轻代」的垃圾收集器使用的都是「标记复制算法」<br>所以在「堆内存」划分中，将年轻代划分出Survivor区（Survivor From和Survivor To），目的就是为了有一块完整的内存空间供垃圾回收器进行拷贝（移动），而新对象都是放入Eden区的。</li>
-<li>我下面重新画下「堆内存」的图，因为它们的大小是有默认的比例的</li>
-</ul>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/E2SJMc_20210923095854.png"></p>
-</li>
-<li><p>新生代何时会变老年代<br>分2种情况：</p>
 <ol>
-<li>如果对象太大了，就会直接进入老年代（对象创建时就很大 || Survivor区没办法存下该对象）</li>
-<li>如果对象太老了，那就会晋升至老年代（每发生一次MinorGC，存活的对象年龄+1，达到默认值15则晋升老年代 || 动态对象年龄判定可以进入老年代）<ul>
-<li>当Eden区空间不足时，就会触发MinorGC</li>
-<li>那在「年轻代」GC的时候，从GC Roots出发，那不也会扫描到「老年代」的对象吗？那那那..不就相当于全堆扫描吗？<ul>
-<li>这JVM里也有解决办法的。下我的看法<br>HotSpot虚拟机「老的GC」（G1以下） 是要求整个GC堆在连续的地址空间上<br>所以会有一条分界线（一侧是老年代，另一侧是年轻代），所以可以通过「地址」就可以判断对象在哪个分代上如</li>
-<li>当做MonorGC的时候，从GCRoots出发，如果发现「老年代」的对象，那就不往下走了（MonorGC对老年代的区域毫无兴趣）</li>
-</ul>
-</li>
-<li>但又有个问题，那如果年轻代」的对象被「老年代」引用了呢？（老年代对象持有年轻代对象的引用），这时候肯定是不能回收掉「年轻代」的对象的?<ul>
-<li>HotSpot虚拟机下有「card table」（卡表）来避免全局扫描「老年代」对象</li>
-<li>「堆内存」的每一小块区域形成「卡页」，卡表实际上就是卡页的集合。当判断一个卡页中有存在对象的跨代引用时，将这个页标记为「脏页」</li>
-<li>那知道了「卡表」之后，就很好办了。每次MinorGC的时候只需要去「卡表」找到「脏页」，找到后加入至GCRoot，而不用去遍历整个「老年代」的对象了。</li>
-</ul>
-</li>
-</ul>
-</li>
+<li>MySQL 中常用的数据类型、字符集编码</li>
+<li>MySQL 简单查询、条件查询、模糊查询、多表查询以及如何对查询结果排序、过滤、分组……</li>
+<li>MySQL 中使用索引、视图、存储过程、游标、触发器</li>
+<li>……</li>
 </ol>
-</li>
+<p>如果你想让自己更加了解 MySQL ，同时也是为了准备面试的话，下面这些知识点要格外注意：</p>
+<ol>
+<li>索引：索引优缺点、B 树和 B+树、聚集索引与非聚集索引、覆盖索引</li>
+<li>事务：事务、数据库事务、ACID、并发事务、事务隔离级别</li>
+<li>存储引擎（MyISAM 和 InnoDB）</li>
+<li>锁机制与 InnoDB 锁算法</li>
+</ol>
+<h3 id="Redis"><a href="#Redis" class="headerlink" title="Redis"></a><strong>Redis</strong></h3><p><strong>Redis 就是一个使用 C 语言开发的数据库</strong>，不过与传统数据库不同的是 <strong>Redis 的数据是存在内存中的</strong> ，也就是它是内存数据库，所以读写速度非常快，因此 Redis 被广泛应用于缓存方向。</p>
+<p>如果你要学习 Redis 的话，强烈推荐 <strong><a href="https://link.zhihu.com/?target=https://book.douban.com/subject/25900156/">《Redis 设计与实现》</a></strong> 和 <strong><a href="https://link.zhihu.com/?target=https://book.douban.com/subject/26612779/">《Redis 实战》</a></strong> 这两本书。另外，**<a href="https://link.zhihu.com/?target=https://book.douban.com/subject/26971561/">《Redis 开发与运维》</a>** 这本书也非常不错，既有基础介绍，又有一线开发运维经验分享。</p>
+<p><img src="https://pic4.zhimg.com/50/v2-6fe8373526af0107bcda6a73b2e9a801_hd.jpg?source=1940ef5c" alt="img"><img src="https://pic4.zhimg.com/80/v2-6fe8373526af0107bcda6a73b2e9a801_720w.jpg?source=1940ef5c" alt="img"></p>
+<p>下面是我总结的一些关于并发的小问题，你可以拿来自测：</p>
+<ol>
+<li>Redis 和 Memcached 的区别和共同点</li>
+<li>为什么要用 Redis&#x2F;为什么要用缓存？</li>
+<li>Redis 常见数据结构以及使用场景分析</li>
+<li>Redis 没有使用多线程？为什么不使用多线程？Redis6.0 之后为何引入了多线程？</li>
+<li>Redis 给缓存数据设置过期时间有啥用？</li>
+<li>Redis 是如何判断数据是否过期的呢？</li>
+<li>过期的数据的删除策略了解么？</li>
+<li>Redis 内存淘汰机制了解么？</li>
+<li>Redis 持久化机制(怎么保证 Redis 挂掉之后再重启数据可以进行恢复)</li>
+<li>Redis 缓存穿透、缓存雪崩？</li>
+<li>如何保证缓存和数据库数据的一致性？</li>
+<li>……</li>
+</ol>
+<h2 id="常用工具"><a href="#常用工具" class="headerlink" title="常用工具"></a><strong>常用工具</strong></h2><p>非常重要！非常重要！特别是 Git 和 Docker。</p>
+<p>除了下面这些工具之外，我强烈建议你一定要搞懂 Github 的使用。一些使用 Github 的小技巧，你可以看<a href="https://link.zhihu.com/?target=https://snailclimb.gitee.io/javaguide/%23/docs/tools/Github%E6%8A%80%E5%B7%A7">《Github 小技巧》</a>这篇文章。</p>
+<h3 id="IDEA"><a href="#IDEA" class="headerlink" title="IDEA"></a><strong>IDEA</strong></h3><p>俗话说：“工欲善其事，必先利其器 !”。选择一款好的开发工具对于我们高效率编码非常有帮助！</p>
+<p>常用的 Java 开发工具就 Eclipse 和 IDEA。就我个人而言 IDEA 是最适合 Java 开发者的 IDE 。</p>
+<p>建议你要熟悉 IDEA 的基本操作以及常用快捷。你可以通过 Github 上的开源教程 <a href="https://link.zhihu.com/?target=https://github.com/judasn/IntelliJ-IDEA-Tutorial">《IntelliJ IDEA 简体中文专题教程》</a> 来学习 IDEA 的相关使用。</p>
+<p>除了 IDEA 自身对编码优秀的支持（比如智能上下文提示）之外，IDEA 中还有丰富的插件来帮助我们高效开发。<a href="https://link.zhihu.com/?target=https://mp.weixin.qq.com/mp/appmsgalbum?__biz=Mzg2OTA0Njk0OA==&action=getalbum&album_id=1319419426898329600%23wechat_redirect">《IDEA 插件》</a> 这个系列专辑中推荐了很多实用 IDEA 必备的插件！</p>
+<h3 id="Maven"><a href="#Maven" class="headerlink" title="Maven"></a><strong>Maven</strong></h3><p>强烈建议学习常用框架之前可以提前花几天时间学习一下<strong>Maven</strong>的使用。（到处找 Jar 包，下载 Jar 包是真的麻烦费事，使用 Maven 可以为你省很多事情）。</p>
+<h3 id="Git"><a href="#Git" class="headerlink" title="Git"></a><strong>Git</strong></h3><p>Git 技能对于程序员来说也是必备的！试着在学习的过程中将自己的代码托管在 Github 上，有一个漂亮的 Github 主页在求职面试中是十分加分的。并且，现在的企业都是基于 Git 在 GitHub 或 GitLab 平台上做版本控制。</p>
+<p>学习 Git 的话，强烈推荐给大家一个可以交互式学习 Git 的网站 <a href="https://link.zhihu.com/?target=https://learngitbranching.js.org/">Learn Git Branching</a>。效果真的非常非常棒，通过游戏的方式让你学习 Git 的常见操作。</p>
+<p>整个教程分为很多关，每一关都有非常详细的指导，还会有详细的动图展示结果。并且，你做错了之后还可以使用 reset 命令从头开始。</p>
+<p><img src="https://pic2.zhimg.com/50/v2-964b02483882588923780a75d9775ab8_hd.jpg?source=1940ef5c" alt="img"><img src="https://pic2.zhimg.com/80/v2-964b02483882588923780a75d9775ab8_720w.jpg?source=1940ef5c" alt="img"></p>
+<p>如果你是在不知道答案的话，还可以使用 show solution 命令查看答案。</p>
+<p><img src="https://pic4.zhimg.com/50/v2-1924f6df27c62026f3d531e7de843fb4_hd.jpg?source=1940ef5c" alt="img"><img src="https://pic4.zhimg.com/80/v2-1924f6df27c62026f3d531e7de843fb4_720w.jpg?source=1940ef5c" alt="img"></p>
+<p>这种即时反馈的学习让过程变得有趣！真心感谢这个网站的作者，太爱了！</p>
+<p>另外，你可以看看 Github 上开源的这篇 <a href="https://link.zhihu.com/?target=https://snailclimb.gitee.io/javaguide/%23/docs/tools/Git">《Git 极简入门》</a> ，像版本控制和 Git 的相关概念、Git 常见操作这篇文章都有介绍到。</p>
+<p>如果想要详细了解 Git 的话，<a href="https://link.zhihu.com/?target=https://git-scm.com/book/zh/v2">Git 官方文档教程</a>是肯定要看的，介绍的非常全面，并且有中文版！</p>
+<p><img src="https://pic3.zhimg.com/50/v2-0b2163d2c8064c33a034d9bb31ced577_hd.jpg?source=1940ef5c" alt="img"><img src="https://pic3.zhimg.com/80/v2-0b2163d2c8064c33a034d9bb31ced577_720w.jpg?source=1940ef5c" alt="img"></p>
+<p><a href="https://link.zhihu.com/?target=https://www.progit.cn/">《Pro Git》</a>这本书也非常不错，还有中文版，内容非常全面，硬核！</p>
+<p><img src="https://pic1.zhimg.com/50/v2-ce008dd1ba37fc12e91e9adf63f87fe6_hd.jpg?source=1940ef5c" alt="img"><img src="https://pic1.zhimg.com/80/v2-ce008dd1ba37fc12e91e9adf63f87fe6_720w.jpg?source=1940ef5c" alt="img"></p>
+<p><img src="https://pic1.zhimg.com/50/v2-566dccf603d7708a831be89f993c8c3d_hd.jpg?source=1940ef5c" alt="img"><img src="https://pic1.zhimg.com/80/v2-566dccf603d7708a831be89f993c8c3d_720w.jpg?source=1940ef5c" alt="img"></p>
+<p>如果你比较喜欢看视频教程的话，可以看看极客时间的<a href="https://link.zhihu.com/?target=http://gk.link/a/10qcT">《玩转 Git 三剑客》</a>，课程的作者是携程代码平台负责人苏玲，讲的挺不错的！</p>
+<h3 id="Docker"><a href="#Docker" class="headerlink" title="Docker"></a><strong>Docker</strong></h3><p>传统的开发流程中，我们的项目通常需要使用 MySQL、Redis、FastDFS 等等环境，这些环境都是需要我们手动去进行下载并配置的，安装配置流程极其复杂，而且不同系统下的操作也不一样。</p>
+<p>Docker 的出现完美地解决了这一问题，我们可以在容器中安装 MySQL、Redis 等软件环境，使得应用和环境架构分开，它的优势在于：</p>
+<ol>
+<li>一致的运行环境，能够更轻松地迁移</li>
+<li>对进程进行封装隔离，容器与容器之间互不影响，更高效地利用系统资源</li>
+<li>可以通过镜像复制多个一致的容器</li>
+</ol>
+<p>Docker 常见概念解读，可以看这篇 Github 上开源的这篇<a href="https://link.zhihu.com/?target=https://snailclimb.gitee.io/javaguide/%23/docs/tools/Docker">《Docker 基本概念解读》</a> ，从零到上手实战可以看<a href="https://link.zhihu.com/?target=https://snailclimb.gitee.io/javaguide/%23/docs/tools/Docker%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98">《Docker 从入门到上手干事》</a>这篇文章，内容非常详细！</p>
+<p>另外，再给大家推荐一本质量非常高的开源书籍<a href="https://link.zhihu.com/?target=https://yeasy.gitbook.io/docker_practice/introduction/why">《Docker 从入门到实践》</a> ，这本书的内容非常新，毕竟书籍的内容是开源的，可以随时改进。</p>
+<p><img src="https://pic1.zhimg.com/50/v2-f5d0bf0587f742c9a65f985e7fc12f93_hd.jpg?source=1940ef5c" alt="img"><img src="https://pic1.zhimg.com/80/v2-f5d0bf0587f742c9a65f985e7fc12f93_720w.jpg?source=1940ef5c" alt="img"></p>
+<h2 id="常用框架"><a href="#常用框架" class="headerlink" title="常用框架"></a><strong>常用框架</strong></h2><p><a href="https://link.zhihu.com/?target=https://t.1yb.co/mBsy">2021 最新Java实战项目源码打包下载t.1yb.co<img src="https://pic2.zhimg.com/v2-5c70f2d4123edf16afab8b4bed070b4d_180x120.jpg" alt="图标"></a></p>
+<h3 id="Spring-x2F-SpringBoot"><a href="#Spring-x2F-SpringBoot" class="headerlink" title="Spring&#x2F;SpringBoot"></a><strong>Spring&#x2F;SpringBoot</strong></h3><p><strong>Spring 和 SpringBoot 真的很重要！</strong></p>
+<p>一定要搞懂 AOP 和 IOC 这两个概念。Spring 中 bean 的作用域与生命周期、SpringMVC 工作原理详解等等知识点都是非常重要的，一定要搞懂。</p>
+<p>企业中做 Java 后端，你一定离不开 SpringBoot ，这个是必备的技能了！一定一定一定要学好！</p>
+<p>像 SpringBoot 和一些常见技术的整合你也要知识怎么做，比如 SpringBoot 整合 MyBatis、 ElasticSearch、SpringSecurity、Redis 等等。</p>
+<p>学习 Spring 的话，可以多看看 **<a href="https://link.zhihu.com/?target=https://spring.io/projects/spring-framework%23learn">《Spring 的官方文档》</a>**，写的很详细。你可以在这里找到 Spring 全家桶的学习资源。</p>
+<p><img src="https://pic4.zhimg.com/50/v2-617c73716c914ce3ee4c9a32be97daa3_hd.jpg?source=1940ef5c" alt="img"><img src="https://pic4.zhimg.com/80/v2-617c73716c914ce3ee4c9a32be97daa3_720w.jpg?source=1940ef5c" alt="img"></p>
+<p>你也可以把 <strong><a href="https://link.zhihu.com/?target=https://book.douban.com/subject/34949443/">《Spring 实战》</a></strong> 这本书作为学习 Spring 的参考资料。 这本书还是比较新的，目前已经出到了第 5 版，基于 Spring 5 来讲。</p>
+<p><img src="https://pic2.zhimg.com/50/v2-27116d84a7876e40fe9e008d0bd1927e_hd.jpg?source=1940ef5c" alt="img"><img src="https://pic2.zhimg.com/80/v2-27116d84a7876e40fe9e008d0bd1927e_720w.jpg?source=1940ef5c" alt="img"></p>
+<p>了解了 Spring 中的一些常见概念和基本用法之后，你就可以开始学习 Spring Boot 了。</p>
+<p>当然了，Spring 其实并不是学习 Spring Boot 的前置基础，相比于 Spring 来说，Spring Boot 要更容易上手一些！如果你只是想使用 Spring Boot 来做项目的话，直接学 Spring Boot 就可以了。</p>
+<p>不过，我建议你在学习 Spring Boot 之前，可以看看 <strong><a href="https://link.zhihu.com/?target=https://snailclimb.gitee.io/javaguide/%23/docs/system-design/framework/spring/Spring%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E6%80%BB%E7%BB%93">《Spring 常见问题总结》</a></strong> 。这些问题都是 Spring 比较重要的知识点，也是面试中经常会被问到的。</p>
+<p>学习 Spring Boot 的话，还是建议可以多看看  **<a href="https://link.zhihu.com/?target=https://spring.io/projects/spring-boot%23learn">《Spring Boot 的官方文档》</a>**，写的很详细。</p>
+<p>你也可以把 <strong><a href="https://link.zhihu.com/?target=https://book.douban.com/subject/26857423/">《Spring Boot 实战》</a></strong> 这本书作为学习 Spring Boot 的参考资料。</p>
+<p><img src="https://pic2.zhimg.com/50/v2-ccd869cdada64fb595d5e2c524180eba_hd.jpg?source=1940ef5c" alt="img"><img src="https://pic2.zhimg.com/80/v2-ccd869cdada64fb595d5e2c524180eba_720w.jpg?source=1940ef5c" alt="img"></p>
+<p>这本书的整体质量实际一般，你当做参考书来看就好了!</p>
+<p>相比于 《Spring Boot 实战》这本书，我更推荐国人写的 <strong><a href="https://link.zhihu.com/?target=https://book.douban.com/subject/34894533/">《Spring Boot 实战派》</a></strong> 。</p>
+<p><img src="https://pic1.zhimg.com/50/v2-347c02b27d1c8074dd6423c11c867b95_hd.jpg?source=1940ef5c" alt="img"><img src="https://pic1.zhimg.com/80/v2-347c02b27d1c8074dd6423c11c867b95_720w.jpg?source=1940ef5c" alt="img"></p>
+<p>这本书使用的 Spring Boot 2.0+的版本，还算比较新。整本书采用“知识点+实例”的形式编写，书籍的最后两章还有 2 个综合性的企业实战项目：</p>
+<ul>
+<li>开发企业级通用的后台系统</li>
+<li>实现一个类似“京东”的电子商务商城</li>
 </ul>
+<p>作者在注意实战的过程中还不忘记对于一些重要的基础知识的讲解。</p>
+<p>如果你想专研 Spring Boot 底层原理的话，可以看看 <strong><a href="https://link.zhihu.com/?target=https://book.douban.com/subject/33390560/">《Spring Boot 编程思想（核心篇）》</a></strong> 。</p>
+<p><img src="https://pic1.zhimg.com/50/v2-2c3fd8e3b31d9020d78e49fac4ecb91a_hd.jpg?source=1940ef5c" alt="img"><img src="https://pic1.zhimg.com/80/v2-2c3fd8e3b31d9020d78e49fac4ecb91a_720w.jpg?source=1940ef5c" alt="img"></p>
+<p>这本书稍微有点啰嗦，不过，原理介绍的比较清楚（不适合初学者）。</p>
+<p>如果你比较喜欢看视频的话，推荐尚硅谷雷神的**<a href="https://link.zhihu.com/?target=https://www.bilibili.com/video/BV19K4y1L7MT">《2021 版 Spring Boot2 零基础入门》</a>** 。</p>
+<p><img src="https://pic1.zhimg.com/50/v2-8edcdf9da09d431d5a827737df1326f8_hd.jpg?source=1940ef5c" alt="img"><img src="https://pic1.zhimg.com/80/v2-8edcdf9da09d431d5a827737df1326f8_720w.jpg?source=1940ef5c" alt="img"></p>
+<p>这可能是全网质量最高并且免费的 Spring Boot 教程了，好评爆炸！</p>
+<p>另外，Spring Boot 这块还有很多优质的开源教程，我已经整理好放到 <a href="https://link.zhihu.com/?target=https://github.com/CodingDocs/awesome-java%23springboot">awesome-java@SpringBoot</a> 中了。</p>
+<p><img src="https://pic4.zhimg.com/50/v2-bd98e686b9da09ebbe25bfc843364147_hd.jpg?source=1940ef5c" alt="img"><img src="https://pic4.zhimg.com/80/v2-bd98e686b9da09ebbe25bfc843364147_720w.jpg?source=1940ef5c" alt="img"></p>
+<h3 id="Netty"><a href="#Netty" class="headerlink" title="Netty"></a><strong>Netty</strong></h3><p>但凡涉及到网络通信就必然必然离不开网络编程。 Netty 目前作为 Java 网络编程最热门的框架，毫不夸张地说是每个 Java 程序员必备的技能之一。</p>
+<p><strong>为什么说学好 Netty 很有必要呢？</strong></p>
+<ol>
+<li>Netty 基于 NIO （NIO 是一种同步非阻塞的 I&#x2F;O 模型，在 Java 1.4 中引入了 NIO ）。使用 Netty 可以极大地简化并简化了 TCP 和 UDP 套接字服务器等网络编程,并且性能以及安全性等很多方面都非常优秀。</li>
+<li>我们平常经常接触的 Dubbo、RocketMQ、Elasticsearch、gRPC、Spark、Elasticsearch 等等热门开源项目都用到了 Netty。</li>
+<li>大部分微服务框架底层涉及到网络通信的部分都是基于 Netty 来做的，比如说 Spring Cloud 生态系统中的网关 Spring Cloud Gateway 。</li>
+</ol>
+<p>下面是一些比较推荐的书籍&#x2F;专栏。</p>
+<p><strong><a href="https://link.zhihu.com/?target=https://book.douban.com/subject/27038538/">《Netty 实战》</a></strong></p>
+<p><img src="https://pic4.zhimg.com/50/v2-8a4c942af44520f5d2c99c3d6f37b4dc_hd.jpg?source=1940ef5c" alt="img"><img src="https://pic4.zhimg.com/80/v2-8a4c942af44520f5d2c99c3d6f37b4dc_720w.jpg?source=1940ef5c" alt="img"></p>
+<p>这本书可以用来入门 Netty ，内容从 BIO 聊到了 NIO、之后才详细介绍为什么有 Netty 、Netty 为什么好用以及 Netty 重要的知识点讲解。</p>
+<p>这本书基本把 Netty 一些重要的知识点都介绍到了，而且基本都是通过实战的形式讲解。</p>
+<p><strong>《Netty 进阶之路：跟着案例学 Netty》</strong></p>
+<p><img src="https://pic4.zhimg.com/50/v2-214ed872bb89b37b2b3c06b4c8c022e5_hd.jpg?source=1940ef5c" alt="img"><img src="https://pic4.zhimg.com/80/v2-214ed872bb89b37b2b3c06b4c8c022e5_720w.jpg?source=1940ef5c" alt="img"></p>
+<p>内容都是关于使用 Netty 的实践案例比如内存泄露这些东西。如果你觉得你的 Netty 已经完全入门了，并且你想要对 Netty 掌握的更深的话，推荐你看一下这本书。</p>
+<p><strong>《Netty 入门与实战：仿写微信 IM 即时通讯系统》</strong></p>
+<p><img src="https://pic1.zhimg.com/50/v2-31d3de0843d01caea292fc461ca00d55_hd.jpg?source=1940ef5c" alt="img"><img src="https://pic1.zhimg.com/80/v2-31d3de0843d01caea292fc461ca00d55_720w.jpg?source=1940ef5c" alt="img"></p>
+<p>通过一个基于 Netty 框架实现 IM 核心系统为引子，带你学习 Netty。整个小册的质量还是很高的，即使你没有 Netty 使用经验也能看懂。</p>
+<h2 id="搜索引擎"><a href="#搜索引擎" class="headerlink" title="搜索引擎"></a><strong>搜索引擎</strong></h2><p>搜索引擎用于提高搜索效率，功能和浏览器搜索引擎类似。比较常见的搜索引擎是 Elasticsearch（推荐） 和 Solr。</p>
+<p>如果你要学习 Elasticsearch 的话，<a href="https://link.zhihu.com/?target=http://www.elasticsearch.cn/">Elastic 中文社区</a> 以及 <a href="https://link.zhihu.com/?target=https://www.elastic.co/cn/blog/">Elastic 官方博客</a> 都是非常不错的资源，上面会分享很多具体的实践案例。</p>
+<p>除此之外，极客时间的<a href="https://link.zhihu.com/?target=http://gk.link/a/10bcT">《Elasticsearch 核心技术与实战》</a>这门课程非常赞！这门课基于 Elasticsearch 7.1 版本讲解，比较新。并且，作者是 eBay 资深技术专家，有 20 年的行业经验，课程质量有保障！</p>
+<p><img src="https://pic1.zhimg.com/50/v2-057c22f1e83338a78f2e6b22e5da777d_hd.jpg?source=1940ef5c" alt="img"><img src="https://pic1.zhimg.com/80/v2-057c22f1e83338a78f2e6b22e5da777d_720w.jpg?source=1940ef5c" alt="img"></p>
+<p>如果你想看书的话，可以考虑一下 《Elasticsearch 实战》 这本书。不过，需要说明的是，这本书中的 Elasticsearch 版本比较老，你可以将其作为一个参考书籍来看，有一些原理性的东西可以在上面找找答案。</p>
+<p><img src="https://pic2.zhimg.com/50/v2-d2048059f45eac3a26001579c7826d8f_hd.jpg?source=1940ef5c" alt="img"><img src="https://pic2.zhimg.com/80/v2-d2048059f45eac3a26001579c7826d8f_720w.jpg?source=1940ef5c" alt="img"></p>
+<p>如果你想进一步深入研究 Elasticsearch 原理的话，可以看看张超老师的《Elasticsearch 源码解析与优化实战》这本书。这是市面上唯一一本写 Elasticsearch 源码的书。</p>
+<p><img src="https://pic4.zhimg.com/50/v2-85d4049c868a55ecbc76ae6c329eaebf_hd.jpg?source=1940ef5c" alt="img"><img src="https://pic4.zhimg.com/80/v2-85d4049c868a55ecbc76ae6c329eaebf_720w.jpg?source=1940ef5c" alt="img"></p>
+<h2 id="分布式"><a href="#分布式" class="headerlink" title="分布式"></a><strong>分布式</strong></h2><p>下面我们开始学习分布式以及高并发、高可用了。</p>
+<p>这块内容的话，对于每一个知识点没有特定的书籍。我就推荐 2 本我觉得还不错的书籍吧！这两把书籍基本把下面涉及到的知识点给涵盖了。</p>
+<p>第一本是李运华老师的**<a href="https://link.zhihu.com/?target=https://book.douban.com/subject/30335935/">《从零开始学架构》</a>** 。</p>
+<p><img src="https://pic2.zhimg.com/50/v2-145c577cd6856daca487eec730ffc394_hd.jpg?source=1940ef5c" alt="img"><img src="https://pic2.zhimg.com/80/v2-145c577cd6856daca487eec730ffc394_720w.jpg?source=1940ef5c" alt="img"></p>
+<p>这本书对应的有一个极客时间的专栏—<a href="https://link.zhihu.com/?target=http://gk.link/a/10pKZ">《从零开始学架构》</a>，里面的很多内容都是这个专栏里面的，两者买其一就可以了。</p>
+<p>第二本是余老师的 <strong><a href="https://link.zhihu.com/?target=https://book.douban.com/subject/30443578/">《软件架构设计：大型网站技术架构与业务架构融合之道》</a></strong> 。</p>
+<p><img src="https://pic1.zhimg.com/50/v2-fe7286730c9ea0f94196b5e9f1dd3e07_hd.jpg?source=1940ef5c" alt="img"><img src="https://pic1.zhimg.com/80/v2-fe7286730c9ea0f94196b5e9f1dd3e07_720w.jpg?source=1940ef5c" alt="img"></p>
+<p>事务与锁、分布式（CAP、分布式事务……）、高并发、高可用这本书都有介绍到。值得推荐！良心好书！</p>
+<h3 id="理论"><a href="#理论" class="headerlink" title="理论"></a><strong>理论</strong></h3><h3 id="CAP-理论"><a href="#CAP-理论" class="headerlink" title="CAP 理论"></a><strong>CAP 理论</strong></h3><p>CAP 也就是 Consistency（一致性）、Availability（可用性）、Partition Tolerance（分区容错性） 这三个单词首字母组合。</p>
+<p>关于 CAP 的详细解读请看：<a href="https://link.zhihu.com/?target=https://snailclimb.gitee.io/javaguide/%23/docs/system-design/distributed-system/CAP%E7%90%86%E8%AE%BA">《CAP 理论解读》</a>。</p>
+<h3 id="BASE-理论"><a href="#BASE-理论" class="headerlink" title="BASE 理论"></a><strong>BASE 理论</strong></h3><p><strong>BASE</strong> 是 <strong>Basically Available（基本可用）</strong> 、<strong>Soft-state（软状态）</strong> 和 <strong>Eventually Consistent（最终一致性）</strong> 三个短语的缩写。BASE 理论是对 CAP 中一致性和可用性权衡的结果，其来源于对大规模互联网系统分布式实践的总结，是基于 CAP 定理逐步演化而来的，它大大降低了我们对系统的要求。</p>
+<p>关于 CAP 的详细解读请看：<a href="https://link.zhihu.com/?target=https://snailclimb.gitee.io/javaguide/%23/docs/system-design/distributed-system/BASE%E7%90%86%E8%AE%BA">《BASE 理论解读》</a>。</p>
+<h3 id="Paxos-算法和-Raft-算法"><a href="#Paxos-算法和-Raft-算法" class="headerlink" title="Paxos 算法和 Raft 算法"></a><strong>Paxos 算法和 Raft 算法</strong></h3><p><strong>Paxos 算法</strong>诞生于 1990 年，这是一种解决分布式系统一致性的经典算法 。但是，由于 Paxos 算法非常难以理解和实现，不断有人尝试简化这一算法。到了 2013 年才诞生了一个比 Paxos 算法更易理解和实现的分布式一致性算法—<strong>Raft 算法</strong>。</p>
+<h3 id="RPC"><a href="#RPC" class="headerlink" title="RPC"></a><strong>RPC</strong></h3><p>RPC 让调用远程服务调用像调用本地方法那样简单。</p>
+<p>Dubbo 是一款国产的 RPC 框架，由阿里开源。相关阅读：</p>
+<ul>
+<li><a href="https://link.zhihu.com/?target=https://snailclimb.gitee.io/javaguide/%23/docs/system-design/distributed-system/rpc/Dubbo">Dubbo 常见问题总结</a></li>
+<li><a href="https://link.zhihu.com/?target=https://snailclimb.gitee.io/javaguide/%23/docs/system-design/distributed-system/rpc/%E6%9C%8D%E5%8A%A1%E4%B9%8B%E9%97%B4%E7%9A%84%E8%B0%83%E7%94%A8%E4%B8%BA%E5%95%A5%E4%B8%8D%E7%9B%B4%E6%8E%A5%E7%94%A8HTTP%E8%80%8C%E7%94%A8RPC">服务之间的调用为啥不直接用 HTTP 而用 RPC？</a></li>
+</ul>
+<h3 id="服务注册与发现"><a href="#服务注册与发现" class="headerlink" title="服务注册与发现"></a><strong>服务注册与发现</strong></h3><p>Eureka、Zookeeper、Consul、Nacos 都可以提供服务注册与发现的功能。</p>
+<p><img src="https://pic1.zhimg.com/50/v2-c5458b7d70c752fcaa3f42e1ee1aa2ea_hd.jpg?source=1940ef5c" alt="img"><img src="https://pic1.zhimg.com/80/v2-c5458b7d70c752fcaa3f42e1ee1aa2ea_720w.jpg?source=1940ef5c" alt="img"></p>
+<h3 id="API-网关"><a href="#API-网关" class="headerlink" title="API 网关"></a><strong>API 网关</strong></h3><p>网关主要用于请求转发、安全认证、协议转换、容灾。</p>
+<p>SpringCloud Gateway 是 Spring Cloud 的一个全新项目，为了取代 Netflix Zuul。</p>
+<h3 id="配置中心"><a href="#配置中心" class="headerlink" title="配置中心"></a><strong>配置中心</strong></h3><p>微服务下，业务的发展一般会导致服务数量的增加，进而导致程序配置（服务地址、数据库参数等等）增多。</p>
+<p>传统的配置文件的方式已经无法满足当前需求，主要有两点原因：一是安全性得不到保障（配置放在代码库中容易泄露）；二是时效性不行 （修改配置需要重启服务才能生效）。</p>
+<p>Spring Cloud Config、Nacos 、Apollo、K8s ConfigMap 都可以用来做配置中心。</p>
+<p>Apollo 和 Nacos 我个人更喜欢。Nacos 使用起来更加顺手，Apollo 在配置管理方面做的更加全面。</p>
+<h3 id="分布式-id"><a href="#分布式-id" class="headerlink" title="分布式 id"></a><strong>分布式 id</strong></h3><p>日常开发中，我们需要对系统中的各种数据使用 ID 唯一表示，比如用户 ID 对应且仅对应一个人，商品 ID 对应且仅对应一件商品，订单 ID 对应且仅对应一个订单。</p>
+<p><img src="https://pic1.zhimg.com/50/v2-21c5fb2a333d04d70ccf2554e4a66995_hd.jpg?source=1940ef5c" alt="img"><img src="https://pic1.zhimg.com/80/v2-21c5fb2a333d04d70ccf2554e4a66995_720w.jpg?source=1940ef5c" alt="img"></p>
+<p>简单来说，<strong>ID 就是数据的唯一标识</strong>。</p>
+<p>分布式 ID 是分布式系统下的 ID。分布式 ID 不存在与现实生活中，属于计算机系统中的一个概念。</p>
+<p>我简单举一个分库分表的例子。</p>
+<p>我司的一个项目，使用的是单机 MySQL 。但是，没想到的是，项目上线一个月之后，随着使用人数越来越多，整个系统的数据量将越来越大。</p>
+<p>单机 MySQL 已经没办法支撑了，需要进行分库分表（推荐 Sharding-JDBC）。</p>
+<p>在分库之后， 数据遍布在不同服务器上的数据库，数据库的自增主键已经没办法满足生成的主键唯一了。<strong>我们如何为不同的数据节点生成全局唯一主键呢？</strong></p>
+<p><img src="https://pic1.zhimg.com/50/v2-1f699f3733924441f3707926da884744_hd.jpg?source=1940ef5c" alt="img"><img src="https://pic1.zhimg.com/80/v2-1f699f3733924441f3707926da884744_720w.jpg?source=1940ef5c" alt="img"></p>
+<p>这个时候就需要生成<strong>分布式 ID</strong>了。</p>
+<p>分布式 ID 的解决方案有很多比如 ：</p>
+<ul>
+<li>算法 ：UUID、Snowflake</li>
+<li>开源框架 ： UidGenerator、Leaf 、Tinyid</li>
+</ul>
+<h3 id="分布式事务"><a href="#分布式事务" class="headerlink" title="分布式事务"></a><strong>分布式事务</strong></h3><p>微服务架构下，一个系统被拆分为多个小的微服务。</p>
+<p>每个微服务都可能存在不同的机器上，并且每个微服务可能都有一个单独的数据库供自己使用。这种情况下，一组操作可能会涉及到多个微服务以及多个数据库。</p>
+<p>举个例子：电商系统中，你创建一个订单往往会涉及到订单服务（订单数加一）、库存服务（库存减一）等等服务，这些服务会有供自己单独使用的数据库。</p>
+<p><img src="https://pic2.zhimg.com/50/v2-feaa7d9765154fa367bc008444d208c3_hd.jpg?source=1940ef5c" alt="img"><img src="https://pic2.zhimg.com/80/v2-feaa7d9765154fa367bc008444d208c3_720w.jpg?source=1940ef5c" alt="img"></p>
+<p><strong>那么如何保证这一组操作要么都执行成功，要么都执行失败呢？</strong></p>
+<p>这个时候单单依靠数据库事务就不行了！我们就需要引入 <strong>分布式事务</strong> 这个概念了！</p>
+<p>常用分布式事务解决方案有 Seata 和 Hmily。</p>
+<ol>
+<li><strong><a href="https://link.zhihu.com/?target=https://seata.io/zh-cn/index.html">Seata</a></strong> :Seata 是一款开源的分布式事务解决方案，致力于在微服务架构下提供高性能和简单易用的分布式事务服务。</li>
+<li><strong><a href="https://link.zhihu.com/?target=https://gitee.com/shuaiqiyu/hmily">Hmily</a></strong> : 金融级分布式事务解决方案</li>
+</ol>
+<h3 id="分布式链路追踪"><a href="#分布式链路追踪" class="headerlink" title="分布式链路追踪"></a><strong>分布式链路追踪</strong></h3><p>不同于单体架构，在分布式架构下，请求需要在多个服务之间调用，排查问题会非常麻烦。我们需要分布式链路追踪系统来解决这个痛点。</p>
+<p>目前分布式链路追踪系统基本都是根据谷歌的《Dapper 大规模分布式系统的跟踪系统》这篇论文发展而来，主流的有 Pinpoint，Skywalking ，CAT（当然也有其他的例如 Zipkin，Jaeger 等产品，不过总体来说不如前面选取的 3 个完成度高）等。</p>
+<p>Zipkin 是 Twitter 公司开源的一个分布式链路追踪工具，Spring Cloud Sleuth 实际是基于 Zipkin 的。</p>
+<p>SkyWalking 是国人吴晟（华为）开源的一款分布式追踪，分析，告警的工具，现在是 Apache 旗下开源项目</p>
+<h2 id="微服务"><a href="#微服务" class="headerlink" title="微服务"></a><strong>微服务</strong></h2><p>微服务的很多东西实际在分布式这一节已经提到了。</p>
+<p>我这里就再补充一些微服务架构中，经常使用到的一些组件。</p>
+<ul>
+<li><strong>声明式服务调用</strong> : Feign</li>
+<li><strong>负载均衡</strong> : Ribbon</li>
+<li>……</li>
+</ul>
+<h2 id="高并发"><a href="#高并发" class="headerlink" title="高并发"></a><strong>高并发</strong></h2><h3 id="消息队列"><a href="#消息队列" class="headerlink" title="消息队列"></a><strong>消息队列</strong></h3><p><img src="https://pic2.zhimg.com/50/v2-4903cf7307350d41a16d0277112d5424_hd.jpg?source=1940ef5c" alt="img"><img src="https://pic2.zhimg.com/80/v2-4903cf7307350d41a16d0277112d5424_720w.jpg?source=1940ef5c" alt="img"></p>
+<p>消息队列在分布式系统中主要是为了解耦和削峰。相关阅读：<a href="https://link.zhihu.com/?target=https://snailclimb.gitee.io/javaguide/%23/docs/system-design/distributed-system/message-queue/message-queue">消息队列常见问题总结</a>。</p>
+<p>常用的消息队列如下：</p>
+<ol>
+<li><strong><a href="https://link.zhihu.com/?target=https://github.com/apache/rocketmq">RocketMQ</a></strong> ：阿里巴巴开源的一款高性能、高吞吐量的分布式消息中间件。</li>
+<li><strong><a href="https://link.zhihu.com/?target=https://github.com/apache/kafka">Kafaka</a></strong>: Kafka 是一种分布式的，基于发布 &#x2F; 订阅的消息系统。关于它的入门可以查看：<a href="https://link.zhihu.com/?target=https://github.com/Snailclimb/JavaGuide/blob/master/docs/system-design/data-communication/Kafka%E5%85%A5%E9%97%A8%E7%9C%8B%E8%BF%99%E4%B8%80%E7%AF%87%E5%B0%B1%E5%A4%9F%E4%BA%86.md">Kafka 入门看这一篇就够了</a></li>
+<li><strong><a href="https://link.zhihu.com/?target=https://github.com/rabbitmq">RabbitMQ</a></strong> :由 erlang 开发的基于 AMQP（Advanced Message Queue 高级消息队列协议）协议实现的消息队列。</li>
+</ol>
+<h3 id="读写分离-amp-分库分表"><a href="#读写分离-amp-分库分表" class="headerlink" title="读写分离&amp;分库分表"></a><strong>读写分离&amp;分库分表</strong></h3><p>读写分离主要是为了将数据库的读和写操作分不到不同的数据库节点上。主服务器负责写，从服务器负责读。另外，一主一从或者一主多从都可以。</p>
+<p>读写分离可以大幅提高读性能，小幅提高写的性能。因此，读写分离更适合单机并发读请求比较多的场景。</p>
+<p><img src="https://pic3.zhimg.com/50/v2-36f2ed6de6018bb4cebab32623373864_hd.jpg?source=1940ef5c" alt="img"><img src="https://pic3.zhimg.com/80/v2-36f2ed6de6018bb4cebab32623373864_720w.jpg?source=1940ef5c" alt="img"></p>
+<p>分库分表是为了解决由于库、表数据量过大，而导致数据库性能持续下降的问题。</p>
+<p>常见的分库分表工具有：sharding-jdbc（当当）、TSharding（蘑菇街）、MyCAT（基于 Cobar）、Cobar（阿里巴巴）…。 推荐使用 sharding-jdbc。 因为，sharding-jdbc 是一款轻量级 Java 框架，以 jar 包形式提供服务，不要我们做额外的运维工作，并且兼容性也很好。</p>
+<p><img src="https://pic2.zhimg.com/50/v2-635a97b84f0e3b718b1cfdc61a0bbe08_hd.jpg?source=1940ef5c" alt="img"><img src="https://pic2.zhimg.com/80/v2-635a97b84f0e3b718b1cfdc61a0bbe08_720w.jpg?source=1940ef5c" alt="img"></p>
+<p>相关阅读： <a href="https://link.zhihu.com/?target=https://snailclimb.gitee.io/javaguide/%23/docs/system-design/%E8%AF%BB%E5%86%99%E5%88%86%E7%A6%BB&%E5%88%86%E5%BA%93%E5%88%86%E8%A1%A8">读写分离&amp;分库分表常见问题总结</a></p>
+<h3 id="负载均衡"><a href="#负载均衡" class="headerlink" title="负载均衡"></a><strong>负载均衡</strong></h3><p>负载均衡系统通常用于将任务比如用户请求处理分配到多个服务器处理以提高网站、应用或者数据库的性能和可靠性。</p>
+<p>常见的负载均衡系统包括 3 种：</p>
+<ol>
+<li><strong>DNS 负载均衡</strong> ：一般用来实现地理级别的均衡。</li>
+<li><strong>硬件负载均衡</strong> ： 通过单独的硬件设备比如 F5 来实现负载均衡功能（硬件的价格一般很贵）。</li>
+<li><strong>软件负载均衡</strong> ：通过负载均衡软件比如 Nginx 来实现负载均衡功能。</li>
+</ol>
+<h2 id="高可用"><a href="#高可用" class="headerlink" title="高可用"></a><strong>高可用</strong></h2><p>高可用描述的是一个系统在大部分时间都是可用的，可以为我们提供服务的。高可用代表系统即使在发生硬件故障或者系统升级的时候，服务仍然是可用的 。</p>
+<p>相关阅读： <strong>《<a href="https://link.zhihu.com/?target=https://snailclimb.gitee.io/javaguide/%23/docs/system-design/high-availability/%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AA%E9%AB%98%E5%8F%AF%E7%94%A8%E7%B3%BB%E7%BB%9F%E8%A6%81%E8%80%83%E8%99%91%E5%93%AA%E4%BA%9B%E5%9C%B0%E6%96%B9">如何设计一个高可用系统？要考虑哪些地方？</a>》</strong> 。</p>
+<h3 id="限流-amp-降级-amp-熔断"><a href="#限流-amp-降级-amp-熔断" class="headerlink" title="限流&amp;降级&amp;熔断"></a><strong>限流&amp;降级&amp;熔断</strong></h3><p>限流是从用户访问压力的角度来考虑如何应对系统故障。限流为了对服务端的接口接受请求的频率进行限制，防止服务挂掉。比如某一接口的请求限制为 100 个每秒, 对超过限制的请求放弃处理或者放到队列中等待处理。限流可以有效应对突发请求过多。相关阅读：<a href="https://link.zhihu.com/?target=https://snailclimb.gitee.io/javaguide/%23/docs/system-design/high-availability/limit-request">限流算法有哪些？</a></p>
+<p>降级是从系统功能优先级的角度考虑如何应对系统故障。服务降级指的是当服务器压力剧增的情况下，根据当前业务情况及流量对一些服务和页面有策略的降级，以此释放服务器资源以保证核心任务的正常运行。</p>
+<p>熔断和降级是两个比较容易混淆的概念，两者的含义并不相同。</p>
+<p>降级的目的在于应对系统自身的故障，而熔断的目的在于应对当前系统依赖的外部系统或者第三方系统的故障。</p>
+<p><a href="https://link.zhihu.com/?target=https://github.com/Netflix/Hystrix">Hystrix</a> 和 <a href="https://link.zhihu.com/?target=https://github.com/alibaba/Sentinel">Sentinel</a> 都能实现限流、降级、熔断。</p>
+<p>Hystrix 是 Netflix 开源的熔断降级组件，Sentinel 是阿里中间件团队开源的一款不光具有熔断降级功能，同时还支持系统负载保护的组件。</p>
+<p>两者都是主要做熔断降级 ，那么两者到底有啥异同呢？该如何选择呢？</p>
+<p><a href="https://link.zhihu.com/?target=https://github.com/alibaba/Sentinel/wiki/Sentinel-%E4%B8%8E-Hystrix-%E7%9A%84%E5%AF%B9%E6%AF%94">Sentinel 的 wiki 中已经详细描述了其与 Hystrix 的区别</a>，你可以看看。</p>
+<h3 id="排队"><a href="#排队" class="headerlink" title="排队"></a><strong>排队</strong></h3><p>另类的一种限流，类比于现实世界的排队。玩过英雄联盟的小伙伴应该有体会，每次一有活动，就要经历一波排队才能进入游戏。</p>
+<h3 id="集群"><a href="#集群" class="headerlink" title="集群"></a><strong>集群</strong></h3><p>相同的服务部署多份，避免单点故障。</p>
+<h3 id="超时和重试机制"><a href="#超时和重试机制" class="headerlink" title="超时和重试机制"></a><strong>超时和重试机制</strong></h3><p><strong>一旦用户的请求超过某个时间得不到响应就结束此次请求并抛出异常。</strong> 如果不进行超时设置可能会导致请求响应速度慢，甚至导致请求堆积进而让系统无法在处理请求。</p>
+<p>另外，重试的次数一般设为 3 次，再多次的重试没有好处，反而会加重服务器压力（部分场景使用失败重试机制会不太适合）。</p>
 
       
     </div>
@@ -1703,7 +1976,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/cad299ae/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/2d4446ad/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/lion.png">
@@ -1721,7 +1994,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/cad299ae/" class="post-title-link" itemprop="url">java学习路线图</a>
+          <a href="/posts/2d4446ad/" class="post-title-link" itemprop="url">10、【对线面试官】TreadLocal</a>
         </h2>
 
         <div class="post-meta-container">
@@ -1742,7 +2015,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-13 12:56:04" itemprop="dateModified" datetime="2022-03-13T12:56:04+08:00">2022-03-13</time>
+      <time title="修改时间：2022-03-10 09:48:07" itemprop="dateModified" datetime="2022-03-10T09:48:07+08:00">2022-03-10</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -1763,8 +2036,8 @@
     </span>
     <span class="post-meta-item-text">Waline：</span>
   
-    <a title="waline" href="/posts/cad299ae/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/cad299ae/" data-xid="/posts/cad299ae/" itemprop="commentCount"></span>
+    <a title="waline" href="/posts/2d4446ad/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/2d4446ad/" data-xid="/posts/2d4446ad/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -1775,14 +2048,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>13k</span>
+      <span>982</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>12 分钟</span>
+      <span>1 分钟</span>
     </span>
 </div>
 
@@ -1793,363 +2066,38 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="java学习路线图"><a href="#java学习路线图" class="headerlink" title="java学习路线图"></a>java学习路线图</h1><p>项目地址：</p>
-<ul>
-<li>Github地址：<a href="https://link.zhihu.com/?target=https://github.com/Snailclimb/JavaGuide">Snailclimb&#x2F;JavaGuide</a></li>
-<li>Gitee地址： <a href="https://link.zhihu.com/?target=https://gitee.com/SnailClimb/JavaGuide">SnailClimb&#x2F;JavaGuide</a>（Github 无法访问或者访问速度比较慢的小伙伴可以看码云上的对应内容）</li>
+          <h1 id="10、【对线面试官】TreadLocal"><a href="#10、【对线面试官】TreadLocal" class="headerlink" title="10、【对线面试官】TreadLocal"></a>10、【对线面试官】TreadLocal</h1><h2 id="今天要不来聊聊ThreadLocal吧？"><a href="#今天要不来聊聊ThreadLocal吧？" class="headerlink" title="今天要不来聊聊ThreadLocal吧？"></a>今天要不来聊聊ThreadLocal吧？</h2><ol>
+<li>我个人对ThreadLocal理解就是</li>
+<li>它能够提供了线程的局部变量让每个线程都可以通过set&#x2F;get来对这个局部变量进行操作</li>
+<li>不会和其他线程的局部变量进行冲突，实现了线程的数据隔离</li>
+</ol>
+<h2 id="你在工作中有用到过ThreadLocal吗？"><a href="#你在工作中有用到过ThreadLocal吗？" class="headerlink" title="你在工作中有用到过ThreadLocal吗？"></a>你在工作中有用到过ThreadLocal吗？</h2><ol>
+<li>这块是真不多，不过还是有一处的。就是我们项目有个的DateUtils工具类</li>
+<li>这个工具类主要是对时间进行格式化</li>
+<li>格式化&#x2F;转化的实现是用的SimpleDateFormat</li>
+<li>但众所周知SimpleDateFormat不是线程安全的 ，所以我们就用ThreadLocal来让每个线程装载着自己的SimpleDateFormat对象</li>
+<li>以达到在格式化时间时，线程安全的目的</li>
+<li>在方法上创建SimpleDateFormat对象也没问题，但每调用一次就创建一次有点不优雅</li>
+<li>在工作中ThreadLocal的应用场景确实不多，但要不我给你讲讲Spring是怎么用的？</li>
+</ol>
+<h2 id="spring中的应用"><a href="#spring中的应用" class="headerlink" title="spring中的应用"></a>spring中的应用</h2><ol>
+<li>Spring提供了事务相关的操作，而我们知道事务是得保证一组操作同时成功或失败的</li>
+<li>这意味着我们一次事务的所有操作需要在同一个数据库连接上</li>
+<li>但是在我们日常写代码的时候是不需要关注这点的</li>
+<li>Spring就是用的ThreadLocal来实现，Th readLocal存储的类型是一个Map</li>
+<li>Map中的key是DataSource，value是C onnection（为了应对多数据源的情况，所以是一个Map）</li>
+<li>用了ThreadLocal保证了同一个线程获取一个Connection对象，从而保证一次事务的所有操作需要在同一个数据库连接上</li>
+</ol>
+<h2 id="你知道ThreadLocal内存泄露这个知识点吗？"><a href="#你知道ThreadLocal内存泄露这个知识点吗？" class="headerlink" title="你知道ThreadLocal内存泄露这个知识点吗？"></a>你知道ThreadLocal内存泄露这个知识点吗？</h2><ol>
+<li>了解的，要不我先来讲讲ThreadLocal的原理？<ul>
+<li>ThreadLocal是一个壳子，真正的存储结构是ThreadLocal里有ThreadLocalMap这么个内部类</li>
+<li>而有趣的是，ThreadLocalMap的引用是在Thread上定义的</li>
+<li>ThreadLocal本身并不存储值，它只是作为key来让线程从ThreadLocalMap获取value</li>
+<li>所以，得出的结论就是ThreadLocalMap该结构本身就在Thread下定义，而ThreadLocal只是作为key，存储set到ThreadLocalMap的变量当然是线程私有的咯</li>
 </ul>
-<p>这篇回答不会涉及到学习方法以及学习网站的推荐，我不想让篇幅太长，内容太杂，我希望留着下一篇文章专门来谈一谈。</p>
-<p>另外，这篇回答也不会涉及到计算机基础，也是为了保证内容的不至于太杂。计算基础相关的内容我也已经写好，预计会在五一同步给小伙伴们。</p>
-<p><img src="https://pic2.zhimg.com/50/v2-06c2cdc3e5d417486d1cb92687350ed4_hd.jpg?source=1940ef5c" alt="img"><img src="https://pic2.zhimg.com/80/v2-06c2cdc3e5d417486d1cb92687350ed4_720w.jpg?source=1940ef5c" alt="img"></p>
-<p>多说一句，对于编程初学者，我不太建议上来通过做项目学习。实践确实很重要，如果你没有编程基础的话，直接上手实战，很容易最后学个四不像。</p>
-<p>建议你在学习编程的初期尽量多看一些优质视频。跟着视频一步一步走，可以让你少踩很多坑，学习编程的信心也会增加。</p>
-<p><strong>概览：</strong></p>
-<p><img src="https://pic1.zhimg.com/50/v2-62586d6789e1a081cc3dc6efd7bdd289_hd.jpg?source=1940ef5c" alt="img"><img src="https://pic1.zhimg.com/80/v2-62586d6789e1a081cc3dc6efd7bdd289_720w.jpg?source=1940ef5c" alt="img"></p>
-<p>回答中的相关书籍我也已经同步到了 Github和Gitee上（有PDF版本可供下载），欢迎小伙伴们一起完善。</p>
-<ul>
-<li>Github地址：<a href="https://link.zhihu.com/?target=https://github.com/CodingDocs/awesome-cs">https://github.com/CodingDocs/awesome-cs</a></li>
-<li>码云地址：<a href="https://link.zhihu.com/?target=https://gitee.com/SnailClimb/awesome-cs">https://gitee.com/SnailClimb/awesome-cs</a> （Github无法访问或者访问速度比较慢的小伙伴可以看码云上的对应内容）</li>
-</ul>
-<h2 id="Java-基础"><a href="#Java-基础" class="headerlink" title="Java 基础"></a><strong>Java 基础</strong></h2><p>如果你之前没有学习过编程的话，我建议你可以看看视频教程。</p>
-<p>像尚硅谷的 <a href="https://link.zhihu.com/?target=https://www.bilibili.com/video/BV1Kb411W75N">《 Java 基础教程系列》</a>和韩顺平老师的<a href="https://link.zhihu.com/?target=https://www.bilibili.com/video/BV1fh411y7R8">《零基础 30 天学会 Java》</a>就很不错。</p>
-<p><img src="https://pic4.zhimg.com/50/v2-2217d04b42c6f79aa126432672133c25_hd.jpg?source=1940ef5c" alt="img"><img src="https://pic4.zhimg.com/80/v2-2217d04b42c6f79aa126432672133c25_720w.jpg?source=1940ef5c" alt="img"></p>
-<p>学习过 Java 的朋友，大部分应该都看过韩老师的课程吧！韩老师毕业于清华大学，录制的视频课程质量都非常高。内容易懂，并且不失严谨。</p>
-<p>韩老师的<a href="https://link.zhihu.com/?target=https://www.bilibili.com/video/BV1fh411y7R8">《零基础 30 天学会 Java》</a>系列不光会教你 Java 基础，还会帮你建立编程思想，让你知道学习了 Java 之后，你可以从事什么工作。</p>
-<p>看视频的同时，配套一本好书也是非常有作用的。</p>
-<p><strong><a href="https://link.zhihu.com/?target=https://book.douban.com/subject/2000732/">《Head First Java》</a></strong> 这本书在是入门 Java 的很不错的书籍 。</p>
-<p><img src="https://pic1.zhimg.com/50/v2-d264e3d06d0f86175c542c60a032fea4_hd.jpg?source=1940ef5c" alt="img"><img src="https://pic1.zhimg.com/80/v2-d264e3d06d0f86175c542c60a032fea4_720w.jpg?source=1940ef5c" alt="img"></p>
-<p>《Head First Java》这本书的内容很轻松有趣，可以说是我学习编程初期最喜欢的几本书之一了。同时，这本书也是我的 Java 启蒙书籍。我在学习 Java 的初期多亏了这本书的帮助，自己才算是跨进 Java 语言的大门。</p>
-<p>我觉得我在 Java 这块能够坚持下来，这本书有很大的功劳。我身边的的很多朋友学习 Java 初期都是看的这本书。</p>
-<p>有很多小伙伴就会问了：<strong>这本书适不适合编程新手阅读呢？</strong></p>
-<p>我个人觉得这本书还是挺适合编程新手阅读的，毕竟是 “Head First” 系列。</p>
-<p><img src="https://pic2.zhimg.com/50/v2-66d3ede459a86d010402186346189af1_hd.jpg?source=1940ef5c" alt="img"><img src="https://pic2.zhimg.com/80/v2-66d3ede459a86d010402186346189af1_720w.jpg?source=1940ef5c" alt="img"></p>
-<p><strong><a href="https://link.zhihu.com/?target=https://book.douban.com/subject/34898994/">《Java 核心技术卷 1+卷 2》</a></strong> 这两本书也非常不错。不过，这两本书的内容很多，全看的话比较费时间。我现在是把这两本书当做工具书来用，就比如我平时写文章的时候，碰到一些 Java 基础方面的问题，经常就翻看这两本来当做参考！</p>
-<p>我当时在大学的时候就买了两本放在寝室，没事的时候就翻翻。建议有点 Java 基础之后再读，介绍的还是比较深入和全面的，非常推荐。</p>
-<p><img src="https://pic2.zhimg.com/50/v2-bc98859a3b5e17b38c9d4606c1cd3ffd_hd.jpg?source=1940ef5c" alt="img"><img src="https://pic2.zhimg.com/80/v2-bc98859a3b5e17b38c9d4606c1cd3ffd_720w.jpg?source=1940ef5c" alt="img"></p>
-<p><strong><a href="https://link.zhihu.com/?target=https://book.douban.com/subject/2130190/">《Java 编程思想 》</a></strong> 这本书被很多人称之为 Java 领域的圣经（*感觉有点过了~~~*）。不太推荐编程初学者阅读，有点劝退的味道，稍微有点基础后阅读更好。</p>
-<p>我第一次看的时候还觉得有点枯燥，那时候还在上大二，看了 1&#x2F;3 就没看下去了。</p>
-<p><img src="https://pic2.zhimg.com/50/v2-e14d41b9f1dd4c9184466bb94c59401b_hd.jpg?source=1940ef5c" alt="img"><img src="https://pic2.zhimg.com/80/v2-e14d41b9f1dd4c9184466bb94c59401b_720w.jpg?source=1940ef5c" alt="img"></p>
-<p>另外，Java 8 算是一个里程碑式的版本，现在一般企业还是用 Java 8 比较多。掌握 Java 8 的一些新特性比如 Lambda、Strean API 还是挺有必要的。这块的话，我推荐 <strong><a href="https://link.zhihu.com/?target=https://book.douban.com/subject/26772632/">《Java 8 实战》</a></strong> 这本书。</p>
-<p>学完 Java 基础之后，你可以用自己学的东西实现一个简单的 Java 程序，也可以尝试用 Java 解决一些编程问题，以此来将自己学到的东西付诸于实践。</p>
-<p>不太建议学习 Java 基础的之后通过做游戏来巩固。为什么培训班喜欢通过这种方式呢？说白点就是为了找到你的 G 点。新手学习完 Java 基础后做游戏一般是不太现实的，还不如找一些简单的程序问题解决一下比如简单的算法题。</p>
-<p>记得多总结！打好基础！把自己重要的东西都记录下来。 API 文档放在自己可以看到的地方，以备自己可以随时查阅。为了能让自己写出更优秀的代码，《Effective Java》、《重构》 这两本书没事也可以看</p>
-<h2 id="并发"><a href="#并发" class="headerlink" title="并发"></a><strong>并发</strong></h2><p>多线程这部分内容稍微会比较难以理解和实践。如果你刚学完 Java 基础的话，我建议你学习并发这部分内容的时候，可以先简单地了解一下基础知识比如线程和进程的对比。到了后面，你对于 Java 了解的更深了之后，再回来仔细看看这部分的内容。</p>
-<p>下面是一些我比较推荐的书籍。</p>
-<p><strong><a href="https://link.zhihu.com/?target=https://book.douban.com/subject/30351286/">《Java 并发编程之美》</a></strong></p>
-<p><img src="https://pic2.zhimg.com/50/v2-2ca1ce12697e4368246b124cc5ebf295_hd.jpg?source=1940ef5c" alt="img"><img src="https://pic2.zhimg.com/80/v2-2ca1ce12697e4368246b124cc5ebf295_720w.jpg?source=1940ef5c" alt="img"></p>
-<p><em>这本书还是非常适合我们用来学习 Java 多线程的。这本书的讲解非常通俗易懂，作者从并发编程基础到实战都是信手拈来。</em></p>
-<p>另外，这本书的作者加多自身也会经常在网上发布各种技术文章。这本书也是加多大佬这么多年在多线程领域的沉淀所得的结果吧！他书中的内容基本都是结合代码讲解，非常有说服力！</p>
-<p><strong><a href="https://link.zhihu.com/?target=https://book.douban.com/subject/30358019/">《实战 Java 高并发程序设计》</a></strong></p>
-<p><img src="https://pic4.zhimg.com/50/v2-c83749f4bc91edbb131681d9f94f821f_hd.jpg?source=1940ef5c" alt="img"><img src="https://pic4.zhimg.com/80/v2-c83749f4bc91edbb131681d9f94f821f_720w.jpg?source=1940ef5c" alt="img"></p>
-<p>这个是我第二本要推荐的书籍，比较适合作为多线程入门&#x2F;进阶书籍来看。这本书内容同样是理论结合实战，对于每个知识点的讲解也比较通俗易懂，整体结构也比较清。</p>
-<p><strong><a href="https://link.zhihu.com/?target=https://github.com/RedSpider1/concurrent">《深入浅出 Java 多线程》</a></strong></p>
-<p><img src="https://pic4.zhimg.com/50/v2-b477244d7b3229167ea31aa2e16e3302_hd.jpg?source=1940ef5c" alt="img"><img src="https://pic4.zhimg.com/80/v2-b477244d7b3229167ea31aa2e16e3302_720w.jpg?source=1940ef5c" alt="img"></p>
-<p>这本书是几位大厂的大佬开源的。</p>
-<p>这几位作者为了写好《深入浅出 Java 多线程》这本书阅读了大量的 Java 多线程方面的书籍和博客，然后再加上他们的经验总结、Demo 实例、源码解析，最终才形成了这本书。</p>
-<p>这本书的质量也是非常过硬！给作者们点个赞！这本书有统一的排版规则和语言风格、清晰的表达方式和逻辑。并且每篇文章初稿写完后，作者们就会互相审校，合并到主分支时所有成员会再次审校，最后再通篇修订了三遍。</p>
-<p><strong><a href="https://link.zhihu.com/?target=https://book.douban.com/subject/35013531/">《Java 并发实现原理：JDK 源码剖析》</a></strong></p>
-<p><img src="https://pic1.zhimg.com/50/v2-9da660b9c3acde7a185d342c0dbbbb09_hd.jpg?source=1940ef5c" alt="img"><img src="https://pic1.zhimg.com/80/v2-9da660b9c3acde7a185d342c0dbbbb09_720w.jpg?source=1940ef5c" alt="img"></p>
-<p>这本书是去年也就是 2020 年新出的，所以，现在知道的人还不是很多。</p>
-<p>这本书主要是对 Java Concurrent 包中一些比较重要的源码进行了讲解，另外，像 JMM、happen-before、CAS 等等比较重要的并发知识这本书也都会一并介绍到。</p>
-<p>不论是你想要深入研究 Java 并发，还是说要准备面试，你都可以看看这本书。</p>
-<p>下面是我总结的一些关于并发的小问题，你可以拿来自测：</p>
-<ol>
-<li>什么是线程和进程? 线程与进程的关系,区别及优缺点？</li>
-<li>说说并发与并行的区别?</li>
-<li>为什么要使用多线程呢?</li>
-<li>使用多线程可能带来什么问题?（内存泄漏、死锁、线程不安全等等）</li>
-<li>创建线程有哪几种方式？（a.继承 Thread 类;b.实现 Runnable 接口;c. 使用 Executor 框架;d.使用 FutureTask）</li>
-<li>说说线程的生命周期和状态?</li>
-<li>什么是上下文切换?</li>
-<li>什么是线程死锁?如何避免死锁?</li>
-<li>说说 sleep() 方法和 wait() 方法区别和共同点?</li>
-<li>Java 内存模型（JMM）、重排序与 happens-before 原则了解吗？</li>
-<li>synchronized 关键字、volatile 关键字</li>
-<li>ThreadLocal 有啥用（解决了什么问题）？怎么用？原理了解吗？内存泄露问题了解吗？</li>
-<li>为什么要用线程池？ThreadPoolExecutor 类的重要参数了解吗？ThreadPoolExecutor 饱和策略了解吗？线程池原理了解吗？几种常见的线程池了解吗？为什么不推荐使用FixedThreadPool？如何设置线程池的大小？</li>
-<li>AQS 了解么？原理？AQS 常用组件：Semaphore (信号量)、CountDownLatch （倒计时器） CyclicBarrier(循环栅栏)</li>
-<li>ReentrantLock 、 ReentrantReadWriteLock 、StampedLock（JDK8）</li>
-<li>CAS 了解么？原理？</li>
-<li>Atomic 原子类</li>
-<li>并发容器：ConcurrentHashMap 、 CopyOnWriteArrayList 、 ConcurrentLinkedQueue BlockingQueue 、ConcurrentSkipListMap</li>
-<li>Future 和 CompletableFuture</li>
-<li>……</li>
+</li>
 </ol>
-<h2 id="JVM"><a href="#JVM" class="headerlink" title="JVM"></a><strong>JVM</strong></h2><p>对于 Java 程序员来说，JVM 帮助我们做了很多事情比如内存管理、垃圾回收等等。在 JVM 的帮助下，我们的程序出现内存泄漏这些问题的概率相对来说是比较低的。但是，这并不代表我们在日常开发工作中不会遇到。万一你在工作中遇到了 OOM 问题，你至少要知道如何去排查和解决问题吧！</p>
-<p>并且，就单纯从面试角度来说，JVM 是 Java 后端面试（大厂）中非常重要的一环。不论是应届还是社招，面试国内的一些大厂，你都会被问到很多 JVM 相关的问题（应届的话侧重理论，社招实践）。</p>
-<p>只有搞懂了 JVM 才有可能真正把 Java 语言“吃透”。学习 JVM 这部分的内容，一定要注意要实战和理论结合。</p>
-<p>书籍的话，**<a href="https://link.zhihu.com/?target=https://book.douban.com/subject/34907497/">《深入理解 Java 虚拟机》</a>** 这本书是首先要推荐的。</p>
-<p><img src="https://pic1.zhimg.com/50/v2-ef98840c238a19a70318ae9fa3ec7bf5_hd.jpg?source=1940ef5c" alt="img"><img src="https://pic1.zhimg.com/80/v2-ef98840c238a19a70318ae9fa3ec7bf5_720w.jpg?source=1940ef5c" alt="img"></p>
-<p>这本书就一句话形容：<strong>国产书籍中的战斗机，实实在在的优秀！</strong> （真心希望国内能有更多这样的优质书籍出现！加油！ ）</p>
-<p>这本书的第三版去年年底已经出来了，新增了很多实在的内容比如 ZGC 等新一代 GC 的原理剖析。目前豆瓣上是 9.6 的高分，  不   我就不多说了！</p>
-<p>不论是你面试还是你想要在 Java 领域学习的更深，你都离不开这本书籍。这本书不光要看，你还要多看几遍，里面都是干货。这本书里面还有一些需要自己实践的东西，我建议你也跟着实践一下。</p>
-<p>类似的书籍还有 <strong><a href="https://link.zhihu.com/?target=https://book.douban.com/subject/26354292/">《实战 Java 虚拟机》</a><strong>、</strong><a href="https://link.zhihu.com/?target=https://book.douban.com/subject/34935105/">《虚拟机设计与实现:以 JVM 为例》</a></strong> ，这两本都是非常不错的！</p>
-<p><img src="https://pic4.zhimg.com/50/v2-114035a0430694dd2562e5a136aa410b_hd.jpg?source=1940ef5c" alt="img"><img src="https://pic4.zhimg.com/80/v2-114035a0430694dd2562e5a136aa410b_720w.jpg?source=1940ef5c" alt="img"></p>
-<p>如果你对实战比较感兴趣，想要自己动手写一个简易的 JVM 的话，可以看看 <strong><a href="https://link.zhihu.com/?target=https://book.douban.com/subject/26802084/">《自己动手写 Java 虚拟机》</a></strong> 这本书。</p>
-<p><img src="https://pic3.zhimg.com/50/v2-171e35db906d0d4b330afe176a6ed823_hd.jpg?source=1940ef5c" alt="img"><img src="https://pic3.zhimg.com/80/v2-171e35db906d0d4b330afe176a6ed823_720w.jpg?source=1940ef5c" alt="img"></p>
-<p>书中的代码是基于 Go 语言实现的，搞懂了原理之后，你可以使用 Java 语言模仿着写一个，也算是练练手！ 如果你当前没有能力独立使用 Java 语言模仿着写一个的话，你也可以在网上找到很多基于 Java 语言版本的实现，比如<a href="https://link.zhihu.com/?target=https://zachaxy.github.io/tags/JVM/">《zachaxy 的手写 JVM 系列》</a> 。</p>
-<p>这本书目前在豆瓣有 8.2 的评分，我个人觉得张秀宏老师写的挺好的，这本书值得更高的评分。</p>
-<p>另外，R 大在豆瓣发的<a href="https://link.zhihu.com/?target=https://www.douban.com/doulist/2545443/">《从表到里学习 JVM 实现》</a>这篇文章中也推荐了很多不错的 JVM 相关的书籍，推荐小伙伴们去看看。</p>
-<p>再推荐两个视频给喜欢看视频学习的小伙伴。</p>
-<p>第 1 个是尚硅谷的宋红康老师讲的<a href="https://link.zhihu.com/?target=https://www.bilibili.com/video/BV1PJ411n7xZ">《JVM 全套教程》</a>。这个课程的内容非常硬，一共有接近 400 小节。</p>
-<p>课程的内容分为 3 部分：</p>
-<ol>
-<li>《内存与垃圾回收篇》</li>
-<li>《字节码与类的加载篇》</li>
-<li>《性能监控与调优篇》</li>
-</ol>
-<p><img src="https://pic2.zhimg.com/50/v2-4d2a238642281bdf1b8bda06b34eb8be_hd.jpg?source=1940ef5c" alt="img"><img src="https://pic2.zhimg.com/80/v2-4d2a238642281bdf1b8bda06b34eb8be_720w.jpg?source=1940ef5c" alt="img"></p>
-<p>第 2 个是你假笨大佬的 <strong><a href="https://link.zhihu.com/?target=https://club.perfma.com/course/438755/list">《JVM 参数【Memory 篇】》</a></strong> 教程，很厉害了！</p>
-<p><img src="https://pic4.zhimg.com/50/v2-30067f8554c7bd6089a87e971d14b069_hd.jpg?source=1940ef5c" alt="img"><img src="https://pic4.zhimg.com/80/v2-30067f8554c7bd6089a87e971d14b069_720w.jpg?source=1940ef5c" alt="img"></p>
-<p>下面是我总结的一些关于 JVM 的小问题，你可以拿来自测：</p>
-<ol>
-<li>什么是虚拟机？</li>
-<li>Java 内存区域是怎么划分的？大对象放在哪个内存区域？</li>
-<li>垃圾回收有哪些算法？GC 的流程</li>
-<li>什么是类加载？何时类加载？类加载流程？</li>
-<li>知道哪些类加载器。类加载器之间的关系？</li>
-<li>类加载器的双亲委派了解么？ 结合 Tomcat 说一下双亲委派（Tomcat 如何打破双亲委托机制？…）。</li>
-<li>常见调优参数有哪些？</li>
-<li>……</li>
-</ol>
-<h2 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a><strong>数据库</strong></h2><p>我们网站或 者 APP 的数据都是需要使用数据库来存储数据的。</p>
-<h3 id="MySQL"><a href="#MySQL" class="headerlink" title="MySQL"></a><strong>MySQL</strong></h3><p>一般企业项目开发中，使用 MySQL 比较多。如果你要学习 MySQL 的话，可以看下面这 3 本书籍：</p>
-<ul>
-<li><strong><a href="https://link.zhihu.com/?target=https://book.douban.com/subject/3354490/">《MySQL 必知必会》</a></strong> ：非常薄！非常适合 MySQL 新手阅读，很棒的入门教材。</li>
-<li><strong><a href="https://link.zhihu.com/?target=https://book.douban.com/subject/23008813/">《高性能 MySQL》</a></strong> ： MySQL 领域的经典之作！学习 MySQL 必看！属于进阶内容，主要教你如何更好地使用 MySQL 。既有有理论，又有实践！如果你没时间都看一遍的话，拿我建议第 5 章（创建高性能的索引） 、第 6 章（查询性能优化） 你你一定要认真看一下。</li>
-<li><strong><a href="https://link.zhihu.com/?target=https://book.douban.com/subject/24708143/">《MySQL 技术内幕》</a></strong> ：你想深入了解 MySQL 存储引擎的话，看这本书准没错！</li>
-</ul>
-<p><img src="https://pic2.zhimg.com/50/v2-3446cfaa214394ec7137ba34ca5362ba_hd.jpg?source=1940ef5c" alt="img"><img src="https://pic2.zhimg.com/80/v2-3446cfaa214394ec7137ba34ca5362ba_720w.jpg?source=1940ef5c" alt="img"></p>
-<p>视频的话，你可以看看动力节点的 <a href="https://link.zhihu.com/?target=https://www.bilibili.com/video/BV1fx411X7BD">《MySQL 数据库教程视频》</a>。这个视频基本上把 MySQL 的相关一些入门知识给介绍完了。</p>
-<p>学习了 MySQL 之后，务必确保自己掌握下面这些知识点：</p>
-<ol>
-<li>MySQL 常用命令 ：</li>
-</ol>
-<ul>
-<li>安全：登录、增加&#x2F;删除用户、备份数据和还原数据</li>
-<li>数据库操作： 建库建表&#x2F;删库删表、用户权限分配</li>
-<li>……</li>
-</ul>
-<ol>
-<li>MySQL 中常用的数据类型、字符集编码</li>
-<li>MySQL 简单查询、条件查询、模糊查询、多表查询以及如何对查询结果排序、过滤、分组……</li>
-<li>MySQL 中使用索引、视图、存储过程、游标、触发器</li>
-<li>……</li>
-</ol>
-<p>如果你想让自己更加了解 MySQL ，同时也是为了准备面试的话，下面这些知识点要格外注意：</p>
-<ol>
-<li>索引：索引优缺点、B 树和 B+树、聚集索引与非聚集索引、覆盖索引</li>
-<li>事务：事务、数据库事务、ACID、并发事务、事务隔离级别</li>
-<li>存储引擎（MyISAM 和 InnoDB）</li>
-<li>锁机制与 InnoDB 锁算法</li>
-</ol>
-<h3 id="Redis"><a href="#Redis" class="headerlink" title="Redis"></a><strong>Redis</strong></h3><p><strong>Redis 就是一个使用 C 语言开发的数据库</strong>，不过与传统数据库不同的是 <strong>Redis 的数据是存在内存中的</strong> ，也就是它是内存数据库，所以读写速度非常快，因此 Redis 被广泛应用于缓存方向。</p>
-<p>如果你要学习 Redis 的话，强烈推荐 <strong><a href="https://link.zhihu.com/?target=https://book.douban.com/subject/25900156/">《Redis 设计与实现》</a></strong> 和 <strong><a href="https://link.zhihu.com/?target=https://book.douban.com/subject/26612779/">《Redis 实战》</a></strong> 这两本书。另外，**<a href="https://link.zhihu.com/?target=https://book.douban.com/subject/26971561/">《Redis 开发与运维》</a>** 这本书也非常不错，既有基础介绍，又有一线开发运维经验分享。</p>
-<p><img src="https://pic4.zhimg.com/50/v2-6fe8373526af0107bcda6a73b2e9a801_hd.jpg?source=1940ef5c" alt="img"><img src="https://pic4.zhimg.com/80/v2-6fe8373526af0107bcda6a73b2e9a801_720w.jpg?source=1940ef5c" alt="img"></p>
-<p>下面是我总结的一些关于并发的小问题，你可以拿来自测：</p>
-<ol>
-<li>Redis 和 Memcached 的区别和共同点</li>
-<li>为什么要用 Redis&#x2F;为什么要用缓存？</li>
-<li>Redis 常见数据结构以及使用场景分析</li>
-<li>Redis 没有使用多线程？为什么不使用多线程？Redis6.0 之后为何引入了多线程？</li>
-<li>Redis 给缓存数据设置过期时间有啥用？</li>
-<li>Redis 是如何判断数据是否过期的呢？</li>
-<li>过期的数据的删除策略了解么？</li>
-<li>Redis 内存淘汰机制了解么？</li>
-<li>Redis 持久化机制(怎么保证 Redis 挂掉之后再重启数据可以进行恢复)</li>
-<li>Redis 缓存穿透、缓存雪崩？</li>
-<li>如何保证缓存和数据库数据的一致性？</li>
-<li>……</li>
-</ol>
-<h2 id="常用工具"><a href="#常用工具" class="headerlink" title="常用工具"></a><strong>常用工具</strong></h2><p>非常重要！非常重要！特别是 Git 和 Docker。</p>
-<p>除了下面这些工具之外，我强烈建议你一定要搞懂 Github 的使用。一些使用 Github 的小技巧，你可以看<a href="https://link.zhihu.com/?target=https://snailclimb.gitee.io/javaguide/%23/docs/tools/Github%E6%8A%80%E5%B7%A7">《Github 小技巧》</a>这篇文章。</p>
-<h3 id="IDEA"><a href="#IDEA" class="headerlink" title="IDEA"></a><strong>IDEA</strong></h3><p>俗话说：“工欲善其事，必先利其器 !”。选择一款好的开发工具对于我们高效率编码非常有帮助！</p>
-<p>常用的 Java 开发工具就 Eclipse 和 IDEA。就我个人而言 IDEA 是最适合 Java 开发者的 IDE 。</p>
-<p>建议你要熟悉 IDEA 的基本操作以及常用快捷。你可以通过 Github 上的开源教程 <a href="https://link.zhihu.com/?target=https://github.com/judasn/IntelliJ-IDEA-Tutorial">《IntelliJ IDEA 简体中文专题教程》</a> 来学习 IDEA 的相关使用。</p>
-<p>除了 IDEA 自身对编码优秀的支持（比如智能上下文提示）之外，IDEA 中还有丰富的插件来帮助我们高效开发。<a href="https://link.zhihu.com/?target=https://mp.weixin.qq.com/mp/appmsgalbum?__biz=Mzg2OTA0Njk0OA==&action=getalbum&album_id=1319419426898329600%23wechat_redirect">《IDEA 插件》</a> 这个系列专辑中推荐了很多实用 IDEA 必备的插件！</p>
-<h3 id="Maven"><a href="#Maven" class="headerlink" title="Maven"></a><strong>Maven</strong></h3><p>强烈建议学习常用框架之前可以提前花几天时间学习一下<strong>Maven</strong>的使用。（到处找 Jar 包，下载 Jar 包是真的麻烦费事，使用 Maven 可以为你省很多事情）。</p>
-<h3 id="Git"><a href="#Git" class="headerlink" title="Git"></a><strong>Git</strong></h3><p>Git 技能对于程序员来说也是必备的！试着在学习的过程中将自己的代码托管在 Github 上，有一个漂亮的 Github 主页在求职面试中是十分加分的。并且，现在的企业都是基于 Git 在 GitHub 或 GitLab 平台上做版本控制。</p>
-<p>学习 Git 的话，强烈推荐给大家一个可以交互式学习 Git 的网站 <a href="https://link.zhihu.com/?target=https://learngitbranching.js.org/">Learn Git Branching</a>。效果真的非常非常棒，通过游戏的方式让你学习 Git 的常见操作。</p>
-<p>整个教程分为很多关，每一关都有非常详细的指导，还会有详细的动图展示结果。并且，你做错了之后还可以使用 reset 命令从头开始。</p>
-<p><img src="https://pic2.zhimg.com/50/v2-964b02483882588923780a75d9775ab8_hd.jpg?source=1940ef5c" alt="img"><img src="https://pic2.zhimg.com/80/v2-964b02483882588923780a75d9775ab8_720w.jpg?source=1940ef5c" alt="img"></p>
-<p>如果你是在不知道答案的话，还可以使用 show solution 命令查看答案。</p>
-<p><img src="https://pic4.zhimg.com/50/v2-1924f6df27c62026f3d531e7de843fb4_hd.jpg?source=1940ef5c" alt="img"><img src="https://pic4.zhimg.com/80/v2-1924f6df27c62026f3d531e7de843fb4_720w.jpg?source=1940ef5c" alt="img"></p>
-<p>这种即时反馈的学习让过程变得有趣！真心感谢这个网站的作者，太爱了！</p>
-<p>另外，你可以看看 Github 上开源的这篇 <a href="https://link.zhihu.com/?target=https://snailclimb.gitee.io/javaguide/%23/docs/tools/Git">《Git 极简入门》</a> ，像版本控制和 Git 的相关概念、Git 常见操作这篇文章都有介绍到。</p>
-<p>如果想要详细了解 Git 的话，<a href="https://link.zhihu.com/?target=https://git-scm.com/book/zh/v2">Git 官方文档教程</a>是肯定要看的，介绍的非常全面，并且有中文版！</p>
-<p><img src="https://pic3.zhimg.com/50/v2-0b2163d2c8064c33a034d9bb31ced577_hd.jpg?source=1940ef5c" alt="img"><img src="https://pic3.zhimg.com/80/v2-0b2163d2c8064c33a034d9bb31ced577_720w.jpg?source=1940ef5c" alt="img"></p>
-<p><a href="https://link.zhihu.com/?target=https://www.progit.cn/">《Pro Git》</a>这本书也非常不错，还有中文版，内容非常全面，硬核！</p>
-<p><img src="https://pic1.zhimg.com/50/v2-ce008dd1ba37fc12e91e9adf63f87fe6_hd.jpg?source=1940ef5c" alt="img"><img src="https://pic1.zhimg.com/80/v2-ce008dd1ba37fc12e91e9adf63f87fe6_720w.jpg?source=1940ef5c" alt="img"></p>
-<p><img src="https://pic1.zhimg.com/50/v2-566dccf603d7708a831be89f993c8c3d_hd.jpg?source=1940ef5c" alt="img"><img src="https://pic1.zhimg.com/80/v2-566dccf603d7708a831be89f993c8c3d_720w.jpg?source=1940ef5c" alt="img"></p>
-<p>如果你比较喜欢看视频教程的话，可以看看极客时间的<a href="https://link.zhihu.com/?target=http://gk.link/a/10qcT">《玩转 Git 三剑客》</a>，课程的作者是携程代码平台负责人苏玲，讲的挺不错的！</p>
-<h3 id="Docker"><a href="#Docker" class="headerlink" title="Docker"></a><strong>Docker</strong></h3><p>传统的开发流程中，我们的项目通常需要使用 MySQL、Redis、FastDFS 等等环境，这些环境都是需要我们手动去进行下载并配置的，安装配置流程极其复杂，而且不同系统下的操作也不一样。</p>
-<p>Docker 的出现完美地解决了这一问题，我们可以在容器中安装 MySQL、Redis 等软件环境，使得应用和环境架构分开，它的优势在于：</p>
-<ol>
-<li>一致的运行环境，能够更轻松地迁移</li>
-<li>对进程进行封装隔离，容器与容器之间互不影响，更高效地利用系统资源</li>
-<li>可以通过镜像复制多个一致的容器</li>
-</ol>
-<p>Docker 常见概念解读，可以看这篇 Github 上开源的这篇<a href="https://link.zhihu.com/?target=https://snailclimb.gitee.io/javaguide/%23/docs/tools/Docker">《Docker 基本概念解读》</a> ，从零到上手实战可以看<a href="https://link.zhihu.com/?target=https://snailclimb.gitee.io/javaguide/%23/docs/tools/Docker%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E5%AE%9E%E6%88%98">《Docker 从入门到上手干事》</a>这篇文章，内容非常详细！</p>
-<p>另外，再给大家推荐一本质量非常高的开源书籍<a href="https://link.zhihu.com/?target=https://yeasy.gitbook.io/docker_practice/introduction/why">《Docker 从入门到实践》</a> ，这本书的内容非常新，毕竟书籍的内容是开源的，可以随时改进。</p>
-<p><img src="https://pic1.zhimg.com/50/v2-f5d0bf0587f742c9a65f985e7fc12f93_hd.jpg?source=1940ef5c" alt="img"><img src="https://pic1.zhimg.com/80/v2-f5d0bf0587f742c9a65f985e7fc12f93_720w.jpg?source=1940ef5c" alt="img"></p>
-<h2 id="常用框架"><a href="#常用框架" class="headerlink" title="常用框架"></a><strong>常用框架</strong></h2><p><a href="https://link.zhihu.com/?target=https://t.1yb.co/mBsy">2021 最新Java实战项目源码打包下载t.1yb.co<img src="https://pic2.zhimg.com/v2-5c70f2d4123edf16afab8b4bed070b4d_180x120.jpg" alt="图标"></a></p>
-<h3 id="Spring-x2F-SpringBoot"><a href="#Spring-x2F-SpringBoot" class="headerlink" title="Spring&#x2F;SpringBoot"></a><strong>Spring&#x2F;SpringBoot</strong></h3><p><strong>Spring 和 SpringBoot 真的很重要！</strong></p>
-<p>一定要搞懂 AOP 和 IOC 这两个概念。Spring 中 bean 的作用域与生命周期、SpringMVC 工作原理详解等等知识点都是非常重要的，一定要搞懂。</p>
-<p>企业中做 Java 后端，你一定离不开 SpringBoot ，这个是必备的技能了！一定一定一定要学好！</p>
-<p>像 SpringBoot 和一些常见技术的整合你也要知识怎么做，比如 SpringBoot 整合 MyBatis、 ElasticSearch、SpringSecurity、Redis 等等。</p>
-<p>学习 Spring 的话，可以多看看 **<a href="https://link.zhihu.com/?target=https://spring.io/projects/spring-framework%23learn">《Spring 的官方文档》</a>**，写的很详细。你可以在这里找到 Spring 全家桶的学习资源。</p>
-<p><img src="https://pic4.zhimg.com/50/v2-617c73716c914ce3ee4c9a32be97daa3_hd.jpg?source=1940ef5c" alt="img"><img src="https://pic4.zhimg.com/80/v2-617c73716c914ce3ee4c9a32be97daa3_720w.jpg?source=1940ef5c" alt="img"></p>
-<p>你也可以把 <strong><a href="https://link.zhihu.com/?target=https://book.douban.com/subject/34949443/">《Spring 实战》</a></strong> 这本书作为学习 Spring 的参考资料。 这本书还是比较新的，目前已经出到了第 5 版，基于 Spring 5 来讲。</p>
-<p><img src="https://pic2.zhimg.com/50/v2-27116d84a7876e40fe9e008d0bd1927e_hd.jpg?source=1940ef5c" alt="img"><img src="https://pic2.zhimg.com/80/v2-27116d84a7876e40fe9e008d0bd1927e_720w.jpg?source=1940ef5c" alt="img"></p>
-<p>了解了 Spring 中的一些常见概念和基本用法之后，你就可以开始学习 Spring Boot 了。</p>
-<p>当然了，Spring 其实并不是学习 Spring Boot 的前置基础，相比于 Spring 来说，Spring Boot 要更容易上手一些！如果你只是想使用 Spring Boot 来做项目的话，直接学 Spring Boot 就可以了。</p>
-<p>不过，我建议你在学习 Spring Boot 之前，可以看看 <strong><a href="https://link.zhihu.com/?target=https://snailclimb.gitee.io/javaguide/%23/docs/system-design/framework/spring/Spring%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E6%80%BB%E7%BB%93">《Spring 常见问题总结》</a></strong> 。这些问题都是 Spring 比较重要的知识点，也是面试中经常会被问到的。</p>
-<p>学习 Spring Boot 的话，还是建议可以多看看  **<a href="https://link.zhihu.com/?target=https://spring.io/projects/spring-boot%23learn">《Spring Boot 的官方文档》</a>**，写的很详细。</p>
-<p>你也可以把 <strong><a href="https://link.zhihu.com/?target=https://book.douban.com/subject/26857423/">《Spring Boot 实战》</a></strong> 这本书作为学习 Spring Boot 的参考资料。</p>
-<p><img src="https://pic2.zhimg.com/50/v2-ccd869cdada64fb595d5e2c524180eba_hd.jpg?source=1940ef5c" alt="img"><img src="https://pic2.zhimg.com/80/v2-ccd869cdada64fb595d5e2c524180eba_720w.jpg?source=1940ef5c" alt="img"></p>
-<p>这本书的整体质量实际一般，你当做参考书来看就好了!</p>
-<p>相比于 《Spring Boot 实战》这本书，我更推荐国人写的 <strong><a href="https://link.zhihu.com/?target=https://book.douban.com/subject/34894533/">《Spring Boot 实战派》</a></strong> 。</p>
-<p><img src="https://pic1.zhimg.com/50/v2-347c02b27d1c8074dd6423c11c867b95_hd.jpg?source=1940ef5c" alt="img"><img src="https://pic1.zhimg.com/80/v2-347c02b27d1c8074dd6423c11c867b95_720w.jpg?source=1940ef5c" alt="img"></p>
-<p>这本书使用的 Spring Boot 2.0+的版本，还算比较新。整本书采用“知识点+实例”的形式编写，书籍的最后两章还有 2 个综合性的企业实战项目：</p>
-<ul>
-<li>开发企业级通用的后台系统</li>
-<li>实现一个类似“京东”的电子商务商城</li>
-</ul>
-<p>作者在注意实战的过程中还不忘记对于一些重要的基础知识的讲解。</p>
-<p>如果你想专研 Spring Boot 底层原理的话，可以看看 <strong><a href="https://link.zhihu.com/?target=https://book.douban.com/subject/33390560/">《Spring Boot 编程思想（核心篇）》</a></strong> 。</p>
-<p><img src="https://pic1.zhimg.com/50/v2-2c3fd8e3b31d9020d78e49fac4ecb91a_hd.jpg?source=1940ef5c" alt="img"><img src="https://pic1.zhimg.com/80/v2-2c3fd8e3b31d9020d78e49fac4ecb91a_720w.jpg?source=1940ef5c" alt="img"></p>
-<p>这本书稍微有点啰嗦，不过，原理介绍的比较清楚（不适合初学者）。</p>
-<p>如果你比较喜欢看视频的话，推荐尚硅谷雷神的**<a href="https://link.zhihu.com/?target=https://www.bilibili.com/video/BV19K4y1L7MT">《2021 版 Spring Boot2 零基础入门》</a>** 。</p>
-<p><img src="https://pic1.zhimg.com/50/v2-8edcdf9da09d431d5a827737df1326f8_hd.jpg?source=1940ef5c" alt="img"><img src="https://pic1.zhimg.com/80/v2-8edcdf9da09d431d5a827737df1326f8_720w.jpg?source=1940ef5c" alt="img"></p>
-<p>这可能是全网质量最高并且免费的 Spring Boot 教程了，好评爆炸！</p>
-<p>另外，Spring Boot 这块还有很多优质的开源教程，我已经整理好放到 <a href="https://link.zhihu.com/?target=https://github.com/CodingDocs/awesome-java%23springboot">awesome-java@SpringBoot</a> 中了。</p>
-<p><img src="https://pic4.zhimg.com/50/v2-bd98e686b9da09ebbe25bfc843364147_hd.jpg?source=1940ef5c" alt="img"><img src="https://pic4.zhimg.com/80/v2-bd98e686b9da09ebbe25bfc843364147_720w.jpg?source=1940ef5c" alt="img"></p>
-<h3 id="Netty"><a href="#Netty" class="headerlink" title="Netty"></a><strong>Netty</strong></h3><p>但凡涉及到网络通信就必然必然离不开网络编程。 Netty 目前作为 Java 网络编程最热门的框架，毫不夸张地说是每个 Java 程序员必备的技能之一。</p>
-<p><strong>为什么说学好 Netty 很有必要呢？</strong></p>
-<ol>
-<li>Netty 基于 NIO （NIO 是一种同步非阻塞的 I&#x2F;O 模型，在 Java 1.4 中引入了 NIO ）。使用 Netty 可以极大地简化并简化了 TCP 和 UDP 套接字服务器等网络编程,并且性能以及安全性等很多方面都非常优秀。</li>
-<li>我们平常经常接触的 Dubbo、RocketMQ、Elasticsearch、gRPC、Spark、Elasticsearch 等等热门开源项目都用到了 Netty。</li>
-<li>大部分微服务框架底层涉及到网络通信的部分都是基于 Netty 来做的，比如说 Spring Cloud 生态系统中的网关 Spring Cloud Gateway 。</li>
-</ol>
-<p>下面是一些比较推荐的书籍&#x2F;专栏。</p>
-<p><strong><a href="https://link.zhihu.com/?target=https://book.douban.com/subject/27038538/">《Netty 实战》</a></strong></p>
-<p><img src="https://pic4.zhimg.com/50/v2-8a4c942af44520f5d2c99c3d6f37b4dc_hd.jpg?source=1940ef5c" alt="img"><img src="https://pic4.zhimg.com/80/v2-8a4c942af44520f5d2c99c3d6f37b4dc_720w.jpg?source=1940ef5c" alt="img"></p>
-<p>这本书可以用来入门 Netty ，内容从 BIO 聊到了 NIO、之后才详细介绍为什么有 Netty 、Netty 为什么好用以及 Netty 重要的知识点讲解。</p>
-<p>这本书基本把 Netty 一些重要的知识点都介绍到了，而且基本都是通过实战的形式讲解。</p>
-<p><strong>《Netty 进阶之路：跟着案例学 Netty》</strong></p>
-<p><img src="https://pic4.zhimg.com/50/v2-214ed872bb89b37b2b3c06b4c8c022e5_hd.jpg?source=1940ef5c" alt="img"><img src="https://pic4.zhimg.com/80/v2-214ed872bb89b37b2b3c06b4c8c022e5_720w.jpg?source=1940ef5c" alt="img"></p>
-<p>内容都是关于使用 Netty 的实践案例比如内存泄露这些东西。如果你觉得你的 Netty 已经完全入门了，并且你想要对 Netty 掌握的更深的话，推荐你看一下这本书。</p>
-<p><strong>《Netty 入门与实战：仿写微信 IM 即时通讯系统》</strong></p>
-<p><img src="https://pic1.zhimg.com/50/v2-31d3de0843d01caea292fc461ca00d55_hd.jpg?source=1940ef5c" alt="img"><img src="https://pic1.zhimg.com/80/v2-31d3de0843d01caea292fc461ca00d55_720w.jpg?source=1940ef5c" alt="img"></p>
-<p>通过一个基于 Netty 框架实现 IM 核心系统为引子，带你学习 Netty。整个小册的质量还是很高的，即使你没有 Netty 使用经验也能看懂。</p>
-<h2 id="搜索引擎"><a href="#搜索引擎" class="headerlink" title="搜索引擎"></a><strong>搜索引擎</strong></h2><p>搜索引擎用于提高搜索效率，功能和浏览器搜索引擎类似。比较常见的搜索引擎是 Elasticsearch（推荐） 和 Solr。</p>
-<p>如果你要学习 Elasticsearch 的话，<a href="https://link.zhihu.com/?target=http://www.elasticsearch.cn/">Elastic 中文社区</a> 以及 <a href="https://link.zhihu.com/?target=https://www.elastic.co/cn/blog/">Elastic 官方博客</a> 都是非常不错的资源，上面会分享很多具体的实践案例。</p>
-<p>除此之外，极客时间的<a href="https://link.zhihu.com/?target=http://gk.link/a/10bcT">《Elasticsearch 核心技术与实战》</a>这门课程非常赞！这门课基于 Elasticsearch 7.1 版本讲解，比较新。并且，作者是 eBay 资深技术专家，有 20 年的行业经验，课程质量有保障！</p>
-<p><img src="https://pic1.zhimg.com/50/v2-057c22f1e83338a78f2e6b22e5da777d_hd.jpg?source=1940ef5c" alt="img"><img src="https://pic1.zhimg.com/80/v2-057c22f1e83338a78f2e6b22e5da777d_720w.jpg?source=1940ef5c" alt="img"></p>
-<p>如果你想看书的话，可以考虑一下 《Elasticsearch 实战》 这本书。不过，需要说明的是，这本书中的 Elasticsearch 版本比较老，你可以将其作为一个参考书籍来看，有一些原理性的东西可以在上面找找答案。</p>
-<p><img src="https://pic2.zhimg.com/50/v2-d2048059f45eac3a26001579c7826d8f_hd.jpg?source=1940ef5c" alt="img"><img src="https://pic2.zhimg.com/80/v2-d2048059f45eac3a26001579c7826d8f_720w.jpg?source=1940ef5c" alt="img"></p>
-<p>如果你想进一步深入研究 Elasticsearch 原理的话，可以看看张超老师的《Elasticsearch 源码解析与优化实战》这本书。这是市面上唯一一本写 Elasticsearch 源码的书。</p>
-<p><img src="https://pic4.zhimg.com/50/v2-85d4049c868a55ecbc76ae6c329eaebf_hd.jpg?source=1940ef5c" alt="img"><img src="https://pic4.zhimg.com/80/v2-85d4049c868a55ecbc76ae6c329eaebf_720w.jpg?source=1940ef5c" alt="img"></p>
-<h2 id="分布式"><a href="#分布式" class="headerlink" title="分布式"></a><strong>分布式</strong></h2><p>下面我们开始学习分布式以及高并发、高可用了。</p>
-<p>这块内容的话，对于每一个知识点没有特定的书籍。我就推荐 2 本我觉得还不错的书籍吧！这两把书籍基本把下面涉及到的知识点给涵盖了。</p>
-<p>第一本是李运华老师的**<a href="https://link.zhihu.com/?target=https://book.douban.com/subject/30335935/">《从零开始学架构》</a>** 。</p>
-<p><img src="https://pic2.zhimg.com/50/v2-145c577cd6856daca487eec730ffc394_hd.jpg?source=1940ef5c" alt="img"><img src="https://pic2.zhimg.com/80/v2-145c577cd6856daca487eec730ffc394_720w.jpg?source=1940ef5c" alt="img"></p>
-<p>这本书对应的有一个极客时间的专栏—<a href="https://link.zhihu.com/?target=http://gk.link/a/10pKZ">《从零开始学架构》</a>，里面的很多内容都是这个专栏里面的，两者买其一就可以了。</p>
-<p>第二本是余老师的 <strong><a href="https://link.zhihu.com/?target=https://book.douban.com/subject/30443578/">《软件架构设计：大型网站技术架构与业务架构融合之道》</a></strong> 。</p>
-<p><img src="https://pic1.zhimg.com/50/v2-fe7286730c9ea0f94196b5e9f1dd3e07_hd.jpg?source=1940ef5c" alt="img"><img src="https://pic1.zhimg.com/80/v2-fe7286730c9ea0f94196b5e9f1dd3e07_720w.jpg?source=1940ef5c" alt="img"></p>
-<p>事务与锁、分布式（CAP、分布式事务……）、高并发、高可用这本书都有介绍到。值得推荐！良心好书！</p>
-<h3 id="理论"><a href="#理论" class="headerlink" title="理论"></a><strong>理论</strong></h3><h3 id="CAP-理论"><a href="#CAP-理论" class="headerlink" title="CAP 理论"></a><strong>CAP 理论</strong></h3><p>CAP 也就是 Consistency（一致性）、Availability（可用性）、Partition Tolerance（分区容错性） 这三个单词首字母组合。</p>
-<p>关于 CAP 的详细解读请看：<a href="https://link.zhihu.com/?target=https://snailclimb.gitee.io/javaguide/%23/docs/system-design/distributed-system/CAP%E7%90%86%E8%AE%BA">《CAP 理论解读》</a>。</p>
-<h3 id="BASE-理论"><a href="#BASE-理论" class="headerlink" title="BASE 理论"></a><strong>BASE 理论</strong></h3><p><strong>BASE</strong> 是 <strong>Basically Available（基本可用）</strong> 、<strong>Soft-state（软状态）</strong> 和 <strong>Eventually Consistent（最终一致性）</strong> 三个短语的缩写。BASE 理论是对 CAP 中一致性和可用性权衡的结果，其来源于对大规模互联网系统分布式实践的总结，是基于 CAP 定理逐步演化而来的，它大大降低了我们对系统的要求。</p>
-<p>关于 CAP 的详细解读请看：<a href="https://link.zhihu.com/?target=https://snailclimb.gitee.io/javaguide/%23/docs/system-design/distributed-system/BASE%E7%90%86%E8%AE%BA">《BASE 理论解读》</a>。</p>
-<h3 id="Paxos-算法和-Raft-算法"><a href="#Paxos-算法和-Raft-算法" class="headerlink" title="Paxos 算法和 Raft 算法"></a><strong>Paxos 算法和 Raft 算法</strong></h3><p><strong>Paxos 算法</strong>诞生于 1990 年，这是一种解决分布式系统一致性的经典算法 。但是，由于 Paxos 算法非常难以理解和实现，不断有人尝试简化这一算法。到了 2013 年才诞生了一个比 Paxos 算法更易理解和实现的分布式一致性算法—<strong>Raft 算法</strong>。</p>
-<h3 id="RPC"><a href="#RPC" class="headerlink" title="RPC"></a><strong>RPC</strong></h3><p>RPC 让调用远程服务调用像调用本地方法那样简单。</p>
-<p>Dubbo 是一款国产的 RPC 框架，由阿里开源。相关阅读：</p>
-<ul>
-<li><a href="https://link.zhihu.com/?target=https://snailclimb.gitee.io/javaguide/%23/docs/system-design/distributed-system/rpc/Dubbo">Dubbo 常见问题总结</a></li>
-<li><a href="https://link.zhihu.com/?target=https://snailclimb.gitee.io/javaguide/%23/docs/system-design/distributed-system/rpc/%E6%9C%8D%E5%8A%A1%E4%B9%8B%E9%97%B4%E7%9A%84%E8%B0%83%E7%94%A8%E4%B8%BA%E5%95%A5%E4%B8%8D%E7%9B%B4%E6%8E%A5%E7%94%A8HTTP%E8%80%8C%E7%94%A8RPC">服务之间的调用为啥不直接用 HTTP 而用 RPC？</a></li>
-</ul>
-<h3 id="服务注册与发现"><a href="#服务注册与发现" class="headerlink" title="服务注册与发现"></a><strong>服务注册与发现</strong></h3><p>Eureka、Zookeeper、Consul、Nacos 都可以提供服务注册与发现的功能。</p>
-<p><img src="https://pic1.zhimg.com/50/v2-c5458b7d70c752fcaa3f42e1ee1aa2ea_hd.jpg?source=1940ef5c" alt="img"><img src="https://pic1.zhimg.com/80/v2-c5458b7d70c752fcaa3f42e1ee1aa2ea_720w.jpg?source=1940ef5c" alt="img"></p>
-<h3 id="API-网关"><a href="#API-网关" class="headerlink" title="API 网关"></a><strong>API 网关</strong></h3><p>网关主要用于请求转发、安全认证、协议转换、容灾。</p>
-<p>SpringCloud Gateway 是 Spring Cloud 的一个全新项目，为了取代 Netflix Zuul。</p>
-<h3 id="配置中心"><a href="#配置中心" class="headerlink" title="配置中心"></a><strong>配置中心</strong></h3><p>微服务下，业务的发展一般会导致服务数量的增加，进而导致程序配置（服务地址、数据库参数等等）增多。</p>
-<p>传统的配置文件的方式已经无法满足当前需求，主要有两点原因：一是安全性得不到保障（配置放在代码库中容易泄露）；二是时效性不行 （修改配置需要重启服务才能生效）。</p>
-<p>Spring Cloud Config、Nacos 、Apollo、K8s ConfigMap 都可以用来做配置中心。</p>
-<p>Apollo 和 Nacos 我个人更喜欢。Nacos 使用起来更加顺手，Apollo 在配置管理方面做的更加全面。</p>
-<h3 id="分布式-id"><a href="#分布式-id" class="headerlink" title="分布式 id"></a><strong>分布式 id</strong></h3><p>日常开发中，我们需要对系统中的各种数据使用 ID 唯一表示，比如用户 ID 对应且仅对应一个人，商品 ID 对应且仅对应一件商品，订单 ID 对应且仅对应一个订单。</p>
-<p><img src="https://pic1.zhimg.com/50/v2-21c5fb2a333d04d70ccf2554e4a66995_hd.jpg?source=1940ef5c" alt="img"><img src="https://pic1.zhimg.com/80/v2-21c5fb2a333d04d70ccf2554e4a66995_720w.jpg?source=1940ef5c" alt="img"></p>
-<p>简单来说，<strong>ID 就是数据的唯一标识</strong>。</p>
-<p>分布式 ID 是分布式系统下的 ID。分布式 ID 不存在与现实生活中，属于计算机系统中的一个概念。</p>
-<p>我简单举一个分库分表的例子。</p>
-<p>我司的一个项目，使用的是单机 MySQL 。但是，没想到的是，项目上线一个月之后，随着使用人数越来越多，整个系统的数据量将越来越大。</p>
-<p>单机 MySQL 已经没办法支撑了，需要进行分库分表（推荐 Sharding-JDBC）。</p>
-<p>在分库之后， 数据遍布在不同服务器上的数据库，数据库的自增主键已经没办法满足生成的主键唯一了。<strong>我们如何为不同的数据节点生成全局唯一主键呢？</strong></p>
-<p><img src="https://pic1.zhimg.com/50/v2-1f699f3733924441f3707926da884744_hd.jpg?source=1940ef5c" alt="img"><img src="https://pic1.zhimg.com/80/v2-1f699f3733924441f3707926da884744_720w.jpg?source=1940ef5c" alt="img"></p>
-<p>这个时候就需要生成<strong>分布式 ID</strong>了。</p>
-<p>分布式 ID 的解决方案有很多比如 ：</p>
-<ul>
-<li>算法 ：UUID、Snowflake</li>
-<li>开源框架 ： UidGenerator、Leaf 、Tinyid</li>
-</ul>
-<h3 id="分布式事务"><a href="#分布式事务" class="headerlink" title="分布式事务"></a><strong>分布式事务</strong></h3><p>微服务架构下，一个系统被拆分为多个小的微服务。</p>
-<p>每个微服务都可能存在不同的机器上，并且每个微服务可能都有一个单独的数据库供自己使用。这种情况下，一组操作可能会涉及到多个微服务以及多个数据库。</p>
-<p>举个例子：电商系统中，你创建一个订单往往会涉及到订单服务（订单数加一）、库存服务（库存减一）等等服务，这些服务会有供自己单独使用的数据库。</p>
-<p><img src="https://pic2.zhimg.com/50/v2-feaa7d9765154fa367bc008444d208c3_hd.jpg?source=1940ef5c" alt="img"><img src="https://pic2.zhimg.com/80/v2-feaa7d9765154fa367bc008444d208c3_720w.jpg?source=1940ef5c" alt="img"></p>
-<p><strong>那么如何保证这一组操作要么都执行成功，要么都执行失败呢？</strong></p>
-<p>这个时候单单依靠数据库事务就不行了！我们就需要引入 <strong>分布式事务</strong> 这个概念了！</p>
-<p>常用分布式事务解决方案有 Seata 和 Hmily。</p>
-<ol>
-<li><strong><a href="https://link.zhihu.com/?target=https://seata.io/zh-cn/index.html">Seata</a></strong> :Seata 是一款开源的分布式事务解决方案，致力于在微服务架构下提供高性能和简单易用的分布式事务服务。</li>
-<li><strong><a href="https://link.zhihu.com/?target=https://gitee.com/shuaiqiyu/hmily">Hmily</a></strong> : 金融级分布式事务解决方案</li>
-</ol>
-<h3 id="分布式链路追踪"><a href="#分布式链路追踪" class="headerlink" title="分布式链路追踪"></a><strong>分布式链路追踪</strong></h3><p>不同于单体架构，在分布式架构下，请求需要在多个服务之间调用，排查问题会非常麻烦。我们需要分布式链路追踪系统来解决这个痛点。</p>
-<p>目前分布式链路追踪系统基本都是根据谷歌的《Dapper 大规模分布式系统的跟踪系统》这篇论文发展而来，主流的有 Pinpoint，Skywalking ，CAT（当然也有其他的例如 Zipkin，Jaeger 等产品，不过总体来说不如前面选取的 3 个完成度高）等。</p>
-<p>Zipkin 是 Twitter 公司开源的一个分布式链路追踪工具，Spring Cloud Sleuth 实际是基于 Zipkin 的。</p>
-<p>SkyWalking 是国人吴晟（华为）开源的一款分布式追踪，分析，告警的工具，现在是 Apache 旗下开源项目</p>
-<h2 id="微服务"><a href="#微服务" class="headerlink" title="微服务"></a><strong>微服务</strong></h2><p>微服务的很多东西实际在分布式这一节已经提到了。</p>
-<p>我这里就再补充一些微服务架构中，经常使用到的一些组件。</p>
-<ul>
-<li><strong>声明式服务调用</strong> : Feign</li>
-<li><strong>负载均衡</strong> : Ribbon</li>
-<li>……</li>
-</ul>
-<h2 id="高并发"><a href="#高并发" class="headerlink" title="高并发"></a><strong>高并发</strong></h2><h3 id="消息队列"><a href="#消息队列" class="headerlink" title="消息队列"></a><strong>消息队列</strong></h3><p><img src="https://pic2.zhimg.com/50/v2-4903cf7307350d41a16d0277112d5424_hd.jpg?source=1940ef5c" alt="img"><img src="https://pic2.zhimg.com/80/v2-4903cf7307350d41a16d0277112d5424_720w.jpg?source=1940ef5c" alt="img"></p>
-<p>消息队列在分布式系统中主要是为了解耦和削峰。相关阅读：<a href="https://link.zhihu.com/?target=https://snailclimb.gitee.io/javaguide/%23/docs/system-design/distributed-system/message-queue/message-queue">消息队列常见问题总结</a>。</p>
-<p>常用的消息队列如下：</p>
-<ol>
-<li><strong><a href="https://link.zhihu.com/?target=https://github.com/apache/rocketmq">RocketMQ</a></strong> ：阿里巴巴开源的一款高性能、高吞吐量的分布式消息中间件。</li>
-<li><strong><a href="https://link.zhihu.com/?target=https://github.com/apache/kafka">Kafaka</a></strong>: Kafka 是一种分布式的，基于发布 &#x2F; 订阅的消息系统。关于它的入门可以查看：<a href="https://link.zhihu.com/?target=https://github.com/Snailclimb/JavaGuide/blob/master/docs/system-design/data-communication/Kafka%E5%85%A5%E9%97%A8%E7%9C%8B%E8%BF%99%E4%B8%80%E7%AF%87%E5%B0%B1%E5%A4%9F%E4%BA%86.md">Kafka 入门看这一篇就够了</a></li>
-<li><strong><a href="https://link.zhihu.com/?target=https://github.com/rabbitmq">RabbitMQ</a></strong> :由 erlang 开发的基于 AMQP（Advanced Message Queue 高级消息队列协议）协议实现的消息队列。</li>
-</ol>
-<h3 id="读写分离-amp-分库分表"><a href="#读写分离-amp-分库分表" class="headerlink" title="读写分离&amp;分库分表"></a><strong>读写分离&amp;分库分表</strong></h3><p>读写分离主要是为了将数据库的读和写操作分不到不同的数据库节点上。主服务器负责写，从服务器负责读。另外，一主一从或者一主多从都可以。</p>
-<p>读写分离可以大幅提高读性能，小幅提高写的性能。因此，读写分离更适合单机并发读请求比较多的场景。</p>
-<p><img src="https://pic3.zhimg.com/50/v2-36f2ed6de6018bb4cebab32623373864_hd.jpg?source=1940ef5c" alt="img"><img src="https://pic3.zhimg.com/80/v2-36f2ed6de6018bb4cebab32623373864_720w.jpg?source=1940ef5c" alt="img"></p>
-<p>分库分表是为了解决由于库、表数据量过大，而导致数据库性能持续下降的问题。</p>
-<p>常见的分库分表工具有：sharding-jdbc（当当）、TSharding（蘑菇街）、MyCAT（基于 Cobar）、Cobar（阿里巴巴）…。 推荐使用 sharding-jdbc。 因为，sharding-jdbc 是一款轻量级 Java 框架，以 jar 包形式提供服务，不要我们做额外的运维工作，并且兼容性也很好。</p>
-<p><img src="https://pic2.zhimg.com/50/v2-635a97b84f0e3b718b1cfdc61a0bbe08_hd.jpg?source=1940ef5c" alt="img"><img src="https://pic2.zhimg.com/80/v2-635a97b84f0e3b718b1cfdc61a0bbe08_720w.jpg?source=1940ef5c" alt="img"></p>
-<p>相关阅读： <a href="https://link.zhihu.com/?target=https://snailclimb.gitee.io/javaguide/%23/docs/system-design/%E8%AF%BB%E5%86%99%E5%88%86%E7%A6%BB&%E5%88%86%E5%BA%93%E5%88%86%E8%A1%A8">读写分离&amp;分库分表常见问题总结</a></p>
-<h3 id="负载均衡"><a href="#负载均衡" class="headerlink" title="负载均衡"></a><strong>负载均衡</strong></h3><p>负载均衡系统通常用于将任务比如用户请求处理分配到多个服务器处理以提高网站、应用或者数据库的性能和可靠性。</p>
-<p>常见的负载均衡系统包括 3 种：</p>
-<ol>
-<li><strong>DNS 负载均衡</strong> ：一般用来实现地理级别的均衡。</li>
-<li><strong>硬件负载均衡</strong> ： 通过单独的硬件设备比如 F5 来实现负载均衡功能（硬件的价格一般很贵）。</li>
-<li><strong>软件负载均衡</strong> ：通过负载均衡软件比如 Nginx 来实现负载均衡功能。</li>
-</ol>
-<h2 id="高可用"><a href="#高可用" class="headerlink" title="高可用"></a><strong>高可用</strong></h2><p>高可用描述的是一个系统在大部分时间都是可用的，可以为我们提供服务的。高可用代表系统即使在发生硬件故障或者系统升级的时候，服务仍然是可用的 。</p>
-<p>相关阅读： <strong>《<a href="https://link.zhihu.com/?target=https://snailclimb.gitee.io/javaguide/%23/docs/system-design/high-availability/%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AA%E9%AB%98%E5%8F%AF%E7%94%A8%E7%B3%BB%E7%BB%9F%E8%A6%81%E8%80%83%E8%99%91%E5%93%AA%E4%BA%9B%E5%9C%B0%E6%96%B9">如何设计一个高可用系统？要考虑哪些地方？</a>》</strong> 。</p>
-<h3 id="限流-amp-降级-amp-熔断"><a href="#限流-amp-降级-amp-熔断" class="headerlink" title="限流&amp;降级&amp;熔断"></a><strong>限流&amp;降级&amp;熔断</strong></h3><p>限流是从用户访问压力的角度来考虑如何应对系统故障。限流为了对服务端的接口接受请求的频率进行限制，防止服务挂掉。比如某一接口的请求限制为 100 个每秒, 对超过限制的请求放弃处理或者放到队列中等待处理。限流可以有效应对突发请求过多。相关阅读：<a href="https://link.zhihu.com/?target=https://snailclimb.gitee.io/javaguide/%23/docs/system-design/high-availability/limit-request">限流算法有哪些？</a></p>
-<p>降级是从系统功能优先级的角度考虑如何应对系统故障。服务降级指的是当服务器压力剧增的情况下，根据当前业务情况及流量对一些服务和页面有策略的降级，以此释放服务器资源以保证核心任务的正常运行。</p>
-<p>熔断和降级是两个比较容易混淆的概念，两者的含义并不相同。</p>
-<p>降级的目的在于应对系统自身的故障，而熔断的目的在于应对当前系统依赖的外部系统或者第三方系统的故障。</p>
-<p><a href="https://link.zhihu.com/?target=https://github.com/Netflix/Hystrix">Hystrix</a> 和 <a href="https://link.zhihu.com/?target=https://github.com/alibaba/Sentinel">Sentinel</a> 都能实现限流、降级、熔断。</p>
-<p>Hystrix 是 Netflix 开源的熔断降级组件，Sentinel 是阿里中间件团队开源的一款不光具有熔断降级功能，同时还支持系统负载保护的组件。</p>
-<p>两者都是主要做熔断降级 ，那么两者到底有啥异同呢？该如何选择呢？</p>
-<p><a href="https://link.zhihu.com/?target=https://github.com/alibaba/Sentinel/wiki/Sentinel-%E4%B8%8E-Hystrix-%E7%9A%84%E5%AF%B9%E6%AF%94">Sentinel 的 wiki 中已经详细描述了其与 Hystrix 的区别</a>，你可以看看。</p>
-<h3 id="排队"><a href="#排队" class="headerlink" title="排队"></a><strong>排队</strong></h3><p>另类的一种限流，类比于现实世界的排队。玩过英雄联盟的小伙伴应该有体会，每次一有活动，就要经历一波排队才能进入游戏。</p>
-<h3 id="集群"><a href="#集群" class="headerlink" title="集群"></a><strong>集群</strong></h3><p>相同的服务部署多份，避免单点故障。</p>
-<h3 id="超时和重试机制"><a href="#超时和重试机制" class="headerlink" title="超时和重试机制"></a><strong>超时和重试机制</strong></h3><p><strong>一旦用户的请求超过某个时间得不到响应就结束此次请求并抛出异常。</strong> 如果不进行超时设置可能会导致请求响应速度慢，甚至导致请求堆积进而让系统无法在处理请求。</p>
-<p>另外，重试的次数一般设为 3 次，再多次的重试没有好处，反而会加重服务器压力（部分场景使用失败重试机制会不太适合）。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/NxSnnq_20211029171330.png"></p>
 
       
     </div>
@@ -2181,7 +2129,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/d2168e68/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/58f7b356/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/lion.png">
@@ -2199,7 +2147,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/d2168e68/" class="post-title-link" itemprop="url">个人博客系统设计(支持hexo和halo同步)</a>
+          <a href="/posts/58f7b356/" class="post-title-link" itemprop="url">11、【对线面试官】CountDownLatch和CyclicBarrier</a>
         </h2>
 
         <div class="post-meta-container">
@@ -2220,7 +2168,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-11 11:10:12" itemprop="dateModified" datetime="2022-03-11T11:10:12+08:00">2022-03-11</time>
+      <time title="修改时间：2022-03-10 09:48:07" itemprop="dateModified" datetime="2022-03-10T09:48:07+08:00">2022-03-10</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -2241,8 +2189,8 @@
     </span>
     <span class="post-meta-item-text">Waline：</span>
   
-    <a title="waline" href="/posts/d2168e68/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/d2168e68/" data-xid="/posts/d2168e68/" itemprop="commentCount"></span>
+    <a title="waline" href="/posts/58f7b356/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/58f7b356/" data-xid="/posts/58f7b356/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -2253,14 +2201,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>3.9k</span>
+      <span>1.6k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>4 分钟</span>
+      <span>1 分钟</span>
     </span>
 </div>
 
@@ -2271,77 +2219,46 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="个人博客系统设计-支持hexo和halo同步"><a href="#个人博客系统设计-支持hexo和halo同步" class="headerlink" title="个人博客系统设计(支持hexo和halo同步)"></a>个人博客系统设计(支持hexo和halo同步)</h1><ol>
-<li>本文主要介绍自己的博客系统是如何设计的，并使用<a target="_blank" rel="noopener" href="https://github.com/linshenkx/haloSyncServer">Halo博客同步器</a> 将hexo（git pages: <a target="_blank" rel="noopener" href="https://linshenkx.github.io/">https://linshenkx.github.io</a> ）文章自动同步到halo( <a target="_blank" rel="noopener" href="http://linshenkx.cn/">http://linshenkx.cn</a> )。<br>实现一次编写、两套博客系统并存、多个网址访问的效果。</li>
+          <h1 id="11、【对线面试官】CountDownLatch和CyclicBarrier"><a href="#11、【对线面试官】CountDownLatch和CyclicBarrier" class="headerlink" title="11、【对线面试官】CountDownLatch和CyclicBarrier"></a>11、【对线面试官】CountDownLatch和CyclicBarrier</h1><h2 id="我现在有个场景：现在我有50个任务，这50个任务在完成之后，才能执行下一个「函数」，要是你，你怎么设计？"><a href="#我现在有个场景：现在我有50个任务，这50个任务在完成之后，才能执行下一个「函数」，要是你，你怎么设计？" class="headerlink" title="我现在有个场景：现在我有50个任务，这50个任务在完成之后，才能执行下一个「函数」，要是你，你怎么设计？"></a>我现在有个场景：现在我有50个任务，这50个任务在完成之后，才能执行下一个「函数」，要是你，你怎么设计？</h2><ol>
+<li>可以用JDK给我们提供的线程工具类，CountDownLatch和CyclicBarrier都可以完成这个需求。</li>
+<li>这两个类都可以等到线程完成之后，才去执行某些操作</li>
 </ol>
-<h2 id="一-总览"><a href="#一-总览" class="headerlink" title="一 总览"></a>一 总览</h2><h3 id="达到效果"><a href="#达到效果" class="headerlink" title="达到效果"></a>达到效果</h3><table>
-<thead>
-<tr>
-<th>个人博客网址</th>
-<th>介绍</th>
-<th>对应git仓库&#x2F;管理界面</th>
-</tr>
-</thead>
-<tbody><tr>
-<td><a target="_blank" rel="noopener" href="https://linshenkx.gitee.io/">https://linshenkx.gitee.io</a></td>
-<td>hexo next gitee pages</td>
-<td><a target="_blank" rel="noopener" href="https://gitee.com/linshenkx/linshenkx">https://gitee.com/linshenkx/linshenkx</a></td>
-</tr>
-<tr>
-<td><a target="_blank" rel="noopener" href="https://linshenkx.github.io/">https://linshenkx.github.io</a></td>
-<td>hexo next github pages</td>
-<td><a target="_blank" rel="noopener" href="https://github.com/linshenkx/linshenkx.github.io">https://github.com/linshenkx/linshenkx.github.io</a></td>
-</tr>
-<tr>
-<td><a target="_blank" rel="noopener" href="https://linshen.netlify.app/">https://linshen.netlify.app</a></td>
-<td>netlify加速，文章同步自blog源码仓库</td>
-<td><a target="_blank" rel="noopener" href="https://app.netlify.com/teams/linshenkx">https://app.netlify.com/teams/linshenkx</a></td>
-</tr>
-<tr>
-<td><a target="_blank" rel="noopener" href="https://linshenkx.cn/">https://linshenkx.cn</a></td>
-<td>halo个人网站，文章同步自blog源码仓库</td>
-<td><a target="_blank" rel="noopener" href="https://linshenkx.cn/admin/index.html#/dashboard">https://linshenkx.cn/admin/index.html#/dashboard</a></td>
-</tr>
-</tbody></table>
-<p>blog博客源码仓库（核心，私有）：<a target="_blank" rel="noopener" href="https://github.com/linshenkx/blog">https://github.com/linshenkx/blog</a></p>
-<h3 id="博客发布流程"><a href="#博客发布流程" class="headerlink" title="博客发布流程"></a>博客发布流程</h3><ol>
-<li>编写博客<br>在blog工程下写博客，工程为标准hexo，博客为markdown文件放在source&#x2F;_posts目录下，使用多层级分类存放</li>
-<li>发布到git pages<br>完成博客的增删改后，在工程目录下执行<code>hexo clean &amp;&amp; hexo d -g</code>部署到git pages。<br>这里我配置了同时发布到github和gitee，需要注意的是，gitee的git pages需要手动去触发更新才能生效。</li>
-<li>提交并推送工程<br>提交并推送blog工程的修改。<br>netlify将自动获取blog工程，并执行hexo部署脚本（效果和git pages一样，只是用netlify访问据说会快一点）<br>自己开发的<a target="_blank" rel="noopener" href="https://github.com/linshenkx/haloSyncServer">Halo博客同步器</a>也会检测到blog工程更新，根据更新情况将变化同步到halo博客系统中。</li>
+<h2 id="那既然都能实现的话？那CountDownLatch和CyclicBarrier有什么什么区别呢？"><a href="#那既然都能实现的话？那CountDownLatch和CyclicBarrier有什么什么区别呢？" class="headerlink" title="那既然都能实现的话？那CountDownLatch和CyclicBarrier有什么什么区别呢？"></a>那既然都能实现的话？那CountDownLatch和CyclicBarrier有什么什么区别呢？</h2><ul>
+<li>主要的区别就是CountDownLatch用完了，就结束了，没法复用。而CyclicBarrier不一样，它可以复用。</li>
+<li>比如说，你得给我解释：CountDownLatch和CyclicBarrier都是线程同步的工具类<br>od</li>
+<li>CountDownLatch允许一个或多个线程一直等待，直到这些线程完成它们的操作</li>
+<li>而CyclicBarrier不一样，它往往是当线程到达某状态后，暂停下来等待其他线程等到所有线程均到达以后，才继续执行</li>
+<li>可以发现这两者的等待主体是不一样的。</li>
+<li>CountDownLatch调用await（）通常是主线程&#x2F;调用线程，而CyclicBarrier调用await（）是在任务线程调用的</li>
+<li>所以，CyclicBarrier中的阻塞的是任务的线程，而主线程是不受影响的</li>
+<li>简单叙述完这些基本概念后，可以特意抛出这两个类都是基于AQS实现的</li>
+<li>countDownLatch<ol>
+<li>前面提到了CountDownLatch也是基于AQS实现的，它的实现机制很简单</li>
+<li>当我们在构建CountDownLatch对象时，传入的值其实就会赋值给AQS的关键变量state</li>
+<li>执行countDown方法时，其实就是利用CAS将state-1<br>执行await方法时，其实就是判断state是否为0，不为0则加入到队列中，将该线程阻塞掉（除了头结点）</li>
+<li>因为头节点会一直自旋等待state为0，当state为0时，头节点把剩余的在队列中阻塞的节点也一并唤醒</li>
 </ol>
-<h2 id="二-设计思路"><a href="#二-设计思路" class="headerlink" title="二 设计思路"></a>二 设计思路</h2><h3 id="1-起因"><a href="#1-起因" class="headerlink" title="1 起因"></a>1 起因</h3><p>本来我一直是在使用csdn的，但是网页端写作确实不方便，而且还可能受网络情况限制。<br>所以我后面一般都是用印象笔记做记录，在印象笔记写好再看心情整理到csdn上去。<br>但是悄不注意的，在21年初csdn改版，同时也改变了排名和引流规则。<br>之前一个星期2500到3000的访问量现在只剩1500到2000了。</p>
-<p>嗯，不可忍。换。</p>
-<h3 id="2-调研"><a href="#2-调研" class="headerlink" title="2 调研"></a>2 调研</h3><p>市面上的博客系统可根据对Git Pages的支持（即是否支持生成静态网站）分为两大类：</p>
-<p>一是以hexo为代表的静态网站生成器：如hexo、hugo、jekyll，较成熟，有较多第三方主题和插件，可与git pages搭配使用，也可自行部署。</p>
-<p>二是以halo为代表的五花八门的个人博客系统，功能更加强大，自由度更高，通常带后台管理，但不支持git pages，需自行部署。</p>
-<h3 id="3-分析"><a href="#3-分析" class="headerlink" title="3 分析"></a>3 分析</h3><p>个人博客的话使用git pages比较稳定，网址固定，可以永久使用，而且可以通过搭配不同的git服务商来保证访问速度。<br>但是git pages的缺点也很明显，是静态网站，虽然可以搭配第三方插件增强，但说到底还是个静态网站。</p>
-<p>而如果自己买服务器，买域名，用第三方个人博客系统，就可以玩得比较花里胡哨了，但谁知道会用多久呢。<br>服务器、域名都要自己负责，三五年之后还能不能访问就比较难说了。<br>但是年轻人嘛，总还是花里胡哨点才香。</p>
-<p>那我就全都要。</p>
-<p>git pages作为专业性较强的个人网站可以永久访问，<br>然后再弄个服务器放个博客系统自己玩。</p>
-<h3 id="4-选型"><a href="#4-选型" class="headerlink" title="4 选型"></a>4 选型</h3><p>静态网站生成器选的是hexo，传统一点，支持的插件和主题比较多。<br>hugo虽然也不错，但似乎国内用的不多，支持可能还不够完善。</p>
-<p>然后hexo的主题用的最经典的next，比较成熟，功能也很完善<br>虽然整体比较严肃压抑，但可以自己加个live2d增添点活力，<br>作为一个展示专业性的博客网站这样也就够了</p>
-<p>自定义博客系统的话我选的是halo，最主要原因是它是java写的，利于二次开发（事实上后面用着也确实有问题，还提交了一个issue）<br>而且功能比较强大，生态比较完善，虽然第三方主题少且基本都没更新，但是…实在是找不出其他一个能打的了<br>另外halo支持导入markdown，且功能基本都通过rest接口放开，适合开发者使用</p>
-<h2 id="三-设计实现"><a href="#三-设计实现" class="headerlink" title="三 设计实现"></a>三 设计实现</h2><h3 id="1-hexo"><a href="#1-hexo" class="headerlink" title="1 hexo"></a>1 hexo</h3><p>hexo本身只是静态网站生成器，你可以把hexo项目本身发布成为git pages项目，<br>像github、gitee这些会识别出这是一个hexo项目，然后进行编译，得到静态资源供外部访问。<br>这也是最简单的用法。</p>
-<p>但是不推荐。</p>
-<p>因为git pages项目一般都要求是public的（且名称固定，一个git账号只有一个git pages仓库），<br>hexo项目包含你的博客markdown源文件和其他的个人信息。<br>我们只是想把必要的生成后的静态网页放出去而已，至于项目的配置信息和markdown源文件应该藏起来。</p>
-<p>所以需要使用 hexo-deployer-git 插件进行git pages的部署。<br>即放到git公开的文件只有生成后的网页文件而已，git只是把你生成后的index.html进行直接展示，不会再去编译了<br>（需要在source目录下添加.nojekyll文件表明为静态网页，无须编译）</p>
-<p>而项目本身为了更好地进行管理和记录，还是要发布到git上面的，作为一个普通的私有仓库，名称可以任意（如 blog）</p>
-<p>这样，每次要增删改完文章只需要执行<code>hexo clean &amp;&amp; hexo d -g</code>即可发布到git仓库上<br>注意，不同git服务商git pages规则不一样。<br>比方说我gitee和github的用户名都是linshenkx<br>但是gitee要求的仓库名是linshenkx，而github的仓库名就必须是linshenkx.github.io了<br>而github的git pages仓库在接收到推送后就自动（编译）部署<br>gitee则需要到仓库web界面手动触发更新</p>
-<p>截至到这一步是大多数人的做法，即git上两个仓库并存，一（或多）个git pages公有仓库做展示，一个blog仓库存放博客源码<br>注意：如果git pages仓库允许私有，则可以使用一个仓库多个分支来实现相同效果。<br>但还是推荐使用两个仓库，因为这样更通用，设计上也更合理。</p>
-<p>工程总体结构如下，为普通hexo工程：<br><a target="_blank" rel="noopener" href="https://lian-gallery.oss-cn-guangzhou.aliyuncs.com/img/1631718173(1).png"><img src="https://lian-gallery.oss-cn-guangzhou.aliyuncs.com/img/1631718173(1).png" alt="img"></a><br>博客源码目录结构如下，为多层级结构：<br><a target="_blank" rel="noopener" href="https://lian-gallery.oss-cn-guangzhou.aliyuncs.com/img/1631718305(1).png"><img src="https://lian-gallery.oss-cn-guangzhou.aliyuncs.com/img/1631718305(1).png" alt="img"></a></p>
-<h3 id="2-halo"><a href="#2-halo" class="headerlink" title="2 halo"></a>2 halo</h3><p>halo的使用看官方文档一般就够了，这里需要补充的是其代理配置。<br>因为halo的在线下载更新主题功能通常需要连接到github，我习惯通过代理访问<br>这里提供一下配置方法<br>即在容器启动时添加JVM参数即可</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker run -it -d --name halo --network host -e JVM_OPTS=&quot;-Dhttp.proxyHost=127.0.0.1 -Dhttp.proxyPort=7890 -Dhttps.proxyHost=127.0.0.1 -Dhttps.proxyPort=7890&quot; -v /opt/halo/workspace:/root/.halo --restart=always halohub/halo</span><br><span class="line"> </span><br></pre></td></tr></table></figure>
-
-<h3 id="3-markdown图片"><a href="#3-markdown图片" class="headerlink" title="3 markdown图片"></a>3 markdown图片</h3><p>markdown图片的存放一直是个麻烦的问题。<br>最害怕遇到就是图链的失效，而且往往自己还不能发现。<br>理想状态下就是markdown一张图片支持配置多个图床链接，第一个图床链接超时就使用下一个。<br>这种服务端的处理思想很明显不适合放到客户端。<br>退而求其次，配置一个链接，访问这个链接会触发对多个图床的访问，然后那个快用那个。<br>这个效果技术上不难实现，也有个商业产品（聚合图床）是这样的，缺点是收费。<br>然后我又在github、gitee上找了各个图床软件，都不怎么样（这个时间成本都够给聚合图床开几年会员了）<br>最终还是妥协，用云存储吧，选了阿里<br>七牛、腾讯也都试了，其实都差不多，看个人爱好，没有太特别的理由</p>
-<p>如果你用typora写markdown的话很方便，它支持picgo插件</p>
-<p>但我习惯在idea里面编写，idea也有一些markdown-image插件，基本都不好用<br>所以我还是安装了picgo，开了快捷键，复制图片直接快捷键粘贴体验也还是比较舒服的<br>picgo的特点是插件多，不过插件质量一般，有很多bug</p>
-<p>花了两天时间纠结、测试，最后的方案是：idea编辑+阿里云存储+picgo上传</p>
-<h3 id="4-同步"><a href="#4-同步" class="headerlink" title="4 同步"></a>4 同步</h3><p>这才是重点</p>
-<h4 id="1-同步的方向"><a href="#1-同步的方向" class="headerlink" title="1 同步的方向"></a>1 同步的方向</h4><p>即在哪里写文章，同步到哪里</p>
-<p>我还是习惯用idea写markdown文档而不是在网页上。<br>所以确定是流向为 hexo-&gt;halo</p>
-<h4 id="2-技术支撑"><a href="#2-技术支撑" class="headerlink" title="2 技术支撑"></a>2 技术支撑</h4><p>halo支持导入markdown文件，所以主要问题为hexo的markdown博客源码文件的获取<br>hexo文章存储路径为 source&#x2F;_posts ，有多层级文件夹，可以简单地理解成文件IO操作获取文章内容。<br>但关键是存储在git上，这里可以用JGit进行操作。<br>同时，JGit支持获取两次commit之间的文件变化情况。<br>即可以捕获到文章的增删改操作，而不用每次都全量地同步。</p>
-<h4 id="3-成果"><a href="#3-成果" class="headerlink" title="3 成果"></a>3 成果</h4><p>又处理了一些细节问题，最终还是自己做了个haloSyncServer同步程序，<br>封装成docker，放服务器上跑，实现同步。<br>待整理后开源。</p>
-<p>2021年11月更新<br>开源地址为：<a target="_blank" rel="noopener" href="https://github.com/linshenkx/haloSyncServer">https://github.com/linshenkx/haloSyncServer</a><br>效果<br><a target="_blank" rel="noopener" href="https://lian-gallery.oss-cn-guangzhou.aliyuncs.com/img/1637394238(1).jpg"><img src="https://lian-gallery.oss-cn-guangzhou.aliyuncs.com/img/1637394238(1).jpg" alt="img"></a></p>
+</li>
+<li>CycllicBarrier<ol>
+<li>从源码不难发现的是，它没有像CountDo wnLatch和ReentrantLock使用AQS的stat e变量，而CyclicBarrier是直接借助ReentrantLock加上Condition等待唤醒的功能进而实现的</li>
+<li>在构建CyclicBarrier时，传入的值会赋值给CyclicBarrier内部维护count变量，也会赋值给parties变量（这是可以复用的关键）</li>
+<li>每次调用await时，会将count-1，操作count值是直接使用ReentrantLock来保证线程安全性</li>
+<li>如果count不为0，则添加则condition队列中</li>
+<li>如果count等于0时，则把节点从condition队列添加至AQS的队列中进行全部唤醒，并且将parties的值重新赋值为count的值（实现复用）</li>
+</ol>
+</li>
+</ul>
+<h2 id="那如果是这样的话，那我多次用CountDownLatch不也可以解决问题吗？"><a href="#那如果是这样的话，那我多次用CountDownLatch不也可以解决问题吗？" class="headerlink" title="那如果是这样的话，那我多次用CountDownLatch不也可以解决问题吗？"></a>那如果是这样的话，那我多次用CountDownLatch不也可以解决问题吗？</h2><ol>
+<li>是这样的，我提出了个场景，它确实很像可以用CountDownLatch和CyclicBarrier解决</li>
+<li>但是，作为面试者的你可以尝试向我获取更多的信息</li>
+<li>我可没说一个任务就用一个线程处理哦</li>
+<li>放一步讲，即便我是想考察CountDownLatch和CyclicBarrier的知识，但是过程也是很重要的。我会看你在这个过程中思考的以及沟通</li>
+</ol>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ol>
+<li>CountDownlatch基于AQS实现，会将构造CountDownLatch的入参传递至state，countDown（）就是在利用CAS将state减- 1，await（）实际就是让头节点一直在等待s tate为0时，释放所有等待的线程</li>
+<li>而CyclicBarrier则利用ReentrantLock和Condition，自身维护了count和parties变量。每次调用await将count-1，并将线程加入到condition队列上。等到count为0时，则将condition队列的节点移交至AQS队列，并全部释放。</li>
+<li></li>
+</ol>
 
       
     </div>
