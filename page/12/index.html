@@ -1328,7 +1328,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-04-06 09:54:25" itemprop="dateModified" datetime="2023-04-06T09:54:25+08:00">2023-04-06</time>
+      <time title="修改时间：2023-09-27 11:20:53" itemprop="dateModified" datetime="2023-09-27T11:20:53+08:00">2023-09-27</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -1361,7 +1361,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>4.8k</span>
+      <span>4.9k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -1521,6 +1521,10 @@
 <h2 id="批量图片形状悬浮转嵌入"><a href="#批量图片形状悬浮转嵌入" class="headerlink" title="批量图片形状悬浮转嵌入"></a>批量图片形状悬浮转嵌入</h2><p>添加宏</p>
 <figure class="highlight vbnet"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Sub</span> 形状悬浮转嵌入()</span><br><span class="line">    <span class="keyword">Dim</span> i <span class="keyword">As</span> <span class="type">Integer</span></span><br><span class="line">    <span class="keyword">Dim</span> sp <span class="keyword">As</span> Shape</span><br><span class="line">    <span class="keyword">Dim</span> allConv <span class="keyword">As</span> <span class="type">Long</span></span><br><span class="line">    </span><br><span class="line">    allConv = MsgBox(<span class="string">&quot;转换所有形状（如文本框、矩形）[是]&quot;</span> &amp; vbCrLf &amp; <span class="string">&quot;仅转换图形[否]&quot;</span> &amp; vbCrLf _</span><br><span class="line">        &amp; <span class="string">&quot;退出程序[取消]&quot;</span>, vbInformation + vbYesNoCancel + vbDefaultButton2, <span class="string">&quot;被转换类型&quot;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">If</span> allConv = vbNo <span class="keyword">Then</span></span><br><span class="line">        <span class="keyword">For</span> <span class="keyword">Each</span> sp <span class="keyword">In</span> ActiveDocument.Shapes</span><br><span class="line">            <span class="keyword">If</span> sp.Type = msoPicture <span class="keyword">Then</span></span><br><span class="line">                sp.ConvertToInlineShape</span><br><span class="line">                i = i + <span class="number">1</span></span><br><span class="line">            <span class="keyword">End</span> <span class="keyword">If</span></span><br><span class="line">        <span class="keyword">Next</span></span><br><span class="line">    <span class="keyword">ElseIf</span> allConv = vbYes <span class="keyword">Then</span></span><br><span class="line">        <span class="keyword">For</span> <span class="keyword">Each</span> sp <span class="keyword">In</span> ActiveDocument.Shapes</span><br><span class="line">            sp.ConvertToInlineShape</span><br><span class="line">            i = i + <span class="number">1</span></span><br><span class="line">        <span class="keyword">Next</span></span><br><span class="line">    <span class="keyword">Else</span></span><br><span class="line">        <span class="keyword">Exit</span> <span class="keyword">Sub</span></span><br><span class="line">    <span class="keyword">End</span> <span class="keyword">If</span></span><br><span class="line">    </span><br><span class="line">    MsgBox Format(i, <span class="string">&quot;完成，共转换了0个形状&quot;</span>)</span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Sub</span></span><br></pre></td></tr></table></figure>
 
+<h2 id="批量改英文数字为times-new-roman"><a href="#批量改英文数字为times-new-roman" class="headerlink" title="批量改英文数字为times new roman"></a>批量改英文数字为times new roman</h2><ol>
+<li>选择 编辑→替换 界面。在“查找内容”文本框中输入”[0-9a-zA-Z]”，表示查找所有数字及大小写字母。选择 高级→使用通配符，表示输入的查找内容为通配符，而不是普通文本。</li>
+<li>选中“替换为”文本框。选择 高级→格式→字体→西文字体，修改为 Times New Roman。</li>
+</ol>
 
       
     </div>

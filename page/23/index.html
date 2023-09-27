@@ -276,7 +276,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/473fac3a/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/d664f3f3/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/lion.png">
@@ -294,7 +294,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/473fac3a/" class="post-title-link" itemprop="url">github 上传大文件100MB姿势</a>
+          <a href="/posts/d664f3f3/" class="post-title-link" itemprop="url">git reset放弃修改&放弃增加文件</a>
         </h2>
 
         <div class="post-meta-container">
@@ -336,8 +336,8 @@
     </span>
     <span class="post-meta-item-text">Waline：</span>
   
-    <a title="waline" href="/posts/473fac3a/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/473fac3a/" data-xid="/posts/473fac3a/" itemprop="commentCount"></span>
+    <a title="waline" href="/posts/d664f3f3/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/d664f3f3/" data-xid="/posts/d664f3f3/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -348,7 +348,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>475</span>
+      <span>622</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -366,448 +366,33 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="github-上传大文件100MB姿势"><a href="#github-上传大文件100MB姿势" class="headerlink" title="github 上传大文件100MB姿势"></a>github 上传大文件100MB姿势</h1><p>具体就是安装<a target="_blank" rel="noopener" href="https://link.jianshu.com/?t=https://git-lfs.github.com">git-lfs</a>，先下载，然后就是一顿操作：</p>
-<ol>
-<li><p>先在web建立一个空仓库</p>
-</li>
-<li><p>然后建立跟仓库名一样的文件夹，并执行初始化命令：<code>git init</code></p>
-</li>
-<li><p>然后执行<code>git lfs install</code></p>
-</li>
-<li><p>然后添加你要上传的文件名或后缀名：<code>git lfs track &#39;*.zip&#39;</code></p>
-</li>
-<li><p>然后就把生成的  <code>.gitattributes</code>文件，先传到远程仓库</p>
-<ul>
-<li><code>git add .gitattributes</code></li>
-</ul>
-</li>
-</ol>
-<ul>
-<li><code>git commit -m &#39;large - init file&#39;</code><ul>
-<li><code>git push -u origin master:master</code> # 第一次要这样执行，后面再传就<code>git push</code>就行。</li>
-</ul>
-</li>
-</ul>
-<ol start="6">
-<li><p>然后就可以正常添加上传大文件了！</p>
-<ul>
-<li><code>git add bigfile.zip</code></li>
-<li><code>git commit -m &#39;upload Big file.&#39;</code></li>
-<li><code>git push</code> # 第一次要这样执行，后面再传就<code>git push</code>就行。</li>
-</ul>
-</li>
-</ol>
-<hr>
-<ul>
-<li><p>删除远程仓库文件，但本地文件不删除，如</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bigfile.<span class="built_in">zip</span></span><br></pre></td></tr></table></figure>
+          <h1 id="git-reset放弃修改-amp-放弃增加文件"><a href="#git-reset放弃修改-amp-放弃增加文件" class="headerlink" title="git reset放弃修改&amp;放弃增加文件"></a>git reset放弃修改&amp;放弃增加文件</h1><p><strong>1. 本地修改了一堆文件(并没有使用git add到暂存区)，想放弃修改。</strong><br>单个文件&#x2F;文件夹：</p>
+<figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git checkout <span class="comment">-- filename</span></span><br></pre></td></tr></table></figure>
 
-<ul>
-<li><code>git rm bigfile.zip</code></li>
-<li><code>git commit -m &#39;rm bigfile.zip&#39;</code></li>
-<li><code>git push</code></li>
-</ul>
-</li>
-</ul>
+<p>所有文件&#x2F;文件夹：</p>
+<figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>git checkout .</span><br></pre></td></tr></table></figure>
 
-      
-    </div>
+<p><strong>2. 本地新增了一堆文件(并没有git add到暂存区)，想放弃修改。</strong><br>单个文件&#x2F;文件夹：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$</span> <span class="built_in">rm</span> filename / <span class="built_in">rm</span> <span class="built_in">dir</span> <span class="literal">-rf</span></span><br></pre></td></tr></table></figure>
 
-    
-    
-    
+<p>所有文件&#x2F;文件夹：</p>
+<figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>git clean -xdf</span><br></pre></td></tr></table></figure>
 
+<p>&#x2F;&#x2F; 删除新增的文件，如果文件已经已经git add到暂存区，并不会删除！</p>
+<p><strong>3. 本地修改&#x2F;新增了一堆文件，已经git add到暂存区，想放弃修改。</strong><br>单个文件&#x2F;文件夹：</p>
+<figure class="highlight sas"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="keyword">reset</span> HEAD <span class="keyword">filename</span></span><br></pre></td></tr></table></figure>
 
-    <div>
-      
-    </div>
+<p>所有文件&#x2F;文件夹：</p>
+<figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>git reset HEAD .</span><br></pre></td></tr></table></figure>
 
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>l
+<p><strong>4. 本地通过git add &amp; git commit 之后，想要撤销此次commit</strong></p>
+<figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>git reset commit_id</span><br></pre></td></tr></table></figure>
 
+<p>这个id是你想要回到的那个节点，可以通过git log查看，可以只选前6位<br><strong>&#x2F;&#x2F; 撤销之后，你所做的已经commit的修改还在工作区！</strong></p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="keyword">reset</span> <span class="comment">--hard commit_id</span></span><br></pre></td></tr></table></figure>
 
+<p>这个id是你想要回到的那个节点，可以通过git log查看，可以只选前6位<br><strong>&#x2F;&#x2F; 撤销之后，你所做的已经commit的修改将会清除，仍在工作区&#x2F;暂存区的代码不会清除！</strong></p>
 
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/ba167550/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/lion.png">
-      <meta itemprop="name" content="swimminghao">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="swimminghao's blog">
-      <meta itemprop="description" content="swimminghao的学习博客">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | swimminghao's blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/ba167550/" class="post-title-link" itemprop="url">git命令作业</a>
-        </h2>
-
-        <div class="post-meta-container">
-
-          
-
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-13 12:56:04" itemprop="dateModified" datetime="2022-03-13T12:56:04+08:00">2022-03-13</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="far fa-comment"></i>
-    </span>
-    <span class="post-meta-item-text">Waline：</span>
-  
-    <a title="waline" href="/posts/ba167550/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/ba167550/" data-xid="/posts/ba167550/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>491</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>1 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="正常上线"><a href="#正常上线" class="headerlink" title="正常上线"></a>正常上线</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">git clone</span><br><span class="line"></span><br><span class="line">git checkout dev</span><br><span class="line"></span><br><span class="line">git checkout -b feature-function</span><br><span class="line"></span><br><span class="line">git add .</span><br><span class="line">git commit -m <span class="string">&#x27;结束功能开发&#x27;</span></span><br><span class="line"></span><br><span class="line">git checkout dev</span><br><span class="line">git merge feature-function</span><br><span class="line">git push origin dev</span><br><span class="line"></span><br><span class="line">git checkout -b release-<span class="number">2019</span>-09-<span class="number">29</span></span><br><span class="line">git push origin release-<span class="number">2019</span>-09-<span class="number">29</span></span><br><span class="line"></span><br><span class="line">线上发现bug 紧急上线</span><br><span class="line"></span><br><span class="line">git checkout -b hotfix-<span class="number">2019</span>-09-<span class="number">29</span> origin/master</span><br><span class="line">git checkout -b hotfix-<span class="number">2019</span>-09-<span class="number">29</span></span><br><span class="line">git add .</span><br><span class="line">git commit -m <span class="string">&#x27;message&#x27;</span></span><br><span class="line">git push origin hotfix-<span class="number">2019</span>-09-<span class="number">29</span></span><br><span class="line"></span><br><span class="line">git checkout dev</span><br><span class="line">git merge hotfix-<span class="number">2019</span>-09-<span class="number">29</span></span><br><span class="line">git push origin dev</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">git branch -d feature-function    </span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>l
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/ca06b5a9/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/lion.png">
-      <meta itemprop="name" content="swimminghao">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="swimminghao's blog">
-      <meta itemprop="description" content="swimminghao的学习博客">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | swimminghao's blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/ca06b5a9/" class="post-title-link" itemprop="url">问答系统总结1</a>
-        </h2>
-
-        <div class="post-meta-container">
-
-          
-
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-11 10:41:30" itemprop="dateModified" datetime="2022-03-11T10:41:30+08:00">2022-03-11</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">学习</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="far fa-comment"></i>
-    </span>
-    <span class="post-meta-item-text">Waline：</span>
-  
-    <a title="waline" href="/posts/ca06b5a9/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/ca06b5a9/" data-xid="/posts/ca06b5a9/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>1.9k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>2 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="问答系统总结"><a href="#问答系统总结" class="headerlink" title="问答系统总结"></a>问答系统总结</h1><h2 id="1-开发工具GIt，idea"><a href="#1-开发工具GIt，idea" class="headerlink" title="1.开发工具GIt，idea"></a>1.开发工具GIt，idea</h2><ul>
-<li>我是把代码放到github上的，以便于代码版本管理，不能拷贝来拷贝去</li>
-<li>java语言&#x2F;规范最基础，要研究jvm，垃圾回收算法思路，根据什么样的规则，怎么回收申请的一些对象；参数可以配置，怎么配置，对应的后台运行又是怎么样的<h2 id="2-Spring-Boot，Velocity"><a href="#2-Spring-Boot，Velocity" class="headerlink" title="2.Spring Boot，Velocity"></a>2.Spring Boot，Velocity</h2></li>
-</ul>
-<ul>
-<li><p>spring框架：spring是怎么做的，view、controller、service是怎么连在一起的：spring是控制反转、依赖注入，解决了数据数据初始化一些问题，能够吧代码写得很简洁，然后脱颖而出，核心是怎么做的，数据初始化是怎么做的。面向切面的编程可以用在什么地方，spring的一般框架是mvc<br>：层是controller、中间层是service、底层是dao。为什么这么分？他比其他的区别是什么？对一些request包装了<br>   找spring一两点深入研究：我不仅仅是用了spring，我还研究了他某一个组件，他是怎么实现的？讲讲(闪光点）</p>
-</li>
-<li><p>velocity（模板语言）<br> 我用了velocity，我发现了velocity里的很多东西和我学的java、c++都是一样的，他这个框架他把一些公用的都提取出来，前面的spring boot是个java框架，为什么要用velocity，因为我要前后端分离，view和后面的数据要分离，data是怎么传过来的，怎么解析的，他支持什么东西？（不仅仅用了这个东西，还有思想，解耦）</p>
-<h2 id="3-mybatis"><a href="#3-mybatis" class="headerlink" title="3.mybatis"></a>3.mybatis</h2></li>
-<li><p>怎么把数据库的一些前后的读取给做了，怎么把xml里的多重条件，怎么做文法的解析，然后把这些条件给处理掉。</p>
-<h2 id="4-登录-x2F-注册"><a href="#4-登录-x2F-注册" class="headerlink" title="4.登录&#x2F;注册"></a>4.登录&#x2F;注册</h2></li>
-<li><p>网站安全（salt）：密码为什么加了一个salt就变得安全？</p>
-</li>
-<li><p>通过拦截器来实现的：拦截器的思想、框架，留好接口;拦截器实现登录注册：我在cookie里放了一个token，token怎么处理用户登录注册的：在用户登录注册的时候，会下发一个token，把token与用户信息关联起来，关联起来之后我为了优化token信息，把token放到数据库里（redis），设计一个分布式的统一登录系统，现在的互联网产品都是统一登录的，比如，登录qq之后，登录网页就不需要登录了，qq登录过的token直接注入到网页上去。这是个ssension共享问题：、</p>
-</li>
-<li><p>保证数据安全：验证（邮件激活）</p>
-<h2 id="5-前缀树"><a href="#5-前缀树" class="headerlink" title="5.前缀树"></a>5.前缀树</h2></li>
-<li><p>构造一个前缀树，通过一个有限状态机来实现一传文本是不是包含敏感词，繁杂度是多少 很重要：优点有哪些？为什么不用kmp，文本查找算法：<br>可以很快的加一些词汇过来；有扩展性，以及性能更提高</p>
-<h2 id="6-redis"><a href="#6-redis" class="headerlink" title="6.redis"></a>6.redis</h2></li>
-<li><p>数据结构：跳列表，哈希，优先队列，list：我了解redis底层是怎么实现的，为什么他的效率很高，他的字符串是怎么保存的，做这个工程的时候我用在的异步队列上、排序上、异步框架</p>
-<h2 id="7-异步框架"><a href="#7-异步框架" class="headerlink" title="7.异步框架"></a>7.异步框架</h2></li>
-<li><p>思路：我这个网站附带的每一步操作可能附带的操作都非常多，为了更快的吧结果返回给用户，所以采用异步框架，自己写的，数据结构：使用redis的队列，因为redis能够保证线程同步；除了用队列，我还想过用有优先队列，这样我的异步框架能够把紧急的任务线处理掉。我这个异步框架：有消息的发射，消息的处理，事件的模型定义以及具体执行的eventhandle，我定义了一些公共接口把这些实现了。</p>
-<h2 id="8-邮件（smtp协议）"><a href="#8-邮件（smtp协议）" class="headerlink" title="8.邮件（smtp协议）"></a>8.邮件（smtp协议）</h2></li>
-<li><p>做了一个简单邮件，怎么连接上服务器，我当时做这个的时候，ssl问题<br>，ssl理解，服务器需要ssl链接，为了安全服务器是怎么做的；java sdk 1.7 1.8的问题，1.8是需要换一个jar包的</p>
-</li>
-<li><p>豆瓣电影排序：好的问题能挑选出来，互动越多，时间越新，评分越高。</p>
-<h2 id="9-timeline（时间轴）"><a href="#9-timeline（时间轴）" class="headerlink" title="9.timeline（时间轴）"></a>9.timeline（时间轴）</h2></li>
-<li><p>肯定会问：为什么用推拉模式，用推实时性高能让好友快速得到消息，用拉能节省僵尸号、不是活跃用户的存储空间。怎么区分？最后把timeline组合起来‘timeline模板系统，每个新鲜事展向不一样，和velocity结合起来，后台存储的都是核心数据，每个数据对应的是一个模板，我把模板结合起来，我就能快速的把时间轴展示出来。</p>
-<h2 id="10-爬虫"><a href="#10-爬虫" class="headerlink" title="10.爬虫"></a>10.爬虫</h2><h2 id="11-solr搜索"><a href="#11-solr搜索" class="headerlink" title="11.solr搜索"></a>11.solr搜索</h2></li>
-<li><p>搜索去重：对比相似度，敏感哈希算法，哈希算法：两个字符串稍微有一点点不一样，结构就是不一样的。可能头尾是不一样的，内容一样：采用敏感哈希算法把相似度求出来，区别：敏感哈希算法两个文档相似度很高，他生成的哈希值的比例是很相似的。</p>
-<h2 id="12-单元测试-x2F-部署"><a href="#12-单元测试-x2F-部署" class="headerlink" title="12.单元测试&#x2F;部署"></a>12.单元测试&#x2F;部署</h2></li>
-<li><p>部署：运维，llinux nigix反向代理，与正向对比。负载均衡：为什么要负载均衡。</p>
-</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>l
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/f44eb3a2/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/lion.png">
-      <meta itemprop="name" content="swimminghao">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="swimminghao's blog">
-      <meta itemprop="description" content="swimminghao的学习博客">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | swimminghao's blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/f44eb3a2/" class="post-title-link" itemprop="url">git流程</a>
-        </h2>
-
-        <div class="post-meta-container">
-
-          
-
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-13 12:56:04" itemprop="dateModified" datetime="2022-03-13T12:56:04+08:00">2022-03-13</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="far fa-comment"></i>
-    </span>
-    <span class="post-meta-item-text">Waline：</span>
-  
-    <a title="waline" href="/posts/f44eb3a2/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/f44eb3a2/" data-xid="/posts/f44eb3a2/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>498</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>1 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="git-流程"><a href="#git-流程" class="headerlink" title="git 流程"></a>git 流程</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">正常上线</span><br><span class="line">git clone</span><br><span class="line"></span><br><span class="line">git checkout dev</span><br><span class="line"></span><br><span class="line">git checkout -b feature-function</span><br><span class="line"></span><br><span class="line">git add .</span><br><span class="line">git commit -m <span class="string">&#x27;结束功能开发&#x27;</span></span><br><span class="line"></span><br><span class="line">git checkout dev</span><br><span class="line">git merge feature-function</span><br><span class="line">git push origin dev</span><br><span class="line"></span><br><span class="line">git checkout -b release-<span class="number">2019</span>-09-<span class="number">29</span></span><br><span class="line">git push origin release-<span class="number">2019</span>-09-<span class="number">29</span></span><br><span class="line"></span><br><span class="line">线上发现bug 紧急上线</span><br><span class="line"></span><br><span class="line">git checkout -b hotfix-<span class="number">2019</span>-09-<span class="number">29</span> origin/master</span><br><span class="line">git checkout -b hotfix-<span class="number">2019</span>-09-<span class="number">29</span> </span><br><span class="line">git add .</span><br><span class="line">git commit -m <span class="string">&#x27;message&#x27;</span></span><br><span class="line">git push origin hotfix-<span class="number">2019</span>-09-<span class="number">29</span></span><br><span class="line"></span><br><span class="line">git checkout dev</span><br><span class="line">git merge hotfix-<span class="number">2019</span>-09-<span class="number">29</span></span><br><span class="line">git push origin dev</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">git branch -d feature-function</span><br></pre></td></tr></table></figure>
       
     </div>
 
@@ -1188,6 +773,170 @@ header, .context-menu, .megamenu-content, footer { font-family: "Segoe UI", Aria
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/473fac3a/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lion.png">
+      <meta itemprop="name" content="swimminghao">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="swimminghao's blog">
+      <meta itemprop="description" content="swimminghao的学习博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | swimminghao's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/473fac3a/" class="post-title-link" itemprop="url">github 上传大文件100MB姿势</a>
+        </h2>
+
+        <div class="post-meta-container">
+
+          
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-03-13 12:56:04" itemprop="dateModified" datetime="2022-03-13T12:56:04+08:00">2022-03-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/posts/473fac3a/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/473fac3a/" data-xid="/posts/473fac3a/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>475</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>1 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="github-上传大文件100MB姿势"><a href="#github-上传大文件100MB姿势" class="headerlink" title="github 上传大文件100MB姿势"></a>github 上传大文件100MB姿势</h1><p>具体就是安装<a target="_blank" rel="noopener" href="https://link.jianshu.com/?t=https://git-lfs.github.com">git-lfs</a>，先下载，然后就是一顿操作：</p>
+<ol>
+<li><p>先在web建立一个空仓库</p>
+</li>
+<li><p>然后建立跟仓库名一样的文件夹，并执行初始化命令：<code>git init</code></p>
+</li>
+<li><p>然后执行<code>git lfs install</code></p>
+</li>
+<li><p>然后添加你要上传的文件名或后缀名：<code>git lfs track &#39;*.zip&#39;</code></p>
+</li>
+<li><p>然后就把生成的  <code>.gitattributes</code>文件，先传到远程仓库</p>
+<ul>
+<li><code>git add .gitattributes</code></li>
+</ul>
+</li>
+</ol>
+<ul>
+<li><code>git commit -m &#39;large - init file&#39;</code><ul>
+<li><code>git push -u origin master:master</code> # 第一次要这样执行，后面再传就<code>git push</code>就行。</li>
+</ul>
+</li>
+</ul>
+<ol start="6">
+<li><p>然后就可以正常添加上传大文件了！</p>
+<ul>
+<li><code>git add bigfile.zip</code></li>
+<li><code>git commit -m &#39;upload Big file.&#39;</code></li>
+<li><code>git push</code> # 第一次要这样执行，后面再传就<code>git push</code>就行。</li>
+</ul>
+</li>
+</ol>
+<hr>
+<ul>
+<li><p>删除远程仓库文件，但本地文件不删除，如</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bigfile.<span class="built_in">zip</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>git rm bigfile.zip</code></li>
+<li><code>git commit -m &#39;rm bigfile.zip&#39;</code></li>
+<li><code>git push</code></li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>l
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://example.com/posts/341ecd43/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1398,7 +1147,7 @@ header, .context-menu, .megamenu-content, footer { font-family: "Segoe UI", Aria
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/dd89734e/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/ba167550/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/lion.png">
@@ -1416,7 +1165,7 @@ header, .context-menu, .megamenu-content, footer { font-family: "Segoe UI", Aria
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/dd89734e/" class="post-title-link" itemprop="url">小型无人机系统试验规程</a>
+          <a href="/posts/ba167550/" class="post-title-link" itemprop="url">git命令作业</a>
         </h2>
 
         <div class="post-meta-container">
@@ -1445,7 +1194,7 @@ header, .context-menu, .megamenu-content, footer { font-family: "Segoe UI", Aria
       </span>
       <span class="post-meta-item-text">分类于</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%97%A0%E4%BA%BA%E6%9C%BA/" itemprop="url" rel="index"><span itemprop="name">无人机</span></a>
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
         </span>
     </span>
 
@@ -1458,8 +1207,8 @@ header, .context-menu, .megamenu-content, footer { font-family: "Segoe UI", Aria
     </span>
     <span class="post-meta-item-text">Waline：</span>
   
-    <a title="waline" href="/posts/dd89734e/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/dd89734e/" data-xid="/posts/dd89734e/" itemprop="commentCount"></span>
+    <a title="waline" href="/posts/ba167550/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/ba167550/" data-xid="/posts/ba167550/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -1470,7 +1219,7 @@ header, .context-menu, .megamenu-content, footer { font-family: "Segoe UI", Aria
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>327</span>
+      <span>491</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -1488,8 +1237,129 @@ header, .context-menu, .megamenu-content, footer { font-family: "Segoe UI", Aria
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>[toc]</p>
-<h1 id="无人机系统组成"><a href="#无人机系统组成" class="headerlink" title="无人机系统组成"></a>无人机系统组成</h1><h2 id="航电系统"><a href="#航电系统" class="headerlink" title="航电系统"></a>航电系统</h2><h2 id="任务载荷系统"><a href="#任务载荷系统" class="headerlink" title="任务载荷系统"></a>任务载荷系统</h2><h2 id="地面系统"><a href="#地面系统" class="headerlink" title="地面系统"></a>地面系统</h2><h2 id="综合保障系统"><a href="#综合保障系统" class="headerlink" title="综合保障系统"></a>综合保障系统</h2><h1 id="试验实施"><a href="#试验实施" class="headerlink" title="试验实施"></a>试验实施</h1><h2 id="照相侦察试验"><a href="#照相侦察试验" class="headerlink" title="照相侦察试验"></a>照相侦察试验</h2><h3 id="试验目的"><a href="#试验目的" class="headerlink" title="试验目的"></a>试验目的</h3><h3 id="试验条件和要求"><a href="#试验条件和要求" class="headerlink" title="试验条件和要求"></a>试验条件和要求</h3><h3 id="试验内容与方法步骤"><a href="#试验内容与方法步骤" class="headerlink" title="试验内容与方法步骤"></a>试验内容与方法步骤</h3><h3 id="试验记录"><a href="#试验记录" class="headerlink" title="试验记录"></a>试验记录</h3><h2 id="电视及红外侦察系统试验"><a href="#电视及红外侦察系统试验" class="headerlink" title="电视及红外侦察系统试验"></a>电视及红外侦察系统试验</h2><h2 id="通信对抗侦查试验"><a href="#通信对抗侦查试验" class="headerlink" title="通信对抗侦查试验"></a>通信对抗侦查试验</h2><h2 id="通信对抗干扰试验"><a href="#通信对抗干扰试验" class="headerlink" title="通信对抗干扰试验"></a>通信对抗干扰试验</h2><h2 id="通信中继试验"><a href="#通信中继试验" class="headerlink" title="通信中继试验"></a>通信中继试验</h2><h2 id="合成孔径雷达侦察试验"><a href="#合成孔径雷达侦察试验" class="headerlink" title="合成孔径雷达侦察试验"></a>合成孔径雷达侦察试验</h2><h2 id="航空辐射侦察系统试验"><a href="#航空辐射侦察系统试验" class="headerlink" title="航空辐射侦察系统试验"></a>航空辐射侦察系统试验</h2><h2 id="隐身性能试验"><a href="#隐身性能试验" class="headerlink" title="隐身性能试验"></a>隐身性能试验</h2><h2 id="操作使用性能试验"><a href="#操作使用性能试验" class="headerlink" title="操作使用性能试验"></a>操作使用性能试验</h2><h2 id="环境适应试验"><a href="#环境适应试验" class="headerlink" title="环境适应试验"></a>环境适应试验</h2><h2 id="安全性试验"><a href="#安全性试验" class="headerlink" title="安全性试验"></a>安全性试验</h2><h1 id="试验测试（2）"><a href="#试验测试（2）" class="headerlink" title="试验测试（2）"></a>试验测试（2）</h1><h2 id="飞行新年试验"><a href="#飞行新年试验" class="headerlink" title="飞行新年试验"></a>飞行新年试验</h2><h2 id="动力装置飞行试验"><a href="#动力装置飞行试验" class="headerlink" title="动力装置飞行试验"></a>动力装置飞行试验</h2><h2 id="无人机发射回收（起飞-x2F-着陆）性能试验"><a href="#无人机发射回收（起飞-x2F-着陆）性能试验" class="headerlink" title="无人机发射回收（起飞&#x2F;着陆）性能试验"></a>无人机发射回收（起飞&#x2F;着陆）性能试验</h2><h2 id="飞行控制系统飞行试验"><a href="#飞行控制系统飞行试验" class="headerlink" title="飞行控制系统飞行试验"></a>飞行控制系统飞行试验</h2><h2 id="导航系统飞行试验"><a href="#导航系统飞行试验" class="headerlink" title="导航系统飞行试验"></a>导航系统飞行试验</h2><h2 id="机载电子电器设备性能飞行试验"><a href="#机载电子电器设备性能飞行试验" class="headerlink" title="机载电子电器设备性能飞行试验"></a>机载电子电器设备性能飞行试验</h2><h2 id="无线电测控与信息传输系统性能飞行试验"><a href="#无线电测控与信息传输系统性能飞行试验" class="headerlink" title="无线电测控与信息传输系统性能飞行试验"></a>无线电测控与信息传输系统性能飞行试验</h2><h2 id="地面控制站飞行操作使用性能试验"><a href="#地面控制站飞行操作使用性能试验" class="headerlink" title="地面控制站飞行操作使用性能试验"></a>地面控制站飞行操作使用性能试验</h2><h2 id="机载侦察任务设备性能飞行试验"><a href="#机载侦察任务设备性能飞行试验" class="headerlink" title="机载侦察任务设备性能飞行试验"></a>机载侦察任务设备性能飞行试验</h2><h2 id="机载通信对抗系统飞行试验"><a href="#机载通信对抗系统飞行试验" class="headerlink" title="机载通信对抗系统飞行试验"></a>机载通信对抗系统飞行试验</h2><h2 id="机载通信中继系统性能飞行试验"><a href="#机载通信中继系统性能飞行试验" class="headerlink" title="机载通信中继系统性能飞行试验"></a>机载通信中继系统性能飞行试验</h2><h2 id="机载合成孔径雷达侦察飞行试验"><a href="#机载合成孔径雷达侦察飞行试验" class="headerlink" title="机载合成孔径雷达侦察飞行试验"></a>机载合成孔径雷达侦察飞行试验</h2><h2 id="航空辐射侦察系统飞行试验"><a href="#航空辐射侦察系统飞行试验" class="headerlink" title="航空辐射侦察系统飞行试验"></a>航空辐射侦察系统飞行试验</h2><h2 id="隐身性能飞行试验"><a href="#隐身性能飞行试验" class="headerlink" title="隐身性能飞行试验"></a>隐身性能飞行试验</h2>
+          <h1 id="正常上线"><a href="#正常上线" class="headerlink" title="正常上线"></a>正常上线</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">git clone</span><br><span class="line"></span><br><span class="line">git checkout dev</span><br><span class="line"></span><br><span class="line">git checkout -b feature-function</span><br><span class="line"></span><br><span class="line">git add .</span><br><span class="line">git commit -m <span class="string">&#x27;结束功能开发&#x27;</span></span><br><span class="line"></span><br><span class="line">git checkout dev</span><br><span class="line">git merge feature-function</span><br><span class="line">git push origin dev</span><br><span class="line"></span><br><span class="line">git checkout -b release-<span class="number">2019</span>-09-<span class="number">29</span></span><br><span class="line">git push origin release-<span class="number">2019</span>-09-<span class="number">29</span></span><br><span class="line"></span><br><span class="line">线上发现bug 紧急上线</span><br><span class="line"></span><br><span class="line">git checkout -b hotfix-<span class="number">2019</span>-09-<span class="number">29</span> origin/master</span><br><span class="line">git checkout -b hotfix-<span class="number">2019</span>-09-<span class="number">29</span></span><br><span class="line">git add .</span><br><span class="line">git commit -m <span class="string">&#x27;message&#x27;</span></span><br><span class="line">git push origin hotfix-<span class="number">2019</span>-09-<span class="number">29</span></span><br><span class="line"></span><br><span class="line">git checkout dev</span><br><span class="line">git merge hotfix-<span class="number">2019</span>-09-<span class="number">29</span></span><br><span class="line">git push origin dev</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">git branch -d feature-function    </span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>l
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/f44eb3a2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lion.png">
+      <meta itemprop="name" content="swimminghao">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="swimminghao's blog">
+      <meta itemprop="description" content="swimminghao的学习博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | swimminghao's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/f44eb3a2/" class="post-title-link" itemprop="url">git流程</a>
+        </h2>
+
+        <div class="post-meta-container">
+
+          
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-03-13 12:56:04" itemprop="dateModified" datetime="2022-03-13T12:56:04+08:00">2022-03-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/posts/f44eb3a2/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/f44eb3a2/" data-xid="/posts/f44eb3a2/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>498</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>1 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="git-流程"><a href="#git-流程" class="headerlink" title="git 流程"></a>git 流程</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">正常上线</span><br><span class="line">git clone</span><br><span class="line"></span><br><span class="line">git checkout dev</span><br><span class="line"></span><br><span class="line">git checkout -b feature-function</span><br><span class="line"></span><br><span class="line">git add .</span><br><span class="line">git commit -m <span class="string">&#x27;结束功能开发&#x27;</span></span><br><span class="line"></span><br><span class="line">git checkout dev</span><br><span class="line">git merge feature-function</span><br><span class="line">git push origin dev</span><br><span class="line"></span><br><span class="line">git checkout -b release-<span class="number">2019</span>-09-<span class="number">29</span></span><br><span class="line">git push origin release-<span class="number">2019</span>-09-<span class="number">29</span></span><br><span class="line"></span><br><span class="line">线上发现bug 紧急上线</span><br><span class="line"></span><br><span class="line">git checkout -b hotfix-<span class="number">2019</span>-09-<span class="number">29</span> origin/master</span><br><span class="line">git checkout -b hotfix-<span class="number">2019</span>-09-<span class="number">29</span> </span><br><span class="line">git add .</span><br><span class="line">git commit -m <span class="string">&#x27;message&#x27;</span></span><br><span class="line">git push origin hotfix-<span class="number">2019</span>-09-<span class="number">29</span></span><br><span class="line"></span><br><span class="line">git checkout dev</span><br><span class="line">git merge hotfix-<span class="number">2019</span>-09-<span class="number">29</span></span><br><span class="line">git push origin dev</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">git branch -d feature-function</span><br></pre></td></tr></table></figure>
       
     </div>
 
@@ -1674,7 +1544,7 @@ header, .context-menu, .megamenu-content, footer { font-family: "Segoe UI", Aria
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/5832e44e/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/5624fad4/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/lion.png">
@@ -1692,7 +1562,7 @@ header, .context-menu, .megamenu-content, footer { font-family: "Segoe UI", Aria
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/5832e44e/" class="post-title-link" itemprop="url">shell知识点</a>
+          <a href="/posts/5624fad4/" class="post-title-link" itemprop="url">Dockerfile</a>
         </h2>
 
         <div class="post-meta-container">
@@ -1713,7 +1583,7 @@ header, .context-menu, .megamenu-content, footer { font-family: "Segoe UI", Aria
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-13 12:56:04" itemprop="dateModified" datetime="2022-03-13T12:56:04+08:00">2022-03-13</time>
+      <time title="修改时间：2022-11-09 14:20:45" itemprop="dateModified" datetime="2022-11-09T14:20:45+08:00">2022-11-09</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -1721,7 +1591,7 @@ header, .context-menu, .megamenu-content, footer { font-family: "Segoe UI", Aria
       </span>
       <span class="post-meta-item-text">分类于</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">工具</span></a>
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
         </span>
     </span>
 
@@ -1734,8 +1604,8 @@ header, .context-menu, .megamenu-content, footer { font-family: "Segoe UI", Aria
     </span>
     <span class="post-meta-item-text">Waline：</span>
   
-    <a title="waline" href="/posts/5832e44e/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/5832e44e/" data-xid="/posts/5832e44e/" itemprop="commentCount"></span>
+    <a title="waline" href="/posts/5624fad4/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/5624fad4/" data-xid="/posts/5624fad4/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -1746,14 +1616,14 @@ header, .context-menu, .megamenu-content, footer { font-family: "Segoe UI", Aria
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>2k</span>
+      <span>3.4k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>2 分钟</span>
+      <span>3 分钟</span>
     </span>
 </div>
 
@@ -1764,50 +1634,32 @@ header, .context-menu, .megamenu-content, footer { font-family: "Segoe UI", Aria
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="1易混淆点"><a href="#1易混淆点" class="headerlink" title="$1易混淆点"></a>$1易混淆点</h1><h2 id="一、标准输入和参数的区别"><a href="#一、标准输入和参数的区别" class="headerlink" title="一、标准输入和参数的区别"></a>一、标准输入和参数的区别</h2><p>这个问题一定是最容易让人迷惑的，具体来说，就是搞不清什么时候用管道 符| 和文件重定向&gt; ，&lt; ，什么时候用变量$ 。</p>
-<p>比如说，我现在有个自动连接宽带的 shell 脚本 connect.sh ，存在我的家目录:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">where</span> connect.sh </span><br><span class="line">/home/fdl/bin/connect.sh</span><br></pre></td></tr></table></figure>
+          <h1 id="Docker相关指令"><a href="#Docker相关指令" class="headerlink" title="Docker相关指令"></a>Docker相关指令</h1><h2 id="docker镜像运行以及日志"><a href="#docker镜像运行以及日志" class="headerlink" title="docker镜像运行以及日志"></a>docker镜像运行以及日志</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">❯ docker run --restart=always -d --name holer-client -e PARAMS=<span class="string">&quot;www.swimminghao.top 6060 51c45156bf1c4a82b4e6ffff2150b65e&quot;</span> swimminghao/holer-client:latest</span><br><span class="line">❯ docker run -d --name holer-server --restart=always --network=host -p 600:600 -p 6060:6060 -p 6443:6443 -p 11000-11010:11000-11010 swimminghao/holer-server:latest</span><br><span class="line">❯ docker logs -f 1ed9a5d6f0cc</span><br></pre></td></tr></table></figure>
 
-<p>如果我想删除这个脚本，而且想少敲几次键盘，应该怎么操作呢?我曾经这<br>样尝试过:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">where</span> connect.sh | <span class="built_in">rm</span></span><br></pre></td></tr></table></figure>
+<h2 id="Dockerfile-打包jar成docker镜像"><a href="#Dockerfile-打包jar成docker镜像" class="headerlink" title="Dockerfile 打包jar成docker镜像"></a>Dockerfile 打包jar成docker镜像</h2><figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">dockerfile1</span><br><span class="line"><span class="keyword">FROM</span> openjdk:<span class="number">8</span>-jdk-alpine</span><br><span class="line"><span class="keyword">VOLUME</span><span class="language-bash"> /tmp</span></span><br><span class="line"><span class="keyword">ADD</span><span class="language-bash"> ./holer-client.jar holer-client.jar</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> <span class="built_in">echo</span> <span class="string">&quot;Asia/Shanghai&quot;</span> &gt; /etc/timezone</span></span><br><span class="line"><span class="keyword">ENV</span> PARAMS=</span><br><span class="line"><span class="keyword">ENTRYPOINT</span><span class="language-bash"> java -Djava.security.egd=file:/dev/./urandom -Duser.timezone=GMT+8 -jar /holer-client.jar <span class="variable">$&#123;PARAMS&#125;</span></span></span><br></pre></td></tr></table></figure>
 
-<p>实际上，这样操作是错误的，正确的做法应该是这样的:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">rm</span> $(<span class="built_in">where</span> connect.sh)</span><br></pre></td></tr></table></figure>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">dockerfile2</span><br><span class="line"><span class="keyword">FROM</span> openjdk:<span class="number">8</span>-jdk-alpine</span><br><span class="line"><span class="keyword">VOLUME</span><span class="language-bash"> /tmp</span></span><br><span class="line"><span class="keyword">ADD</span><span class="language-bash"> ./holer-client.jar holer-client.jar</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> <span class="built_in">echo</span> <span class="string">&quot;Asia/Shanghai&quot;</span> &gt; /etc/timezone</span></span><br><span class="line"><span class="keyword">ENV</span> PARAMS=</span><br><span class="line"><span class="keyword">ENV</span> JVM_XMS=<span class="string">&quot;256m&quot;</span></span><br><span class="line"><span class="keyword">ENV</span> JVM_XMX=<span class="string">&quot;256m&quot;</span></span><br><span class="line"><span class="keyword">ENTRYPOINT</span><span class="language-bash"> java -Xms<span class="variable">$&#123;JVM_XMS&#125;</span> -Xmx<span class="variable">$&#123;JVM_XMX&#125;</span> -Djava.security.egd=file:/dev/./urandom -Duser.timezone=GMT+8 -jar /holer-client.jar <span class="variable">$&#123;PARAMS&#125;</span></span></span><br></pre></td></tr></table></figure>
 
-<p>前者试图将 where 的结果连接到 rm 的标准输入，后者试图将结果作为命令行参数传入。</p>
-<p><strong>标准输入就是编程语言中诸如</strong> <strong>scanf</strong> <strong>或者</strong> <strong>readline</strong> <strong>这种命令;而参数是指 程序的</strong> <strong>main</strong> <strong>函数传入的</strong> <strong>args</strong> <strong>字符数组</strong>。</p>
-<p>前文「Linux文件描述符」说过，管道符和重定向符是将数据作为程序的标 准输入，而 $(cmd) 是读取 cmd 命令输出的数据作为参数。</p>
-<p>用刚才的例子说， rm 命令源代码中肯定不接受标准输入，而是接收命令行 参数，删除相应的文件。作为对比， cat 命令是既接受标准输入，又接受 命令行参数:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cat</span> filename </span><br><span class="line">...file text...</span><br><span class="line">$ <span class="built_in">cat</span> &lt; filename</span><br><span class="line">...file text...</span><br><span class="line">$ <span class="built_in">echo</span> <span class="string">&#x27;hello world&#x27;</span> | <span class="built_in">cat</span></span><br><span class="line">hello world</span><br></pre></td></tr></table></figure>
+<p>dockerfile和jar包放同一文件夹，再执行下面指令</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">❯ docker build -t swimminghao/holer-client:latest .</span><br></pre></td></tr></table></figure>
 
-<p><strong>如果命令能够让终端阻塞，说明该命令接收标准输入，反之就是不接受</strong>，比 如你只运行 cat 命令不加任何参数，终端就会阻塞，等待你输入字符串并 回显相同的字符串。</p>
-<h2 id="二、后台运行程序"><a href="#二、后台运行程序" class="headerlink" title="二、后台运行程序"></a><strong>二、后台运行程序</strong></h2><p>比如说你远程登录到服务器上，运行一个 Django web 程序:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ python manager.py runserver 0.0.0.0 Listening on 0.0.0.0:8080...</span><br></pre></td></tr></table></figure>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">FROM</span> openjdk:<span class="number">8</span>-jdk-alpine</span><br><span class="line"><span class="keyword">VOLUME</span><span class="language-bash"> /tmp</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">ARG</span> JAR_FILE=./holer-server.jar</span><br><span class="line"><span class="comment">#ARG PORT=8090</span></span><br><span class="line"><span class="keyword">ARG</span> TIME_ZONE=Asia/Shanghai</span><br><span class="line"></span><br><span class="line"><span class="keyword">ENV</span> TZ=$&#123;TIME_ZONE&#125;</span><br><span class="line"><span class="keyword">ENV</span> JVM_XMS=<span class="string">&quot;256m&quot;</span></span><br><span class="line"><span class="keyword">ENV</span> JVM_XMX=<span class="string">&quot;256m&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">COPY</span><span class="language-bash"> <span class="variable">$&#123;JAR_FILE&#125;</span> holer-server.jar</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">EXPOSE</span> <span class="number">600</span></span><br><span class="line"><span class="keyword">EXPOSE</span> <span class="number">6060</span></span><br><span class="line"><span class="keyword">EXPOSE</span> <span class="number">6443</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">ENTRYPOINT</span><span class="language-bash"> java -Xms<span class="variable">$&#123;JVM_XMS&#125;</span> -Xmx<span class="variable">$&#123;JVM_XMX&#125;</span> -Djava.security.egd=file:/dev/./urandom -server -jar holer-server.jar</span></span><br></pre></td></tr></table></figure>
 
-<p>现在你可以通过服务器的 IP 地址测试 Django 服务，但是终端此时就阻塞 了，你输入什么都不响应，除非输入 Ctrl-C 或者 Ctrl-&#x2F; 终止 python 进程。</p>
-<p>可以在命令之后加一个 &amp; 符号，这样命令行不会阻塞，可以响应你后续输 入的命令，但是如果你退出服务器的登录，就不能访问该网⻚了。</p>
-<p>如果你想在退出服务器之后仍然能够访问web服务，应该这样写命令 (cmd &amp;) :</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ (python manager.py runserver 0.0.0.0 &amp;) Listening on 0.0.0.0:8080...</span><br><span class="line"></span><br><span class="line">$ <span class="built_in">logout</span></span><br></pre></td></tr></table></figure>
+<p>dockerfile和jar包放同一文件夹，再执行下面指令</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">❯ docker build -t swimminghao/holer-server:latest .</span><br></pre></td></tr></table></figure>
 
-<p><strong>底层原理是这样的</strong>:</p>
-<p>每一个命令行终端都是一个 shell 进程，你在这个终端里执行的程序实际上 都是这个 shell 进程分出来的子进程。正常情况下，shell 进程会阻塞，等待 子进程退出才重新接收你输入的新的命令。加上 &amp; 号，只是让 shell 进程不 再阻塞，可以继续响应你的新命令。但是无论如何，你如果关掉了这个 shell 命令行端口，依附于它的所有子进程都会退出。</p>
-<p><strong>而 (cmd &amp;) 这样运行命令，则是将 cmd 命令挂到一个 systemd 系统守护进程名下，认 systemd 做爸爸，这样当你退出当前终端时，对于刚才的 cmd 命令就完全没有影响了。</strong></p>
-<p>类似的，还有一种后台运行常用的做法是这样:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ nohub some_cmd &amp;</span><br></pre></td></tr></table></figure>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/nuW6sf_20221108211749.png"></p>
+<h2 id="docker容器停止以及镜像删除"><a href="#docker容器停止以及镜像删除" class="headerlink" title="docker容器停止以及镜像删除"></a>docker容器停止以及镜像删除</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">❯ docker ps -a</span><br><span class="line">❯ docker pull seanhongxing/holer-server</span><br><span class="line">❯ docker stop f8ca94969ba0 &amp;&amp; docker <span class="built_in">rm</span> f8ca94969ba0</span><br><span class="line">❯ docker image <span class="built_in">ls</span> -a</span><br><span class="line">❯ docker image <span class="built_in">rm</span> f8ca94969ba0</span><br></pre></td></tr></table></figure>
 
-<p>nohub 命令也是类似的原理，不过通过我的测试，<strong>还是 (cmd &amp;) 这种形式 更加稳定</strong>。</p>
-<h2 id="三、单引号和双引号的区别"><a href="#三、单引号和双引号的区别" class="headerlink" title="三、单引号和双引号的区别"></a>三、单引号和双引号的区别</h2><p>不同的 shell 行为会有细微区别，但有一点是确定的，<strong>对于</strong> <strong>$</strong> <strong>，</strong> <strong>(</strong> <strong>，</strong> <strong>)</strong> <strong>这 几个符号，单引号包围的字符串不会做任何转义，双引号包围的字符串会转 义</strong>。</p>
-<p>shell 的行为可以测试，使用 set -x 命令，会开启 shell 的命令回显，你可 以通过回显观察 shell 到底在执行什么命令:</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/acjc30_20210910112344.png"></p>
-<p>可⻅ echo $(cmd) 和 echo “$(cmd)” ，结果差不多，但是仍然有区别。注 意观察，双引号转义完成的结果会自动增加单引号，而前者不会。</p>
-<p><strong>也就是说，如果</strong> <strong>$</strong> <strong>读取出的参数字符串包含空格，应该用双引号括起来， 否则就会出错</strong>。</p>
-<h2 id="四、-sudo-找不到命令"><a href="#四、-sudo-找不到命令" class="headerlink" title="四、****sudo 找不到命令"></a><strong>四、****sudo</strong> <strong>找不到命令</strong></h2><p>有时候我们普通用户可以用的命令，用 sudo 加权限之后却报错 command not found:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ connect.sh</span><br><span class="line"> network-manager: Permission denied</span><br><span class="line"></span><br><span class="line">$ sudo connect.sh</span><br><span class="line"> sudo: <span class="built_in">command</span> not found</span><br></pre></td></tr></table></figure>
+<h2 id="docker镜像反推Dockerfile："><a href="#docker镜像反推Dockerfile：" class="headerlink" title="docker镜像反推Dockerfile："></a>docker镜像反推Dockerfile：</h2><h3 id="1、指令"><a href="#1、指令" class="headerlink" title="1、指令"></a>1、指令</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">❯ docker <span class="built_in">history</span> &lt;83d576a828a8&gt; --format <span class="string">&quot;&#123;&#123;.CreatedBy&#125;&#125;&quot;</span> --no-trunc |<span class="built_in">tac</span> | awk <span class="string">&#x27;&#123;if($3~/nop/)&#123;for(i=1;i&lt;=3;i++)&#123;$i=&quot;&quot;&#125;;print substr($0,4)&#125;else&#123;print &quot;RUN&quot;,$0&#125;&#125;&#x27;</span></span><br></pre></td></tr></table></figure>
 
-<p>原因在于， connect.sh 这个脚本仅存在于该用户的环境变量中:</p>
-<p><strong>当使用</strong> <strong>sudo</strong> <strong>时，系统会使用</strong> <strong>&#x2F;etc&#x2F;sudoers</strong> <strong>这个文件中规定的该用户的权 限和环境变量</strong>，而这个脚本在 &#x2F;etc&#x2F;sudoers 环境变量目录中当然是找不到 的。</p>
-<p>解决方法是使用脚本文件的路径，而不是仅仅通过脚本名称:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo /home/fdl/bin/connect.sh</span><br></pre></td></tr></table></figure>
+<h3 id="2、bash脚本"><a href="#2、bash脚本" class="headerlink" title="2、bash脚本"></a>2、bash脚本</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">❯ bash decompile.sh seanhongxing/holer-server</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="comment">#########################################################################</span></span><br><span class="line"><span class="comment"># File Name: dockerfile.sh</span></span><br><span class="line"><span class="comment"># Author: www.linuxea.com</span></span><br><span class="line"><span class="comment"># Version: 1</span></span><br><span class="line"><span class="comment"># Created Time: Thu 14 Feb 2019 10:52:01 AM CST</span></span><br><span class="line"><span class="comment">#########################################################################</span></span><br><span class="line"><span class="keyword">case</span> <span class="string">&quot;<span class="variable">$OSTYPE</span>&quot;</span> <span class="keyword">in</span></span><br><span class="line">    linux*)</span><br><span class="line">        docker <span class="built_in">history</span> --no-trunc --format <span class="string">&quot;&#123;&#123;.CreatedBy&#125;&#125;&quot;</span> <span class="variable">$1</span> | <span class="comment"># extract information from layers</span></span><br><span class="line">        <span class="built_in">tac</span>                                                    | <span class="comment"># reverse the file</span></span><br><span class="line">        sed <span class="string">&#x27;s,^\(|3.*\)\?/bin/\(ba\)\?sh -c,RUN,&#x27;</span>             | <span class="comment"># change /bin/(ba)?sh calls to RUN</span></span><br><span class="line">        sed <span class="string">&#x27;s,^RUN #(nop) *,,&#x27;</span>                                | <span class="comment"># remove RUN #(nop) calls for ENV,LABEL...</span></span><br><span class="line">        sed <span class="string">&#x27;s,  *&amp;&amp;  *, \\\n \&amp;\&amp; ,g&#x27;</span>                           <span class="comment"># pretty print multi command lines following Docker best practices</span></span><br><span class="line">    ;;</span><br><span class="line">    darwin*)</span><br><span class="line">        docker <span class="built_in">history</span> --no-trunc --format <span class="string">&quot;&#123;&#123;.CreatedBy&#125;&#125;&quot;</span> <span class="variable">$1</span> | <span class="comment"># extract information from layers</span></span><br><span class="line">        <span class="built_in">tail</span> -r                                                | <span class="comment"># reverse the file</span></span><br><span class="line">        sed -E <span class="string">&#x27;s,^(\|3.*)?/bin/(ba)?sh -c,RUN,&#x27;</span>               | <span class="comment"># change /bin/(ba)?sh calls to RUN</span></span><br><span class="line">        sed <span class="string">&#x27;s,^RUN #(nop) *,,&#x27;</span>                                | <span class="comment"># remove RUN #(nop) calls for ENV,LABEL...</span></span><br><span class="line">        sed $<span class="string">&#x27;s,  *&amp;&amp;  *, \\\ \\\n \&amp;\&amp; ,g&#x27;</span>                      <span class="comment"># pretty print multi command lines following Docker best practices</span></span><br><span class="line">    ;;</span><br><span class="line">    *)</span><br><span class="line">        <span class="built_in">echo</span> <span class="string">&quot;unknown OSTYPE: <span class="variable">$OSTYPE</span>&quot;</span></span><br><span class="line">    ;;</span><br><span class="line"><span class="keyword">esac</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="docker镜像下载jar包"><a href="#docker镜像下载jar包" class="headerlink" title="docker镜像下载jar包"></a>docker镜像下载jar包</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">//镜像导出</span><br><span class="line">❯ docker save -o ./client.tar seanhongxing/holer-client:latest</span><br><span class="line">//容器导出</span><br><span class="line">❯ docker <span class="built_in">export</span> seanhongxing/holer-client &gt; ./client.tar</span><br></pre></td></tr></table></figure>
+
+<p><strong>注：分层，jar包在某一层</strong></p>
 
       
     </div>
@@ -2984,6 +2836,171 @@ header, .context-menu, .megamenu-content, footer { font-family: "Segoe UI", Aria
 <td>对拖移的项目赋予别名（按住按键时指针会改变）</td>
 </tr>
 </tbody></table>
+
+      
+    </div>
+
+    
+    
+    
+
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>l
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/5832e44e/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lion.png">
+      <meta itemprop="name" content="swimminghao">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="swimminghao's blog">
+      <meta itemprop="description" content="swimminghao的学习博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | swimminghao's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/5832e44e/" class="post-title-link" itemprop="url">shell知识点</a>
+        </h2>
+
+        <div class="post-meta-container">
+
+          
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-03-13 12:56:04" itemprop="dateModified" datetime="2022-03-13T12:56:04+08:00">2022-03-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">工具</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/posts/5832e44e/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/5832e44e/" data-xid="/posts/5832e44e/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>2k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>2 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="1易混淆点"><a href="#1易混淆点" class="headerlink" title="$1易混淆点"></a>$1易混淆点</h1><h2 id="一、标准输入和参数的区别"><a href="#一、标准输入和参数的区别" class="headerlink" title="一、标准输入和参数的区别"></a>一、标准输入和参数的区别</h2><p>这个问题一定是最容易让人迷惑的，具体来说，就是搞不清什么时候用管道 符| 和文件重定向&gt; ，&lt; ，什么时候用变量$ 。</p>
+<p>比如说，我现在有个自动连接宽带的 shell 脚本 connect.sh ，存在我的家目录:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">where</span> connect.sh </span><br><span class="line">/home/fdl/bin/connect.sh</span><br></pre></td></tr></table></figure>
+
+<p>如果我想删除这个脚本，而且想少敲几次键盘，应该怎么操作呢?我曾经这<br>样尝试过:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">where</span> connect.sh | <span class="built_in">rm</span></span><br></pre></td></tr></table></figure>
+
+<p>实际上，这样操作是错误的，正确的做法应该是这样的:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">rm</span> $(<span class="built_in">where</span> connect.sh)</span><br></pre></td></tr></table></figure>
+
+<p>前者试图将 where 的结果连接到 rm 的标准输入，后者试图将结果作为命令行参数传入。</p>
+<p><strong>标准输入就是编程语言中诸如</strong> <strong>scanf</strong> <strong>或者</strong> <strong>readline</strong> <strong>这种命令;而参数是指 程序的</strong> <strong>main</strong> <strong>函数传入的</strong> <strong>args</strong> <strong>字符数组</strong>。</p>
+<p>前文「Linux文件描述符」说过，管道符和重定向符是将数据作为程序的标 准输入，而 $(cmd) 是读取 cmd 命令输出的数据作为参数。</p>
+<p>用刚才的例子说， rm 命令源代码中肯定不接受标准输入，而是接收命令行 参数，删除相应的文件。作为对比， cat 命令是既接受标准输入，又接受 命令行参数:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cat</span> filename </span><br><span class="line">...file text...</span><br><span class="line">$ <span class="built_in">cat</span> &lt; filename</span><br><span class="line">...file text...</span><br><span class="line">$ <span class="built_in">echo</span> <span class="string">&#x27;hello world&#x27;</span> | <span class="built_in">cat</span></span><br><span class="line">hello world</span><br></pre></td></tr></table></figure>
+
+<p><strong>如果命令能够让终端阻塞，说明该命令接收标准输入，反之就是不接受</strong>，比 如你只运行 cat 命令不加任何参数，终端就会阻塞，等待你输入字符串并 回显相同的字符串。</p>
+<h2 id="二、后台运行程序"><a href="#二、后台运行程序" class="headerlink" title="二、后台运行程序"></a><strong>二、后台运行程序</strong></h2><p>比如说你远程登录到服务器上，运行一个 Django web 程序:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ python manager.py runserver 0.0.0.0 Listening on 0.0.0.0:8080...</span><br></pre></td></tr></table></figure>
+
+<p>现在你可以通过服务器的 IP 地址测试 Django 服务，但是终端此时就阻塞 了，你输入什么都不响应，除非输入 Ctrl-C 或者 Ctrl-&#x2F; 终止 python 进程。</p>
+<p>可以在命令之后加一个 &amp; 符号，这样命令行不会阻塞，可以响应你后续输 入的命令，但是如果你退出服务器的登录，就不能访问该网⻚了。</p>
+<p>如果你想在退出服务器之后仍然能够访问web服务，应该这样写命令 (cmd &amp;) :</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ (python manager.py runserver 0.0.0.0 &amp;) Listening on 0.0.0.0:8080...</span><br><span class="line"></span><br><span class="line">$ <span class="built_in">logout</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>底层原理是这样的</strong>:</p>
+<p>每一个命令行终端都是一个 shell 进程，你在这个终端里执行的程序实际上 都是这个 shell 进程分出来的子进程。正常情况下，shell 进程会阻塞，等待 子进程退出才重新接收你输入的新的命令。加上 &amp; 号，只是让 shell 进程不 再阻塞，可以继续响应你的新命令。但是无论如何，你如果关掉了这个 shell 命令行端口，依附于它的所有子进程都会退出。</p>
+<p><strong>而 (cmd &amp;) 这样运行命令，则是将 cmd 命令挂到一个 systemd 系统守护进程名下，认 systemd 做爸爸，这样当你退出当前终端时，对于刚才的 cmd 命令就完全没有影响了。</strong></p>
+<p>类似的，还有一种后台运行常用的做法是这样:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ nohub some_cmd &amp;</span><br></pre></td></tr></table></figure>
+
+<p>nohub 命令也是类似的原理，不过通过我的测试，<strong>还是 (cmd &amp;) 这种形式 更加稳定</strong>。</p>
+<h2 id="三、单引号和双引号的区别"><a href="#三、单引号和双引号的区别" class="headerlink" title="三、单引号和双引号的区别"></a>三、单引号和双引号的区别</h2><p>不同的 shell 行为会有细微区别，但有一点是确定的，<strong>对于</strong> <strong>$</strong> <strong>，</strong> <strong>(</strong> <strong>，</strong> <strong>)</strong> <strong>这 几个符号，单引号包围的字符串不会做任何转义，双引号包围的字符串会转 义</strong>。</p>
+<p>shell 的行为可以测试，使用 set -x 命令，会开启 shell 的命令回显，你可 以通过回显观察 shell 到底在执行什么命令:</p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/acjc30_20210910112344.png"></p>
+<p>可⻅ echo $(cmd) 和 echo “$(cmd)” ，结果差不多，但是仍然有区别。注 意观察，双引号转义完成的结果会自动增加单引号，而前者不会。</p>
+<p><strong>也就是说，如果</strong> <strong>$</strong> <strong>读取出的参数字符串包含空格，应该用双引号括起来， 否则就会出错</strong>。</p>
+<h2 id="四、-sudo-找不到命令"><a href="#四、-sudo-找不到命令" class="headerlink" title="四、****sudo 找不到命令"></a><strong>四、****sudo</strong> <strong>找不到命令</strong></h2><p>有时候我们普通用户可以用的命令，用 sudo 加权限之后却报错 command not found:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ connect.sh</span><br><span class="line"> network-manager: Permission denied</span><br><span class="line"></span><br><span class="line">$ sudo connect.sh</span><br><span class="line"> sudo: <span class="built_in">command</span> not found</span><br></pre></td></tr></table></figure>
+
+<p>原因在于， connect.sh 这个脚本仅存在于该用户的环境变量中:</p>
+<p><strong>当使用</strong> <strong>sudo</strong> <strong>时，系统会使用</strong> <strong>&#x2F;etc&#x2F;sudoers</strong> <strong>这个文件中规定的该用户的权 限和环境变量</strong>，而这个脚本在 &#x2F;etc&#x2F;sudoers 环境变量目录中当然是找不到 的。</p>
+<p>解决方法是使用脚本文件的路径，而不是仅仅通过脚本名称:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo /home/fdl/bin/connect.sh</span><br></pre></td></tr></table></figure>
 
       
     </div>
