@@ -636,7 +636,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2023-11-21 15:08:00 / 修改时间：00:20:08" itemprop="dateCreated datePublished" datetime="2023-11-21T15:08:00+08:00">2023-11-21</time>
+      <time title="创建时间：2023-11-21 15:08:00 / 修改时间：00:23:42" itemprop="dateCreated datePublished" datetime="2023-11-21T15:08:00+08:00">2023-11-21</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -687,22 +687,8 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="Mac-python-多版本安装、删除、切换"><a href="#Mac-python-多版本安装、删除、切换" class="headerlink" title="Mac python 多版本安装、删除、切换"></a>Mac python 多版本安装、删除、切换</h1><p><a target="_blank" rel="noopener" href="https://www.zhihu.com/people/liuxing98"><img src="https://pic1.zhimg.com/v2-7bf00f085dc66f1053f6bdc2fe79269b_l.jpg?source=172ae18b" alt="刘兴"></a></p>
-<p><a target="_blank" rel="noopener" href="https://www.zhihu.com/people/liuxing98">刘兴</a></p>
-<p>计算机软件开发人员</p>
-<p>目录</p>
-<p>收起</p>
-<p>一、安装pyenv</p>
-<p>二、查看当前安装的pyenv的版本</p>
-<p>三、将pyenv配置到全局环境变量中</p>
-<p>四、查看所有的python版本</p>
-<p>五、查看所有可以安装的python版本</p>
-<p>六、安装指定版本的python</p>
-<p>七、查看当前安装的所有版本</p>
-<p>八、切换python版本</p>
-<p>九、卸载指定的Python版本</p>
-<p>十、更新版本管理数据库</p>
-<h3 id="一、安装pyenv"><a href="#一、安装pyenv" class="headerlink" title="一、安装pyenv"></a><strong>一、安装pyenv</strong></h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install pyenv</span><br></pre></td></tr></table></figure>
+          <h1 id="Mac-python-多版本安装、删除、切换"><a href="#Mac-python-多版本安装、删除、切换" class="headerlink" title="Mac python 多版本安装、删除、切换"></a>Mac python 多版本安装、删除、切换</h1><h3 id="一、安装pyenv"><a href="#一、安装pyenv" class="headerlink" title="一、安装pyenv"></a><strong>一、安装pyenv</strong></h3><p>h</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install pyenv</span><br></pre></td></tr></table></figure>
 
 <p><img src="https://pic1.zhimg.com/80/v2-5a2f5e1d54dcec75038053fe93d59ca8_1440w.webp" alt="img"></p>
 <p>安装pyenv</p>
@@ -713,11 +699,10 @@
 <h3 id="三、将pyenv配置到全局环境变量中"><a href="#三、将pyenv配置到全局环境变量中" class="headerlink" title="三、将pyenv配置到全局环境变量中"></a>三、<strong>将pyenv配置到全局环境变量中</strong></h3><p>1.打开全局的环境变量配置文件</p>
 <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim  /etc/profile </span><br></pre></td></tr></table></figure>
 
-<p>2.在最下边加上这两行配置</p>
+<p>2.在profile 文件最下边加上这两行配置</p>
 <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">export PYENV_ROOT=~/.pyenv</span><br><span class="line">export PATH=$PYENV_ROOT/shims:$PATH</span><br></pre></td></tr></table></figure>
 
 <p><img src="https://pic4.zhimg.com/80/v2-68add43e4291c992590fc219759fe5df_1440w.webp" alt="img"></p>
-<p>&#x2F;etc&#x2F;profile</p>
 <p>3.使环境变量配置文件立即生效</p>
 <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">source /etc/profile </span><br></pre></td></tr></table></figure>
 
@@ -768,6 +753,11 @@
 <p>在进行安装、删除指定python版本后使用，更新版本管理数据库</p>
 </blockquote>
 <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pyenv rehash </span><br></pre></td></tr></table></figure>
+
+<p>注意：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> <span class="attribute">PYENV_ROOT</span>=~/.pyenv</span><br><span class="line"><span class="built_in">export</span> <span class="attribute">PATH</span>=<span class="variable">$PYENV_ROOT</span>/shims:$PATH 为什么我在/etc<span class="built_in">/profile </span>加了这两行不生效，</span><br><span class="line">然后在 ~/.zshrc 加了下面内容就好了</span><br><span class="line"><span class="built_in">export</span> <span class="attribute">PATH</span>=<span class="string">&quot;<span class="variable">$HOME</span>/.pyenv/bin:<span class="variable">$PATH</span>&quot;</span></span><br><span class="line">eval <span class="string">&quot;<span class="variable">$(pyenv init --path)</span>&quot;</span> </span><br></pre></td></tr></table></figure>
+
+
       
     </div>
 
@@ -2030,7 +2020,7 @@
 <h2 id="3-使用ssh配置文件配置不同账号使用的ssh-key"><a href="#3-使用ssh配置文件配置不同账号使用的ssh-key" class="headerlink" title="3.  使用ssh配置文件配置不同账号使用的ssh key"></a>3.  使用ssh配置文件配置不同账号使用的ssh key</h2><p>打开ssh配置文件（**~&#x2F;.ssh&#x2F;config**），按照下面的样式去编辑：</p>
 <figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Personal account, - the default config</span></span><br><span class="line">Host github.com</span><br><span class="line">   HostName github.com</span><br><span class="line">   <span class="keyword">User</span> <span class="title">git</span></span><br><span class="line">   IdentityFile ~/.ssh/id_rsa.github</span><br><span class="line">    </span><br><span class="line"><span class="comment"># Work account</span></span><br><span class="line">Host github1.com</span><br><span class="line">   HostName github.com</span><br><span class="line">   <span class="keyword">User</span> <span class="title">git</span></span><br><span class="line">   IdentityFile ~/.ssh/id_rsa_work_user</span><br></pre></td></tr></table></figure>
 
-<p>Host是用来区分不同的Git账号，比如“github.com-work_user”你也可以取另外一个名字，但是使用ssh去clone仓库的时候，记得把拷贝过来的clone命令的时候，<strong>把命令中的github.com替换成对应的Git账号下的Host</strong>。比如，你需要在你的工作账号下克隆这个仓库<a href="mailto:&#103;&#105;&#116;&#x40;&#103;&#x69;&#x74;&#104;&#117;&#x62;&#46;&#99;&#x6f;&#109;">&#103;&#105;&#116;&#x40;&#103;&#x69;&#x74;&#104;&#117;&#x62;&#46;&#99;&#x6f;&#109;</a>:personal_account_name&#x2F;repo_name.git，这个就需要把‘github.com’替换成‘github.com-work_user’。</p>
+<p>Host是用来区分不同的Git账号，比如“github.com-work_user”你也可以取另外一个名字，但是使用ssh去clone仓库的时候，记得把拷贝过来的clone命令的时候，<strong>把命令中的github.com替换成对应的Git账号下的Host</strong>。比如，你需要在你的工作账号下克隆这个仓库<a href="mailto:&#103;&#x69;&#x74;&#x40;&#103;&#105;&#116;&#104;&#117;&#98;&#46;&#x63;&#111;&#x6d;">&#103;&#x69;&#x74;&#x40;&#103;&#105;&#116;&#104;&#117;&#98;&#46;&#x63;&#111;&#x6d;</a>:personal_account_name&#x2F;repo_name.git，这个就需要把‘github.com’替换成‘github.com-work_user’。</p>
 <h2 id="4-本地仓库"><a href="#4-本地仓库" class="headerlink" title="4. 本地仓库"></a>4. 本地仓库</h2><p>我们可以通过git remote -v看看本地仓库对应的远程仓库URL，检查该URL是否与要使用的GitHub主机匹配，否则更新远程原始URL。如果不匹配，可以通过下面这个命令更新：</p>
 <figure class="highlight dsconfig"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">git</span> <span class="string">remote</span> <span class="built_in">set-url</span> <span class="string">origin</span> <span class="string">git</span>@<span class="string">github</span>.<span class="string">com-worker_user:worker_user/</span><span class="string">repo_name</span>.<span class="string">git</span></span><br></pre></td></tr></table></figure>
 
