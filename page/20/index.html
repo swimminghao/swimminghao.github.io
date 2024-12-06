@@ -276,590 +276,6 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/b7f54c91/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/lion.png">
-      <meta itemprop="name" content="swimminghao">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="swimminghao's blog">
-      <meta itemprop="description" content="swimminghao的学习博客">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | swimminghao's blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/b7f54c91/" class="post-title-link" itemprop="url">25、【对线面试官】java从编译到执行，发生了什么</a>
-        </h2>
-
-        <div class="post-meta-container">
-
-          
-
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-10 09:48:07" itemprop="dateModified" datetime="2022-03-10T09:48:07+08:00">2022-03-10</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="far fa-comment"></i>
-    </span>
-    <span class="post-meta-item-text">Waline：</span>
-  
-    <a title="waline" href="/posts/b7f54c91/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/b7f54c91/" data-xid="/posts/b7f54c91/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>1.9k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>2 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="25、【对线面试官】java从编译到执行，发生了什么"><a href="#25、【对线面试官】java从编译到执行，发生了什么" class="headerlink" title="25、【对线面试官】java从编译到执行，发生了什么"></a>25、【对线面试官】java从编译到执行，发生了什么</h1><h2 id="从基础先问起吧，你是怎么理解Java是一门「跨平台」的语言，也就是「一次编译，到处运行的」？"><a href="#从基础先问起吧，你是怎么理解Java是一门「跨平台」的语言，也就是「一次编译，到处运行的」？" class="headerlink" title="从基础先问起吧，你是怎么理解Java是一门「跨平台」的语言，也就是「一次编译，到处运行的」？"></a>从基础先问起吧，你是怎么理解Java是一门「跨平台」的语言，也就是「一次编译，到处运行的」？</h2><ul>
-<li>因为有JVM</li>
-<li>Java源代码会被编译为class文件，class文件是运行在JVM之上的。</li>
-<li>当我们日常开发安装JDK的时候，可以发现JDK是分「不同的操作系统」，JDK里是包含JVM的，所以Java依赖着JVM实现了『跨平台』</li>
-<li>通俗点来讲，JVM是面向操作系统的，它负责把Class字节码解释成系统所能识别的指令并执行，同时也负责程序运行时内存的管理。</li>
-</ul>
-<h2 id="那要不你来聊聊从源码文件（java）到代码执行的过程呗？"><a href="#那要不你来聊聊从源码文件（java）到代码执行的过程呗？" class="headerlink" title="那要不你来聊聊从源码文件（java）到代码执行的过程呗？"></a>那要不你来聊聊从源码文件（java）到代码执行的过程呗？</h2><ul>
-<li><p>简单总结的话，我认为就4个步骤：编译-&gt;加载-&gt;解释-&gt;执行</p>
-<ul>
-<li><p>编译：将源码文件编译成JVM可以解释的class文件。</p>
-<ul>
-<li>编译过程会对源代码程序做「语法分析」「语义分析」「注解处理」等等处理，最后才生成字节码文件。</li>
-<li>比如对泛型的擦除和我们经常用的Lombok就是在编译阶段干的。</li>
-</ul>
-</li>
-<li><p>加载：将编译后的class文件加载到JVM中。</p>
-<ul>
-<li><p>在加载阶段又可以细化几个步骤：装载-&gt;连接-&gt;初始化</p>
-<ul>
-<li>【装载时机】为了节省内存的开销，并不会一次性把所有的类都装载至JVM，而是等到「有需要」的时候才进行装载（比如new和反射等等）</li>
-<li>【装载发生】class文件是通过「类加载器」装载到jvm中的，为了防止内存中出现多份同样的字节码，使用了双亲委派机制（它不会自己去尝试加载这个类，而是把请求委托给父加载器去完成，依次向上）</li>
-<li>【装载规则】JDK中的本地方法类一般由根加载器（Bootstrp loader）装载，JDK中内部实现的扩展类一般由扩展加载器（ExtClassLoader）实现装载，而程序中的类文件则由系统加载器（AppClassLoader）实现装载。</li>
-</ul>
-</li>
-<li><p>装载这个阶段它做的事情总结：查找并加载类的二进制数据，在JVM「堆」中创建一个java.lang.Class类的对象，并将类相关的信息存储在JVM「方法区」中</p>
-<ul>
-<li>通过「装载」这个步骤后，现在已经把class文件装载到JVM中了，并创建出对应的Class.对象以及类信息存储至方法区了。</li>
-</ul>
-</li>
-<li><p>「连接」这个阶段它做的事情总结：对class的信息进行验证、为「类变量」分配内存空间并对其赋默认值。</p>
-<ul>
-<li><p>连接又可以细化为几个步骤：验证-》准备-》解析</p>
-<p>1.验证：验证类是否符合Java规范和JVM规范</p>
-<p>2.准备：为类的静态变量分配内存，初始化为系统的初始值</p>
-<p>3.解析：将符号引用转为直接引用的过程</p>
-</li>
-<li><p>通过「连接」这个步骤后，现在已经对class信息做校验并分配了内存空间和默认值了。</p>
-</li>
-</ul>
-</li>
-<li><p>「初始化」阶段总结：为类的静态变量赋予正确的初始值。</p>
-<ul>
-<li>过程大概就是收集class的静态变量、静态代码块、静态方法至clinit（）方法，随后从上往下开始执行。</li>
-<li>如果「实例化对象」则会调用方法对实例变量进行初始化，并执行对应的构造方法内的代码。</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>解释：把字节码转换为操作系统识别的指令</p>
-<ul>
-<li>在解释阶段会有两种方式把字节码信息解释成机器指令码，一个是字节码解释器、一个是即时编译器（JIT）</li>
-<li>JVM会对「热点代码」做编译，非热点代码直接进行解释。当JVM发现某个方法或代码块的运行特别频繁的时候，就有可能把这部分代码认定为「热点代码」</li>
-<li>使用「热点探测」来检测是否为热点代码。「热点探测」一般有两种方式，计数器和抽样。HotSpot使用的是「计数器」的方式进行探测，为每个方法准备了两类计数器：方法调用计数器和回边计数器</li>
-<li>这两个计数器都有一个确定的阈值，当计数器超过阈值溢出了，就会触发JIT编译。</li>
-<li>即时编译器把热点方法的指令码保存起来，下次执行的时候就无需重复的进行解释，直接执行缓存的机器语言</li>
-</ul>
-</li>
-<li><p>执行：操作系统把解释器解析出来的指令码，调用系统的硬件执行最终的程序指令。</p>
-</li>
-</ul>
-</li>
-</ul>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ul>
-<li><p>Java跨平台因为有JVM屏蔽了底层操作系统</p>
-</li>
-<li><p>Java源码到执行的过程，从JVM的角度看可以总结为四个步骤：编译-&gt;加载-&gt;解释-&gt;执行</p>
-</li>
-<li><ul>
-<li>「编译」经过 语法分析、语义分析、注解处理 最后才生成会class文件</li>
-<li>「加载」又可以细分步骤为：装载-&gt;连接-&gt;初始化。装载则把class文件装载至JVM，连接则校验class信息、分配内存空间及赋默认值，初始化则为变量赋值为正确的初始值。连接里又可以细化为：验证、准备、解析</li>
-<li>「解释」则是把字节码转换成操作系统可识别的执行指令，在JVM中会有字节码解释器和即时编译器。在解释时会对代码进行分析，查看是否为「热点代码」，如果为「热点代码」则触发JIT编译，下次执行时就无需重复进行解释，提高解释速度</li>
-<li>「执行」调用系统的硬件执行最终的程序指令</li>
-<li></li>
-</ul>
-</li>
-</ul>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/36XlDf_20211229115158.png"></p>
-
-      
-    </div>
-
-    
-    
-    
-
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>l
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/3973d3db/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/lion.png">
-      <meta itemprop="name" content="swimminghao">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="swimminghao's blog">
-      <meta itemprop="description" content="swimminghao的学习博客">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | swimminghao's blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/3973d3db/" class="post-title-link" itemprop="url">26、【对线面试官】双亲委派机制</a>
-        </h2>
-
-        <div class="post-meta-container">
-
-          
-
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-10 09:48:07" itemprop="dateModified" datetime="2022-03-10T09:48:07+08:00">2022-03-10</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="far fa-comment"></i>
-    </span>
-    <span class="post-meta-item-text">Waline：</span>
-  
-    <a title="waline" href="/posts/3973d3db/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/3973d3db/" data-xid="/posts/3973d3db/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>2.9k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>3 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="26、【对线面试官】双亲委派机制"><a href="#26、【对线面试官】双亲委派机制" class="headerlink" title="26、【对线面试官】双亲委派机制"></a>26、【对线面试官】双亲委派机制</h1><h2 id="接着上次的话题吧，要不你来详细讲讲双亲委派机制？"><a href="#接着上次的话题吧，要不你来详细讲讲双亲委派机制？" class="headerlink" title="接着上次的话题吧，要不你来详细讲讲双亲委派机制？"></a>接着上次的话题吧，要不你来详细讲讲双亲委派机制？</h2><ul>
-<li>上次提到了：class文件是通过「类加载器」装载至JVM中的</li>
-<li>为了防止内存中存在多份同样的字节码，使用了双亲委派机制（它不会自己去尝试加载类，而是把请求委托给父加载器去完成，依次向上）</li>
-<li>JDK中的本地方法类一般由根加载器（Bootstrp loader）装载JDK中内部实现的扩展类一般由扩展加载器（ExtClassLoader）实现装载入而程序中的类文件则由系统加载器（AppClassLoader）实现装载。</li>
-</ul>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/aWnCRl_20211229133925.png" alt="java类加载结构图"></p>
-<h2 id="打破双亲委派机制是什么意思？"><a href="#打破双亲委派机制是什么意思？" class="headerlink" title="打破双亲委派机制是什么意思？"></a>打破双亲委派机制是什么意思？</h2><ul>
-<li>很好理解啊，意思就是：只要我加载类的时候，不是从App ClassLoader-》ExtClassLoader-&gt;BootStrap ClassLoader这个顺序找，那就算是打破了啊</li>
-<li>因为加载classi核心的方法在LoaderClass类的loadClass方法上（双亲委派机制的核心实现）</li>
-<li>那只要我自定义个ClassLoader，重写loadClass方法（不依照往上开始寻找类加载器），那就算是打破双亲委派机制了。</li>
-</ul>
-<h2 id="那你知道有哪个场景破坏了双亲委派机制吗？"><a href="#那你知道有哪个场景破坏了双亲委派机制吗？" class="headerlink" title="那你知道有哪个场景破坏了双亲委派机制吗？"></a>那你知道有哪个场景破坏了双亲委派机制吗？</h2><ul>
-<li>tomcat</li>
-<li>部署项目时，会把war包放到tomcat的webapp下，这意味着一个tomcat可以运行多个Web应用程序<ul>
-<li>那假设我现在有两个Web应用程序，它们都有一个类，叫做User，并且它们的类全限定名都一样，比如都是com.yyy.User。但是他们的具体实现是不一样的</li>
-<li>那么Tomcat是如何保证它们是不会冲突的呢？</li>
-</ul>
-</li>
-<li>答案就是，那就是tomcat做了Web应用层级的隔离。Tomcat给每个Web应用创建一个类加载器实例（WebAppClassLoader），该加载器重写了loadClass方法，优先加载当前应用目录下的类，如果当前找不到了，才一层一层往上找</li>
-</ul>
-<h2 id="Tomcat还有哪些类加载器吗？"><a href="#Tomcat还有哪些类加载器吗？" class="headerlink" title="Tomcat还有哪些类加载器吗？"></a>Tomcat还有哪些类加载器吗？</h2><ul>
-<li><p>并不是Web应用程序下的所有依赖都需要隔离的，比如Redis，因为如果版本相同，没必要每个Web应用程序都独自加载一份，就可以Web应用程序之间共享</p>
-<ul>
-<li>做法也很简单，Tomcat就在WebAppClassLoader.上加了个父类加载器（SharedClassLoader），如果WebAppClassLoader自身没有加载到某个类，那就委托SharedClassLoader去加载。</li>
-<li>（无非就是把需要应用程序之间需要共享的类放到一个共享目录下，Share ClassLoader读共享目录的类就好了）</li>
-</ul>
-</li>
-<li><p>为了隔绝Web应用程序与Tomcat本身的类，又有类加载器（CatalinaClassLoader）来装载Tomcat本身的依赖</p>
-</li>
-<li><p>如果Tomcat本身的依赖和Web应用还需要共享，那么还有类加载器（CommonClassLoader）来装载进而达到共享</p>
-</li>
-<li><p>各个类加载器的加载目录可以到tomcat的catalina.properties配置文件上查看</p>
-<center>Tomcat的类加载结构图</center>
-![](https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/Q0RM1Q_20211229140203.png)</li>
-</ul>
-<h2 id="JDBC你不是知道吗，听说它也是破坏了双亲委派模型的，你是怎么理解的？"><a href="#JDBC你不是知道吗，听说它也是破坏了双亲委派模型的，你是怎么理解的？" class="headerlink" title="JDBC你不是知道吗，听说它也是破坏了双亲委派模型的，你是怎么理解的？"></a>JDBC你不是知道吗，听说它也是破坏了双亲委派模型的，你是怎么理解的？</h2><ul>
-<li><p>JDBC定义了接口。具体实现类由各个厂商进行实现嘛（比如MySQL）</p>
-<ul>
-<li>类加载有个规则：如里一个类由类加载器A加载那么，这个类的依赖类也是由「相同的类加载器」加载。</li>
-<li>我们用JDBC的时候，是用DriverManager进而获取Connection，DriverManager在java.sql包下，显然是由BootStrap类加载器进行装载</li>
-<li>当我们使用DriverManager.getConnection()时，得到的一定是厂商实现的类.</li>
-<li>但因为这些实现类又不在java包中，BootStrap ClassLoaders并不能加载到各个厂商实现的类</li>
-</ul>
-</li>
-<li><p>DriverManager的解决方案就是，在DriverManager切始化的时候，得到「线程上下文加载器」</p>
-<ul>
-<li>获取Connection的时候，是使用「线程上下文加载器」去加载Connection的，而这里的线程上下文加载器实际上还是App ClassLoader</li>
-<li>所以在获取Connection的时候，还是先找ExtClassLoader和BootStrapClassLoader，只不过这两加载器肯定是加载不到的，最终会由AppClassLoader进行加载</li>
-</ul>
-</li>
-</ul>
-<ul>
-<li>那这种情况，有的人觉得破坏了双亲委派机制，因为本来明明应该是由BootStrapClassLoader进行加载的，结果来了手「线程上下文加载器」，改掉了<br>类加载器</li>
-<li>有的人觉得没破坏双亲委派机制，只是改成由「线程上下文加载器」进行类载，但还是遵守着：「依次往上找父类加载器进行加载，都找不到时才由自身加载」。认为“原则“上是没变的。</li>
-</ul>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p><strong>前置知识</strong>：JDK中默认类加载器有三个：AppClassLoader、Ext ClassLoader、BootStrap ClassLoader。AppClassLoader的父加载器为Ext ClassLoader、Ext ClassLoader的父加载器为BootStrap ClassLoader。这里的父子关系并不是通过继承实现的，而是组合。</p>
-<p><strong>什么是双亲委派机制</strong>：加载器在加载过程中，先把类交由父类加载器进行加载，父类加载器没找到才由自身加载。</p>
-<p><strong>双亲委派机制目的</strong>：为了防止内存中存在多份同样的字节码（安全）</p>
-<p><strong>类加载规则</strong>：如果一个类由类加载器A加载，那么这个类的依赖类也是由「相同的类加载器」加载。</p>
-<p><strong>如何打破双亲委派机制</strong>：自定义ClassLoader，重写loadClass方法（只要不依次往上交给父加载器进行加载，就算是打破双亲委派机制）</p>
-<p><strong>打破双亲委派机制案例</strong>：Tomcat</p>
-<ol>
-<li>为了Web应用程序类之间隔离，为每个应用程序创建WebAppClassLoader类加载器</li>
-<li>为了Web应用程序类之间共享，把ShareClassLoader作为WebAppClassLoader的父类加载器，如果WebAppClassLoader加载器找不到，则尝试用ShareClassLoader进行加载</li>
-<li>为了Tomcat本身与Web应用程序类隔离，用CatalinaClassLoader类加载器进行隔离，CatalinaClassLoader加载Tomcat本身的类</li>
-<li>为了Tomcat与Web应用程序类共享，用CommonClassLoader作为CatalinaClassLoader和ShareClassLoader的父类加载器</li>
-<li>ShareClassLoader、CatalinaClassLoader、CommonClassLoader的目录可以在Tomcat的catalina.properties进行配置</li>
-</ol>
-<p><strong>线程上下文加载器</strong>：由于类加载的规则，很可能导致父加载器加载时依赖子加载器的类，导致无法加载成功（BootStrap ClassLoader无法加载第三方库的类），所以存在「线程上下文加载器」来进行加载。</p>
-
-      
-    </div>
-
-    
-    
-    
-
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>l
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/e1774332/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/lion.png">
-      <meta itemprop="name" content="swimminghao">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="swimminghao's blog">
-      <meta itemprop="description" content="swimminghao的学习博客">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | swimminghao's blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/e1774332/" class="post-title-link" itemprop="url">27、【对线面试官】深入浅出Java内存模型</a>
-        </h2>
-
-        <div class="post-meta-container">
-
-          
-
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-10 09:48:07" itemprop="dateModified" datetime="2022-03-10T09:48:07+08:00">2022-03-10</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="far fa-comment"></i>
-    </span>
-    <span class="post-meta-item-text">Waline：</span>
-  
-    <a title="waline" href="/posts/e1774332/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/e1774332/" data-xid="/posts/e1774332/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>2k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>2 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="27、【对线面试官】深入浅出Java内存模型"><a href="#27、【对线面试官】深入浅出Java内存模型" class="headerlink" title="27、【对线面试官】深入浅出Java内存模型"></a>27、【对线面试官】深入浅出Java内存模型</h1><h2 id="上一次已经问过了为什么要有Java内存模型"><a href="#上一次已经问过了为什么要有Java内存模型" class="headerlink" title="上一次已经问过了为什么要有Java内存模型"></a>上一次已经问过了为什么要有Java内存模型</h2><ul>
-<li>答案是：Java为了屏蔽硬件和操作系统访问内存的各种差异，提出了「Java内存模型」的规范，保证了Java程序在各种平台下对内存的访问都能得到一致效果</li>
-<li>强调下：Java内存模型它是一种「规范」，Java虚拟机会实现这个规范。</li>
-</ul>
-<h2 id="先聊下Java内存模型的抽象结构？"><a href="#先聊下Java内存模型的抽象结构？" class="headerlink" title="先聊下Java内存模型的抽象结构？"></a>先聊下Java内存模型的抽象结构？</h2><ul>
-<li>Java内存模型定义了：Java线程对内存数据进行交互的规范。<ul>
-<li>线程之间的「共享变量」存储在「主内存」中，每个线程都有自己私有的「本地内存」，「本地内存」存储了该线程以读&#x2F;写共享变量的副本。</li>
-<li>本地内存是Java内存模型的抽象概念，并不是真实存在的。</li>
-</ul>
-</li>
-</ul>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/xjTbHO_20211229144348.png"></p>
-<ul>
-<li>Java内存模型规定了：线程对变量的所有操作都必须在「本地内存」进行，「不能直接读写主内存」的变量<ul>
-<li>Java内存模型定义了8种操作来完成「变量如何从主内存到本地内存，以及变量如何从本地内存到主内存」</li>
-<li>分别是read&#x2F;load&#x2F;use&#x2F;assign&#x2F;store&#x2F;write&#x2F;lock&#x2F;unlock操作</li>
-<li>对变量一个读写操作就涵盖这些操作</li>
-</ul>
-</li>
-</ul>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/IIGEvs_20211229144725.png"></p>
-<h2 id="happen-before规则"><a href="#happen-before规则" class="headerlink" title="happen-before规则"></a>happen-before规则</h2><ul>
-<li><p>按我的理解下，happen-before实际上也是一套「规则」。Java内存模型定义了这套规则，目的是为了阐述「操作之间」的内存「可见性」</p>
-<ul>
-<li>从上次讲述「指令重排」就提到了，在CPU和编译器层面上都有指令重排的问题。</li>
-</ul>
-</li>
-<li><p>但：在某些重要的场景下，这一组操作都不能进行重排序，「前面一个操作的结果对后续操作必须是可见的」。</p>
-<ul>
-<li><p>Java内存模型就提出了happen-before这套规则，规则总共有8条</p>
-<ul>
-<li>比如传递性、volatile变量规则、程序顺序规则、监视器锁的规则…</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>有了happen-before这些规则。我们写的代码只要在这些规则下，前一个操作的结果对后续操作是可见的，是不会发生重排序的。</p>
-</li>
-</ul>
-<h2 id="volatile内存语义"><a href="#volatile内存语义" class="headerlink" title="volatile内存语义"></a>volatile内存语义</h2><ul>
-<li><p>volatile是java的一个关键字</p>
-</li>
-<li><p>特性：可见性和有序性（禁止重排序）</p>
-</li>
-<li><p>java内存模型这个规范，很大程度下就为了解决可见性和有序性的问题。</p>
-</li>
-</ul>
-<h2 id="volatile是怎么做到可见性和有序性的"><a href="#volatile是怎么做到可见性和有序性的" class="headerlink" title="volatile是怎么做到可见性和有序性的"></a>volatile是怎么做到可见性和有序性的</h2><ul>
-<li><p>为了实现volatile有序性和可见性，定义了4种内存屏障的「规范」，</p>
-</li>
-<li><p>分别是LoadLoad&#x2F;LoadStore&#x2F;StroreLoad&#x2F;StoreStrore</p>
-</li>
-<li><p>本质上，就是在volatile前后加上了内存屏障，使得编译器和CPU无法进行重排序，致使有序，并且对volatile变量对其他线程可见</p>
-</li>
-<li><p>Hotspot虚拟机实现</p>
-<ul>
-<li>在「汇编」层面上实际是通过Lock前缀指令来实现的（lock支持大部分平台，而fence指令是x86平台的）</li>
-<li>locK指令能保证：禁止CPU和编译器的重排序（保证了有序性）、保证CPU写核<br>  心的指令可以立即生效且其他核心的缓存数据失效（保证了可见性）。</li>
-</ul>
-</li>
-</ul>
-<h2 id="volatile和MESl协议是啥关系？"><a href="#volatile和MESl协议是啥关系？" class="headerlink" title="volatile和MESl协议是啥关系？"></a>volatile和MESl协议是啥关系？</h2><ul>
-<li>没有直接关联</li>
-<li>Java内存模型关注的是编程语言层面上，它是高维度的抽象。</li>
-<li>MESI是CPU缓存一致性协议，不同的CPU架构都不一样，可能有的CPU压根就没用MESI协议.</li>
-<li>只不过MESI名声大，大家就都拿他来举例子了。</li>
-<li>MESI可能只是在「特定的场景下」为实现volatile的可见性&#x2F;有序性而使用到的一部分罢了</li>
-<li>为了让Java程序员屏蔽上面这些底层知识，快速地入门使用volatile变量</li>
-<li>Java内存模型的happen-before规则中就有对volatile变量规则的定义：对一个volatile变量的写操作相对于后续对这个volatile变量的读操作可见</li>
-<li>只要变量声明了volatile关键字，写后再读，读必须可见写的值。（可见性、有序性）</li>
-</ul>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p><strong>为什么存在Java内存模型</strong>：Java为了屏蔽硬件和操作系统访问内存的各种差异，提出了「Java内存模型」的规范，保证了Java程序在各种平台下对内存的访问都能得到一致效果</p>
-<p><strong>Java内存模型抽象结构</strong>：线程之间的「共享变量」存储在「主内存」中，每个线程都有自己私有的「本地内存」，「本地内存」存储了该线程以读&#x2F;写共享变量的副本。线程对变量的所有操作都必须在「本地内存」进行，而「不能直接读写主内存」的变量</p>
-<p><strong>happen-before规则</strong>：Java内存模型规定在某些场景下（一共8条），前面一个操作的结果对后续操作必须是可见的。这8条规则成为happen-before规则</p>
-<p><strong>volatile</strong>：volatile是Java的关键字，修饰的变量是可见性且有序的（不会被重排序）。可见性&amp;&amp;有序性，由Java内存模型定义的「内存屏障」完成，实际HotSpot虚拟机实现Java内存模型规范，汇编底层是通过Lock指令来实现。</p>
-
-      
-    </div>
-
-    
-    
-    
-
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>l
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://example.com/posts/6f64b3a6/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1017,6 +433,163 @@
 <li>JVM内存结构（又称为运行时数据区域），它描述着当我们的 class文件加载至虚拟机后，各个分区的「逻辑结构」是如何的，每个分区承担的作用</li>
 </ul>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p><strong>JVM内存结构组成</strong>：JVM内存结构又称为「运行时数据区域」。主要有五部分组成：虚拟机栈、本地方法栈、程序计数器、方法区和堆。其中方法区和堆是线程共享的。虚拟机栈、本地方法栈以及程序计数器是线程隔离的。</p>
+
+      
+    </div>
+
+    
+    
+    
+
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>l
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/5a56f011/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lion.png">
+      <meta itemprop="name" content="swimminghao">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="swimminghao's blog">
+      <meta itemprop="description" content="swimminghao的学习博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | swimminghao's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/5a56f011/" class="post-title-link" itemprop="url">2、【对线面试官】今天来聊聊Java泛型</a>
+        </h2>
+
+        <div class="post-meta-container">
+
+          
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-03-10 09:48:07" itemprop="dateModified" datetime="2022-03-10T09:48:07+08:00">2022-03-10</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/posts/5a56f011/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/5a56f011/" data-xid="/posts/5a56f011/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>2.5k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>2 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>#2、【对线面试官】今天来聊聊Java泛型</p>
+<h2 id="泛型了解"><a href="#泛型了解" class="headerlink" title="泛型了解"></a>泛型了解</h2><ol>
+<li>在Java中的泛型简单来说就是：在创建对象或调用方法的时候才明确下具体的类型</li>
+<li>使用泛型的好处就是代码更加简洁（不再需要强制转换），程序更加健壮（在编译期间没有警告，在运行期就不会出现ClassCastException异常）</li>
+</ol>
+<h2 id="工作中用得多吗"><a href="#工作中用得多吗" class="headerlink" title="工作中用得多吗"></a>工作中用得多吗</h2><ol>
+<li>在操作集合的时候，还是很多的，毕竟方便啊。List lists &#x3D; new ArrayList&lt;&gt;();lists.add （”面试造火箭”）；</li>
+<li>如果是其他场景的话，那就是在写「基础组件」的时候了。</li>
+</ol>
+<h2 id="你是怎么写的"><a href="#你是怎么写的" class="headerlink" title="你是怎么写的"></a>你是怎么写的</h2><ol>
+<li><p>再明确一下泛型就是「在创建对象或调用方法的时候才明确下具体的类型」</p>
+</li>
+<li><p>而组件为了做到足够的通用性，是不知道「用户」传入什么类型参数进来的所以在这种情况下用泛型就是很好的实践。</p>
+</li>
+<li><p>这块可以参考SpringData JPA的JpaRepository写法。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">JpaRepository</span>&lt;T, ID&gt; <span class="keyword">extends</span> <span class="title class_">PagingAndSortingRepository</span>&lt;T, ID&gt;, QueryByExampleExecutor&lt;T&gt; &#123;</span><br><span class="line"></span><br><span class="line"> List&lt;T&gt; <span class="title function_">findAll</span><span class="params">()</span>;</span><br><span class="line"></span><br><span class="line"> List&lt;T&gt; <span class="title function_">findAll</span><span class="params">(Sort sort)</span>;</span><br><span class="line"></span><br><span class="line"> List&lt;T&gt; <span class="title function_">findAllById</span><span class="params">(Iterable&lt;ID&gt; ids)</span>;</span><br><span class="line"></span><br><span class="line"> &lt;S <span class="keyword">extends</span> <span class="title class_">T</span>&gt; List&lt;S&gt; <span class="title function_">saveAll</span><span class="params">(Iterable&lt;S&gt; entities)</span>;</span><br><span class="line"></span><br><span class="line"> <span class="keyword">void</span> <span class="title function_">flush</span><span class="params">()</span>;</span><br><span class="line"></span><br><span class="line"> &lt;S <span class="keyword">extends</span> <span class="title class_">T</span>&gt; S <span class="title function_">saveAndFlush</span><span class="params">(S entity)</span>;</span><br><span class="line"></span><br><span class="line"> <span class="keyword">void</span> <span class="title function_">deleteInBatch</span><span class="params">(Iterable&lt;T&gt; entities)</span>;</span><br><span class="line"></span><br><span class="line"> <span class="keyword">void</span> <span class="title function_">deleteAllInBatch</span><span class="params">()</span>;</span><br><span class="line"></span><br><span class="line"> T <span class="title function_">getOne</span><span class="params">(ID id)</span>;</span><br><span class="line"></span><br><span class="line"> <span class="meta">@Override</span></span><br><span class="line"> &lt;S <span class="keyword">extends</span> <span class="title class_">T</span>&gt; List&lt;S&gt; <span class="title function_">findAll</span><span class="params">(Example&lt;S&gt; example)</span>;</span><br><span class="line"></span><br><span class="line"> <span class="meta">@Override</span></span><br><span class="line"> &lt;S <span class="keyword">extends</span> <span class="title class_">T</span>&gt; List&lt;S&gt; <span class="title function_">findAll</span><span class="params">(Example&lt;S&gt; example, Sort sort)</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>要写组件，还是离不开Java反射机制（能够从运行时获取信息），所以一般组件是泛型+反射来实现的。</p>
+</li>
+<li><p>回到我所讲的组件吧，背景是这样的：我这边有个需求，需要根据某些字段进行聚合。</p>
+</li>
+<li><p>换到SQL其实就是select sum（column 1),sum(column2) from table group by fie ld1,field2</p>
+</li>
+<li><p>需要sum和group by的列肯定是由业务方自己传入，而SQL的表其实就是我们的POJO（传入的字段也肯定是POJO的属性）</p>
+</li>
+<li><p>单个业务实际可以在参数上写死POJO，但为了做得更加通用，我把入参设置为泛型</p>
+</li>
+<li><p>拿到参数后，通过反射获取其字段具体的值，做累加就好了。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 传入 需要group by 和 sum 的字段名</span></span><br><span class="line"><span class="keyword">public</span> <span class="title function_">cacheMap</span><span class="params">(List&lt;String&gt; groupByKeys, List&lt;String&gt; sumValues)</span> &#123;</span><br><span class="line">  <span class="built_in">this</span>.groupByKeys = groupByKeys;</span><br><span class="line">  <span class="built_in">this</span>.sumValues = sumValues;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">excute</span><span class="params">(T e)</span> &#123;</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// 从pojo 取出需要group by 的字段 list</span></span><br><span class="line">  List&lt;Object&gt; key = buildPrimaryKey(e);</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// primaryMap 是存储结果的Map</span></span><br><span class="line">  <span class="type">T</span> <span class="variable">value</span> <span class="operator">=</span> primaryMap.get(key);</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// 如果从存储结果找到有相应记录</span></span><br><span class="line">  <span class="keyword">if</span> (value != <span class="literal">null</span>) &#123;</span><br><span class="line">    <span class="keyword">for</span> (String elem : sumValues) &#123;</span><br><span class="line">      <span class="comment">// 反射获取对应的字段，做累加处理</span></span><br><span class="line">      <span class="type">Field</span> <span class="variable">field</span> <span class="operator">=</span> getDeclaredField(elem, e);</span><br><span class="line">      <span class="keyword">if</span> (field.get(e) <span class="keyword">instanceof</span> Integer) &#123;</span><br><span class="line">        field.set(value, (Integer) field.get(e) + (Integer) field.get(value));</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span> (field.get(e) <span class="keyword">instanceof</span> Long) &#123;</span><br><span class="line">        field.set(value, (Long) field.get(e) + (Long) field.get(value));</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">RuntimeException</span>(<span class="string">&quot;类型异常,请处理异常&quot;</span>);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 处理时间记录</span></span><br><span class="line">    <span class="type">Field</span> <span class="variable">field</span> <span class="operator">=</span> getDeclaredField(<span class="string">&quot;updated&quot;</span>, value);</span><br><span class="line">    <span class="keyword">if</span> (<span class="literal">null</span> != field) &#123;</span><br><span class="line">      field.set(value, DateTimeUtils.getCurrentTime());</span><br><span class="line">    &#125;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="comment">// group by 字段 第一次进来</span></span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      primaryMap.put(key, Tclone(e));</span><br><span class="line">      createdMap.put(key, DateTimeUtils.getCurrentTime());</span><br><span class="line">    &#125;<span class="keyword">catch</span> (Exception ex) &#123;</span><br><span class="line">      log.info(<span class="string">&quot;first put value error &#123;&#125;&quot;</span> , e);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>理解了泛型的作用之后，再去审视自己代码时，就可以判断是否需要用到泛型了。</p>
+</li>
+</ol>
+<h2 id="价值体现"><a href="#价值体现" class="headerlink" title="价值体现"></a>价值体现</h2><ol>
+<li>主要是在平时工作中，写代码的时候会多想想，遇到能用到的地方会优化下代码</li>
+</ol>
 
       
     </div>
@@ -1287,163 +860,6 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/5a56f011/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/lion.png">
-      <meta itemprop="name" content="swimminghao">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="swimminghao's blog">
-      <meta itemprop="description" content="swimminghao的学习博客">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | swimminghao's blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/5a56f011/" class="post-title-link" itemprop="url">2、【对线面试官】今天来聊聊Java泛型</a>
-        </h2>
-
-        <div class="post-meta-container">
-
-          
-
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-10 09:48:07" itemprop="dateModified" datetime="2022-03-10T09:48:07+08:00">2022-03-10</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="far fa-comment"></i>
-    </span>
-    <span class="post-meta-item-text">Waline：</span>
-  
-    <a title="waline" href="/posts/5a56f011/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/5a56f011/" data-xid="/posts/5a56f011/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>2.5k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>2 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>#2、【对线面试官】今天来聊聊Java泛型</p>
-<h2 id="泛型了解"><a href="#泛型了解" class="headerlink" title="泛型了解"></a>泛型了解</h2><ol>
-<li>在Java中的泛型简单来说就是：在创建对象或调用方法的时候才明确下具体的类型</li>
-<li>使用泛型的好处就是代码更加简洁（不再需要强制转换），程序更加健壮（在编译期间没有警告，在运行期就不会出现ClassCastException异常）</li>
-</ol>
-<h2 id="工作中用得多吗"><a href="#工作中用得多吗" class="headerlink" title="工作中用得多吗"></a>工作中用得多吗</h2><ol>
-<li>在操作集合的时候，还是很多的，毕竟方便啊。List lists &#x3D; new ArrayList&lt;&gt;();lists.add （”面试造火箭”）；</li>
-<li>如果是其他场景的话，那就是在写「基础组件」的时候了。</li>
-</ol>
-<h2 id="你是怎么写的"><a href="#你是怎么写的" class="headerlink" title="你是怎么写的"></a>你是怎么写的</h2><ol>
-<li><p>再明确一下泛型就是「在创建对象或调用方法的时候才明确下具体的类型」</p>
-</li>
-<li><p>而组件为了做到足够的通用性，是不知道「用户」传入什么类型参数进来的所以在这种情况下用泛型就是很好的实践。</p>
-</li>
-<li><p>这块可以参考SpringData JPA的JpaRepository写法。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">JpaRepository</span>&lt;T, ID&gt; <span class="keyword">extends</span> <span class="title class_">PagingAndSortingRepository</span>&lt;T, ID&gt;, QueryByExampleExecutor&lt;T&gt; &#123;</span><br><span class="line"></span><br><span class="line"> List&lt;T&gt; <span class="title function_">findAll</span><span class="params">()</span>;</span><br><span class="line"></span><br><span class="line"> List&lt;T&gt; <span class="title function_">findAll</span><span class="params">(Sort sort)</span>;</span><br><span class="line"></span><br><span class="line"> List&lt;T&gt; <span class="title function_">findAllById</span><span class="params">(Iterable&lt;ID&gt; ids)</span>;</span><br><span class="line"></span><br><span class="line"> &lt;S <span class="keyword">extends</span> <span class="title class_">T</span>&gt; List&lt;S&gt; <span class="title function_">saveAll</span><span class="params">(Iterable&lt;S&gt; entities)</span>;</span><br><span class="line"></span><br><span class="line"> <span class="keyword">void</span> <span class="title function_">flush</span><span class="params">()</span>;</span><br><span class="line"></span><br><span class="line"> &lt;S <span class="keyword">extends</span> <span class="title class_">T</span>&gt; S <span class="title function_">saveAndFlush</span><span class="params">(S entity)</span>;</span><br><span class="line"></span><br><span class="line"> <span class="keyword">void</span> <span class="title function_">deleteInBatch</span><span class="params">(Iterable&lt;T&gt; entities)</span>;</span><br><span class="line"></span><br><span class="line"> <span class="keyword">void</span> <span class="title function_">deleteAllInBatch</span><span class="params">()</span>;</span><br><span class="line"></span><br><span class="line"> T <span class="title function_">getOne</span><span class="params">(ID id)</span>;</span><br><span class="line"></span><br><span class="line"> <span class="meta">@Override</span></span><br><span class="line"> &lt;S <span class="keyword">extends</span> <span class="title class_">T</span>&gt; List&lt;S&gt; <span class="title function_">findAll</span><span class="params">(Example&lt;S&gt; example)</span>;</span><br><span class="line"></span><br><span class="line"> <span class="meta">@Override</span></span><br><span class="line"> &lt;S <span class="keyword">extends</span> <span class="title class_">T</span>&gt; List&lt;S&gt; <span class="title function_">findAll</span><span class="params">(Example&lt;S&gt; example, Sort sort)</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>要写组件，还是离不开Java反射机制（能够从运行时获取信息），所以一般组件是泛型+反射来实现的。</p>
-</li>
-<li><p>回到我所讲的组件吧，背景是这样的：我这边有个需求，需要根据某些字段进行聚合。</p>
-</li>
-<li><p>换到SQL其实就是select sum（column 1),sum(column2) from table group by fie ld1,field2</p>
-</li>
-<li><p>需要sum和group by的列肯定是由业务方自己传入，而SQL的表其实就是我们的POJO（传入的字段也肯定是POJO的属性）</p>
-</li>
-<li><p>单个业务实际可以在参数上写死POJO，但为了做得更加通用，我把入参设置为泛型</p>
-</li>
-<li><p>拿到参数后，通过反射获取其字段具体的值，做累加就好了。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 传入 需要group by 和 sum 的字段名</span></span><br><span class="line"><span class="keyword">public</span> <span class="title function_">cacheMap</span><span class="params">(List&lt;String&gt; groupByKeys, List&lt;String&gt; sumValues)</span> &#123;</span><br><span class="line">  <span class="built_in">this</span>.groupByKeys = groupByKeys;</span><br><span class="line">  <span class="built_in">this</span>.sumValues = sumValues;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">excute</span><span class="params">(T e)</span> &#123;</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// 从pojo 取出需要group by 的字段 list</span></span><br><span class="line">  List&lt;Object&gt; key = buildPrimaryKey(e);</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// primaryMap 是存储结果的Map</span></span><br><span class="line">  <span class="type">T</span> <span class="variable">value</span> <span class="operator">=</span> primaryMap.get(key);</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// 如果从存储结果找到有相应记录</span></span><br><span class="line">  <span class="keyword">if</span> (value != <span class="literal">null</span>) &#123;</span><br><span class="line">    <span class="keyword">for</span> (String elem : sumValues) &#123;</span><br><span class="line">      <span class="comment">// 反射获取对应的字段，做累加处理</span></span><br><span class="line">      <span class="type">Field</span> <span class="variable">field</span> <span class="operator">=</span> getDeclaredField(elem, e);</span><br><span class="line">      <span class="keyword">if</span> (field.get(e) <span class="keyword">instanceof</span> Integer) &#123;</span><br><span class="line">        field.set(value, (Integer) field.get(e) + (Integer) field.get(value));</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span> (field.get(e) <span class="keyword">instanceof</span> Long) &#123;</span><br><span class="line">        field.set(value, (Long) field.get(e) + (Long) field.get(value));</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">RuntimeException</span>(<span class="string">&quot;类型异常,请处理异常&quot;</span>);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 处理时间记录</span></span><br><span class="line">    <span class="type">Field</span> <span class="variable">field</span> <span class="operator">=</span> getDeclaredField(<span class="string">&quot;updated&quot;</span>, value);</span><br><span class="line">    <span class="keyword">if</span> (<span class="literal">null</span> != field) &#123;</span><br><span class="line">      field.set(value, DateTimeUtils.getCurrentTime());</span><br><span class="line">    &#125;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="comment">// group by 字段 第一次进来</span></span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      primaryMap.put(key, Tclone(e));</span><br><span class="line">      createdMap.put(key, DateTimeUtils.getCurrentTime());</span><br><span class="line">    &#125;<span class="keyword">catch</span> (Exception ex) &#123;</span><br><span class="line">      log.info(<span class="string">&quot;first put value error &#123;&#125;&quot;</span> , e);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>理解了泛型的作用之后，再去审视自己代码时，就可以判断是否需要用到泛型了。</p>
-</li>
-</ol>
-<h2 id="价值体现"><a href="#价值体现" class="headerlink" title="价值体现"></a>价值体现</h2><ol>
-<li>主要是在平时工作中，写代码的时候会多想想，遇到能用到的地方会优化下代码</li>
-</ol>
-
-      
-    </div>
-
-    
-    
-    
-
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>l
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://example.com/posts/6f559dce/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1641,6 +1057,523 @@
 </li>
 </ul>
 <p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/KNqlDT_20211229164021.png"></p>
+
+      
+    </div>
+
+    
+    
+    
+
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>l
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/e93a2b49/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lion.png">
+      <meta itemprop="name" content="swimminghao">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="swimminghao's blog">
+      <meta itemprop="description" content="swimminghao的学习博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | swimminghao's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/e93a2b49/" class="post-title-link" itemprop="url">31、【对线面试官】G1垃圾收集器</a>
+        </h2>
+
+        <div class="post-meta-container">
+
+          
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-03-10 09:48:07" itemprop="dateModified" datetime="2022-03-10T09:48:07+08:00">2022-03-10</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/posts/e93a2b49/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/e93a2b49/" data-xid="/posts/e93a2b49/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>3.2k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>3 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="31、【对线面试官】G1垃圾收集器"><a href="#31、【对线面试官】G1垃圾收集器" class="headerlink" title="31、【对线面试官】G1垃圾收集器"></a>31、【对线面试官】G1垃圾收集器</h1><h2 id="要不这次来聊聊G1垃圾收集器？"><a href="#要不这次来聊聊G1垃圾收集器？" class="headerlink" title="要不这次来聊聊G1垃圾收集器？"></a>要不这次来聊聊G1垃圾收集器？</h2><ul>
+<li><p>CMS垃圾收集器的升级</p>
+</li>
+<li><p>G1垃圾收集器可以给你设定一个你希望Stop The Word停顿时间，G1垃圾收集器会根据这个时间尽量满足你</p>
+<ul>
+<li><p>在前面我在介绍JM堆的时候，堆的内存分布是以「物理」空间进行隔离</p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/qjMhU8_20211229164725.png"></p>
+</li>
+<li><p>在G1垃圾收集器的世界上，堆的划分不再是「物理」形式，而是以「逻辑」的形式进行划分</p>
+</li>
+<li><p>不过的「分代」概念在G1垃圾收集器的世界还是一样奏效的</p>
+</li>
+<li><p>比如说：新对象一般会分配到Eden区经过默认15次的 Minor GC新生代的对象如果还存活，会移交到老年代等等。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/SwXVef_20211229165004.png"></p>
+</li>
+<li><p>堆被划分了多个同等份的区域，在G1里每个区域叫做Region</p>
+</li>
+<li><p>G1中，还有一种叫 Humongous（大对象）区域，其实就是用来存储特别大的对象（大于 Region内存的一半）</p>
+</li>
+<li><p>一旦发现没有引用指向大对象，就可直接在年轻代的 Minor GC中被回收掉</p>
+</li>
+<li><p>之所以要将「堆空间」进行「细分」多个小的区域，是因为像以前的垃圾收集器都是对堆进行「物理」划分，如果堆空间（内存）大的时候，每次进行「垃圾回收」都需要对一整块大的区域进行回收，那收集的时间是不好控制的；而划分多个小区域之后，那对这些「小区域」回收就容易控制它的「收集时间」了</p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="GC过程"><a href="#GC过程" class="headerlink" title="GC过程"></a>GC过程</h2><ul>
+<li><p>在G1收集器中，可以主要分为有Minor GC（ Young GC）和 Mixed GC，也有些特殊场景可能会发生 Full GC</p>
+<ul>
+<li><p>Minor GC</p>
+<ul>
+<li><p>G1的 Minor GC其实触发时机跟前面提到过的垃圾收集器都是一样的</p>
+</li>
+<li><p>等到Eden区满了之后，会触发 Minor GC。 Minor GCI同样也是会发生 Stop The World的</p>
+</li>
+<li><p>要补充说明的是：在G1的世界里，新生代和老年代所占堆的空间是没那么固定的（会动态根据「最大停顿时间」进行调整）</p>
+</li>
+<li><p>这块会给我们提供参数进行配置就好了</p>
+</li>
+<li><p>所以，动态地改变收集年轻代 Region的个数可以「控制」 Minor GCI的开销</p>
+</li>
+<li><p>Minor GC我认为可以简单分为为三个步骤：根扫描、更新&amp;&amp;处理RSet、复制对象</p>
+<p>1）第一步应该很好理解，因为这跟之前CMS是类似的，可以理解为初始标记的过程</p>
+<p>2）第二步就是处理RSet的信息并且扫描，将老年代对象持有年轻代对象的相关引用都加入到 GC Roots下，避免被回收掉</p>
+<p>​        涉及到「Rset」的概念</p>
+<p>​    （1）上ー次我们聊CMS回收过程的时候，同样讲到了 Minor GC，它是通过「卡表」（ cart table）来避免全表扫描老年代的对象</p>
+<p>​    （2）因为 Minor GC是回收年轻代的对象，但如果老年代有对象引用着年轻代，那这些被老年代引用的对象也不能回收掉</p>
+<p>​    （3）同样的，在G1也有这种问题（毕竟是Minor GC）。CMS是卡表，而G1解决「跨代引用」的问题的存储一般叫做RSet</p>
+<p>​    （4）只要记住，RSet这种存储在每个 Region都会有，它记录着「其他 Region引用了当前 Regiong的对象关系」</p>
+<p>​    <img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/FpUxzX_20211229170010.png"></p>
+<p>​    （5）对于年轻代的 Region，它的RSet只保存了来自老年代的引用（因为年轻代的没必要存储啊，自己都要做 Minor GC了</p>
+<p>​    （6）而对于老年代的 Region来说，它的RSet也只会保存老年代对它的引用（在G1垃圾收集器，老年代回收之前，都会先对年轻代进行回收，所以没必要保存年轻代的引用）</p>
+<p>3）第三步：把扫描之后存活的对象往「空的 Survivor区」或者老年代」存放，其他的Eden区进行清除</p>
+<p>​    （1）这里要提下的是，在G1还有另一个名词，叫做CSet</p>
+<p>​    （2）它的全称是 Collection Set，保存了一次GC中「将执行垃圾回收」的 Region。CSet中的所有存活对象都会被转移到别的可用 Region上</p>
+<p>​    （3）在 Minor GC的最后，会处理下软引用、弱引用、 JNI Weak等引用，结束收集</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>总结</p>
+<ul>
+<li><p>总结起来就是：扫描、处理跨 Region引用、收集至CSet、复制清除、处理引用</p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/WZo9bF_20211229170433.png"></p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="MixedGC过程"><a href="#MixedGC过程" class="headerlink" title="MixedGC过程"></a>MixedGC过程</h2><ul>
+<li>当堆空间的占用率达到一定阈值后会触发 Mixed GC（默认45%，由参数决定）</li>
+<li>Mixed GC会依赖「全局并发标记」统计后的 Region数据</li>
+<li>「全局并发标记」它的过程跟CMS非常类型，步骤大概是：初始标记（STW）、并发标记、最终标记（ST）以及清理（ST）<ul>
+<li>说明： Mixed GC它一定会回收年轻代，并会采集部分老年代的Region进行回收的，所以它是一个混合GC</li>
+<li>「初始标记」，<ul>
+<li>这个过程是「共用」了 Minor GC的 Stop The World（Mixed GC一定会发生 Minor GC），复用了「扫描 GC Roots的操作</li>
+<li>在这个过程中，老年代和新生代都会扫</li>
+<li>总的来说，「初始标记」这个过程还是比较快的，毕竟没有追溯遍历嘛</li>
+</ul>
+</li>
+<li>「并发标记」<ul>
+<li>这个阶段不会 Stop The World，GC线程与用户线程一起执行，GC线程负责收集各个 Region的存活对象信息</li>
+<li>从 GC Roots往下追溯，査找整个堆存活的对象，比较耗时</li>
+</ul>
+</li>
+<li>「重新标记」<ul>
+<li>跟CMS又一样，标记那些在「并发标记」阶段发生变化的对象</li>
+<li>CMS在「重新标记」阶段，应该会重新扫描所有的线程栈和整个年轻代作为root,G1不是<ul>
+<li>在G1中解決「并发标记」阶段导致引用变更的问题，使用的是SATB算法</li>
+<li>可以简单理解为：在GC开始的时候，它为存活的对象做了一次「快照」</li>
+<li>在「并发阶段」时，把每一次发生引用关系变化时旧的引用值给记下来</li>
+<li>然后在「重新标记」阶段只扫描着块「发生过变化」的引用，看有没有对象还是存活的，加入到「 GC Roots」上</li>
+<li>不过SATB算法有个小的问题，就是：如果在开始时，G1就认为它是活的，那就在此次GC中不会对它回收，即便可能在「并发阶段」上对象已经变为了垃圾。</li>
+<li>所以，G1也有可能会存在「浮动垃圾」</li>
+<li>但是总的来说，对于G1而言，问题不大（毕竟它不是追求一次把所有的垃圾都清除掉，而是注重 Stop The Worlde时间）</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>「清理」<ul>
+<li>这个阶段也是会 Stop The World的，主要清点和重置标记状态，会根据「停顿预模型」（其实就是设定的停顿时间），来决定本次GC回收多少 Region</li>
+<li>一般来说， Mixed GC会选定所有的年轻代 Region，部分「回收价值高」的老年代 Region（回收价值高其实就是垃圾多）进行采集</li>
+<li>最后 Mixed GC进行清除还是通过「拷贝」&#x2F;「复制」的方式去干的</li>
+<li>所以在G1中，一次回收未必是将所有的垃圾进行回收的，G1会依据停顿时间做出选择 Region数量</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="什么时候发生full-GC"><a href="#什么时候发生full-GC" class="headerlink" title="什么时候发生full GC"></a>什么时候发生full GC</h2><ul>
+<li>如果在 Mixed GC中无法跟上用户线程分配内存的速度，导致老年代填满无法继续进行 Mixed GC，就又会降级到 serial oldGC来收集整个 GC heap</li>
+<li>其实跟CMS是非常类似的都是因为空间不足</li>
+<li>不过uGC这个场景相较于CMS还是很少的，毕竟G1没有像CMS「内存碎片」这种问题</li>
+</ul>
+<h2 id="G1垃圾收集器特点："><a href="#G1垃圾收集器特点：" class="headerlink" title="G1垃圾收集器特点："></a><strong>G1垃圾收集器特点</strong>：</h2><ul>
+<li>从原来的「物理」分代，变成现在的「逻辑」分代，将堆内存「逻辑」划分为多个Region</li>
+<li>使用CSet来存储可回收Region的集合</li>
+<li>使用RSet来处理跨代引用的问题（注意：RSet不保留 年轻代相关的引用关系）</li>
+<li>G1可简单分为：Minor GC 和Mixed GC以及Full GC</li>
+<li>【Eden区满则触发】Minor GC 回收过程可简单分为：(STW) 扫描 GC Roots、更新&amp;&amp;处理Rset、复制清除</li>
+<li>全局并发标记的过程跟CMS过程差不多：初始标记（STW）、并发标记、最终标记（STW）以及清理（STW）</li>
+<li>【整堆空间占一定比例则触发】Mixed GC 依赖「全局并发标记」，得到CSet(可回收Region)，就进行「复制清除」</li>
+<li>使用SATB算法来处理「并发标记」阶段对象引用存在变更的问题</li>
+<li><strong>亮点&amp;&amp;重点</strong>：提供可停顿时间参数供用户设置（<strong>G1会尽量满足该停顿时间来调整 GC时回收Region的数量</strong>）</li>
+<li>R大描述G1原理的时候，他提到：从宏观的角度看G1，主要分为两块「<strong>全局并发标记</strong>」和「<strong>拷贝存活对象</strong>」</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>l
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/63b182f/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lion.png">
+      <meta itemprop="name" content="swimminghao">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="swimminghao's blog">
+      <meta itemprop="description" content="swimminghao的学习博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | swimminghao's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/63b182f/" class="post-title-link" itemprop="url">33、【对线面试官】Redis主从架构</a>
+        </h2>
+
+        <div class="post-meta-container">
+
+          
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-03-10 09:48:07" itemprop="dateModified" datetime="2022-03-10T09:48:07+08:00">2022-03-10</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/posts/63b182f/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/63b182f/" data-xid="/posts/63b182f/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>3.1k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>3 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="33、【对线面试官】Redis主从架构"><a href="#33、【对线面试官】Redis主从架构" class="headerlink" title="33、【对线面试官】Redis主从架构"></a>33、【对线面试官】Redis主从架构</h1><h2 id="要不你来讲讲你公司的Redis是什么架构的咯？"><a href="#要不你来讲讲你公司的Redis是什么架构的咯？" class="headerlink" title="要不你来讲讲你公司的Redis是什么架构的咯？"></a>要不你来讲讲你公司的Redis是什么架构的咯？</h2><ul>
+<li>我前公司的Redis架构是「分片集群」，使用的是「Proxy」层来对Key进行分流到不同的Redis服务器上</li>
+<li>支持动态扩容、故障恢复等等…</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/exJQS5_20211229222731.png"></p>
+<h2 id="那你来聊下Proxy-层的架构和基本实现原理？"><a href="#那你来聊下Proxy-层的架构和基本实现原理？" class="headerlink" title="那你来聊下Proxy.层的架构和基本实现原理？"></a>那你来聊下Proxy.层的架构和基本实现原理？</h2><ul>
+<li><p>抱歉，这块由中间件团队负责，具体我也没仔细看过</p>
+</li>
+<li><p>不过，我可以给你讲讲现有常见开源的Redis架构</p>
+<ul>
+<li><p>在之前提到了Redis有持久化机制，即便Redis重启了，可以依靠RDB或者AOF文件对数据进行重新加载</p>
+</li>
+<li><p>但在这时，只有一台Redis服务器存储着所有的数据，此时如果Redis服务器「暂时」没办法修复了，那依赖Redis的服务就没了</p>
+</li>
+<li><p>所以，为了Redis「高可用」，现在基本都会给Redis做「备份」：多启一台Redis服务器，形成「主从架构」</p>
+</li>
+<li><p>「从服务器」的数据由「主服务器」复制过去，主从服务器的数据是一致的</p>
+</li>
+<li><p>如果主服务器挂了，那可以「手动」把「从服务器」升级为「主服务器」，缩短不可用时间</p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/jCY34w_20211229225726.png"></p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="那「主服务器」是如何把自身的数据「复制」给「从服务器」的呢？"><a href="#那「主服务器」是如何把自身的数据「复制」给「从服务器」的呢？" class="headerlink" title="那「主服务器」是如何把自身的数据「复制」给「从服务器」的呢？"></a>那「主服务器」是如何把自身的数据「复制」给「从服务器」的呢？</h2><ul>
+<li>「复制」也叫「同步」，在Redis使用的是「PSYNC」命令进行同步，该命令有两种模型：完全重同步和部分重同步</li>
+<li>可以简单理解为：如果是第一次「同步」，从服务器没有复制过任何的主服务器，或者从服务器要复制的主服务器跟上次复制的主服务器不一样，那就会采用「完全重同步」模式进行复制</li>
+<li>如果只是由于网络中断，只是「短时间」断连，那就会采用「部分重同步」模式进行复制</li>
+<li>（假如主从服务器的数据差距实在是过大了，还是会采用「完全重同步」模式进行复制）</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/8nL2eT_20211229225855.png"></p>
+<h2 id="同步原理"><a href="#同步原理" class="headerlink" title="同步原理"></a>同步原理</h2><ul>
+<li><p>主服务器要复制数据到从服务器，首先是建立Socket「连接」，这个过程会干一些信息校验啊、身份校验啊等事情</p>
+</li>
+<li><p>然后从服务器就会发「PSYNC」命令给主服务器，要求同步（这时会带「服务器ID」RUNID和「复制进度」offset参数。如果从服务器是新的，那就没有）</p>
+</li>
+<li><p>主服务器发现这是一个新的从服务器（因为参数没带上来），就会采用「完全重同步」模式，并把「服务器ID」（runld）和「复制进度」（offset）发给从服务器，从服务器就会记下这些信息。</p>
+</li>
+<li><p>随后，主服务器会在后台生成RDB文件，通过前面建立好的连接发给从服务器从服务器收到RDB文件后，首先把自己的数据清空，然后对RDB文件进行加载恢复</p>
+</li>
+<li><p>这个过程中，主服务器也没闲着（继续接收着客户端的请求）</p>
+</li>
+<li><p>主服务器把生成RDB文件「之后修改的命令」会用「ouffer.」记录下来，等到从服务器加载完RDB之后，主服务器会把「buffer.」记录下的命令都发给从服务器</p>
+</li>
+<li><p>这样一来，主从服务器就达到了数据一致性了（复制过程是异步的，所以数据是『最终一致性』）</p>
+</li>
+</ul>
+<h2 id="那「部分重同步」的过程呢？"><a href="#那「部分重同步」的过程呢？" class="headerlink" title="那「部分重同步」的过程呢？"></a>那「部分重同步」的过程呢？</h2><ul>
+<li><p>嗯，其实就是靠「offset」来进行部分重同步。每次主服务器传播命令的时候，都会把「offset」给到从服务器</p>
+</li>
+<li><p>主服务器和从服务器都会将「offset」保存起来（如果两边的offset存在差异，那么说明主从服务器数据未完全同步）</p>
+</li>
+<li><p>从服务器断连之后进行重连，就会发「PSYNC」命令给主服务器，同样也会带着RUNID和offset（重连之后，这些信息还是存在的）</p>
+</li>
+<li><p>主服务器收到命令之后，看RUNID是否能对得上，对得上，说明这可能以前就同步过一部分了</p>
+</li>
+<li><p>接着检查该「offset在主服务器里还是否存在（主服务器记录主从服务器offset的信息用的是环形buffer，如果该ouffer）满了，会覆盖以前的记录。而记录客户端的修改命令用的是另一个buffer）</p>
+</li>
+<li><p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/4mdp0i_20211229230139.png"></p>
+</li>
+<li><p>如果从backlog_buffer找到了，那就把从缺失的一部分offer开始，把对应的修改命令发给从服务器</p>
+</li>
+<li><p>如果从环形ouffer（backlog._buffer）没找到，那只能使用「完全重同步」模式再次进行主从复制了</p>
+<ul>
+<li><p>懂了，无非就是有个关联关系记录下来，只不过存储是环形（可能会造成覆盖）</p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/oGR8JD_20211229230354.png"></p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="Redis主库如果挂了，你还是得「手动」将从库升级为主库啊？你知道有什么办法能做到「自动」进行故障恢复吗？"><a href="#Redis主库如果挂了，你还是得「手动」将从库升级为主库啊？你知道有什么办法能做到「自动」进行故障恢复吗？" class="headerlink" title="Redis主库如果挂了，你还是得「手动」将从库升级为主库啊？你知道有什么办法能做到「自动」进行故障恢复吗？"></a>Redis主库如果挂了，你还是得「手动」将从库升级为主库啊？你知道有什么办法能做到「自动」进行故障恢复吗？</h2><ul>
+<li><p>哨兵</p>
+<ul>
+<li><p>「哨兵」干的事情主要就是：监控（监控主服务器的状态）、选主（主服务器挂了，在从服务器选出一个作为主服务器）、通知（故障发送消息给管理员）和配置（作为配置中心，提供当前主服务器的信息）</p>
+</li>
+<li><p>可以把「哨兵」当做是运行在「特殊」模式下的Redis服务器，为了「高可用」，哨兵也是集群架构的。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/iPv3vB_20211229230508.png"></p>
+</li>
+<li><p>首先它需要跟Redis主从服务器创建对应的连接（获取它们的信息）</p>
+</li>
+<li><p>每个哨兵不断地用ping命令看主服务器有没有下线，如果主服务器在「配置时间」内没有正常响应，那当前哨兵就「主观」认为该主服务器下线了</p>
+</li>
+<li><p>其他「哨兵」同样也会ping该主服务器，如果「足够多」（还是看配置）的哨兵认为该主服务器已经下线，那就认为「客观下线」，这时就要对主服务器执行故障转移操作。</p>
+</li>
+<li><p>「哨兵」之间会选出一个「领头」，选出领头的规则也比较多，总的来说就是先到先得（哪个快，就选哪个）</p>
+</li>
+<li><p>由「领头哨兵」对已下线的主服务器进行故障转移</p>
+<ul>
+<li>过程<ul>
+<li>首先要在「从服务器」上挑选出一个，来作为主服务器</li>
+<li>（这里也挑选讲究，比如：从库的配置优先级、要判断哪个从服务器的复制offset最大、RunID大小、跟master断开连接的时长…）</li>
+<li>然后，以前的从服务器都需要跟新的主服务器进行「主从复制」</li>
+<li>已经下线的主服务器，再次重连的时候，需要让他成为新的主服务器的从服务器</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="了解，我想问问，Redis在主从复制和故障转移的过程中会导致数据丢失吗"><a href="#了解，我想问问，Redis在主从复制和故障转移的过程中会导致数据丢失吗" class="headerlink" title="了解，我想问问，Redis在主从复制和故障转移的过程中会导致数据丢失吗"></a>了解，我想问问，Redis在主从复制和故障转移的过程中会导致数据丢失吗</h2><ul>
+<li><p>会的</p>
+<ul>
+<li><p>1）从上面的「主从复制」流程来看，这个过程是异步的（在复制的过程中：主服务器会一直接收请求，然后把修改命令发给从服务器）</p>
+</li>
+<li><p>假如主服务器的命令还没发完给从服务器，自己就挂掉了。这时候想要让从服务器顶上主服务器，但从服务器的数据是不全的</p>
+</li>
+<li><p>2）还有另一种情况就是：有可能哨兵认为主服务器挂了，但真实是主服务器并没有挂（网络抖动），而哨兵已经选举了一台从服务器当做是主服务器了，此时「客户端」还没反应过来，还继续写向旧主服务器写数据</p>
+</li>
+<li><p>等到旧主服务器重连的时候，已经被纳入到新主服务器的从服务器了…所以，那段时间里，客户端写进旧主服务器的数据就丢了</p>
+</li>
+</ul>
+</li>
+<li><p>上面这两种情况（主从复制延迟&amp;&amp;脑裂），都可以通过配置来「尽可能」避免数据的丢失</p>
+</li>
+<li><p>（达到一定的阈值，直接禁止主服务器接收写请求，企图减少数据丢失的风险）</p>
+</li>
+</ul>
+<h2 id="要不再来聊聊Redis分片集群？"><a href="#要不再来聊聊Redis分片集群？" class="headerlink" title="要不再来聊聊Redis分片集群？"></a>要不再来聊聊Redis分片集群？</h2><ul>
+<li>分片集群就是往每个Redis服务器存储一部分数据，所有的Redis服务器数据加起来，才组成完整的数据（分布式）</li>
+<li>要想组成分片集群，那就需要对key进行「路由」（分片）<ul>
+<li>现在一般的路由方案有两种：「客户端路由」（SDK）和「服务端路由」（Proxy）</li>
+<li>客户端路由的代表（Redis Cluster），服务端路由的代表（Codis）</li>
+<li>区别？</li>
+</ul>
+</li>
+</ul>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p><strong>Redis实现高可用</strong>：</p>
+<ul>
+<li>AOF&#x2F;RDB持久化机制</li>
+<li>主从架构（主服务器挂了，手动由从服务器顶上）</li>
+<li>引入哨兵机制自动故障转义</li>
+</ul>
+<p><strong>主从复制原理</strong>：</p>
+<ul>
+<li>PSYNC命令两种模式：完全重同步、部分重同步</li>
+<li>完全重同步：主从服务器建立连接、主服务器生成RDB文件发给从服务器、主服务器不阻塞（相关修改命令记录至buffer）、将修改命令发给从服务器</li>
+<li>部分重同步：从服务器断线重连，发送RunId和offset给主服务器，主服务器判断offset和runId，将还未同步给从服务器的offset相关指令进行发送</li>
+</ul>
+<p><strong>哨兵机制</strong>：</p>
+<ul>
+<li>哨兵可以理解为特殊的Redis服务器，一般会组成哨兵集群</li>
+<li>哨兵主要工作是监控、告警、配置以及选主</li>
+<li>当主服务器发生故障时，会「选出」一台从服务器来顶上「客观下线」的服务器，由「领头哨兵」进行切换</li>
+</ul>
+<p><strong>数据丢失</strong>：</p>
+<ul>
+<li>Redis的主从复制和故障转移阶段都有可能发生数据丢失问题（通过配置尽可能避免）</li>
+</ul>
 
       
     </div>
@@ -2256,6 +2189,174 @@
 <p>「服务编排」这块之前在公司里因为项目的缘故，自己也没接入过，但一直听有其他的团队在用，顺便也简单看了下代码（：</p>
 <p>后来再去找同事B时，他说现在自己公司用的是「<strong>流程引擎</strong>」，画图就ok了</p>
 <p><strong>其实，搞了半天，还是写if else 舒服!</strong></p>
+
+      
+    </div>
+
+    
+    
+    
+
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>l
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/2b7e87b2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lion.png">
+      <meta itemprop="name" content="swimminghao">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="swimminghao's blog">
+      <meta itemprop="description" content="swimminghao的学习博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | swimminghao's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/2b7e87b2/" class="post-title-link" itemprop="url">36、【对线面试官】设计模式</a>
+        </h2>
+
+        <div class="post-meta-container">
+
+          
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-03-10 09:48:07" itemprop="dateModified" datetime="2022-03-10T09:48:07+08:00">2022-03-10</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/posts/2b7e87b2/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/2b7e87b2/" data-xid="/posts/2b7e87b2/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>3.3k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>3 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="36、【对线面试官】设计模式"><a href="#36、【对线面试官】设计模式" class="headerlink" title="36、【对线面试官】设计模式"></a>36、【对线面试官】设计模式</h1><h2 id="熟悉哪些常见的设计模式？"><a href="#熟悉哪些常见的设计模式？" class="headerlink" title="熟悉哪些常见的设计模式？"></a>熟悉哪些常见的设计模式？</h2><ul>
+<li>常见的工厂模式、代理模式、模板方法模式、责任链模式、单例模式、包装设计模式、策略模式等都是有所了解的</li>
+<li>项目手写代码用得比较多的，一般就模板方法模式、责任链模式、策略模式、单例模式吧</li>
+<li>像工厂模式、代理模式这种，手写倒是不多，但毕竟Java后端一般环境下都用Spring嘛，所以还是比较熟悉的</li>
+</ul>
+<h2 id="手写单例模式"><a href="#手写单例模式" class="headerlink" title="手写单例模式"></a>手写单例模式</h2><ul>
+<li>单例模式一般会有好几种写法<ul>
+<li>饿汉式、简单懒汉式（在方法声明时加锁）、DCL双重检验加锁（进阶懒汉式）、静态内部类（优雅懒汉式）、枚举</li>
+<li>所谓「饿汉式」指的就是还没被用到，就直接初始化了对象。所谓「懒汉式」指的就是等用到的时候，才进行初始化</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//DCL懒汉式</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Singleton1</span> &#123;</span><br><span class="line">    <span class="comment">//第一次减少锁的开销、第二次防止重复、volatile防止重排序导致实例化未完成</span></span><br><span class="line">    <span class="keyword">private</span> <span class="title function_">Singleton1</span><span class="params">()</span>&#123;&#125;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">volatile</span> <span class="keyword">static</span> Singleton1 singleton;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Singleton1 <span class="title function_">getInstance</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(singleton == <span class="literal">null</span>)&#123; <span class="comment">//线程1，2，3到达这里</span></span><br><span class="line">            <span class="keyword">synchronized</span> (Singleton1.class)&#123;<span class="comment">//线程1到这里开始继续往下执行，线程2，3等待</span></span><br><span class="line">                <span class="keyword">if</span>(singleton == <span class="literal">null</span>)&#123;<span class="comment">//线程1到这里发现instance为空，继续执行if代码块</span></span><br><span class="line">                    <span class="comment">//执行晚后退出同步区域，然后线程2进入同步代码块，如果在这里不再加一次判断</span></span><br><span class="line">                    <span class="comment">//就会造成instance再次实例化</span></span><br><span class="line">                    singleton = <span class="keyword">new</span> <span class="title class_">Singleton1</span>();</span><br><span class="line">                    <span class="comment">//new Singleton1();可以分解为3行伪代码</span></span><br><span class="line">                    <span class="comment">//1、memory = allocate() //分配内存</span></span><br><span class="line">                    <span class="comment">//2、ctorInstanc(memory) //初始化对象</span></span><br><span class="line">                    <span class="comment">//3.调用构造函数，</span></span><br><span class="line">                    <span class="comment">//4.返回地址给引用。而cpu为了优化程序，可能会进行指令重排序，打乱这3，4这几个步骤，导致实例内存还没分配，就被使用了。</span></span><br><span class="line">                    <span class="comment">//线程A和线程B举例。线程A执行到new Singleton()，开始初始化实例对象，由于存在指令重排序，这次new操作，先把引用赋值了，还没有执行构造函数。</span></span><br><span class="line">                    <span class="comment">//这时时间片结束了，切换到线程B执行，线程B调用new Singleton()方法，发现引用不等于null，就直接返回引用地址了，然后线程B执行了一些操作，就可能导致线程B使用了还没有被初始化的变量。</span></span><br><span class="line">                    <span class="comment">//volatile防止重排序导致实例化未完成，就将对象赋值使用</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> singleton;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//静态内部类 懒汉式</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Singleton2</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="title function_">Singleton2</span><span class="params">()</span> &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">class</span> <span class="title class_">SingletonHolder</span> &#123;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">static</span> <span class="type">Singleton2</span> <span class="variable">INSTANCE</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Singleton2</span>();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Singleton2 <span class="title function_">getInstance</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> SingletonHolder.INSTANCE;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//枚举</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Singleton3</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="title function_">Singleton3</span><span class="params">()</span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 枚举类型是线程安全的，并且只会装载一次</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">enum</span> <span class="title class_">Singleton</span>&#123;</span><br><span class="line">        INSTANCE;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">final</span> Singleton3 instance;</span><br><span class="line"></span><br><span class="line">        Singleton()&#123;</span><br><span class="line">            instance = <span class="keyword">new</span> <span class="title class_">Singleton3</span>();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">private</span> Singleton3 <span class="title function_">getInstance</span><span class="params">()</span>&#123;</span><br><span class="line">            <span class="keyword">return</span> instance;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Singleton3 <span class="title function_">getInstance</span><span class="params">()</span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> Singleton.INSTANCE.getInstance();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//枚举</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Singleton4</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="title function_">Singleton4</span><span class="params">()</span>&#123;&#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">enum</span> <span class="title class_">SingletonEnum</span> &#123;</span><br><span class="line">        SINGLETON;</span><br><span class="line">        <span class="keyword">private</span> <span class="type">Singleton4</span> <span class="variable">instance</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">        SingletonEnum()&#123;</span><br><span class="line">            instance = <span class="keyword">new</span> <span class="title class_">Singleton4</span>();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">public</span> Singleton4 <span class="title function_">getInstance</span><span class="params">()</span>&#123;</span><br><span class="line">            <span class="keyword">return</span> instance;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Singleton4 <span class="title function_">getInstance</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> SingletonEnum.SINGLETON.getInstance();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="那你们用的哪种比较多？"><a href="#那你们用的哪种比较多？" class="headerlink" title="那你们用的哪种比较多？"></a>那你们用的哪种比较多？</h2><ul>
+<li>一般我们项目里用静态内部类的方式实现单例会比较多（如果没有Springl的环境下），代码简洁易读</li>
+<li>如果有Spring环境，那还是直接交由Spring容器管理会比较方便（Spring默认就是单例的）</li>
+<li>枚举一般我们就用它来做「标识」吧，而DCL这种方式也有同学会在项目里写（在一些源码里也能看到其身影），但总体太不利于阅读和理解</li>
+<li>总的来说，用哪一种都可以的，关键我觉得要看团队的代码风格吧（保持一致就行），即便都用「饿汉式」也没啥大的问题（现在内存也没那么稀缺，我认为可读性比较重要）</li>
+</ul>
+<h2 id="我看你在DCL的单例代码上，写了volatile修饰嘛？为什么呢？"><a href="#我看你在DCL的单例代码上，写了volatile修饰嘛？为什么呢？" class="headerlink" title="我看你在DCL的单例代码上，写了volatile修饰嘛？为什么呢？"></a>我看你在DCL的单例代码上，写了volatile修饰嘛？为什么呢？</h2><ul>
+<li>指令是有可能乱序执行的（编译器优化导致乱序、CPU缓存架构导致乱序、CPU原生重排导致乱序）</li>
+<li>在代码new Object的时候，不是一条原子的指令，它会由几个步骤组成，在这过程中，就可能会发生指令重排的问题，而volatile这个关键字就可以避免指令重排的发生。</li>
+</ul>
+<h2 id="那你说下你在项目里用到的设计模式吧？"><a href="#那你说下你在项目里用到的设计模式吧？" class="headerlink" title="那你说下你在项目里用到的设计模式吧？"></a>那你说下你在项目里用到的设计模式吧？</h2><ul>
+<li><p>嗯，比如说，我这边在处理请求的时候，会用到责任链模式进行处理（减免if else并且让项目结构更加清晰）</p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/X77vb4_20211230110546.png"></p>
+<ul>
+<li>在处理公共逻辑时，会使用模板方法模式进行抽象，具体不同的逻辑会由不同的实现类处理（每种消息发送前都需要经过文案校验，所以可以把文案校验的逻辑写在抽象类上）</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/wEKBZr_20211230110629.png"></p>
+</li>
+<li><p>代理模式手写的机会比较少（因为项目一般有Spring：环境，直接用Spring的AOP代理就好了）</p>
+<ul>
+<li><p>我之前使用过AOP把「监控客户端」封装以「注解」的方式进行使用（不用以硬编码的方式来进行监控，只要有注解就行）</p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/gF5mCF_20211230110735.png"></p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="那你能聊聊Spring使用到的常见设计模嘛？"><a href="#那你能聊聊Spring使用到的常见设计模嘛？" class="headerlink" title="那你能聊聊Spring使用到的常见设计模嘛？"></a>那你能聊聊Spring使用到的常见设计模嘛？</h2><ul>
+<li>比如，Spring IOC容器可以理解为应用了「工厂模式」（通过ApplicationContext或者BeanFactory去获取对象）</li>
+<li>Spring的对象默认都是单例的，所以肯定是用了「单例模式」（源码里对单例的实现是用的DCL来实现单例）</li>
+<li>Spring AOP的底层原理就是用了「代理模式」，实现可能是JDK动态代理，也可能是CGLIB动态代理</li>
+<li>Spring有很多地方都用了「模板方法模式」，比如事务管理器（AbstractPlatformTransactionManager),getTransaction定义了框架，其中很多都由子类实现</li>
+<li>Spring的事件驱动模型用了「观察者模式」，具体实现就是ApplicationContextEvent、ApplicationListener</li>
+</ul>
 
       
     </div>
