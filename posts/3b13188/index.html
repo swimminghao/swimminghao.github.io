@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-loading-bar.css">
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.10.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="前言概览记得刚开始接触Linux的时候是大学二年级，使用Linux的时间也有五年多了，至于为何会接触到此系统呢，归于一个带我飞的大学同学左蓝。在这一年多的时间里，使用的最多的 Linux 系统是基于 debian 发行版系列的Ubuntu，对于它的简介呢，那就维基百科ubuntu。我旨在记录并分享我在ubuntu的深渊使用过并觉得推荐的应用或工具，要是你有更好的推荐希望留言或简信，Thanks♪(">
+<meta property="og:type" content="article">
+<meta property="og:title" content="程序员Linux常用软件清单">
+<meta property="og:url" content="http://example.com/posts/3b13188/index.html">
+<meta property="og:site_name" content="swimminghao&#39;s blog">
+<meta property="og:description" content="前言概览记得刚开始接触Linux的时候是大学二年级，使用Linux的时间也有五年多了，至于为何会接触到此系统呢，归于一个带我飞的大学同学左蓝。在这一年多的时间里，使用的最多的 Linux 系统是基于 debian 发行版系列的Ubuntu，对于它的简介呢，那就维基百科ubuntu。我旨在记录并分享我在ubuntu的深渊使用过并觉得推荐的应用或工具，要是你有更好的推荐希望留言或简信，Thanks♪(">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1678789-34772ba6af627035.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1678789-b0388463ca25bc01.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1678789-c94b08ed736ed441.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1678789-65be51178fddf244.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1678789-a2e952baf5c35023.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1678789-5bfb907460eac636.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1678789-f0ddc562e059761a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1678789-eb1928603a9c7a45.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1678789-257427534695fed8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1678789-86b4c3f915ec8489.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1678789-f38d8ae7d2535c58.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1678789-b9b961bc52d36af6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1678789-deac3970c12ac4fb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1678789-85f49e1266493202.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1678789-9655c761c92c8e2a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1678789-17038a3659511c81.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1678789-8c489775c6edbef3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1678789-c49f4d16fed0b030.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1678789-8168e976df355c61.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1678789-43deb569a623b9c7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1678789-a4fd133b3d58ca15.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1678789-1abf6cf5bc64457a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1678789-fd7ed5119b00c0ff.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1678789-940879e8cbbb3d44.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1678789-a6f27b4b37d3138e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1678789-8337c7db484e9bfd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1678789-84a32e344eb3a20c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1678789-3fa3c7cbd01c61bd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1678789-7be08a726dca19a0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1678789-5d7fa09ea9dfa260.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1678789-431197d97f8633b8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1678789-68ccc17ae24eaeee.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1678789-4662f1cc64db3013.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1678789-a2e81ef52708bc28.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1678789-d3203599e31fe989.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1678789-232d57bbd9678d3a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="article:published_time" content="2023-10-06T12:01:00.000Z">
+<meta property="article:modified_time" content="2025-02-13T08:20:39.934Z">
+<meta property="article:author" content="swimminghao">
+<meta property="article:tag" content="nas">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/1678789-34772ba6af627035.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+<link rel="canonical" href="http://example.com/posts/3b13188/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/posts/3b13188/","path":"posts/3b13188/","title":"程序员Linux常用软件清单"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>程序员Linux常用软件清单 | swimminghao's blog</title>
+  
+
+
+
+
+<link rel="dns-prefetch" href="waline-server-nu.vercel.app"><link rel="stylesheet" href="//cdn.jsdelivr.net/gh/theme-next/theme-next-needmoreshare2@1/needsharebutton.min.css"><style>
+#needsharebutton-postbottom {
+  cursor: pointer;
+  height: 26px;
+  margin-top: 10px;
+  position: relative;
+}
+#needsharebutton-postbottom .btn {
+  border: 1px solid $btn-default-border-color;
+  border-radius: 3px;
+  display: initial;
+  padding: 1px 4px;
+}
+</style>
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">swimminghao's blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">学习博客</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">52</span></a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">17</span></a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">271</span></a></li>
+        <li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%89%8D%E8%A8%80%E6%A6%82%E8%A7%88"><span class="nav-number">1.</span> <span class="nav-text">前言概览</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#1-22%E3%80%81Skype"><span class="nav-number">1.0.1.</span> <span class="nav-text">1.22、Skype</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#1-23%E3%80%81-Transmission"><span class="nav-number">1.0.2.</span> <span class="nav-text">1.23、 Transmission</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#1-24%E3%80%81-thunderbird"><span class="nav-number">1.0.3.</span> <span class="nav-text">1.24、 thunderbird</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#1-25%E3%80%81XMind"><span class="nav-number">1.0.4.</span> <span class="nav-text">1.25、XMind</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#1-26%E3%80%81Okular"><span class="nav-number">1.0.5.</span> <span class="nav-text">1.26、Okular</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#1-27%E3%80%81FocusWriter"><span class="nav-number">1.0.6.</span> <span class="nav-text">1.27、FocusWriter</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#1-28%E3%80%81Typora"><span class="nav-number">1.0.7.</span> <span class="nav-text">1.28、Typora</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#1-29%E3%80%81OBS-Studio"><span class="nav-number">1.0.8.</span> <span class="nav-text">1.29、OBS Studio</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#1-30%E3%80%81Pencil"><span class="nav-number">1.0.9.</span> <span class="nav-text">1.30、Pencil</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#1-31%E3%80%81Remmina"><span class="nav-number">1.0.10.</span> <span class="nav-text">1.31、Remmina</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#1-32%E3%80%81Meld"><span class="nav-number">1.0.11.</span> <span class="nav-text">1.32、Meld</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E7%B3%BB%E7%BB%9F%E5%B7%A5%E5%85%B7%E7%AF%87"><span class="nav-number">2.</span> <span class="nav-text">二、系统工具篇</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#2-1%E3%80%81deepin-scrot"><span class="nav-number">2.0.1.</span> <span class="nav-text">2.1、deepin-scrot</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2-2%E3%80%81Albert-Spotlight"><span class="nav-number">2.0.2.</span> <span class="nav-text">2.2、Albert Spotlight</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2-3%E3%80%81Guake-Terminal"><span class="nav-number">2.0.3.</span> <span class="nav-text">2.3、Guake Terminal</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2-4%E3%80%81bleachbit"><span class="nav-number">2.0.4.</span> <span class="nav-text">2.4、bleachbit</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2-5%E3%80%81psensor"><span class="nav-number">2.0.5.</span> <span class="nav-text">2.5、psensor</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2-6%E3%80%81Indicator-Netspeed"><span class="nav-number">2.0.6.</span> <span class="nav-text">2.6、Indicator Netspeed</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2-7%E3%80%81gnome-system-monitor"><span class="nav-number">2.0.7.</span> <span class="nav-text">2.7、gnome-system-monitor</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2-8%E3%80%81catfish"><span class="nav-number">2.0.8.</span> <span class="nav-text">2.8、catfish</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2-9%E3%80%81docky"><span class="nav-number">2.0.9.</span> <span class="nav-text">2.9、docky</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2-10%E3%80%81TLP"><span class="nav-number">2.0.10.</span> <span class="nav-text">2.10、TLP</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2-11%E3%80%81menulibre"><span class="nav-number">2.0.11.</span> <span class="nav-text">2.11、menulibre</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2-12%E3%80%81indicator-sysmonitor"><span class="nav-number">2.0.12.</span> <span class="nav-text">2.12、indicator-sysmonitor</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7%E7%AF%87"><span class="nav-number">3.</span> <span class="nav-text">三、开发工具篇</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#3-1%E3%80%81Jetbrains-%E5%85%A8%E5%AE%B6%E6%A1%B6"><span class="nav-number">3.0.1.</span> <span class="nav-text">3.1、Jetbrains 全家桶</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#3-2%E3%80%81Brackets"><span class="nav-number">3.0.2.</span> <span class="nav-text">3.2、Brackets</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#3-3%E3%80%81Android-Studio"><span class="nav-number">3.0.3.</span> <span class="nav-text">3.3、Android Studio</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#3-4%E3%80%81Sublime-Text"><span class="nav-number">3.0.4.</span> <span class="nav-text">3.4、Sublime Text</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#3-5%E3%80%81Atom"><span class="nav-number">3.0.5.</span> <span class="nav-text">3.5、Atom</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#3-6%E3%80%81sqliteman"><span class="nav-number">3.0.6.</span> <span class="nav-text">3.6、sqliteman</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#3-7%E3%80%81Git%E3%80%81GitG"><span class="nav-number">3.0.7.</span> <span class="nav-text">3.7、Git、GitG</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#3-8%E3%80%81MySQL-workbench"><span class="nav-number">3.0.8.</span> <span class="nav-text">3.8、MySQL workbench</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#3-9%E3%80%81monodevelop"><span class="nav-number">3.0.9.</span> <span class="nav-text">3.9、monodevelop</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#3-9%E3%80%81Genymotion"><span class="nav-number">3.0.10.</span> <span class="nav-text">3.9、Genymotion</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#3-10%E3%80%81Android-Screen-Monitor"><span class="nav-number">3.0.11.</span> <span class="nav-text">3.10、Android Screen Monitor</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9B%9B%E3%80%81Terminal-Tools"><span class="nav-number">4.</span> <span class="nav-text">四、Terminal Tools</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#4-1%E3%80%81enca%E3%80%81iconv"><span class="nav-number">4.0.1.</span> <span class="nav-text">4.1、enca、iconv</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#4-2%E3%80%81Figlet"><span class="nav-number">4.0.2.</span> <span class="nav-text">4.2、Figlet</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#4-3%E3%80%81oh-my-zsh"><span class="nav-number">4.0.3.</span> <span class="nav-text">4.3、oh-my-zsh</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#4-4%E3%80%81Asciinema"><span class="nav-number">4.0.4.</span> <span class="nav-text">4.4、Asciinema</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#4-5%E3%80%81Aria2"><span class="nav-number">4.0.5.</span> <span class="nav-text">4.5、Aria2</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#4-6%E3%80%81Proxychains4"><span class="nav-number">4.0.6.</span> <span class="nav-text">4.6、Proxychains4</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#4-7%E3%80%81Ubuntu-Make"><span class="nav-number">4.0.7.</span> <span class="nav-text">4.7、Ubuntu Make</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#4-8%E3%80%81sshfs"><span class="nav-number">4.0.8.</span> <span class="nav-text">4.8、sshfs</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#4-8%E3%80%81%E5%AD%97%E4%BD%93"><span class="nav-number">4.0.9.</span> <span class="nav-text">4.8、字体</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#4-8%E3%80%81mysql-markdown"><span class="nav-number">4.0.10.</span> <span class="nav-text">4.8、mysql_markdown</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="swimminghao"
+      src="/images/lion.png">
+  <p class="site-author-name" itemprop="name">swimminghao</p>
+  <div class="site-description" itemprop="description">swimminghao的学习博客</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">271</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">52</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/swimminghao" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;swimminghao" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:swimminghao0@gmail.com" title="E-Mail → mailto:swimminghao0@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/swimminghao" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;swimminghao" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://plus.google.com/yourname" title="Google → https:&#x2F;&#x2F;plus.google.com&#x2F;yourname" rel="noopener" target="_blank"><i class="fab fa-google fa-fw"></i>Google</a>
+      </span>
+  </div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdn.jsdelivr.net/npm/@creativecommons/vocabulary@2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+<!-- recent posts -->
+    <div class="links-of-blogroll motion-element links-of-blogroll-block">
+        <div class="links-of-blogroll-title recent-posts-title">
+	    <i class="fa fa-history " aria-hidden="true"></i>
+            近期文章
+	</div>
+	<ul class="links-of-blogroll-list recent-posts-list">
+	        <li class="my-links-of-blogroll-item">
+		    <a href="/posts/967669ed/" title="holer-server项目解读" target="">
+		    holer-server项目解读
+		    </a>
+		</li>
+	        <li class="my-links-of-blogroll-item">
+		    <a href="/posts/c30e6297/" title="Hexo博客文章加密" target="">
+		    Hexo博客文章加密
+		    </a>
+		</li>
+	        <li class="my-links-of-blogroll-item">
+		    <a href="/posts/7ff70092/" title="做任何事都非常厉害的诀窍，这3点你记好" target="">
+		    做任何事都非常厉害的诀窍，这3点你记好
+		    </a>
+		</li>
+	        <li class="my-links-of-blogroll-item">
+		    <a href="/posts/1afe5736/" title="DBeaver Ultimate Edition 免费破解使用" target="">
+		    DBeaver Ultimate Edition 免费破解使用
+		    </a>
+		</li>
+	        <li class="my-links-of-blogroll-item">
+		    <a href="/posts/7a47e8be/" title="为何大多数程序员做不了独立开发者？" target="">
+		    为何大多数程序员做不了独立开发者？
+		    </a>
+		</li>
+	</ul>
+    </div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/3b13188/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lion.png">
+      <meta itemprop="name" content="swimminghao">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="swimminghao's blog">
+      <meta itemprop="description" content="swimminghao的学习博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="程序员Linux常用软件清单 | swimminghao's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          程序员Linux常用软件清单
+        </h1>
+
+        <div class="post-meta-container">
+
+          
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2023-10-06 20:01:00" itemprop="dateCreated datePublished" datetime="2023-10-06T20:01:00+08:00">2023-10-06</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2025-02-13 16:20:39" itemprop="dateModified" datetime="2025-02-13T16:20:39+08:00">2025-02-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">工具</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/posts/3b13188/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/3b13188/" data-xid="/posts/3b13188/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>18k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>16 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h4 id="前言概览"><a href="#前言概览" class="headerlink" title="前言概览"></a>前言概览</h4><p>记得刚开始接触Linux的时候是大学二年级，使用Linux的时间也有五年多了，至于为何会接触到此系统呢，归于一个带我飞的大学同学<a target="_blank" rel="noopener" href="https://github.com/izuolan"><strong>左蓝</strong></a>。在这一年多的时间里，使用的最多的 <code>Linux</code> 系统是基于 <code>debian</code> 发行版系列的<code>Ubuntu</code>，对于它的简介呢，那就<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/Ubuntu">维基百科ubuntu</a>。我旨在记录并分享我在ubuntu的深渊使用过并觉得推荐的应用或工具，要是你有更好的推荐希望留言或简信，Thanks♪(･ω･)ﾉ</p>
+<p>update 2019.12.14<br>content 将常用的以及推荐的软件或工具继承GUI界面，可谓一目了然</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1678789-34772ba6af627035.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="gui-install"></p>
+<p>使用方法：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br></pre></td><td class="code"><pre><span class="line">wget https://github.com/alicfeng/Linux_env/blob/master/shell/os/install/helper.sh &amp;&amp; bash helper.sh</span><br><span class="line">```git</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">&gt;</span><span class="language-bash">为了更方便安装该软件或应用，已经编写好了一个Shell-[AShellTools](https://github.com/alicfeng/Alic_env/blob/master/dever/AShellTools.sh)。Constantly update ...</span></span><br><span class="line"></span><br><span class="line">![AShellTools](http://upload-images.jianshu.io/upload_images/1678789-2f5a044a49c0840c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)</span><br><span class="line">___</span><br><span class="line"><span class="meta">#</span><span class="language-bash"><span class="comment">### 目录</span></span></span><br><span class="line"></span><br><span class="line">- 日常工具</span><br><span class="line">- 系统工具</span><br><span class="line">- 开发工具</span><br><span class="line">- 终端工具</span><br><span class="line">___</span><br><span class="line"><span class="meta">#</span><span class="language-bash"><span class="comment">### 一、日常工具篇</span></span></span><br><span class="line"><span class="meta">#</span><span class="language-bash"><span class="comment">##### 1.1、Google Chrome</span></span></span><br><span class="line">[Google Chrome](https://www.google.com/chrome/)是一个由Google公司开发的免费网页浏览器，其应用商店有众多出色的应用以及插件，此应用属于跨平台于Mac、Linux、Windows、Android等，因而数据的同步就okay了；此外它还拥有一个开源的兄弟Chromium。**强烈推荐**</span><br><span class="line"></span><br><span class="line">![Google Chrome](http://upload-images.jianshu.io/upload_images/1678789-e1f450fab50adc18.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)</span><br><span class="line"></span><br><span class="line">方法一：在官网下载对应版本的deb后执行</span><br><span class="line">~~~</span><br><span class="line">sudo dpkg -i *.deb &amp;&amp; sudo apt-get install -fy</span><br><span class="line">~~~</span><br><span class="line">方法二：包管理apt-get安装</span><br><span class="line">~~~</span><br><span class="line">sudo apt-get install google-chrome-stable</span><br><span class="line">~~~</span><br><span class="line"><span class="meta">&gt;</span><span class="language-bash">刚说了Google Chrome有众多的出色的插件，那还是得说几个我常用的</span></span><br><span class="line">`AdBlock`：最受欢迎的Chrome扩展，拥有超过4000万用户！屏蔽整个互联网上的广告</span><br><span class="line">`The QR Code Extension`：允许当前页面生成QR码，并使用网络摄像头扫描QR码。</span><br><span class="line">`Window Resizer`：调节屏幕的分辨率，诸多时候用户开发</span><br><span class="line">`Vimium`：vim的分身</span><br><span class="line">`Proxy SwitchyOmega`：轻松快捷地管理和切换多个代理设置</span><br><span class="line">`Wechat`：微信</span><br><span class="line">`马克飞象`：使用印象笔记扩展程序一键保存精彩网页内容到印象笔记帐户</span><br><span class="line">`惠惠购物助手`：【网易出品】在您网购浏览商品的同时，自动对比其他优质电商同款商品价格，并提供商品价格历史，帮您轻松抄底，聪明网购不吃亏</span><br><span class="line">`JSON-handle`：顾名思义就是处理JSON数据的工具</span><br><span class="line">... ...</span><br><span class="line"></span><br><span class="line">___</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="language-bash"><span class="comment">##### 1.2、Firefox</span></span></span><br><span class="line">[Firefox](http://www.firefox.com.cn/)即火狐浏览器，它是一个安全高效且体积小的浏览器，它具有速度快、隐私保护、不同设备之间同步数据、个性化定制等特性，对于我来说呢，Firefox具有众多的开发插件。</span><br><span class="line"></span><br><span class="line">![Paste_Image.png](http://upload-images.jianshu.io/upload_images/1678789-c9bc860c3a69d41d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)</span><br><span class="line">~~~</span><br><span class="line">sudo apt-get install firefox -y</span><br><span class="line">~~~</span><br><span class="line">___</span><br><span class="line"><span class="meta">#</span><span class="language-bash"><span class="comment">##### 1.3、Gparted</span></span></span><br><span class="line">[GParted](http://gparted.org/)是一个分区工具，它可以用于创建、删除、移动分区，调整分区大小，检查、复制分区等操作。可以用于调整分区以安装新操作系统、备份特定分区到另一块硬盘等。</span><br><span class="line"></span><br><span class="line">![Gparted](http://upload-images.jianshu.io/upload_images/1678789-35df1b78a50b27af.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)</span><br><span class="line"></span><br><span class="line">~~~</span><br><span class="line">sudo apt-get install gparted -y</span><br><span class="line">~~~</span><br><span class="line">___</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="language-bash"><span class="comment">##### 1.4、搜狗输入法</span></span></span><br><span class="line">[搜狗输入法](http://pinyin.sogou.com/linux/?r=pinyin)顾名思义，它就是一个输入法。</span><br><span class="line"></span><br><span class="line">![搜狗输入法](http://upload-images.jianshu.io/upload_images/1678789-8d9877d9112e3032.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)</span><br><span class="line"></span><br><span class="line">~~~</span><br><span class="line"><span class="meta">#</span><span class="language-bash">在官网下载deb后，执行</span></span><br><span class="line">sudo dpkg -i *.deb &amp;&amp; sudo apt-get install -fy</span><br><span class="line">~~~</span><br><span class="line">___</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="language-bash"><span class="comment">##### 1.5、FileZilla</span></span></span><br><span class="line">[FileZilla](https://filezilla-project.org/)是一个免费开源的FTP软件，分为客户端版本和服务器版本，具备所有的FTP软件功能。可控性、有条理的界面和管理多站点的简化方式使得Filezilla客户端版成为一个方便高效的FTP客户端工具。</span><br><span class="line"></span><br><span class="line">![FileZilla](http://upload-images.jianshu.io/upload_images/1678789-def291b922b1a08f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)</span><br><span class="line"></span><br><span class="line">~~~</span><br><span class="line">sudo apt-get install filezilla</span><br><span class="line">~~~</span><br><span class="line">___</span><br><span class="line"><span class="meta">#</span><span class="language-bash"><span class="comment">##### 1.6、WPS</span></span></span><br><span class="line">[WPS](http://www.wps.cn/)是由金山软件股份有限公司自主研发的一款办公软件套装，可以实现办公软件最常用的文字、表格、演示等多种功能。具有内存占用低、运行速度快、体积小巧、强大插件平台支持等特点。</span><br><span class="line"></span><br><span class="line">![WPS](http://upload-images.jianshu.io/upload_images/1678789-a3d437156839db0d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)</span><br><span class="line"></span><br><span class="line"> ~~~</span><br><span class="line"><span class="meta">#</span><span class="language-bash">在官网下载对应版本的deb后执行</span></span><br><span class="line">sudo dpkg -i *.deb &amp;&amp; sudo apt-get install -fy</span><br><span class="line"> ~~~</span><br><span class="line"><span class="meta">&gt;</span><span class="language-bash">顺便路过提提[LibreOffice](https://zh-cn.libreoffice.org/) ，它也是是一款功能强大的办公套件，默认在ubuntu自带，强迫症看起来不舒服不使用。</span></span><br><span class="line">___</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="language-bash"><span class="comment">##### 1.7、有道翻译</span></span></span><br><span class="line">[有道词典](http://www.youdao.com)是由网易有道出品的全球首款基于搜索引擎技术的全能免费语言翻译软件，为全年龄段学习人群提供优质顺畅的查词翻译服务。</span><br><span class="line"></span><br><span class="line">![有道词典](http://upload-images.jianshu.io/upload_images/1678789-cadc9b801e8c7706.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)</span><br><span class="line"></span><br><span class="line"> ~~~</span><br><span class="line"><span class="meta">#</span><span class="language-bash">在官网下载对应版本的deb后执行</span></span><br><span class="line">sudo dpkg -i *.deb &amp;&amp; sudo apt-get install -fy</span><br><span class="line"> ~~~</span><br><span class="line">___</span><br><span class="line"><span class="meta">#</span><span class="language-bash"><span class="comment">##### 1.8、网易云音乐</span></span></span><br><span class="line">[网易云音乐](http://music.163.com/)是一款专注于发现与分享的音乐产品,依托专业音乐人、DJ、好友推荐及社交功能,为用户打造全新的音乐生活。</span><br><span class="line"></span><br><span class="line">![网易云音乐](http://upload-images.jianshu.io/upload_images/1678789-1d64ee4ea1d4918a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)</span><br><span class="line"></span><br><span class="line"> ~~~</span><br><span class="line"><span class="meta">#</span><span class="language-bash">在官网下载对应版本的deb后执行</span></span><br><span class="line">sudo dpkg -i *.deb &amp;&amp; sudo apt-get install -fy</span><br><span class="line"> ~~~</span><br><span class="line">◾ 网易云音乐最小化托盘问题 ，解决方案：把原来的Exec那行改为</span><br><span class="line"><span class="meta">&gt;</span><span class="language-bash">Exec=<span class="built_in">env</span> XDG_CURRENT_DESKTOP=Unity netease-cloud-music %U</span></span><br><span class="line"></span><br><span class="line">___</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="language-bash"><span class="comment">##### 1.9、VLC</span></span></span><br><span class="line">[VLC](http://www.videolan.org/) 是一款自由、开源的跨平台多媒体播放器及框架，可播放大多数多媒体文件，以及 DVD、音频 CD、VCD 及各类流媒体协议。</span><br><span class="line"></span><br><span class="line">![VLC](http://upload-images.jianshu.io/upload_images/1678789-c267981da96d5c84.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)</span><br><span class="line"></span><br><span class="line">~~~</span><br><span class="line">sudo apt-get install vlc -y</span><br><span class="line">~~~</span><br><span class="line"><span class="meta">&gt;</span><span class="language-bash">附带暗转媒体解码框架</span></span><br><span class="line"></span><br><span class="line">~~~</span><br><span class="line">sudo apt-add-repository ppa:mc3man/trusty-media</span><br><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install Ubuntu-restricted-extras ffmpeg gstreamer0.10-plugins-ugly libavcodec-extra-54 libvdpau-va-gl1 libmad0 mpg321 gstreamer1.0-libav</span><br><span class="line">~~~</span><br><span class="line">___</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="language-bash"><span class="comment">##### 1.10、Kazam</span></span></span><br><span class="line">[Kazam](http://www.kazam.mobi/) 是 Ubuntu 上一款简易的桌面屏幕录制工具，它只能录制整个屏幕，可以录制声音，并可以快速上传录制好的视频到 YouTube 及 VideoBin 视频分享网站上。</span><br><span class="line"></span><br><span class="line">![Kazam](http://upload-images.jianshu.io/upload_images/1678789-c78fa49d58293323.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)</span><br><span class="line"></span><br><span class="line">~~~</span><br><span class="line">sudo add-apt-repository ppa:and471/kazam-daily-builds </span><br><span class="line">sudo apt-get update </span><br><span class="line">sudo apt-get install kazam</span><br><span class="line">~~~</span><br><span class="line">___</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="language-bash"><span class="comment">##### 1.11、Silentcast</span></span></span><br><span class="line">[Silentcast](https://github.com/colinkeenan/silentcast)是一款专注于GIF录制工具。</span><br><span class="line"></span><br><span class="line">![Silentcast](http://upload-images.jianshu.io/upload_images/1678789-df11966b9a975747.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)</span><br><span class="line"></span><br><span class="line">~~~</span><br><span class="line">sudo add-apt-repository ppa:sethj/silentcast</span><br><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install silentcast</span><br><span class="line">~~~</span><br><span class="line">___</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="language-bash"><span class="comment">##### 1.12、Smplayer</span></span></span><br><span class="line">[Smplayer](http://smplayer.sourceforge.net)是一款开源的跨平台软件，其在Linux、Windows系统中有重要地位，影音播放能力很强大。</span><br><span class="line"></span><br><span class="line">![Smplayer](http://upload-images.jianshu.io/upload_images/1678789-97d1a13282e30d54.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)</span><br><span class="line"></span><br><span class="line">~~~</span><br><span class="line">sudo apt-get install smplayer</span><br><span class="line">~~~</span><br><span class="line">___</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="language-bash"><span class="comment">##### 1.13、Audience</span></span></span><br><span class="line">[Audience](http://design.ubuntu.com/audiences)是一款简洁而强大的视频播放器，怎么说呢：简洁到不能再简洁。它是ElementaryOS系统默认的视频播放器，强烈推荐！</span><br><span class="line"></span><br><span class="line">![Audience](http://upload-images.jianshu.io/upload_images/1678789-cc11e45e7072db35.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)</span><br><span class="line"></span><br><span class="line">~~~</span><br><span class="line">sudo apt-get install audience</span><br><span class="line">~~~</span><br><span class="line">___</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="language-bash"><span class="comment">##### 1.14、Gimp</span></span></span><br><span class="line">[Gimp](https://www.gimp.org)是一个图片编辑器，优雅地取代windows、mac下的另一个ps软件。</span><br><span class="line"></span><br><span class="line">![Gimp](http://upload-images.jianshu.io/upload_images/1678789-4dca87a18d197bb6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)</span><br><span class="line"></span><br><span class="line">~~~</span><br><span class="line">sudo add-apt-repository ppa:otto-kesselgulasch/gimp</span><br><span class="line">sudo apt-get install gimp</span><br><span class="line">~~~</span><br><span class="line">___</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="language-bash"><span class="comment">##### 1.15、Krita</span></span></span><br><span class="line">[Krita]()是一个位图形编辑软件，包含一个绘画程式和照片编辑器。Krita是开源软件软件，Krita和gimp是有很大区别的，一句通俗的言语来表名：gimp是编辑图像用的，krita是画画用的。</span><br><span class="line"></span><br><span class="line">![Krita](http://upload-images.jianshu.io/upload_images/1678789-3c551749859c4f12.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)</span><br><span class="line"></span><br><span class="line">~~~</span><br><span class="line">sudo add-apt-repository ppa:kubuntu-ppa/backports</span><br><span class="line">sudo apt-get install kdelibs-bin kbuildsycoca4 --noincremental krita -y</span><br><span class="line">~~~</span><br><span class="line">___</span><br><span class="line"><span class="meta">#</span><span class="language-bash"><span class="comment">##### 1.16、gedit</span></span></span><br><span class="line">[gedit](https://gedit.en.softonic.com/)是一个基于GNOME桌面环境下兼容UTF-8的文本编辑器。它使用GTK+编写而成，因此它十分的简单易用，有良好的语法高亮，对中文支持很好，支持包括gb2312、gbk在内的多种字符编码。甚至你可以配置成用于开发的IDEA，我才不折腾这个呢。</span><br><span class="line"></span><br><span class="line">![gedit](http://upload-images.jianshu.io/upload_images/1678789-01cd68387d0b13da.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)</span><br><span class="line"></span><br><span class="line">~~~</span><br><span class="line">sudo apt-get install gedit</span><br><span class="line">~~~</span><br><span class="line">我还是经常习惯使用ElementaryOS自带的scratch-text-editor编辑器，不过它在ElementaryOS中使用搜狗输入法有一个bug：就是在非root下不能输入中文。</span><br><span class="line">解决方案：</span><br><span class="line">~~~</span><br><span class="line"><span class="meta">#</span><span class="language-bash">将原来的</span></span><br><span class="line">Exec=scratch-text-editor %U</span><br><span class="line">X-GNOME-Gettext-Domain=scratch-text-editor</span><br><span class="line"><span class="meta">#</span><span class="language-bash">改成如下</span></span><br><span class="line">Exec=env GTK_IM_MODULE=xim scratch-text-editor %U</span><br><span class="line">X-GNOME-Gettext-Domain=env GTK_IM_MODULE=xim scratch-text-editor</span><br><span class="line">~~~</span><br><span class="line"><span class="meta">&gt;</span><span class="language-bash">既然讲到了文本编辑器，肯定少不了vim，接触过linux的几乎都认识这家伙,我也不多说。</span></span><br><span class="line">[*Vim*最少必要知识](http://www.jianshu.com/p/881a168d454a)</span><br><span class="line"></span><br><span class="line">___</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="language-bash"><span class="comment">##### 1.17、x11vnc客户端</span></span></span><br><span class="line">[x11vnc](http://design.ubuntu.com/audiences)是一种 位图显示的 视窗系统 。它是在 Unix 和 类Unix 操作系统 ，以及 OpenVMS 上建立图形用户界面的标准工具包和协议。x11vnc服务端可以实现Windows远程Linux桌面系统。</span><br><span class="line"></span><br><span class="line">![X11vnc-server](http://upload-images.jianshu.io/upload_images/1678789-c660087c3b58ae61.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)</span><br><span class="line"></span><br><span class="line">~~~</span><br><span class="line">sudo apt-get install x11vnc</span><br><span class="line">~~~</span><br><span class="line">___</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="language-bash"><span class="comment">##### 1.18、Shadowsocks-qt5</span></span></span><br><span class="line">[Shadowsocks-qt5](https://github.com/shadowsocks/shadowsocks-qt5)是一个科学上网利器工具。在天朝莫谈国情，说说Shadowsocks原理就好，它是将原来 ssh 创建的 Socks5 协议拆开成 Server 端和 Client 端，两个端分别安装在境外服务器和境内设备上。</span><br><span class="line"></span><br><span class="line">![Shadowsocks-qt5](http://upload-images.jianshu.io/upload_images/1678789-9fafbe3453c332bb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">~~~</span><br><span class="line">sudo add-apt-repository ppa:hzwhuang/ss-qt5</span><br><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install shadowsocks-qt5 -y</span><br><span class="line">~~~</span><br><span class="line">___</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="language-bash"><span class="comment">##### 1.19、VirtualBox</span></span></span><br><span class="line">[VirtualBox](https://www.virtualbox.org)是一款由德国 Innotek 公司开发的开源虚拟机软件。号称是最强的免费虚拟机软件，它不仅具有丰富的特色以及轻量级的体积，而且性能也很优异！可虚拟的系统包括所有的Windows系统、Mac OS X、Linux、OpenBSD、Solaris、IBM OS2甚至Android等操作系统！为了完整地使用VirtualBox，尽量安装VirtualBox Extension Pack。</span><br><span class="line"></span><br><span class="line">![VirtualBox](http://upload-images.jianshu.io/upload_images/1678789-812055590d4edf33.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)</span><br><span class="line"></span><br><span class="line"> ~~~</span><br><span class="line"><span class="meta">#</span><span class="language-bash">在官网下载对应版本的deb后执行</span></span><br><span class="line">sudo dpkg -i *.deb &amp;&amp; sudo apt-get install -fy</span><br><span class="line"> ~~~</span><br><span class="line">___</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="language-bash"><span class="comment">##### 1.20、Steam</span></span></span><br><span class="line">Steam是一个整合游戏下载平台，很少玩游戏也不多少了#_#</span><br><span class="line"></span><br><span class="line">![Steam](http://upload-images.jianshu.io/upload_images/1678789-f57bada6e5b64743.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)</span><br><span class="line"></span><br><span class="line">~~~</span><br><span class="line">sudo apt-get install steam</span><br><span class="line">~~~</span><br><span class="line">___</span><br><span class="line"><span class="meta">#</span><span class="language-bash"><span class="comment">##### 1.21、electronic-wechat</span></span></span><br><span class="line">[electronic-wechat](https://github.com/geeeeeeeeek/electronic-wechat)是一个基于nodeJS开发的Linux系统微信。</span><br><span class="line"></span><br><span class="line">![Paste_Image.png](http://upload-images.jianshu.io/upload_images/1678789-edcec7f36feaa6c3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)</span><br><span class="line"></span><br><span class="line">~~~</span><br><span class="line">git clone https://github.com/geeeeeeeeek/electronic-wechat.git</span><br><span class="line">cd electronic-wechat</span><br><span class="line">npm install &amp;&amp; npm start</span><br><span class="line">~~~</span><br><span class="line">附上THis</span><br><span class="line">微信之外最优选！纯净安全的聊天工具 – Telegram #iOS #Android #WP #Linux</span><br><span class="line">```shell</span><br><span class="line">sudo add-apt-repository ppa:atareao/telegram</span><br><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install telegram</span><br></pre></td></tr></table></figure>
+<hr>
+<h6 id="1-22、Skype"><a href="#1-22、Skype" class="headerlink" title="1.22、Skype"></a>1.22、Skype</h6><p>Skype 是一款即时通讯软件，具备视频聊天、多人语音会议、传送文件、文字聊天等功能。它允许用户进行跨平台的视频呼叫，可与使用电脑、手机、电视、PSV 等多种终端的 Skype 用户进行视频通话。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1678789-b0388463ca25bc01.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Skype"></p>
+<hr>
+<h6 id="1-23、-Transmission"><a href="#1-23、-Transmission" class="headerlink" title="1.23、 Transmission"></a>1.23、 Transmission</h6><p>Transmission 是一个 BitTorrent 客户端软件，它支持速度限制、制作种子、远程控制、磁力链接、数据加密、损坏修复、数据来源交换等功能。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1678789-c94b08ed736ed441.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Transmission"></p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-<span class="built_in">get</span> install transmission</span><br></pre></td></tr></table></figure>
+<hr>
+<h6 id="1-24、-thunderbird"><a href="#1-24、-thunderbird" class="headerlink" title="1.24、 thunderbird"></a>1.24、 thunderbird</h6><p>thunderbird是又是一个简洁易用的邮箱客户端。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1678789-65be51178fddf244.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="thunderbird"></p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-<span class="built_in">get</span> install thunderbird</span><br></pre></td></tr></table></figure>
+<hr>
+<h6 id="1-25、XMind"><a href="#1-25、XMind" class="headerlink" title="1.25、XMind"></a>1.25、XMind</h6><p>XMind是一款实用的思维导图软件,简单易用、美观、功能强大,拥有高效的可视化思维模式,具备可扩展、跨平台。但是对于稳定性和性能还是欠佳，在ubuntu上使用占用很大的CPU资源。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1678789-a2e952baf5c35023.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="XMind"></p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#在官网下载对应版本的deb后执行</span></span><br><span class="line"><span class="attribute">sudo</span> dpkg -i <span class="regexp">*.deb</span> &amp;&amp; sudo apt-get install -fy</span><br></pre></td></tr></table></figure>
+<hr>
+<h6 id="1-26、Okular"><a href="#1-26、Okular" class="headerlink" title="1.26、Okular"></a>1.26、Okular</h6><p>Okular 是一个 PDF 文档阅读软件，支持 PDF、TIFF、CHM、ODF、EPUB、mobi 等文档格式。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1678789-5bfb907460eac636.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Okular"></p>
+<figure class="highlight brainfuck"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">sudo apt install okular </span><span class="literal">-</span><span class="comment">y</span></span><br></pre></td></tr></table></figure>
+<hr>
+<h6 id="1-27、FocusWriter"><a href="#1-27、FocusWriter" class="headerlink" title="1.27、FocusWriter"></a>1.27、FocusWriter</h6><p>FocusWriter 是一款写作软件，为了让您的写作空间尽可能的多且不受打扰，FocusWriter 将几乎所有的工具栏都自动隐藏在屏幕边缘。利用 FocusWriter 写作便利流畅，您还可以设置闹钟和每日任务，非常适合撰稿人、小说写手、剧本作家使用。左蓝推荐！</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1678789-f0ddc562e059761a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="FocusWriter"></p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt <span class="keyword">install</span> focuswriter</span><br></pre></td></tr></table></figure>
+<hr>
+<h6 id="1-28、Typora"><a href="#1-28、Typora" class="headerlink" title="1.28、Typora"></a>1.28、Typora</h6><p><a target="_blank" rel="noopener" href="http://www.typora.io/">Typora</a>是极简的Markdown编辑器，合并了写作和预览。支持表格、代码编辑，拖拽插图等，非常好用；喜欢它的原因也就是：美观、免费。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1678789-eb1928603a9c7a45.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Typora"></p>
+<figure class="highlight smali"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys BA300B7755AFCFAE</span><br><span class="line">sudo<span class="built_in"> add-apt-repository </span>&#x27;deb https://typora.io linux/&#x27;</span><br><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install typora</span><br></pre></td></tr></table></figure>
+<hr>
+<h6 id="1-29、OBS-Studio"><a href="#1-29、OBS-Studio" class="headerlink" title="1.29、OBS Studio"></a>1.29、OBS Studio</h6><p><a target="_blank" rel="noopener" href="http://www.obsapp.net/">OBS Studio</a> 是一款跨平台的，开源的视频录制和在线直播客户端软件。我觉得一点不好的体验就是不能刻录整个屏幕。<a target="_blank" rel="noopener" href="http://www.jianshu.com/u/e4026cb2f05a">ymengyue推荐</a></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1678789-257427534695fed8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="OBS Studio"></p>
+<figure class="highlight smali"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install ffmpeg</span><br><span class="line">sudo<span class="built_in"> add-apt-repository </span>ppa:obsproject/obs-studio</span><br><span class="line">sudo apt-get update &amp;&amp; sudo apt-get install obs-studio</span><br></pre></td></tr></table></figure>
+<p><a target="_blank" rel="noopener" href="https://github.com/jp9000/obs-studio/wiki/Install-Instructions#linux">其他系统安装查看</a></p>
+<hr>
+<h6 id="1-30、Pencil"><a href="#1-30、Pencil" class="headerlink" title="1.30、Pencil"></a>1.30、Pencil</h6><p><a target="_blank" rel="noopener" href="http://pencil.evolus.vn/">Pencil</a>是一款开源的原型图绘制工具，手绘风格的，就像自己在纸上画的那样。还可以用来绘制各种架构图和流程图，同时还提供 Firefox 的插件。对于经常做设计的人来说是一个不错的软件，可谓是linux下的visio。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1678789-86b4c3f915ec8489.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Pencil"></p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">wget</span> -c http://pencil.evolus.vn/dl/V3.<span class="number">0</span>.<span class="number">1</span>/Pencil_3.<span class="number">0</span>.<span class="number">1</span>_i386.deb</span><br><span class="line"><span class="attribute">sudo</span> dpkg -i Pencil_3.<span class="number">0</span>.<span class="number">1</span>_i386.deb  </span><br></pre></td></tr></table></figure>
+<hr>
+<h6 id="1-31、Remmina"><a href="#1-31、Remmina" class="headerlink" title="1.31、Remmina"></a>1.31、Remmina</h6><p>Remmina是一个用远程桌面软件，提供了RDP、VNC、XDMCP、SSH等远程连接协议的支持。这个客户端最大的优点在于界面清爽，方便易用，创建远程连接的界面与Windows自带的远程桌面十分相近。可以到Linux软件管理器中搜索下载安装，十分方便．</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1678789-f38d8ae7d2535c58.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Remmina"></p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-<span class="built_in">get</span> install remmina</span><br></pre></td></tr></table></figure>
+<hr>
+<h6 id="1-32、Meld"><a href="#1-32、Meld" class="headerlink" title="1.32、Meld"></a>1.32、Meld</h6><p>Meld是针对开发者的视觉差异和合并工具。MELD帮助您比较文件、目录和版本控制的项目。它提供了两个和三个比较的文件和目录，并支持许多流行的版本控制系统。既可以查看差异有可以同步！</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1678789-b9b961bc52d36af6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Meld"></p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-<span class="built_in">get</span> install meld</span><br></pre></td></tr></table></figure>
+
+<h4 id="二、系统工具篇"><a href="#二、系统工具篇" class="headerlink" title="二、系统工具篇"></a>二、系统工具篇</h4><hr>
+<h6 id="2-1、deepin-scrot"><a href="#2-1、deepin-scrot" class="headerlink" title="2.1、deepin-scrot"></a>2.1、deepin-scrot</h6><p>deepin-scrot是深度团队开发的一个截图工具。在deepin深度系统作为默认的截图软件，在debian系统安装需要在终端命令使用，为了方便推荐定义快捷键配合使用。强烈推荐！</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#安装</span></span><br><span class="line">wget http:<span class="regexp">//</span>packages.linuxdeepin.com<span class="regexp">/deepin/</span>pool<span class="regexp">/main/</span>d<span class="regexp">/deepin-scrot/</span>deepin-scrot_2.<span class="number">0</span>-<span class="number">0</span>deepin_all.deb</span><br><span class="line">sudo dpkg -i deepin-scrot_2.<span class="number">0</span>-<span class="number">0</span>deepin_all.deb</span><br><span class="line">sudo apt-get install -f</span><br><span class="line"><span class="comment">#使用</span></span><br><span class="line">deepin-scrot</span><br></pre></td></tr></table></figure>
+<hr>
+<h6 id="2-2、Albert-Spotlight"><a href="#2-2、Albert-Spotlight" class="headerlink" title="2.2、Albert Spotlight"></a>2.2、Albert Spotlight</h6><p>Albert Spotlight是 Ubuntu的一项快速、随打即找、系统支援的桌面搜寻特色。spotlight 被设计为可以找到任何位于电脑中广泛的项目，包含文件、图片、音乐、应用程式、系统喜好设定控制台，也可以是文件或是PDF中指定的字。优雅地取代了Mac中的mac Spotlight。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1678789-deac3970c12ac4fb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Albert Spotlight*"></p>
+<figure class="highlight smali"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo<span class="built_in"> add-apt-repository </span>ppa:noobslab/macbuntu</span><br><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install albert</span><br></pre></td></tr></table></figure>
+<hr>
+<h6 id="2-3、Guake-Terminal"><a href="#2-3、Guake-Terminal" class="headerlink" title="2.3、Guake Terminal"></a>2.3、Guake Terminal</h6><p><a target="_blank" rel="noopener" href="http://guake.org/">Guake</a>是一个下拉式的gnome桌面环境下的终端程序，因此你只需要按一个键就可以调用他，然后再按一次以便隐藏他。Guake支持快捷键、标签、背景透明等特性。一句话：GuakeTerminal是linux下完美帅气的终端！</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1678789-85f49e1266493202.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Guake Terminal"></p>
+<hr>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo add-apt-repository ppa:webupd8team/unstable</span><br><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install guake</span><br></pre></td></tr></table></figure>
+
+
+<h6 id="2-4、bleachbit"><a href="#2-4、bleachbit" class="headerlink" title="2.4、bleachbit"></a>2.4、bleachbit</h6><p><a href="">bleachbit</a>是系统ubuntu系统减肥的一门”中药”，用于清理系统没用的垃圾文件。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1678789-9655c761c92c8e2a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="bleachbit"></p>
+<figure class="highlight smali"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo<span class="built_in"> add-apt-repository </span>ppa:n-muench/programs-ppa</span><br><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install bleachbit -y</span><br></pre></td></tr></table></figure>
+<hr>
+<h6 id="2-5、psensor"><a href="#2-5、psensor" class="headerlink" title="2.5、psensor"></a>2.5、psensor</h6><p><a href="">psensor</a>是监控系统硬件实时状况的一款软件，使用psensor可视化显示系统温度，需要基于lm-sensors和hddtemp等获得的数据。因此你需要在安装psensor的同时，一并安装这两款工具。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1678789-17038a3659511c81.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="psensor"></p>
+<figure class="highlight smali"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo<span class="built_in"> add-apt-repository </span>ppa:jfi/ppa</span><br><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install lm-sensors hddtemp psensor -y</span><br></pre></td></tr></table></figure>
+<hr>
+<h6 id="2-6、Indicator-Netspeed"><a href="#2-6、Indicator-Netspeed" class="headerlink" title="2.6、Indicator Netspeed"></a>2.6、Indicator Netspeed</h6><p>Indicator Netspeed是一款基于Unity的用于显示软件上传和下载网络流量的软件。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1678789-8c489775c6edbef3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Indicator Netspeed"></p>
+<figure class="highlight smali"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo<span class="built_in"> add-apt-repository </span>ppa:nilarimogard/webupd8</span><br><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install indicator-netspeed</span><br></pre></td></tr></table></figure>
+<hr>
+<h6 id="2-7、gnome-system-monitor"><a href="#2-7、gnome-system-monitor" class="headerlink" title="2.7、gnome-system-monitor"></a>2.7、gnome-system-monitor</h6><p><a href="">gnome-system-monito</a>是一款基于GNOME桌面的系统监视器软件。不过使用它有点占内存，我还是习惯终端处理。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1678789-c49f4d16fed0b030.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="gnome-system-monitor"></p>
+<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-<span class="built_in">get</span> install gnome-<span class="keyword">system</span>-monitor</span><br></pre></td></tr></table></figure>
+<hr>
+<h6 id="2-8、catfish"><a href="#2-8、catfish" class="headerlink" title="2.8、catfish"></a>2.8、catfish</h6><p>catfish简称文件搜索神器。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1678789-8168e976df355c61.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="catfish"></p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-<span class="built_in">get</span> instal catfish</span><br></pre></td></tr></table></figure>
+<hr>
+<h6 id="2-9、docky"><a href="#2-9、docky" class="headerlink" title="2.9、docky"></a>2.9、docky</h6><p><a href="">dockey</a>是一款一个号称花钱也买不到的菜单启动器。为什么这麽说的？很简单：它是开源的，很简洁更美观。就连Mac下的docky都是模仿它的，O(∩_∩)O哈哈~，不要傻了，开玩笑的。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1678789-43deb569a623b9c7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="docky"></p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-<span class="built_in">get</span> install docky</span><br></pre></td></tr></table></figure>
+<hr>
+<h6 id="2-10、TLP"><a href="#2-10、TLP" class="headerlink" title="2.10、TLP"></a>2.10、TLP</h6><p>TLP 是一款Linux流行的电源工具软件。你可以使用TLP来调整系统电池，有助于有更好延长电池寿命。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1678789-a4fd133b3d58ca15.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="TLP"></p>
+<figure class="highlight smali"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo<span class="built_in"> add-apt-repository </span>ppa:linrunner/tlp</span><br><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install tlp tlp-rdw</span><br><span class="line">sudo tlp start</span><br></pre></td></tr></table></figure>
+<hr>
+<h6 id="2-11、menulibre"><a href="#2-11、menulibre" class="headerlink" title="2.11、menulibre"></a>2.11、menulibre</h6><p><a target="_blank" rel="noopener" href="https://launchpad.net/menulibre">menulibre</a>是一个简洁易用的菜单编辑器。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1678789-1abf6cf5bc64457a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="menulibre"></p>
+<figure class="highlight smali"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo<span class="built_in"> add-apt-repository </span>ppa:menulibre-dev/devel</span><br><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install menulibre</span><br></pre></td></tr></table></figure>
+<hr>
+<h6 id="2-12、indicator-sysmonitor"><a href="#2-12、indicator-sysmonitor" class="headerlink" title="2.12、indicator-sysmonitor"></a>2.12、indicator-sysmonitor</h6><p>indicator-sysmonitor是一个系统动态信息监控工具。可以实时查看电脑的cpu，内存占用率，更可以查看网速，非常方便</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1678789-fd7ed5119b00c0ff.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="indicator-sysmonitor"></p>
+<figure class="highlight smali"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo<span class="built_in"> add-apt-repository </span>ppa:fossfreedom/indicator-sysmonitor </span><br><span class="line">sudo apt-get update  </span><br><span class="line">sudo apt-get install indicator-sysmonitor  </span><br></pre></td></tr></table></figure>
+
+<h4 id="三、开发工具篇"><a href="#三、开发工具篇" class="headerlink" title="三、开发工具篇"></a>三、开发工具篇</h4><hr>
+<h6 id="3-1、Jetbrains-全家桶"><a href="#3-1、Jetbrains-全家桶" class="headerlink" title="3.1、Jetbrains 全家桶"></a>3.1、Jetbrains 全家桶</h6><p><a target="_blank" rel="noopener" href="https://www.jetbrains.com/">Jetbrains_IDEA</a> 全家桶基基于java语言开的一个工具套餐，而且基本覆盖了主流的开发编程语言，还包含了开发ios&#x2F;macOS的工具。Jetbrains_IDEA包含了哪些工具呢，看图、手累截图！</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1678789-940879e8cbbb3d44.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Jetbrains 全家桶"></p>
+<hr>
+<h6 id="3-2、Brackets"><a href="#3-2、Brackets" class="headerlink" title="3.2、Brackets"></a>3.2、Brackets</h6><p>Brackets是一款使用 HTML，CSS，JavaScript 创建的开源的针对 Web 开发的编辑器。它具有什么优秀的特性的呢：实时预览，快速编辑，跨平台，可扩展，开源，Brackets是一款非常优秀的编辑器，但是我就是不用它O(∩_∩)O哈哈~。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1678789-a6f27b4b37d3138e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Brackets"></p>
+<figure class="highlight smali"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#天朝问题，漫长的等待，推荐下载安装</span></span><br><span class="line">sudo<span class="built_in"> add-apt-repository </span>ppa:webupd8team/brackets</span><br><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install brackets</span><br><span class="line">sudo<span class="built_in"> add-apt-repository </span>-r ppa:webupd8team/brackets</span><br></pre></td></tr></table></figure>
+<hr>
+<h6 id="3-3、Android-Studio"><a href="#3-3、Android-Studio" class="headerlink" title="3.3、Android Studio"></a>3.3、Android Studio</h6><p><a target="_blank" rel="noopener" href="http://www.android-studio.org/">Android Studio</a>是啥我也就不说了，怕挨揍(^o^)&#x2F;~用来开发安卓的~~~</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1678789-8337c7db484e9bfd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Android Studio"></p>
+<blockquote>
+<p>顺手推荐几个网站<br><a target="_blank" rel="noopener" href="http://www.androiddevtools.cn/">镜像源androiddevtools</a><br><a target="_blank" rel="noopener" href="http://www.androiddevtools.cn/">开源库codekk</a></p>
+</blockquote>
+<hr>
+<h6 id="3-4、Sublime-Text"><a href="#3-4、Sublime-Text" class="headerlink" title="3.4、Sublime Text"></a>3.4、Sublime Text</h6><p><a target="_blank" rel="noopener" href="https://www.sublimetext.com/">Sublime Text</a>是一个轻量、简洁、高效、跨平台的编辑器。不能再多解释了，只能简单说说它的优点：</p>
+<ul>
+<li>可以编辑诸多主流的编程语言</li>
+<li>语法高亮、代码提示补全、代码折叠、自定义皮肤&#x2F;配色方案、多便签</li>
+<li>代码地图、多种界面布局与全屏免打扰模式</li>
+<li>完全开放的用户自定义配置与神奇实用的编辑状态恢复功能</li>
+<li>雷电般快速的文件切换</li>
+<li>随心所欲的跳转：快速罗列与定位函数&#x2F;HTML的元素、跳转到指定行</li>
+<li>集所有功能于一身的命令面板</li>
+<li>Package Contro扩展包管理器</li>
+</ul>
+<p><img src="http://upload-images.jianshu.io/upload_images/1678789-84a32e344eb3a20c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Sublime Text"></p>
+<hr>
+<h6 id="3-5、Atom"><a href="#3-5、Atom" class="headerlink" title="3.5、Atom"></a>3.5、Atom</h6><p><a target="_blank" rel="noopener" href="https://atom-china.org/">Atom</a>是GitHub推出的一款基于Web技术开发的桌面端的编辑器，其主要的特点是现代, 易用, 可定制。<code>被称为21世纪的黑客编辑器</code>我就笑笑O(∩_∩)O哈哈~</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1678789-3fa3c7cbd01c61bd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Atom"></p>
+<figure class="highlight smali"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo<span class="built_in"> add-apt-repository </span>ppa:webupd8team/atom  </span><br><span class="line">sudo apt-get update  </span><br><span class="line">sudo apt-get install atom </span><br></pre></td></tr></table></figure>
+
+<hr>
+<h6 id="3-6、sqliteman"><a href="#3-6、sqliteman" class="headerlink" title="3.6、sqliteman"></a>3.6、sqliteman</h6><p><a href="">sqliteman</a>是一款小巧的图形化管理SQLite数据库的软件。轻量级、小巧、功能全面。为它点个赞，推荐！</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1678789-7be08a726dca19a0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="sqliteman"></p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-<span class="built_in">get</span> install sqliteman</span><br></pre></td></tr></table></figure>
+<hr>
+<h6 id="3-7、Git、GitG"><a href="#3-7、Git、GitG" class="headerlink" title="3.7、Git、GitG"></a>3.7、Git、GitG</h6><p><a target="_blank" rel="noopener" href="https://git-scm.com/">Git</a>是一个开源的分布式版本控制系统，可以有效、高速的处理从很小到非常大的项目版本管理。简而言之就是代码管理工具，<a target="_blank" rel="noopener" href="http://www.jianshu.com/p/fa03ebcde0a1">常用Git命令记录</a>。既然提到了Git，那么也要说说它的朋友SVN，同样它俩的性质是一样的不必多说，<a target="_blank" rel="noopener" href="http://www.jianshu.com/p/af30d2f11c43">SVN的安装与基本使用</a></p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-<span class="built_in">get</span> install git</span><br></pre></td></tr></table></figure>
+
+<p>gitg是一个用于查看Git版本控制系统的工具，基于Gnome桌面环境。我还是习惯在终端干这些活。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1678789-5d7fa09ea9dfa260.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Git"></p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-<span class="built_in">get</span> install gitg</span><br></pre></td></tr></table></figure>
+<hr>
+<h6 id="3-8、MySQL-workbench"><a href="#3-8、MySQL-workbench" class="headerlink" title="3.8、MySQL workbench"></a>3.8、MySQL workbench</h6><p><a target="_blank" rel="noopener" href="https://www.mysql.com/products/workbench">MySQL workbench</a>是一款专为MySQL设计的ER&#x2F;数据库建模工具,但是在ElementaryOS还是存在不少的问题的。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1678789-431197d97f8633b8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="MySQL workbench"></p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#在官网下载对应版本的deb后执行</span></span><br><span class="line"><span class="attribute">sudo</span> dpkg -i <span class="regexp">*.deb</span> &amp;&amp; sudo apt-get install -fy</span><br></pre></td></tr></table></figure>
+<hr>
+<h6 id="3-9、monodevelop"><a href="#3-9、monodevelop" class="headerlink" title="3.9、monodevelop"></a>3.9、monodevelop</h6><p>MonoDevelop 是个适用于Linux、Mac和Windows的开放源代码集成开发环境，目前支持的语言有Python、Vala、C#、Java、BOO、Nemerle、Visual Basic .NET、CIL、C与C++。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1678789-68ccc17ae24eaeee.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="monodevelop"></p>
+<figure class="highlight brainfuck"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">sudo apt-get install monodevelop </span> <span class="comment">g</span>++ <span class="comment">xterm</span> <span class="literal">-</span><span class="comment">y</span></span><br></pre></td></tr></table></figure>
+<hr>
+<h6 id="3-9、Genymotion"><a href="#3-9、Genymotion" class="headerlink" title="3.9、Genymotion"></a>3.9、Genymotion</h6><p><a target="_blank" rel="noopener" href="http://www.genymotion.net/">Genymotion</a>是一套完整的工具，它提供了Android虚拟环境，支持Windows、Linux和Mac OS等操作系统，容易安装和使用。开发安卓选择Genymotion模拟器是最佳的选择，除非你使用真机，其实后来我就是选择真机的——笑:-D。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1678789-4662f1cc64db3013.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Genymotion"></p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#在官网下载对应版本的deb后执行 ,需要注册后才能下载</span></span><br><span class="line"><span class="attribute">sudo</span> dpkg -i <span class="regexp">*.deb</span> &amp;&amp; sudo apt-get install -fy</span><br></pre></td></tr></table></figure>
+<hr>
+<h6 id="3-10、Android-Screen-Monitor"><a href="#3-10、Android-Screen-Monitor" class="headerlink" title="3.10、Android Screen Monitor"></a>3.10、Android Screen Monitor</h6><p><a target="_blank" rel="noopener" href="https://code.google.com/archive/p/android-screen-monitor">Android Screen Monitor</a>简称ASM，是一款监视手机或者模拟器屏幕的工具。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1678789-a2e81ef52708bc28.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Android Screen Monitor"></p>
+<hr>
+<blockquote>
+<p>时光机传送<a target="_blank" rel="noopener" href="https://code.google.com/archive/p/android-screen-monitor/">安装与使用教程</a></p>
+</blockquote>
+<hr>
+<h4 id="四、Terminal-Tools"><a href="#四、Terminal-Tools" class="headerlink" title="四、Terminal Tools"></a>四、Terminal Tools</h4><hr>
+<h6 id="4-1、enca、iconv"><a href="#4-1、enca、iconv" class="headerlink" title="4.1、enca、iconv"></a>4.1、enca、iconv</h6><p>enca、iconv都是文件编码转换工具。</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#安装</span></span><br><span class="line">sudo apt-<span class="built_in">get</span> enca iconv</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>简单使用</p>
+</blockquote>
+<figure class="highlight tcl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#enca查看文件编码</span></span><br><span class="line">enca <span class="keyword">filename</span></span><br><span class="line"><span class="comment">#iconv将一个GBK编码的文件转换成UTF-8编码</span></span><br><span class="line">enconv -L zh_CN -x UTF<span class="number">-8</span> <span class="keyword">filename</span></span><br></pre></td></tr></table></figure>
+<hr>
+<h6 id="4-2、Figlet"><a href="#4-2、Figlet" class="headerlink" title="4.2、Figlet"></a>4.2、Figlet</h6><p>一句话：Figlet是一个将字符串在终端生成一个logo的终端工具。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1678789-d3203599e31fe989.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Figlet"></p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-<span class="built_in">get</span> install figlet</span><br></pre></td></tr></table></figure>
+<hr>
+<h6 id="4-3、oh-my-zsh"><a href="#4-3、oh-my-zsh" class="headerlink" title="4.3、oh-my-zsh"></a>4.3、oh-my-zsh</h6><p><a target="_blank" rel="noopener" href="https://github.com/robbyrussell/oh-my-zsh">oh-my-zsh</a>是终极Shell，就这么一句话！</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1678789-232d57bbd9678d3a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="oh-my-zsh"></p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install git -y</span><br><span class="line">wget https:<span class="regexp">//gi</span>thub.com<span class="regexp">/robbyrussell/</span>oh-my-zsh<span class="regexp">/raw/m</span>aster<span class="regexp">/tools/i</span>nstall.sh -O - | sh</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>zsh的配置文件位于用户目录&#x2F;home&#x2F;$USER&#x2F;.zshrc，**<a target="_blank" rel="noopener" href="https://github.com/robbyrussell/oh-my-zsh/wiki/themes">zsh主题</a>**，我的配置文件部分如下：</p>
+</blockquote>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># oh-my-zsh的安装路径</span></span><br><span class="line"><span class="built_in">export</span> <span class="attribute">ZSH</span>=/home/alic/.oh-my-zsh</span><br><span class="line"></span><br><span class="line"><span class="comment"># 主题设置</span></span><br><span class="line"><span class="attribute">ZSH_THEME</span>=<span class="string">&quot;robbyrussell&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 大小写是否敏感</span></span><br><span class="line"><span class="attribute">CASE_SENSITIVE</span>=<span class="string">&quot;false&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 连字符敏感</span></span><br><span class="line"><span class="attribute">HYPHEN_INSENSITIVE</span>=<span class="string">&quot;true&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># zsh是否自动不更新</span></span><br><span class="line"><span class="attribute">DISABLE_AUTO_UPDATE</span>=<span class="string">&quot;true&quot;</span></span><br><span class="line"></span><br><span class="line">plugins=(git)</span><br><span class="line"></span><br><span class="line">source <span class="variable">$ZSH</span>/oh-my-zsh.sh</span><br><span class="line"></span><br><span class="line"><span class="comment"># 语言环境</span></span><br><span class="line"><span class="built_in">export</span> <span class="attribute">LANG</span>=en_US.UTF-8</span><br></pre></td></tr></table></figure>
+<hr>
+<h6 id="4-4、Asciinema"><a href="#4-4、Asciinema" class="headerlink" title="4.4、Asciinema"></a>4.4、Asciinema</h6><p><a target="_blank" rel="noopener" href="https://asciinema.org/docs/getting-started">Asciinema</a> 是一个用 ClojureScript 编写的开源命令行录屏工具。对于详细的终端刻录工具可以查看<a target="_blank" rel="noopener" href="http://www.jianshu.com/p/6e8fb918a55c">Linux 终端录制工具</a>。</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-<span class="built_in">add</span>-repository <span class="keyword">pp</span><span class="variable">a:zanchey</span>/asciinema</span><br><span class="line">sudo apt-<span class="built_in">get</span> <span class="keyword">update</span></span><br><span class="line">sudo apt-<span class="built_in">get</span> install asciinema</span><br></pre></td></tr></table></figure>
+<ul>
+<li>录制使用<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">asciinema rec</span></span><br></pre></td></tr></table></figure>
+使用 exit 或者 Ctrl+D快捷键结束录制。它会在结束录制的时候提示，如果要上传的话，敲回车。上传之后，Asciinema 会给出一个网址。<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#想嵌入网页</span></span><br><span class="line">&lt;<span class="keyword">script</span> type=<span class="string">&quot;text/javascript&quot;</span> src=<span class="string">&quot;https://asciinema.org/a/2xcuc0651qtirbj8dkmmtf2nf.js&quot;</span> <span class="built_in">id</span>=<span class="string">&quot;asciicast-https://asciinema.org/a/2xcuc0651qtirbj8dkmmtf2nf&quot;</span> async&gt;&lt;/<span class="keyword">script</span>&gt;</span><br></pre></td></tr></table></figure>
+<hr>
+</li>
+</ul>
+<h6 id="4-5、Aria2"><a href="#4-5、Aria2" class="headerlink" title="4.5、Aria2"></a>4.5、Aria2</h6><p><a target="_blank" rel="noopener" href="http://aria2.sourceforge.net/">aria2</a>是 Linux 下一个命令行下轻量级、多协议、多来源的高速下载工具。</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-<span class="built_in">get</span> install aria2</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>使用说明</p>
+</blockquote>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#简单使用：只需要加上下载链接即可</span></span><br><span class="line"><span class="attribute">aria2c</span> <span class="variable">$&#123;link&#125;</span></span><br><span class="line"><span class="comment">#分段下载</span></span><br><span class="line"><span class="attribute">aria2c</span> -s <span class="number">2</span> <span class="variable">$&#123;link&#125;</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>Aria2 在百度云环境可以不限速下载，传送<a target="_blank" rel="noopener" href="http://www.jianshu.com/p/e5e56a1d25a3">Aria2 - 可能是现在下载百度云资料速度最快的方式</a></p>
+</blockquote>
+<hr>
+<h6 id="4-6、Proxychains4"><a href="#4-6、Proxychains4" class="headerlink" title="4.6、Proxychains4"></a>4.6、Proxychains4</h6><p>Proxychains4是一个终端挂代理的工具，可自由切换代理。使用简单只需要在命令前加上proxychains4即可！</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/rofl0r/proxychains-ng.git</span><br><span class="line"><span class="built_in">cd</span> proxychains-ng</span><br><span class="line">sudo ./configure –prefix=/usr –sysconfdir=/etc</span><br><span class="line">sudo make &amp;&amp; sudo make install &amp;&amp; sudo make install-config</span><br><span class="line"><span class="built_in">cd</span> .. &amp;&amp; <span class="built_in">rm</span> -rf proxychains-ng</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>配置文件位于<code>/usr/local/etc/proxychains.conf</code><br>将socks4 127.0.0.1 9095改为 socks5  127.0.0.1 ${port} {$user} ${pwd}</p>
+</blockquote>
+<hr>
+<h6 id="4-7、Ubuntu-Make"><a href="#4-7、Ubuntu-Make" class="headerlink" title="4.7、Ubuntu Make"></a>4.7、Ubuntu Make</h6><p>Ubuntu Make 原名 Ubuntu Developer Tools Center，是一款开源的命令行工具软件，主要是针对开发者，它可以安装大量的开发工具。</p>
+<figure class="highlight smali"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo<span class="built_in"> add-apt-repository </span>ppa:ubuntu-desktop/ubuntu-make</span><br><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install ubuntu-make</span><br></pre></td></tr></table></figure>
+<p>比如安装Webstorm</p>
+<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">sudo umake ide webstorm</span></span><br></pre></td></tr></table></figure>
+<hr>
+<h6 id="4-8、sshfs"><a href="#4-8、sshfs" class="headerlink" title="4.8、sshfs"></a>4.8、sshfs</h6><p>SSHFS最炫的地方在于可在本地安装的文件系统中，通过SSH获得所有加密的通信优势。sshfs 是基于 FUSE构建的 SSH 文件系统客户端程序，通过它远程主机的配置无需作任何改变，就可以透过 SSH 协议来挂载远程文件系统了，非常方便及安全。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install sshfs</span><br></pre></td></tr></table></figure>
+<hr>
+<h6 id="4-8、字体"><a href="#4-8、字体" class="headerlink" title="4.8、字体"></a>4.8、字体</h6><p>喜欢锐利清晰字体的 Ubuntu 用户，可以安装文泉驿正黑</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install fonts-wqy-zenhei</span><br></pre></td></tr></table></figure>
+
+<h6 id="4-8、mysql-markdown"><a href="#4-8、mysql-markdown" class="headerlink" title="4.8、mysql_markdown"></a>4.8、mysql_markdown</h6><blockquote>
+<p>自己编写的小公举</p>
+</blockquote>
+<p><a target="_blank" rel="noopener" href="https://github.com/alicfeng/mysql_markdown">It can generate markdown structure documents of MySQL succinctly~</a></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -fsSL &quot;https://raw.githubusercontent.com/alicfeng/mysql_markdown/master/install&quot; | sudo sh</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+
+    <div>
+      
+        <div>
+    
+      <div style="text-align:center;color: #ccc;font-size:20px;">------------- 本 文 结 束&nbsp&nbsp&nbsp&nbsp&nbsp感 谢 您 的 阅 读 -------------</div>
+    
+</div>
+
+      
+    </div>
+
+    <footer class="post-footer"><div class="post-widgets">
+      <div id="needsharebutton-postbottom">
+        <span class="btn">
+          <i class="fa fa-share-alt" aria-hidden="true"></i>
+        </span>
+      </div>
+    </div>
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>swimminghao
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://example.com/posts/3b13188/" title="程序员Linux常用软件清单">http://example.com/posts/3b13188/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/nas/" rel="tag"><i class="fa fa-tag"></i> nas</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/posts/1472c1b9/" rel="prev" title="自己拥有一台服务器可以做哪些很酷的事情？">
+                  <i class="fa fa-chevron-left"></i> 自己拥有一台服务器可以做哪些很酷的事情？
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/posts/98fd4232/" rel="next" title="word宏">
+                  word宏 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>l
+
+
+
+
+
+
+    <div class="comments" id="waline-comments"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">swimminghao</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">1.2m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">18:03</span>
+  </span>
+</div>
+
+<span id="sitetime"></span>
+<script language=javascript>
+    function siteTime(){
+        window.setTimeout("siteTime()", 1000);
+        var seconds = 1000;
+        var minutes = seconds * 60;
+        var hours = minutes * 60;
+        var days = hours * 24;
+        var years = days * 365;
+        var today = new Date();
+        var todayYear = today.getFullYear();
+        var todayMonth = today.getMonth()+1;
+        var todayDate = today.getDate();
+        var todayHour = today.getHours();
+        var todayMinute = today.getMinutes();
+        var todaySecond = today.getSeconds();
+        /* Date.UTC() -- 返回date对象距世界标准时间(UTC)1970年1月1日午夜之间的毫秒数(时间戳)
+        year - 作为date对象的年份，为4位年份值
+        month - 0-11之间的整数，做为date对象的月份
+        day - 1-31之间的整数，做为date对象的天数
+        hours - 0(午夜24点)-23之间的整数，做为date对象的小时数
+        minutes - 0-59之间的整数，做为date对象的分钟数
+        seconds - 0-59之间的整数，做为date对象的秒数
+        microseconds - 0-999之间的整数，做为date对象的毫秒数 */
+        var t1 = Date.UTC(2022,02,28,00,00,00); //你的建站时间
+        var t2 = Date.UTC(todayYear,todayMonth,todayDate,todayHour,todayMinute,todaySecond);
+        var diff = t2-t1;
+        var diffYears = Math.floor(diff/years);
+        var diffDays = Math.floor((diff/days)-diffYears*365);
+        var diffHours = Math.floor((diff-(diffYears*365+diffDays)*days)/hours);
+        var diffMinutes = Math.floor((diff-(diffYears*365+diffDays)*days-diffHours*hours)/minutes);
+        var diffSeconds = Math.floor((diff-(diffYears*365+diffDays)*days-diffHours*hours-diffMinutes*minutes)/seconds);
+        document.getElementById("sitetime").innerHTML=" 本站已安全运行 "+diffYears+" Year "+diffDays+" Days "+diffHours+" Hours "+diffMinutes+" m "+diffSeconds+" s";
+    }
+    siteTime();
+</script>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        访问人数：<span id="busuanzi_value_site_uv"></span>
+      </span>人
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+       访问总量：<span id="busuanzi_value_site_pv"></span>
+      </span>次
+    </span>
+
+
+<!--
+  本文总阅读量：<span id="busuanzi_value_page_pv"></span>次
+-->
+
+</div>
+
+
+<!--
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+--><script color="0,0,255" opacity="0.5" zIndex="-1" count="99" src="https://cdn.jsdelivr.net/npm/canvas-nest.js@1/dist/canvas-nest.js"></script>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<script class="next-config" data-name="waline" type="application/json">{"lang":"zh-cn","enable":true,"serverURL":"waline-server-nu.vercel.app","placeholder":"请文明评论呀","avatar":"mm","pageSize":10,"visitor":false,"comment_count":true,"requiredFields":[],"meta":["nick","mail","link"],"libUrl":"https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js","el":"#waline-comments","path":"/posts/3b13188/"}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.waline.el).then(() => 
+    NexT.utils.getScript(CONFIG.waline.libUrl, { condition: window.Waline })
+  ).then(() => {
+    new Waline(CONFIG.waline);
+  });
+});
+</script>
+  <script src="//cdn.jsdelivr.net/gh/theme-next/theme-next-needmoreshare2@1/needsharebutton.min.js"></script>
+  <script>
+      pbOptions = {};
+        pbOptions.iconStyle = "default";
+        pbOptions.boxForm = "horizontal";
+        pbOptions.position = "middleCenter";
+        pbOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+  </script>
+</body>
+</html>

@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-loading-bar.css">
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.10.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="java 名词“吃人”的那些Java名词：对象、引用、堆、栈️经验都是慢慢积累的，天才不多｜ 第170篇  记得中学的课本上，有一篇名为《狂人日记》课文；那时候根本理解不了鲁迅写这篇文章要表达的中心思想，只觉得满篇的“吃人”令人心情压抑；老师在讲台上慷慨激昂的讲，大多数的同学同我一样，在课本面前“痴痴”的发呆。 作为一个有着8年Java编程经验的IT老兵，说起来很惭愧，我被Java当中的四五个名词">
+<meta property="og:type" content="article">
+<meta property="og:title" content="java 名词">
+<meta property="og:url" content="http://example.com/posts/22472e9c/index.html">
+<meta property="og:site_name" content="swimminghao&#39;s blog">
+<meta property="og:description" content="java 名词“吃人”的那些Java名词：对象、引用、堆、栈️经验都是慢慢积累的，天才不多｜ 第170篇  记得中学的课本上，有一篇名为《狂人日记》课文；那时候根本理解不了鲁迅写这篇文章要表达的中心思想，只觉得满篇的“吃人”令人心情压抑；老师在讲台上慷慨激昂的讲，大多数的同学同我一样，在课本面前“痴痴”的发呆。 作为一个有着8年Java编程经验的IT老兵，说起来很惭愧，我被Java当中的四五个名词">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_jpg/z40lCFUAHpmSC3DSh9MC8QiaZiakWP0mHCnSvS20HavA8udLNlNaImXlzYmA6TlVIxe00l1BkfXKvJoAIQsVWaEg/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
+<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_png/z40lCFUAHpmSC3DSh9MC8QiaZiakWP0mHCNHs3SgxauYqH7dfThPqpXLcy1XmBFqk8KS6V6V2N1xjWTy3QtZKgjQ/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
+<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_png/z40lCFUAHpmSC3DSh9MC8QiaZiakWP0mHCtBhECcmKL8DW8nGZ8pZWGOic829gaf3Ro8wqibHII0ldETvciaYHtKFKg/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
+<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_png/z40lCFUAHpmSC3DSh9MC8QiaZiakWP0mHCj8OO5nupmycuwht01HibVPgN2UysUiaic5CViaKzAsBBdhBAIeBHpAzx2g/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
+<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_jpg/z40lCFUAHpmSC3DSh9MC8QiaZiakWP0mHCfOjwjLfkibbAfhjPM8rUFuFGFsEu6YY8DUAhYHPbDBGgBuHqfCxLACA/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
+<meta property="article:published_time" content="2022-02-28T11:57:47.000Z">
+<meta property="article:modified_time" content="2025-02-13T08:20:39.917Z">
+<meta property="article:author" content="swimminghao">
+<meta property="article:tag" content="java">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://mmbiz.qpic.cn/mmbiz_jpg/z40lCFUAHpmSC3DSh9MC8QiaZiakWP0mHCnSvS20HavA8udLNlNaImXlzYmA6TlVIxe00l1BkfXKvJoAIQsVWaEg/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
+
+
+<link rel="canonical" href="http://example.com/posts/22472e9c/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/posts/22472e9c/","path":"posts/22472e9c/","title":"java 名词"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>java 名词 | swimminghao's blog</title>
+  
+
+
+
+
+<link rel="dns-prefetch" href="waline-server-nu.vercel.app"><link rel="stylesheet" href="//cdn.jsdelivr.net/gh/theme-next/theme-next-needmoreshare2@1/needsharebutton.min.css"><style>
+#needsharebutton-postbottom {
+  cursor: pointer;
+  height: 26px;
+  margin-top: 10px;
+  position: relative;
+}
+#needsharebutton-postbottom .btn {
+  border: 1px solid $btn-default-border-color;
+  border-radius: 3px;
+  display: initial;
+  padding: 1px 4px;
+}
+</style>
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">swimminghao's blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">学习博客</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">52</span></a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">17</span></a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">271</span></a></li>
+        <li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#java-%E5%90%8D%E8%AF%8D"><span class="nav-number">1.</span> <span class="nav-text">java 名词</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E2%80%9C%E5%90%83%E4%BA%BA%E2%80%9D%E7%9A%84%E9%82%A3%E4%BA%9BJava%E5%90%8D%E8%AF%8D%EF%BC%9A%E5%AF%B9%E8%B1%A1%E3%80%81%E5%BC%95%E7%94%A8%E3%80%81%E5%A0%86%E3%80%81%E6%A0%88%EF%B8%8F"><span class="nav-number">1.1.</span> <span class="nav-text">“吃人”的那些Java名词：对象、引用、堆、栈️</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E5%AF%B9%E8%B1%A1%E5%92%8C%E5%BC%95%E7%94%A8"><span class="nav-number">1.1.1.</span> <span class="nav-text">一、对象和引用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E5%A0%86%E3%80%81%E6%A0%88%E3%80%81%E5%A0%86%E6%A0%88"><span class="nav-number">1.1.2.</span> <span class="nav-text">二、堆、栈、堆栈</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E7%89%B9%E6%AE%8A%E7%9A%84%E2%80%9C%E5%AF%B9%E8%B1%A1%E2%80%9D"><span class="nav-number">1.1.3.</span> <span class="nav-text">三、特殊的“对象”</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="swimminghao"
+      src="/images/lion.png">
+  <p class="site-author-name" itemprop="name">swimminghao</p>
+  <div class="site-description" itemprop="description">swimminghao的学习博客</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">271</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">52</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/swimminghao" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;swimminghao" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:swimminghao0@gmail.com" title="E-Mail → mailto:swimminghao0@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/swimminghao" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;swimminghao" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://plus.google.com/yourname" title="Google → https:&#x2F;&#x2F;plus.google.com&#x2F;yourname" rel="noopener" target="_blank"><i class="fab fa-google fa-fw"></i>Google</a>
+      </span>
+  </div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdn.jsdelivr.net/npm/@creativecommons/vocabulary@2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+<!-- recent posts -->
+    <div class="links-of-blogroll motion-element links-of-blogroll-block">
+        <div class="links-of-blogroll-title recent-posts-title">
+	    <i class="fa fa-history " aria-hidden="true"></i>
+            近期文章
+	</div>
+	<ul class="links-of-blogroll-list recent-posts-list">
+	        <li class="my-links-of-blogroll-item">
+		    <a href="/posts/967669ed/" title="holer-server项目解读" target="">
+		    holer-server项目解读
+		    </a>
+		</li>
+	        <li class="my-links-of-blogroll-item">
+		    <a href="/posts/c30e6297/" title="Hexo博客文章加密" target="">
+		    Hexo博客文章加密
+		    </a>
+		</li>
+	        <li class="my-links-of-blogroll-item">
+		    <a href="/posts/7ff70092/" title="做任何事都非常厉害的诀窍，这3点你记好" target="">
+		    做任何事都非常厉害的诀窍，这3点你记好
+		    </a>
+		</li>
+	        <li class="my-links-of-blogroll-item">
+		    <a href="/posts/1afe5736/" title="DBeaver Ultimate Edition 免费破解使用" target="">
+		    DBeaver Ultimate Edition 免费破解使用
+		    </a>
+		</li>
+	        <li class="my-links-of-blogroll-item">
+		    <a href="/posts/7a47e8be/" title="为何大多数程序员做不了独立开发者？" target="">
+		    为何大多数程序员做不了独立开发者？
+		    </a>
+		</li>
+	</ul>
+    </div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/22472e9c/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lion.png">
+      <meta itemprop="name" content="swimminghao">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="swimminghao's blog">
+      <meta itemprop="description" content="swimminghao的学习博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="java 名词 | swimminghao's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          java 名词
+        </h1>
+
+        <div class="post-meta-container">
+
+          
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2025-02-13 16:20:39" itemprop="dateModified" datetime="2025-02-13T16:20:39+08:00">2025-02-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/posts/22472e9c/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/22472e9c/" data-xid="/posts/22472e9c/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>4.3k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>4 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="java-名词"><a href="#java-名词" class="headerlink" title="java 名词"></a>java 名词</h1><h2 id="“吃人”的那些Java名词：对象、引用、堆、栈️"><a href="#“吃人”的那些Java名词：对象、引用、堆、栈️" class="headerlink" title="“吃人”的那些Java名词：对象、引用、堆、栈️"></a>“吃人”的那些Java名词：对象、引用、堆、栈️</h2><p>经验都是慢慢积累的，天才不多｜ 第170篇</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_jpg/z40lCFUAHpmSC3DSh9MC8QiaZiakWP0mHCnSvS20HavA8udLNlNaImXlzYmA6TlVIxe00l1BkfXKvJoAIQsVWaEg/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="图片"></p>
+<p>记得中学的课本上，有一篇名为《狂人日记》课文；那时候根本理解不了鲁迅写这篇文章要表达的中心思想，只觉得满篇的“<strong>吃人</strong>”令人心情压抑；老师在讲台上慷慨激昂的讲，大多数的同学同我一样，在课本面前“痴痴”的发呆。</p>
+<p>作为一个有着8年Java编程经验的IT老兵，说起来很惭愧，我被Java当中的四五个名词一直困扰着：<strong>对象、引用、堆、栈、堆栈</strong>（栈可同堆栈，因此是四个名词，也是五个名词）。每次我看到这几个名词，都隐隐约约觉得自己在被一只无形的大口慢慢地吞噬，只剩下满地的衣服碎屑（为什么不是骨头，因为骨头也好吃）。</p>
+<p>十几年后，再读《狂人日记》，恍然如梦：</p>
+<blockquote>
+<p>鲁迅先生以狂人的口吻，再现了动乱时期下中国人的精神状态，视角新颖，文笔细腻又不乏辛辣之味。<br>当时的中国，混乱成了主色调。以清廷和孔教为主的封建旧思想还在潜移默化地影响着人们的思想，与此同时以革命和新思潮为主的现代思想已经开始了对大众灵魂的洗涤和冲击。</p>
+</blockquote>
+<p>最近，和沉默王二技术交流群（120926808）的群友们交流后，Java中那四五个会吃人的名词：对象、引用、堆、栈、堆栈，似乎在脑海中也清晰了起来，尽管疑惑有时候仍然会在阴云密布时跑出来——正鉴于此，这篇文章恰好做一下归纳。</p>
+<h3 id="一、对象和引用"><a href="#一、对象和引用" class="headerlink" title="一、对象和引用"></a>一、对象和引用</h3><p><strong>在Java中，尽管一切都可以看做是对象，但计算机操作的并非对象本身，而是对象的引用。</strong> 这话乍眼一看，似懂非懂。究竟什么是对象，什么又是引用呢？</p>
+<p>先来看对象的定义：按照通俗的说法，<strong>每个对象都是某个类（class）的一个实例（instance）</strong>。那么，实例化的过程怎么描述呢？来看代码（类是String）：</p>
+<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> <span class="built_in">String</span>(<span class="string">&quot;我是对象张三&quot;</span>);</span><br><span class="line"><span class="keyword">new</span> <span class="built_in">String</span>(<span class="string">&quot;我是对象李四&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<p><strong>在Java中，实例化指的就是通过关键字“new”来创建对象的过程</strong>。以上代码在运行时就会创建两个对象——“我是对象张三”和”我是对象李四”；现在，该怎么操作他们呢？</p>
+<p>我们都去过公园，见过几个大爷，他们很有一番本领——个个都能把风筝飞得老高老高，徒留我们眼馋的份！风筝飞那么高，没办法直接用手拽着飞啊，全要靠一根长长的看不见的结实的绳子来牵引！操作Java对象也是这个理，得有一根绳——也就是接下来要介绍的“引用”（我们肉眼也常常看不见它）。</p>
+<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">String</span> zhangsan, lisi;</span><br><span class="line">zhangsan = <span class="keyword">new</span> <span class="built_in">String</span>(<span class="string">&quot;我是对象张三&quot;</span>);</span><br><span class="line">lisi = <span class="keyword">new</span> <span class="built_in">String</span>(<span class="string">&quot;我是对象李四&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>这三行代码该怎么理解呢？</p>
+<p>先来看第一行代码：<code>String zhangsan, lisi;</code>——声明了两个变量zhangsan和lisi，他们的类型为String。</p>
+<p>①、歧义：zhangsan和lisi此时被称为引用。</p>
+<p>你也许听过这样一句古文：“<strong>神之于形，犹利之于刀；未闻刀没而利存，岂容形亡而神在？</strong>”这是无神论者范缜（zhen）的名言，大致的意思就是：灵魂对于肉体来说，就像刀刃对于刀身；从没听说过刀身都没了刀刃还存在，那么怎么可能允许肉体死亡了而灵魂还在呢？</p>
+<p><strong>“引用”之于对象，就好比刀刃之于刀身，对象还没有创建，又怎么存在对象的“引用”呢？</strong></p>
+<p>如果zhangsan和lisi此时不能被称为“引用”，那么他们是什么呢？答案很简单，就是变量啊！（鄙人理解）</p>
+<p>②、误解：zhangsan和lisi此时的默认值为<code>null</code>。</p>
+<p>应该说zhangsan和lisi此时的值为<code>undefined</code>——借用JavaScript的关键字；也就是未定义；或者应该是一个新的关键字<code>uninitialized</code>——未初始化。但不管是<code>undefined</code>还是<code>uninitialized</code>，都与<code>null</code>不同。</p>
+<p>既然没有初始化，zhangsan和lisi此时就不能被使用。假如强行使用的话，编译器就会报错，提醒zhangsan和lisi还没有出生（初始化）；见下图。</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/z40lCFUAHpmSC3DSh9MC8QiaZiakWP0mHCNHs3SgxauYqH7dfThPqpXLcy1XmBFqk8KS6V6V2N1xjWTy3QtZKgjQ/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="图片"></p>
+<p>如果把zhangsan和lisi初始化为<code>null</code>，编译器是认可的（见下图）；由此可见，zhangsan和lisi此时的默认值不为<code>null</code>。</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/z40lCFUAHpmSC3DSh9MC8QiaZiakWP0mHCtBhECcmKL8DW8nGZ8pZWGOic829gaf3Ro8wqibHII0ldETvciaYHtKFKg/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="图片"></p>
+<p>再来看第二行代码：<code>zhangsan = new String(&quot;我是对象张三&quot;);</code>——创建“我是对象张三”的String类对象，并将其赋值给zhangsan这个变量。</p>
+<p>此时，zhangsan就是”我是对象张三”的引用；“&#x3D;”操作符赋予了zhangsan这样神圣的权利。</p>
+<p>第三行代码<code>lisi = new String(&quot;我是对象李四&quot;);</code>和第二行代码<code>zhangsan = new String(&quot;我是对象张三&quot;);</code>同理。</p>
+<p>现在，我可以下这样一个结论了——<strong>对象是通过<code>new</code>关键字创建的；引用是依赖于对象的；<code>=</code>操作符把对象赋值给了引用</strong>。</p>
+<p>我们再来看这样一段代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">String zhangsan, lisi;</span><br><span class="line">zhangsan = <span class="keyword">new</span> <span class="title class_">String</span>(<span class="string">&quot;我是对象张三&quot;</span>);</span><br><span class="line">lisi = <span class="keyword">new</span> <span class="title class_">String</span>(<span class="string">&quot;我是对象李四&quot;</span>);</span><br><span class="line">zhangsan = lisi;</span><br></pre></td></tr></table></figure>
+
+<p>当<code>zhangsan = lisi;</code>执行过后，zhangsan就不再是”我是对象张三”的引用了；zhangsan和lisi指向了同一个对象（”我是对象李四”）；因此，你知道<code>System.out.println(zhangsan == lisi);</code>打印的是<code>false</code>还是<code>true</code>了吗？</p>
+<h3 id="二、堆、栈、堆栈"><a href="#二、堆、栈、堆栈" class="headerlink" title="二、堆、栈、堆栈"></a>二、堆、栈、堆栈</h3><p>谁来告诉我，为什么有很多地方（书、博客等等）把栈叫做堆栈，把堆栈叫做栈？搞得我都头晕目眩了——绕着门柱估计转了80圈，不晕才怪！</p>
+<p>我查了一下金山词霸，结果如下：</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/z40lCFUAHpmSC3DSh9MC8QiaZiakWP0mHCj8OO5nupmycuwht01HibVPgN2UysUiaic5CViaKzAsBBdhBAIeBHpAzx2g/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="图片"></p>
+<p>我的天呐，更晕了，有没有！怎么才能不晕呢？我这里有几招武功秘籍，你们尽管拿去一睹为快：</p>
+<p>1）以后再<strong>看到堆、栈、堆栈三个在一起打牌的时候，直接把“堆栈”踢出去</strong>；这仨人不适合在一起玩，因为堆和栈才是老相好；你“堆栈”来这插一脚算怎么回事；这世界上只存在“堆、栈”或者“堆栈”（标点符号很重要哦）。</p>
+<p>2）<strong>堆是在程序运行时在内存中申请的空间（可理解为动态的过程）；切记，不是在编译时</strong>；因此，Java中的对象就放在这里，这样做的好处就是：</p>
+<blockquote>
+<p>当需要一个对象时，只需要通过new关键字写一行代码即可，当执行这行代码时，会自动在内存的“堆”区分配空间——这样就很灵活。</p>
+</blockquote>
+<p>另外，需要记住，<strong>堆遵循“先进后出”的规则</strong>。就好像，一个和尚去挑了一担水，然后把一担水装缸里面，等到他口渴的时候他再用瓢舀出来喝。请放肆地打开你的脑洞脑补一下这个流程：缸底的水是先进去的，但后出来的。所以，我建议这位和尚在缸上贴个标签——保质期90天，过期饮用，后果自负！</p>
+<p>还是记不住，看下图：</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_jpg/z40lCFUAHpmSC3DSh9MC8QiaZiakWP0mHCfOjwjLfkibbAfhjPM8rUFuFGFsEu6YY8DUAhYHPbDBGgBuHqfCxLACA/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="图片">不好意思，这是鼎，不是缸，将就一下哈</p>
+<p>3）栈，又名堆栈（简直了，完全不符合程序员的思维啊，我们陈许愿习惯说一就是一，说二就是二嘛），能够和处理器（CPU，也就是脑子）直接关联，因此访问速度更快；举个十分不恰当的例子哈——<strong>眼睛相对嘴巴是离脑子近的一方，因此，你可以一目十行，但绝对做不到一开口就读十行字，哪怕十个字也做不到</strong>。</p>
+<p>既然访问速度快，要好好利用啊！<strong>Java就把对象的引用放在栈里</strong>。为什么呢？因为引用的使用频率高吗？</p>
+<p>不是的，<strong>因为Java在编译程序时，必须明确的知道存储在栈里的东西的生命周期</strong>，否则就没法释放旧的内存来开辟新的内存空间存放引用——空间就那么大，前浪要把后浪拍死在沙滩上啊。</p>
+<p>现在清楚堆、栈和堆栈了吧？</p>
+<h3 id="三、特殊的“对象”"><a href="#三、特殊的“对象”" class="headerlink" title="三、特殊的“对象”"></a>三、特殊的“对象”</h3><p>先来看《Java编程思想》中的一段话：</p>
+<blockquote>
+<p>在程序设计中经常用到一系列类型，他们需要特殊对待。之所以特殊对待，是因为new将对象存储于“堆”中，故用new创建一个对象──特别小、简单的变量，往往不是很有效。因此，不用new来创建这类变量，而是创建一个并非是引用的变量，这个变量直接存储值，并置于栈中，因此更加高效。</p>
+</blockquote>
+<p>在Java中，这些基本类型有：boolean、char、byte、short、int、long、float、double和void；还有与之对应的包装器：Boolean、Character、Byte、Short、Integer、Long、Float、Double和Void；他们之间涉及到装箱和拆箱，我们有机会再聊。</p>
+<p>看两行简单的代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="variable">a</span> <span class="operator">=</span> <span class="number">3</span>;</span><br><span class="line"><span class="type">int</span> <span class="variable">b</span> <span class="operator">=</span> <span class="number">3</span>;</span><br></pre></td></tr></table></figure>
+
+<p>这两行代码在编译的时候是什么样子呢？</p>
+<p>编译器当然是先处理<code>int a = 3;</code>，不然还能跳过吗？编译器在处理<code>int a = 3;</code>时在栈中创建了一个变量为a的内存空间，然后查找有没有字面值为3的地址，没找到，就开辟一个存放3这个字面值的地址，然后将a指向3的地址。</p>
+<p>编译器忙完了<code>int a = 3;</code>，就来接着处理<code>int b = 3;</code>；在创建完b的变量后，由于栈中已经有3这个字面值，就将b直接指向3的地址；就不需要再开辟新的空间了。</p>
+<p>依据上面的概述，我们假设在定义完a与b的值后，再令a&#x3D;4，此时b是等于3呢，还是4呢？</p>
+<p>思考一下，再看答案哈。</p>
+<p>答案揭晓：当编译器遇到<code>a = 4;</code>时，它会重新搜索栈中是否有4的字面值，如果没有，重新开辟地址存放4的值；如果已经有了，则直接将a指向4这个地址；因此a值的改变不会影响到b的值哦。</p>
+<p>最后，留个作业吧，下面这段代码在运行时会输出什么呢？</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Test1</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String args[])</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">a</span> <span class="operator">=</span> <span class="number">1</span>;</span><br><span class="line">        <span class="type">int</span> <span class="variable">b</span> <span class="operator">=</span> <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">        a = <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line">        System.out.println(a);</span><br><span class="line">        System.out.println(b);</span><br><span class="line"></span><br><span class="line">        <span class="type">TT</span> <span class="variable">t</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">TT</span>(<span class="string">&quot;T&quot;</span>);</span><br><span class="line">        <span class="type">TT</span> <span class="variable">t1</span> <span class="operator">=</span> t;</span><br><span class="line">        t.setName(<span class="string">&quot;TT&quot;</span>);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        System.out.println(t.getName());</span><br><span class="line">        System.out.println(t1.getName());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">TT</span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">TT</span> <span class="params">(String name)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getName</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">this</span>.name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setName</span><span class="params">(String name1)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.name = name1;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+    </div>
+
+    
+    
+    
+
+
+    <div>
+      
+        <div>
+    
+      <div style="text-align:center;color: #ccc;font-size:20px;">------------- 本 文 结 束&nbsp&nbsp&nbsp&nbsp&nbsp感 谢 您 的 阅 读 -------------</div>
+    
+</div>
+
+      
+    </div>
+
+    <footer class="post-footer"><div class="post-widgets">
+      <div id="needsharebutton-postbottom">
+        <span class="btn">
+          <i class="fa fa-share-alt" aria-hidden="true"></i>
+        </span>
+      </div>
+    </div>
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>swimminghao
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://example.com/posts/22472e9c/" title="java 名词">http://example.com/posts/22472e9c/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/java/" rel="tag"><i class="fa fa-tag"></i> java</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/posts/2a3a86ee/" rel="prev" title="Java内存模型2">
+                  <i class="fa fa-chevron-left"></i> Java内存模型2
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/posts/f0b74f41/" rel="next" title="注释书写">
+                  注释书写 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>l
+
+
+
+
+
+
+    <div class="comments" id="waline-comments"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">swimminghao</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">1.2m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">18:03</span>
+  </span>
+</div>
+
+<span id="sitetime"></span>
+<script language=javascript>
+    function siteTime(){
+        window.setTimeout("siteTime()", 1000);
+        var seconds = 1000;
+        var minutes = seconds * 60;
+        var hours = minutes * 60;
+        var days = hours * 24;
+        var years = days * 365;
+        var today = new Date();
+        var todayYear = today.getFullYear();
+        var todayMonth = today.getMonth()+1;
+        var todayDate = today.getDate();
+        var todayHour = today.getHours();
+        var todayMinute = today.getMinutes();
+        var todaySecond = today.getSeconds();
+        /* Date.UTC() -- 返回date对象距世界标准时间(UTC)1970年1月1日午夜之间的毫秒数(时间戳)
+        year - 作为date对象的年份，为4位年份值
+        month - 0-11之间的整数，做为date对象的月份
+        day - 1-31之间的整数，做为date对象的天数
+        hours - 0(午夜24点)-23之间的整数，做为date对象的小时数
+        minutes - 0-59之间的整数，做为date对象的分钟数
+        seconds - 0-59之间的整数，做为date对象的秒数
+        microseconds - 0-999之间的整数，做为date对象的毫秒数 */
+        var t1 = Date.UTC(2022,02,28,00,00,00); //你的建站时间
+        var t2 = Date.UTC(todayYear,todayMonth,todayDate,todayHour,todayMinute,todaySecond);
+        var diff = t2-t1;
+        var diffYears = Math.floor(diff/years);
+        var diffDays = Math.floor((diff/days)-diffYears*365);
+        var diffHours = Math.floor((diff-(diffYears*365+diffDays)*days)/hours);
+        var diffMinutes = Math.floor((diff-(diffYears*365+diffDays)*days-diffHours*hours)/minutes);
+        var diffSeconds = Math.floor((diff-(diffYears*365+diffDays)*days-diffHours*hours-diffMinutes*minutes)/seconds);
+        document.getElementById("sitetime").innerHTML=" 本站已安全运行 "+diffYears+" Year "+diffDays+" Days "+diffHours+" Hours "+diffMinutes+" m "+diffSeconds+" s";
+    }
+    siteTime();
+</script>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        访问人数：<span id="busuanzi_value_site_uv"></span>
+      </span>人
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+       访问总量：<span id="busuanzi_value_site_pv"></span>
+      </span>次
+    </span>
+
+
+<!--
+  本文总阅读量：<span id="busuanzi_value_page_pv"></span>次
+-->
+
+</div>
+
+
+<!--
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+--><script color="0,0,255" opacity="0.5" zIndex="-1" count="99" src="https://cdn.jsdelivr.net/npm/canvas-nest.js@1/dist/canvas-nest.js"></script>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<script class="next-config" data-name="waline" type="application/json">{"lang":"zh-cn","enable":true,"serverURL":"waline-server-nu.vercel.app","placeholder":"请文明评论呀","avatar":"mm","pageSize":10,"visitor":false,"comment_count":true,"requiredFields":[],"meta":["nick","mail","link"],"libUrl":"https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js","el":"#waline-comments","path":"/posts/22472e9c/"}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.waline.el).then(() => 
+    NexT.utils.getScript(CONFIG.waline.libUrl, { condition: window.Waline })
+  ).then(() => {
+    new Waline(CONFIG.waline);
+  });
+});
+</script>
+  <script src="//cdn.jsdelivr.net/gh/theme-next/theme-next-needmoreshare2@1/needsharebutton.min.js"></script>
+  <script>
+      pbOptions = {};
+        pbOptions.iconStyle = "default";
+        pbOptions.boxForm = "horizontal";
+        pbOptions.position = "middleCenter";
+        pbOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+  </script>
+</body>
+</html>

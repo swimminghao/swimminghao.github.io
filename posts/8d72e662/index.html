@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-loading-bar.css">
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.10.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="Mac宿主机访问Docker容器网络 macOS上面Docker实现方式和Linux不一样，简单说macOS将Docker服务端(docker daemon守护进程)部署在一台虚拟机里面，而Linux里面Docker服务端直接作为宿主机的一个进程。这导致两种平台上Docker容器和其宿主机的网络通信方式有很大不同。 简单的表象是，Linux主机上会有一个docker0网卡，而macOS上没有doc">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Mac宿主机访问Docker容器网络">
+<meta property="og:url" content="http://example.com/posts/8d72e662/index.html">
+<meta property="og:site_name" content="swimminghao&#39;s blog">
+<meta property="og:description" content="Mac宿主机访问Docker容器网络 macOS上面Docker实现方式和Linux不一样，简单说macOS将Docker服务端(docker daemon守护进程)部署在一台虚拟机里面，而Linux里面Docker服务端直接作为宿主机的一个进程。这导致两种平台上Docker容器和其宿主机的网络通信方式有很大不同。 简单的表象是，Linux主机上会有一个docker0网卡，而macOS上没有doc">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2023/03/31/KjL8jz.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2023/03/31/iKTa4l.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2023/03/31/rjYzar.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2023/03/31/gdO3cy.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2023/03/31/rph44t.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2023/03/31/qIZiJv.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2023/03/31/lgVRgq.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2023/03/31/rS9EcH.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2023/03/31/itemml.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2023/03/31/o6Bdua.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2023/03/31/K5pHk2.png">
+<meta property="article:published_time" content="2023-03-31T01:56:00.000Z">
+<meta property="article:modified_time" content="2025-02-13T08:20:39.935Z">
+<meta property="article:author" content="swimminghao">
+<meta property="article:tag" content="mac">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2023/03/31/KjL8jz.png">
+
+
+<link rel="canonical" href="http://example.com/posts/8d72e662/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/posts/8d72e662/","path":"posts/8d72e662/","title":"Mac宿主机访问Docker容器网络"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Mac宿主机访问Docker容器网络 | swimminghao's blog</title>
+  
+
+
+
+
+<link rel="dns-prefetch" href="waline-server-nu.vercel.app"><link rel="stylesheet" href="//cdn.jsdelivr.net/gh/theme-next/theme-next-needmoreshare2@1/needsharebutton.min.css"><style>
+#needsharebutton-postbottom {
+  cursor: pointer;
+  height: 26px;
+  margin-top: 10px;
+  position: relative;
+}
+#needsharebutton-postbottom .btn {
+  border: 1px solid $btn-default-border-color;
+  border-radius: 3px;
+  display: initial;
+  padding: 1px 4px;
+}
+</style>
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">swimminghao's blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">学习博客</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">52</span></a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">17</span></a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">271</span></a></li>
+        <li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Mac%E5%AE%BF%E4%B8%BB%E6%9C%BA%E8%AE%BF%E9%97%AEDocker%E5%AE%B9%E5%99%A8%E7%BD%91%E7%BB%9C"><span class="nav-number">1.</span> <span class="nav-text">Mac宿主机访问Docker容器网络</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Linux%E6%9F%A5%E7%9C%8Bdocker0%E7%BD%91%E5%8D%A1"><span class="nav-number">1.1.</span> <span class="nav-text">Linux查看docker0网卡</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Linux%E5%AE%BF%E4%B8%BB%E6%9C%BAping%E5%AE%B9%E5%99%A8"><span class="nav-number">1.2.</span> <span class="nav-text">Linux宿主机ping容器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Linux%E5%AE%B9%E5%99%A8ping%E5%AE%BF%E4%B8%BB%E6%9C%BA%E5%92%8C%E5%85%B6%E5%AE%83%E5%AE%B9%E5%99%A8"><span class="nav-number">1.3.</span> <span class="nav-text">Linux容器ping宿主机和其它容器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Linux%E6%9F%A5%E7%9C%8Bbridge%E6%A8%A1%E5%BC%8F%E7%BD%91%E7%BB%9C%E4%BF%A1%E6%81%AF"><span class="nav-number">1.4.</span> <span class="nav-text">Linux查看bridge模式网络信息</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#macOS%E5%AE%BF%E4%B8%BB%E6%9C%BAping%E5%AE%B9%E5%99%A8"><span class="nav-number">1.5.</span> <span class="nav-text">macOS宿主机ping容器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#macOS%E5%AE%B9%E5%99%A8ping%E5%85%B6%E5%AE%83%E5%AE%B9%E5%99%A8"><span class="nav-number">1.6.</span> <span class="nav-text">macOS容器ping其它容器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#macOS%E5%AE%B9%E5%99%A8%E6%9F%A5%E7%9C%8B%E5%AE%BF%E4%B8%BB%E6%9C%BAip%E5%9C%B0%E5%9D%80"><span class="nav-number">1.7.</span> <span class="nav-text">macOS容器查看宿主机ip地址</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#macOS%E5%AE%B9%E5%99%A8ping%E5%AE%BF%E4%B8%BB%E6%9C%BA%E7%9C%9F%E5%AE%9Eip%E5%9C%B0%E5%9D%80"><span class="nav-number">1.8.</span> <span class="nav-text">macOS容器ping宿主机真实ip地址</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#macOS%E9%83%A8%E7%BD%B2mindoc%E4%BD%9C%E4%B8%BA%E5%9C%A8%E7%BA%BF%E6%96%87%E6%A1%A3%E5%B7%A5%E5%85%B7"><span class="nav-number">1.9.</span> <span class="nav-text">macOS部署mindoc作为在线文档工具</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#macOS%E5%AE%BF%E4%B8%BB%E6%9C%BA%E8%BF%9E%E6%8E%A5%E5%AE%B9%E5%99%A8%E7%BD%91%E7%BB%9C"><span class="nav-number">1.10.</span> <span class="nav-text">macOS宿主机连接容器网络</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85docker-connector%E6%9C%8D%E5%8A%A1"><span class="nav-number">1.10.1.</span> <span class="nav-text">安装docker-connector服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B6%E5%AE%83%E8%A1%A5%E5%85%85"><span class="nav-number">1.10.2.</span> <span class="nav-text">其它补充</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="swimminghao"
+      src="/images/lion.png">
+  <p class="site-author-name" itemprop="name">swimminghao</p>
+  <div class="site-description" itemprop="description">swimminghao的学习博客</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">271</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">52</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/swimminghao" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;swimminghao" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:swimminghao0@gmail.com" title="E-Mail → mailto:swimminghao0@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/swimminghao" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;swimminghao" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://plus.google.com/yourname" title="Google → https:&#x2F;&#x2F;plus.google.com&#x2F;yourname" rel="noopener" target="_blank"><i class="fab fa-google fa-fw"></i>Google</a>
+      </span>
+  </div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdn.jsdelivr.net/npm/@creativecommons/vocabulary@2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+<!-- recent posts -->
+    <div class="links-of-blogroll motion-element links-of-blogroll-block">
+        <div class="links-of-blogroll-title recent-posts-title">
+	    <i class="fa fa-history " aria-hidden="true"></i>
+            近期文章
+	</div>
+	<ul class="links-of-blogroll-list recent-posts-list">
+	        <li class="my-links-of-blogroll-item">
+		    <a href="/posts/967669ed/" title="holer-server项目解读" target="">
+		    holer-server项目解读
+		    </a>
+		</li>
+	        <li class="my-links-of-blogroll-item">
+		    <a href="/posts/c30e6297/" title="Hexo博客文章加密" target="">
+		    Hexo博客文章加密
+		    </a>
+		</li>
+	        <li class="my-links-of-blogroll-item">
+		    <a href="/posts/7ff70092/" title="做任何事都非常厉害的诀窍，这3点你记好" target="">
+		    做任何事都非常厉害的诀窍，这3点你记好
+		    </a>
+		</li>
+	        <li class="my-links-of-blogroll-item">
+		    <a href="/posts/1afe5736/" title="DBeaver Ultimate Edition 免费破解使用" target="">
+		    DBeaver Ultimate Edition 免费破解使用
+		    </a>
+		</li>
+	        <li class="my-links-of-blogroll-item">
+		    <a href="/posts/7a47e8be/" title="为何大多数程序员做不了独立开发者？" target="">
+		    为何大多数程序员做不了独立开发者？
+		    </a>
+		</li>
+	</ul>
+    </div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/8d72e662/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lion.png">
+      <meta itemprop="name" content="swimminghao">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="swimminghao's blog">
+      <meta itemprop="description" content="swimminghao的学习博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Mac宿主机访问Docker容器网络 | swimminghao's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Mac宿主机访问Docker容器网络
+        </h1>
+
+        <div class="post-meta-container">
+
+          
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2023-03-31 09:56:00" itemprop="dateCreated datePublished" datetime="2023-03-31T09:56:00+08:00">2023-03-31</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2025-02-13 16:20:39" itemprop="dateModified" datetime="2025-02-13T16:20:39+08:00">2025-02-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">工具</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/posts/8d72e662/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/8d72e662/" data-xid="/posts/8d72e662/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>4.9k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>4 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="Mac宿主机访问Docker容器网络"><a href="#Mac宿主机访问Docker容器网络" class="headerlink" title="Mac宿主机访问Docker容器网络"></a>Mac宿主机访问Docker容器网络</h1><p><a target="_blank" rel="noopener" href="http://bigbigben.com/2022/03/03/about-docker-for-mac/venti-views-1cqIcrWFQBI-unsplash.jpg"><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2023/03/31/KjL8jz.png" alt="img"></a></p>
+<p>macOS上面Docker实现方式和Linux不一样，简单说macOS将Docker服务端(docker daemon守护进程)部署在一台虚拟机里面，而Linux里面Docker服务端直接作为宿主机的一个进程。这导致两种平台上Docker容器和其宿主机的网络通信方式有很大不同。</p>
+<p>简单的表象是，Linux主机上会有一个docker0网卡，而macOS上没有docker0网卡；带来的区别是Linux上部署的容器应用默认和宿主机就是互联互通的，而macOS宿主机不能直接连通容器。</p>
+<h2 id="Linux查看docker0网卡"><a href="#Linux查看docker0网卡" class="headerlink" title="Linux查看docker0网卡"></a>Linux查看docker0网卡</h2><p>在阿里云ECS里面启动了Docker服务，终端输入ifconfig查看docker0网卡（容器默认使用bridge模式部署，都通过这个docker0网卡与宿主机通信）</p>
+<p><a target="_blank" rel="noopener" href="http://bigbigben.com/2022/03/03/about-docker-for-mac/linux-docker0.jpg"><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2023/03/31/iKTa4l.png" alt="img"></a></p>
+<h2 id="Linux宿主机ping容器"><a href="#Linux宿主机ping容器" class="headerlink" title="Linux宿主机ping容器"></a>Linux宿主机ping容器</h2><p>启动一个nginx容器（默认使用bridge模式）：</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="built_in">run</span> -d <span class="comment">--name nginx nginx</span></span><br></pre></td></tr></table></figure>
+
+<p>查找nginx容器ip地址：</p>
+<figure class="highlight handlebars"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="language-xml">docker inspect -f &#x27;</span><span class="template-variable">&#123;&#123;<span class="name">range</span> .NetworkSettings.Networks&#125;&#125;</span><span class="template-variable">&#123;&#123;<span class="name">.IPAddress</span>&#125;&#125;</span><span class="template-variable">&#123;&#123;<span class="name">end</span>&#125;&#125;</span><span class="language-xml">&#x27; nginx</span></span><br></pre></td></tr></table></figure>
+
+<p>在宿主机使用<code>curl http://172.17.0.4</code>访问容器中nginx页面，可以看到返回结果，说明宿主机可以连通容器网络。</p>
+<p><a target="_blank" rel="noopener" href="http://bigbigben.com/2022/03/03/about-docker-for-mac/linux-host-ping-nginx-container.jpg"><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2023/03/31/rjYzar.png" alt="img"></a></p>
+<h2 id="Linux容器ping宿主机和其它容器"><a href="#Linux容器ping宿主机和其它容器" class="headerlink" title="Linux容器ping宿主机和其它容器"></a>Linux容器ping宿主机和其它容器</h2><p>容器里面ping宿主机可以ping得通，说明容器可以连通宿主机；容器里面ping其它容器可以ping得通，说明容器之间的网络也互通。</p>
+<p><a target="_blank" rel="noopener" href="http://bigbigben.com/2022/03/03/about-docker-for-mac/linux-docker-container-ping-host.jpg"><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2023/03/31/gdO3cy.png" alt="img"></a></p>
+<h2 id="Linux查看bridge模式网络信息"><a href="#Linux查看bridge模式网络信息" class="headerlink" title="Linux查看bridge模式网络信息"></a>Linux查看bridge模式网络信息</h2><p>Docker默认使用bridge模式启动容器服务，使用<code>docker network inspect bridge</code>命令查看bridge模式网络信息。</p>
+<p><a target="_blank" rel="noopener" href="http://bigbigben.com/2022/03/03/about-docker-for-mac/linux-docker-network-inspect-bridge.jpg"><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2023/03/31/rph44t.png" alt="img"></a></p>
+<p>由此可见，<strong>Linux宿主机与容器网络是互联互通的</strong>。</p>
+<h2 id="macOS宿主机ping容器"><a href="#macOS宿主机ping容器" class="headerlink" title="macOS宿主机ping容器"></a>macOS宿主机ping容器</h2><p>在macOS里面启动nginx和ubuntu容器，使用docker inspect命令获取nginx和ubuntu容器的ip地址。</p>
+<p><a target="_blank" rel="noopener" href="http://bigbigben.com/2022/03/03/about-docker-for-mac/macos-host-ping-container.jpg"><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2023/03/31/qIZiJv.png" alt="img"></a></p>
+<p>由上可见，<strong>macOS宿主机与容器网络默认不连通；并且宿主机ping容器网关地址(172.17.0.1)也ping不通</strong>。</p>
+<h2 id="macOS容器ping其它容器"><a href="#macOS容器ping其它容器" class="headerlink" title="macOS容器ping其它容器"></a>macOS容器ping其它容器</h2><p>进入ubunut容器，如果没有安装过相关命令工具先参照下面方法安装网络工具包。</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">ubuntu安装curl:</span><br><span class="line">apt install curl</span><br><span class="line">(使用curl ifconig.me查询本机ip)</span><br><span class="line"></span><br><span class="line">ubuntu安装ipconfig:</span><br><span class="line">apt-<span class="built_in">get</span> install net-tools</span><br><span class="line"></span><br><span class="line">ubuntu安装ping:</span><br><span class="line">apt-<span class="built_in">get</span> install iproute2</span><br><span class="line"></span><br><span class="line">ubuntu安装ip:</span><br><span class="line">apt-<span class="built_in">get</span> install iproute2</span><br><span class="line"></span><br><span class="line">ubuntu安装netcat经典版本:</span><br><span class="line">apt-<span class="built_in">get</span> -y install netcat-traditional</span><br><span class="line"></span><br><span class="line">ubuntu安装telnet客户端:</span><br><span class="line">apt-<span class="built_in">get</span> install telnet</span><br><span class="line"></span><br><span class="line">ubuntu安装telnet服务端:</span><br><span class="line">apt-<span class="built_in">get</span> install telnetd</span><br><span class="line"></span><br><span class="line">ubuntu安装lsof：</span><br><span class="line">apt-<span class="built_in">get</span> install lsof安装lsof</span><br><span class="line"></span><br><span class="line">ubuntu启动telnet服务(启动后使用lsof可以看到23端口被使用，macOS telnet服务):</span><br><span class="line">/etc/init.d/openbsd-inetd restart启动telnet</span><br></pre></td></tr></table></figure>
+
+<p>使用ifconfig查看ubuntu容器ip地址是172.17.0.4，容器本地地址是127.0.0.1，注意这个127.0.0.1是ubuntu容器的localhost地址，和宿主机的127.0.0.1不是一回事。</p>
+<p>在容器里ping容器网关地址(172.17.0.1)可以ping通，ping其它容器(nginx容器ip地址172.17.0.5)可以ping通，访问nginx容器主页可以成功，说明容器之间的网络是互通的。</p>
+<p><a target="_blank" rel="noopener" href="http://bigbigben.com/2022/03/03/about-docker-for-mac/macos-container-ping-container.jpg"><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2023/03/31/lgVRgq.png" alt="img"></a></p>
+<h2 id="macOS容器查看宿主机ip地址"><a href="#macOS容器查看宿主机ip地址" class="headerlink" title="macOS容器查看宿主机ip地址"></a>macOS容器查看宿主机ip地址</h2><p>Docker for Mac有两个内置的域名<code>host.docker.internal</code>和<code>gateway.docker.internal</code>分别表示宿主机ip和网关ip。</p>
+<p>容器中ping <code>host.docker.internal</code>得到宿主机ip地址192.168.65.2，ping <code>gateway.docker.internal</code>得到同样的ip地址，ping 192.168.65.1也可以ping通。奇怪为什么默认把宿主机和网关ip都设置为192.168.65.2而不是192.168.65.1。</p>
+<p><a target="_blank" rel="noopener" href="http://bigbigben.com/2022/03/03/about-docker-for-mac/macos-container-ping-host.jpg"><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2023/03/31/rS9EcH.png" alt="img"></a></p>
+<p>查看Docker For Mac配置信息，发现192.168.65.2地址和默认设置的网段有关。</p>
+<p><a target="_blank" rel="noopener" href="http://bigbigben.com/2022/03/03/about-docker-for-mac/macos-docker-network-subset.jpg"><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2023/03/31/itemml.png" alt="img"></a></p>
+<h2 id="macOS容器ping宿主机真实ip地址"><a href="#macOS容器ping宿主机真实ip地址" class="headerlink" title="macOS容器ping宿主机真实ip地址"></a>macOS容器ping宿主机真实ip地址</h2><p>使用<code>curl ifconfig.me</code>获取运营商分配的”真实”ip地址，使用<code>ifconfig | grep &quot;inet &quot; | grep -v 127.0.0.1</code>获取宿主机局域网ip地址，在ubuntu容器里面都可以ping通。</p>
+<p><a target="_blank" rel="noopener" href="http://bigbigben.com/2022/03/03/about-docker-for-mac/macos-container-ping-host-ip.jpg"><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2023/03/31/o6Bdua.png" alt="img"></a></p>
+<p>容器如果需要连接macOS宿主机上的服务，比如MySQL数据库，那么数据库host地址可以使用192.168.65.2，也可以使用192.168.31.208，但显而易见使用192.168.65.2更为可靠。</p>
+<h2 id="macOS部署mindoc作为在线文档工具"><a href="#macOS部署mindoc作为在线文档工具" class="headerlink" title="macOS部署mindoc作为在线文档工具"></a>macOS部署mindoc作为在线文档工具</h2><p>mindoc是一款在线文档管理系统，其它就不多介绍了，自己看官网吧。</p>
+<p>为了方便文档数据备份和迁移，我使用本地MySQL数据库替换默认的sqlite3数据库，将容器内文件上传目录映射到本地目录，这样以后我添加的所有文档都保存在macOS本地。</p>
+<ol>
+<li><p>先使用内置sqlite3数据库默认启动一个mindoc服务</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">docker</span> run -p <span class="number">8181</span>:<span class="number">8181</span> --name mindoc -e httpport=<span class="number">8181</span> -d registry.cn-hangzhou.aliyuncs.com/mindoc/mindoc:v2.<span class="number">0</span>-beta.<span class="number">2</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>进入mindoc容器，将容器里面&#x2F;mindoc&#x2F;conf&#x2F;app.conf拷贝到宿主机</p>
+</li>
+<li><p>在宿主机app.conf填写启动配置信息，主要是数据库配置信息</p>
+<figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">####################MySQL 数据库配置###########################</span><br><span class="line">#支持MySQL和sqlite3两种数据库，如果是sqlite3 则 db_database 标识数据库的物理目录</span><br><span class="line">#db_adapter=<span class="string">&quot;$&#123;MINDOC_DB_ADAPTER||sqlite3&#125;&quot;</span></span><br><span class="line">#db_host=<span class="string">&quot;$&#123;MINDOC_DB_HOST||127.0.0.1&#125;&quot;</span></span><br><span class="line">#db_port=<span class="string">&quot;$&#123;MINDOC_DB_PORT||3306&#125;&quot;</span></span><br><span class="line">#db_database=<span class="string">&quot;$&#123;MINDOC_DB_DATABASE||./database/mindoc.db&#125;&quot;</span></span><br><span class="line">#db_username=<span class="string">&quot;$&#123;MINDOC_DB_USERNAME||root&#125;&quot;</span></span><br><span class="line">#db_password=<span class="string">&quot;$&#123;MINDOC_DB_PASSWORD||123456&#125;&quot;</span></span><br><span class="line"></span><br><span class="line">db_adapter=mysql</span><br><span class="line">db_host=<span class="number">192.168</span><span class="number">.65</span><span class="number">.2</span>(宿主机ip，我这里也可以写<span class="number">192.168</span><span class="number">.31</span><span class="number">.208</span>，但局域网ip容易变动因此不用)</span><br><span class="line">db_port=<span class="number">3306</span></span><br><span class="line">db_database=mindoc</span><br><span class="line">db_username=XXXXXX</span><br><span class="line">db_password=XXXXXX</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在宿主机创建mindoc数据库，字符集使用utf8mb4，排序规则使用utf8mb4_general_ci</p>
+</li>
+<li><p>关闭并删除原容器，将本地app.conf映射到&#x2F;mindoc&#x2F;conf&#x2F;app.conf，将本地文件上传目录映射到&#x2F;mindoc&#x2F;uploads，重新部署mindoc服务</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -p <span class="number">8181</span>:<span class="number">8181</span> --name=mindoc --restart=always -v <span class="regexp">/Users/</span>XXX<span class="regexp">/XXX/</span>app.conf:<span class="regexp">/mindoc/</span>conf<span class="regexp">/app.conf -v /</span>Users<span class="regexp">/XXX/</span>XXX<span class="regexp">/uploads:/mi</span>ndoc<span class="regexp">/uploads -e httpport=8181 -e MINDOC_ENABLE_EXPORT=true -d registry.cn-hangzhou.aliyuncs.com/mi</span>ndoc/mindoc:v2.<span class="number">0</span>-beta.<span class="number">2</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用docker logs查看容器日志，如果初始化成功会在宿主机mindoc数据库创建相关的表；如果出现数据库连接异常，有可能需要修改MySQL配置文件将bing-address改为0.0.0.0，然后重启MySQL即可；如果数据库还连接不上，检查数据库连接用户是否有操作mindoc表的权限，配置好即可</p>
+</li>
+</ol>
+<h2 id="macOS宿主机连接容器网络"><a href="#macOS宿主机连接容器网络" class="headerlink" title="macOS宿主机连接容器网络"></a>macOS宿主机连接容器网络</h2><p>查到几种方式，比较一下发现使用<a target="_blank" rel="noopener" href="https://github.com/wenjunxiao/mac-docker-connector">docker-connector</a>最简单。</p>
+<h3 id="安装docker-connector服务"><a href="#安装docker-connector服务" class="headerlink" title="安装docker-connector服务"></a>安装docker-connector服务</h3><ol>
+<li>使用brew安装docker-connector</li>
+</ol>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install wenjunxiao<span class="regexp">/brew/</span>docker-connector</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>执行下面命令将docker所有 <code>bridge</code> 网络都添加到docker-connector路由</li>
+</ol>
+<figure class="highlight handlebars"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="language-xml">docker network ls --filter driver=bridge --format &quot;</span><span class="template-variable">&#123;&#123;<span class="name">.ID</span>&#125;&#125;</span><span class="language-xml">&quot; | xargs docker network inspect --format &quot;route </span><span class="template-variable">&#123;&#123;<span class="name">range</span> .IPAM.Config&#125;&#125;</span><span class="template-variable">&#123;&#123;<span class="name">.Subnet</span>&#125;&#125;</span><span class="template-variable">&#123;&#123;<span class="name">end</span>&#125;&#125;</span><span class="language-xml">&quot; &gt;&gt; /usr/local/etc/docker-connector.conf</span></span><br></pre></td></tr></table></figure>
+
+<p>（&#x2F;usr&#x2F;local&#x2F;etc&#x2F;docker-connector.conf是安装docker-connector后生成的配置文件）</p>
+<ol start="3">
+<li>使用sudo启动docker-connector服务</li>
+</ol>
+<figure class="highlight brainfuck"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">sudo brew services start docker</span><span class="literal">-</span><span class="comment">connector</span></span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>使用下面命令创建wenjunxiao&#x2F;mac-docker-connector容器，要求使用 <code>host</code> 网络并且允许 <code>NET_ADMIN</code></li>
+</ol>
+<figure class="highlight brainfuck"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">docker</span> <span class="comment">run</span> <span class="literal">-</span><span class="comment">it</span> <span class="literal">-</span><span class="comment">d</span> --<span class="comment">restart</span> <span class="comment">always</span> --<span class="comment">net</span> <span class="comment">host</span> --<span class="comment">cap</span><span class="literal">-</span><span class="comment">add</span> <span class="comment">NET_ADMIN</span> --<span class="comment">name</span> <span class="comment">connector</span> <span class="comment">wenjunxiao/mac</span><span class="literal">-</span><span class="comment">docker</span><span class="literal">-</span><span class="comment">connector</span></span><br></pre></td></tr></table></figure>
+
+<ol start="5">
+<li>docker-connector容器启动成功后，macOS宿主机即可访问其它容器网络</li>
+</ol>
+<p><a target="_blank" rel="noopener" href="http://bigbigben.com/2022/03/03/about-docker-for-mac/macos-host-ping-container2.jpg"><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2023/03/31/K5pHk2.png" alt="img"></a></p>
+<h3 id="其它补充"><a href="#其它补充" class="headerlink" title="其它补充"></a>其它补充</h3><p>如果macOS里面需要使用代理，proxychains4是比较好的选择。</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span>. 使用brew install proxychains4进行安装</span><br><span class="line"><span class="number">2</span>. 在<span class="regexp">/usr/</span>local<span class="regexp">/Cellar/</span>proxychains-ng<span class="regexp">/4.8.1/</span>etc/proxychains.conf配置Socks5地址</span><br><span class="line"><span class="number">3</span>. 使用proxychains4 command走代理访问，不加proxychains4的command不受影响</span><br></pre></td></tr></table></figure>
+
+<p><strong>参考资料</strong></p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.haoyizebo.com/posts/fd0b9bd8/">Docker for Mac 的网络问题及解决办法</a></li>
+<li><a target="_blank" rel="noopener" href="https://doc.gsw945.com/docs/mindoc-docs">MinDoc帮助手册</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+
+    <div>
+      
+        <div>
+    
+      <div style="text-align:center;color: #ccc;font-size:20px;">------------- 本 文 结 束&nbsp&nbsp&nbsp&nbsp&nbsp感 谢 您 的 阅 读 -------------</div>
+    
+</div>
+
+      
+    </div>
+
+    <footer class="post-footer"><div class="post-widgets">
+      <div id="needsharebutton-postbottom">
+        <span class="btn">
+          <i class="fa fa-share-alt" aria-hidden="true"></i>
+        </span>
+      </div>
+    </div>
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>swimminghao
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://example.com/posts/8d72e662/" title="Mac宿主机访问Docker容器网络">http://example.com/posts/8d72e662/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/mac/" rel="tag"><i class="fa fa-tag"></i> mac</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/posts/1440ab84/" rel="prev" title="英语作文模板">
+                  <i class="fa fa-chevron-left"></i> 英语作文模板
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/posts/b9a13838/" rel="next" title="word图片自动编号">
+                  word图片自动编号 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>l
+
+
+
+
+
+
+    <div class="comments" id="waline-comments"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">swimminghao</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">1.2m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">18:03</span>
+  </span>
+</div>
+
+<span id="sitetime"></span>
+<script language=javascript>
+    function siteTime(){
+        window.setTimeout("siteTime()", 1000);
+        var seconds = 1000;
+        var minutes = seconds * 60;
+        var hours = minutes * 60;
+        var days = hours * 24;
+        var years = days * 365;
+        var today = new Date();
+        var todayYear = today.getFullYear();
+        var todayMonth = today.getMonth()+1;
+        var todayDate = today.getDate();
+        var todayHour = today.getHours();
+        var todayMinute = today.getMinutes();
+        var todaySecond = today.getSeconds();
+        /* Date.UTC() -- 返回date对象距世界标准时间(UTC)1970年1月1日午夜之间的毫秒数(时间戳)
+        year - 作为date对象的年份，为4位年份值
+        month - 0-11之间的整数，做为date对象的月份
+        day - 1-31之间的整数，做为date对象的天数
+        hours - 0(午夜24点)-23之间的整数，做为date对象的小时数
+        minutes - 0-59之间的整数，做为date对象的分钟数
+        seconds - 0-59之间的整数，做为date对象的秒数
+        microseconds - 0-999之间的整数，做为date对象的毫秒数 */
+        var t1 = Date.UTC(2022,02,28,00,00,00); //你的建站时间
+        var t2 = Date.UTC(todayYear,todayMonth,todayDate,todayHour,todayMinute,todaySecond);
+        var diff = t2-t1;
+        var diffYears = Math.floor(diff/years);
+        var diffDays = Math.floor((diff/days)-diffYears*365);
+        var diffHours = Math.floor((diff-(diffYears*365+diffDays)*days)/hours);
+        var diffMinutes = Math.floor((diff-(diffYears*365+diffDays)*days-diffHours*hours)/minutes);
+        var diffSeconds = Math.floor((diff-(diffYears*365+diffDays)*days-diffHours*hours-diffMinutes*minutes)/seconds);
+        document.getElementById("sitetime").innerHTML=" 本站已安全运行 "+diffYears+" Year "+diffDays+" Days "+diffHours+" Hours "+diffMinutes+" m "+diffSeconds+" s";
+    }
+    siteTime();
+</script>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        访问人数：<span id="busuanzi_value_site_uv"></span>
+      </span>人
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+       访问总量：<span id="busuanzi_value_site_pv"></span>
+      </span>次
+    </span>
+
+
+<!--
+  本文总阅读量：<span id="busuanzi_value_page_pv"></span>次
+-->
+
+</div>
+
+
+<!--
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+--><script color="0,0,255" opacity="0.5" zIndex="-1" count="99" src="https://cdn.jsdelivr.net/npm/canvas-nest.js@1/dist/canvas-nest.js"></script>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<script class="next-config" data-name="waline" type="application/json">{"lang":"zh-cn","enable":true,"serverURL":"waline-server-nu.vercel.app","placeholder":"请文明评论呀","avatar":"mm","pageSize":10,"visitor":false,"comment_count":true,"requiredFields":[],"meta":["nick","mail","link"],"libUrl":"https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js","el":"#waline-comments","path":"/posts/8d72e662/"}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.waline.el).then(() => 
+    NexT.utils.getScript(CONFIG.waline.libUrl, { condition: window.Waline })
+  ).then(() => {
+    new Waline(CONFIG.waline);
+  });
+});
+</script>
+  <script src="//cdn.jsdelivr.net/gh/theme-next/theme-next-needmoreshare2@1/needsharebutton.min.js"></script>
+  <script>
+      pbOptions = {};
+        pbOptions.iconStyle = "default";
+        pbOptions.boxForm = "horizontal";
+        pbOptions.position = "middleCenter";
+        pbOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+  </script>
+</body>
+</html>

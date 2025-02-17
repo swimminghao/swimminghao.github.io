@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-loading-bar.css">
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.10.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="word图片、表格自动编号在写论文、报告或标书时，为了使数据更加直观，文档中会使用大量图片、表格或图表等元素。 如果图片、表格或图表太多，为了对它们进行区分，我们会在每一张图片(或表格、图表)底部进行编号。编号样式通常为：图1，图2，图3……或者为表1，表2，表3……等。 对于这种情况，许多人会手工输入图片的编号。真的是头晕眼花。还容易出错！ 其实，学会利用Word题注+查找和替换功能就能为图片自">
+<meta property="og:type" content="article">
+<meta property="og:title" content="word图片自动编号">
+<meta property="og:url" content="http://example.com/posts/b9a13838/index.html">
+<meta property="og:site_name" content="swimminghao&#39;s blog">
+<meta property="og:description" content="word图片、表格自动编号在写论文、报告或标书时，为了使数据更加直观，文档中会使用大量图片、表格或图表等元素。 如果图片、表格或图表太多，为了对它们进行区分，我们会在每一张图片(或表格、图表)底部进行编号。编号样式通常为：图1，图2，图3……或者为表1，表2，表3……等。 对于这种情况，许多人会手工输入图片的编号。真的是头晕眼花。还容易出错！ 其实，学会利用Word题注+查找和替换功能就能为图片自">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-04-05T10:06:00.000Z">
+<meta property="article:modified_time" content="2025-02-13T08:20:39.909Z">
+<meta property="article:author" content="swimminghao">
+<meta property="article:tag" content="word">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/posts/b9a13838/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/posts/b9a13838/","path":"posts/b9a13838/","title":"word图片自动编号"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>word图片自动编号 | swimminghao's blog</title>
+  
+
+
+
+
+<link rel="dns-prefetch" href="waline-server-nu.vercel.app"><link rel="stylesheet" href="//cdn.jsdelivr.net/gh/theme-next/theme-next-needmoreshare2@1/needsharebutton.min.css"><style>
+#needsharebutton-postbottom {
+  cursor: pointer;
+  height: 26px;
+  margin-top: 10px;
+  position: relative;
+}
+#needsharebutton-postbottom .btn {
+  border: 1px solid $btn-default-border-color;
+  border-radius: 3px;
+  display: initial;
+  padding: 1px 4px;
+}
+</style>
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">swimminghao's blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">学习博客</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">52</span></a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">17</span></a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">271</span></a></li>
+        <li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#word%E5%9B%BE%E7%89%87%E3%80%81%E8%A1%A8%E6%A0%BC%E8%87%AA%E5%8A%A8%E7%BC%96%E5%8F%B7"><span class="nav-number">1.</span> <span class="nav-text">word图片、表格自动编号</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%BE%E7%89%87%E8%87%AA%E5%8A%A8%E7%BC%96%E5%8F%B7"><span class="nav-number">1.1.</span> <span class="nav-text">图片自动编号</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E5%85%88%E8%AE%BE%E7%BD%AE%E7%AB%A0%E8%8A%82"><span class="nav-number">1.1.1.</span> <span class="nav-text">一、先设置章节</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E4%B8%BA%E5%9B%BE%E7%89%87%E6%B7%BB%E5%8A%A0%E9%A2%98%E6%B3%A8"><span class="nav-number">1.1.2.</span> <span class="nav-text">二、为图片添加题注</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E4%B8%BA%E5%9B%BE%E7%89%87%E6%89%B9%E9%87%8F%E7%BC%96%E5%8F%B7"><span class="nav-number">1.1.3.</span> <span class="nav-text">三、为图片批量编号</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%A9%E7%94%A8%E3%80%90F4%E3%80%91%E5%BF%AB%E6%8D%B7%E9%94%AE%EF%BC%88mac%E7%89%88%E4%BD%BF%E7%94%A8CMD-Y%EF%BC%89"><span class="nav-number">1.1.4.</span> <span class="nav-text">利用【F4】快捷键（mac版使用CMD+Y）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%A9%E7%94%A8%E6%9F%A5%E6%89%BE%E5%92%8C%E6%9B%BF%E6%8D%A2"><span class="nav-number">1.1.5.</span> <span class="nav-text">利用查找和替换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E2%80%9C%E5%9B%BE%E2%80%9D%E5%AD%97%E5%92%8C%E6%95%B0%E5%AD%97%E7%9B%B4%E6%8E%A5%E5%88%A0%E6%8E%89%E7%A9%BA%E6%A0%BC%EF%BC%8C%E6%9C%80%E5%90%8E%E6%B7%BB%E5%8A%A0%E7%A9%BA%E6%A0%BC"><span class="nav-number">1.1.6.</span> <span class="nav-text">四、“图”字和数字直接删掉空格，最后添加空格</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A1%A8%E6%A0%BC%E8%87%AA%E5%8A%A8%E7%BC%96%E5%8F%B7"><span class="nav-number">1.2.</span> <span class="nav-text">表格自动编号</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="swimminghao"
+      src="/images/lion.png">
+  <p class="site-author-name" itemprop="name">swimminghao</p>
+  <div class="site-description" itemprop="description">swimminghao的学习博客</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">271</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">52</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/swimminghao" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;swimminghao" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:swimminghao0@gmail.com" title="E-Mail → mailto:swimminghao0@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/swimminghao" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;swimminghao" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://plus.google.com/yourname" title="Google → https:&#x2F;&#x2F;plus.google.com&#x2F;yourname" rel="noopener" target="_blank"><i class="fab fa-google fa-fw"></i>Google</a>
+      </span>
+  </div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdn.jsdelivr.net/npm/@creativecommons/vocabulary@2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+<!-- recent posts -->
+    <div class="links-of-blogroll motion-element links-of-blogroll-block">
+        <div class="links-of-blogroll-title recent-posts-title">
+	    <i class="fa fa-history " aria-hidden="true"></i>
+            近期文章
+	</div>
+	<ul class="links-of-blogroll-list recent-posts-list">
+	        <li class="my-links-of-blogroll-item">
+		    <a href="/posts/967669ed/" title="holer-server项目解读" target="">
+		    holer-server项目解读
+		    </a>
+		</li>
+	        <li class="my-links-of-blogroll-item">
+		    <a href="/posts/c30e6297/" title="Hexo博客文章加密" target="">
+		    Hexo博客文章加密
+		    </a>
+		</li>
+	        <li class="my-links-of-blogroll-item">
+		    <a href="/posts/7ff70092/" title="做任何事都非常厉害的诀窍，这3点你记好" target="">
+		    做任何事都非常厉害的诀窍，这3点你记好
+		    </a>
+		</li>
+	        <li class="my-links-of-blogroll-item">
+		    <a href="/posts/1afe5736/" title="DBeaver Ultimate Edition 免费破解使用" target="">
+		    DBeaver Ultimate Edition 免费破解使用
+		    </a>
+		</li>
+	        <li class="my-links-of-blogroll-item">
+		    <a href="/posts/7a47e8be/" title="为何大多数程序员做不了独立开发者？" target="">
+		    为何大多数程序员做不了独立开发者？
+		    </a>
+		</li>
+	</ul>
+    </div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/b9a13838/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lion.png">
+      <meta itemprop="name" content="swimminghao">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="swimminghao's blog">
+      <meta itemprop="description" content="swimminghao的学习博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="word图片自动编号 | swimminghao's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          word图片自动编号
+        </h1>
+
+        <div class="post-meta-container">
+
+          
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2023-04-05 18:06:00" itemprop="dateCreated datePublished" datetime="2023-04-05T18:06:00+08:00">2023-04-05</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2025-02-13 16:20:39" itemprop="dateModified" datetime="2025-02-13T16:20:39+08:00">2025-02-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E5%B7%A7/" itemprop="url" rel="index"><span itemprop="name">技巧</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/posts/b9a13838/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/b9a13838/" data-xid="/posts/b9a13838/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>2.3k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>2 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="word图片、表格自动编号"><a href="#word图片、表格自动编号" class="headerlink" title="word图片、表格自动编号"></a>word图片、表格自动编号</h1><p>在写论文、报告或标书时，为了使数据更加直观，文档中会使用大量图片、表格或图表等元素。</p>
+<p>如果图片、表格或图表太多，为了对它们进行区分，我们会在每一张图片(或表格、图表)底部进行编号。编号样式通常为：图1，图2，图3……或者为表1，表2，表3……等。</p>
+<p>对于这种情况，许多人会手工输入图片的编号。真的是头晕眼花。还容易出错！</p>
+<p>其实，学会利用Word题注+查找和替换功能就能为图片自动编号，不仅能避免手工输入编号带来的烦恼，还非常省事！1000张图片自动编号，10秒搞定</p>
+<h2 id="图片自动编号"><a href="#图片自动编号" class="headerlink" title="图片自动编号"></a>图片自动编号</h2><h3 id="一、先设置章节"><a href="#一、先设置章节" class="headerlink" title="一、先设置章节"></a>一、先设置章节</h3><p>使用word 自带的章节样式，例如：标题一、标题二，不然和标题联动的设置都会出问题</p>
+<p>![](<a target="_blank" rel="noopener" href="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2023-04-05">https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2023-04-05</a> 18.32.10_20230405193155.gif)</p>
+<h3 id="二、为图片添加题注"><a href="#二、为图片添加题注" class="headerlink" title="二、为图片添加题注"></a>二、为图片添加题注</h3><p>Word中题注的作用就是给文档里的图片、表格、图表或公式等元素添加自动标注，即编号和注释文字。下面以为图片添加题注为例进行讲解(注：为表格、图表或公式添加题注的方法与为图片添加题注基本相同)。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">1. 选中图片，点击【引用】-【题注】-【插入题注】。</span><br><span class="line"></span><br><span class="line">2. 打开“题注”对话框，这里是为图片添加题注，所以我们在“标签”下拉列表中选择“图”。</span><br><span class="line"></span><br><span class="line">3. 如果需要对图片设置说明信息，则在题注编号后面输入相应的说明文字，然后单击“确定”按钮即可。</span><br><span class="line"></span><br><span class="line">4. 这样我们就为第一张图片加好了题注。</span><br></pre></td></tr></table></figure>
+
+<p>![](<a target="_blank" rel="noopener" href="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2023-04-05">https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2023-04-05</a> 18.13.45_20230405181431.gif)</p>
+<p>技巧提示：在“题注”对话框的“位置”下拉列表框中还可以设置题注位于对象的上方或是下方。默认情况下为“所选项目下方”选项，表示题注位于对象的下方。</p>
+<h3 id="三、为图片批量编号"><a href="#三、为图片批量编号" class="headerlink" title="三、为图片批量编号"></a>三、为图片批量编号</h3><p>单张图片添加题注学会了，那么，若要为文档中的其他图片添加题注，是不是用相同的方法呢？这个方法虽然也可行，但不够高效。</p>
+<p>接下来，教你2个批量为图片添加编号的小妙招：</p>
+<h3 id="利用【F4】快捷键（mac版使用CMD-Y）"><a href="#利用【F4】快捷键（mac版使用CMD-Y）" class="headerlink" title="利用【F4】快捷键（mac版使用CMD+Y）"></a>利用【F4】快捷键（mac版使用CMD+Y）</h3><p>在Word里用过【F4】快捷键的朋友就会知道，它的作用是重复上一步操作。因此，当我们插入一次题注编号后，按【F4】键，可重复插入编号(如要添加注释说明文字，直接在编号后输入即可)。</p>
+<p>![](<a target="_blank" rel="noopener" href="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2023-04-05">https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2023-04-05</a> 18.15.23_20230405181540.gif)</p>
+<h3 id="利用查找和替换"><a href="#利用查找和替换" class="headerlink" title="利用查找和替换"></a>利用查找和替换</h3><p>Word里的查找替换功能非常强牛，特别是在批量处理相同格式的内容时，使用该功能效率倍增。因此，我们可以利用查找和替换来批量添加编号。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">(1)选择题注，按下【Alt+F9】快捷键，切换到域代码状态。</span><br><span class="line"></span><br><span class="line">(2)选中域代码，这里不包含后面的图片注释文字。按【Ctrl+C】键复制，再按【Ctrl+H】键打开“查找和替换”对话框。</span><br><span class="line"></span><br><span class="line">(3)在查找文本框中输入【^g】；在替换文本框中输入【^&amp;^p^c】，然后点击【全部替换】按钮。</span><br><span class="line"></span><br><span class="line">(4)此时，所有图片下方均添加了编号。按下【Ctrl+A】键全选所有内容，再按【F9】刷新，最后，再按【Alt+F9】切回正常状态，这样就完成了图片的编号。</span><br><span class="line"></span><br><span class="line">代码解析：^g 表示图片；^&amp; 指要查找的内容；^p 表示换行符(也就是换一行)；^c 表示剪切版的内容(即第二步中复制的代码内容)。</span><br><span class="line"></span><br><span class="line">(5)然后，在每张图片的编号后添加上相应的说明文字即可。</span><br></pre></td></tr></table></figure>
+<p>![](<a target="_blank" rel="noopener" href="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2023-04-05">https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2023-04-05</a> 18.16.45_20230405181844.gif)</p>
+<h3 id="四、“图”字和数字直接删掉空格，最后添加空格"><a href="#四、“图”字和数字直接删掉空格，最后添加空格" class="headerlink" title="四、“图”字和数字直接删掉空格，最后添加空格"></a>四、“图”字和数字直接删掉空格，最后添加空格</h3><figure class="highlight delphi"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span>. 右击图片题注，样式里全选所有图题注</span><br><span class="line"></span><br><span class="line"><span class="number">2</span>. 在查找内容处，输入：空格，替换处什么都不填。</span><br><span class="line"></span><br><span class="line"><span class="number">3</span>. 全部替换删掉图字和数字之间的空格</span><br><span class="line"></span><br><span class="line"><span class="number">4</span>. 选中使用通配符，在查找内容处，输入：<span class="comment">(*)^13，替换处，输入：\1 ^13</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">5. 单击【全部替换】。 </span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">   </span></span><br><span class="line"><span class="comment">   注：要是现成的图题注，需要先去掉所有空格；再在查找内容处，输入：([一-龥][一-龥])(*)</span>^<span class="number">13</span>，替换处，输入： \<span class="number">1</span>\<span class="number">2</span>^<span class="number">13</span>；最后单击【全部替换】</span><br></pre></td></tr></table></figure>
+
+<h2 id="表格自动编号"><a href="#表格自动编号" class="headerlink" title="表格自动编号"></a>表格自动编号</h2><ol>
+<li>粘贴如下代码，创建宏，并设置题注标题</li>
+</ol>
+<figure class="highlight mathematica"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">Sub</span> 表格题注<span class="punctuation">(</span><span class="punctuation">)</span></span><br><span class="line"><span class="operator">&#x27;</span></span><br><span class="line"><span class="operator">&#x27;</span></span><br><span class="line">    <span class="built_in">If</span> <span class="variable">ActiveDocument</span><span class="operator">.</span><span class="variable">Tables</span><span class="operator">.</span><span class="built_in">Count</span> <span class="operator">&gt;=</span> <span class="number">1</span> <span class="variable">Then</span></span><br><span class="line">        <span class="built_in">Set</span> <span class="type">act_Doc</span> <span class="operator">=</span> <span class="variable">ActiveDocument</span></span><br><span class="line">        <span class="built_in">For</span> <span class="variable">Each</span> <span class="variable">otable</span> <span class="built_in">In</span> <span class="type">act_Doc</span><span class="operator">.</span><span class="variable">Tables</span></span><br><span class="line">            <span class="variable">CaptionLabels</span><span class="operator">.</span><span class="variable">Add</span> <span class="variable">Name</span><span class="operator">:=</span><span class="string">&quot;表星星星&quot;</span></span><br><span class="line">            <span class="built_in">With</span> <span class="variable">otable</span><span class="operator">.</span><span class="built_in">Range</span><span class="operator">.</span><span class="variable">InsertCaption</span><span class="punctuation">(</span><span class="built_in">Label</span><span class="operator">:=</span><span class="string">&quot;表星星星&quot;</span><span class="operator">,</span> <span class="built_in">Position</span><span class="operator">:=</span><span class="variable">wdCaptionPositionAbove</span><span class="punctuation">)</span></span><br><span class="line">            <span class="operator">&#x27;</span><span class="built_in">Position</span><span class="operator">:=</span><span class="variable">wdCaptionPositionBelow</span></span><br><span class="line">            <span class="built_in">End</span> <span class="built_in">With</span></span><br><span class="line">        <span class="built_in">Next</span></span><br><span class="line">    <span class="built_in">End</span> <span class="built_in">If</span></span><br><span class="line"> </span><br><span class="line"><span class="built_in">End</span> <span class="variable">Sub</span></span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>使用宏将所有表格命名为”表星星星”格式，使用第一张表添加题注，接下来复制新建的表格题注，例：表1 ，（注：必须复制“表1”和后面的空格）</li>
+<li>然后查找替换，使用通配符，查找内容：<code>表星星星*</code>或<code>表[星]&#123;1,&#125;*[0-9]&#123;1,&#125;</code>,替换内容：<code>^c</code></li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+
+    <div>
+      
+        <div>
+    
+      <div style="text-align:center;color: #ccc;font-size:20px;">------------- 本 文 结 束&nbsp&nbsp&nbsp&nbsp&nbsp感 谢 您 的 阅 读 -------------</div>
+    
+</div>
+
+      
+    </div>
+
+    <footer class="post-footer"><div class="post-widgets">
+      <div id="needsharebutton-postbottom">
+        <span class="btn">
+          <i class="fa fa-share-alt" aria-hidden="true"></i>
+        </span>
+      </div>
+    </div>
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>swimminghao
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://example.com/posts/b9a13838/" title="word图片自动编号">http://example.com/posts/b9a13838/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/word/" rel="tag"><i class="fa fa-tag"></i> word</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/posts/8d72e662/" rel="prev" title="Mac宿主机访问Docker容器网络">
+                  <i class="fa fa-chevron-left"></i> Mac宿主机访问Docker容器网络
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/posts/47991a9b/" rel="next" title="华硕路由器内网host功能设置">
+                  华硕路由器内网host功能设置 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>l
+
+
+
+
+
+
+    <div class="comments" id="waline-comments"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">swimminghao</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">1.2m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">18:03</span>
+  </span>
+</div>
+
+<span id="sitetime"></span>
+<script language=javascript>
+    function siteTime(){
+        window.setTimeout("siteTime()", 1000);
+        var seconds = 1000;
+        var minutes = seconds * 60;
+        var hours = minutes * 60;
+        var days = hours * 24;
+        var years = days * 365;
+        var today = new Date();
+        var todayYear = today.getFullYear();
+        var todayMonth = today.getMonth()+1;
+        var todayDate = today.getDate();
+        var todayHour = today.getHours();
+        var todayMinute = today.getMinutes();
+        var todaySecond = today.getSeconds();
+        /* Date.UTC() -- 返回date对象距世界标准时间(UTC)1970年1月1日午夜之间的毫秒数(时间戳)
+        year - 作为date对象的年份，为4位年份值
+        month - 0-11之间的整数，做为date对象的月份
+        day - 1-31之间的整数，做为date对象的天数
+        hours - 0(午夜24点)-23之间的整数，做为date对象的小时数
+        minutes - 0-59之间的整数，做为date对象的分钟数
+        seconds - 0-59之间的整数，做为date对象的秒数
+        microseconds - 0-999之间的整数，做为date对象的毫秒数 */
+        var t1 = Date.UTC(2022,02,28,00,00,00); //你的建站时间
+        var t2 = Date.UTC(todayYear,todayMonth,todayDate,todayHour,todayMinute,todaySecond);
+        var diff = t2-t1;
+        var diffYears = Math.floor(diff/years);
+        var diffDays = Math.floor((diff/days)-diffYears*365);
+        var diffHours = Math.floor((diff-(diffYears*365+diffDays)*days)/hours);
+        var diffMinutes = Math.floor((diff-(diffYears*365+diffDays)*days-diffHours*hours)/minutes);
+        var diffSeconds = Math.floor((diff-(diffYears*365+diffDays)*days-diffHours*hours-diffMinutes*minutes)/seconds);
+        document.getElementById("sitetime").innerHTML=" 本站已安全运行 "+diffYears+" Year "+diffDays+" Days "+diffHours+" Hours "+diffMinutes+" m "+diffSeconds+" s";
+    }
+    siteTime();
+</script>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        访问人数：<span id="busuanzi_value_site_uv"></span>
+      </span>人
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+       访问总量：<span id="busuanzi_value_site_pv"></span>
+      </span>次
+    </span>
+
+
+<!--
+  本文总阅读量：<span id="busuanzi_value_page_pv"></span>次
+-->
+
+</div>
+
+
+<!--
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+--><script color="0,0,255" opacity="0.5" zIndex="-1" count="99" src="https://cdn.jsdelivr.net/npm/canvas-nest.js@1/dist/canvas-nest.js"></script>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<script class="next-config" data-name="waline" type="application/json">{"lang":"zh-cn","enable":true,"serverURL":"waline-server-nu.vercel.app","placeholder":"请文明评论呀","avatar":"mm","pageSize":10,"visitor":false,"comment_count":true,"requiredFields":[],"meta":["nick","mail","link"],"libUrl":"https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js","el":"#waline-comments","path":"/posts/b9a13838/"}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.waline.el).then(() => 
+    NexT.utils.getScript(CONFIG.waline.libUrl, { condition: window.Waline })
+  ).then(() => {
+    new Waline(CONFIG.waline);
+  });
+});
+</script>
+  <script src="//cdn.jsdelivr.net/gh/theme-next/theme-next-needmoreshare2@1/needsharebutton.min.js"></script>
+  <script>
+      pbOptions = {};
+        pbOptions.iconStyle = "default";
+        pbOptions.boxForm = "horizontal";
+        pbOptions.position = "middleCenter";
+        pbOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+  </script>
+</body>
+</html>

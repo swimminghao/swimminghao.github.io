@@ -1,0 +1,1105 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-loading-bar.css">
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.10.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="超详细从0开始搭建 Spring Boot 项目这个项目，我是打算作为种子项目的，作为种子项目，必须的“开箱即用”，必须要包含大部分 web 开发的相关功能，后期所有的 Spring Boot 项目都是将这个项目拿来，简单修改一下配置，就可以快速开发了。 源码Github 1.0.0 创建项目我使用的是 idea 创建项目  选择 Spring initializr ，如果点Next一直在转圈，可">
+<meta property="og:type" content="article">
+<meta property="og:title" content="超详细从0开始搭建 Spring Boot 项目">
+<meta property="og:url" content="http://example.com/posts/79603c56/index.html">
+<meta property="og:site_name" content="swimminghao&#39;s blog">
+<meta property="og:description" content="超详细从0开始搭建 Spring Boot 项目这个项目，我是打算作为种子项目的，作为种子项目，必须的“开箱即用”，必须要包含大部分 web 开发的相关功能，后期所有的 Spring Boot 项目都是将这个项目拿来，简单修改一下配置，就可以快速开发了。 源码Github 1.0.0 创建项目我使用的是 idea 创建项目  选择 Spring initializr ，如果点Next一直在转圈，可">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/14/w8NHXh.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/14/T8zrCm.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/14/JQ1yll.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/14/2PU7rC.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/14/ejmw40.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/14/123.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/14/JFwFNq.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/14/SpringBootWeb.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/14/UqEhk0.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/14/TlaIN7.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/14/PKG3wR.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/14/XvL7nF.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/14/q13RBD.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/14/jIfN1z.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/14/26QxUd.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/14/D8QTvR.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/14/9w9MDz.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/14/u6PtzJ.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/14/cwvRoe.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/14/tbuJkH.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/14/jsOsQG.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/14/P84pRC.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/14/9Tnf3i.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/14/jIFFov.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/14/pAe8jr.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/15/94zsV0.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/15/dz72JN.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/15/ZKQezo.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/15/Udl9pr.png">
+<meta property="og:image" content="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/1280fbe2516d4464acf313c5fd450c90~tplv-k3u1fbpfcp-zoom-in-crop-mark:1304:0:0:0.awebp">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/15/dYdApC.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/15/SNZ4na.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/15/hWTvLA.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/15/93Lrt4.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/15/3kZllK.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/15/CvMq6e.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/15/1ytj1a.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/15/chQ2RK.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/15/hhg631.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/15/NPi4ZQ.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/15/oQ6vk7.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/15/qS4fk6.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/15/nXQ6Zw.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/15/grytMg.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/15/cXVeGj.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/15/HICidL.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/15/7uYHxp.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/15/OEiYUJ.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/15/RECl9n.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/15/mcGpvt.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/15/7cpwzb.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/15/9zftKM.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/15/xFSjFs.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/15/WTq9z3.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/15/ZPPJwY.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/15/1QmJ99.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/15/IDz7HH.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/15/TPVPlm.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/15/o8oi7N.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/15/hNzazO.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/15/YRibiI.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/15/JgReQh.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/15/Nn0608.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/15/3TxTv0.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/15/5v8woV.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/15/03FPuP.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/15/YTSNwJ.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/15/eDPqi0.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/15/VtXi3s.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/15/CJU0iG.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/15/CN6vw7.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/15/xuPmYc.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/15/CqdFZW.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/15/jsepFp.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/15/bng0MW.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/15/lJAMTX.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/15/RJAMIb.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/15/e0WpMK.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/15/Lvbex2.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/15/pKIykI.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/15/zPTm1U.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/15/BgYKIV.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/15/ZxDYtO.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/15/HcRk8e.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/15/3OpOlj.png">
+<meta property="article:published_time" content="2022-03-14T09:11:00.000Z">
+<meta property="article:modified_time" content="2025-02-13T08:20:39.931Z">
+<meta property="article:author" content="swimminghao">
+<meta property="article:tag" content="SpringBoot">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/14/w8NHXh.png">
+
+
+<link rel="canonical" href="http://example.com/posts/79603c56/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/posts/79603c56/","path":"posts/79603c56/","title":"超详细从0开始搭建 Spring Boot 项目"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>超详细从0开始搭建 Spring Boot 项目 | swimminghao's blog</title>
+  
+
+
+
+
+<link rel="dns-prefetch" href="waline-server-nu.vercel.app"><link rel="stylesheet" href="//cdn.jsdelivr.net/gh/theme-next/theme-next-needmoreshare2@1/needsharebutton.min.css"><style>
+#needsharebutton-postbottom {
+  cursor: pointer;
+  height: 26px;
+  margin-top: 10px;
+  position: relative;
+}
+#needsharebutton-postbottom .btn {
+  border: 1px solid $btn-default-border-color;
+  border-radius: 3px;
+  display: initial;
+  padding: 1px 4px;
+}
+</style>
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">swimminghao's blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">学习博客</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">52</span></a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">17</span></a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">271</span></a></li>
+        <li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%B6%85%E8%AF%A6%E7%BB%86%E4%BB%8E0%E5%BC%80%E5%A7%8B%E6%90%AD%E5%BB%BA-Spring-Boot-%E9%A1%B9%E7%9B%AE"><span class="nav-number">1.</span> <span class="nav-text">超详细从0开始搭建 Spring Boot 项目</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%BA%90%E7%A0%81"><span class="nav-number">2.</span> <span class="nav-text">源码</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#1-0-0-%E5%88%9B%E5%BB%BA%E9%A1%B9%E7%9B%AE"><span class="nav-number">3.</span> <span class="nav-text">1.0.0 创建项目</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0maven%E9%95%9C%E5%83%8F"><span class="nav-number">3.1.</span> <span class="nav-text">添加maven镜像</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pom-%E6%96%87%E4%BB%B6"><span class="nav-number">3.2.</span> <span class="nav-text">pom 文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BE%9D%E8%B5%96%E7%BB%93%E6%9E%84%E5%9B%BE"><span class="nav-number">3.3.</span> <span class="nav-text">依赖结构图</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%95%AA%E5%A4%96"><span class="nav-number">4.</span> <span class="nav-text">番外</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#1-1-0-%E6%B7%BB%E5%8A%A0-web-%E6%A8%A1%E5%9D%97"><span class="nav-number">5.</span> <span class="nav-text">1.1.0 添加 web 模块</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%9C%E7%94%A8"><span class="nav-number">5.1.</span> <span class="nav-text">作用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BE%9D%E8%B5%96%E7%BB%93%E6%9E%84%E5%9B%BE-1"><span class="nav-number">5.2.</span> <span class="nav-text">依赖结构图</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#1-2-0-%E9%9B%86%E6%88%90-mysql"><span class="nav-number">6.</span> <span class="nav-text">1.2.0 集成 mysql</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%95%E5%85%A5%E4%BE%9D%E8%B5%96"><span class="nav-number">6.1.</span> <span class="nav-text">引入依赖</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE-mysql"><span class="nav-number">6.2.</span> <span class="nav-text">配置 mysql</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E7%A4%BA%E4%BE%8B%E6%95%B0%E6%8D%AE%E5%BA%93%E5%92%8C%E8%A1%A8"><span class="nav-number">6.3.</span> <span class="nav-text">创建示例数据库和表</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#1-3-0-%E5%A4%9A%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE"><span class="nav-number">7.</span> <span class="nav-text">1.3.0 多环境配置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#spring-%E5%A4%9A%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE"><span class="nav-number">7.1.</span> <span class="nav-text">spring 多环境配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#maven-%E5%A4%9A%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE"><span class="nav-number">7.2.</span> <span class="nav-text">maven 多环境配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E4%B8%AA%E9%97%AE%E9%A2%98"><span class="nav-number">7.2.1.</span> <span class="nav-text">第一个问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E4%B8%AA%E9%97%AE%E9%A2%98"><span class="nav-number">7.2.2.</span> <span class="nav-text">第二个问题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pom-%E6%96%87%E4%BB%B6-1"><span class="nav-number">7.3.</span> <span class="nav-text">pom 文件</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#1-4-0-%E5%A4%9A%E6%A8%A1%E5%9D%97%E9%85%8D%E7%BD%AE"><span class="nav-number">8.</span> <span class="nav-text">1.4.0 多模块配置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8B%86%E5%88%86%E7%8E%B0%E6%9C%89%E9%A1%B9%E7%9B%AE"><span class="nav-number">8.1.</span> <span class="nav-text">拆分现有项目</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%9A%E6%A8%A1%E5%9D%97%E9%85%8D%E7%BD%AE"><span class="nav-number">8.2.</span> <span class="nav-text">多模块配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%9A%E6%A8%A1%E5%9D%97%E7%AE%A1%E7%90%86"><span class="nav-number">8.3.</span> <span class="nav-text">多模块管理</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#1-5-0-%E9%9B%86%E6%88%90-mybatis"><span class="nav-number">9.</span> <span class="nav-text">1.5.0 集成 mybatis</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0%E4%BE%9D%E8%B5%96"><span class="nav-number">9.1.</span> <span class="nav-text">添加依赖</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BE%9D%E8%B5%96%E7%BB%93%E6%9E%84%E5%9B%BE-2"><span class="nav-number">9.2.</span> <span class="nav-text">依赖结构图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E5%AF%B9%E5%BA%94%E7%9A%84%E6%96%87%E4%BB%B6%E5%A4%B9"><span class="nav-number">9.3.</span> <span class="nav-text">创建对应的文件夹</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE-mybatis"><span class="nav-number">9.4.</span> <span class="nav-text">配置 mybatis</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#1-5-1-%E9%85%8D%E7%BD%AE-MyBatis-Generator"><span class="nav-number">10.</span> <span class="nav-text">1.5.1 配置 MyBatis Generator</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%95%E5%85%A5%E5%B9%B6%E9%85%8D%E7%BD%AE-MyBatis-Generator-%E6%8F%92%E4%BB%B6"><span class="nav-number">10.1.</span> <span class="nav-text">引入并配置 MyBatis Generator 插件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE-MyBatis-Generator-Config-%E6%96%87%E4%BB%B6"><span class="nav-number">10.2.</span> <span class="nav-text">配置 MyBatis Generator Config 文件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#application-dev-properties-%E7%9A%84%E9%85%8D%E7%BD%AE"><span class="nav-number">10.2.1.</span> <span class="nav-text">application-dev.properties 的配置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-MyBatis-Generator-%E6%8F%92%E4%BB%B6"><span class="nav-number">10.3.</span> <span class="nav-text">使用 MyBatis Generator 插件</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#1-5-2-%E9%9B%86%E6%88%90-tk-mybatis-%E9%80%9A%E7%94%A8mapper"><span class="nav-number">11.</span> <span class="nav-text">1.5.2 集成 tk.mybatis (通用mapper)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%95%E5%85%A5%E4%BE%9D%E8%B5%96-1"><span class="nav-number">11.1.</span> <span class="nav-text">引入依赖</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE-tk-mybatis-%E7%9A%84-MyBatis-Generator-%E6%8F%92%E4%BB%B6"><span class="nav-number">11.2.</span> <span class="nav-text">配置 tk.mybatis 的 MyBatis Generator 插件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%95%E5%85%A5%E6%8F%92%E4%BB%B6%E4%BE%9D%E8%B5%96"><span class="nav-number">11.2.1.</span> <span class="nav-text">引入插件依赖</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9-MyBatis-Generator-Config"><span class="nav-number">11.2.2.</span> <span class="nav-text">修改 MyBatis Generator Config</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%AF%E5%8A%A8%E7%B1%BB%E4%B8%8A%E9%85%8D%E7%BD%AE%E8%A6%81%E6%89%AB%E6%8F%8F%E7%9A%84-dao-%E8%B7%AF%E5%BE%84"><span class="nav-number">11.3.</span> <span class="nav-text">启动类上配置要扫描的 dao 路径</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E9%80%9A%E7%94%A8-Mapper"><span class="nav-number">11.4.</span> <span class="nav-text">配置通用 Mapper</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#1-5-3-%E9%9B%86%E6%88%90-pagehelper-%E5%88%86%E9%A1%B5%E6%8F%92%E4%BB%B6"><span class="nav-number">12.</span> <span class="nav-text">1.5.3 集成 pagehelper 分页插件</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%95%E5%85%A5-pagehelper-%E4%BE%9D%E8%B5%96"><span class="nav-number">12.1.</span> <span class="nav-text">引入 pagehelper 依赖</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE-pagehelper"><span class="nav-number">12.2.</span> <span class="nav-text">配置 pagehelper</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#1-6-0-%E5%BC%95%E5%85%A5-lombok-%E6%8F%92%E4%BB%B6"><span class="nav-number">13.</span> <span class="nav-text">1.6.0 引入 lombok 插件</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%95%E5%85%A5-lombok-%E4%BE%9D%E8%B5%96"><span class="nav-number">13.1.</span> <span class="nav-text">引入 lombok 依赖</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85-ide-%E5%AF%B9%E5%BA%94%E7%9A%84-lombok-%E6%8F%92%E4%BB%B6"><span class="nav-number">13.2.</span> <span class="nav-text">安装 ide 对应的 lombok 插件</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#1-7-0-%E9%9B%86%E6%88%90-redis"><span class="nav-number">14.</span> <span class="nav-text">1.7.0 集成 redis</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#1-7-1-%E9%9B%86%E6%88%90-spring-cache"><span class="nav-number">15.</span> <span class="nav-text">1.7.1 集成 spring cache</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#1-8-0-%E5%BC%80%E5%8F%91%E7%94%A8%E6%88%B7%E6%A8%A1%E5%9D%97"><span class="nav-number">16.</span> <span class="nav-text">1.8.0 开发用户模块</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%94%A8%E6%88%B7%E8%A1%A8"><span class="nav-number">16.1.</span> <span class="nav-text">用户表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0-controller-%E3%80%81service-%E3%80%81dto"><span class="nav-number">16.2.</span> <span class="nav-text">添加 controller 、service 、dto</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#1-8-1-%E8%87%AA%E5%AE%9A%E4%B9%89%E5%85%A8%E5%B1%80%E7%8A%B6%E6%80%81%E7%A0%81%E5%92%8C%E4%B8%9A%E5%8A%A1%E7%BB%93%E6%9E%9C%E7%B1%BB"><span class="nav-number">17.</span> <span class="nav-text">1.8.1 自定义全局状态码和业务结果类</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E5%85%A8%E5%B1%80%E7%8A%B6%E6%80%81%E7%A0%81"><span class="nav-number">17.1.</span> <span class="nav-text">自定义全局状态码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E4%B8%9A%E5%8A%A1%E7%BB%93%E6%9E%9C%E7%B1%BB"><span class="nav-number">17.2.</span> <span class="nav-text">创建业务结果类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%94%B9%E9%80%A0%E6%B3%A8%E5%86%8C%E6%8E%A5%E5%8F%A3"><span class="nav-number">17.3.</span> <span class="nav-text">改造注册接口</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#1-8-2-%E7%BB%9F%E4%B8%80%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86"><span class="nav-number">18.</span> <span class="nav-text">1.8.2 统一异常处理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E5%BC%82%E5%B8%B8%E7%B1%BB"><span class="nav-number">18.1.</span> <span class="nav-text">自定义异常类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%E7%B1%BB"><span class="nav-number">18.2.</span> <span class="nav-text">自定义异常处理类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E8%87%AA%E5%AE%9A%E4%B9%89%E5%BC%82%E5%B8%B8"><span class="nav-number">18.3.</span> <span class="nav-text">使用自定义异常</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#1-8-3-%E5%8F%82%E6%95%B0%E6%A0%A1%E9%AA%8C%E5%8F%8A%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86"><span class="nav-number">19.</span> <span class="nav-text">1.8.3 参数校验及异常处理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E6%95%B0%E6%A0%A1%E9%AA%8C"><span class="nav-number">19.1.</span> <span class="nav-text">参数校验</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86"><span class="nav-number">19.2.</span> <span class="nav-text">异常处理</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#1-8-4-%E6%B7%BB%E5%8A%A0%E7%99%BB%E9%99%86%E3%80%81%E4%BF%AE%E6%94%B9%E5%AF%86%E7%A0%81%E3%80%81%E8%8E%B7%E5%8F%96%E7%94%A8%E6%88%B7%E4%BF%A1%E6%81%AF%E7%9A%84%E6%8E%A5%E5%8F%A3"><span class="nav-number">20.</span> <span class="nav-text">1.8.4 添加登陆、修改密码、获取用户信息的接口</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#1-8-5-%E6%B7%BB%E5%8A%A0%E8%AE%A4%E8%AF%81%E6%8B%A6%E6%88%AA%E5%99%A8"><span class="nav-number">21.</span> <span class="nav-text">1.8.5 添加认证拦截器</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#1-8-6-%E7%BB%9F%E4%B8%80%E6%98%A0%E5%B0%84%E8%87%AA%E5%AE%9A%E4%B9%89%E9%85%8D%E7%BD%AE"><span class="nav-number">22.</span> <span class="nav-text">1.8.6 统一映射自定义配置</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#1-9-0-%E9%85%8D%E7%BD%AE%E6%97%A5%E5%BF%97"><span class="nav-number">23.</span> <span class="nav-text">1.9.0 配置日志</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%98%BE%E7%A4%BA-sql"><span class="nav-number">23.1.</span> <span class="nav-text">显示 sql</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BE%93%E5%87%BA%E6%97%A5%E5%BF%97%E5%88%B0%E6%96%87%E4%BB%B6"><span class="nav-number">23.2.</span> <span class="nav-text">输出日志到文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B2%BE%E7%BB%86%E5%8C%96%E9%85%8D%E7%BD%AE"><span class="nav-number">23.3.</span> <span class="nav-text">精细化配置</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="swimminghao"
+      src="/images/lion.png">
+  <p class="site-author-name" itemprop="name">swimminghao</p>
+  <div class="site-description" itemprop="description">swimminghao的学习博客</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">271</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">52</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/swimminghao" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;swimminghao" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:swimminghao0@gmail.com" title="E-Mail → mailto:swimminghao0@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/swimminghao" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;swimminghao" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://plus.google.com/yourname" title="Google → https:&#x2F;&#x2F;plus.google.com&#x2F;yourname" rel="noopener" target="_blank"><i class="fab fa-google fa-fw"></i>Google</a>
+      </span>
+  </div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdn.jsdelivr.net/npm/@creativecommons/vocabulary@2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+<!-- recent posts -->
+    <div class="links-of-blogroll motion-element links-of-blogroll-block">
+        <div class="links-of-blogroll-title recent-posts-title">
+	    <i class="fa fa-history " aria-hidden="true"></i>
+            近期文章
+	</div>
+	<ul class="links-of-blogroll-list recent-posts-list">
+	        <li class="my-links-of-blogroll-item">
+		    <a href="/posts/967669ed/" title="holer-server项目解读" target="">
+		    holer-server项目解读
+		    </a>
+		</li>
+	        <li class="my-links-of-blogroll-item">
+		    <a href="/posts/c30e6297/" title="Hexo博客文章加密" target="">
+		    Hexo博客文章加密
+		    </a>
+		</li>
+	        <li class="my-links-of-blogroll-item">
+		    <a href="/posts/7ff70092/" title="做任何事都非常厉害的诀窍，这3点你记好" target="">
+		    做任何事都非常厉害的诀窍，这3点你记好
+		    </a>
+		</li>
+	        <li class="my-links-of-blogroll-item">
+		    <a href="/posts/1afe5736/" title="DBeaver Ultimate Edition 免费破解使用" target="">
+		    DBeaver Ultimate Edition 免费破解使用
+		    </a>
+		</li>
+	        <li class="my-links-of-blogroll-item">
+		    <a href="/posts/7a47e8be/" title="为何大多数程序员做不了独立开发者？" target="">
+		    为何大多数程序员做不了独立开发者？
+		    </a>
+		</li>
+	</ul>
+    </div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/79603c56/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lion.png">
+      <meta itemprop="name" content="swimminghao">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="swimminghao's blog">
+      <meta itemprop="description" content="swimminghao的学习博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="超详细从0开始搭建 Spring Boot 项目 | swimminghao's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          超详细从0开始搭建 Spring Boot 项目
+        </h1>
+
+        <div class="post-meta-container">
+
+          
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-03-14 17:11:00" itemprop="dateCreated datePublished" datetime="2022-03-14T17:11:00+08:00">2022-03-14</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2025-02-13 16:20:39" itemprop="dateModified" datetime="2025-02-13T16:20:39+08:00">2025-02-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/posts/79603c56/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/79603c56/" data-xid="/posts/79603c56/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>32k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>29 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="超详细从0开始搭建-Spring-Boot-项目"><a href="#超详细从0开始搭建-Spring-Boot-项目" class="headerlink" title="超详细从0开始搭建 Spring Boot 项目"></a>超详细从0开始搭建 Spring Boot 项目</h1><p>这个项目，我是打算作为种子项目的，作为种子项目，必须的“开箱即用”，必须要包含大部分 web 开发的相关功能，后期所有的 Spring Boot 项目都是将这个项目拿来，简单修改一下配置，就可以快速开发了。</p>
+<h1 id="源码"><a href="#源码" class="headerlink" title="源码"></a>源码</h1><p><a target="_blank" rel="noopener" href="https://github.com/wqlm/boot">Github</a></p>
+<h1 id="1-0-0-创建项目"><a href="#1-0-0-创建项目" class="headerlink" title="1.0.0 创建项目"></a>1.0.0 创建项目</h1><p>我使用的是 idea</p>
+<p>创建项目 <img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/14/w8NHXh.png" alt="img"></p>
+<p>选择 Spring initializr ，如果点Next一直在转圈，可能是 <a href="https://link.juejin.cn/?target=https://start.spring.io/">start.spring.io&#x2F;</a> 在国外，访问比较慢。可以科学上网或者，使用自定义的 <a href="https://link.juejin.cn/?target=http://start.spring.io/">start.spring.io&#x2F;</a> <img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/14/T8zrCm.png" alt="img"></p>
+<p>主要改以下组织名称、项目名称和项目描述就好了 <img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/14/JQ1yll.png" alt="img"></p>
+<p>我创建项目的时候， Spring Boot 最新稳定版是 2.1.9 。要用就用最新的！！！ 依赖先都不勾选，后期一项一项加</p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/14/2PU7rC.png" alt="img"></p>
+<p>项目文件夹名称以及存放位置 <img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/14/ejmw40.png" alt="img"></p>
+<h2 id="添加maven镜像"><a href="#添加maven镜像" class="headerlink" title="添加maven镜像"></a>添加maven镜像</h2><p>添加maven镜像加快依赖下载速度</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">repositories</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">repository</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">name</span>&gt;</span>华为maven仓库<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">id</span>&gt;</span>huawei<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">url</span>&gt;</span>https://mirrors.huaweicloud.com/repository/maven/<span class="tag">&lt;/<span class="name">url</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">repository</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">repositories</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">pluginRepositories</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">pluginRepository</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">name</span>&gt;</span>华为maven插件仓库<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">id</span>&gt;</span>huawei_plugin<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">url</span>&gt;</span>https://mirrors.huaweicloud.com/repository/maven/<span class="tag">&lt;/<span class="name">url</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">pluginRepository</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">pluginRepositories</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="pom-文件"><a href="#pom-文件" class="headerlink" title="pom 文件"></a>pom 文件</h2><p>整体 .pom 文件内容如下</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">project</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://maven.apache.org/POM/4.0.0&quot;</span> <span class="attr">xmlns:xsi</span>=<span class="string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span></span><br><span class="line"><span class="tag">         <span class="attr">xsi:schemaLocation</span>=<span class="string">&quot;http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">modelVersion</span>&gt;</span>4.0.0<span class="tag">&lt;/<span class="name">modelVersion</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">parent</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-parent<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.1.9.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">relativePath</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">parent</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.wqlm<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>boot<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>0.0.1-SNAPSHOT<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>boot<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">description</span>&gt;</span>Spring Boot Demo<span class="tag">&lt;/<span class="name">description</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">properties</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">java.version</span>&gt;</span>1.8<span class="tag">&lt;/<span class="name">java.version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">properties</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-test<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">build</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">plugins</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">plugins</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">build</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">repositories</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">repository</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">name</span>&gt;</span>华为maven仓库<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">id</span>&gt;</span>huawei<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">url</span>&gt;</span>https://mirrors.huaweicloud.com/repository/maven/<span class="tag">&lt;/<span class="name">url</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">repository</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">repositories</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">pluginRepositories</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">pluginRepository</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">name</span>&gt;</span>华为maven插件仓库<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">id</span>&gt;</span>huawei_plugin<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">url</span>&gt;</span>https://mirrors.huaweicloud.com/repository/maven/<span class="tag">&lt;/<span class="name">url</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">pluginRepository</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">pluginRepositories</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">project</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="依赖结构图"><a href="#依赖结构图" class="headerlink" title="依赖结构图"></a>依赖结构图</h2><p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/14/123.png" alt="img"></p>
+<h1 id="番外"><a href="#番外" class="headerlink" title="番外"></a>番外</h1><p>观察仔细的人应该发现了，<strong>spring-boot-starter</strong> 和 <strong>spring-boot-starter-test</strong> 都没有指定版本，那它们是怎么确定版本的？</p>
+<blockquote>
+<p>参考 <a target="_blank" rel="noopener" href="https://juejin.cn/post/6844903965444816903">为什么 maven 依赖可以不指定版本</a></p>
+</blockquote>
+<h1 id="1-1-0-添加-web-模块"><a href="#1-1-0-添加-web-模块" class="headerlink" title="1.1.0 添加 web 模块"></a>1.1.0 添加 web 模块</h1><p>在 pom 文件中添加 web 模块</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>由于 <strong>spring-boot-starter-web</strong> 包含 <strong>spring-boot-starter</strong> <img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/14/JFwFNq.png" alt="img"></p>
+<p>建议删掉如下 <strong>spring-boot-starter</strong> 依赖，以保证依赖的干净整洁</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h2><p>引入 <strong>spring-boot-starter-web</strong> 后，我们可以</p>
+<ul>
+<li>编写 web 应用</li>
+<li>不需要配置容器即可运行 web 应用</li>
+<li>对请求参数进行校验</li>
+<li>将业务结果对象转换成 josn 返回</li>
+</ul>
+<h2 id="依赖结构图-1"><a href="#依赖结构图-1" class="headerlink" title="依赖结构图"></a>依赖结构图</h2><p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/14/SpringBootWeb.png" alt="img"> 从图中我们可以看到 <strong>spring-boot-starter-web</strong> 引入了几个关键的依赖</p>
+<ul>
+<li><p>spring-boot-starter</p>
+</li>
+<li><p><strong>spring-boot-starter-tomcat</strong>：spring boot 不需要 tomcat 也能启动就是因为它</p>
+</li>
+<li><p>spring-webmvc</p>
+</li>
+<li><p>spring-web</p>
+</li>
+<li><p>spring-boot-starter-json</p>
+<p>： 有了它，就可以使用 @ResponseBody 返回 json 数据</p>
+<ul>
+<li><strong>jackson</strong> ：spring boot 默认的 json 解析工具</li>
+</ul>
+</li>
+<li><p>hibernate-validator</p>
+<p>：提供参数校验的注解，如</p>
+<p>@Range、@Length</p>
+<ul>
+<li><strong>javax.validation</strong>：提供参数校验的注解，如 <strong>@NotBlank、@NotNull、@Pattern</strong></li>
+</ul>
+</li>
+</ul>
+<p>关于参数校验请参考 <a target="_blank" rel="noopener" href="https://juejin.cn/post/6844903961581846535#heading-4">参数校验 Hibernate-Validator</a></p>
+<h1 id="1-2-0-集成-mysql"><a href="#1-2-0-集成-mysql" class="headerlink" title="1.2.0 集成 mysql"></a>1.2.0 集成 mysql</h1><p>Spring Boot 集成 mysql 需要 <strong>JDBC 驱动</strong> 和 <strong>mysql 驱动</strong></p>
+<h2 id="引入依赖"><a href="#引入依赖" class="headerlink" title="引入依赖"></a>引入依赖</h2><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--JDBC--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-jdbc<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!--mysql--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>mysql<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mysql-connector-java<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>版本号可以不用填，spring boot 配置了默认的版本号。例如 spring boot 2.1.9.RELEASE 对应的 mysql-connector-java 版本为 8.0.17</p>
+<h2 id="配置-mysql"><a href="#配置-mysql" class="headerlink" title="配置 mysql"></a>配置 mysql</h2><p>根据 <strong>mysql-connector-java</strong> 版本不同，配置的内容也有些许差异</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># mysql-connector-java 6.0.x 以下版本配置</span></span><br><span class="line"><span class="attr">spring.datasource.driverClassName</span>=com.mysql.jdbc.Driver</span><br><span class="line"><span class="attr">spring.datasource.url</span>=jdbc:mysql://localhost:<span class="number">3306</span>/boot?useUnicode=<span class="literal">true</span>&amp;characterEncoding=utf-<span class="number">8</span>&amp;useSSL=<span class="literal">false</span></span><br><span class="line"><span class="attr">spring.datasource.username</span>=root</span><br><span class="line"><span class="attr">spring.datasource.password</span>=<span class="number">123456</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># mysql-connector-java 6.0.x 及以上版本配置</span></span><br><span class="line"><span class="attr">spring.datasource.driverClassName</span>=com.mysql.cj.jdbc.Driver</span><br><span class="line"><span class="attr">spring.datasource.url</span>=jdbc:mysql://localhost:<span class="number">3306</span>/boot?useUnicode=<span class="literal">true</span>&amp;characterEncoding=utf-<span class="number">8</span>&amp;useSSL=<span class="literal">false</span>&amp;serverTimezone=Asia/Shanghai</span><br><span class="line"><span class="attr">spring.datasource.username</span>=root</span><br><span class="line"><span class="attr">spring.datasource.password</span>=<span class="number">123456</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>如下图，<strong>spring boot 2.1.9.RELEASE</strong> 对应的 <strong>mysql-connector-java</strong> 版本为 8.0.17 <img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/14/UqEhk0.png" alt="img"></p>
+<p>更多请参考<a target="_blank" rel="noopener" href="https://juejin.cn/post/6844903965713252360">MySQL JDBC 连接</a></p>
+<h2 id="创建示例数据库和表"><a href="#创建示例数据库和表" class="headerlink" title="创建示例数据库和表"></a>创建示例数据库和表</h2><figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 创建 boot 数据库</span></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">DATABASE</span></span><br><span class="line"><span class="keyword">IF</span></span><br><span class="line">	<span class="keyword">NOT</span> <span class="keyword">EXISTS</span> boot <span class="keyword">DEFAULT</span> CHARSET utf8 <span class="keyword">COLLATE</span> utf8_bin;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 选择 boot 数据库</span></span><br><span class="line">USE boot;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 创建 user 表</span></span><br><span class="line"><span class="keyword">SET NAMES</span> utf8mb4;</span><br><span class="line"><span class="keyword">SET</span> FOREIGN_KEY_CHECKS = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">DROP</span> <span class="keyword">TABLE</span></span><br><span class="line"><span class="keyword">IF</span></span><br><span class="line">	<span class="keyword">EXISTS</span> `<span class="keyword">user</span>`;</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> `<span class="keyword">user</span>` (</span><br><span class="line">	`id` <span class="type">INT</span> ( <span class="number">11</span> ) <span class="keyword">NOT</span> <span class="keyword">NULL</span> AUTO_INCREMENT,</span><br><span class="line">	`user_name` <span class="type">VARCHAR</span> ( <span class="number">255</span> ) <span class="keyword">COLLATE</span> utf8_bin <span class="keyword">NOT</span> <span class="keyword">NULL</span>,</span><br><span class="line">	`pasword` <span class="type">VARCHAR</span> ( <span class="number">255</span> ) <span class="keyword">COLLATE</span> utf8_bin <span class="keyword">NOT</span> <span class="keyword">NULL</span>,</span><br><span class="line">	`salt` <span class="type">VARCHAR</span> ( <span class="number">255</span> ) <span class="keyword">COLLATE</span> utf8_bin <span class="keyword">NOT</span> <span class="keyword">NULL</span>,</span><br><span class="line">	<span class="keyword">PRIMARY KEY</span> ( `id` ) </span><br><span class="line">) ENGINE = INNODB <span class="keyword">DEFAULT</span> CHARSET = utf8 <span class="keyword">COLLATE</span> = utf8_bin;</span><br><span class="line"><span class="keyword">SET</span> FOREIGN_KEY_CHECKS = <span class="number">1</span>;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h1 id="1-3-0-多环境配置"><a href="#1-3-0-多环境配置" class="headerlink" title="1.3.0 多环境配置"></a>1.3.0 多环境配置</h1><p>详细参考<a target="_blank" rel="noopener" href="https://juejin.cn/post/6844903891763625998">spring profile 与 maven profile 多环境管理</a></p>
+<h2 id="spring-多环境配置"><a href="#spring-多环境配置" class="headerlink" title="spring 多环境配置"></a>spring 多环境配置</h2><p><strong>配置一个 dev 环境</strong></p>
+<p>创建 <code>application-dev.properties</code> 文件，并将 mysql 相关配置迁移过来 <img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/14/TlaIN7.png" alt="img"></p>
+<p><strong>使用 dev 环境</strong></p>
+<p>在 <code>application-dev.properties</code> 指定要使用的环境</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring.profiles.active</span>=<span class="string">dev</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/14/PKG3wR.png" alt="img"></p>
+<blockquote>
+<p>同理你也可以创建 test、prod 环境，但一般公共配置还是会放在 application.properties 中，只有非公共配置才会放在各自的环境中</p>
+</blockquote>
+<h2 id="maven-多环境配置"><a href="#maven-多环境配置" class="headerlink" title="maven 多环境配置"></a>maven 多环境配置</h2><p>spring boot 多环境配置有两个缺点</p>
+<ol>
+<li>每次切换环境要手动修改 <code>spring.profiles.active</code> 的值</li>
+<li>打包的时候，要手动删除其它环境的配置文件，不然其它环境的敏感信息就都打包进去了</li>
+</ol>
+<p>而 maven 的 profile 可以解决这两个问题</p>
+<h3 id="第一个问题"><a href="#第一个问题" class="headerlink" title="第一个问题"></a>第一个问题</h3><p><em><strong>“每次切换环境要手动修改<code>spring.profiles.active</code>的值”</strong></em></p>
+<p>这个问题就可以通过配置 profile 解决，在pom的根节点下添加</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">profiles</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">profile</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">id</span>&gt;</span>dev<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">activation</span>&gt;</span></span><br><span class="line">            <span class="comment">&lt;!-- activeByDefault 为 true 表示，默认激活 id为dev 的profile--&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">activeByDefault</span>&gt;</span>true<span class="tag">&lt;/<span class="name">activeByDefault</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">activation</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- properties 里面可以添加自定义节点，如下添加了一个env节点 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">properties</span>&gt;</span></span><br><span class="line">            <span class="comment">&lt;!-- 这个节点的值可以在maven的其他地方引用，可以简单理解为定义了一个叫env的变量 --&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">env</span>&gt;</span>dev<span class="tag">&lt;/<span class="name">env</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">properties</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">profile</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">profile</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">id</span>&gt;</span>test<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">properties</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">env</span>&gt;</span>test<span class="tag">&lt;/<span class="name">env</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">properties</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">profile</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">profile</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">id</span>&gt;</span>prod<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">properties</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">env</span>&gt;</span>prod<span class="tag">&lt;/<span class="name">env</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">properties</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">profile</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">profiles</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>如上，定义了三套环境，其中id为dev的是默认环境，三套环境中定义了叫 env的“变量”</p>
+<p>如果你用的是idea编辑器，添加好后，maven控件窗口应该会多出一个 Profiles,其中默认值就是上面配置的dev</p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/14/XvL7nF.png" alt="img"></p>
+<p>最小化的 profiles 已经配置好了，通过勾选上图中的Profiles，就可以快速切换 maven的 profile 环境。</p>
+<p>现在 maven profile 可以通过 勾选上图中的Profiles 快速切换环境</p>
+<p>Spring Profile 还得通过 手动修改<code>spring.profiles.active</code>的值来切环境</p>
+<p>现在的问题是怎样让 maven profile的环境与Spring Profile一一对应，达到切换maven profile环境时，Spring Profile环境也被切换了</p>
+<p>还记得maven profile 中定义的 env “变量”吗,现在只需要把</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring.profiles.active</span>=dev</span><br></pre></td></tr></table></figure>
+
+<p>改成</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring.profiles.active</span>=@env@</span><br></pre></td></tr></table></figure>
+
+<p>就将maven profile 与 Spring Profile 环境关联起来了</p>
+<p>当maven profile 将 环境切换成 test 时，在pom中定义的id为test的profile环境将被激活，在该环境下env的值是test，maven插件会将 @env@ 替换为 test，这样Spring Profile的环境也随之发生了改变。从上面可以看出，自定义的”变量”env的值还不能乱写，要与Spring Profile的环境相对应。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/14/q13RBD.png" alt="img"></p>
+<p><strong>总结</strong></p>
+<ul>
+<li>第一步，在<code>pom</code>文件中配置 profiles</li>
+<li>第二步，在<code>application.properties</code>配置文件中添加 <code>spring.profiles.active=@env@</code></li>
+</ul>
+<h3 id="第二个问题"><a href="#第二个问题" class="headerlink" title="第二个问题"></a>第二个问题</h3><p><em><strong>打包的时候，要手动删除其它环境的配置文件，不然其它环境的敏感信息就都打包进去了</strong></em></p>
+<p>解决这个问题需要在pom根节点下中配置 build 信息</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">build</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">resources</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">resource</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">directory</span>&gt;</span>src/main/resources<span class="tag">&lt;/<span class="name">directory</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">excludes</span>&gt;</span></span><br><span class="line">                <span class="comment">&lt;!--先排除application开头的配置文件--&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">exclude</span>&gt;</span>application*.yml<span class="tag">&lt;/<span class="name">exclude</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">excludes</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">resource</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">resource</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">directory</span>&gt;</span>src/main/resources<span class="tag">&lt;/<span class="name">directory</span>&gt;</span></span><br><span class="line">            <span class="comment">&lt;!--filtering 需要设置为 true，这样在include的时候，才会把</span></span><br><span class="line"><span class="comment">            配置文件中的@env@ 这个maven`变量`替换成当前环境的对应值  --&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">filtering</span>&gt;</span>true<span class="tag">&lt;/<span class="name">filtering</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">includes</span>&gt;</span></span><br><span class="line">                <span class="comment">&lt;!--引入所需环境的配置文件--&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">include</span>&gt;</span>application.yml<span class="tag">&lt;/<span class="name">include</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">include</span>&gt;</span>application-$&#123;env&#125;.yml<span class="tag">&lt;/<span class="name">include</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">includes</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">resource</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">resources</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">build</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>directory：资源文件所在目录</li>
+<li>includes：需要包含的文件列表</li>
+<li>excludes：需要排除的文件列表</li>
+</ul>
+<p>如上，配置了两个 <code>&lt;resource&gt;</code>，第一个先排除了src&#x2F;main&#x2F;resources目录下所有 application 开头是配置文件，第二个在第一个的基础上添加了所需的配置文件。注意 <code>application-$&#123;env&#125;.yml</code>,它是一个动态变化的值，随着当前环境的改变而改变，假如当前环境是 id叫 dev的 profile，那么env的值为 dev。</p>
+<p>这样配置后，maven在build时，就会根据配置先排除掉指定的配置文件，然后根据当前环境添加所需要的配置文件。</p>
+<h2 id="pom-文件-1"><a href="#pom-文件-1" class="headerlink" title="pom 文件"></a>pom 文件</h2><figure class="highlight dust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br></pre></td><td class="code"><pre><span class="line"><span class="language-xml"><span class="meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span></span></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">project</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://maven.apache.org/POM/4.0.0&quot;</span> <span class="attr">xmlns:xsi</span>=<span class="string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">         <span class="attr">xsi:schemaLocation</span>=<span class="string">&quot;http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd&quot;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;<span class="name">modelVersion</span>&gt;</span>4.0.0<span class="tag">&lt;/<span class="name">modelVersion</span>&gt;</span></span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;<span class="name">parent</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-parent<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.1.9.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">relativePath</span>/&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">parent</span>&gt;</span></span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.wqlm<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>boot<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>0.0.1-SNAPSHOT<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>boot<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;<span class="name">description</span>&gt;</span>Spring Boot Demo<span class="tag">&lt;/<span class="name">description</span>&gt;</span></span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;<span class="name">properties</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">project.build.sourceEncoding</span>&gt;</span>UTF-8<span class="tag">&lt;/<span class="name">project.build.sourceEncoding</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">project.reporting.outputEncoding</span>&gt;</span>UTF-8<span class="tag">&lt;/<span class="name">project.reporting.outputEncoding</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">java.version</span>&gt;</span>1.8<span class="tag">&lt;/<span class="name">java.version</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">properties</span>&gt;</span></span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">    <span class="comment">&lt;!--maven 多环境--&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;<span class="name">profiles</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">profile</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;<span class="name">id</span>&gt;</span>dev<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;<span class="name">activation</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">                <span class="tag">&lt;<span class="name">activeByDefault</span>&gt;</span>true<span class="tag">&lt;/<span class="name">activeByDefault</span>&gt;</span> <span class="comment">&lt;!-- 为 true 表示，默认激活该 profile--&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;/<span class="name">activation</span>&gt;</span></span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;<span class="name">properties</span>&gt;</span> <span class="comment">&lt;!-- properties 里面可以添加自定义节点，如下添加了一个env节点 --&gt;</span></span></span><br><span class="line"><span class="language-xml">                <span class="tag">&lt;<span class="name">env</span>&gt;</span>dev<span class="tag">&lt;/<span class="name">env</span>&gt;</span> <span class="comment">&lt;!-- 这个节点的值可以在maven的其他地方引用，可以简单理解为定义了一个叫env的变量 --&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;/<span class="name">properties</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;/<span class="name">profile</span>&gt;</span></span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">profile</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;<span class="name">id</span>&gt;</span>test<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;<span class="name">properties</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">                <span class="tag">&lt;<span class="name">env</span>&gt;</span>test<span class="tag">&lt;/<span class="name">env</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;/<span class="name">properties</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;/<span class="name">profile</span>&gt;</span></span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">profile</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;<span class="name">id</span>&gt;</span>prod<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;<span class="name">properties</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">                <span class="tag">&lt;<span class="name">env</span>&gt;</span>prod<span class="tag">&lt;/<span class="name">env</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;/<span class="name">properties</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;/<span class="name">profile</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">profiles</span>&gt;</span></span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="comment">&lt;!--web--&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">        <span class="comment">&lt;!--mysql--&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>mysql<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mysql-connector-java<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">        <span class="comment">&lt;!--mybatis--&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.mybatis.spring.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mybatis-spring-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.1.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">        <span class="comment">&lt;!--test--&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-test<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;<span class="name">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;<span class="name">build</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">plugins</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">                <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">                <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;/<span class="name">plugins</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">resources</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;<span class="name">resource</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">                <span class="tag">&lt;<span class="name">directory</span>&gt;</span>src/main/resources<span class="tag">&lt;/<span class="name">directory</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">                <span class="tag">&lt;<span class="name">excludes</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">                    <span class="comment">&lt;!--先排除application开头的配置文件--&gt;</span></span></span><br><span class="line"><span class="language-xml">                    <span class="tag">&lt;<span class="name">exclude</span>&gt;</span>application*.yml<span class="tag">&lt;/<span class="name">exclude</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">                <span class="tag">&lt;/<span class="name">excludes</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;/<span class="name">resource</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;<span class="name">resource</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">                <span class="tag">&lt;<span class="name">directory</span>&gt;</span>src/main/resources<span class="tag">&lt;/<span class="name">directory</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">                <span class="comment">&lt;!--filtering 需要设置为 true，这样在include的时候，才会把配置文件中的@env@ 这个maven`变量`替换成当前环境的对应值--&gt;</span></span></span><br><span class="line"><span class="language-xml">                <span class="tag">&lt;<span class="name">filtering</span>&gt;</span>true<span class="tag">&lt;/<span class="name">filtering</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">                <span class="tag">&lt;<span class="name">includes</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">                    <span class="comment">&lt;!--引入所需环境的配置文件--&gt;</span></span></span><br><span class="line"><span class="language-xml">                    <span class="tag">&lt;<span class="name">include</span>&gt;</span>application.yml<span class="tag">&lt;/<span class="name">include</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">                    <span class="tag">&lt;<span class="name">include</span>&gt;</span>application-$</span><span class="template-variable">&#123;env&#125;</span><span class="language-xml">.yml<span class="tag">&lt;/<span class="name">include</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">                <span class="tag">&lt;/<span class="name">includes</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;/<span class="name">resource</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;/<span class="name">resources</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">build</span>&gt;</span></span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;<span class="name">repositories</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">repository</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;<span class="name">name</span>&gt;</span>华为maven仓库<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;<span class="name">id</span>&gt;</span>huawei<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;<span class="name">url</span>&gt;</span>https://mirrors.huaweicloud.com/repository/maven/<span class="tag">&lt;/<span class="name">url</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;/<span class="name">repository</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">repositories</span>&gt;</span></span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;<span class="name">pluginRepositories</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">pluginRepository</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;<span class="name">name</span>&gt;</span>华为maven插件仓库<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;<span class="name">id</span>&gt;</span>huawei_plugin<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;<span class="name">url</span>&gt;</span>https://mirrors.huaweicloud.com/repository/maven/<span class="tag">&lt;/<span class="name">url</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;/<span class="name">pluginRepository</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">pluginRepositories</span>&gt;</span></span></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;/<span class="name">project</span>&gt;</span></span></span><br><span class="line"><span class="language-xml"></span></span><br></pre></td></tr></table></figure>
+
+<h1 id="1-4-0-多模块配置"><a href="#1-4-0-多模块配置" class="headerlink" title="1.4.0 多模块配置"></a>1.4.0 多模块配置</h1><p>稍微大一点的项目一般都会采用多模块的形式管理项目，将一个大型项目升级成多模块项目，一般需要两大步骤</p>
+<ol>
+<li>拆分现有项目</li>
+<li>进行 <strong>maven 多模块配置</strong></li>
+</ol>
+<blockquote>
+<p>关于<strong>如何拆分现有项目</strong>和<strong>maven 多模块配置</strong>的详细介绍请参考 <a target="_blank" rel="noopener" href="https://juejin.cn/post/6844903970024980488">Maven 多模块配置、管理</a></p>
+</blockquote>
+<h2 id="拆分现有项目"><a href="#拆分现有项目" class="headerlink" title="拆分现有项目"></a>拆分现有项目</h2><p>我是按照功能拆分项目的，但由于该项目本身不大，所以我简单的拆分为 <strong>user 模块和 common 模块</strong></p>
+<p>在boot下创建两个新的模块 <img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/14/jIfN1z.png" alt="img"></p>
+<p>子模块的pom <img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/14/26QxUd.png" alt="img"></p>
+<p>此时，父模块的pom内容也发生了改变，添加了如下三行 <img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/14/D8QTvR.png" alt="img"></p>
+<p>再来创建 common 模块，创建过程同上，我就不演示了,创建好之后，pom如下 <img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/14/9w9MDz.png" alt="img"></p>
+<p>整个项目结构如下 <img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/14/u6PtzJ.png" alt="img"></p>
+<p>下一步进行迁移工作，将原先 src 目录下面的内容迁移到对于的子模块中 <img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/14/cwvRoe.png" alt="img"></p>
+<p>这里我放到 user 模块中，迁移过程中注意路径和命名规范，过程就不展示了，迁移之后，结构如下。 <img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/14/tbuJkH.png" alt="img"></p>
+<h2 id="多模块配置"><a href="#多模块配置" class="headerlink" title="多模块配置"></a>多模块配置</h2><p>多模块配置遵守以下原则</p>
+<ul>
+<li>公共、通用配置一定要配置在父pom中</li>
+<li>版本号由父 pom 统一管理</li>
+</ul>
+<p>如下图，蓝色背景的元素都会被子项目全部继承 <img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/14/jsOsQG.png" alt="img"></p>
+<p>由于目前，只有 user 模块用到了如下依赖项，而 common 模块不需要用到这些依赖，所以，将依赖复制到 user 模块下，后删掉依赖 <img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/14/P84pRC.png" alt="img"></p>
+<p><strong>build</strong>中的配置目前也是只有 user 模块用到，也复制到 user 模块下，后删掉 <img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/14/9Tnf3i.png" alt="img"></p>
+<p>父项目已经配置完成了，接下来配置 user 模块，如下 <img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/14/jIFFov.png" alt="img"></p>
+<p>common 模块用到的时候在配置</p>
+<h2 id="多模块管理"><a href="#多模块管理" class="headerlink" title="多模块管理"></a>多模块管理</h2><p><strong>多模块环境管理</strong> 我们在父 pom 中配置了 maven 多环境，子模块会继承这些配置。之后，我们只需要在 maven 插件中切换环境，所有的子模块的 maven 环境都会被切换 <img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/14/pAe8jr.png" alt="img"></p>
+<p><strong>多模块构建管理</strong> 在 maven 插件中，通过 boot 项目对所以子模块进行、编译、测试、打包、清理… <img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/15/94zsV0.png" alt="img"></p>
+<h1 id="1-5-0-集成-mybatis"><a href="#1-5-0-集成-mybatis" class="headerlink" title="1.5.0 集成 mybatis"></a>1.5.0 集成 mybatis</h1><p>集成 mybatis 一般需要5步</p>
+<ol>
+<li>引入依赖</li>
+<li>创建 PO 层，存放我们的数据持久化对象</li>
+<li>创建 DAO 层，存放数据库的增删改查方法</li>
+<li>创建 mapper.xml 层, 对应增删改查语句</li>
+<li>在启动类上配置 @MapperScan</li>
+<li>其他。如配置 MyBatis Generator，用来帮我们生成 PO、DAO、Mapper.xml</li>
+</ol>
+<h2 id="添加依赖"><a href="#添加依赖" class="headerlink" title="添加依赖"></a>添加依赖</h2><p>在多模块项目中添加依赖要注意一下几点</p>
+<ul>
+<li>不要将依赖直接添加到父 pom 中，这样所以子模块都会继承该依赖</li>
+<li>多个模块引用了统一个依赖，最好保证依赖的版本一致</li>
+</ul>
+<p>maven dependencyManagement 可以非常方便的管理多模块的依赖</p>
+<blockquote>
+<p>关于 maven dependencyManagement 请参考 <a target="_blank" rel="noopener" href="https://juejin.cn/post/6844903965444816903">maven 依赖版本管理</a></p>
+</blockquote>
+<p>这里我就不在解释，直接应用了</p>
+<ol>
+<li><p>在父 pom 的根节点下, <strong>properties</strong> 里，定义mybatis-spring-boot-starter 版本号的变量</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">mybatis-spring-boot-starter.version</span>&gt;</span>2.1.0<span class="tag">&lt;/<span class="name">mybatis-spring-boot-starter.version</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/15/dz72JN.png" alt="img"></p>
+</li>
+<li><p>在父 pom 的根节点下，<strong>申明</strong> mybatis 依赖</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependencyManagement</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.mybatis.spring.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mybatis-spring-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;mybatis-spring-boot-starter.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependencyManagement</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/15/ZKQezo.png" alt="img"></p>
+</li>
+<li><p>在 user 模块的 pom 文件中引入 mybatis 依赖</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.mybatis.spring.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mybatis-spring-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>由于 <strong>mybatis-spring-boot-starter</strong> 包含 <strong>spring-boot-starter-jdbc</strong> ，所以删除<strong>spring-boot-starter-jdbc</strong>依赖，保证依赖的整洁</p>
+</li>
+</ol>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/15/Udl9pr.png" alt="img"></p>
+<h2 id="依赖结构图-2"><a href="#依赖结构图-2" class="headerlink" title="依赖结构图"></a>依赖结构图</h2><p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/1280fbe2516d4464acf313c5fd450c90~tplv-k3u1fbpfcp-zoom-in-crop-mark:1304:0:0:0.awebp" alt="img"></p>
+<h2 id="创建对应的文件夹"><a href="#创建对应的文件夹" class="headerlink" title="创建对应的文件夹"></a>创建对应的文件夹</h2><p>如图</p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/15/dYdApC.png" alt="img"></p>
+<p><strong>com.wqlm.boot</strong></p>
+<ul>
+<li><strong>controller</strong> ：控制层</li>
+<li><strong>po</strong> : 存放与数据库中表相对应的java对象</li>
+<li><strong>dto</strong> : 存放数据传输对象，比如注册时，注册的信息可以用一个 dto 对象来接收</li>
+<li><strong>dao</strong> : 存放操作数据库的接口</li>
+<li><strong>service</strong> : 业务层</li>
+<li><strong>vo</strong> : 存放业务返回结果对象</li>
+<li><strong>qo</strong> : 封装了查询参数的对象</li>
+</ul>
+<p><strong>resources</strong></p>
+<ul>
+<li><strong>mapper</strong> : 存放mapper.xml 文件</li>
+</ul>
+<h2 id="配置-mybatis"><a href="#配置-mybatis" class="headerlink" title="配置 mybatis"></a>配置 mybatis</h2><p>mybatis 需要知道有那些类是 <strong>mapper</strong>！有两种方式可以告诉 mybatis。</p>
+<p><strong>第一种</strong></p>
+<p>在启动类上配置 <strong>@MapperScan</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 指定你的 mapper接口所在的 <span class="keyword">package</span></span><br><span class="line"><span class="meta">@MapperScan(&quot;com.wqlm.boot.user.dao&quot;)</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/15/SNZ4na.png" alt="img"></p>
+<p><strong>第二种</strong> 在接口上加 <code>@Mapper</code> 注解，如下 <img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/15/hWTvLA.png" alt="img"></p>
+<blockquote>
+<p>要我选我肯定选第一种配置方式，一劳永逸</p>
+</blockquote>
+<p>除此之外，还要告诉 mybatis ，你的 mapper.xml 文件在哪</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># mybatis</span></span><br><span class="line"><span class="comment"># mapper.xml文件的位置</span></span><br><span class="line">mybatis.mapper-locations=classpath*<span class="symbol">:mapper/*</span>.xml</span><br></pre></td></tr></table></figure>
+
+<p>由于这里的配置跟环境无关,所以应该配置在 <strong>application.properties</strong> 中 <img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/15/93Lrt4.png" alt="img"></p>
+<h1 id="1-5-1-配置-MyBatis-Generator"><a href="#1-5-1-配置-MyBatis-Generator" class="headerlink" title="1.5.1 配置 MyBatis Generator"></a>1.5.1 配置 MyBatis Generator</h1><p>MyBatis Generator 是 MyBatis 提供的一个代码生成工具。可以帮我们生成 表对应的持久化对象(po)、操作数据库的接口(dao)、CRUD sql的xml(mapper)。</p>
+<p>使用方法主要分为三步</p>
+<ol>
+<li>引入并配置 MyBatis Generator 插件</li>
+<li>配置 MyBatis Generator Config 文件</li>
+<li>使用 MyBatis Generator 插件</li>
+</ol>
+<p>详细说明请参考 <a target="_blank" rel="noopener" href="https://juejin.im/editor/posts/5db694e3e51d452a2e25ba45">MyBatis Generator 超详细配置</a></p>
+<p>这里只给出一种最终配置</p>
+<h2 id="引入并配置-MyBatis-Generator-插件"><a href="#引入并配置-MyBatis-Generator-插件" class="headerlink" title="引入并配置 MyBatis Generator 插件"></a>引入并配置 MyBatis Generator 插件</h2><p>在user项目的pom文件的根节点下添加如下配置</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">build</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">plugins</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.mybatis.generator<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mybatis-generator-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.3.7<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">                <span class="comment">&lt;!--mybatis的代码生成器的配置文件--&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">configurationFile</span>&gt;</span>src/main/resources/mybatis-generator-config.xml<span class="tag">&lt;/<span class="name">configurationFile</span>&gt;</span></span><br><span class="line">                <span class="comment">&lt;!--允许覆盖生成的文件--&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">overwrite</span>&gt;</span>true<span class="tag">&lt;/<span class="name">overwrite</span>&gt;</span></span><br><span class="line">                <span class="comment">&lt;!--将当前pom的依赖项添加到生成器的类路径中--&gt;</span></span><br><span class="line">                <span class="comment">&lt;!--&lt;includeCompileDependencies&gt;true&lt;/includeCompileDependencies&gt;--&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">                <span class="comment">&lt;!--mybatis-generator插件的依赖包--&gt;</span></span><br><span class="line">                <span class="comment">&lt;!--&lt;dependency&gt;--&gt;</span></span><br><span class="line">                    <span class="comment">&lt;!--&lt;groupId&gt;org.mybatis.generator&lt;/groupId&gt;--&gt;</span></span><br><span class="line">                    <span class="comment">&lt;!--&lt;artifactId&gt;mybatis-generator-core&lt;/artifactId&gt;--&gt;</span></span><br><span class="line">                    <span class="comment">&lt;!--&lt;version&gt;1.3.7&lt;/version&gt;--&gt;</span></span><br><span class="line">                <span class="comment">&lt;!--&lt;/dependency&gt;--&gt;</span></span><br><span class="line">                <span class="comment">&lt;!-- mysql的JDBC驱动 --&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>mysql<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mysql-connector-java<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">version</span>&gt;</span>8.0.17<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">plugins</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">build</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/15/3kZllK.png" alt="img"></p>
+<h2 id="配置-MyBatis-Generator-Config-文件"><a href="#配置-MyBatis-Generator-Config-文件" class="headerlink" title="配置 MyBatis Generator Config 文件"></a>配置 MyBatis Generator Config 文件</h2><p>在user项目的 <strong>resources</strong> 目录下，创建<strong>mybatis-generator-config.xml</strong>，内容如下</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;</span></span><br><span class="line"><span class="comment">&lt;!--mybatis的代码生成器相关配置--&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">generatorConfiguration</span></span></span><br><span class="line"><span class="meta">        <span class="keyword">PUBLIC</span> <span class="string">&quot;-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN&quot;</span></span></span><br><span class="line"><span class="meta">        <span class="string">&quot;http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">generatorConfiguration</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 引入配置文件 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">properties</span> <span class="attr">resource</span>=<span class="string">&quot;application-dev.properties&quot;</span>/&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- 一个数据库一个context,context的子元素必须按照它给出的顺序</span></span><br><span class="line"><span class="comment">        property*,plugin*,commentGenerator?,jdbcConnection,javaTypeResolver?,</span></span><br><span class="line"><span class="comment">        javaModelGenerator,sqlMapGenerator?,javaClientGenerator?,table+</span></span><br><span class="line"><span class="comment">    --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">context</span> <span class="attr">id</span>=<span class="string">&quot;myContext&quot;</span> <span class="attr">targetRuntime</span>=<span class="string">&quot;MyBatis3&quot;</span> <span class="attr">defaultModelType</span>=<span class="string">&quot;flat&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">&lt;!-- 这个插件给生成的Java模型对象增加了equals和hashCode方法 --&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--&lt;plugin type=&quot;org.mybatis.generator.plugins.EqualsHashCodePlugin&quot;/&gt;--&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">&lt;!-- 注释 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">commentGenerator</span>&gt;</span></span><br><span class="line">            <span class="comment">&lt;!-- 是否不生成注释 --&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;suppressAllComments&quot;</span> <span class="attr">value</span>=<span class="string">&quot;true&quot;</span>/&gt;</span></span><br><span class="line">            <span class="comment">&lt;!-- 不希望生成的注释中包含时间戳 --&gt;</span></span><br><span class="line">            <span class="comment">&lt;!--&lt;property name=&quot;suppressDate&quot; value=&quot;true&quot;/&gt;--&gt;</span></span><br><span class="line">            <span class="comment">&lt;!-- 添加 db 表中字段的注释，只有suppressAllComments为false时才生效--&gt;</span></span><br><span class="line">            <span class="comment">&lt;!--&lt;property name=&quot;addRemarkComments&quot; value=&quot;true&quot;/&gt;--&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">commentGenerator</span>&gt;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="comment">&lt;!-- jdbc连接 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">jdbcConnection</span> <span class="attr">driverClass</span>=<span class="string">&quot;$&#123;spring.datasource.driverClassName&#125;&quot;</span></span></span><br><span class="line"><span class="tag">                        <span class="attr">connectionURL</span>=<span class="string">&quot;$&#123;spring.datasource.url&#125;&quot;</span></span></span><br><span class="line"><span class="tag">                        <span class="attr">userId</span>=<span class="string">&quot;$&#123;spring.datasource.username&#125;&quot;</span></span></span><br><span class="line"><span class="tag">                        <span class="attr">password</span>=<span class="string">&quot;$&#123;spring.datasource.password&#125;&quot;</span>&gt;</span></span><br><span class="line">            <span class="comment">&lt;!--高版本的 mysql-connector-java 需要设置 nullCatalogMeansCurrent=true--&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;nullCatalogMeansCurrent&quot;</span> <span class="attr">value</span>=<span class="string">&quot;true&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">jdbcConnection</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">&lt;!-- 类型转换 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">javaTypeResolver</span>&gt;</span></span><br><span class="line">            <span class="comment">&lt;!--是否使用bigDecimal，默认false。</span></span><br><span class="line"><span class="comment">                false，把JDBC DECIMAL 和 NUMERIC 类型解析为 Integer</span></span><br><span class="line"><span class="comment">                true，把JDBC DECIMAL 和 NUMERIC 类型解析为java.math.BigDecimal--&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;forceBigDecimals&quot;</span> <span class="attr">value</span>=<span class="string">&quot;true&quot;</span>/&gt;</span></span><br><span class="line">            <span class="comment">&lt;!--默认false</span></span><br><span class="line"><span class="comment">                false，将所有 JDBC 的时间类型解析为 java.util.Date</span></span><br><span class="line"><span class="comment">                true，将 JDBC 的时间类型按如下规则解析</span></span><br><span class="line"><span class="comment">                    DATE	                -&gt; java.time.LocalDate</span></span><br><span class="line"><span class="comment">                    TIME	                -&gt; java.time.LocalTime</span></span><br><span class="line"><span class="comment">                    TIMESTAMP               -&gt; java.time.LocalDateTime</span></span><br><span class="line"><span class="comment">                    TIME_WITH_TIMEZONE  	-&gt; java.time.OffsetTime</span></span><br><span class="line"><span class="comment">                    TIMESTAMP_WITH_TIMEZONE	-&gt; java.time.OffsetDateTime</span></span><br><span class="line"><span class="comment">                --&gt;</span></span><br><span class="line">            <span class="comment">&lt;!--&lt;property name=&quot;useJSR310Types&quot; value=&quot;false&quot;/&gt;--&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">javaTypeResolver</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">&lt;!-- 生成实体类地址 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">javaModelGenerator</span> <span class="attr">targetPackage</span>=<span class="string">&quot;com.wqlm.boot.user.po&quot;</span> <span class="attr">targetProject</span>=<span class="string">&quot;src/main/java&quot;</span>&gt;</span></span><br><span class="line">            <span class="comment">&lt;!-- 是否让 schema 作为包的后缀，默认为false --&gt;</span></span><br><span class="line">            <span class="comment">&lt;!--&lt;property name=&quot;enableSubPackages&quot; value=&quot;false&quot;/&gt;--&gt;</span></span><br><span class="line">            <span class="comment">&lt;!-- 是否针对string类型的字段在set方法中进行修剪，默认false --&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;trimStrings&quot;</span> <span class="attr">value</span>=<span class="string">&quot;true&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">javaModelGenerator</span>&gt;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="comment">&lt;!-- 生成Mapper.xml文件 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">sqlMapGenerator</span> <span class="attr">targetPackage</span>=<span class="string">&quot;mapper&quot;</span> <span class="attr">targetProject</span>=<span class="string">&quot;src/main/resources&quot;</span>&gt;</span></span><br><span class="line">            <span class="comment">&lt;!--&lt;property name=&quot;enableSubPackages&quot; value=&quot;false&quot;/&gt;--&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">sqlMapGenerator</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">&lt;!-- 生成 XxxMapper.java 接口--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">javaClientGenerator</span> <span class="attr">targetPackage</span>=<span class="string">&quot;com.wqlm.boot.user.dao&quot;</span> <span class="attr">targetProject</span>=<span class="string">&quot;src/main/java&quot;</span> <span class="attr">type</span>=<span class="string">&quot;XMLMAPPER&quot;</span>&gt;</span></span><br><span class="line">            <span class="comment">&lt;!--&lt;property name=&quot;enableSubPackages&quot; value=&quot;false&quot;/&gt;--&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">javaClientGenerator</span>&gt;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="comment">&lt;!-- schema为数据库名，oracle需要配置，mysql不需要配置。</span></span><br><span class="line"><span class="comment">             tableName为对应的数据库表名</span></span><br><span class="line"><span class="comment">             domainObjectName 是要生成的实体类名(可以不指定，默认按帕斯卡命名法将表名转换成类名)</span></span><br><span class="line"><span class="comment">             enableXXXByExample 默认为 true， 为 true 会生成一个对应Example帮助类，帮助你进行条件查询，不想要可以设为false</span></span><br><span class="line"><span class="comment">             --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">table</span> <span class="attr">schema</span>=<span class="string">&quot;&quot;</span> <span class="attr">tableName</span>=<span class="string">&quot;user&quot;</span> <span class="attr">domainObjectName</span>=<span class="string">&quot;User&quot;</span></span></span><br><span class="line"><span class="tag">               <span class="attr">enableCountByExample</span>=<span class="string">&quot;false&quot;</span> <span class="attr">enableDeleteByExample</span>=<span class="string">&quot;false&quot;</span> <span class="attr">enableSelectByExample</span>=<span class="string">&quot;false&quot;</span></span></span><br><span class="line"><span class="tag">               <span class="attr">enableUpdateByExample</span>=<span class="string">&quot;false&quot;</span> <span class="attr">selectByExampleQueryId</span>=<span class="string">&quot;false&quot;</span>&gt;</span></span><br><span class="line">            <span class="comment">&lt;!--是否使用实际列名,默认为false--&gt;</span></span><br><span class="line">            <span class="comment">&lt;!--&lt;property name=&quot;useActualColumnNames&quot; value=&quot;false&quot; /&gt;--&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">table</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">context</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">generatorConfiguration</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/15/CvMq6e.png" alt="img"></p>
+<h3 id="application-dev-properties-的配置"><a href="#application-dev-properties-的配置" class="headerlink" title="application-dev.properties 的配置"></a>application-dev.properties 的配置</h3><p>MyBatis Generator Config 引用的外部配置文件内容如下</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># mysql</span></span><br><span class="line"><span class="attr">spring.datasource.driverClassName</span>=com.mysql.cj.jdbc.Driver</span><br><span class="line"><span class="attr">spring.datasource.url</span>=jdbc:mysql://localhost:<span class="number">3306</span>/boot?useUnicode=<span class="literal">true</span>&amp;characterEncoding=utf-<span class="number">8</span>&amp;useSSL=<span class="literal">false</span>&amp;serverTimezone=Asia/Shanghai</span><br><span class="line"><span class="attr">spring.datasource.username</span>=root</span><br><span class="line"><span class="attr">spring.datasource.password</span>=<span class="number">123456</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/15/1ytj1a.png" alt="img"></p>
+<h2 id="使用-MyBatis-Generator-插件"><a href="#使用-MyBatis-Generator-插件" class="headerlink" title="使用 MyBatis Generator 插件"></a>使用 MyBatis Generator 插件</h2><p>配置好后，双击 maven 中的 MyBatis Generator 运行 <img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/15/chQ2RK.png" alt="img"></p>
+<h1 id="1-5-2-集成-tk-mybatis-通用mapper"><a href="#1-5-2-集成-tk-mybatis-通用mapper" class="headerlink" title="1.5.2 集成 tk.mybatis (通用mapper)"></a>1.5.2 集成 tk.mybatis (通用mapper)</h1><p>上一节中，MyBatis Generator 为我们生成了一些常用的操作数据库的方法。其实我们也可以通过 集成 tk.mybatis (通用mapper) 来实现，集成之后，会有更多的通用方法，并且这些通用方法是不用配置mapper.xml 的。</p>
+<p>springboot 集成 tk.mybatis (通用mapper) 一般需要3步</p>
+<ol>
+<li>引入依赖</li>
+<li>配置 tk.mybatis 的 MyBatis Generator 插件</li>
+<li>启动类上配置要扫描的 dao 路径</li>
+<li>配置通用 Mapper</li>
+</ol>
+<blockquote>
+<p><a href="https://link.juejin.cn/?target=https://github.com/abel533/Mapper/wiki/1.3-spring-boot">tk.mybatis 的 GitHub</a></p>
+</blockquote>
+<h2 id="引入依赖-1"><a href="#引入依赖-1" class="headerlink" title="引入依赖"></a>引入依赖</h2><p>老规矩，还是在父 pom 中配置 tk.mybatis 的版本并申明 tk.mybatis 的依赖 <img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/15/hhg631.png" alt="img"></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">properties</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">tk.mybatis.mapper-spring-boot-starter.version</span>&gt;</span>2.1.5<span class="tag">&lt;/<span class="name">tk.mybatis.mapper-spring-boot-starter.version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">properties</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!--申明依赖--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependencyManagement</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--tk.mybatis 通用mapper--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>tk.mybatis<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mapper-spring-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;tk.mybatis.mapper-spring-boot-starter.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependencyManagement</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>然后在 user 模块的 pom 中引入依赖</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--tk.mybatis 通用mapper--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>tk.mybatis<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mapper-spring-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/15/NPi4ZQ.png" alt="img"></p>
+<h2 id="配置-tk-mybatis-的-MyBatis-Generator-插件"><a href="#配置-tk-mybatis-的-MyBatis-Generator-插件" class="headerlink" title="配置 tk.mybatis 的 MyBatis Generator 插件"></a>配置 tk.mybatis 的 MyBatis Generator 插件</h2><p>tk.mybatis 为 MyBatis Generator 开发了一个插件，用于改变 MyBatis Generator 的原始生成策略，配置好之后，生成出来的文件更加精练、注释更加有意义。</p>
+<p>整个配置过程分两步</p>
+<ol>
+<li>引入插件依赖</li>
+<li>修改 MyBatis Generator Config</li>
+</ol>
+<h3 id="引入插件依赖"><a href="#引入插件依赖" class="headerlink" title="引入插件依赖"></a>引入插件依赖</h3><p>在原来的 MyBatis Generator 插件的 <strong>dependencies</strong> 里面添加如下依赖 <img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/15/oQ6vk7.png" alt="img"></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--4.15 是目前最新的版本--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>tk.mybatis<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mapper<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>4.1.5<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="修改-MyBatis-Generator-Config"><a href="#修改-MyBatis-Generator-Config" class="headerlink" title="修改 MyBatis Generator Config"></a>修改 MyBatis Generator Config</h3><p>主要有一下几点改动</p>
+<p>首先是 <strong>targetRuntime</strong> 的值改为 <strong>MyBatis3Simple</strong>，<strong>defaultModelType</strong> 设置为 <strong>flat</strong> <img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/15/qS4fk6.png" alt="img"></p>
+<p>如果 <code>targetRuntime=&quot;MyBatis3&quot;</code> 的话，生成出来的 mapper.xml 会多出一段无用代码，如下 <img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/15/nXQ6Zw.png" alt="img"></p>
+<p>然后添加 tk.mybatis 插件</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">plugin</span> <span class="attr">type</span>=<span class="string">&quot;tk.mybatis.mapper.generator.MapperPlugin&quot;</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--dao 要继承的接口--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;mappers&quot;</span> <span class="attr">value</span>=<span class="string">&quot;tk.mybatis.mapper.common.Mapper&quot;</span>/&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--是否区分大小写，默认false--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;caseSensitive&quot;</span> <span class="attr">value</span>=<span class="string">&quot;true&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/15/grytMg.png" alt="img"></p>
+<p>其他地方都不需要改动，配置好之后，运行 MyBatis Generator 插件，生成出来的文件如下</p>
+<p><strong>po</strong> <img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/15/cXVeGj.png" alt="img"> 可以看到，相比与 MyBatis Generator 生成的注释，tk.mybatis 生成的注解跟简洁易懂。除此之外，它还多了几个注解</p>
+<ul>
+<li>**@Table(name &#x3D; “user”)**：意思是该po对应数据库的user表</li>
+<li><strong>@Id</strong>：表示该属性对应user表的主键</li>
+<li>**@Column(name &#x3D; “user_name”)**：表示该属性对应user表的 <strong>user_name</strong> 字段</li>
+</ul>
+<p><strong>dao</strong> <img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/15/HICidL.png" alt="img"> 相比于 MyBatis Generator 生成的代码，少了很多接口，但多继承了一个类，这个类就是你在 tk.mybatis 插件里面配置的类 <img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/15/7uYHxp.png" alt="img"> 你可能猜到了，少的那些接口，都在继承的这个<code>tk.mybatis.mapper.common.Mapper</code>类中有，如下图，userMapper 继承了这么多方法，而且这些方法都是可以直接使用的 <img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/15/OEiYUJ.png" alt="img"></p>
+<p><strong>mapper.xml</strong> <img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/15/RECl9n.png" alt="img"> 相比于 MyBatis Generator 少了很多代码</p>
+<h2 id="启动类上配置要扫描的-dao-路径"><a href="#启动类上配置要扫描的-dao-路径" class="headerlink" title="启动类上配置要扫描的 dao 路径"></a>启动类上配置要扫描的 dao 路径</h2><p>这一步我们在集成 mybatis 时已经配置过了 <img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/15/mcGpvt.png" alt="img"></p>
+<p>但是集成 tk.mybatis 后，需要使用 tk.mybatis 包下的 <code>@MapperScan</code> ,因此需要修改一下 <code>@MapperScan</code> 的包路径 ![img](&#x2F;Users&#x2F;xh&#x2F;Library&#x2F;Application Support&#x2F;typora-user-images&#x2F;image-20220315161228552.png)</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> tk.mybatis.spring.annotation.MapperScan;</span><br></pre></td></tr></table></figure>
+
+<h2 id="配置通用-Mapper"><a href="#配置通用-Mapper" class="headerlink" title="配置通用 Mapper"></a>配置通用 Mapper</h2><p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/15/7cpwzb.png" alt="img"></p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 通用 mapper</span></span><br><span class="line"><span class="comment"># 主键自增回写方法,默认值MYSQL</span></span><br><span class="line"><span class="string">mapper.identity=MYSQL</span></span><br><span class="line"><span class="comment"># 设置 insert 和 update 中，字符串类型!=&quot;&quot;才插入/更新,默认false</span></span><br><span class="line"><span class="comment">#mapper.not-empty=true</span></span><br></pre></td></tr></table></figure>
+
+<p>tk.mybatis 至此就全部集成完了</p>
+<h1 id="1-5-3-集成-pagehelper-分页插件"><a href="#1-5-3-集成-pagehelper-分页插件" class="headerlink" title="1.5.3 集成 pagehelper 分页插件"></a>1.5.3 集成 pagehelper 分页插件</h1><p>分页查询是web开发中一个很常见的功能，mybatis 虽然也可以实现分页，但那是基于内存的分页，即把数据一次性全查出来，然后放在内存中分多次返回。</p>
+<p>而 pagehelper 分页插件是物理分页，是通过 sql 关键字来实现的。例如mysql中的<strong>limit</strong>，oracle中的<strong>rownum</strong>等。</p>
+<blockquote>
+<p>pagehelper 分页插件和 tk.mybatis 是通一个作者写的<a href="https://link.juejin.cn/?target=https://github.com/pagehelper/pagehelper-spring-boot">pagehelper项目地址</a></p>
+</blockquote>
+<p>集成 pagehelper 需要两步</p>
+<ul>
+<li>引入 pagehelper 依赖</li>
+<li>配置 pagehelper</li>
+</ul>
+<h2 id="引入-pagehelper-依赖"><a href="#引入-pagehelper-依赖" class="headerlink" title="引入 pagehelper 依赖"></a>引入 pagehelper 依赖</h2><p>老规矩，父pom中定义依赖版本，并申明依赖 <img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/15/9zftKM.png" alt="img"></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">properties</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">pagehelper-spring-boot-starter.version</span>&gt;</span>1.2.12<span class="tag">&lt;/<span class="name">pagehelper-spring-boot-starter.version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">properties</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">dependencyManagement</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.github.pagehelper<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>pagehelper-spring-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;pagehelper-spring-boot-starter.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependencyManagement</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>子模块中引入依赖 <img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/15/xFSjFs.png" alt="img"></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.github.pagehelper<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>pagehelper-spring-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="配置-pagehelper"><a href="#配置-pagehelper" class="headerlink" title="配置 pagehelper"></a>配置 pagehelper</h2><p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/15/WTq9z3.png" alt="img"></p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 使用的sql方言</span></span><br><span class="line"><span class="string">pagehelper.helperDialect=mysql</span></span><br><span class="line"><span class="comment"># 是否启用合理化，默认false，启用合理化时，如果 pageNum&lt;1会查询第一页，如果pageNum&gt;pages会查询最后一页</span></span><br><span class="line"><span class="string">pagehelper.reasonable=true</span></span><br><span class="line"><span class="comment"># 是否支持通过Mapper接口参数来传递分页参数，默认false</span></span><br><span class="line"><span class="comment">#pagehelper.supportMethodsArguments=true</span></span><br><span class="line"><span class="string">pagehelper.params=count=countSql</span></span><br></pre></td></tr></table></figure>
+
+<p>更多配置请参考<a href="https://link.juejin.cn/?target=https://github.com/pagehelper/Mybatis-PageHelper/blob/master/wikis/zh/HowToUse.md">官网</a></p>
+<h1 id="1-6-0-引入-lombok-插件"><a href="#1-6-0-引入-lombok-插件" class="headerlink" title="1.6.0 引入 lombok 插件"></a>1.6.0 引入 lombok 插件</h1><p>lombok 是一个简化代码的插件，能通过一个注解帮你生成 get、set、tostring、hash… 方法。</p>
+<p>集成 lombok 十分简单</p>
+<ol>
+<li>引入 lombok 依赖</li>
+<li>安装 ide 对应的 lombok 插件</li>
+</ol>
+<p>lombok 使用方法参考这篇文章 <a target="_blank" rel="noopener" href="https://juejin.cn/post/6844903961602818061">lombok 插件</a></p>
+<h2 id="引入-lombok-依赖"><a href="#引入-lombok-依赖" class="headerlink" title="引入 lombok 依赖"></a>引入 lombok 依赖</h2><p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/15/ZPPJwY.png" alt="img"></p>
+<p>由于 <code>spring-boot-starter-parent</code> 中已经申明了lombok 依赖，我们只需要在子模块中引入就好了</p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/15/1QmJ99.png" alt="img"></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--lombok--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.projectlombok<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>lombok<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="安装-ide-对应的-lombok-插件"><a href="#安装-ide-对应的-lombok-插件" class="headerlink" title="安装 ide 对应的 lombok 插件"></a>安装 ide 对应的 lombok 插件</h2><h1 id="1-7-0-集成-redis"><a href="#1-7-0-集成-redis" class="headerlink" title="1.7.0 集成 redis"></a>1.7.0 集成 redis</h1><p>作为最常用的 nosql 数据库，Spring Boot 对 redis 做了非常好对支持，集成起来也很简单，只需要4步</p>
+<ol>
+<li>引入依赖</li>
+<li>配置 redis</li>
+<li>自定义 RedisTemplate (推荐)</li>
+<li>自定义 redis 操作类 (推荐)</li>
+</ol>
+<p>详细的集成步骤我单独提出来写了篇文章，地址如下</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://juejin.cn/post/6844903990090694663">Spring Boot 2.0 集成 redis</a></p>
+</blockquote>
+<h1 id="1-7-1-集成-spring-cache"><a href="#1-7-1-集成-spring-cache" class="headerlink" title="1.7.1 集成 spring cache"></a>1.7.1 集成 spring cache</h1><p>Spring Cache 是 Spring 为缓存场景提供的一套解决方案。通过使用 @CachePut、@CacheEvict、@Cacheable等注解实现对缓存的，存储、查询、删除等操作</p>
+<p>由于我们已经引入 <strong>redis</strong> ，所以只需要简单配置一下，就可以使用 <strong>spring cache</strong></p>
+<p>详细的集成步骤我单独提出来写了篇文章，地址如下(在 Spring Cache 那一节)</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://juejin.cn/post/6844903990090694663">Spring Boot 2.0 集成 redis</a></p>
+</blockquote>
+<blockquote>
+<p>当然，不用也可以选择不去集成</p>
+</blockquote>
+<h1 id="1-8-0-开发用户模块"><a href="#1-8-0-开发用户模块" class="headerlink" title="1.8.0 开发用户模块"></a>1.8.0 开发用户模块</h1><p>不同的系统对应不同的用户设计，掘金的用户系统和淘宝的用户系统肯定是不一样的，所以，该项目虽然是一个种子项目，但很难给出通用的用户模块设计。</p>
+<p>因此，我转变思路，并不去追求什么通用的用户模块，而是力求在该模块中，将上面集成的技术，全部都应用起来。</p>
+<p>这样，在以后使用到上面的某项技术的时候，也有一个参照。</p>
+<h2 id="用户表"><a href="#用户表" class="headerlink" title="用户表"></a>用户表</h2><p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/15/IDz7HH.png" alt="img"> 建表语句在 <strong>配置 mysql</strong> 那一章</p>
+<h2 id="添加-controller-、service-、dto"><a href="#添加-controller-、service-、dto" class="headerlink" title="添加 controller 、service 、dto"></a>添加 controller 、service 、dto</h2><p>先创建 controller 、service 、dto 目录 <img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/15/TPVPlm.png" alt="img"></p>
+<p>先从注册接口开始写</p>
+<p>注意校验参数一定要加 <code>@Valid</code> 注解 <img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/15/o8oi7N.png" alt="img"></p>
+<p>其中 <code>@Data</code> 用到了 lombok 插件 <img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/15/hNzazO.png" alt="r"></p>
+<p>数据库存的是密码加盐后的hash，也就是说就连我们自己也看不到用户的密码 <img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/15/YRibiI.png" alt="img"></p>
+<h1 id="1-8-1-自定义全局状态码和业务结果类"><a href="#1-8-1-自定义全局状态码和业务结果类" class="headerlink" title="1.8.1 自定义全局状态码和业务结果类"></a>1.8.1 自定义全局状态码和业务结果类</h1><p>虽然向上面这样直接返回 <code>注册成功</code>、<code>注册失败</code> 也没有什么问题，但却不太优雅，因为其他接口返回的可能不是简单的字符串。</p>
+<p>我们其实可以自定义一个业务结果类，所有的接口，都返回该业务结果对象，这个业务结果类，除了有业务结果外，还有业务执行状态、业务消息等。</p>
+<p>除了业务结果类，我还建议创建全局状态码类，就想蚂蚁金服的api接口一样，调用失败会返回一个状态码，方便错误排查</p>
+<h2 id="自定义全局状态码"><a href="#自定义全局状态码" class="headerlink" title="自定义全局状态码"></a>自定义全局状态码</h2><p>新建 enums 目录 <img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/15/JgReQh.png" alt="img"></p>
+<p>创建 ApplicationEnum 全局状态码类，我这里只写了几个，之后可以往里面加 <img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/15/Nn0608.png" alt="m"></p>
+<h2 id="创建业务结果类"><a href="#创建业务结果类" class="headerlink" title="创建业务结果类"></a>创建业务结果类</h2><p>如下，在 vo 目录下下创建 result 目录，并在里面创建业务结果类 <img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/15/3TxTv0.png" alt="img"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/15/5v8woV.png" alt="img"></p>
+<p>为了方便使用，再创建一个 SuccessResult 和一个 FailResult <img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/15/03FPuP.png" alt="img"></p>
+<h2 id="改造注册接口"><a href="#改造注册接口" class="headerlink" title="改造注册接口"></a>改造注册接口</h2><p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/15/YTSNwJ.png" alt="img"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/15/eDPqi0.png" alt="img"></p>
+<h1 id="1-8-2-统一异常处理"><a href="#1-8-2-统一异常处理" class="headerlink" title="1.8.2 统一异常处理"></a>1.8.2 统一异常处理</h1><p>业务执行过程中会产生的各种异常，对其进行统一处理是所有web项目的通用需求。Spring 提供了 @RestControllerAdvice、@ExceptionHandler 注解来帮助我们处理异常。</p>
+<p>具体的异常处理该如何设计没有统一的标准，下面是我给出的设计，仅供参考。</p>
+<p>我的做法是自定义一个异常类，然后在业务出错时抛出，最后在自定义异常处理类中处理。</p>
+<blockquote>
+<p>更多内容请参考 <a target="_blank" rel="noopener" href="https://juejin.cn/post/6844903822545027080">基于spring 的统一异常处理</a></p>
+</blockquote>
+<h2 id="自定义异常类"><a href="#自定义异常类" class="headerlink" title="自定义异常类"></a>自定义异常类</h2><p>每一种异常都对于一种ApplicationEnum <img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/15/VtXi3s.png" alt="img"></p>
+<h2 id="自定义异常处理类"><a href="#自定义异常处理类" class="headerlink" title="自定义异常处理类"></a>自定义异常处理类</h2><p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/15/CJU0iG.png" alt="img"></p>
+<p>如果一个异常能匹配多个 @ExceptionHandler 时，选择匹配深度最小的Exception(即最匹配的Exception)</p>
+<h2 id="使用自定义异常"><a href="#使用自定义异常" class="headerlink" title="使用自定义异常"></a>使用自定义异常</h2><p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/15/CN6vw7.png" alt="img"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/15/xuPmYc.png" alt="img"></p>
+<h1 id="1-8-3-参数校验及异常处理"><a href="#1-8-3-参数校验及异常处理" class="headerlink" title="1.8.3 参数校验及异常处理"></a>1.8.3 参数校验及异常处理</h1><h2 id="参数校验"><a href="#参数校验" class="headerlink" title="参数校验"></a>参数校验</h2><p>首先在要校验的对象前加上 <code>@valid</code> 注解 <img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/15/CqdFZW.png" alt="img"></p>
+<p>然后在要校验的对象中使用适当的注解 <img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/15/jsepFp.png" alt="img"></p>
+<p>详细内容请参考</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://juejin.cn/post/6844903961581846535">参数校验 Hibernate-Validator</a><br><a target="_blank" rel="noopener" href="https://juejin.cn/post/6844904003310977031">Spring 参数校验详解</a></p>
+</blockquote>
+<h2 id="异常处理"><a href="#异常处理" class="headerlink" title="异常处理"></a>异常处理</h2><p>如果参数绑定不成功或者校验不通过，就会抛出异常！但是默认抛出的异常包含很多敏感信息，如下： <img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/15/bng0MW.png" alt="img"> 因此我们应该对常见的异常进行捕获后再封装。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/15/lJAMTX.png" alt="img"></p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">extends</span> <span class="title class_">ResponseEntityExceptionHandler</span><span class="string">` 是为了重写几个常见异常的默认处理方式。当然，你也可以直接通过 `</span><span class="meta">@ExceptionHandler</span>()<span class="string">` 拦截，这样就不用`</span><span class="keyword">extends</span> <span class="title class_">ResponseEntityExceptionHandler</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/15/RJAMIb.png" alt="img"> 一般只需要处理这三个异常就可以覆盖大部分需要手动处理参数异常的场景</p>
+<ul>
+<li>org.springframework.validation.BindException</li>
+<li>org.springframework.web.bind.MethodArgumentNotValidException</li>
+<li>javax.validation.ConstraintViolationException</li>
+</ul>
+<p>详细内容请参考</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://juejin.cn/post/6844904003684302861">Spring 参数校验的异常处理</a></p>
+</blockquote>
+<h1 id="1-8-4-添加登陆、修改密码、获取用户信息的接口"><a href="#1-8-4-添加登陆、修改密码、获取用户信息的接口" class="headerlink" title="1.8.4 添加登陆、修改密码、获取用户信息的接口"></a>1.8.4 添加登陆、修改密码、获取用户信息的接口</h1><p>主要是些业务逻辑，没有什么指的说的，具体代码参考项目源码！唯一指的提一嘴的是 使用 <code>@Value(&quot;$&#123;&#125;&quot;)</code> 注解获取配置文件中的属性 <img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/15/e0WpMK.png" alt="img"></p>
+<h1 id="1-8-5-添加认证拦截器"><a href="#1-8-5-添加认证拦截器" class="headerlink" title="1.8.5 添加认证拦截器"></a>1.8.5 添加认证拦截器</h1><p>有些接口我们希望只有登陆的用户能访问，解决方案一般是添加一个登陆拦截器。</p>
+<p>方法也很简单，主要分为3步</p>
+<ul>
+<li>定义哪些接口需要认证(登陆后才能访问)，或者哪些接口不需要认证</li>
+<li>自定义 <code>HandlerInterceptor</code> , 在访问接口前进行拦截处理</li>
+<li>自定义 <code>WebMvcConfigurer</code> ，定义哪些接口需要拦截</li>
+</ul>
+<p>1.确定免认证url <img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/15/Lvbex2.png" alt="img"></p>
+<p>2.自定义 <code>HandlerInterceptor</code> ，对拦截到的请求进行token有效性校验 <img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/15/pKIykI.png" alt="img"></p>
+<p>3.自定义 <code>WebMvcConfigurer</code> ，拦截除免认证url列表之外的所有请求 <img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/15/zPTm1U.png" alt="img"></p>
+<h1 id="1-8-6-统一映射自定义配置"><a href="#1-8-6-统一映射自定义配置" class="headerlink" title="1.8.6 统一映射自定义配置"></a>1.8.6 统一映射自定义配置</h1><p>之前我们都是哪里需要用到 <code>properties</code> 中的配置，就在那里使用 <code>@Value(&quot;$&#123;&#125;&quot;)</code> 来获取。如下 <img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/15/BgYKIV.png" alt="img"></p>
+<p>我们也可以创建一个自定义配置类，将所有 <code>properties</code> 中的自定义属性全部映射到对应的属性上，如下 <img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/15/ZxDYtO.png" alt="img"></p>
+<p>然后使用时，直接访问该类 <img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/15/HcRk8e.png" alt="img"> </p>
+<h1 id="1-9-0-配置日志"><a href="#1-9-0-配置日志" class="headerlink" title="1.9.0 配置日志"></a>1.9.0 配置日志</h1><p>spring boot 已经对日志系统进行了默认的配置，但是如果你想显示 sql 或将日志输出到文件就需要进行进一步配置。</p>
+<p>详细内容请参考</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://juejin.cn/post/6844904031228264456">java 生态下的日志框架</a><br><a target="_blank" rel="noopener" href="https://juejin.cn/post/6844904031224070157">Java 日志实现框架 Logback</a><br><a target="_blank" rel="noopener" href="https://juejin.cn/post/6844904036580196359">Logback 配置样例</a><br><a target="_blank" rel="noopener" href="https://juejin.cn/post/6844904037301616647">Spring Boot Logging</a></p>
+</blockquote>
+<h2 id="显示-sql"><a href="#显示-sql" class="headerlink" title="显示 sql"></a>显示 sql</h2><p>在 <code>application.properties</code> 中配置</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># dao(com.wqlm.boot.user.dao) 层设置成 debug 级别以显示sql</span></span><br><span class="line"><span class="string">logging.level.com.wqlm.boot.user.dao=debug</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="输出日志到文件"><a href="#输出日志到文件" class="headerlink" title="输出日志到文件"></a>输出日志到文件</h2><p>在 <code>application.properties</code> 中配置</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 当前活动的日志文件名</span></span><br><span class="line"><span class="string">logging.file.name=logs/user/user.log</span></span><br><span class="line"><span class="comment"># 最多保留多少天的日志</span></span><br><span class="line"><span class="string">logging.file.max-history=30</span></span><br><span class="line"><span class="comment"># 单个日志文件最大容量</span></span><br><span class="line"><span class="string">logging.file.max-size=10MB</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="精细化配置"><a href="#精细化配置" class="headerlink" title="精细化配置"></a>精细化配置</h2><p>在 <code>application.properties</code> 中只能进行有限的配置，如果想进一步配置，就需要使用对应日志框架的配置文件了！</p>
+<p>spring boot 使用 <code>logback</code> 作为日志实现框架，spring boot 推荐使用 <code>logback-spring.xml</code> 作为配置文件的名称。</p>
+<p>以下是一个参考的配置样例</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- scan ：开启&quot;热更新&quot; scanPeriod：&quot;热更新&quot;扫描周期，默认 60 seconds(60秒)--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">configuration</span> <span class="attr">scan</span>=<span class="string">&quot;true&quot;</span> <span class="attr">scanPeriod</span>=<span class="string">&quot;300 seconds&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- 引入颜色转换器 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">conversionRule</span> <span class="attr">conversionWord</span>=<span class="string">&quot;clr&quot;</span> <span class="attr">converterClass</span>=<span class="string">&quot;org.springframework.boot.logging.logback.ColorConverter&quot;</span>/&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- 自定义变量  name ：变量名   scope ： 在哪个环境中查找 source ： 使用哪个属性 defaultValue ：没找到时的默认值--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">springProperty</span> <span class="attr">name</span>=<span class="string">&quot;env&quot;</span> <span class="attr">scope</span>=<span class="string">&quot;context&quot;</span> <span class="attr">source</span>=<span class="string">&quot;spring.profiles.active&quot;</span> <span class="attr">defaultValue</span>=<span class="string">&quot;env&quot;</span>/&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- 应用名称 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;APP_NAME&quot;</span> <span class="attr">value</span>=<span class="string">&quot;user&quot;</span>/&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- 自定义变量，用于配置日志输出格式，这个格式是尽量偏向 spring boot 默认的输出风格</span></span><br><span class="line"><span class="comment">    %date：日期，默认格式 yyyy-MM-dd hhh:mm:ss,SSS 默认使用本机时区，通过 %d&#123;yyyy-MM-dd hhh:mm:ss,SSS&#125; 来自定义</span></span><br><span class="line"><span class="comment">    %-5level：5个占位符的日志级别，例如&quot; info&quot;、&quot;error&quot;</span></span><br><span class="line"><span class="comment">    %thread : 输出日志的线程</span></span><br><span class="line"><span class="comment">    %class : 输出日志的类的完全限定名，效率低</span></span><br><span class="line"><span class="comment">    %method : 输出日志的方法名</span></span><br><span class="line"><span class="comment">    %line : 输出日志的行号，效率低</span></span><br><span class="line"><span class="comment">    %msg : 日志消息内容</span></span><br><span class="line"><span class="comment">    %n : 换行</span></span><br><span class="line"><span class="comment">    --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;LOG_PATTERN&quot;</span> <span class="attr">value</span>=<span class="string">&quot;%date %-5level $&#123;PID:- &#125; --- [%thread] %class.%method/%line : %msg%n&quot;</span>/&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- 彩色日志格式 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;LOG_PATTERN_COLOUR&quot;</span></span></span><br><span class="line"><span class="tag">              <span class="attr">value</span>=<span class="string">&quot;$&#123;env&#125; %date %clr(%-5level) %magenta($&#123;PID:- &#125;) --- [%thread] %cyan(%class.%method/%line) : %msg%n&quot;</span>/&gt;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!--日志输出器. ch.qos.logback.core.ConsoleAppender : 输出到控制台--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">appender</span> <span class="attr">name</span>=<span class="string">&quot;STDOUT&quot;</span> <span class="attr">class</span>=<span class="string">&quot;ch.qos.logback.core.ConsoleAppender&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">encoder</span>&gt;</span></span><br><span class="line">            <span class="comment">&lt;!-- 配置日志输出格式 --&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">pattern</span>&gt;</span>$&#123;LOG_PATTERN_COLOUR&#125;<span class="tag">&lt;/<span class="name">pattern</span>&gt;</span></span><br><span class="line">            <span class="comment">&lt;!-- 使用的字符集 --&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">charset</span>&gt;</span>UTF-8<span class="tag">&lt;/<span class="name">charset</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">encoder</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">appender</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- 日志输出器。ch.qos.logback.core.rolling.RollingFileAppender : 滚动输出到文件 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">appender</span> <span class="attr">name</span>=<span class="string">&quot;ROLLING&quot;</span> <span class="attr">class</span>=<span class="string">&quot;ch.qos.logback.core.rolling.RollingFileAppender&quot;</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- 活动中的日志文件名(支持绝对和相对路径) --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">file</span>&gt;</span>logs/$&#123;APP_NAME&#125;/$&#123;APP_NAME&#125;.log<span class="tag">&lt;/<span class="name">file</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- 滚动策略. ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy : 按照大小和时间滚动--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">rollingPolicy</span> <span class="attr">class</span>=<span class="string">&quot;ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy&quot;</span>&gt;</span></span><br><span class="line">            <span class="comment">&lt;!-- 何时触发滚动，如何滚动，以及滚动文件的命名格式</span></span><br><span class="line"><span class="comment">            %d : 日期，默认格式 yyyy-MM-dd，通过 %d&#123;yyyy-MM-dd hhh:mm:ss&#125; 来自定义格式。logback 就是通过 %d 知道了触发滚动的时机</span></span><br><span class="line"><span class="comment">            %i : 单个滚动周期内的日志文件的序列号</span></span><br><span class="line"><span class="comment">            .zip : 将日志文件压缩成zip。不想压缩，可以使用.log 结尾</span></span><br><span class="line"><span class="comment">            如下每天0点以后的第一日志请求触发滚动，将前一天的日志打成 zip 压缩包存放在 logs/app1/backup 下，并命名为 app1_%d_%i.zip</span></span><br><span class="line"><span class="comment">            --&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">fileNamePattern</span>&gt;</span>logs/$&#123;APP_NAME&#125;/backup/$&#123;APP_NAME&#125;_%d&#123;yyyy-MM-dd&#125;_%i.zip<span class="tag">&lt;/<span class="name">fileNamePattern</span>&gt;</span></span><br><span class="line"></span><br><span class="line">            <span class="comment">&lt;!--单个日志文件的最大大小--&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">maxFileSize</span>&gt;</span>10MB<span class="tag">&lt;/<span class="name">maxFileSize</span>&gt;</span></span><br><span class="line"></span><br><span class="line">            <span class="comment">&lt;!--删除n个滚动周期之前的日志文件(最多保留前n个滚动周期的历史记录)--&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">maxHistory</span>&gt;</span>30<span class="tag">&lt;/<span class="name">maxHistory</span>&gt;</span></span><br><span class="line">            <span class="comment">&lt;!-- 在有 maxHistory 的限制下，进一步限制所有日志文件大小之和的上限，超过则从最旧的日志开始删除--&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">totalSizeCap</span>&gt;</span>1GB<span class="tag">&lt;/<span class="name">totalSizeCap</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">rollingPolicy</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">encoder</span>&gt;</span></span><br><span class="line">            <span class="comment">&lt;!-- 日志输出格式 --&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">pattern</span>&gt;</span>$&#123;LOG_PATTERN&#125;<span class="tag">&lt;/<span class="name">pattern</span>&gt;</span></span><br><span class="line">            <span class="comment">&lt;!-- 使用的字符集 --&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">charset</span>&gt;</span>UTF-8<span class="tag">&lt;/<span class="name">charset</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">encoder</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">appender</span>&gt;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- 非 prod 环境下使用以下配置 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">springProfile</span> <span class="attr">name</span>=<span class="string">&quot;!prod&quot;</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- 记录器 name : 包名或类名， level : 要记录的日志的起始级别， additivity : 是否追加父类的 appender --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">logger</span> <span class="attr">name</span>=<span class="string">&quot;com.wqlm.boot.dao&quot;</span> <span class="attr">level</span>=<span class="string">&quot;debug&quot;</span> <span class="attr">additivity</span>=<span class="string">&quot;false&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">appender-ref</span> <span class="attr">ref</span>=<span class="string">&quot;STDOUT&quot;</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">appender-ref</span> <span class="attr">ref</span>=<span class="string">&quot;ROLLING&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">logger</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">springProfile</span>&gt;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- 根记录器 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">root</span> <span class="attr">level</span>=<span class="string">&quot;info&quot;</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- 使用 STDOUT、ROLLING 输出记录的日志--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">appender-ref</span> <span class="attr">ref</span>=<span class="string">&quot;STDOUT&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">appender-ref</span> <span class="attr">ref</span>=<span class="string">&quot;ROLLING&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">root</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>相对路径的位置 <img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2022/03/15/3OpOlj.png" alt="img"></p>
+
+    </div>
+
+    
+    
+    
+
+
+    <div>
+      
+        <div>
+    
+      <div style="text-align:center;color: #ccc;font-size:20px;">------------- 本 文 结 束&nbsp&nbsp&nbsp&nbsp&nbsp感 谢 您 的 阅 读 -------------</div>
+    
+</div>
+
+      
+    </div>
+
+    <footer class="post-footer"><div class="post-widgets">
+      <div id="needsharebutton-postbottom">
+        <span class="btn">
+          <i class="fa fa-share-alt" aria-hidden="true"></i>
+        </span>
+      </div>
+    </div>
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>swimminghao
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://example.com/posts/79603c56/" title="超详细从0开始搭建 Spring Boot 项目">http://example.com/posts/79603c56/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/SpringBoot/" rel="tag"><i class="fa fa-tag"></i> SpringBoot</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/posts/30ffdeaa/" rel="prev" title="xkeysnail for ubuntu 键盘映射">
+                  <i class="fa fa-chevron-left"></i> xkeysnail for ubuntu 键盘映射
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/posts/55ff28b4/" rel="next" title="renren-fast开发文档3.0最新版">
+                  renren-fast开发文档3.0最新版 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>l
+
+
+
+
+
+
+    <div class="comments" id="waline-comments"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">swimminghao</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">1.2m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">18:03</span>
+  </span>
+</div>
+
+<span id="sitetime"></span>
+<script language=javascript>
+    function siteTime(){
+        window.setTimeout("siteTime()", 1000);
+        var seconds = 1000;
+        var minutes = seconds * 60;
+        var hours = minutes * 60;
+        var days = hours * 24;
+        var years = days * 365;
+        var today = new Date();
+        var todayYear = today.getFullYear();
+        var todayMonth = today.getMonth()+1;
+        var todayDate = today.getDate();
+        var todayHour = today.getHours();
+        var todayMinute = today.getMinutes();
+        var todaySecond = today.getSeconds();
+        /* Date.UTC() -- 返回date对象距世界标准时间(UTC)1970年1月1日午夜之间的毫秒数(时间戳)
+        year - 作为date对象的年份，为4位年份值
+        month - 0-11之间的整数，做为date对象的月份
+        day - 1-31之间的整数，做为date对象的天数
+        hours - 0(午夜24点)-23之间的整数，做为date对象的小时数
+        minutes - 0-59之间的整数，做为date对象的分钟数
+        seconds - 0-59之间的整数，做为date对象的秒数
+        microseconds - 0-999之间的整数，做为date对象的毫秒数 */
+        var t1 = Date.UTC(2022,02,28,00,00,00); //你的建站时间
+        var t2 = Date.UTC(todayYear,todayMonth,todayDate,todayHour,todayMinute,todaySecond);
+        var diff = t2-t1;
+        var diffYears = Math.floor(diff/years);
+        var diffDays = Math.floor((diff/days)-diffYears*365);
+        var diffHours = Math.floor((diff-(diffYears*365+diffDays)*days)/hours);
+        var diffMinutes = Math.floor((diff-(diffYears*365+diffDays)*days-diffHours*hours)/minutes);
+        var diffSeconds = Math.floor((diff-(diffYears*365+diffDays)*days-diffHours*hours-diffMinutes*minutes)/seconds);
+        document.getElementById("sitetime").innerHTML=" 本站已安全运行 "+diffYears+" Year "+diffDays+" Days "+diffHours+" Hours "+diffMinutes+" m "+diffSeconds+" s";
+    }
+    siteTime();
+</script>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        访问人数：<span id="busuanzi_value_site_uv"></span>
+      </span>人
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+       访问总量：<span id="busuanzi_value_site_pv"></span>
+      </span>次
+    </span>
+
+
+<!--
+  本文总阅读量：<span id="busuanzi_value_page_pv"></span>次
+-->
+
+</div>
+
+
+<!--
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+--><script color="0,0,255" opacity="0.5" zIndex="-1" count="99" src="https://cdn.jsdelivr.net/npm/canvas-nest.js@1/dist/canvas-nest.js"></script>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<script class="next-config" data-name="waline" type="application/json">{"lang":"zh-cn","enable":true,"serverURL":"waline-server-nu.vercel.app","placeholder":"请文明评论呀","avatar":"mm","pageSize":10,"visitor":false,"comment_count":true,"requiredFields":[],"meta":["nick","mail","link"],"libUrl":"https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js","el":"#waline-comments","path":"/posts/79603c56/"}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.waline.el).then(() => 
+    NexT.utils.getScript(CONFIG.waline.libUrl, { condition: window.Waline })
+  ).then(() => {
+    new Waline(CONFIG.waline);
+  });
+});
+</script>
+  <script src="//cdn.jsdelivr.net/gh/theme-next/theme-next-needmoreshare2@1/needsharebutton.min.js"></script>
+  <script>
+      pbOptions = {};
+        pbOptions.iconStyle = "default";
+        pbOptions.boxForm = "horizontal";
+        pbOptions.position = "middleCenter";
+        pbOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+  </script>
+</body>
+</html>

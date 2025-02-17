@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-loading-bar.css">
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.10.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="如何用 IDEA 提升十倍开发效率？工欲善其事，必先利其器。想要提升编程开发效率，必须选择一款顺手的开发工具。 JetBrains 公司提供了一系列功能强大、风格统一的开发工具，深受开发者喜爱。其中，IDEA 是面向 Java 开发的专业 IDE（集成开发环境），90% 以上的企业都在使用 IDEA 进行 Java 开发，而不是用其他的工具如 Eclipse。  但是，想要开发效率最大化，仅有好的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="idea效率">
+<meta property="og:url" content="http://example.com/posts/f15ad5a2/index.html">
+<meta property="og:site_name" content="swimminghao&#39;s blog">
+<meta property="og:description" content="如何用 IDEA 提升十倍开发效率？工欲善其事，必先利其器。想要提升编程开发效率，必须选择一款顺手的开发工具。 JetBrains 公司提供了一系列功能强大、风格统一的开发工具，深受开发者喜爱。其中，IDEA 是面向 Java 开发的专业 IDE（集成开发环境），90% 以上的企业都在使用 IDEA 进行 Java 开发，而不是用其他的工具如 Eclipse。  但是，想要开发效率最大化，仅有好的">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_png/mngWTkJEOYIBFQNTIq3T30Ugk7P3vfgcvwx2U5AeITWJkAILg7vibiakaicKaLCJBfLThFqMHk0SxFB0LpVWd360A/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
+<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_jpg/mngWTkJEOYIBFQNTIq3T30Ugk7P3vfgcLME1wCCPE25IelWSk6bVMH3yHibSeDsy90jSC1VEMjZ01KKE8giahdpA/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
+<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_png/mngWTkJEOYIBFQNTIq3T30Ugk7P3vfgcwTACzTvQUy7p1rSdUoVAySMhzMnKGHICmmWzzJAC8TYMRSuWFYWNwA/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
+<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_gif/mngWTkJEOYIBFQNTIq3T30Ugk7P3vfgcMsTNiaCibYThkgPYdXhpKciaa5wBQfaHQLKP7nsKOX3HEXN8EsVnpOsZA/640?wx_fmt=gif&tp=webp&wxfrom=5&wx_lazy=1">
+<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_gif/mngWTkJEOYIBFQNTIq3T30Ugk7P3vfgcHGff1pRvHllEQpQvibTyMib5XrndXPNJd9ia8lMapzxJcyht3KPZXYBTA/640?wx_fmt=gif&tp=webp&wxfrom=5&wx_lazy=1">
+<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_png/mngWTkJEOYIBFQNTIq3T30Ugk7P3vfgcMMViaiczu9vCFZvYJNNAvkUxoSAfZRWoCPQJDMoQ6SF7WutY7ZzmkxJg/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
+<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_png/mngWTkJEOYIBFQNTIq3T30Ugk7P3vfgczqpTjHHadDFjLcXt6PvqCBHK4KwgEk8Ckk949v2Cr9Lx15fSG7bbjQ/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
+<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_png/mngWTkJEOYIBFQNTIq3T30Ugk7P3vfgcwaiarahjFEkJINMnFQ6zOhR5iaIib47yOeQMg5phOyojZuVgJjNysBW5Q/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
+<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_png/mngWTkJEOYIBFQNTIq3T30Ugk7P3vfgcnyPeiaicubZ38vu5Fkngo4hMkVjKuSrEuRNtyFc0NchRruP0XwGicNoRQ/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
+<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_gif/mngWTkJEOYIBFQNTIq3T30Ugk7P3vfgcQXOF3x0f2zWeXicgWQ3mEeY74ic7Eib6exT4TDxttIrh5Uz9dH8IKevfw/640?wx_fmt=gif&tp=webp&wxfrom=5&wx_lazy=1">
+<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_png/mngWTkJEOYIBFQNTIq3T30Ugk7P3vfgcTSaUyvibZejE4H1ibGoyalPmdoERkmUx6qC7606mdw7icZUlbTAqwR2rQ/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
+<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_png/mngWTkJEOYIBFQNTIq3T30Ugk7P3vfgcSJ9gErRuVwYreMPWV4T0tqh8Q3eG1DerNdPIjjXFqCgsewUb6LMFUQ/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
+<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_png/mngWTkJEOYIBFQNTIq3T30Ugk7P3vfgcsaib1UVDdTlibrhPb2cBMDFyT7zmmbTFClV2UHc7pJkf7ibEzia7L2qebQ/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
+<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_gif/mngWTkJEOYIBFQNTIq3T30Ugk7P3vfgca8dnrd9d2P7ymAnqzhOxwEWr3MgJt6oFp2kXMcOMVnGRzTfUhr7dnQ/640?wx_fmt=gif&tp=webp&wxfrom=5&wx_lazy=1">
+<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_png/mngWTkJEOYIBFQNTIq3T30Ugk7P3vfgcn101P6A0h0EaznFgY6uSFb78ahBcicYYhwNVC9mGQRLn5rXjdq0fUMg/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
+<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_gif/mngWTkJEOYIBFQNTIq3T30Ugk7P3vfgcLxyLk8VciaYdnfrAkIuPXRibiabNeOKsNH30gkBPL1O66GXgBw8zKGYeQ/640?wx_fmt=gif&tp=webp&wxfrom=5&wx_lazy=1">
+<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_png/mngWTkJEOYIBFQNTIq3T30Ugk7P3vfgcQRSWXhESU5fXXKkxH5yrD8JoKxs3Je7YJ4kHfvPcrRgxvRdaTVEicSg/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
+<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_png/mngWTkJEOYIBFQNTIq3T30Ugk7P3vfgcgE1v6KTIuuoIO3G7w7UhxEgXJaEgsQlQEGZEyFVz2MsuxMp5xDNYEg/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
+<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_gif/mngWTkJEOYIBFQNTIq3T30Ugk7P3vfgchDho02HhicKuCibMG7weBzfYWk4f4lq8TBPED1CXUFFByX2JvhwC0F6g/640?wx_fmt=gif&tp=webp&wxfrom=5&wx_lazy=1">
+<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_png/mngWTkJEOYIBFQNTIq3T30Ugk7P3vfgcUcCwriaOON6VBdFe6c1Vo9qnyCwIjWxv4o7cEpFMYxeic7BIpSgMtwoQ/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
+<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_png/mngWTkJEOYIBFQNTIq3T30Ugk7P3vfgcyVOpl0YjRZzGdHhaBsqEic2tD9LffYGb8SjJXvJAPWy0RcICD4JhFkA/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
+<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_png/mngWTkJEOYIBFQNTIq3T30Ugk7P3vfgcstYwYcIqv0eoUWh7bw90VcTACCnX7YyAKtpl0OMnBjplwupxObow4Q/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
+<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_png/mngWTkJEOYIBFQNTIq3T30Ugk7P3vfgcqGuznVmVh62PZVwIvHP0uGjQ3lNibfrT1JYHQo0cIR57ic1ncQicLOiaOA/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
+<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_png/mngWTkJEOYIBFQNTIq3T30Ugk7P3vfgcCPyGGGq87HiciaOq96baL199ZaANK4BXVnK6qpRjQGonIJvWH177vEMA/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
+<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_png/mngWTkJEOYIBFQNTIq3T30Ugk7P3vfgclCpEuIia1Vy5hsW4ebMjXHu0MNVg8dzvmUzUezarbLpjKKpqnPic8icAg/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
+<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_png/mngWTkJEOYIBFQNTIq3T30Ugk7P3vfgcEELKK4qM9ibfgvnGagKP3Nz9vIia130ic1Nfgb2srzCQQhkrWevEusRbQ/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
+<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_png/mngWTkJEOYIBFQNTIq3T30Ugk7P3vfgcKgjxVDeib0dQe8vFasSkibo3h44Yg9ZyYvtUJJpmvg1iabu0AaaxS6X5w/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
+<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_png/mngWTkJEOYIBFQNTIq3T30Ugk7P3vfgcVquygnoelEZo2vnOYodia8V7QjHZMZHrHjuORkjPTtKr7cO0Hgo5M0w/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
+<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_png/mngWTkJEOYIBFQNTIq3T30Ugk7P3vfgceLhxbicHMPdfkY8mHFdurias0sqYJQhNtAvOCq8QTeoKRd8ibb62ADKmw/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
+<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_png/mngWTkJEOYIBFQNTIq3T30Ugk7P3vfgcMibwKrQIuqVhFR6wBlDZXVnthsgI68spYjmLU5NyqbbTQY4RQeQcDibw/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
+<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_png/mngWTkJEOYIBFQNTIq3T30Ugk7P3vfgcSCXfEdLoiaPIqZthNan2PbkSoel9XcdkNOeKTWArXM7x8exCvcticXxg/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
+<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_png/mngWTkJEOYIBFQNTIq3T30Ugk7P3vfgcaMDcc95WgUCEUfeNILeYmNlVm9Fuom9oN20JMwSp8F1BpL7awKnMyg/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
+<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_png/mngWTkJEOYIBFQNTIq3T30Ugk7P3vfgc0eMTnhlDJzmMXiboq6rptvcia3RW2WQ4S1A3J4tzpOrL55hqBfeSCNlQ/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
+<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_png/mngWTkJEOYIBFQNTIq3T30Ugk7P3vfgc65TOU2LKVdAWCSCE6Riar9GJRvn0QKNptibFUnVQic2BsmrFibNKW0qTKg/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
+<meta property="article:published_time" content="2022-02-28T11:57:47.000Z">
+<meta property="article:modified_time" content="2025-02-13T08:20:39.953Z">
+<meta property="article:author" content="swimminghao">
+<meta property="article:tag" content="idea">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://mmbiz.qpic.cn/mmbiz_png/mngWTkJEOYIBFQNTIq3T30Ugk7P3vfgcvwx2U5AeITWJkAILg7vibiakaicKaLCJBfLThFqMHk0SxFB0LpVWd360A/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
+
+
+<link rel="canonical" href="http://example.com/posts/f15ad5a2/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/posts/f15ad5a2/","path":"posts/f15ad5a2/","title":"idea效率"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>idea效率 | swimminghao's blog</title>
+  
+
+
+
+
+<link rel="dns-prefetch" href="waline-server-nu.vercel.app"><link rel="stylesheet" href="//cdn.jsdelivr.net/gh/theme-next/theme-next-needmoreshare2@1/needsharebutton.min.css"><style>
+#needsharebutton-postbottom {
+  cursor: pointer;
+  height: 26px;
+  margin-top: 10px;
+  position: relative;
+}
+#needsharebutton-postbottom .btn {
+  border: 1px solid $btn-default-border-color;
+  border-radius: 3px;
+  display: initial;
+  padding: 1px 4px;
+}
+</style>
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">swimminghao's blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">学习博客</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">52</span></a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">17</span></a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">271</span></a></li>
+        <li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E7%94%A8-IDEA-%E6%8F%90%E5%8D%87%E5%8D%81%E5%80%8D%E5%BC%80%E5%8F%91%E6%95%88%E7%8E%87%EF%BC%9F"><span class="nav-number">1.</span> <span class="nav-text">如何用 IDEA 提升十倍开发效率？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BF%AB%E6%8D%B7-%E9%94%AE"><span class="nav-number">2.</span> <span class="nav-text">快捷****键</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E7%94%A8%E6%8F%92%E4%BB%B6"><span class="nav-number">3.</span> <span class="nav-text">实用插件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%80%E5%8F%91%E6%8A%80%E5%B7%A7"><span class="nav-number">4.</span> <span class="nav-text">开发技巧</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%98%85%E8%AF%BB%E6%BA%90%E7%A0%81%E6%8A%80%E5%B7%A7"><span class="nav-number">5.</span> <span class="nav-text">阅读源码技巧</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="swimminghao"
+      src="/images/lion.png">
+  <p class="site-author-name" itemprop="name">swimminghao</p>
+  <div class="site-description" itemprop="description">swimminghao的学习博客</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">271</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">52</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/swimminghao" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;swimminghao" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:swimminghao0@gmail.com" title="E-Mail → mailto:swimminghao0@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/swimminghao" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;swimminghao" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://plus.google.com/yourname" title="Google → https:&#x2F;&#x2F;plus.google.com&#x2F;yourname" rel="noopener" target="_blank"><i class="fab fa-google fa-fw"></i>Google</a>
+      </span>
+  </div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdn.jsdelivr.net/npm/@creativecommons/vocabulary@2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+<!-- recent posts -->
+    <div class="links-of-blogroll motion-element links-of-blogroll-block">
+        <div class="links-of-blogroll-title recent-posts-title">
+	    <i class="fa fa-history " aria-hidden="true"></i>
+            近期文章
+	</div>
+	<ul class="links-of-blogroll-list recent-posts-list">
+	        <li class="my-links-of-blogroll-item">
+		    <a href="/posts/967669ed/" title="holer-server项目解读" target="">
+		    holer-server项目解读
+		    </a>
+		</li>
+	        <li class="my-links-of-blogroll-item">
+		    <a href="/posts/c30e6297/" title="Hexo博客文章加密" target="">
+		    Hexo博客文章加密
+		    </a>
+		</li>
+	        <li class="my-links-of-blogroll-item">
+		    <a href="/posts/7ff70092/" title="做任何事都非常厉害的诀窍，这3点你记好" target="">
+		    做任何事都非常厉害的诀窍，这3点你记好
+		    </a>
+		</li>
+	        <li class="my-links-of-blogroll-item">
+		    <a href="/posts/1afe5736/" title="DBeaver Ultimate Edition 免费破解使用" target="">
+		    DBeaver Ultimate Edition 免费破解使用
+		    </a>
+		</li>
+	        <li class="my-links-of-blogroll-item">
+		    <a href="/posts/7a47e8be/" title="为何大多数程序员做不了独立开发者？" target="">
+		    为何大多数程序员做不了独立开发者？
+		    </a>
+		</li>
+	</ul>
+    </div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/f15ad5a2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lion.png">
+      <meta itemprop="name" content="swimminghao">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="swimminghao's blog">
+      <meta itemprop="description" content="swimminghao的学习博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="idea效率 | swimminghao's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          idea效率
+        </h1>
+
+        <div class="post-meta-container">
+
+          
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2025-02-13 16:20:39" itemprop="dateModified" datetime="2025-02-13T16:20:39+08:00">2025-02-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">工具</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/posts/f15ad5a2/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/f15ad5a2/" data-xid="/posts/f15ad5a2/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>4.5k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>4 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h2 id="如何用-IDEA-提升十倍开发效率？"><a href="#如何用-IDEA-提升十倍开发效率？" class="headerlink" title="如何用 IDEA 提升十倍开发效率？"></a>如何用 IDEA 提升十倍开发效率？</h2><p>工欲善其事，必先利其器。想要提升编程开发效率，必须选择一款顺手的开发工具。</p>
+<p>JetBrains 公司提供了一系列功能强大、风格统一的开发工具，深受开发者喜爱。其中，IDEA 是<strong>面向 Java 开发的专业 IDE</strong>（集成开发环境），<strong>90% 以上</strong>的企业都在使用 IDEA 进行 Java 开发，而不是用其他的工具如 Eclipse。</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/mngWTkJEOYIBFQNTIq3T30Ugk7P3vfgcvwx2U5AeITWJkAILg7vibiakaicKaLCJBfLThFqMHk0SxFB0LpVWd360A/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="图片"></p>
+<p>但是，想要开发效率最大化，仅有好的开发工具是不够的，还要能够熟练地使用它。对于 IDEA 的新用户来说，面对功能如此丰富的开发工具可能会有些迷茫，但又不想花时间去学习如何使用，于是仅仅把它当做能编写代码的记事本了（就是好看点），大材小用。</p>
+<p>为大家总结了自己掌握的 IDEA 使用技巧，包括<strong>实用插件、开发技巧和阅读源码的技巧等</strong>。只需花 <strong>5 分钟</strong>的时间阅读，即可提升十倍的开发效率！</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_jpg/mngWTkJEOYIBFQNTIq3T30Ugk7P3vfgcLME1wCCPE25IelWSk6bVMH3yHibSeDsy90jSC1VEMjZ01KKE8giahdpA/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="图片"></p>
+<p>什么，你说 IDEA 太贵用不起？如果还是<strong>学生党</strong>，可以<strong>免费使用</strong> IDEA 及 JetBrains 全系列产品哦~</p>
+<p>地址：<a target="_blank" rel="noopener" href="https://www.jetbrains.com/shop/eform/students">https://www.jetbrains.com/shop/eform/students</a></p>
+<h2 id="快捷-键"><a href="#快捷-键" class="headerlink" title="快捷****键"></a><strong>快捷****键</strong></h2><p>要使用任何 IDE（集成开发环境）提升开发及阅读源码的效率，首先要活用快捷键。</p>
+<p>在 IDEA 中，可以在 preferences 的 keymap 设置中查询及设置快捷键，如图：</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/mngWTkJEOYIBFQNTIq3T30Ugk7P3vfgcwTACzTvQUy7p1rSdUoVAySMhzMnKGHICmmWzzJAC8TYMRSuWFYWNwA/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="图片"></p>
+<h2 id="实用插件"><a href="#实用插件" class="headerlink" title="实用插件"></a><strong>实用插件</strong></h2><p><strong>1. Key Promoter X</strong></p>
+<p>快捷键提示插件。当你执行鼠标操作时，如果该操作可被快捷键代替，会给出提示，帮助你自然形成使用快捷键的习惯，告别死记硬背。</p>
+<p>地址：<a target="_blank" rel="noopener" href="https://plugins.jetbrains.com/plugin/9792-key-promoter-x/">https://plugins.jetbrains.com/plugin/9792-key-promoter-x/</a></p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_gif/mngWTkJEOYIBFQNTIq3T30Ugk7P3vfgcMsTNiaCibYThkgPYdXhpKciaa5wBQfaHQLKP7nsKOX3HEXN8EsVnpOsZA/640?wx_fmt=gif&tp=webp&wxfrom=5&wx_lazy=1" alt="图片"></p>
+<p><strong>2. AiXcoder Code Completer</strong></p>
+<p>代码提示补全插件。使用 AI 去自动提示和补全代码，比 IDEA 自带的代码补全更加智能化。</p>
+<p>地址：<a target="_blank" rel="noopener" href="https://plugins.jetbrains.com/plugin/13574-aixcoder-code-completer/">https://plugins.jetbrains.com/plugin/13574-aixcoder-code-completer/</a></p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_gif/mngWTkJEOYIBFQNTIq3T30Ugk7P3vfgcHGff1pRvHllEQpQvibTyMib5XrndXPNJd9ia8lMapzxJcyht3KPZXYBTA/640?wx_fmt=gif&tp=webp&wxfrom=5&wx_lazy=1" alt="图片"></p>
+<p><strong>3. Arthas Idea</strong></p>
+<p>Arthas 命令生成插件。Arthas 是阿里开源的 Java 在线诊断工具，该插件可以自动生成 Arthas 在线 Java 代码诊断命令，不用再到官网翻文档拼命令啦！</p>
+<p>地址：<a target="_blank" rel="noopener" href="https://plugins.jetbrains.com/plugin/13581-arthas-idea/">https://plugins.jetbrains.com/plugin/13581-arthas-idea/</a></p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/mngWTkJEOYIBFQNTIq3T30Ugk7P3vfgcMMViaiczu9vCFZvYJNNAvkUxoSAfZRWoCPQJDMoQ6SF7WutY7ZzmkxJg/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="图片"></p>
+<p><strong>4. Auto filling Java call arguments</strong></p>
+<p>代码生成插件。通过快捷键自动补全函数的调用参数，针对包含大量参数的构造函数和方法非常有用！</p>
+<p>地址：<a target="_blank" rel="noopener" href="https://plugins.jetbrains.com/plugin/8638-auto-filling-java-call-arguments/">https://plugins.jetbrains.com/plugin/8638-auto-filling-java-call-arguments/</a></p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/mngWTkJEOYIBFQNTIq3T30Ugk7P3vfgczqpTjHHadDFjLcXt6PvqCBHK4KwgEk8Ckk949v2Cr9Lx15fSG7bbjQ/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="图片"></p>
+<p><strong>5. GenerateAllSetter</strong></p>
+<p>代码生成插件。一键生成指定对象的所有 set 方法调用代码，自动赋值，或者生成某方法的返回值，这在单元测试造假数据时非常有用。</p>
+<p>地址：<a target="_blank" rel="noopener" href="https://plugins.jetbrains.com/plugin/9360-generateallsetter/">https://plugins.jetbrains.com/plugin/9360-generateallsetter/</a></p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/mngWTkJEOYIBFQNTIq3T30Ugk7P3vfgcwaiarahjFEkJINMnFQ6zOhR5iaIib47yOeQMg5phOyojZuVgJjNysBW5Q/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="图片"></p>
+<p><strong>6. GenerateSerialVersionUID</strong></p>
+<p>代码生成插件。一键为实现 Serializable 接口的类生成 SerialVersionUID。</p>
+<p>地址：<a target="_blank" rel="noopener" href="https://plugins.jetbrains.com/plugin/185-generateserialversionuid/">https://plugins.jetbrains.com/plugin/185-generateserialversionuid/</a></p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/mngWTkJEOYIBFQNTIq3T30Ugk7P3vfgcnyPeiaicubZ38vu5Fkngo4hMkVjKuSrEuRNtyFc0NchRruP0XwGicNoRQ/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="图片"></p>
+<p><strong>7. GsonFormat</strong></p>
+<p>代码生成插件。在类中使用，粘贴一段 Json 文本，能自动生成对象的嵌套结构代码。</p>
+<p>地址：<a target="_blank" rel="noopener" href="https://plugins.jetbrains.com/plugin/7654-gsonformat/">https://plugins.jetbrains.com/plugin/7654-gsonformat/</a></p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_gif/mngWTkJEOYIBFQNTIq3T30Ugk7P3vfgcQXOF3x0f2zWeXicgWQ3mEeY74ic7Eib6exT4TDxttIrh5Uz9dH8IKevfw/640?wx_fmt=gif&tp=webp&wxfrom=5&wx_lazy=1" alt="图片"></p>
+<p><strong>8. Lombok</strong></p>
+<p>代码生成插件。配合 Lombok 依赖及注解使用，能够大大减少 POJO（简单老式 Java 对象）的代码量。</p>
+<p>安装插件后还要开启注解支持，可以参照这篇文章进行配置：<a target="_blank" rel="noopener" href="https://www.baeldung.com/lombok-ide">https://www.baeldung.com/lombok-ide</a> 。</p>
+<p>插件地址：<a target="_blank" rel="noopener" href="https://plugins.jetbrains.com/plugin/6317-lombok/">https://plugins.jetbrains.com/plugin/6317-lombok/</a></p>
+<p><strong>9. Rainbow Brackets</strong></p>
+<p>代码浏览插件。通过颜色区分括号嵌套层级，便于阅读，能够更快地对错误代码进行定位和调整。但是建议不要在代码中出现大量的嵌套哦！</p>
+<p>地址：<a target="_blank" rel="noopener" href="https://plugins.jetbrains.com/plugin/10080-rainbow-brackets/">https://plugins.jetbrains.com/plugin/10080-rainbow-brackets/</a></p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/mngWTkJEOYIBFQNTIq3T30Ugk7P3vfgcTSaUyvibZejE4H1ibGoyalPmdoERkmUx6qC7606mdw7icZUlbTAqwR2rQ/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="图片"></p>
+<p><strong>10. CodeGlance</strong></p>
+<p>代码浏览小地图插件。在编辑器右侧生成 code minimap，可以拖拽小地图光标快速定位代码，阅读行数很多的代码文件时非常实用。</p>
+<p>地址：<a target="_blank" rel="noopener" href="https://plugins.jetbrains.com/plugin/7275-codeglance/">https://plugins.jetbrains.com/plugin/7275-codeglance/</a></p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/mngWTkJEOYIBFQNTIq3T30Ugk7P3vfgcSJ9gErRuVwYreMPWV4T0tqh8Q3eG1DerNdPIjjXFqCgsewUb6LMFUQ/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="图片"></p>
+<p><strong>11. GitToolBox</strong></p>
+<p>Git 增强插件。在自带的 Git 功能之上，新增了查看 Git 状态、自动拉取代码、提交通知等功能。最好用的是可以查看到每一行代码的最近一次提交信息。</p>
+<p>地址：<a target="_blank" rel="noopener" href="https://plugins.jetbrains.com/plugin/7499-gittoolbox/">https://plugins.jetbrains.com/plugin/7499-gittoolbox/</a></p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/mngWTkJEOYIBFQNTIq3T30Ugk7P3vfgcsaib1UVDdTlibrhPb2cBMDFyT7zmmbTFClV2UHc7pJkf7ibEzia7L2qebQ/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="图片"></p>
+<p><strong>12. Translation</strong></p>
+<p>翻译插件。程序员最痛苦的事莫过于阅读代码时遇到不懂的英文单词，有了这个插件，鼠标选中文本，点击右键即可自动翻译成多国语言。</p>
+<p>地址：<a target="_blank" rel="noopener" href="https://plugins.jetbrains.com/plugin/8579-translation/">https://plugins.jetbrains.com/plugin/8579-translation/</a></p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_gif/mngWTkJEOYIBFQNTIq3T30Ugk7P3vfgca8dnrd9d2P7ymAnqzhOxwEWr3MgJt6oFp2kXMcOMVnGRzTfUhr7dnQ/640?wx_fmt=gif&tp=webp&wxfrom=5&wx_lazy=1" alt="图片"></p>
+<h2 id="开发技巧"><a href="#开发技巧" class="headerlink" title="开发技巧"></a><strong>开发技巧</strong></h2><p>通过插件可以给 IDEA 增加新功能，但是 IDEA 自带的功能也非常强大，有很多实用的开发技巧。</p>
+<p>\1. 使用上述代码生成和浏览插件</p>
+<p>\2. <strong>熟练使用快捷键</strong>，通过上述 Key Promoter X 插件渐进式熟悉快捷键。</p>
+<p>网上对快捷键的整理太多了，此处不再赘述，可以参考这两篇文章：</p>
+<p>- IDEA Mac 快捷键指南，地址：<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/454c71172c46">https://www.jianshu.com/p/454c71172c46</a></p>
+<p>- IDEA Win 常用快捷键，地址：<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/5de7cca0fefc">https://www.jianshu.com/p/5de7cca0fefc</a></p>
+<p>比较常用的快捷键是<strong>换行、复制&#x2F;删除当前行、代码格式化等</strong>。</p>
+<p>\3. <strong>利用快捷键为类快速生成代码</strong>（Win: Alt+Insert，Mac: command + n）</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/mngWTkJEOYIBFQNTIq3T30Ugk7P3vfgcn101P6A0h0EaznFgY6uSFb78ahBcicYYhwNVC9mGQRLn5rXjdq0fUMg/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="图片"></p>
+<p><strong>4. 运用代码模板（Live Templates）</strong></p>
+<p>代码模板是 IDEA 中非常好用的功能，可以<strong>通过缩写（关键词）来生成指定的代码段</strong>，很多重复的代码都可以用这种方式来快速生成，提高效率的同时降低了出错概率。</p>
+<p>示例如下：</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_gif/mngWTkJEOYIBFQNTIq3T30Ugk7P3vfgcLxyLk8VciaYdnfrAkIuPXRibiabNeOKsNH30gkBPL1O66GXgBw8zKGYeQ/640?wx_fmt=gif&tp=webp&wxfrom=5&wx_lazy=1" alt="图片"></p>
+<p>IDEA 为我们内置了很多代码模板，比如 main：</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/mngWTkJEOYIBFQNTIq3T30Ugk7P3vfgcQRSWXhESU5fXXKkxH5yrD8JoKxs3Je7YJ4kHfvPcrRgxvRdaTVEicSg/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="图片"></p>
+<p>也可以自己定义缩写和要生成的代码段：</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/mngWTkJEOYIBFQNTIq3T30Ugk7P3vfgcgE1v6KTIuuoIO3G7w7UhxEgXJaEgsQlQEGZEyFVz2MsuxMp5xDNYEg/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="图片"></p>
+<p>还可以使用预定义变量、自定义变量及使用内置函数，更多高级用法可以参考这篇文章：IDEA 中 live template 的详细使用教程（地址：<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/3974df6572af%EF%BC%89">https://www.jianshu.com/p/3974df6572af）</a></p>
+<p><strong>5. 使用内置剪切板保存复制历史</strong></p>
+<p>写代码的必备技能是复制粘贴，不仅可以提高效率，还可以降低出错率（比如用户、秘钥、地址等信息）。</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_gif/mngWTkJEOYIBFQNTIq3T30Ugk7P3vfgchDho02HhicKuCibMG7weBzfYWk4f4lq8TBPED1CXUFFByX2JvhwC0F6g/640?wx_fmt=gif&tp=webp&wxfrom=5&wx_lazy=1" alt="图片"></p>
+<p>IDEA 内置了剪切板，可以帮助我们保存复制历史，粘贴时按 shift + ctrl + v 即可选择复制。</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/mngWTkJEOYIBFQNTIq3T30Ugk7P3vfgcUcCwriaOON6VBdFe6c1Vo9qnyCwIjWxv4o7cEpFMYxeic7BIpSgMtwoQ/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="图片"></p>
+<p>不满足于内置的剪切板？还可以使用更高级的软件：Ditto（Windows）或 Alfred（Mac）</p>
+<p><strong>6. 使用内置的 Git</strong></p>
+<p>IDEA 内置了 Git 辅助工具，能够可视化分支管理&#x2F;切换，代码提交&#x2F;更新&#x2F;冲突解决&#x2F;回退，代码历史版本查看等。在顶部菜单 VCS &gt; Git 中可以查看所有功能：</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/mngWTkJEOYIBFQNTIq3T30Ugk7P3vfgcyVOpl0YjRZzGdHhaBsqEic2tD9LffYGb8SjJXvJAPWy0RcICD4JhFkA/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="图片"></p>
+<p>在底部栏中可以查看 Git 日志：</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/mngWTkJEOYIBFQNTIq3T30Ugk7P3vfgcstYwYcIqv0eoUWh7bw90VcTACCnX7YyAKtpl0OMnBjplwupxObow4Q/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="图片"></p>
+<p><strong>7. 使用内置 HTTP Client 测试接口</strong></p>
+<p>不需要再使用 Postman 等外置接口测试工具了，IDEA 内置了 HTTP Client，通过编写请求脚本来进行调用，非常灵活。</p>
+<p>在顶部菜单的 Tools &gt; HTTP Client 中打开：</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/mngWTkJEOYIBFQNTIq3T30Ugk7P3vfgcqGuznVmVh62PZVwIvHP0uGjQ3lNibfrT1JYHQo0cIR57ic1ncQicLOiaOA/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="图片"></p>
+<p>编写脚本进行 HTTP 接口测试：</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/mngWTkJEOYIBFQNTIq3T30Ugk7P3vfgcCPyGGGq87HiciaOq96baL199ZaANK4BXVnK6qpRjQGonIJvWH177vEMA/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="图片"></p>
+<p>详细用法请阅读官方使用文档，地址：<a target="_blank" rel="noopener" href="https://www.jetbrains.com/help/idea/http-client-in-product-code-editor.html">https://www.jetbrains.com/help/idea/http-client-in-product-code-editor.html</a></p>
+<h2 id="阅读源码技巧"><a href="#阅读源码技巧" class="headerlink" title="阅读源码技巧"></a><strong>阅读源码技巧</strong></h2><p>优秀的程序员一定会阅读很多源码，阅读源码也是有很多技巧的。</p>
+<p>通常，根据他人总结的项目文档，先看整体（目录和类图）再看局部（类和函数）。对于 Java 项目，就是先查看包的层级关系，然后分析包中类（接口）之间的关系，包括继承、实现、委托、方法调用等，最后再查看某个类具体的属性和方法的具体实现。</p>
+<p>IDEA 为整个阅读源码的过程提供了一系列好用的功能支持，能够大大提高阅读效率。</p>
+<p><strong>1. 文件&#x2F;类搜索</strong></p>
+<p>根据文件名搜索文件&#x2F;类</p>
+<p>快捷键：shift + shift（连按两次）</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/mngWTkJEOYIBFQNTIq3T30Ugk7P3vfgclCpEuIia1Vy5hsW4ebMjXHu0MNVg8dzvmUzUezarbLpjKKpqnPic8icAg/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="图片"></p>
+<p><strong>2. 字段搜索</strong></p>
+<p>根据文件内容搜索，可直接定位到目标内容位置，支持局部（当前文件或选中代码段）和全局搜索（项目&#x2F;模块&#x2F;目录&#x2F;作用域等）</p>
+<p>局部搜索快捷键：Win: Ctrl + F  Mac: Command + F</p>
+<p>全局搜索快捷键：Win: Ctrl + shift + F  Mac: Command + Shift + F</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/mngWTkJEOYIBFQNTIq3T30Ugk7P3vfgcEELKK4qM9ibfgvnGagKP3Nz9vIia130ic1Nfgb2srzCQQhkrWevEusRbQ/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="图片"></p>
+<p><strong>3. 跳转到上&#x2F;下次光标的位置</strong></p>
+<p>查看源码时，经常需要在两个类中来回跳转，这个功能就变得相当实用！</p>
+<p>查看上次光标位置快捷键：Win: Alt + ←  Mac: Option + Command + ←</p>
+<p>查看下次光标位置快捷键：Win: Alt + →  Mac: Option + Command + →</p>
+<p><strong>4. 查看接口的实现类（或接口方法的实现）</strong></p>
+<p>如果光标选中接口方法，直接跳转到该方法的具体实现。如果有多个实现，则可以选择跳转到指定的实现类。</p>
+<p>快捷键：Win: Ctrl + Alt + B  Mac: Option + Command + B</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/mngWTkJEOYIBFQNTIq3T30Ugk7P3vfgcKgjxVDeib0dQe8vFasSkibo3h44Yg9ZyYvtUJJpmvg1iabu0AaaxS6X5w/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="图片"></p>
+<p><strong>5. 查看方法调用树</strong></p>
+<p>可以查看指定方法的所有调用方和被调方。</p>
+<p>快捷键：Win: Ctrl + Alt + H  Mac: Control + Option + H</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/mngWTkJEOYIBFQNTIq3T30Ugk7P3vfgcVquygnoelEZo2vnOYodia8V7QjHZMZHrHjuORkjPTtKr7cO0Hgo5M0w/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="图片"></p>
+<p><strong>6. 查看类关系图</strong></p>
+<p>非常实用的功能，直观清晰地展现类的关系，便于分析。</p>
+<p>快捷键：Win: Ctrl + Alt + U  Mac: Shift + Option + Command + U</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/mngWTkJEOYIBFQNTIq3T30Ugk7P3vfgceLhxbicHMPdfkY8mHFdurias0sqYJQhNtAvOCq8QTeoKRd8ibb62ADKmw/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="图片"></p>
+<p><strong>7. 查看类的继承树</strong></p>
+<p>能够查看类的父类和子类继承关系。</p>
+<p>快捷键：Win: Ctrl + H  Mac: Control + H</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/mngWTkJEOYIBFQNTIq3T30Ugk7P3vfgcMibwKrQIuqVhFR6wBlDZXVnthsgI68spYjmLU5NyqbbTQY4RQeQcDibw/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="图片"></p>
+<p><strong>8. 查看定义的变量在哪里被声明&#x2F;调用</strong></p>
+<p>如果光标在变量声明处，则查看使用该变量的代码；如果光标在使用变量处，则查看变量的声明位置。</p>
+<p>快捷键：Win: Ctrl + B  Mac: Command + B 或按住 Ctrl &#x2F; Command 点击鼠标左键</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/mngWTkJEOYIBFQNTIq3T30Ugk7P3vfgcSCXfEdLoiaPIqZthNan2PbkSoel9XcdkNOeKTWArXM7x8exCvcticXxg/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="图片"></p>
+<p><strong>9. 查看定义的变量在哪里被调用</strong></p>
+<p>功能和上述功能类似，仅查看变量的调用位置。</p>
+<p>快捷键：Win: Ctrl + Alt + F7  Mac: Option + Command + F7</p>
+<p><strong>10. 查看类的结构</strong></p>
+<p>能够查看某一个类的属性、域、方法、继承方法、匿名类、Lambdas，并快速跳转到指定位置。</p>
+<p>快捷键：Win: Alt + 7  Mac: Command + 7</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/mngWTkJEOYIBFQNTIq3T30Ugk7P3vfgcaMDcc95WgUCEUfeNILeYmNlVm9Fuom9oN20JMwSp8F1BpL7awKnMyg/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="图片"></p>
+<p><strong>11. 查看每行代码的提交信息（需被 Git 管理）</strong></p>
+<p>在代码行数列表处右键，点击 Annotate 开启代码提交信息显示：</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/mngWTkJEOYIBFQNTIq3T30Ugk7P3vfgc0eMTnhlDJzmMXiboq6rptvcia3RW2WQ4S1A3J4tzpOrL55hqBfeSCNlQ/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="图片"></p>
+<p>效果如下，烂代码元凶快快显形！</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/mngWTkJEOYIBFQNTIq3T30Ugk7P3vfgc65TOU2LKVdAWCSCE6Riar9GJRvn0QKNptibFUnVQic2BsmrFibNKW0qTKg/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="图片"></p>
+<p>以上就是 IDEA 使用技巧啦，快去写几行代码熟悉下吧~</p>
+
+    </div>
+
+    
+    
+    
+
+
+    <div>
+      
+        <div>
+    
+      <div style="text-align:center;color: #ccc;font-size:20px;">------------- 本 文 结 束&nbsp&nbsp&nbsp&nbsp&nbsp感 谢 您 的 阅 读 -------------</div>
+    
+</div>
+
+      
+    </div>
+
+    <footer class="post-footer"><div class="post-widgets">
+      <div id="needsharebutton-postbottom">
+        <span class="btn">
+          <i class="fa fa-share-alt" aria-hidden="true"></i>
+        </span>
+      </div>
+    </div>
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>swimminghao
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://example.com/posts/f15ad5a2/" title="idea效率">http://example.com/posts/f15ad5a2/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/idea/" rel="tag"><i class="fa fa-tag"></i> idea</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/posts/dac885d1/" rel="prev" title="java数据类型">
+                  <i class="fa fa-chevron-left"></i> java数据类型
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/posts/53bfd3b2/" rel="next" title="git远程分支">
+                  git远程分支 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>l
+
+
+
+
+
+
+    <div class="comments" id="waline-comments"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">swimminghao</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">1.2m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">18:03</span>
+  </span>
+</div>
+
+<span id="sitetime"></span>
+<script language=javascript>
+    function siteTime(){
+        window.setTimeout("siteTime()", 1000);
+        var seconds = 1000;
+        var minutes = seconds * 60;
+        var hours = minutes * 60;
+        var days = hours * 24;
+        var years = days * 365;
+        var today = new Date();
+        var todayYear = today.getFullYear();
+        var todayMonth = today.getMonth()+1;
+        var todayDate = today.getDate();
+        var todayHour = today.getHours();
+        var todayMinute = today.getMinutes();
+        var todaySecond = today.getSeconds();
+        /* Date.UTC() -- 返回date对象距世界标准时间(UTC)1970年1月1日午夜之间的毫秒数(时间戳)
+        year - 作为date对象的年份，为4位年份值
+        month - 0-11之间的整数，做为date对象的月份
+        day - 1-31之间的整数，做为date对象的天数
+        hours - 0(午夜24点)-23之间的整数，做为date对象的小时数
+        minutes - 0-59之间的整数，做为date对象的分钟数
+        seconds - 0-59之间的整数，做为date对象的秒数
+        microseconds - 0-999之间的整数，做为date对象的毫秒数 */
+        var t1 = Date.UTC(2022,02,28,00,00,00); //你的建站时间
+        var t2 = Date.UTC(todayYear,todayMonth,todayDate,todayHour,todayMinute,todaySecond);
+        var diff = t2-t1;
+        var diffYears = Math.floor(diff/years);
+        var diffDays = Math.floor((diff/days)-diffYears*365);
+        var diffHours = Math.floor((diff-(diffYears*365+diffDays)*days)/hours);
+        var diffMinutes = Math.floor((diff-(diffYears*365+diffDays)*days-diffHours*hours)/minutes);
+        var diffSeconds = Math.floor((diff-(diffYears*365+diffDays)*days-diffHours*hours-diffMinutes*minutes)/seconds);
+        document.getElementById("sitetime").innerHTML=" 本站已安全运行 "+diffYears+" Year "+diffDays+" Days "+diffHours+" Hours "+diffMinutes+" m "+diffSeconds+" s";
+    }
+    siteTime();
+</script>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        访问人数：<span id="busuanzi_value_site_uv"></span>
+      </span>人
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+       访问总量：<span id="busuanzi_value_site_pv"></span>
+      </span>次
+    </span>
+
+
+<!--
+  本文总阅读量：<span id="busuanzi_value_page_pv"></span>次
+-->
+
+</div>
+
+
+<!--
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+--><script color="0,0,255" opacity="0.5" zIndex="-1" count="99" src="https://cdn.jsdelivr.net/npm/canvas-nest.js@1/dist/canvas-nest.js"></script>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<script class="next-config" data-name="waline" type="application/json">{"lang":"zh-cn","enable":true,"serverURL":"waline-server-nu.vercel.app","placeholder":"请文明评论呀","avatar":"mm","pageSize":10,"visitor":false,"comment_count":true,"requiredFields":[],"meta":["nick","mail","link"],"libUrl":"https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js","el":"#waline-comments","path":"/posts/f15ad5a2/"}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.waline.el).then(() => 
+    NexT.utils.getScript(CONFIG.waline.libUrl, { condition: window.Waline })
+  ).then(() => {
+    new Waline(CONFIG.waline);
+  });
+});
+</script>
+  <script src="//cdn.jsdelivr.net/gh/theme-next/theme-next-needmoreshare2@1/needsharebutton.min.js"></script>
+  <script>
+      pbOptions = {};
+        pbOptions.iconStyle = "default";
+        pbOptions.boxForm = "horizontal";
+        pbOptions.position = "middleCenter";
+        pbOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+  </script>
+</body>
+</html>

@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-loading-bar.css">
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.10.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="zsh必备插件 首先是 oh-my-zsh 自带的 alias 插件，这些东西能让你在终端少打很多字：  1. git定义了有关 git 的 alias。常用的有   gaa &#x3D; git add –all  gcmsg &#x3D; git commit -m  ga &#x3D; git add  gst &#x3D; git status  gp &#x3D; git push  2">
+<meta property="og:type" content="article">
+<meta property="og:title" content="zsh必备插件">
+<meta property="og:url" content="http://example.com/posts/143a11e3/index.html">
+<meta property="og:site_name" content="swimminghao&#39;s blog">
+<meta property="og:description" content="zsh必备插件 首先是 oh-my-zsh 自带的 alias 插件，这些东西能让你在终端少打很多字：  1. git定义了有关 git 的 alias。常用的有   gaa &#x3D; git add –all  gcmsg &#x3D; git commit -m  ga &#x3D; git add  gst &#x3D; git status  gp &#x3D; git push  2">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://pic1.zhimg.com/50/v2-adfbc44c98d3a6b1137efa8a7abfda6c_720w.jpg?source=1940ef5c">
+<meta property="og:image" content="https://pic1.zhimg.com/80/v2-adfbc44c98d3a6b1137efa8a7abfda6c_1440w.jpg?source=1940ef5c">
+<meta property="article:published_time" content="2022-06-10T15:01:00.000Z">
+<meta property="article:modified_time" content="2025-02-13T08:20:39.947Z">
+<meta property="article:author" content="swimminghao">
+<meta property="article:tag" content="终端">
+<meta property="article:tag" content="配置">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://pic1.zhimg.com/50/v2-adfbc44c98d3a6b1137efa8a7abfda6c_720w.jpg?source=1940ef5c">
+
+
+<link rel="canonical" href="http://example.com/posts/143a11e3/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/posts/143a11e3/","path":"posts/143a11e3/","title":"zsh必备插件"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>zsh必备插件 | swimminghao's blog</title>
+  
+
+
+
+
+<link rel="dns-prefetch" href="waline-server-nu.vercel.app"><link rel="stylesheet" href="//cdn.jsdelivr.net/gh/theme-next/theme-next-needmoreshare2@1/needsharebutton.min.css"><style>
+#needsharebutton-postbottom {
+  cursor: pointer;
+  height: 26px;
+  margin-top: 10px;
+  position: relative;
+}
+#needsharebutton-postbottom .btn {
+  border: 1px solid $btn-default-border-color;
+  border-radius: 3px;
+  display: initial;
+  padding: 1px 4px;
+}
+</style>
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">swimminghao's blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">学习博客</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">52</span></a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">17</span></a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">271</span></a></li>
+        <li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#zsh%E5%BF%85%E5%A4%87%E6%8F%92%E4%BB%B6"><span class="nav-number">1.</span> <span class="nav-text">zsh必备插件</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-git"><span class="nav-number">1.1.</span> <span class="nav-text">1. git</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-tmux"><span class="nav-number">1.2.</span> <span class="nav-text">2. tmux</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-extract"><span class="nav-number">1.3.</span> <span class="nav-text">1. extract</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-rand-quote"><span class="nav-number">1.4.</span> <span class="nav-text">2. rand-quote</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-themes"><span class="nav-number">1.5.</span> <span class="nav-text">3. themes</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-gitignore"><span class="nav-number">1.6.</span> <span class="nav-text">4. gitignore</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-cp"><span class="nav-number">1.7.</span> <span class="nav-text">5. cp</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-zsh-reload"><span class="nav-number">1.8.</span> <span class="nav-text">6. zsh_reload</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-git-open"><span class="nav-number">1.9.</span> <span class="nav-text">7. git-open</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-z"><span class="nav-number">1.10.</span> <span class="nav-text">8. z</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-vi-mode"><span class="nav-number">1.11.</span> <span class="nav-text">1. vi-mode</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-per-directory-history"><span class="nav-number">1.12.</span> <span class="nav-text">2. per-directory-history</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-command-not-found"><span class="nav-number">1.13.</span> <span class="nav-text">3. command-not-found</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-safe-paste"><span class="nav-number">1.14.</span> <span class="nav-text">4. safe-paste</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-colored-man-pages"><span class="nav-number">1.15.</span> <span class="nav-text">5. colored-man-pages</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-sudo"><span class="nav-number">1.16.</span> <span class="nav-text">6. sudo</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-history-substring-search"><span class="nav-number">1.17.</span> <span class="nav-text">7. history-substring-search</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-zplug"><span class="nav-number">1.18.</span> <span class="nav-text">1. zplug</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-zsh-syntax-highlighting"><span class="nav-number">1.19.</span> <span class="nav-text">2. zsh-syntax-highlighting</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-zsh-autosuggestions"><span class="nav-number">1.20.</span> <span class="nav-text">3. zsh-autosuggestions</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="swimminghao"
+      src="/images/lion.png">
+  <p class="site-author-name" itemprop="name">swimminghao</p>
+  <div class="site-description" itemprop="description">swimminghao的学习博客</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">271</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">52</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/swimminghao" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;swimminghao" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:swimminghao0@gmail.com" title="E-Mail → mailto:swimminghao0@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/swimminghao" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;swimminghao" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://plus.google.com/yourname" title="Google → https:&#x2F;&#x2F;plus.google.com&#x2F;yourname" rel="noopener" target="_blank"><i class="fab fa-google fa-fw"></i>Google</a>
+      </span>
+  </div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdn.jsdelivr.net/npm/@creativecommons/vocabulary@2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+<!-- recent posts -->
+    <div class="links-of-blogroll motion-element links-of-blogroll-block">
+        <div class="links-of-blogroll-title recent-posts-title">
+	    <i class="fa fa-history " aria-hidden="true"></i>
+            近期文章
+	</div>
+	<ul class="links-of-blogroll-list recent-posts-list">
+	        <li class="my-links-of-blogroll-item">
+		    <a href="/posts/967669ed/" title="holer-server项目解读" target="">
+		    holer-server项目解读
+		    </a>
+		</li>
+	        <li class="my-links-of-blogroll-item">
+		    <a href="/posts/c30e6297/" title="Hexo博客文章加密" target="">
+		    Hexo博客文章加密
+		    </a>
+		</li>
+	        <li class="my-links-of-blogroll-item">
+		    <a href="/posts/7ff70092/" title="做任何事都非常厉害的诀窍，这3点你记好" target="">
+		    做任何事都非常厉害的诀窍，这3点你记好
+		    </a>
+		</li>
+	        <li class="my-links-of-blogroll-item">
+		    <a href="/posts/1afe5736/" title="DBeaver Ultimate Edition 免费破解使用" target="">
+		    DBeaver Ultimate Edition 免费破解使用
+		    </a>
+		</li>
+	        <li class="my-links-of-blogroll-item">
+		    <a href="/posts/7a47e8be/" title="为何大多数程序员做不了独立开发者？" target="">
+		    为何大多数程序员做不了独立开发者？
+		    </a>
+		</li>
+	</ul>
+    </div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/143a11e3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lion.png">
+      <meta itemprop="name" content="swimminghao">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="swimminghao's blog">
+      <meta itemprop="description" content="swimminghao的学习博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="zsh必备插件 | swimminghao's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          zsh必备插件
+        </h1>
+
+        <div class="post-meta-container">
+
+          
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-06-10 23:01:00" itemprop="dateCreated datePublished" datetime="2022-06-10T23:01:00+08:00">2022-06-10</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2025-02-13 16:20:39" itemprop="dateModified" datetime="2025-02-13T16:20:39+08:00">2025-02-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">工具</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/posts/143a11e3/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/143a11e3/" data-xid="/posts/143a11e3/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>3.4k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>3 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="zsh必备插件"><a href="#zsh必备插件" class="headerlink" title="zsh必备插件"></a>zsh必备插件</h1><blockquote>
+<p>首先是 oh-my-zsh 自带的 alias 插件，这些东西能让你在终端少打很多字：</p>
+</blockquote>
+<h2 id="1-git"><a href="#1-git" class="headerlink" title="1. git"></a>1. git</h2><p>定义了有关 git 的 alias。常用的有 </p>
+<ul>
+<li>gaa &#x3D; git add –all </li>
+<li>gcmsg &#x3D; git commit -m </li>
+<li>ga &#x3D; git add </li>
+<li>gst &#x3D; git status </li>
+<li>gp &#x3D; git push</li>
+</ul>
+<h2 id="2-tmux"><a href="#2-tmux" class="headerlink" title="2. tmux"></a>2. tmux</h2><p>定义了有关 <a target="_blank" rel="noopener" href="https://www.zhihu.com/search?q=tmux&search_source=Entity&hybrid_search_source=Entity&hybrid_search_extra=%7B%22sourceType%22:%22answer%22,%22sourceId%22:617215298%7D">tmux</a> 的 alias。常用的有</p>
+<ul>
+<li>tl &#x3D; tmux list-sessions</li>
+<li>tkss &#x3D; tmux kill-session -t</li>
+<li>ta &#x3D; tmux attach -t</li>
+<li>ts &#x3D; tmux new-session -s</li>
+</ul>
+<hr>
+<p>然后是 oh-my-zsh 自带的，一些提供实用命令的插件。</p>
+<h2 id="1-extract"><a href="#1-extract" class="headerlink" title="1. extract"></a>1. extract</h2><p>提供一个 extract 命令，以及它的别名 x。功能是：一！键！解！压！你知道tar的四种写法吗？我也不知道，所以我装了这个。从今以后 tar, gz, zip, rar 全部使用 extract 命令解压，再也不用天天查 <a target="_blank" rel="noopener" href="https://www.zhihu.com/search?q=cheatsheet&search_source=Entity&hybrid_search_source=Entity&hybrid_search_extra=%7B%22sourceType%22:%22answer%22,%22sourceId%22:617215298%7D">cheatsheet</a> 啦！</p>
+<h2 id="2-rand-quote"><a href="#2-rand-quote" class="headerlink" title="2. rand-quote"></a>2. rand-quote</h2><p>提供一条 quote 命令，显示随机名言。和fortune的作用差不多，但是我感觉fortune上面大多是冷笑话，还是quote的内容比较有意思。</p>
+<p>当然这种东西很少有人会主动去按的。所以你可以在你的zshrc里面的最后一行加上quote，实现每次打开shell显示一条名言的效果～</p>
+<p>再进一步，安装一个<a target="_blank" rel="noopener" href="https://www.zhihu.com/search?q=cowsay&search_source=Entity&hybrid_search_source=Entity&hybrid_search_extra=%7B%22sourceType%22:%22answer%22,%22sourceId%22:617215298%7D">cowsay</a>，把quote | cowsay放到<a target="_blank" rel="noopener" href="https://www.zhihu.com/search?q=zshrc&search_source=Entity&hybrid_search_source=Entity&hybrid_search_extra=%7B%22sourceType%22:%22answer%22,%22sourceId%22:617215298%7D">zshrc</a>的最后一行。于是每次打开终端你就可以看到一头牛对你说：</p>
+<p><img src="https://pic1.zhimg.com/50/v2-adfbc44c98d3a6b1137efa8a7abfda6c_720w.jpg?source=1940ef5c" alt="img"><img src="https://pic1.zhimg.com/80/v2-adfbc44c98d3a6b1137efa8a7abfda6c_1440w.jpg?source=1940ef5c" alt="img"></p>
+<h2 id="3-themes"><a href="#3-themes" class="headerlink" title="3. themes"></a>3. themes</h2><p>提供一条 theme 命令，用来随时手动切换主题。在想要尝试各种主题的时候很实用，不需要一直改 zshrc 然后重载。</p>
+<h2 id="4-gitignore"><a href="#4-gitignore" class="headerlink" title="4. gitignore"></a>4. gitignore</h2><p>提供一条 gi 命令，用来查询 gitignore 模板。比如你新建了一个 python 项目，就可以用</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gi python &gt; .gitignore </span><br></pre></td></tr></table></figure>
+
+<p>来生成一份 gitignore 文件。</p>
+<h2 id="5-cp"><a href="#5-cp" class="headerlink" title="5. cp"></a>5. cp</h2><p>提供一个 cpv 命令，这个命令使用 rsync 实现带进度条的复制功能。</p>
+<h2 id="6-zsh-reload"><a href="#6-zsh-reload" class="headerlink" title="6. zsh_reload"></a>6. zsh_reload</h2><p>提供一个 src 命令，重载 zsh。对于经常折腾 zshrc 的我，这条命令非常实用。</p>
+<h2 id="7-git-open"><a href="#7-git-open" class="headerlink" title="7. git-open"></a>7. git-open</h2><p>提供一个 git-open 命令，在浏览器中打开当前所在 git 项目的远程仓库地址。</p>
+<h2 id="8-z"><a href="#8-z" class="headerlink" title="8. z"></a>8. z</h2><p>提供一个 z 命令，在常用目录之间跳转。类似 <a target="_blank" rel="noopener" href="https://www.zhihu.com/search?q=autojump&search_source=Entity&hybrid_search_source=Entity&hybrid_search_extra=%7B%22sourceType%22:%22answer%22,%22sourceId%22:617215298%7D">autojump</a>，但是不需要额外安装软件。</p>
+<hr>
+<p>接着是 oh-my-zsh 自带的，其他一些功能强大的实用工具。</p>
+<h2 id="1-vi-mode"><a href="#1-vi-mode" class="headerlink" title="1. vi-mode"></a>1. vi-mode</h2><p>vim输入模式，非常强大，不用多说。</p>
+<h2 id="2-per-directory-history"><a href="#2-per-directory-history" class="headerlink" title="2. per-directory-history"></a>2. per-directory-history</h2><p>开启之后在一个目录下只能查询到这个目录下的历史命令。按 Ctrl+g 开启&#x2F;关闭。对我来说很实用，但是不一定所有人都喜欢，可以考虑一下自己是否真的需要。</p>
+<h2 id="3-command-not-found"><a href="#3-command-not-found" class="headerlink" title="3. command-not-found"></a>3. command-not-found</h2><p>当你输入一条不存在的命令时，会自动查询这条命令可以如何获得。</p>
+<h2 id="4-safe-paste"><a href="#4-safe-paste" class="headerlink" title="4. safe-paste"></a>4. safe-paste</h2><p>像我这样的懒人，经常会从网上复制各种脚本。但是复制的命令有可能并不就是我要的，可能还需要改一改。但是往往我复制了几行脚本，粘贴到 zsh 里，就发现它直接运行了。这真是非常危险。</p>
+<p>这个插件的功能就是：当你往 zsh 粘贴脚本时，它不会被立刻运行。给了我这种懒人修改别人脚本的机会。</p>
+<h2 id="5-colored-man-pages"><a href="#5-colored-man-pages" class="headerlink" title="5. colored-man-pages"></a>5. colored-man-pages</h2><p>给你带颜色的 man 命令。</p>
+<h2 id="6-sudo"><a href="#6-sudo" class="headerlink" title="6. sudo"></a>6. sudo</h2><p>apt 忘了加 sudo？开启这个插件，双击 Esc，zsh 会把上一条命令加上 sudo 给你。</p>
+<h2 id="7-history-substring-search"><a href="#7-history-substring-search" class="headerlink" title="7. history-substring-search"></a>7. history-substring-search</h2><p>一般人会在 zsh 中绑定 history-search-backward 与 histor-search-forward 两个功能。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">bindkey &#x27;^P&#x27; history-search-backward</span><br><span class="line">bindkey &#x27;^N&#x27; history-search-forward</span><br></pre></td></tr></table></figure>
+
+<p>这样子，就可以在输入一个命令，比如 git 之后，按 Ctrl-P 与 Ctrl-N 在以 git为前缀的历史记录中浏览，非常方便。</p>
+<p>但是这个做法有一个问题，就是这个功能只考虑输入的第一个单词。也就是说，如果之前输入了 git status, git commit, git push 等等命令，那么我输入 “git s” 再 Ctrl-P，并不会锁定到 “git status”, 而是会在所有以 git 开头的历史命令中循环。</p>
+<p>这个插件的功能就是实现了一对更好用的 history-search-backward 与 histor-search-forward ，解决了上面所说的问题。开启之后，需要绑定按键：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">bindkey &#x27;^P&#x27; history-substring-search-up</span><br><span class="line">bindkey &#x27;^N&#x27; history-substring-search-down</span><br></pre></td></tr></table></figure>
+
+<p>这样子就可以以自己输入的所有内容为前缀，进行历史查找了。</p>
+<hr>
+<p>然后下面是需要单独安装的：</p>
+<h2 id="1-zplug"><a href="#1-zplug" class="headerlink" title="1. zplug"></a>1. <a href="https://link.zhihu.com/?target=https://github.com/zplug/zplug">zplug</a></h2><p>zsh 的插件管理器，类似 vim 的 vundle，把你需要的所有插件写到 zshrc 里，然后运行 zplug install 就可以安装这些插件。就像这样：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">if [[ -f ~/.zplug/init.zsh ]] &#123;</span><br><span class="line">  source ~/.zplug/init.zsh</span><br><span class="line"></span><br><span class="line">  zplug &quot;zsh-users/zsh-syntax-highlighting&quot;</span><br><span class="line">  zplug &quot;zsh-users/zsh-autosuggestions&quot;</span><br><span class="line">  zplug &quot;supercrabtree/k&quot;</span><br><span class="line">  zplug &quot;denisidoro/navi&quot;</span><br><span class="line">  zplug &quot;MichaelAquilina/zsh-you-should-use&quot;</span><br><span class="line">  zplug &quot;changyuheng/zsh-interactive-cd&quot;</span><br><span class="line">  zplug &quot;SleepyBag/zsh-confer&quot;</span><br><span class="line"></span><br><span class="line">  zplug &quot;Powerlevel9k/powerlevel9k&quot;, from:github, as:theme, if:&quot;[[ $ZSH_THEME_STYLE == 9k ]]&quot;</span><br><span class="line">  zplug &quot;denysdovhan/spaceship-prompt&quot;, use:spaceship.zsh-theme, from:github, as:theme, if:&quot;[[ $ZSH_THEME_STYLE == spaceship ]]&quot;</span><br><span class="line">  zplug &quot;caiogondim/bullet-train.zsh&quot;, use:bullet-train.zsh-theme, from:github, as:theme, if:&quot;[[ $ZSH_THEME_STYLE == bullet ]]&quot;</span><br><span class="line">  zplug &quot;skylerlee/zeta-zsh-theme&quot;, from:github, as:theme, if:&quot;[[ $ZSH_THEME_STYLE == zeta ]]&quot;</span><br><span class="line"></span><br><span class="line">  if ! zplug check --verbose; then</span><br><span class="line">      echo &#x27;Run &quot;zplug install&quot; to install&#x27;</span><br><span class="line">  fi</span><br><span class="line">  # Then, source plugins and add commands to $PATH</span><br><span class="line">  zplug load</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这个工具不仅可以用来装 zsh 插件，事实上它可以用来自动安装任何你认为有必要的插件、主题、脚本甚至二进制程序。但是对于非 zsh 插件的程序，在安装之前要先看看 zplug 的文档，搞清楚如何安装。</p>
+<h2 id="2-zsh-syntax-highlighting"><a href="#2-zsh-syntax-highlighting" class="headerlink" title="2. zsh-syntax-highlighting"></a>2. <a href="https://link.zhihu.com/?target=https://github.com/zsh-users/zsh-syntax-highlighting">zsh-syntax-highlighting</a></h2><p>shell 命令的代码高亮。你没有理由拒绝高亮。</p>
+<h2 id="3-zsh-autosuggestions"><a href="#3-zsh-autosuggestions" class="headerlink" title="3. zsh-autosuggestions"></a>3. <a href="https://link.zhihu.com/?target=https://github.com/zsh-users/zsh-autosuggestions">zsh-autosuggestions</a></h2><p>在输入命令的过程中根据你的历史记录显示你可能想要输入的命令，按 tab 补全。</p>
+<p>不过 tab 键似乎与 zsh 的补全有冲突，所以我改成了 ctrl-y 直接运行命令，关于如何修改快捷键，项目主页上也有写。</p>
+
+    </div>
+
+    
+    
+    
+
+
+    <div>
+      
+        <div>
+    
+      <div style="text-align:center;color: #ccc;font-size:20px;">------------- 本 文 结 束&nbsp&nbsp&nbsp&nbsp&nbsp感 谢 您 的 阅 读 -------------</div>
+    
+</div>
+
+      
+    </div>
+
+    <footer class="post-footer"><div class="post-widgets">
+      <div id="needsharebutton-postbottom">
+        <span class="btn">
+          <i class="fa fa-share-alt" aria-hidden="true"></i>
+        </span>
+      </div>
+    </div>
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>swimminghao
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://example.com/posts/143a11e3/" title="zsh必备插件">http://example.com/posts/143a11e3/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/%E7%BB%88%E7%AB%AF/" rel="tag"><i class="fa fa-tag"></i> 终端</a>
+              <a href="/tags/%E9%85%8D%E7%BD%AE/" rel="tag"><i class="fa fa-tag"></i> 配置</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/posts/a7472f7b/" rel="prev" title="在校外时利用Easy Connect连接西工大校园内网（FTP、内网资源）简易教程">
+                  <i class="fa fa-chevron-left"></i> 在校外时利用Easy Connect连接西工大校园内网（FTP、内网资源）简易教程
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/posts/5f1a845d/" rel="next" title="linux 中为 cp 和 mv 命令添加进度条">
+                  linux 中为 cp 和 mv 命令添加进度条 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>l
+
+
+
+
+
+
+    <div class="comments" id="waline-comments"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">swimminghao</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">1.2m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">18:03</span>
+  </span>
+</div>
+
+<span id="sitetime"></span>
+<script language=javascript>
+    function siteTime(){
+        window.setTimeout("siteTime()", 1000);
+        var seconds = 1000;
+        var minutes = seconds * 60;
+        var hours = minutes * 60;
+        var days = hours * 24;
+        var years = days * 365;
+        var today = new Date();
+        var todayYear = today.getFullYear();
+        var todayMonth = today.getMonth()+1;
+        var todayDate = today.getDate();
+        var todayHour = today.getHours();
+        var todayMinute = today.getMinutes();
+        var todaySecond = today.getSeconds();
+        /* Date.UTC() -- 返回date对象距世界标准时间(UTC)1970年1月1日午夜之间的毫秒数(时间戳)
+        year - 作为date对象的年份，为4位年份值
+        month - 0-11之间的整数，做为date对象的月份
+        day - 1-31之间的整数，做为date对象的天数
+        hours - 0(午夜24点)-23之间的整数，做为date对象的小时数
+        minutes - 0-59之间的整数，做为date对象的分钟数
+        seconds - 0-59之间的整数，做为date对象的秒数
+        microseconds - 0-999之间的整数，做为date对象的毫秒数 */
+        var t1 = Date.UTC(2022,02,28,00,00,00); //你的建站时间
+        var t2 = Date.UTC(todayYear,todayMonth,todayDate,todayHour,todayMinute,todaySecond);
+        var diff = t2-t1;
+        var diffYears = Math.floor(diff/years);
+        var diffDays = Math.floor((diff/days)-diffYears*365);
+        var diffHours = Math.floor((diff-(diffYears*365+diffDays)*days)/hours);
+        var diffMinutes = Math.floor((diff-(diffYears*365+diffDays)*days-diffHours*hours)/minutes);
+        var diffSeconds = Math.floor((diff-(diffYears*365+diffDays)*days-diffHours*hours-diffMinutes*minutes)/seconds);
+        document.getElementById("sitetime").innerHTML=" 本站已安全运行 "+diffYears+" Year "+diffDays+" Days "+diffHours+" Hours "+diffMinutes+" m "+diffSeconds+" s";
+    }
+    siteTime();
+</script>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        访问人数：<span id="busuanzi_value_site_uv"></span>
+      </span>人
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+       访问总量：<span id="busuanzi_value_site_pv"></span>
+      </span>次
+    </span>
+
+
+<!--
+  本文总阅读量：<span id="busuanzi_value_page_pv"></span>次
+-->
+
+</div>
+
+
+<!--
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+--><script color="0,0,255" opacity="0.5" zIndex="-1" count="99" src="https://cdn.jsdelivr.net/npm/canvas-nest.js@1/dist/canvas-nest.js"></script>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<script class="next-config" data-name="waline" type="application/json">{"lang":"zh-cn","enable":true,"serverURL":"waline-server-nu.vercel.app","placeholder":"请文明评论呀","avatar":"mm","pageSize":10,"visitor":false,"comment_count":true,"requiredFields":[],"meta":["nick","mail","link"],"libUrl":"https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js","el":"#waline-comments","path":"/posts/143a11e3/"}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.waline.el).then(() => 
+    NexT.utils.getScript(CONFIG.waline.libUrl, { condition: window.Waline })
+  ).then(() => {
+    new Waline(CONFIG.waline);
+  });
+});
+</script>
+  <script src="//cdn.jsdelivr.net/gh/theme-next/theme-next-needmoreshare2@1/needsharebutton.min.js"></script>
+  <script>
+      pbOptions = {};
+        pbOptions.iconStyle = "default";
+        pbOptions.boxForm = "horizontal";
+        pbOptions.position = "middleCenter";
+        pbOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+  </script>
+</body>
+</html>

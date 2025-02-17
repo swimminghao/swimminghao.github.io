@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-loading-bar.css">
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.10.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="Spring SchedulingConfigurer 实现动态定时任务一、前言大家在日常工作中，一定使用过 Spring 的 @Scheduled 注解吧，通过该注解可以非常方便的帮助我们实现任务的定时执行。 但是该注解是不支持运行时动态修改执行间隔的，不知道你在业务中有没有这些需求和痛点： 在服务运行时能够动态修改定时任务的执行频率和执行开关，而无需重启服务和修改代码能够基于配置，在不同环境&amp;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring SchedulingConfigurer实现动态定时任务(修改)">
+<meta property="og:url" content="http://example.com/posts/37dbe3a4/index.html">
+<meta property="og:site_name" content="swimminghao&#39;s blog">
+<meta property="og:description" content="Spring SchedulingConfigurer 实现动态定时任务一、前言大家在日常工作中，一定使用过 Spring 的 @Scheduled 注解吧，通过该注解可以非常方便的帮助我们实现任务的定时执行。 但是该注解是不支持运行时动态修改执行间隔的，不知道你在业务中有没有这些需求和痛点： 在服务运行时能够动态修改定时任务的执行频率和执行开关，而无需重启服务和修改代码能够基于配置，在不同环境&amp;">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-02-28T11:57:47.000Z">
+<meta property="article:modified_time" content="2025-02-13T08:20:39.918Z">
+<meta property="article:author" content="swimminghao">
+<meta property="article:tag" content="java">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/posts/37dbe3a4/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/posts/37dbe3a4/","path":"posts/37dbe3a4/","title":"Spring SchedulingConfigurer实现动态定时任务(修改)"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Spring SchedulingConfigurer实现动态定时任务(修改) | swimminghao's blog</title>
+  
+
+
+
+
+<link rel="dns-prefetch" href="waline-server-nu.vercel.app"><link rel="stylesheet" href="//cdn.jsdelivr.net/gh/theme-next/theme-next-needmoreshare2@1/needsharebutton.min.css"><style>
+#needsharebutton-postbottom {
+  cursor: pointer;
+  height: 26px;
+  margin-top: 10px;
+  position: relative;
+}
+#needsharebutton-postbottom .btn {
+  border: 1px solid $btn-default-border-color;
+  border-radius: 3px;
+  display: initial;
+  padding: 1px 4px;
+}
+</style>
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">swimminghao's blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">学习博客</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">52</span></a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">17</span></a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">271</span></a></li>
+        <li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Spring-SchedulingConfigurer-%E5%AE%9E%E7%8E%B0%E5%8A%A8%E6%80%81%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1"><span class="nav-number">1.</span> <span class="nav-text">Spring SchedulingConfigurer 实现动态定时任务</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="swimminghao"
+      src="/images/lion.png">
+  <p class="site-author-name" itemprop="name">swimminghao</p>
+  <div class="site-description" itemprop="description">swimminghao的学习博客</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">271</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">52</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/swimminghao" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;swimminghao" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:swimminghao0@gmail.com" title="E-Mail → mailto:swimminghao0@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/swimminghao" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;swimminghao" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://plus.google.com/yourname" title="Google → https:&#x2F;&#x2F;plus.google.com&#x2F;yourname" rel="noopener" target="_blank"><i class="fab fa-google fa-fw"></i>Google</a>
+      </span>
+  </div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdn.jsdelivr.net/npm/@creativecommons/vocabulary@2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+<!-- recent posts -->
+    <div class="links-of-blogroll motion-element links-of-blogroll-block">
+        <div class="links-of-blogroll-title recent-posts-title">
+	    <i class="fa fa-history " aria-hidden="true"></i>
+            近期文章
+	</div>
+	<ul class="links-of-blogroll-list recent-posts-list">
+	        <li class="my-links-of-blogroll-item">
+		    <a href="/posts/967669ed/" title="holer-server项目解读" target="">
+		    holer-server项目解读
+		    </a>
+		</li>
+	        <li class="my-links-of-blogroll-item">
+		    <a href="/posts/c30e6297/" title="Hexo博客文章加密" target="">
+		    Hexo博客文章加密
+		    </a>
+		</li>
+	        <li class="my-links-of-blogroll-item">
+		    <a href="/posts/7ff70092/" title="做任何事都非常厉害的诀窍，这3点你记好" target="">
+		    做任何事都非常厉害的诀窍，这3点你记好
+		    </a>
+		</li>
+	        <li class="my-links-of-blogroll-item">
+		    <a href="/posts/1afe5736/" title="DBeaver Ultimate Edition 免费破解使用" target="">
+		    DBeaver Ultimate Edition 免费破解使用
+		    </a>
+		</li>
+	        <li class="my-links-of-blogroll-item">
+		    <a href="/posts/7a47e8be/" title="为何大多数程序员做不了独立开发者？" target="">
+		    为何大多数程序员做不了独立开发者？
+		    </a>
+		</li>
+	</ul>
+    </div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/37dbe3a4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lion.png">
+      <meta itemprop="name" content="swimminghao">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="swimminghao's blog">
+      <meta itemprop="description" content="swimminghao的学习博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Spring SchedulingConfigurer实现动态定时任务(修改) | swimminghao's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Spring SchedulingConfigurer实现动态定时任务(修改)
+        </h1>
+
+        <div class="post-meta-container">
+
+          
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2025-02-13 16:20:39" itemprop="dateModified" datetime="2025-02-13T16:20:39+08:00">2025-02-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/posts/37dbe3a4/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/37dbe3a4/" data-xid="/posts/37dbe3a4/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>11k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>10 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="Spring-SchedulingConfigurer-实现动态定时任务"><a href="#Spring-SchedulingConfigurer-实现动态定时任务" class="headerlink" title="Spring SchedulingConfigurer 实现动态定时任务"></a>Spring SchedulingConfigurer 实现动态定时任务</h1><p>一、前言<br>大家在日常工作中，一定使用过 Spring 的 @Scheduled 注解吧，通过该注解可以非常方便的帮助我们实现任务的定时执行。</p>
+<p>但是该注解是不支持运行时动态修改执行间隔的，不知道你在业务中有没有这些需求和痛点：</p>
+<p>在服务运行时能够动态修改定时任务的执行频率和执行开关，而无需重启服务和修改代码<br>能够基于配置，在不同环境&#x2F;机器上，实现定时任务执行频率的差异化<br>这些都可以通过 Spring 的 SchedulingConfigurer 注解来实现。</p>
+<p>这个注解其实大家并不陌生，如果有使用过 @Scheduled 的话，因为 @Scheduled 默认是单线程执行的，因此如果存在多个任务同时触发，可能触发阻塞。使用 SchedulingConfigurer 可以配置用于执行 @Scheduled 的线程池，来避免这个问题。</p>
+<p>JAVA<br>@Configuration<br>public class ScheduleConfig implements SchedulingConfigurer {<br>    @Override<br>    public void configureTasks(ScheduledTaskRegistrar taskRegistrar) {<br>        &#x2F;&#x2F;设定一个长度10的定时任务线程池<br>        taskRegistrar.setScheduler(Executors.newScheduledThreadPool(10));<br>    }<br>}<br>但其实这个接口，还可以实现动态定时任务的功能，下面来演示如何实现。</p>
+<p>二、功能实现<br>后续定义的类开头的 DS 是 Dynamic Schedule 的缩写。</p>
+<p>使用到的依赖，除了 Spring 外，还包括：</p>
+<p>XML<br><dependency><br>    <groupId>org.apache.commons</groupId><br>    <artifactId>commons-lang3</artifactId><br></dependency></p>
+<dependency>
+    <groupId>org.apache.commons</groupId>
+    <artifactId>commons-collections4</artifactId>
+    <version>4.4</version>
+</dependency>
+
+<dependency>
+    <groupId>org.projectlombok</groupId>
+    <artifactId>lombok</artifactId>
+    <scope>provided</scope>
+    <version>1.18.18</version>
+</dependency>
+2.1 @EnableScheduling
+首先需要开启 @EnableScheduling 注解，直接在启动类添加即可：
+
+<p>JAVA<br>@EnableScheduling<br>@SpringBootApplication<br>public class DSApplication {<br>    public static void main(String[] args) {<br>        SpringApplication.run(DSApplication.class, args);<br>    }<br>}<br>2.2 IDSTaskInfo<br>定义一个任务信息的接口，后续所有用于动态调整的任务信息对象，都需要实现该接口。</p>
+<p>id：该任务信息的唯一 ID，用于唯一标识一个任务<br>cron：该任务执行的 cron 表达式。<br>isValid：任务开关<br>isChange：用于标识任务参数是否发生了改变<br>JAVA<br>public interface IDSTaskInfo {<br>    &#x2F;**<br>     * 任务 ID<br>     *&#x2F;<br>    long getId();</p>
+<pre><code>/**
+ * 任务执行 cron 表达式
+ */
+String getCron();
+
+/**
+ * 任务是否有效
+ */
+boolean isValid();
+
+/**
+ * 判断任务是否发生变化
+ */
+boolean isChange(IDSTaskInfo oldTaskInfo);
+</code></pre>
+<p>}<br>2.3 DSContainer<br>顾名思义，是存放 IDSTaskInfo 的容器。</p>
+<p>具有以下成员变量：</p>
+<p>scheduleMap：用于暂存 IDSTaskInfo 和实际任务 ScheduledTask 的映射关系。其中：<br>task_id：作为主键，确保一个 IDSTaskInfo 只会被注册进一次<br>T：暂存当初注册时的 IDSTaskInfo，用于跟最新的 IDSTaskInfo 比较参数是否发生变化<br>ScheduledTask：暂存当初注册时生成的任务，如果需要取消任务的话，需要拿到该对象<br>Semaphore：确保每个任务实际执行时只有一个线程执行，不会产生并发问题<br>taskRegistrar：Spring 的任务注册管理器，用于注册任务到 Spring 容器中<br>name：调用方提供的类名<br>具有以下成员方法：</p>
+<p>void checkTask(final T taskInfo, final TriggerTask triggerTask)：检查 IDSTaskInfo，判断是否需要注册&#x2F;取消任务。具体的逻辑包括：<br>如果任务已经注册：<br>如果任务无效：则取消任务<br>如果任务有效：<br>如果任务配置发生了变化：则取消任务并重新注册任务<br>如果任务没有注册：<br>如果任务有效：则注册任务<br>Semaphore getSemaphore()：获取信号量属性。<br>JAVA<br>import lombok.extern.slf4j.Slf4j;<br>import org.apache.commons.lang3.tuple.Pair;<br>import org.springframework.scheduling.config.ScheduledTask;<br>import org.springframework.scheduling.config.ScheduledTaskRegistrar;<br>import org.springframework.scheduling.config.TriggerTask;</p>
+<p>import java.util.Map;<br>import java.util.concurrent.ConcurrentHashMap;<br>import java.util.concurrent.Semaphore;</p>
+<p>&#x2F;**</p>
+<ul>
+<li>存放 IDSTaskInfo 容器</li>
+<li>@author jitwxs</li>
+<li>@date 2021年03月27日 16:29</li>
+</ul>
+<p> <em>&#x2F;<br>  @Slf4j<br>  public class DSContainer<T extends IDSTaskInfo> {<br>    &#x2F;</em>*<br>     * IDSTaskInfo和真实任务的关联关系<br>     *<br>     * &lt;task_id, &lt;Task, &lt;Scheduled, Semaphore&gt;&gt;&gt;<br>     *&#x2F;<br>      private final Map&lt;Long, Pair&lt;T, Pair&lt;ScheduledTask, Semaphore&gt;&gt;&gt; scheduleMap &#x3D; new ConcurrentHashMap&lt;&gt;();</p>
+<pre><code>private final ScheduledTaskRegistrar taskRegistrar;
+
+private final String name;
+
+public DSContainer(ScheduledTaskRegistrar scheduledTaskRegistrar, final String name) &#123;
+    this.taskRegistrar = scheduledTaskRegistrar;
+    this.name = name;
+&#125;
+
+/**
+ * 注册任务
+ * @param taskInfo 任务信息
+ * @param triggerTask 任务的触发规则
+ */
+  public void checkTask(final T taskInfo, final TriggerTask triggerTask) &#123;
+    final long taskId = taskInfo.getId();
+
+    if (scheduleMap.containsKey(taskId)) &#123;
+        if (taskInfo.isValid()) &#123;
+            final T oldTaskInfo = scheduleMap.get(taskId).getLeft();
+
+            if(oldTaskInfo.isChange(taskInfo)) &#123;
+                log.info(&quot;DSContainer will register &#123;&#125; again because task config change, taskId: &#123;&#125;&quot;, name, taskId);
+                cancelTask(taskId);
+                registerTask(taskInfo, triggerTask);
+            &#125;
+        &#125; else &#123;
+            log.info(&quot;DSContainer will cancelTask &#123;&#125; because task not valid, taskId: &#123;&#125;&quot;, name, taskId);
+            cancelTask(taskId);
+        &#125;
+    &#125; else &#123;
+        if (taskInfo.isValid()) &#123;
+            log.info(&quot;DSContainer will register &#123;&#125; task, taskId: &#123;&#125;&quot;, name, taskId);
+            registerTask(taskInfo, triggerTask);
+        &#125;
+    &#125;
+  &#125;
+
+/**
+ * 获取 Semaphore，确保任务不会被多个线程同时执行
+ */
+  public Semaphore getSemaphore(final long taskId) &#123;
+    return this.scheduleMap.get(taskId).getRight().getRight();
+  &#125;
+
+private void registerTask(final T taskInfo, final TriggerTask triggerTask) &#123;
+    final ScheduledTask latestTask = taskRegistrar.scheduleTriggerTask(triggerTask);
+    this.scheduleMap.put(taskInfo.getId(), Pair.of(taskInfo, Pair.of(latestTask, new Semaphore(1))));
+&#125;
+
+private void cancelTask(final long taskId) &#123;
+    final Pair&lt;T, Pair&lt;ScheduledTask, Semaphore&gt;&gt; pair = this.scheduleMap.remove(taskId);
+    if (pair != null) &#123;
+        pair.getRight().getLeft().cancel();
+    &#125;
+&#125;
+</code></pre>
+<p>  }<br>  2.4 AbstractDSHandler<br>  下面定义实际的动态线程池处理方法，这里采用抽象类实现，将共用逻辑封装起来，方便扩展。</p>
+<p>具有以下抽象方法：</p>
+<p>List<T> listTaskInfo()：获取所有的任务信息。<br>void doProcess(T taskInfo)：实现实际执行任务的业务逻辑。<br>具有以下公共方法：</p>
+<p>void configureTasks(ScheduledTaskRegistrar taskRegistrar)：创建 DSContainer 对象，并创建一个单线程的任务定时执行，调用 scheduleTask() 方法处理实际逻辑。<br>void scheduleTask()：首先加载所有任务信息，然后基于 cron 表达式生成 TriggerTask 对象，调用 checkTask() 方法确认是否需要注册&#x2F;取消任务。当达到执行时间时，调用 execute() 方法，执行任务逻辑。<br>void execute(final T taskInfo)：获取信号量，成功后执行任务逻辑。<br>JAVA<br>import lombok.extern.slf4j.Slf4j;<br>import org.apache.commons.collections4.CollectionUtils;<br>import org.springframework.scheduling.annotation.SchedulingConfigurer;<br>import org.springframework.scheduling.config.ScheduledTaskRegistrar;<br>import org.springframework.scheduling.config.TriggerTask;<br>import org.springframework.scheduling.support.CronTrigger;</p>
+<p>import java.util.List;<br>import java.util.Objects;<br>import java.util.concurrent.Semaphore;<br>import java.util.concurrent.TimeUnit;</p>
+<p>&#x2F;**</p>
+<ul>
+<li>抽象 Dynamic Schedule 实现，基于 SchedulingConfigurer 实现</li>
+<li>@author jitwxs</li>
+<li>@date 2021年03月27日 16:41</li>
+</ul>
+<p> *&#x2F;<br>  @Slf4j<br>  public abstract class AbstractDSHandler<T extends IDSTaskInfo> implements SchedulingConfigurer {</p>
+<pre><code>private DSContainer&lt;T&gt; dsContainer;
+
+private final String CLASS_NAME = getClass().getSimpleName();
+
+/**
+ * 获取所有的任务信息
+ */
+  protected abstract List&lt;T&gt; listTaskInfo();
+
+/**
+ * 做具体的任务逻辑
+ *
+ * &lt;p/&gt; 该方法执行时位于跟 SpringBoot @Scheduled 注解相同的线程池内。如果内部仍需要开子线程池执行，请务必同步等待子线程池执行完毕，否则可能会影响预期效果。
+ */
+  protected abstract void doProcess(T taskInfo) throws Throwable;
+
+@Override
+public void configureTasks(ScheduledTaskRegistrar taskRegistrar) &#123;
+    dsContainer = new DSContainer&lt;&gt;(taskRegistrar, CLASS_NAME);
+    // 每隔 100ms 调度一次，用于读取所有任务
+    taskRegistrar.addFixedDelayTask(this::scheduleTask, 1000);
+&#125;
+
+/**
+ * 调度任务，加载所有任务并注册
+ */
+  private void scheduleTask() &#123;
+    CollectionUtils.emptyIfNull(listTaskInfo()).forEach(taskInfo -&gt;
+            dsContainer.checkTask(taskInfo, new TriggerTask(() -&gt;
+                    this.execute(taskInfo), triggerContext -&gt; new CronTrigger(taskInfo.getCron()).nextExecutionTime(triggerContext)
+            ))
+    );
+  &#125;
+
+private void execute(final T taskInfo) &#123;
+    final long taskId = taskInfo.getId();
+
+    try &#123;
+        Semaphore semaphore = dsContainer.getSemaphore(taskId);
+        if (Objects.isNull(semaphore)) &#123;
+            log.error(&quot;&#123;&#125; semaphore is null, taskId: &#123;&#125;&quot;, CLASS_NAME, taskId);
+            return;
+        &#125;
+        if (semaphore.tryAcquire(3, TimeUnit.SECONDS)) &#123;
+            try &#123;
+                doProcess(taskInfo);
+            &#125; catch (Throwable throwable) &#123;
+                log.error(&quot;&#123;&#125; doProcess error, taskId: &#123;&#125;&quot;, CLASS_NAME, taskId, throwable);
+            &#125; finally &#123;
+                semaphore.release();
+            &#125;
+        &#125; else &#123;
+            log.warn(&quot;&#123;&#125; too many executor, taskId: &#123;&#125;&quot;, CLASS_NAME, taskId);
+        &#125;
+    &#125; catch (InterruptedException e) &#123;
+        log.warn(&quot;&#123;&#125; interruptedException error, taskId: &#123;&#125;&quot;, CLASS_NAME, taskId);
+    &#125; catch (Exception e) &#123;
+        log.error(&quot;&#123;&#125; execute error, taskId: &#123;&#125;&quot;, CLASS_NAME, taskId, e);
+    &#125;
+&#125;
+</code></pre>
+<p>  }<br>  三、快速测试<br>  至此就完成了动态任务的框架搭建，下面让我们来快速测试下。为了尽量减少其他技术带来的复杂度，本次测试不涉及数据库和真实的定时任务，完全采用模拟实现。</p>
+<p>3.1 模拟定时任务<br>为了模拟一个定时任务，我定义了一个 foo() 方法，其中只输出一句话。后续我将通过定时调用该方法，来模拟定时任务。</p>
+<p>JAVA<br>import lombok.extern.slf4j.Slf4j;</p>
+<p>import java.time.LocalTime;</p>
+<p>@Slf4j<br>public class SchedulerTest {<br>    public void foo() {<br>        log.info(“{} Execute com.github.jitwxs.sample.ds.test.SchedulerTest#foo”, LocalTime.now());<br>    }<br>}<br>3.2 实现 IDSTaskInfo<br>首先定义 IDSTaskInfo，我这里想通过反射来实现调用 foo() 方法，因此 reference 表示的是要调用方法的全路径。另外我实现了 isChange() 方法，只要 cron、isValid、reference 发生了变动，就认为该任务的配置发生了改变。</p>
+<p>JAVA<br>import com.github.jitwxs.sample.ds.config.IDSTaskInfo;<br>import lombok.Builder;<br>import lombok.Data;</p>
+<p>@Data<br>@Builder<br>public class SchedulerTestTaskInfo implements IDSTaskInfo {<br>    private long id;</p>
+<pre><code>private String cron;
+
+private boolean isValid;
+
+private String reference;
+
+@Override
+public boolean isChange(IDSTaskInfo oldTaskInfo) &#123;
+    if(oldTaskInfo instanceof SchedulerTestTaskInfo) &#123;
+        final SchedulerTestTaskInfo obj = (SchedulerTestTaskInfo) oldTaskInfo;
+        return !this.cron.equals(obj.cron) || this.isValid != obj.isValid || !this.reference.equals(obj.getReference());
+    &#125; else &#123;
+        throw new IllegalArgumentException(&quot;Not Support SchedulerTestTaskInfo type&quot;);
+    &#125;
+&#125;
+</code></pre>
+<p>}<br>3.3 实现 AbstractDSHandler<br>有几个需要关注的：</p>
+<p>（1）listTaskInfo() 返回值我使用了 volatile 变量，便于我修改它，模拟任务信息数据的改变。</p>
+<p>（2）doProcess() 方法中，读取到 reference 后，使用反射进行调用，模拟定时任务的执行。</p>
+<p>（3）额外实现了 ApplicationListener 接口，当服务启动后，每隔一段时间修改下任务信息，模拟业务中调整配置。</p>
+<p>服务启动后，foo() 定时任务将每 10s 执行一次。<br>10s 后，将 foo() 定时任务执行周期从每 10s 执行调整为 1s 执行。<br>10s 后，关闭 foo() 定时任务执行。<br>10s 后，开启 foo() 定时任务执行。<br>JAVA<br>import com.github.jitwxs.sample.ds.config.AbstractDSHandler;<br>import org.springframework.context.ApplicationEvent;<br>import org.springframework.context.ApplicationListener;<br>import org.springframework.stereotype.Component;</p>
+<p>import java.lang.reflect.Method;<br>import java.util.Collections;<br>import java.util.List;<br>import java.util.concurrent.Executors;<br>import java.util.concurrent.TimeUnit;<br>import java.util.concurrent.locks.LockSupport;</p>
+<p>&#x2F;**</p>
+<ul>
+<li>@author jitwxs</li>
+<li>@date 2021年03月27日 21:54</li>
+</ul>
+<p> *&#x2F;<br>  @Component<br>  public class SchedulerTestDSHandler extends AbstractDSHandler<SchedulerTestTaskInfo> implements ApplicationListener {<br>    public volatile List<SchedulerTestTaskInfo> taskInfoList &#x3D; Collections.singletonList(<br>            SchedulerTestTaskInfo.builder()<br>                    .id(1)<br>                    .cron(“0&#x2F;10 * * * * ? “)<br>                    .isValid(true)<br>                    .reference(“com.github.jitwxs.sample.ds.test.SchedulerTest#foo”)<br>                    .build()<br>    );</p>
+<pre><code>@Override
+protected List&lt;SchedulerTestTaskInfo&gt; listTaskInfo() &#123;
+    return taskInfoList;
+&#125;
+
+@Override
+protected void doProcess(SchedulerTestTaskInfo taskInfo) throws Throwable &#123;
+    final String reference = taskInfo.getReference();
+    final String[] split = reference.split(&quot;#&quot;);
+    if(split.length != 2) &#123;
+        return;
+    &#125;
+
+   try &#123;
+       final Class&lt;?&gt; clazz = Class.forName(split[0]);
+       final Method method = clazz.getMethod(split[1]);
+       method.invoke(clazz.newInstance());
+   &#125; catch (Exception e) &#123;
+       e.printStackTrace();
+   &#125;
+&#125;
+
+@Override
+public void onApplicationEvent(ApplicationEvent applicationEvent) &#123;
+    Executors.newScheduledThreadPool(1).scheduleAtFixedRate(() -&gt; &#123;
+        LockSupport.parkNanos(TimeUnit.SECONDS.toNanos(10));
+
+        // setting 1 seconds execute
+        taskInfoList = Collections.singletonList(
+                SchedulerTestTaskInfo.builder()
+                        .id(1)
+                        .cron(&quot;0/1 * * * * ? &quot;)
+                        .isValid(true)
+                        .reference(&quot;com.github.jitwxs.sample.ds.test.SchedulerTest#foo&quot;)
+                        .build()
+        );
+     
+        LockSupport.parkNanos(TimeUnit.SECONDS.toNanos(10));
+     
+        // setting not valid
+        taskInfoList = Collections.singletonList(
+                SchedulerTestTaskInfo.builder()
+                        .id(1)
+                        .cron(&quot;0/1 * * * * ? &quot;)
+                        .isValid(false)
+                        .reference(&quot;com.github.jitwxs.sample.ds.test.SchedulerTest#foo&quot;)
+                        .build()
+        );
+     
+        LockSupport.parkNanos(TimeUnit.SECONDS.toNanos(10));
+     
+        // setting valid
+        taskInfoList = Collections.singletonList(
+                SchedulerTestTaskInfo.builder()
+                        .id(1)
+                        .cron(&quot;0/1 * * * * ? &quot;)
+                        .isValid(true)
+                        .reference(&quot;com.github.jitwxs.sample.ds.test.SchedulerTest#foo&quot;)
+                        .build()
+        );
+    &#125;, 12, 86400, TimeUnit.SECONDS);
+&#125;
+</code></pre>
+<p>  }<br>  3.4 运行程序<br>  整个应用包结构如下：</p>
+<p>包结构</p>
+<p>运行程序后，在控制台可以观测到如下输出：</p>
+<p>运行结果</p>
+<p>四、后记<br>以上完成了动态定时任务的介绍，你能够根据本篇文章，实现以下需求吗：</p>
+<p>本文基于 cron 表达式实现了频率控制，你能改用 fixedDelay 或 fixedRate 实现吗？<br>基于数据库&#x2F;配置文件&#x2F;配置中心，实现对服务中定时任务的动态频率调整和任务的启停。<br>开发一个数据表历史数据清理功能，能够动态配置要清理的表、清理的规则、清理的周期。<br>开发一个数据表异常数据告警功能，能够动态配置要扫描的表、告警的规则、扫描的周期。</p>
+
+    </div>
+
+    
+    
+    
+
+
+    <div>
+      
+        <div>
+    
+      <div style="text-align:center;color: #ccc;font-size:20px;">------------- 本 文 结 束&nbsp&nbsp&nbsp&nbsp&nbsp感 谢 您 的 阅 读 -------------</div>
+    
+</div>
+
+      
+    </div>
+
+    <footer class="post-footer"><div class="post-widgets">
+      <div id="needsharebutton-postbottom">
+        <span class="btn">
+          <i class="fa fa-share-alt" aria-hidden="true"></i>
+        </span>
+      </div>
+    </div>
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>swimminghao
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://example.com/posts/37dbe3a4/" title="Spring SchedulingConfigurer实现动态定时任务(修改)">http://example.com/posts/37dbe3a4/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/java/" rel="tag"><i class="fa fa-tag"></i> java</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/posts/86d8e3c1/" rel="prev" title="java内存模型1">
+                  <i class="fa fa-chevron-left"></i> java内存模型1
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/posts/211da837/" rel="next" title="Java线程池实现原理及其在美团业务中的实践">
+                  Java线程池实现原理及其在美团业务中的实践 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>l
+
+
+
+
+
+
+    <div class="comments" id="waline-comments"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">swimminghao</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">1.2m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">18:03</span>
+  </span>
+</div>
+
+<span id="sitetime"></span>
+<script language=javascript>
+    function siteTime(){
+        window.setTimeout("siteTime()", 1000);
+        var seconds = 1000;
+        var minutes = seconds * 60;
+        var hours = minutes * 60;
+        var days = hours * 24;
+        var years = days * 365;
+        var today = new Date();
+        var todayYear = today.getFullYear();
+        var todayMonth = today.getMonth()+1;
+        var todayDate = today.getDate();
+        var todayHour = today.getHours();
+        var todayMinute = today.getMinutes();
+        var todaySecond = today.getSeconds();
+        /* Date.UTC() -- 返回date对象距世界标准时间(UTC)1970年1月1日午夜之间的毫秒数(时间戳)
+        year - 作为date对象的年份，为4位年份值
+        month - 0-11之间的整数，做为date对象的月份
+        day - 1-31之间的整数，做为date对象的天数
+        hours - 0(午夜24点)-23之间的整数，做为date对象的小时数
+        minutes - 0-59之间的整数，做为date对象的分钟数
+        seconds - 0-59之间的整数，做为date对象的秒数
+        microseconds - 0-999之间的整数，做为date对象的毫秒数 */
+        var t1 = Date.UTC(2022,02,28,00,00,00); //你的建站时间
+        var t2 = Date.UTC(todayYear,todayMonth,todayDate,todayHour,todayMinute,todaySecond);
+        var diff = t2-t1;
+        var diffYears = Math.floor(diff/years);
+        var diffDays = Math.floor((diff/days)-diffYears*365);
+        var diffHours = Math.floor((diff-(diffYears*365+diffDays)*days)/hours);
+        var diffMinutes = Math.floor((diff-(diffYears*365+diffDays)*days-diffHours*hours)/minutes);
+        var diffSeconds = Math.floor((diff-(diffYears*365+diffDays)*days-diffHours*hours-diffMinutes*minutes)/seconds);
+        document.getElementById("sitetime").innerHTML=" 本站已安全运行 "+diffYears+" Year "+diffDays+" Days "+diffHours+" Hours "+diffMinutes+" m "+diffSeconds+" s";
+    }
+    siteTime();
+</script>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        访问人数：<span id="busuanzi_value_site_uv"></span>
+      </span>人
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+       访问总量：<span id="busuanzi_value_site_pv"></span>
+      </span>次
+    </span>
+
+
+<!--
+  本文总阅读量：<span id="busuanzi_value_page_pv"></span>次
+-->
+
+</div>
+
+
+<!--
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+--><script color="0,0,255" opacity="0.5" zIndex="-1" count="99" src="https://cdn.jsdelivr.net/npm/canvas-nest.js@1/dist/canvas-nest.js"></script>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<script class="next-config" data-name="waline" type="application/json">{"lang":"zh-cn","enable":true,"serverURL":"waline-server-nu.vercel.app","placeholder":"请文明评论呀","avatar":"mm","pageSize":10,"visitor":false,"comment_count":true,"requiredFields":[],"meta":["nick","mail","link"],"libUrl":"https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js","el":"#waline-comments","path":"/posts/37dbe3a4/"}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.waline.el).then(() => 
+    NexT.utils.getScript(CONFIG.waline.libUrl, { condition: window.Waline })
+  ).then(() => {
+    new Waline(CONFIG.waline);
+  });
+});
+</script>
+  <script src="//cdn.jsdelivr.net/gh/theme-next/theme-next-needmoreshare2@1/needsharebutton.min.js"></script>
+  <script>
+      pbOptions = {};
+        pbOptions.iconStyle = "default";
+        pbOptions.boxForm = "horizontal";
+        pbOptions.position = "middleCenter";
+        pbOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+  </script>
+</body>
+</html>

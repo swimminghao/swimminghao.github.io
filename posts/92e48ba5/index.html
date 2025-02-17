@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-loading-bar.css">
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.10.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="如何拆解复杂问题：实现一个计算器我记得很多大学数据结构的教材上，在讲栈这种数据结构的时候，应该都会用计算器举例，但是有一说一，讲的真的垃圾，我只感受到被数据结构支配的恐惧，丝毫没有支配数据结构的快感。 不知道多少未来的计算机科学家就被这种简单的数据结构劝退了。 1、输入一个字符串，可以包含+ - * &#x2F; ()&#96;&#96;、数字、空格，你的算法返回运算结果。 2、要符合运算法则，括号的优先级">
+<meta property="og:type" content="article">
+<meta property="og:title" content="如何拆解复杂问题：实现一个计算器">
+<meta property="og:url" content="http://example.com/posts/92e48ba5/index.html">
+<meta property="og:site_name" content="swimminghao&#39;s blog">
+<meta property="og:description" content="如何拆解复杂问题：实现一个计算器我记得很多大学数据结构的教材上，在讲栈这种数据结构的时候，应该都会用计算器举例，但是有一说一，讲的真的垃圾，我只感受到被数据结构支配的恐惧，丝毫没有支配数据结构的快感。 不知道多少未来的计算机科学家就被这种简单的数据结构劝退了。 1、输入一个字符串，可以包含+ - * &#x2F; ()&#96;&#96;、数字、空格，你的算法返回运算结果。 2、要符合运算法则，括号的优先级">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/1331pt_20210507173639.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/aqyyv2_20210507173723.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/HuuIs3_20210507173811.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/849zPF_20210507173855.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/lipbTF_20210507174049.png">
+<meta property="article:published_time" content="2022-02-28T11:57:47.000Z">
+<meta property="article:modified_time" content="2025-02-13T08:20:39.942Z">
+<meta property="article:author" content="swimminghao">
+<meta property="article:tag" content="感悟">
+<meta property="article:tag" content="算法">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/1331pt_20210507173639.png">
+
+
+<link rel="canonical" href="http://example.com/posts/92e48ba5/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/posts/92e48ba5/","path":"posts/92e48ba5/","title":"如何拆解复杂问题：实现一个计算器"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>如何拆解复杂问题：实现一个计算器 | swimminghao's blog</title>
+  
+
+
+
+
+<link rel="dns-prefetch" href="waline-server-nu.vercel.app"><link rel="stylesheet" href="//cdn.jsdelivr.net/gh/theme-next/theme-next-needmoreshare2@1/needsharebutton.min.css"><style>
+#needsharebutton-postbottom {
+  cursor: pointer;
+  height: 26px;
+  margin-top: 10px;
+  position: relative;
+}
+#needsharebutton-postbottom .btn {
+  border: 1px solid $btn-default-border-color;
+  border-radius: 3px;
+  display: initial;
+  padding: 1px 4px;
+}
+</style>
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">swimminghao's blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">学习博客</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">52</span></a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">17</span></a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">271</span></a></li>
+        <li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E6%8B%86%E8%A7%A3%E5%A4%8D%E6%9D%82%E9%97%AE%E9%A2%98%EF%BC%9A%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E8%AE%A1%E7%AE%97%E5%99%A8"><span class="nav-number">1.</span> <span class="nav-text">如何拆解复杂问题：实现一个计算器</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E5%AD%97%E7%AC%A6%E4%B8%B2%E8%BD%AC%E6%95%B4%E6%95%B0"><span class="nav-number">1.1.</span> <span class="nav-text">一、字符串转整数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E5%A4%84%E7%90%86%E5%8A%A0%E5%87%8F%E6%B3%95"><span class="nav-number">1.2.</span> <span class="nav-text">二、处理加减法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E5%A4%84%E7%90%86%E4%B9%98%E9%99%A4%E6%B3%95"><span class="nav-number">1.3.</span> <span class="nav-text">三、处理乘除法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E5%A4%84%E7%90%86%E6%8B%AC%E5%8F%B7"><span class="nav-number">1.4.</span> <span class="nav-text">四、处理括号</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%94%E3%80%81%E6%9C%80%E5%90%8E%E6%80%BB%E7%BB%93"><span class="nav-number">1.5.</span> <span class="nav-text">五、最后总结</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="swimminghao"
+      src="/images/lion.png">
+  <p class="site-author-name" itemprop="name">swimminghao</p>
+  <div class="site-description" itemprop="description">swimminghao的学习博客</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">271</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">52</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/swimminghao" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;swimminghao" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:swimminghao0@gmail.com" title="E-Mail → mailto:swimminghao0@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/swimminghao" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;swimminghao" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://plus.google.com/yourname" title="Google → https:&#x2F;&#x2F;plus.google.com&#x2F;yourname" rel="noopener" target="_blank"><i class="fab fa-google fa-fw"></i>Google</a>
+      </span>
+  </div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdn.jsdelivr.net/npm/@creativecommons/vocabulary@2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+<!-- recent posts -->
+    <div class="links-of-blogroll motion-element links-of-blogroll-block">
+        <div class="links-of-blogroll-title recent-posts-title">
+	    <i class="fa fa-history " aria-hidden="true"></i>
+            近期文章
+	</div>
+	<ul class="links-of-blogroll-list recent-posts-list">
+	        <li class="my-links-of-blogroll-item">
+		    <a href="/posts/967669ed/" title="holer-server项目解读" target="">
+		    holer-server项目解读
+		    </a>
+		</li>
+	        <li class="my-links-of-blogroll-item">
+		    <a href="/posts/c30e6297/" title="Hexo博客文章加密" target="">
+		    Hexo博客文章加密
+		    </a>
+		</li>
+	        <li class="my-links-of-blogroll-item">
+		    <a href="/posts/7ff70092/" title="做任何事都非常厉害的诀窍，这3点你记好" target="">
+		    做任何事都非常厉害的诀窍，这3点你记好
+		    </a>
+		</li>
+	        <li class="my-links-of-blogroll-item">
+		    <a href="/posts/1afe5736/" title="DBeaver Ultimate Edition 免费破解使用" target="">
+		    DBeaver Ultimate Edition 免费破解使用
+		    </a>
+		</li>
+	        <li class="my-links-of-blogroll-item">
+		    <a href="/posts/7a47e8be/" title="为何大多数程序员做不了独立开发者？" target="">
+		    为何大多数程序员做不了独立开发者？
+		    </a>
+		</li>
+	</ul>
+    </div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/92e48ba5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lion.png">
+      <meta itemprop="name" content="swimminghao">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="swimminghao's blog">
+      <meta itemprop="description" content="swimminghao的学习博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="如何拆解复杂问题：实现一个计算器 | swimminghao's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          如何拆解复杂问题：实现一个计算器
+        </h1>
+
+        <div class="post-meta-container">
+
+          
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2025-02-13 16:20:39" itemprop="dateModified" datetime="2025-02-13T16:20:39+08:00">2025-02-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/posts/92e48ba5/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/92e48ba5/" data-xid="/posts/92e48ba5/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>4.8k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>4 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="如何拆解复杂问题：实现一个计算器"><a href="#如何拆解复杂问题：实现一个计算器" class="headerlink" title="如何拆解复杂问题：实现一个计算器"></a>如何拆解复杂问题：实现一个计算器</h1><p>我记得很多大学数据结构的教材上，在讲栈这种数据结构的时候，应该都会用计算器举例，但是有一说一，讲的真的垃圾，我只感受到被数据结构支配的恐惧，丝毫没有支配数据结构的快感。</p>
+<p>不知道多少未来的计算机科学家就被这种简单的数据结构劝退了。</p>
+<p><em><strong>1、</strong></em>输入一个字符串，可以包含<code>+ - * / (</code>)&#96;&#96;、数字、空格，你的算法返回运算结果。</p>
+<p><em><strong>2、</strong></em>要符合运算法则，括号的优先级最高，先乘除后加减。</p>
+<p><em><strong>3、</strong></em>除号是整数除法，无论正负都向 0 取整（5&#x2F;2&#x3D;2，-5&#x2F;2&#x3D;-2）。</p>
+<p><em><strong>4、</strong></em>可以假定输入的算式一定合法，且计算过程不会出现整型溢出，不会出现除数为 0 的意外情况。</p>
+<p>比如输入如下字符串，算法会返回 9：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">3</span> * (<span class="number">2</span>-<span class="number">6</span> /(<span class="number">3</span> -<span class="number">7</span>))</span><br></pre></td></tr></table></figure>
+
+<p>可以看到，这就已经非常接近我们实际生活中使用的计算器了，虽然我们以前肯定都用过计算器，但是如果简单思考一下其算法实现，就会大惊失色：</p>
+<p><em><strong>1、</strong></em>按照常理处理括号，要先计算最内层的括号，然后向外慢慢化简。这个过程我们手算都容易出错，何况写成算法呢！</p>
+<p><em><strong>2、</strong></em>要做到先乘除，后加减，这一点教会小朋友还不算难，但教给计算机恐怕有点困难。</p>
+<p><em><strong>3、</strong></em>要处理空格。我们为了美观，习惯性在数字和运算符之间打个空格，但是计算之中得想办法忽略这些空格。</p>
+<p>那么本文就来聊聊怎么实现上述一个功能完备的计算器功能，<strong>关键在于层层拆解问题，化整为零，逐个击破</strong>，相信这种思维方式能帮大家解决各种复杂问题。</p>
+<p>下面就来拆解，从最简单的一个问题开始。</p>
+<h2 id="一、字符串转整数"><a href="#一、字符串转整数" class="headerlink" title="一、字符串转整数"></a>一、字符串转整数</h2><p>是的，就是这么一个简单的问题，首先告诉我，怎么把一个字符串形式的<strong>正</strong>整数，转化成 int 型？</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">string</span> <span class="variable">s</span> <span class="operator">=</span> <span class="string">&quot;458&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="variable">n</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; s.size(); i++) &#123;</span><br><span class="line">    <span class="type">char</span> <span class="variable">c</span> <span class="operator">=</span> s[i];</span><br><span class="line">    n = <span class="number">10</span> * n + (c - <span class="string">&#x27;0&#x27;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// n 现在就等于 458</span></span><br></pre></td></tr></table></figure>
+
+<p>这个还是很简单的吧，老套路了。但是即便这么简单，依然有坑：**<code>(c - &#39;0&#39;)</code>的这个括号不能省略，否则可能造成整型溢出**。</p>
+<p>因为变量<code>c</code>是一个 ASCII 码，如果不加括号就会先加后减，想象一下<code>n</code>如果接近 INT_MAX，就会溢出。所以用括号保证先减后加才行。</p>
+<h2 id="二、处理加减法"><a href="#二、处理加减法" class="headerlink" title="二、处理加减法"></a>二、处理加减法</h2><p>现在进一步，<strong>如果输入的这个算式只包含加减法，而且不存在空格</strong>，你怎么计算结果？我们拿字符串算式<code>1-12+3</code>为例，来说一个很简单的思路：</p>
+<p><em><strong>1、</strong></em>先给第一个数字加一个默认符号<code>+</code>，变成<code>+1-12+3</code>。</p>
+<p><em><strong>2、</strong></em>把一个运算符和数字组合成一对儿，也就是三对儿<code>+1</code>，<code>-12</code>，<code>+3</code>，把它们转化成数字，然后放到一个栈中。</p>
+<p><em><strong>3、</strong></em>将栈中所有的数字求和，就是原算式的结果。</p>
+<p>我们直接看代码，结合一张图就看明白了：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">calculate</span><span class="params">(string s)</span> &#123;</span><br><span class="line">    stack&lt;<span class="type">int</span>&gt; stk;</span><br><span class="line">    <span class="comment">// 记录算式中的数字</span></span><br><span class="line">    <span class="type">int</span> <span class="variable">num</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">    <span class="comment">// 记录 num 前的符号，初始化为 +</span></span><br><span class="line">    <span class="type">char</span> <span class="variable">sign</span> <span class="operator">=</span> <span class="string">&#x27;+&#x27;</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; s.size(); i++) &#123;</span><br><span class="line">        <span class="type">char</span> <span class="variable">c</span> <span class="operator">=</span> s[i];</span><br><span class="line">        <span class="comment">// 如果是数字，连续读取到 num</span></span><br><span class="line">        <span class="keyword">if</span> (isdigit(c)) </span><br><span class="line">            num = <span class="number">10</span> * num + (c - <span class="string">&#x27;0&#x27;</span>);</span><br><span class="line">        <span class="comment">// 如果不是数字，就是遇到了下一个符号，</span></span><br><span class="line">        <span class="comment">// 之前的数字和符号就要存进栈中</span></span><br><span class="line">        <span class="keyword">if</span> (!isdigit(c) || i == s.size() - <span class="number">1</span>) &#123;</span><br><span class="line">            <span class="keyword">switch</span> (sign) &#123;</span><br><span class="line">                <span class="keyword">case</span> <span class="string">&#x27;+&#x27;</span>:</span><br><span class="line">                    stk.push(num); <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span> <span class="string">&#x27;-&#x27;</span>:</span><br><span class="line">                    stk.push(-num); <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// 更新符号为当前符号，数字清零</span></span><br><span class="line">            sign = c;</span><br><span class="line">            num = <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 将栈中所有结果求和就是答案</span></span><br><span class="line">    <span class="type">int</span> <span class="variable">res</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (!stk.empty()) &#123;</span><br><span class="line">        res += stk.top();</span><br><span class="line">        stk.pop();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>我估计就是中间带<code>switch</code>语句的部分有点不好理解吧，**<code>i</code>就是从左到右扫描，<code>sign</code>和<code>num</code>跟在它身后。**当<code>s[i]</code>遇到一个运算符时，情况是这样的：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/1331pt_20210507173639.png" alt="图片"></p>
+<p>所以说，此时要根据<code>sign</code>的 case 不同选择<code>nums</code>的正负号，存入栈中，然后更新<code>sign</code>并清零<code>nums</code>记录下一对儿符合和数字的组合。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/aqyyv2_20210507173723.png" alt="图片"></p>
+<p>另外注意，不只是遇到新的符号会触发入栈，当<code>i</code>走到了算式的尽头（<code>i == s.size() - 1</code>），也应该将前面的数字入栈，方便后续计算最终结果。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/HuuIs3_20210507173811.png" alt="图片"></p>
+<p>至此，仅处理紧凑加减法字符串的算法就完成了，请确保理解以上内容，后续的内容就基于这个框架修修改改就完事儿了。</p>
+<h2 id="三、处理乘除法"><a href="#三、处理乘除法" class="headerlink" title="三、处理乘除法"></a>三、处理乘除法</h2><p>其实思路跟仅处理加减法没啥区别，拿字符串<code>2-3*4+5</code>举例，核心思路依然是把字符串分解成符号和数字的组合。</p>
+<p>比如上述例子就可以分解为<code>+2</code>，<code>-3</code>，<code>*4</code>，<code>+5</code>几对儿，我们刚才不是没有处理乘除号吗，很简单，<strong>其他部分都不用变</strong>，在<code>switch</code>部分加上对应的 case 就行了：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; s.size(); i++) &#123;</span><br><span class="line">    <span class="type">char</span> <span class="variable">c</span> <span class="operator">=</span> s[i];</span><br><span class="line">    <span class="keyword">if</span> (isdigit(c)) </span><br><span class="line">        num = <span class="number">10</span> * num + (c - <span class="string">&#x27;0&#x27;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (!isdigit(c) || i == s.size() - <span class="number">1</span>) &#123;</span><br><span class="line">        <span class="keyword">switch</span> (sign) &#123;</span><br><span class="line">            <span class="type">int</span> pre;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">&#x27;+&#x27;</span>:</span><br><span class="line">                stk.push(num); <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">&#x27;-&#x27;</span>:</span><br><span class="line">                stk.push(-num); <span class="keyword">break</span>;</span><br><span class="line">            <span class="comment">// 只要拿出前一个数字做对应运算即可</span></span><br><span class="line">            <span class="keyword">case</span> <span class="string">&#x27;*&#x27;</span>:</span><br><span class="line">                pre = stk.top();</span><br><span class="line">                stk.pop();</span><br><span class="line">                stk.push(pre * num);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">&#x27;/&#x27;</span>:</span><br><span class="line">                pre = stk.top();</span><br><span class="line">                stk.pop();</span><br><span class="line">                stk.push(pre / num);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 更新符号为当前符号，数字清零</span></span><br><span class="line">        sign = c;</span><br><span class="line">        num = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>乘除法优先于加减法体现在，乘除法可以和栈顶的数结合，而加减法只能把自己放入栈</strong>。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/849zPF_20210507173855.png" alt="图片"></p>
+<p>现在我们<strong>思考一下****如何处理字符串中可能出现的空格字符</strong>。其实也非常简单，想想空格字符的出现，会影响我们现有代码的哪一部分？</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 如果 c 非数字</span></span><br><span class="line"><span class="keyword">if</span> (!isdigit(c) || i == s.size() - <span class="number">1</span>) &#123;</span><br><span class="line">    <span class="keyword">switch</span> (c) &#123;...&#125;</span><br><span class="line">    sign = c;</span><br><span class="line">    num = <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>显然空格会进入这个 if 语句，但是我们并不想让空格的情况进入这个 if，因为这里会更新<code>sign</code>并清零<code>nums</code>，空格根本就不是运算符，应该被忽略。</p>
+<p>那么只要多加一个条件即可：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> ((!isdigit(c) &amp;&amp; c != <span class="string">&#x27; &#x27;</span>) || i == s.size() - <span class="number">1</span>) &#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>好了，现在我们的算法已经可以按照正确的法则计算加减乘除，并且自动忽略空格符，剩下的就是如何让算法正确识别括号了。</p>
+<h2 id="四、处理括号"><a href="#四、处理括号" class="headerlink" title="四、处理括号"></a>四、处理括号</h2><p>处理算式中的括号看起来应该是最难的，但真没有看起来那么难。</p>
+<p>为了规避编程语言的繁琐细节，我把前面解法的代码翻译成 Python 版本：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">def <span class="title function_">calculate</span><span class="params">(s: str)</span> -&gt; <span class="type">int</span>:</span><br><span class="line"></span><br><span class="line">    def <span class="title function_">helper</span><span class="params">(s: List)</span> -&gt; <span class="type">int</span>:</span><br><span class="line">        stack = []</span><br><span class="line">        sign = <span class="string">&#x27;+&#x27;</span></span><br><span class="line">        num = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> <span class="title function_">len</span><span class="params">(s)</span> &gt; <span class="number">0</span>:</span><br><span class="line">            c = s.pop(<span class="number">0</span>)</span><br><span class="line">            <span class="keyword">if</span> c.isdigit():</span><br><span class="line">                num = <span class="number">10</span> * num + <span class="type">int</span>(c)</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (not c.isdigit() and c != <span class="string">&#x27; &#x27;</span>) or <span class="title function_">len</span><span class="params">(s)</span> == <span class="number">0</span>:</span><br><span class="line">                <span class="type">if</span> <span class="variable">sign</span> <span class="operator">=</span>= <span class="string">&#x27;+&#x27;</span>:</span><br><span class="line">                    stack.append(num)</span><br><span class="line">                <span class="type">elif</span> <span class="variable">sign</span> <span class="operator">=</span>= <span class="string">&#x27;-&#x27;</span>:</span><br><span class="line">                    stack.append(-num)</span><br><span class="line">                <span class="type">elif</span> <span class="variable">sign</span> <span class="operator">=</span>= <span class="string">&#x27;*&#x27;</span>:</span><br><span class="line">                    stack[-<span class="number">1</span>] = stack[-<span class="number">1</span>] * num</span><br><span class="line">                <span class="type">elif</span> <span class="variable">sign</span> <span class="operator">=</span>= <span class="string">&#x27;/&#x27;</span>:</span><br><span class="line">                    # python 除法向 <span class="number">0</span> 取整的写法</span><br><span class="line">                    stack[-<span class="number">1</span>] = <span class="type">int</span>(stack[-<span class="number">1</span>] / <span class="type">float</span>(num))                    </span><br><span class="line">                num = <span class="number">0</span></span><br><span class="line">                sign = c</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> sum(stack)</span><br><span class="line">    # 需要把字符串转成列表方便操作</span><br><span class="line">    <span class="keyword">return</span> helper(list(s))</span><br></pre></td></tr></table></figure>
+
+<p>这段代码跟刚才 C++ 代码完全相同，唯一的区别是，不是从左到右遍历字符串，而是不断从左边<code>pop</code>出字符，本质还是一样的。</p>
+<p>那么，为什么说处理括号没有看起来那么难呢，<strong>因为括号具有递归性质</strong>。我们拿字符串<code>3*(4-5/2)-6</code>举例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">calculate(`<span class="number">3</span>*(<span class="number">4</span>-<span class="number">5</span>/<span class="number">2</span>)-<span class="number">6</span>`)</span><br><span class="line">= <span class="number">3</span> * calculate(`<span class="number">4</span>-<span class="number">5</span>/<span class="number">2</span>`) - <span class="number">6</span></span><br><span class="line">= <span class="number">3</span> * <span class="number">2</span> - <span class="number">6</span></span><br><span class="line">= <span class="number">0</span></span><br></pre></td></tr></table></figure>
+
+<p>可以脑补一下，无论多少层括号嵌套，通过 calculate 函数递归调用自己，都可以将括号中的算式化简成一个数字。<strong>换句话说，括号包含的算式，我们直接视为一个数字就行了</strong>。</p>
+<p>现在的问题是，递归的开始条件和结束条件是什么？<strong>遇到<code>(</code>开始递归，遇到<code>)</code>结束递归</strong>：</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">def calculate(s: str) -&gt; <span class="keyword">int</span>:</span><br><span class="line"></span><br><span class="line">    def helper(s: List) -&gt; <span class="keyword">int</span>:</span><br><span class="line">        stack = []</span><br><span class="line">        <span class="keyword">sign</span> = <span class="string">&#x27;+&#x27;</span></span><br><span class="line">        num = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> <span class="built_in">len</span>(s) &gt; <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">c</span> = s.<span class="keyword">pop</span>(<span class="number">0</span>)</span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">c</span>.isdigit():</span><br><span class="line">                num = <span class="number">10</span> * num + <span class="keyword">int</span>(<span class="keyword">c</span>)</span><br><span class="line">            # 遇到左括号开始递归计算 num</span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">c</span> == <span class="string">&#x27;(&#x27;</span>:</span><br><span class="line">                num = helper(s)</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (not <span class="keyword">c</span>.isdigit() <span class="built_in">and</span> <span class="keyword">c</span> != <span class="string">&#x27; &#x27;</span>) <span class="built_in">or</span> <span class="built_in">len</span>(s) == <span class="number">0</span>:</span><br><span class="line">                <span class="keyword">if</span> <span class="keyword">sign</span> == <span class="string">&#x27;+&#x27;</span>: ...</span><br><span class="line">                elif <span class="keyword">sign</span> == <span class="string">&#x27;-&#x27;</span>: ... </span><br><span class="line">                elif <span class="keyword">sign</span> == <span class="string">&#x27;*&#x27;</span>: ...</span><br><span class="line">                elif <span class="keyword">sign</span> == <span class="string">&#x27;/&#x27;</span>: ...</span><br><span class="line">                num = <span class="number">0</span></span><br><span class="line">                <span class="keyword">sign</span> = <span class="keyword">c</span></span><br><span class="line">            # 遇到右括号返回递归结果</span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">c</span> == <span class="string">&#x27;)&#x27;</span>: <span class="keyword">break</span></span><br><span class="line">        <span class="keyword">return</span> sum(stack)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> helper(<span class="keyword">list</span>(s))</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/lipbTF_20210507174049.png" alt="图片"></p>
+<p>你看，加了两三行代码，就可以处理括号了，这就是递归的魅力。至此，计算器的全部功能就实现了，通过对问题的层层拆解化整为零，再回头看，这个问题似乎也没那么复杂嘛。</p>
+<h2 id="五、最后总结"><a href="#五、最后总结" class="headerlink" title="五、最后总结"></a>五、最后总结</h2><p>本文借实现计算器的问题，主要想表达的是一种处理复杂问题的思路。</p>
+<p>我们首先从字符串转数字这个简单问题开始，进而处理只包含加减法的算式，进而处理包含加减乘除四则运算的算式，进而处理空格字符，进而处理包含括号的算式。</p>
+<p><strong>可见，对于一些比较困难的问题，其解法并不是一蹴而就的，而是步步推进，螺旋上升的</strong>。如果一开始给你原题，你不会做，甚至看不懂答案，都很正常，关键在于我们自己如何简化问题，如何以退为进。</p>
+<p><strong>退而求其次是一种很聪明策略</strong>。你想想啊，假设这是一道考试题，你不会实现这个计算器，但是你写了字符串转整数的算法并指出了容易溢出的陷阱，那起码可以得 20 分吧；如果你能够处理加减法，那可以得 40 分吧；如果你能处理加减乘除四则运算，那起码够 70 分了；再加上处理空格字符，80 有了吧。我就是不会处理括号，那就算了，80 已经很 OK 了好不好。</p>
+<p>我们要支配算法，而不是被算法支配。如果这种思维方式对大家有些启发，希望点个在看分享。</p>
+
+    </div>
+
+    
+    
+    
+
+
+    <div>
+      
+        <div>
+    
+      <div style="text-align:center;color: #ccc;font-size:20px;">------------- 本 文 结 束&nbsp&nbsp&nbsp&nbsp&nbsp感 谢 您 的 阅 读 -------------</div>
+    
+</div>
+
+      
+    </div>
+
+    <footer class="post-footer"><div class="post-widgets">
+      <div id="needsharebutton-postbottom">
+        <span class="btn">
+          <i class="fa fa-share-alt" aria-hidden="true"></i>
+        </span>
+      </div>
+    </div>
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>swimminghao
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://example.com/posts/92e48ba5/" title="如何拆解复杂问题：实现一个计算器">http://example.com/posts/92e48ba5/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/%E6%84%9F%E6%82%9F/" rel="tag"><i class="fa fa-tag"></i> 感悟</a>
+              <a href="/tags/%E7%AE%97%E6%B3%95/" rel="tag"><i class="fa fa-tag"></i> 算法</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/posts/7f30ba70/" rel="prev" title="子序列解题模板：最长回文子序列">
+                  <i class="fa fa-chevron-left"></i> 子序列解题模板：最长回文子序列
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/posts/6e5dcbe0/" rel="next" title="回溯算法团灭排列组合子集问题">
+                  回溯算法团灭排列组合子集问题 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>l
+
+
+
+
+
+
+    <div class="comments" id="waline-comments"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">swimminghao</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">1.2m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">18:03</span>
+  </span>
+</div>
+
+<span id="sitetime"></span>
+<script language=javascript>
+    function siteTime(){
+        window.setTimeout("siteTime()", 1000);
+        var seconds = 1000;
+        var minutes = seconds * 60;
+        var hours = minutes * 60;
+        var days = hours * 24;
+        var years = days * 365;
+        var today = new Date();
+        var todayYear = today.getFullYear();
+        var todayMonth = today.getMonth()+1;
+        var todayDate = today.getDate();
+        var todayHour = today.getHours();
+        var todayMinute = today.getMinutes();
+        var todaySecond = today.getSeconds();
+        /* Date.UTC() -- 返回date对象距世界标准时间(UTC)1970年1月1日午夜之间的毫秒数(时间戳)
+        year - 作为date对象的年份，为4位年份值
+        month - 0-11之间的整数，做为date对象的月份
+        day - 1-31之间的整数，做为date对象的天数
+        hours - 0(午夜24点)-23之间的整数，做为date对象的小时数
+        minutes - 0-59之间的整数，做为date对象的分钟数
+        seconds - 0-59之间的整数，做为date对象的秒数
+        microseconds - 0-999之间的整数，做为date对象的毫秒数 */
+        var t1 = Date.UTC(2022,02,28,00,00,00); //你的建站时间
+        var t2 = Date.UTC(todayYear,todayMonth,todayDate,todayHour,todayMinute,todaySecond);
+        var diff = t2-t1;
+        var diffYears = Math.floor(diff/years);
+        var diffDays = Math.floor((diff/days)-diffYears*365);
+        var diffHours = Math.floor((diff-(diffYears*365+diffDays)*days)/hours);
+        var diffMinutes = Math.floor((diff-(diffYears*365+diffDays)*days-diffHours*hours)/minutes);
+        var diffSeconds = Math.floor((diff-(diffYears*365+diffDays)*days-diffHours*hours-diffMinutes*minutes)/seconds);
+        document.getElementById("sitetime").innerHTML=" 本站已安全运行 "+diffYears+" Year "+diffDays+" Days "+diffHours+" Hours "+diffMinutes+" m "+diffSeconds+" s";
+    }
+    siteTime();
+</script>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        访问人数：<span id="busuanzi_value_site_uv"></span>
+      </span>人
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+       访问总量：<span id="busuanzi_value_site_pv"></span>
+      </span>次
+    </span>
+
+
+<!--
+  本文总阅读量：<span id="busuanzi_value_page_pv"></span>次
+-->
+
+</div>
+
+
+<!--
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+--><script color="0,0,255" opacity="0.5" zIndex="-1" count="99" src="https://cdn.jsdelivr.net/npm/canvas-nest.js@1/dist/canvas-nest.js"></script>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<script class="next-config" data-name="waline" type="application/json">{"lang":"zh-cn","enable":true,"serverURL":"waline-server-nu.vercel.app","placeholder":"请文明评论呀","avatar":"mm","pageSize":10,"visitor":false,"comment_count":true,"requiredFields":[],"meta":["nick","mail","link"],"libUrl":"https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js","el":"#waline-comments","path":"/posts/92e48ba5/"}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.waline.el).then(() => 
+    NexT.utils.getScript(CONFIG.waline.libUrl, { condition: window.Waline })
+  ).then(() => {
+    new Waline(CONFIG.waline);
+  });
+});
+</script>
+  <script src="//cdn.jsdelivr.net/gh/theme-next/theme-next-needmoreshare2@1/needsharebutton.min.js"></script>
+  <script>
+      pbOptions = {};
+        pbOptions.iconStyle = "default";
+        pbOptions.boxForm = "horizontal";
+        pbOptions.position = "middleCenter";
+        pbOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+  </script>
+</body>
+</html>

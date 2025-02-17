@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-loading-bar.css">
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.10.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="13、【对线面试官】Map今天来讲讲Map吧，你对Map了解多少？就讲JDK1.8就好咯 Map在Java里边是一个接口，常见的实现类有HashMap、 LinkedHashMap、TreeMap和ConcurrentHashMap   在Java里边，哈希表的实现由数组+链表所组成 HashMap底层数据结构是数组+链表&#x2F;红黑树 LinkedHashMap底层数据结构是数组+链表+双向">
+<meta property="og:type" content="article">
+<meta property="og:title" content="13、【对线面试官】Map">
+<meta property="og:url" content="http://example.com/posts/f78aff48/index.html">
+<meta property="og:site_name" content="swimminghao&#39;s blog">
+<meta property="og:description" content="13、【对线面试官】Map今天来讲讲Map吧，你对Map了解多少？就讲JDK1.8就好咯 Map在Java里边是一个接口，常见的实现类有HashMap、 LinkedHashMap、TreeMap和ConcurrentHashMap   在Java里边，哈希表的实现由数组+链表所组成 HashMap底层数据结构是数组+链表&#x2F;红黑树 LinkedHashMap底层数据结构是数组+链表+双向">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-02-28T11:57:47.000Z">
+<meta property="article:modified_time" content="2025-02-13T08:20:39.923Z">
+<meta property="article:author" content="swimminghao">
+<meta property="article:tag" content="面试">
+<meta property="article:tag" content="记录">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/posts/f78aff48/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/posts/f78aff48/","path":"posts/f78aff48/","title":"13、【对线面试官】Map"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>13、【对线面试官】Map | swimminghao's blog</title>
+  
+
+
+
+
+<link rel="dns-prefetch" href="waline-server-nu.vercel.app"><link rel="stylesheet" href="//cdn.jsdelivr.net/gh/theme-next/theme-next-needmoreshare2@1/needsharebutton.min.css"><style>
+#needsharebutton-postbottom {
+  cursor: pointer;
+  height: 26px;
+  margin-top: 10px;
+  position: relative;
+}
+#needsharebutton-postbottom .btn {
+  border: 1px solid $btn-default-border-color;
+  border-radius: 3px;
+  display: initial;
+  padding: 1px 4px;
+}
+</style>
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">swimminghao's blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">学习博客</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">52</span></a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">17</span></a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">271</span></a></li>
+        <li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#13%E3%80%81%E3%80%90%E5%AF%B9%E7%BA%BF%E9%9D%A2%E8%AF%95%E5%AE%98%E3%80%91Map"><span class="nav-number">1.</span> <span class="nav-text">13、【对线面试官】Map</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%8A%E5%A4%A9%E6%9D%A5%E8%AE%B2%E8%AE%B2Map%E5%90%A7%EF%BC%8C%E4%BD%A0%E5%AF%B9Map%E4%BA%86%E8%A7%A3%E5%A4%9A%E5%B0%91%EF%BC%9F%E5%B0%B1%E8%AE%B2JDK1-8%E5%B0%B1%E5%A5%BD%E5%92%AF"><span class="nav-number">1.1.</span> <span class="nav-text">今天来讲讲Map吧，你对Map了解多少？就讲JDK1.8就好咯</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%88%91%E4%BB%AC%E5%85%88%E4%BB%A5HashMap%E5%BC%80%E5%A7%8B%E5%90%A7%EF%BC%8C%E4%BD%A0%E8%83%BD%E8%AE%B2%E8%AE%B2%E5%BD%93%E4%BD%A0new%E4%B8%80%E4%B8%AAHashMap%E7%9A%84%E6%97%B6%E5%80%99%EF%BC%8C%E4%BC%9A%E5%8F%91%E7%94%9F%E4%BB%80%E4%B9%88%E5%90%97%EF%BC%9F"><span class="nav-number">1.2.</span> <span class="nav-text">我们先以HashMap开始吧，你能讲讲当你new一个HashMap的时候，会发生什么吗？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%97%E4%BA%86%E3%80%82%E6%88%91%E8%BF%98%E6%83%B3%E7%BB%A7%E7%BB%AD%E9%97%AE%E4%B8%8B%EF%BC%8C%E5%9C%A8put%E5%85%83%E7%B4%A0%E7%9A%84%E6%97%B6%E5%80%99%EF%BC%8C%E4%BC%A0%E9%80%92%E7%9A%84Key%E6%98%AF%E6%80%8E%E4%B9%88%E7%AE%97%E5%93%88%E5%B8%8C%E5%80%BC%E7%9A%84%EF%BC%9F"><span class="nav-number">1.3.</span> <span class="nav-text">算了。我还想继续问下，在put元素的时候，传递的Key是怎么算哈希值的？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%A0%E7%AE%80%E5%8D%95%E5%86%8D%E8%AF%B4%E4%B8%8Bput%E5%92%8Cget%E6%96%B9%E6%B3%95%E7%9A%84%E5%AE%9E%E7%8E%B0%E5%90%A7"><span class="nav-number">1.4.</span> <span class="nav-text">你简单再说下put和get方法的实现吧</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%82%A3%E5%9C%A8HashMap%E4%B8%AD%E6%98%AF%E6%80%8E%E4%B9%88%E5%88%A4%E6%96%AD%E4%B8%80%E4%B8%AA%E5%85%83%E7%B4%A0%E6%98%AF%E5%90%A6%E7%9B%B8%E5%90%8C%E7%9A%84%E5%91%A2%EF%BC%9F"><span class="nav-number">1.5.</span> <span class="nav-text">那在HashMap中是怎么判断一个元素是否相同的呢？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%A0%E8%AF%B4HashMap%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E6%98%AF%E6%95%B0%E7%BB%84-%E9%93%BE%E8%A1%A8-x2F-%E7%BA%A2%E9%BB%91%E6%A0%91%EF%BC%8C%E9%82%A3%E4%BB%80%E4%B9%88%E6%83%85%E5%86%B5%E6%8B%BF%E4%B8%8B%E6%89%8D%E4%BC%9A%E7%94%A8%E5%88%B0%E7%BA%A2%E9%BB%91%E6%A0%91%E5%91%A2%EF%BC%9F"><span class="nav-number">1.6.</span> <span class="nav-text">你说HashMap的数据结构是数组+链表&#x2F;红黑树，那什么情况拿下才会用到红黑树呢？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%A0%E5%9C%A8%E6%97%A5%E5%B8%B8%E5%BC%80%E5%A7%8B%E4%B8%ADLinkedHashMap%E7%94%A8%E7%9A%84%E5%A4%9A%E5%90%97%EF%BC%9F"><span class="nav-number">1.7.</span> <span class="nav-text">你在日常开始中LinkedHashMap用的多吗？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%82%A3TreeMap%E5%91%A2%EF%BC%9F"><span class="nav-number">1.8.</span> <span class="nav-text">那TreeMap呢？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%8D%E6%9D%A5%E8%AE%B2%E8%AE%B2%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8%E7%9A%84Map%E5%90%A7%EF%BC%9F-HashMap%E6%98%AF%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8%E7%9A%84%E5%90%97%EF%BC%9F"><span class="nav-number">1.9.</span> <span class="nav-text">再来讲讲线程安全的Map吧？ HashMap是线程安全的吗？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%97%AF%EF%BC%8C%E4%BD%A0%E5%8F%AF%E4%BB%A5%E7%BB%99%E6%88%91%E8%AE%B2%E8%AE%B2JDK7%E5%92%8CJDK8%E4%B8%ADHashMap%E5%92%8CConcurrentHashMap%E7%9A%84%E5%8C%BA%E5%88%AB%E5%90%97%EF%BC%9F"><span class="nav-number">1.10.</span> <span class="nav-text">嗯，你可以给我讲讲JDK7和JDK8中HashMap和ConcurrentHashMap的区别吗？</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="swimminghao"
+      src="/images/lion.png">
+  <p class="site-author-name" itemprop="name">swimminghao</p>
+  <div class="site-description" itemprop="description">swimminghao的学习博客</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">271</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">52</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/swimminghao" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;swimminghao" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:swimminghao0@gmail.com" title="E-Mail → mailto:swimminghao0@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/swimminghao" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;swimminghao" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://plus.google.com/yourname" title="Google → https:&#x2F;&#x2F;plus.google.com&#x2F;yourname" rel="noopener" target="_blank"><i class="fab fa-google fa-fw"></i>Google</a>
+      </span>
+  </div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdn.jsdelivr.net/npm/@creativecommons/vocabulary@2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+<!-- recent posts -->
+    <div class="links-of-blogroll motion-element links-of-blogroll-block">
+        <div class="links-of-blogroll-title recent-posts-title">
+	    <i class="fa fa-history " aria-hidden="true"></i>
+            近期文章
+	</div>
+	<ul class="links-of-blogroll-list recent-posts-list">
+	        <li class="my-links-of-blogroll-item">
+		    <a href="/posts/967669ed/" title="holer-server项目解读" target="">
+		    holer-server项目解读
+		    </a>
+		</li>
+	        <li class="my-links-of-blogroll-item">
+		    <a href="/posts/c30e6297/" title="Hexo博客文章加密" target="">
+		    Hexo博客文章加密
+		    </a>
+		</li>
+	        <li class="my-links-of-blogroll-item">
+		    <a href="/posts/7ff70092/" title="做任何事都非常厉害的诀窍，这3点你记好" target="">
+		    做任何事都非常厉害的诀窍，这3点你记好
+		    </a>
+		</li>
+	        <li class="my-links-of-blogroll-item">
+		    <a href="/posts/1afe5736/" title="DBeaver Ultimate Edition 免费破解使用" target="">
+		    DBeaver Ultimate Edition 免费破解使用
+		    </a>
+		</li>
+	        <li class="my-links-of-blogroll-item">
+		    <a href="/posts/7a47e8be/" title="为何大多数程序员做不了独立开发者？" target="">
+		    为何大多数程序员做不了独立开发者？
+		    </a>
+		</li>
+	</ul>
+    </div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/f78aff48/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lion.png">
+      <meta itemprop="name" content="swimminghao">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="swimminghao's blog">
+      <meta itemprop="description" content="swimminghao的学习博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="13、【对线面试官】Map | swimminghao's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          13、【对线面试官】Map
+        </h1>
+
+        <div class="post-meta-container">
+
+          
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2025-02-13 16:20:39" itemprop="dateModified" datetime="2025-02-13T16:20:39+08:00">2025-02-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/posts/f78aff48/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/f78aff48/" data-xid="/posts/f78aff48/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>2.7k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>2 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="13、【对线面试官】Map"><a href="#13、【对线面试官】Map" class="headerlink" title="13、【对线面试官】Map"></a>13、【对线面试官】Map</h1><h2 id="今天来讲讲Map吧，你对Map了解多少？就讲JDK1-8就好咯"><a href="#今天来讲讲Map吧，你对Map了解多少？就讲JDK1-8就好咯" class="headerlink" title="今天来讲讲Map吧，你对Map了解多少？就讲JDK1.8就好咯"></a>今天来讲讲Map吧，你对Map了解多少？就讲JDK1.8就好咯</h2><ul>
+<li>Map在Java里边是一个接口，常见的实现类有HashMap、 LinkedHashMap、TreeMap和ConcurrentHashMap</li>
+</ul>
+<ol>
+<li>在Java里边，哈希表的实现由数组+链表所组成</li>
+<li>HashMap底层数据结构是数组+链表&#x2F;红黑树</li>
+<li>LinkedHashMap底层数据结构是数组+链表+双向链表</li>
+<li>TreeMap底层数据结构是红黑树</li>
+<li>而ConcurrentHashMap底层数据结构也是数组+链表&#x2F;红黑树</li>
+</ol>
+<h2 id="我们先以HashMap开始吧，你能讲讲当你new一个HashMap的时候，会发生什么吗？"><a href="#我们先以HashMap开始吧，你能讲讲当你new一个HashMap的时候，会发生什么吗？" class="headerlink" title="我们先以HashMap开始吧，你能讲讲当你new一个HashMap的时候，会发生什么吗？"></a>我们先以HashMap开始吧，你能讲讲当你new一个HashMap的时候，会发生什么吗？</h2><ol>
+<li>如果我们不指定，默认HashMap的大小为16，负载因子的大小为0.75</li>
+<li>还有就是：HashMap的大小只能是2次幂的，假设你传一个10进去，实际上最终HashMap的大小是16，你传一个7进去，HashMap最终的大小是8，具体的实现在tableSizeFor可以看到。</li>
+<li>我们把元素放进HashMap的时候，需要算出这个元素所在的位置（hash）</li>
+<li>在HashMap里用的是位运算来代替取模，能够更加高效地算出该元素所在的位置</li>
+<li>为什么HashMap的大小只能是2次幂，因为只有大小为2次幂时，才能合理用位运算替代取模。</li>
+<li>而负载因子的大小决定着哈希表的扩容和哈希冲突。</li>
+<li>比如现在我默认的HashMap大小为16，负载因子为0.75，这意味着数组最多只能放12个元素，一旦超过12个元素，则哈希表需要扩容</li>
+<li>怎么算出是12呢？很简单，就是16*0.7 5。每次put元素进去的时候，都会检查HashMap的大小有没有超过这个阈值，如果有，则需要扩容。</li>
+<li>鉴于上面的说法（HashMap的大小只能是2次幂），所以扩容的时候时候默认是扩原来的2倍</li>
+<li>还有就是扩容这个操作肯定是耗时的，那能不能把负载因子调高一点，比如我要调至为1，那我的HashMap就等到16个元素的时候才扩容呢。</li>
+<li>当然是可以的，但是不推荐。负载因子调高了，这意味着哈希冲突的概率会增高，哈希冲突概率增高，同样会耗时（因为查找的速度变慢了）</li>
+</ol>
+<h2 id="算了。我还想继续问下，在put元素的时候，传递的Key是怎么算哈希值的？"><a href="#算了。我还想继续问下，在put元素的时候，传递的Key是怎么算哈希值的？" class="headerlink" title="算了。我还想继续问下，在put元素的时候，传递的Key是怎么算哈希值的？"></a>算了。我还想继续问下，在put元素的时候，传递的Key是怎么算哈希值的？</h2><ol>
+<li>实现就在hash方法上，可以发现的是，它是先算出正常的哈希值，然后与高16位做异或运算，产生最终的哈希值。</li>
+<li>这样做的好处可以增加了随机性，减少了碰撞冲突的可能性。</li>
+</ol>
+<h2 id="你简单再说下put和get方法的实现吧"><a href="#你简单再说下put和get方法的实现吧" class="headerlink" title="你简单再说下put和get方法的实现吧"></a>你简单再说下put和get方法的实现吧</h2><ol>
+<li>在put的时候，首先对key做hash运算，计算出该key所在的index。</li>
+<li>如果没碰撞，直接放到数组中，如果碰撞了，需要判断目前数据结构是链表还是红黑树，根据不同的情况来进行插入。</li>
+<li>假设key是相同的，则替换到原来的值。最后判断哈希表是否满了（当前哈希表大小*负载因子），如果满了，则扩容</li>
+<li>在get的时候，还是对key做hash运算，计算出该key所在的index，然后判断是否有hash冲突</li>
+<li>假设没有冲突直接返回，假设有冲突则判断当前数据结构是链表还是红黑树，分别从不同的数据结构中取出。</li>
+</ol>
+<h2 id="那在HashMap中是怎么判断一个元素是否相同的呢？"><a href="#那在HashMap中是怎么判断一个元素是否相同的呢？" class="headerlink" title="那在HashMap中是怎么判断一个元素是否相同的呢？"></a>那在HashMap中是怎么判断一个元素是否相同的呢？</h2><ol>
+<li>首先会比较hash值，随后会用&#x3D;&#x3D;运算符和equals（）来判断该元素是否相同。</li>
+<li>说白了就是：如果只有hash值相同，那说明该元素哈希冲突了，如果hash值和equals（）|| &#x3D;&#x3D;都相同，那说明该元素是同个。</li>
+</ol>
+<h2 id="你说HashMap的数据结构是数组-链表-x2F-红黑树，那什么情况拿下才会用到红黑树呢？"><a href="#你说HashMap的数据结构是数组-链表-x2F-红黑树，那什么情况拿下才会用到红黑树呢？" class="headerlink" title="你说HashMap的数据结构是数组+链表&#x2F;红黑树，那什么情况拿下才会用到红黑树呢？"></a>你说HashMap的数据结构是数组+链表&#x2F;红黑树，那什么情况拿下才会用到红黑树呢？</h2><ol>
+<li>当数组的大小大于64且链表的大小大于8的时候才会将链表改为红黑树，当红黑树大小为6时，会退化为链表。</li>
+<li>这里转红黑树退化为链表的操作主要出于查询和插入时对性能的考量。</li>
+<li>链表查询时间复杂度O（N），插入时间复杂度O（1），红黑树查询和插入时间复杂度O（logN）</li>
+</ol>
+<h2 id="你在日常开始中LinkedHashMap用的多吗？"><a href="#你在日常开始中LinkedHashMap用的多吗？" class="headerlink" title="你在日常开始中LinkedHashMap用的多吗？"></a>你在日常开始中LinkedHashMap用的多吗？</h2><ol>
+<li>在前面也提到了，LinkedHashMap底层结构是数组+链表+双向链表，实际上它继承了HashMap，在HashMap的基础上维护了一个双向链表</li>
+<li>有了这个双向链表，我们的插入可以是有序的，这里的有序不是指大小有序而是插入有序</li>
+<li>LinkedHashMap在遍历的时候实际用的是双向链表来遍历的，所以LinkedHashMap的大小不会影响到遍历的性能</li>
+</ol>
+<h2 id="那TreeMap呢？"><a href="#那TreeMap呢？" class="headerlink" title="那TreeMap呢？"></a>那TreeMap呢？</h2><ol>
+<li>TreeMap在现实开发中用得也不多，Tre eMap的底层数据结构是红黑树</li>
+<li>TreeMap的key不能为null（如果为null，那还怎么排序呢），TreeMap有序是通过Comparator来进行比较的，如果comparator为null，那么就使用自然顺序</li>
+</ol>
+<h2 id="再来讲讲线程安全的Map吧？-HashMap是线程安全的吗？"><a href="#再来讲讲线程安全的Map吧？-HashMap是线程安全的吗？" class="headerlink" title="再来讲讲线程安全的Map吧？ HashMap是线程安全的吗？"></a>再来讲讲线程安全的Map吧？ HashMap是线程安全的吗？</h2><ol>
+<li>HashMap不是线程安全的，在多线程环境下，HashMap有可能会有数据丢失和获取不了最新数据的问题，比如说：线程Aput进去了，线程Bget不出来。</li>
+<li>想要线程安全，一般使用ConcurrentHashMap</li>
+<li>ConcurrentHashMap是线程安全的Map 实现类，它在juc包下的。</li>
+<li>线程安全的Map实现类除了ConcurrentHashMap还有一个叫做Hashtable。</li>
+<li>当然了，也可以使用Collections来包装出一个线程安全的Map。</li>
+<li>但无论是Hashtable还是Collections包装出来的都比较低效（因为是直接在外层套synchronize），所以我们一般有线程安全问题考量的，都使用ConcurrentHashMap</li>
+<li>ConcurrentHashMap的底层数据结构是数组+链表&#x2F;红黑树，它能支持高并发的访问和更新，是线程安全的。</li>
+<li>ConcurrentHashMap通过在部分加锁和利用CAS算法来实现同步，在get的时候没有加锁，Node都用了volatile给修饰。</li>
+<li>在扩容时，会给每个线程分配对应的区间，并且为了防止putVal导致数据不一致，会给线程的所负责的区间加锁</li>
+</ol>
+<h2 id="嗯，你可以给我讲讲JDK7和JDK8中HashMap和ConcurrentHashMap的区别吗？"><a href="#嗯，你可以给我讲讲JDK7和JDK8中HashMap和ConcurrentHashMap的区别吗？" class="headerlink" title="嗯，你可以给我讲讲JDK7和JDK8中HashMap和ConcurrentHashMap的区别吗？"></a>嗯，你可以给我讲讲JDK7和JDK8中HashMap和ConcurrentHashMap的区别吗？</h2><ol>
+<li>我在学习的时候也看过JDK7的HashMap和ConcurrentHashMap，其实还是有很多不一样的地方</li>
+<li>比如JDK7的HashMap在扩容时是头插法，在JDK8就变成了尾插法，在JDK7的HashMap还没有引入红黑树</li>
+<li>ConcurrentHashMap在JDK7还是使用分段锁的方式来实现，而JDK8就又不一样了。但JDK7细节我大多数都忘了。</li>
+<li>我就没用过JDK7的API，我想着现在最低应该也是用JDK8了吧？所以我就没去仔细看了。</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+
+    <div>
+      
+        <div>
+    
+      <div style="text-align:center;color: #ccc;font-size:20px;">------------- 本 文 结 束&nbsp&nbsp&nbsp&nbsp&nbsp感 谢 您 的 阅 读 -------------</div>
+    
+</div>
+
+      
+    </div>
+
+    <footer class="post-footer"><div class="post-widgets">
+      <div id="needsharebutton-postbottom">
+        <span class="btn">
+          <i class="fa fa-share-alt" aria-hidden="true"></i>
+        </span>
+      </div>
+    </div>
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>swimminghao
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://example.com/posts/f78aff48/" title="13、【对线面试官】Map">http://example.com/posts/f78aff48/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/%E9%9D%A2%E8%AF%95/" rel="tag"><i class="fa fa-tag"></i> 面试</a>
+              <a href="/tags/%E8%AE%B0%E5%BD%95/" rel="tag"><i class="fa fa-tag"></i> 记录</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/posts/c2bf7fb6/" rel="prev" title="14、【对线面试官】SpringMVC">
+                  <i class="fa fa-chevron-left"></i> 14、【对线面试官】SpringMVC
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/posts/31fa5cf/" rel="next" title="12、【对线面试官】List">
+                  12、【对线面试官】List <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>l
+
+
+
+
+
+
+    <div class="comments" id="waline-comments"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">swimminghao</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">1.2m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">18:03</span>
+  </span>
+</div>
+
+<span id="sitetime"></span>
+<script language=javascript>
+    function siteTime(){
+        window.setTimeout("siteTime()", 1000);
+        var seconds = 1000;
+        var minutes = seconds * 60;
+        var hours = minutes * 60;
+        var days = hours * 24;
+        var years = days * 365;
+        var today = new Date();
+        var todayYear = today.getFullYear();
+        var todayMonth = today.getMonth()+1;
+        var todayDate = today.getDate();
+        var todayHour = today.getHours();
+        var todayMinute = today.getMinutes();
+        var todaySecond = today.getSeconds();
+        /* Date.UTC() -- 返回date对象距世界标准时间(UTC)1970年1月1日午夜之间的毫秒数(时间戳)
+        year - 作为date对象的年份，为4位年份值
+        month - 0-11之间的整数，做为date对象的月份
+        day - 1-31之间的整数，做为date对象的天数
+        hours - 0(午夜24点)-23之间的整数，做为date对象的小时数
+        minutes - 0-59之间的整数，做为date对象的分钟数
+        seconds - 0-59之间的整数，做为date对象的秒数
+        microseconds - 0-999之间的整数，做为date对象的毫秒数 */
+        var t1 = Date.UTC(2022,02,28,00,00,00); //你的建站时间
+        var t2 = Date.UTC(todayYear,todayMonth,todayDate,todayHour,todayMinute,todaySecond);
+        var diff = t2-t1;
+        var diffYears = Math.floor(diff/years);
+        var diffDays = Math.floor((diff/days)-diffYears*365);
+        var diffHours = Math.floor((diff-(diffYears*365+diffDays)*days)/hours);
+        var diffMinutes = Math.floor((diff-(diffYears*365+diffDays)*days-diffHours*hours)/minutes);
+        var diffSeconds = Math.floor((diff-(diffYears*365+diffDays)*days-diffHours*hours-diffMinutes*minutes)/seconds);
+        document.getElementById("sitetime").innerHTML=" 本站已安全运行 "+diffYears+" Year "+diffDays+" Days "+diffHours+" Hours "+diffMinutes+" m "+diffSeconds+" s";
+    }
+    siteTime();
+</script>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        访问人数：<span id="busuanzi_value_site_uv"></span>
+      </span>人
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+       访问总量：<span id="busuanzi_value_site_pv"></span>
+      </span>次
+    </span>
+
+
+<!--
+  本文总阅读量：<span id="busuanzi_value_page_pv"></span>次
+-->
+
+</div>
+
+
+<!--
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+--><script color="0,0,255" opacity="0.5" zIndex="-1" count="99" src="https://cdn.jsdelivr.net/npm/canvas-nest.js@1/dist/canvas-nest.js"></script>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<script class="next-config" data-name="waline" type="application/json">{"lang":"zh-cn","enable":true,"serverURL":"waline-server-nu.vercel.app","placeholder":"请文明评论呀","avatar":"mm","pageSize":10,"visitor":false,"comment_count":true,"requiredFields":[],"meta":["nick","mail","link"],"libUrl":"https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js","el":"#waline-comments","path":"/posts/f78aff48/"}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.waline.el).then(() => 
+    NexT.utils.getScript(CONFIG.waline.libUrl, { condition: window.Waline })
+  ).then(() => {
+    new Waline(CONFIG.waline);
+  });
+});
+</script>
+  <script src="//cdn.jsdelivr.net/gh/theme-next/theme-next-needmoreshare2@1/needsharebutton.min.js"></script>
+  <script>
+      pbOptions = {};
+        pbOptions.iconStyle = "default";
+        pbOptions.boxForm = "horizontal";
+        pbOptions.position = "middleCenter";
+        pbOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+  </script>
+</body>
+</html>

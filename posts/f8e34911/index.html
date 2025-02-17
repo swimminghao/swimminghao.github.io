@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-loading-bar.css">
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.10.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="Java中float和double中溢值问题和浮点数的储存问题 记录一下初学Java出现的问题。 以为之前是从Python起步的，最初了解到Java的数据类型有float和double这两个东西，就尝试相加这两个  这里返回的结果：32.45000076293945 这个返回值看的我一脸懵 要理解这个问题要先知道浮点数在计算机中是以什么形式储存的 首先要知道计算机能懂的只有0和1 每一个0和1都占">
+<meta property="og:type" content="article">
+<meta property="og:title" content="精度问题">
+<meta property="og:url" content="http://example.com/posts/f8e34911/index.html">
+<meta property="og:site_name" content="swimminghao&#39;s blog">
+<meta property="og:description" content="Java中float和double中溢值问题和浮点数的储存问题 记录一下初学Java出现的问题。 以为之前是从Python起步的，最初了解到Java的数据类型有float和double这两个东西，就尝试相加这两个  这里返回的结果：32.45000076293945 这个返回值看的我一脸懵 要理解这个问题要先知道浮点数在计算机中是以什么形式储存的 首先要知道计算机能懂的只有0和1 每一个0和1都占">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://pic2.zhimg.com/v2-7ccba9dfc4e14a87fb480f8b89f7062c_1440w.jpg?source=172ae18b">
+<meta property="og:image" content="https://pic3.zhimg.com/80/v2-58d94b038de5826bd6b794c8728b81ea_720w.jpg">
+<meta property="og:image" content="https://www.zhihu.com/equation?tex=%5Ctimes">
+<meta property="og:image" content="https://www.zhihu.com/equation?tex=2%5E%7B4%7D">
+<meta property="og:image" content="https://pic4.zhimg.com/80/v2-75dac8cba2a0c6f341a23f320ef80eeb_720w.jpg">
+<meta property="og:image" content="https://www.zhihu.com/equation?tex=%5Ctimes">
+<meta property="og:image" content="https://www.zhihu.com/equation?tex=2%5E%7B4%7D">
+<meta property="og:image" content="https://pic2.zhimg.com/80/v2-7578d5eb4ea4b7ccd4a6ad8b3041026d_720w.jpg">
+<meta property="og:image" content="https://pic4.zhimg.com/80/v2-37d1b25e2fcb6f6744a15d16ce403347_720w.jpg">
+<meta property="og:image" content="https://pic3.zhimg.com/80/v2-2f0ea9b5de4996dfe41721c33fec509a_720w.jpg">
+<meta property="og:image" content="https://pic3.zhimg.com/80/v2-09cf00e6b2661928de9a33d34cc584ea_720w.jpg">
+<meta property="og:image" content="https://pic2.zhimg.com/80/v2-ac85c685344dcc6c42ab80c54c98e3fd_720w.jpg">
+<meta property="og:image" content="https://www.zhihu.com/equation?tex=%5Ctimes">
+<meta property="og:image" content="https://www.zhihu.com/equation?tex=2%5E%7B4%7D">
+<meta property="og:image" content="https://www.zhihu.com/equation?tex=0%5Ctimes+2%5E%7B-1%7D+++1%5Ctimes+2%5E%7B-2%7D+++1%5Ctimes+2%5E%7B-3%7D+...">
+<meta property="og:image" content="https://pic4.zhimg.com/80/v2-a0e98538e9455550d26ca6aabfaccf87_720w.jpg">
+<meta property="og:image" content="https://pic2.zhimg.com/80/v2-4ab767461ea0bd9250e47357d4c81531_720w.jpg">
+<meta property="og:image" content="https://pic4.zhimg.com/80/v2-6561f67dbd731bf7ad0e8fc8f58bb573_720w.jpg">
+<meta property="article:published_time" content="2022-02-28T11:57:47.000Z">
+<meta property="article:modified_time" content="2025-02-13T08:20:39.955Z">
+<meta property="article:author" content="swimminghao">
+<meta property="article:tag" content="理解">
+<meta property="article:tag" content="编程">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://pic2.zhimg.com/v2-7ccba9dfc4e14a87fb480f8b89f7062c_1440w.jpg?source=172ae18b">
+
+
+<link rel="canonical" href="http://example.com/posts/f8e34911/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/posts/f8e34911/","path":"posts/f8e34911/","title":"精度问题"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>精度问题 | swimminghao's blog</title>
+  
+
+
+
+
+<link rel="dns-prefetch" href="waline-server-nu.vercel.app"><link rel="stylesheet" href="//cdn.jsdelivr.net/gh/theme-next/theme-next-needmoreshare2@1/needsharebutton.min.css"><style>
+#needsharebutton-postbottom {
+  cursor: pointer;
+  height: 26px;
+  margin-top: 10px;
+  position: relative;
+}
+#needsharebutton-postbottom .btn {
+  border: 1px solid $btn-default-border-color;
+  border-radius: 3px;
+  display: initial;
+  padding: 1px 4px;
+}
+</style>
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">swimminghao's blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">学习博客</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">52</span></a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">17</span></a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">271</span></a></li>
+        <li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Java%E4%B8%ADfloat%E5%92%8Cdouble%E4%B8%AD%E6%BA%A2%E5%80%BC%E9%97%AE%E9%A2%98%E5%92%8C%E6%B5%AE%E7%82%B9%E6%95%B0%E7%9A%84%E5%82%A8%E5%AD%98%E9%97%AE%E9%A2%98"><span class="nav-number">1.</span> <span class="nav-text">Java中float和double中溢值问题和浮点数的储存问题</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="swimminghao"
+      src="/images/lion.png">
+  <p class="site-author-name" itemprop="name">swimminghao</p>
+  <div class="site-description" itemprop="description">swimminghao的学习博客</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">271</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">52</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/swimminghao" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;swimminghao" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:swimminghao0@gmail.com" title="E-Mail → mailto:swimminghao0@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/swimminghao" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;swimminghao" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://plus.google.com/yourname" title="Google → https:&#x2F;&#x2F;plus.google.com&#x2F;yourname" rel="noopener" target="_blank"><i class="fab fa-google fa-fw"></i>Google</a>
+      </span>
+  </div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdn.jsdelivr.net/npm/@creativecommons/vocabulary@2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+<!-- recent posts -->
+    <div class="links-of-blogroll motion-element links-of-blogroll-block">
+        <div class="links-of-blogroll-title recent-posts-title">
+	    <i class="fa fa-history " aria-hidden="true"></i>
+            近期文章
+	</div>
+	<ul class="links-of-blogroll-list recent-posts-list">
+	        <li class="my-links-of-blogroll-item">
+		    <a href="/posts/967669ed/" title="holer-server项目解读" target="">
+		    holer-server项目解读
+		    </a>
+		</li>
+	        <li class="my-links-of-blogroll-item">
+		    <a href="/posts/c30e6297/" title="Hexo博客文章加密" target="">
+		    Hexo博客文章加密
+		    </a>
+		</li>
+	        <li class="my-links-of-blogroll-item">
+		    <a href="/posts/7ff70092/" title="做任何事都非常厉害的诀窍，这3点你记好" target="">
+		    做任何事都非常厉害的诀窍，这3点你记好
+		    </a>
+		</li>
+	        <li class="my-links-of-blogroll-item">
+		    <a href="/posts/1afe5736/" title="DBeaver Ultimate Edition 免费破解使用" target="">
+		    DBeaver Ultimate Edition 免费破解使用
+		    </a>
+		</li>
+	        <li class="my-links-of-blogroll-item">
+		    <a href="/posts/7a47e8be/" title="为何大多数程序员做不了独立开发者？" target="">
+		    为何大多数程序员做不了独立开发者？
+		    </a>
+		</li>
+	</ul>
+    </div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/f8e34911/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lion.png">
+      <meta itemprop="name" content="swimminghao">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="swimminghao's blog">
+      <meta itemprop="description" content="swimminghao的学习博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="精度问题 | swimminghao's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          精度问题
+        </h1>
+
+        <div class="post-meta-container">
+
+          
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2025-02-13 16:20:39" itemprop="dateModified" datetime="2025-02-13T16:20:39+08:00">2025-02-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/posts/f8e34911/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/f8e34911/" data-xid="/posts/f8e34911/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>2.5k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>2 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="Java中float和double中溢值问题和浮点数的储存问题"><a href="#Java中float和double中溢值问题和浮点数的储存问题" class="headerlink" title="Java中float和double中溢值问题和浮点数的储存问题"></a>Java中float和double中溢值问题和浮点数的储存问题</h1><p><img src="https://pic2.zhimg.com/v2-7ccba9dfc4e14a87fb480f8b89f7062c_1440w.jpg?source=172ae18b" alt="Java中float和double中溢值问题和浮点数的储存问题"></p>
+<p>记录一下初学Java出现的问题。</p>
+<p>以为之前是从Python起步的，最初了解到Java的数据类型有float和double这两个东西，就尝试相加这两个</p>
+<p><img src="https://pic3.zhimg.com/80/v2-58d94b038de5826bd6b794c8728b81ea_720w.jpg" alt="img"></p>
+<p>这里返回的结果：32.45000076293945</p>
+<p>这个返回值看的我一脸懵</p>
+<p>要理解这个问题要先知道浮点数在计算机中是以什么形式储存的</p>
+<p>首先要知道计算机能懂的只有0和1</p>
+<p>每一个0和1都占一个位 bit (比特)(Binary Digits)：存放一位<a href="https://link.zhihu.com/?target=https://baike.baidu.com/item/%E4%BA%8C%E8%BF%9B%E5%88%B6">二进制</a>数，最小的存储单位。</p>
+<p>所以，<strong>整数部分：</strong></p>
+<p>22 &#x2F; 2 &#x3D; 11 余<strong>0</strong></p>
+<p>11 &#x2F; 2 &#x3D; 5 余<strong>1</strong></p>
+<p>5 &#x2F; 2 &#x3D; 2 余<strong>1</strong></p>
+<p>2 &#x2F; 2 &#x3D; 1 余<strong>0</strong></p>
+<p>1 &#x2F; 2 &#x3D; 0 余<strong>1</strong></p>
+<p><strong>22的二进制转换就是10110</strong></p>
+<p><strong>小数部分：</strong></p>
+<p>0.45 * 2 &#x3D; 0.9 0</p>
+<p>0.9 * 2 &#x3D; 1.8 1</p>
+<p>0.8 * 2 &#x3D; 1.6 1</p>
+<p>0.6 * 2 &#x3D; 1.2 1</p>
+<p>0.2 * 2 &#x3D; 0.4 0</p>
+<p>0.4 * 2 &#x3D; 0.8 0</p>
+<p>0.8 * 2 &#x3D; 1.6 1</p>
+<p>0.6 * 2 &#x3D; 1.2 1</p>
+<p>0.2 * 2 &#x3D; 0.4 0</p>
+<p>……</p>
+<p>我们可以发现0.45转化成二进制的时候是无限循环的</p>
+<p>二进制转换完成，<strong>22.45 –&gt; 10110.011100110……</strong></p>
+<p>得到这个二进制浮点数之后，计算机是怎么把他表示为没有小数点的字符呢？</p>
+<p>就要用到小学学过的<strong>科学记数法</strong>：</p>
+<p>10110.011100110可以写为</p>
+<p>1.0110011100110 <img src="https://www.zhihu.com/equation?tex=%5Ctimes" alt="[公式]"> <img src="https://www.zhihu.com/equation?tex=2%5E%7B4%7D" alt="[公式]"></p>
+<p>过程中我们发现，小数的转换有可能会产生无限循环的情况，想要做的最精确的记录22.45，计算机需要无限大的空间来记录</p>
+<p>那么<strong>IEEE754标准</strong>就规定：</p>
+<p><strong>32位单精度</strong>（java中的<strong>float</strong>），使用32位（bit）来存储</p>
+<p><strong>64位双精度</strong>（<strong>double</strong>）， 使用64位储存</p>
+<p>那采用什么样的格式呢</p>
+<p>|S| Exp | Fraction |</p>
+<p>+-+——–+———————–+</p>
+<p><strong>S</strong>：符号位（正0负1）</p>
+<p><strong>EXP</strong>：指数位</p>
+<p><strong>Fraction</strong>：有效数字</p>
+<p><img src="https://pic4.zhimg.com/80/v2-75dac8cba2a0c6f341a23f320ef80eeb_720w.jpg" alt="img"></p>
+<p>单精度(<strong>float</strong>)就是</p>
+<p>|1(bit)| 8(bit) | 23(bit) |</p>
+<p>+-+——–+———————–+</p>
+<p>双精度(<strong>double</strong>)</p>
+<p>|1(bit)| 11(bit) | 52(bit) |</p>
+<p>+-+——–+———————–+</p>
+<p>以22.45为例：</p>
+<p>1.0110011100110 <img src="https://www.zhihu.com/equation?tex=%5Ctimes" alt="[公式]"><img src="https://www.zhihu.com/equation?tex=2%5E%7B4%7D" alt="[公式]">(二进制科学记数)</p>
+<p><strong>S</strong> &#x3D; <strong>0</strong></p>
+<p><strong>EXP</strong> &#x3D; 4+127 &#x3D;131 –&gt; <strong>10000011</strong></p>
+<p>这里为什么是131而不是直接的4呢？</p>
+<p>0000 0000八个位来表示指数，最大值就是1111 1111 –&gt; 十进制就是 255</p>
+<p>指数会有正负数两种情况，所以分两半，255 &#x2F; 2 &#x3D; 127.5</p>
+<p>0~127用于负数</p>
+<p>127~255用于正数</p>
+<p>127相当于一个指数是0，所以表示正指数就 + 同理 -</p>
+<p><strong>Fraction</strong> &#x3D; 0110011100110(这里只有13(bit))</p>
+<p>&#x3D; <strong>01100111001100110011010</strong>(接着算了10(bit)补齐23(bit))</p>
+<p>所以22.45在计算机里就是 <strong>S</strong>+<strong>EXP</strong>+<strong>Fraction &#x3D; 01000001101100111001100110011010</strong></p>
+<p>同理<strong>双精度（double）</strong>有64位来记录</p>
+<p><img src="https://pic2.zhimg.com/80/v2-7578d5eb4ea4b7ccd4a6ad8b3041026d_720w.jpg" alt="img"></p>
+<p>System.<em>out</em>.println(Integer.<em>toBinaryString</em>(Float.<em>floatToIntBits</em>(x)));</p>
+<p>这行代码可以查看22.45的二进位表达</p>
+<p><img src="https://pic4.zhimg.com/80/v2-37d1b25e2fcb6f6744a15d16ce403347_720w.jpg" alt="img"></p>
+<p>为什么没有0，因为01 跟1是一样的，所以0就不会显示了</p>
+<p><strong>这是-22.45</strong></p>
+<p><img src="https://pic3.zhimg.com/80/v2-2f0ea9b5de4996dfe41721c33fec509a_720w.jpg" alt="img"></p>
+<p>&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;</p>
+<p>了解了IEEE二进位浮点数，知道了float和double记录的浮点<strong>精确度</strong>不一样我们再看一下问题。</p>
+<p><img src="https://pic3.zhimg.com/80/v2-09cf00e6b2661928de9a33d34cc584ea_720w.jpg" alt="img"></p>
+<p>从输出的结果看 32.45000076293945 是一个double类型，精确的表示了小数点后14位</p>
+<p><strong>所以float + double 是从float赋值到double</strong></p>
+<p><img src="https://pic2.zhimg.com/80/v2-ac85c685344dcc6c42ab80c54c98e3fd_720w.jpg" alt="img"></p>
+<p>输出结果：22.450000762939453</p>
+<p>可是如果float(单精度)赋值到double(双精度)出现精度丢失可以理解，但是会什么会溢值呢？</p>
+<p>我们可以从二进制推回十进制来看一看</p>
+<p>0 | 10000011 | 01100111001100110011010</p>
+<p>正| 指数&#x3D;4 |有效数字</p>
+<p>1.01100111001100110011010 <img src="https://www.zhihu.com/equation?tex=%5Ctimes" alt="[公式]"><img src="https://www.zhihu.com/equation?tex=2%5E%7B4%7D" alt="[公式]"> &#x3D; 10110.<strong>0111001100110011010</strong></p>
+<p>后面这个<strong>0.0111001100110011010</strong>表示小数位</p>
+<p>我们可以通过把<strong>0.0111001100110011010</strong>换成十进制来看看</p>
+<p>小数的二进制到十进制的方法是</p>
+<p>从小数点后依次乘以2的负一次方，2的负二次方，2的负三次方等</p>
+<p>0.0111001100110011010</p>
+<p><img src="https://www.zhihu.com/equation?tex=0%5Ctimes+2%5E%7B-1%7D+++1%5Ctimes+2%5E%7B-2%7D+++1%5Ctimes+2%5E%7B-3%7D+..." alt="[公式]"></p>
+<p>可以直接用python一算</p>
+<p><img src="https://pic4.zhimg.com/80/v2-a0e98538e9455550d26ca6aabfaccf87_720w.jpg" alt="img"></p>
+<p>同这个结果，我们可以看出，由于<strong>float单精度只能选取 无限循环的二进制小数的23位</strong></p>
+<p><strong>导致了十进制浮点数在存储时的不够精准</strong></p>
+<p><strong>当我们把已经储存好的32二进制格式转换成64位时</strong></p>
+<p><img src="https://pic2.zhimg.com/80/v2-4ab767461ea0bd9250e47357d4c81531_720w.jpg" alt="img"></p>
+<p>输出结果：</p>
+<p><img src="https://pic4.zhimg.com/80/v2-6561f67dbd731bf7ad0e8fc8f58bb573_720w.jpg" alt="img"></p>
+<p><strong>可以看出Java并没有重新计算小数点后的更多位， 而是用0来补位</strong></p>
+<p>所以转换成double后，之前<strong>float没有精确到的位数就会显示出来。</strong></p>
+<p>要解决这个问题就需要使用java.math中提供的API类BigDecimal</p>
+<p>注：（BigDecimal用String 或Integer 初始化，double初始化会有舍入精度问题）</p>
+
+    </div>
+
+    
+    
+    
+
+
+    <div>
+      
+        <div>
+    
+      <div style="text-align:center;color: #ccc;font-size:20px;">------------- 本 文 结 束&nbsp&nbsp&nbsp&nbsp&nbsp感 谢 您 的 阅 读 -------------</div>
+    
+</div>
+
+      
+    </div>
+
+    <footer class="post-footer"><div class="post-widgets">
+      <div id="needsharebutton-postbottom">
+        <span class="btn">
+          <i class="fa fa-share-alt" aria-hidden="true"></i>
+        </span>
+      </div>
+    </div>
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>swimminghao
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://example.com/posts/f8e34911/" title="精度问题">http://example.com/posts/f8e34911/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/%E7%90%86%E8%A7%A3/" rel="tag"><i class="fa fa-tag"></i> 理解</a>
+              <a href="/tags/%E7%BC%96%E7%A8%8B/" rel="tag"><i class="fa fa-tag"></i> 编程</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/posts/de7c53fe/" rel="prev" title="线程池">
+                  <i class="fa fa-chevron-left"></i> 线程池
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/posts/7f59c40c/" rel="next" title="流程图">
+                  流程图 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>l
+
+
+
+
+
+
+    <div class="comments" id="waline-comments"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">swimminghao</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">1.2m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">18:03</span>
+  </span>
+</div>
+
+<span id="sitetime"></span>
+<script language=javascript>
+    function siteTime(){
+        window.setTimeout("siteTime()", 1000);
+        var seconds = 1000;
+        var minutes = seconds * 60;
+        var hours = minutes * 60;
+        var days = hours * 24;
+        var years = days * 365;
+        var today = new Date();
+        var todayYear = today.getFullYear();
+        var todayMonth = today.getMonth()+1;
+        var todayDate = today.getDate();
+        var todayHour = today.getHours();
+        var todayMinute = today.getMinutes();
+        var todaySecond = today.getSeconds();
+        /* Date.UTC() -- 返回date对象距世界标准时间(UTC)1970年1月1日午夜之间的毫秒数(时间戳)
+        year - 作为date对象的年份，为4位年份值
+        month - 0-11之间的整数，做为date对象的月份
+        day - 1-31之间的整数，做为date对象的天数
+        hours - 0(午夜24点)-23之间的整数，做为date对象的小时数
+        minutes - 0-59之间的整数，做为date对象的分钟数
+        seconds - 0-59之间的整数，做为date对象的秒数
+        microseconds - 0-999之间的整数，做为date对象的毫秒数 */
+        var t1 = Date.UTC(2022,02,28,00,00,00); //你的建站时间
+        var t2 = Date.UTC(todayYear,todayMonth,todayDate,todayHour,todayMinute,todaySecond);
+        var diff = t2-t1;
+        var diffYears = Math.floor(diff/years);
+        var diffDays = Math.floor((diff/days)-diffYears*365);
+        var diffHours = Math.floor((diff-(diffYears*365+diffDays)*days)/hours);
+        var diffMinutes = Math.floor((diff-(diffYears*365+diffDays)*days-diffHours*hours)/minutes);
+        var diffSeconds = Math.floor((diff-(diffYears*365+diffDays)*days-diffHours*hours-diffMinutes*minutes)/seconds);
+        document.getElementById("sitetime").innerHTML=" 本站已安全运行 "+diffYears+" Year "+diffDays+" Days "+diffHours+" Hours "+diffMinutes+" m "+diffSeconds+" s";
+    }
+    siteTime();
+</script>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        访问人数：<span id="busuanzi_value_site_uv"></span>
+      </span>人
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+       访问总量：<span id="busuanzi_value_site_pv"></span>
+      </span>次
+    </span>
+
+
+<!--
+  本文总阅读量：<span id="busuanzi_value_page_pv"></span>次
+-->
+
+</div>
+
+
+<!--
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+--><script color="0,0,255" opacity="0.5" zIndex="-1" count="99" src="https://cdn.jsdelivr.net/npm/canvas-nest.js@1/dist/canvas-nest.js"></script>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<script class="next-config" data-name="waline" type="application/json">{"lang":"zh-cn","enable":true,"serverURL":"waline-server-nu.vercel.app","placeholder":"请文明评论呀","avatar":"mm","pageSize":10,"visitor":false,"comment_count":true,"requiredFields":[],"meta":["nick","mail","link"],"libUrl":"https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js","el":"#waline-comments","path":"/posts/f8e34911/"}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.waline.el).then(() => 
+    NexT.utils.getScript(CONFIG.waline.libUrl, { condition: window.Waline })
+  ).then(() => {
+    new Waline(CONFIG.waline);
+  });
+});
+</script>
+  <script src="//cdn.jsdelivr.net/gh/theme-next/theme-next-needmoreshare2@1/needsharebutton.min.js"></script>
+  <script>
+      pbOptions = {};
+        pbOptions.iconStyle = "default";
+        pbOptions.boxForm = "horizontal";
+        pbOptions.position = "middleCenter";
+        pbOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+  </script>
+</body>
+</html>

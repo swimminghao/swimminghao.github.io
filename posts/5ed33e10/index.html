@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-loading-bar.css">
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.10.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="Grafana + Prometheus + node_exporter性能监控一、背景在用Jmeter执行性能测试时，为了更好得收集压测数据，并展示性能测试结果数据，需要搭建一套监控平台。有了平台后测试人员可以随时通过查看性能压测数据，对比历史数据，分析性能优化结果。 二、服务准备1、MySQL用户授权需要对用户进行授权才能收集监控数据信息  首先，登录mysql服务，这里以docker为例 h">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Grafana + Prometheus + node_exporter性能监控">
+<meta property="og:url" content="http://example.com/posts/5ed33e10/index.html">
+<meta property="og:site_name" content="swimminghao&#39;s blog">
+<meta property="og:description" content="Grafana + Prometheus + node_exporter性能监控一、背景在用Jmeter执行性能测试时，为了更好得收集压测数据，并展示性能测试结果数据，需要搭建一套监控平台。有了平台后测试人员可以随时通过查看性能压测数据，对比历史数据，分析性能优化结果。 二、服务准备1、MySQL用户授权需要对用户进行授权才能收集监控数据信息  首先，登录mysql服务，这里以docker为例 h">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2023/03/25/7KF9sD.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2023/03/25/zFCLmS.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2023/03/25/XfPd4R.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2023/03/25/XtUuHw.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2023/03/25/deGwTM.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2023/03/25/rc7jO1.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2023/03/25/ZQzJcu.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2023/03/25/7jTvBl.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2023/03/25/8BJ3pP.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2023/03/25/NpzNmg.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2023/03/25/A8mEix.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2023/03/25/9lEXNH.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2023/03/25/VT3DPm.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2023/03/25/HhJUJl.png">
+<meta property="article:published_time" content="2023-03-25T07:14:00.000Z">
+<meta property="article:modified_time" content="2025-02-13T08:20:39.935Z">
+<meta property="article:author" content="swimminghao">
+<meta property="article:tag" content="nas">
+<meta property="article:tag" content="监控">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2023/03/25/7KF9sD.png">
+
+
+<link rel="canonical" href="http://example.com/posts/5ed33e10/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/posts/5ed33e10/","path":"posts/5ed33e10/","title":"Grafana + Prometheus + node_exporter性能监控"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Grafana + Prometheus + node_exporter性能监控 | swimminghao's blog</title>
+  
+
+
+
+
+<link rel="dns-prefetch" href="waline-server-nu.vercel.app"><link rel="stylesheet" href="//cdn.jsdelivr.net/gh/theme-next/theme-next-needmoreshare2@1/needsharebutton.min.css"><style>
+#needsharebutton-postbottom {
+  cursor: pointer;
+  height: 26px;
+  margin-top: 10px;
+  position: relative;
+}
+#needsharebutton-postbottom .btn {
+  border: 1px solid $btn-default-border-color;
+  border-radius: 3px;
+  display: initial;
+  padding: 1px 4px;
+}
+</style>
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">swimminghao's blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">学习博客</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">52</span></a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">17</span></a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">271</span></a></li>
+        <li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Grafana-Prometheus-node-exporter%E6%80%A7%E8%83%BD%E7%9B%91%E6%8E%A7"><span class="nav-number">1.</span> <span class="nav-text">Grafana + Prometheus + node_exporter性能监控</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E8%83%8C%E6%99%AF"><span class="nav-number">1.1.</span> <span class="nav-text">一、背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E6%9C%8D%E5%8A%A1%E5%87%86%E5%A4%87"><span class="nav-number">1.2.</span> <span class="nav-text">二、服务准备</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81MySQL%E7%94%A8%E6%88%B7%E6%8E%88%E6%9D%83"><span class="nav-number">1.2.1.</span> <span class="nav-text">1、MySQL用户授权</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81%E9%83%A8%E7%BD%B2%E6%9C%8D%E5%8A%A1"><span class="nav-number">1.2.2.</span> <span class="nav-text">2、部署服务</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E6%9C%8D%E5%8A%A1%E9%85%8D%E7%BD%AE"><span class="nav-number">1.3.</span> <span class="nav-text">三、服务配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81%E9%85%8D%E7%BD%AE%E6%95%B0%E6%8D%AE%E6%BA%90"><span class="nav-number">1.3.1.</span> <span class="nav-text">1、配置数据源</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81%E9%85%8D%E7%BD%AE%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9B%91%E6%8E%A7"><span class="nav-number">1.3.2.</span> <span class="nav-text">2、配置服务器监控</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3%E3%80%81%E9%85%8D%E7%BD%AE%E5%AE%B9%E5%99%A8%E7%9B%91%E6%8E%A7"><span class="nav-number">1.3.3.</span> <span class="nav-text">3、配置容器监控</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4%E3%80%81%E9%85%8D%E7%BD%AEredis%E7%9B%91%E6%8E%A7"><span class="nav-number">1.3.4.</span> <span class="nav-text">4、配置redis监控</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5%E3%80%81%E9%85%8D%E7%BD%AEmysql%E7%9B%91%E6%8E%A7"><span class="nav-number">1.3.5.</span> <span class="nav-text">5、配置mysql监控</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E5%8F%82%E8%80%83"><span class="nav-number">1.4.</span> <span class="nav-text">四、参考</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="swimminghao"
+      src="/images/lion.png">
+  <p class="site-author-name" itemprop="name">swimminghao</p>
+  <div class="site-description" itemprop="description">swimminghao的学习博客</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">271</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">52</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/swimminghao" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;swimminghao" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:swimminghao0@gmail.com" title="E-Mail → mailto:swimminghao0@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/swimminghao" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;swimminghao" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://plus.google.com/yourname" title="Google → https:&#x2F;&#x2F;plus.google.com&#x2F;yourname" rel="noopener" target="_blank"><i class="fab fa-google fa-fw"></i>Google</a>
+      </span>
+  </div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdn.jsdelivr.net/npm/@creativecommons/vocabulary@2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+<!-- recent posts -->
+    <div class="links-of-blogroll motion-element links-of-blogroll-block">
+        <div class="links-of-blogroll-title recent-posts-title">
+	    <i class="fa fa-history " aria-hidden="true"></i>
+            近期文章
+	</div>
+	<ul class="links-of-blogroll-list recent-posts-list">
+	        <li class="my-links-of-blogroll-item">
+		    <a href="/posts/967669ed/" title="holer-server项目解读" target="">
+		    holer-server项目解读
+		    </a>
+		</li>
+	        <li class="my-links-of-blogroll-item">
+		    <a href="/posts/c30e6297/" title="Hexo博客文章加密" target="">
+		    Hexo博客文章加密
+		    </a>
+		</li>
+	        <li class="my-links-of-blogroll-item">
+		    <a href="/posts/7ff70092/" title="做任何事都非常厉害的诀窍，这3点你记好" target="">
+		    做任何事都非常厉害的诀窍，这3点你记好
+		    </a>
+		</li>
+	        <li class="my-links-of-blogroll-item">
+		    <a href="/posts/1afe5736/" title="DBeaver Ultimate Edition 免费破解使用" target="">
+		    DBeaver Ultimate Edition 免费破解使用
+		    </a>
+		</li>
+	        <li class="my-links-of-blogroll-item">
+		    <a href="/posts/7a47e8be/" title="为何大多数程序员做不了独立开发者？" target="">
+		    为何大多数程序员做不了独立开发者？
+		    </a>
+		</li>
+	</ul>
+    </div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/5ed33e10/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lion.png">
+      <meta itemprop="name" content="swimminghao">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="swimminghao's blog">
+      <meta itemprop="description" content="swimminghao的学习博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Grafana + Prometheus + node_exporter性能监控 | swimminghao's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Grafana + Prometheus + node_exporter性能监控
+        </h1>
+
+        <div class="post-meta-container">
+
+          
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2023-03-25 15:14:00" itemprop="dateCreated datePublished" datetime="2023-03-25T15:14:00+08:00">2023-03-25</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2025-02-13 16:20:39" itemprop="dateModified" datetime="2025-02-13T16:20:39+08:00">2025-02-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">工具</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/posts/5ed33e10/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/5ed33e10/" data-xid="/posts/5ed33e10/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>4.9k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>4 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="Grafana-Prometheus-node-exporter性能监控"><a href="#Grafana-Prometheus-node-exporter性能监控" class="headerlink" title="Grafana + Prometheus + node_exporter性能监控"></a>Grafana + Prometheus + node_exporter性能监控</h1><h2 id="一、背景"><a href="#一、背景" class="headerlink" title="一、背景"></a>一、背景</h2><p>在用Jmeter执行性能测试时，为了更好得收集压测数据，并展示性能测试结果数据，需要搭建一套监控平台。有了平台后测试人员可以随时通过查看性能压测数据，对比历史数据，分析性能优化结果。</p>
+<h2 id="二、服务准备"><a href="#二、服务准备" class="headerlink" title="二、服务准备"></a>二、服务准备</h2><h3 id="1、MySQL用户授权"><a href="#1、MySQL用户授权" class="headerlink" title="1、MySQL用户授权"></a>1、MySQL用户授权</h3><p>需要对用户进行授权才能收集监控数据信息</p>
+<ul>
+<li><p>首先，登录mysql服务，这里以docker为例</p>
+<p>highlighter- applescript</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker exec -<span class="keyword">it</span> mysqlserver sh</span><br><span class="line"></span><br><span class="line">mysql -uroot -p</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>然后，创建用户并开启远程登录。</p>
+<p>highlighter- n1ql</p>
+<figure class="highlight n1ql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#<span class="keyword">CREATE</span> <span class="keyword">USER</span> <span class="string">&#x27;你的账号&#x27;</span>@<span class="string">&#x27;%&#x27;</span>  IDENTIFIED <span class="keyword">BY</span> <span class="string">&#x27;你的密码&#x27;</span>;</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">USER</span> <span class="string">&#x27;exporter&#x27;</span>@<span class="string">&#x27;%&#x27;</span> IDENTIFIED <span class="keyword">BY</span> <span class="string">&#x27;123123123&#x27;</span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>然后，授予查看主从运行、线程，及所有数据库的权限</p>
+<p>highlighter- lasso</p>
+<figure class="highlight lasso"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#GRANT PROCESS, REPLICATION CLIENT <span class="keyword">ON</span> 库名.* <span class="keyword">TO</span> <span class="string">&#x27;你的账号&#x27;</span>@<span class="string">&#x27;%&#x27;</span>;</span><br><span class="line">GRANT PROCESS, REPLICATION CLIENT <span class="keyword">ON</span> *.* <span class="keyword">TO</span> <span class="string">&#x27;exporter&#x27;</span>@<span class="string">&#x27;%&#x27;</span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>然后，授予<strong>监控MySQL server运行过程中的资源消耗、资源</strong>权限</p>
+<p>highlighter- lasso</p>
+<figure class="highlight lasso"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#GRANT <span class="keyword">SELECT</span> <span class="keyword">ON</span> performance_schema.* <span class="keyword">TO</span> <span class="string">&#x27;你的账号&#x27;</span>@<span class="string">&#x27;%&#x27;</span>;</span><br><span class="line">GRANT <span class="keyword">SELECT</span> <span class="keyword">ON</span> performance_schema.* <span class="keyword">TO</span> <span class="string">&#x27;exporter&#x27;</span>@<span class="string">&#x27;%&#x27;</span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>最后，更新用户权限后，刷新权限表</p>
+<p>highlighter- abnf</p>
+<figure class="highlight abnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flush privileges<span class="comment">;</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2023/03/25/7KF9sD.png"></p>
+</li>
+</ul>
+<h3 id="2、部署服务"><a href="#2、部署服务" class="headerlink" title="2、部署服务"></a>2、部署服务</h3><p>docker-compose.yml</p>
+<figure class="highlight nestedtext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">version</span><span class="punctuation">:</span> <span class="string">&#x27;2&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="attribute">networks</span><span class="punctuation">:</span></span><br><span class="line">    <span class="attribute">monitor</span><span class="punctuation">:</span></span><br><span class="line">        <span class="attribute">driver</span><span class="punctuation">:</span> <span class="string">bridge</span></span><br><span class="line"></span><br><span class="line"><span class="attribute">services</span><span class="punctuation">:</span></span><br><span class="line">    <span class="attribute">prometheus</span><span class="punctuation">:</span></span><br><span class="line">        <span class="attribute">image</span><span class="punctuation">:</span> <span class="string">prom/prometheus:latest</span></span><br><span class="line">        <span class="attribute">container_name</span><span class="punctuation">:</span> <span class="string">prometheus</span></span><br><span class="line">        <span class="attribute">hostname</span><span class="punctuation">:</span> <span class="string">prometheus</span></span><br><span class="line">        <span class="attribute">restart</span><span class="punctuation">:</span> <span class="string">always</span></span><br><span class="line">        <span class="attribute">volumes</span><span class="punctuation">:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">./prometheus.yml:/etc/prometheus/prometheus.yml</span></span><br><span class="line">        <span class="attribute">ports</span><span class="punctuation">:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">&quot;9090:9090&quot;</span></span><br><span class="line">        <span class="attribute">networks</span><span class="punctuation">:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">monitor</span></span><br><span class="line"></span><br><span class="line">    <span class="attribute">grafana</span><span class="punctuation">:</span></span><br><span class="line">        <span class="attribute">image</span><span class="punctuation">:</span> <span class="string">grafana/grafana:latest</span></span><br><span class="line">        <span class="attribute">container_name</span><span class="punctuation">:</span> <span class="string">grafana</span></span><br><span class="line">        <span class="attribute">hostname</span><span class="punctuation">:</span> <span class="string">grafana</span></span><br><span class="line">        <span class="attribute">restart</span><span class="punctuation">:</span> <span class="string">always</span></span><br><span class="line">        <span class="attribute">ports</span><span class="punctuation">:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">&quot;3000:3000&quot;</span></span><br><span class="line">        <span class="attribute">networks</span><span class="punctuation">:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">monitor</span></span><br><span class="line"></span><br><span class="line">    <span class="attribute">node-exporter</span><span class="punctuation">:</span></span><br><span class="line">        <span class="attribute">image</span><span class="punctuation">:</span> <span class="string">quay.io/prometheus/node-exporter:latest</span></span><br><span class="line">        <span class="attribute">container_name</span><span class="punctuation">:</span> <span class="string">node-exporter</span></span><br><span class="line">        <span class="attribute">hostname</span><span class="punctuation">:</span> <span class="string">node-exporter</span></span><br><span class="line">        <span class="attribute">restart</span><span class="punctuation">:</span> <span class="string">always</span></span><br><span class="line">        <span class="attribute">ports</span><span class="punctuation">:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">&quot;9100:9100&quot;</span></span><br><span class="line">        <span class="attribute">networks</span><span class="punctuation">:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">monitor</span></span><br><span class="line"></span><br><span class="line">    <span class="attribute">cadvisor</span><span class="punctuation">:</span></span><br><span class="line">        <span class="attribute">image</span><span class="punctuation">:</span> <span class="string">google/cadvisor:latest</span></span><br><span class="line">        <span class="attribute">container_name</span><span class="punctuation">:</span> <span class="string">cadvisor</span></span><br><span class="line">        <span class="attribute">hostname</span><span class="punctuation">:</span> <span class="string">cadvisor</span></span><br><span class="line">        <span class="attribute">restart</span><span class="punctuation">:</span> <span class="string">always</span></span><br><span class="line">        <span class="attribute">volumes</span><span class="punctuation">:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">/:/rootfs:ro</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">/var/run:/var/run:rw</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">/sys:/sys:ro</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">/var/lib/docker/:/var/lib/docker:ro</span></span><br><span class="line">        <span class="attribute">ports</span><span class="punctuation">:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">&quot;8899:8080&quot;</span></span><br><span class="line">        <span class="attribute">networks</span><span class="punctuation">:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">monitor</span></span><br><span class="line"></span><br><span class="line">    <span class="attribute">redis-exporter</span><span class="punctuation">:</span></span><br><span class="line">        <span class="attribute">image</span><span class="punctuation">:</span> <span class="string">oliver006/redis_exporter</span></span><br><span class="line">        <span class="attribute">container_name</span><span class="punctuation">:</span> <span class="string">redis-exporter</span></span><br><span class="line">        <span class="attribute">hostname</span><span class="punctuation">:</span> <span class="string">redis-exporter</span></span><br><span class="line">        <span class="attribute">restart</span><span class="punctuation">:</span> <span class="string">always</span></span><br><span class="line">        <span class="attribute">ports</span><span class="punctuation">:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">&quot;9121:9121&quot;</span></span><br><span class="line">        <span class="attribute">command</span><span class="punctuation">:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">&quot;--redis.addr=redis://127.0.0.1:6379&quot;</span></span><br><span class="line">        <span class="attribute">networks</span><span class="punctuation">:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">monitor</span></span><br><span class="line"></span><br><span class="line">    <span class="attribute">mysql_exporter</span><span class="punctuation">:</span></span><br><span class="line">        <span class="attribute">image</span><span class="punctuation">:</span> <span class="string">prom/mysqld-exporter</span></span><br><span class="line">        <span class="attribute">container_name</span><span class="punctuation">:</span> <span class="string">mysql-exporter</span></span><br><span class="line">        <span class="attribute">hostname</span><span class="punctuation">:</span> <span class="string">mysql-exporter</span></span><br><span class="line">        <span class="attribute">restart</span><span class="punctuation">:</span> <span class="string">always</span></span><br><span class="line">        <span class="attribute">ports</span><span class="punctuation">:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">&quot;9104:9104&quot;</span></span><br><span class="line">        <span class="attribute">environment</span><span class="punctuation">:</span></span><br><span class="line">            <span class="attribute">DATA_SOURCE_NAME</span><span class="punctuation">:</span> <span class="string">&#x27;exporter:123123123@(127.0.0.1:3306)&#x27;</span></span><br><span class="line">        <span class="attribute">networks</span><span class="punctuation">:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">monitor</span></span><br></pre></td></tr></table></figure>
+
+<p>在<code>docker-compose.yml</code>当前目录下，创建<code>prometheus.yml</code>文件，它将<code>prometheus</code>与<code>exporter</code>服务关联起来。</p>
+<p>prometheus.yml</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Prometheus全局配置项</span></span><br><span class="line"><span class="attr">global:</span></span><br><span class="line">  <span class="attr">scrape_interval:</span> <span class="string">15s</span> <span class="comment"># 设定抓取数据的周期，默认为1min</span></span><br><span class="line">  <span class="attr">evaluation_interval:</span> <span class="string">15s</span> <span class="comment"># 设定更新rules文件的周期，默认为1min</span></span><br><span class="line">  <span class="attr">scrape_timeout:</span> <span class="string">15s</span> <span class="comment"># 设定抓取数据的超时时间，默认为10s</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># scape配置</span></span><br><span class="line"><span class="attr">scrape_configs:</span></span><br><span class="line">  <span class="comment"># job_name默认写入timeseries的labels中，可以用于查询使用</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">job_name:</span> <span class="string">&#x27;prometheus&#x27;</span></span><br><span class="line">    <span class="attr">scrape_interval:</span> <span class="string">15s</span> <span class="comment"># 抓取周期，默认采用global配置</span></span><br><span class="line">    <span class="attr">static_configs:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">targets:</span> [<span class="string">&#x27;192.168.50.218:9090&#x27;</span>] <span class="comment"># prometheus所要抓取数据的地址，即instance实例项</span></span><br><span class="line"></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">job_name:</span> <span class="string">&#x27;node&#x27;</span></span><br><span class="line">    <span class="attr">scrape_interval:</span> <span class="string">8s</span></span><br><span class="line">    <span class="attr">static_configs:</span></span><br><span class="line">     <span class="bullet">-</span> <span class="attr">targets:</span> [<span class="string">&#x27;192.168.50.218:9100&#x27;</span>]</span><br><span class="line">       <span class="attr">labels:</span></span><br><span class="line">         <span class="attr">instance:</span> <span class="string">node</span></span><br><span class="line"></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">job_name:</span> <span class="string">&#x27;cadvisor&#x27;</span></span><br><span class="line">    <span class="attr">static_configs:</span></span><br><span class="line">     <span class="bullet">-</span> <span class="attr">targets:</span> [<span class="string">&#x27;192.168.50.218:8899&#x27;</span>]</span><br><span class="line">     <span class="attr">labels:</span></span><br><span class="line">         <span class="attr">instance:</span> <span class="string">cadvisor</span></span><br><span class="line"></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">job_name:</span> <span class="string">&#x27;redis_exporter&#x27;</span></span><br><span class="line">    <span class="attr">static_configs:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">targets:</span> [ <span class="string">&#x27;192.168.50.218:9121&#x27;</span> ]</span><br><span class="line">        <span class="attr">labels:</span></span><br><span class="line">          <span class="attr">instance:</span> <span class="string">redis</span></span><br><span class="line"></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">job_name:</span> <span class="string">&#x27;mysql_exporter&#x27;</span></span><br><span class="line">    <span class="attr">static_configs:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">targets:</span> [ <span class="string">&#x27;192.168.50.218:9104&#x27;</span> ]</span><br><span class="line">        <span class="attr">labels:</span></span><br><span class="line">          <span class="attr">instance:</span> <span class="string">mysql</span></span><br></pre></td></tr></table></figure>
+
+<p>在<code>docker-compose.yml</code>以及<code>prometheus.yml</code>文件都准备好后，在当前目录下创建一个<code>run.sh</code>的脚本，方便快速启动服务，不用这个脚本，用脚本中的命令也可以。</p>
+<p>run.sh</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/usr/bin/env bash</span></span><br><span class="line">docker-compose down</span><br><span class="line">docker-compose <span class="built_in">rm</span></span><br><span class="line">docker-compose up -d --build</span><br></pre></td></tr></table></figure>
+
+<p>全部启动后</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> ~/<span class="keyword">data</span>/prometheus</span><br><span class="line"></span><br><span class="line">docker<span class="literal">-compose</span> <span class="built_in">ps</span></span><br></pre></td></tr></table></figure>
+
+<p><a target="_blank" rel="noopener" href="https://photo-1301375639.cos.ap-chengdu.myqcloud.com/undefined/20220823205240-131178.png"><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2023/03/25/zFCLmS.png" alt="img"></a></p>
+<p>启动成功，后就可以访问：</p>
+<ul>
+<li><code>http://192.168.50.218:9090</code> :prometheus的原生web-ui</li>
+<li><code>http://192.168.50.218:3000</code> :Grafana开源的监控可视化组件页面，默认用户及密码为admin</li>
+<li><code>http://192.168.50.218:9100</code> :收集服务器（node-exporter）的metrics</li>
+<li><code>http://192.168.50.218:8899</code> :收集docker（cadvisor）的metrics</li>
+<li><code>http://192.168.50.218:9100</code> :收集redis（redis-exporter）的metrics</li>
+<li><code>http://192.168.50.218:9104</code> :收集mysql（mysql-exporter）的metrics</li>
+</ul>
+<p>打开 <code>http://192.168.50.218:9090/targets </code>，如果State都是UP即代表Prometheus工作正常，如下图所示：</p>
+<p><a target="_blank" rel="noopener" href="https://photo-1301375639.cos.ap-chengdu.myqcloud.com/undefined/20220823210417-32948.png"><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2023/03/25/XfPd4R.png" alt="img"></a></p>
+<h2 id="三、服务配置"><a href="#三、服务配置" class="headerlink" title="三、服务配置"></a>三、服务配置</h2><h3 id="1、配置数据源"><a href="#1、配置数据源" class="headerlink" title="1、配置数据源"></a>1、配置数据源</h3><p>首先，服务启动后，要让<code>prometheus</code>的数据能被<code>Grafana</code>访问，那么就需要打开<code>Grafana</code>页面（<code>http://192.168.50.218:3000</code> ），默认用户及密码均为<code>admin</code>，并在<code>Grafana</code>页面中配置<code>prometheus</code>的数据来源。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2023/03/25/XtUuHw.png" alt="img"></p>
+<p>配置好数据源后，就可以配置对应监控模板。</p>
+<h3 id="2、配置服务器监控"><a href="#2、配置服务器监控" class="headerlink" title="2、配置服务器监控"></a>2、配置服务器监控</h3><p>本次要导入的模板：<a target="_blank" rel="noopener" href="https://grafana.com/grafana/dashboards/11074%EF%BC%8C%E6%A8%A1%E6%9D%BFID%EF%BC%9A11074">https://grafana.com/grafana/dashboards/11074，模板ID：11074</a></p>
+<p><a target="_blank" rel="noopener" href="https://photo-1301375639.cos.ap-chengdu.myqcloud.com/undefined/20220824163539-912751.png"><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2023/03/25/deGwTM.png" alt="img"></a></p>
+<p>开<code>Grafana</code>页面（<code>http://192.168.50.218:3000</code> ），然后选择<code>import</code>导入模板</p>
+<p><a target="_blank" rel="noopener" href="https://photo-1301375639.cos.ap-chengdu.myqcloud.com/undefined/20220824162319-169624.png"><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2023/03/25/rc7jO1.png" alt="img"></a></p>
+<p>然后，填写模板的名称（名称随意取），接着，选择数据源为<code>prometheus</code></p>
+<p><a target="_blank" rel="noopener" href="https://photo-1301375639.cos.ap-chengdu.myqcloud.com/undefined/20220824162509-230520.png"><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2023/03/25/ZQzJcu.png" alt="img"></a></p>
+<p>最后，点击<code>import</code>导入模板，结果如图：</p>
+<p><a target="_blank" rel="noopener" href="https://photo-1301375639.cos.ap-chengdu.myqcloud.com/undefined/20220824162832-752439.png"><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2023/03/25/7jTvBl.png" alt="img"></a></p>
+<p>可以看到<code>node-exporter</code>把获取的数据信息，展示在了<code>Grafana</code>页面。</p>
+<h3 id="3、配置容器监控"><a href="#3、配置容器监控" class="headerlink" title="3、配置容器监控"></a>3、配置容器监控</h3><p>本次要导入的模板：<a target="_blank" rel="noopener" href="https://grafana.com/grafana/dashboards/893%EF%BC%8C%E6%A8%A1%E6%9D%BFID%EF%BC%9A893">https://grafana.com/grafana/dashboards/893，模板ID：893</a></p>
+<p><a target="_blank" rel="noopener" href="https://photo-1301375639.cos.ap-chengdu.myqcloud.com/undefined/20220824163507-964056.png"><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2023/03/25/8BJ3pP.png" alt="img"></a></p>
+<p>开<code>Grafana</code>页面（<code>http://192.168.50.218:3000</code> ），然后选择<code>import</code>导入模板</p>
+<p><a target="_blank" rel="noopener" href="https://photo-1301375639.cos.ap-chengdu.myqcloud.com/undefined/20220824163631-394593.png"><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2023/03/25/NpzNmg.png" alt="img"></a></p>
+<p>然后，填写模板的名称（名称随意取），接着，选择数据源为<code>prometheus</code></p>
+<p><a target="_blank" rel="noopener" href="https://photo-1301375639.cos.ap-chengdu.myqcloud.com/undefined/20220824163715-583039.png"><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2023/03/25/A8mEix.png" alt="img"></a></p>
+<p>最后，就可以看到，收集docker（cadvisor）的metrics信息，并展示在grafana页面。</p>
+<p><a target="_blank" rel="noopener" href="https://photo-1301375639.cos.ap-chengdu.myqcloud.com/undefined/20220824164056-462019.png"><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2023/03/25/9lEXNH.png" alt="img"></a></p>
+<h3 id="4、配置redis监控"><a href="#4、配置redis监控" class="headerlink" title="4、配置redis监控"></a>4、配置redis监控</h3><p>本次要导入的模板：<a target="_blank" rel="noopener" href="https://grafana.com/grafana/dashboards/11835%EF%BC%8C%E6%A8%A1%E6%9D%BFID%EF%BC%9A11835">https://grafana.com/grafana/dashboards/11835，模板ID：11835</a></p>
+<p>开<code>Grafana</code>页面（<code>http://192.168.50.218:3000</code> ），然后选择<code>import</code>导入模板</p>
+<p><a target="_blank" rel="noopener" href="https://photo-1301375639.cos.ap-chengdu.myqcloud.com/undefined/20220824164435-339924.png"><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2023/03/25/VT3DPm.png" alt="img"></a></p>
+<h3 id="5、配置mysql监控"><a href="#5、配置mysql监控" class="headerlink" title="5、配置mysql监控"></a>5、配置mysql监控</h3><p>本次要导入的模板：<a target="_blank" rel="noopener" href="https://grafana.com/grafana/dashboards/7362%EF%BC%8C%E6%A8%A1%E6%9D%BFID%EF%BC%9A7362">https://grafana.com/grafana/dashboards/7362，模板ID：7362</a></p>
+<p><a target="_blank" rel="noopener" href="https://photo-1301375639.cos.ap-chengdu.myqcloud.com/undefined/20220824164224-275451.png"><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2023/03/25/HhJUJl.png" alt="img"></a></p>
+<h2 id="四、参考"><a href="#四、参考" class="headerlink" title="四、参考"></a>四、参考</h2><p>1、docker-compose 搭建 Prometheus+Grafana监控系统 :<a target="_blank" rel="noopener" href="https://www.cnblogs.com/qdhxhz/p/16325893.html">https://www.cnblogs.com/qdhxhz/p/16325893.html</a></p>
+<p>2、jmeter压测练习：<a target="_blank" rel="noopener" href="https://github.com/princeqjzh/iJmeter">https://github.com/princeqjzh/iJmeter</a></p>
+<p>3、dbeaver下载：<a target="_blank" rel="noopener" href="https://dbeaver.io/download/">https://dbeaver.io/download/</a></p>
+<p>4、mysql监控：<a target="_blank" rel="noopener" href="https://www.prometheus.wang/exporter/use-promethues-monitor-mysql.html">https://www.prometheus.wang/exporter/use-promethues-monitor-mysql.html</a></p>
+
+    </div>
+
+    
+    
+    
+
+
+    <div>
+      
+        <div>
+    
+      <div style="text-align:center;color: #ccc;font-size:20px;">------------- 本 文 结 束&nbsp&nbsp&nbsp&nbsp&nbsp感 谢 您 的 阅 读 -------------</div>
+    
+</div>
+
+      
+    </div>
+
+    <footer class="post-footer"><div class="post-widgets">
+      <div id="needsharebutton-postbottom">
+        <span class="btn">
+          <i class="fa fa-share-alt" aria-hidden="true"></i>
+        </span>
+      </div>
+    </div>
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>swimminghao
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://example.com/posts/5ed33e10/" title="Grafana + Prometheus + node_exporter性能监控">http://example.com/posts/5ed33e10/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/nas/" rel="tag"><i class="fa fa-tag"></i> nas</a>
+              <a href="/tags/%E7%9B%91%E6%8E%A7/" rel="tag"><i class="fa fa-tag"></i> 监控</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/posts/38d0483b/" rel="prev" title="ppt技巧">
+                  <i class="fa fa-chevron-left"></i> ppt技巧
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/posts/1440ab84/" rel="next" title="英语作文模板">
+                  英语作文模板 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>l
+
+
+
+
+
+
+    <div class="comments" id="waline-comments"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">swimminghao</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">1.2m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">18:03</span>
+  </span>
+</div>
+
+<span id="sitetime"></span>
+<script language=javascript>
+    function siteTime(){
+        window.setTimeout("siteTime()", 1000);
+        var seconds = 1000;
+        var minutes = seconds * 60;
+        var hours = minutes * 60;
+        var days = hours * 24;
+        var years = days * 365;
+        var today = new Date();
+        var todayYear = today.getFullYear();
+        var todayMonth = today.getMonth()+1;
+        var todayDate = today.getDate();
+        var todayHour = today.getHours();
+        var todayMinute = today.getMinutes();
+        var todaySecond = today.getSeconds();
+        /* Date.UTC() -- 返回date对象距世界标准时间(UTC)1970年1月1日午夜之间的毫秒数(时间戳)
+        year - 作为date对象的年份，为4位年份值
+        month - 0-11之间的整数，做为date对象的月份
+        day - 1-31之间的整数，做为date对象的天数
+        hours - 0(午夜24点)-23之间的整数，做为date对象的小时数
+        minutes - 0-59之间的整数，做为date对象的分钟数
+        seconds - 0-59之间的整数，做为date对象的秒数
+        microseconds - 0-999之间的整数，做为date对象的毫秒数 */
+        var t1 = Date.UTC(2022,02,28,00,00,00); //你的建站时间
+        var t2 = Date.UTC(todayYear,todayMonth,todayDate,todayHour,todayMinute,todaySecond);
+        var diff = t2-t1;
+        var diffYears = Math.floor(diff/years);
+        var diffDays = Math.floor((diff/days)-diffYears*365);
+        var diffHours = Math.floor((diff-(diffYears*365+diffDays)*days)/hours);
+        var diffMinutes = Math.floor((diff-(diffYears*365+diffDays)*days-diffHours*hours)/minutes);
+        var diffSeconds = Math.floor((diff-(diffYears*365+diffDays)*days-diffHours*hours-diffMinutes*minutes)/seconds);
+        document.getElementById("sitetime").innerHTML=" 本站已安全运行 "+diffYears+" Year "+diffDays+" Days "+diffHours+" Hours "+diffMinutes+" m "+diffSeconds+" s";
+    }
+    siteTime();
+</script>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        访问人数：<span id="busuanzi_value_site_uv"></span>
+      </span>人
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+       访问总量：<span id="busuanzi_value_site_pv"></span>
+      </span>次
+    </span>
+
+
+<!--
+  本文总阅读量：<span id="busuanzi_value_page_pv"></span>次
+-->
+
+</div>
+
+
+<!--
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+--><script color="0,0,255" opacity="0.5" zIndex="-1" count="99" src="https://cdn.jsdelivr.net/npm/canvas-nest.js@1/dist/canvas-nest.js"></script>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<script class="next-config" data-name="waline" type="application/json">{"lang":"zh-cn","enable":true,"serverURL":"waline-server-nu.vercel.app","placeholder":"请文明评论呀","avatar":"mm","pageSize":10,"visitor":false,"comment_count":true,"requiredFields":[],"meta":["nick","mail","link"],"libUrl":"https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js","el":"#waline-comments","path":"/posts/5ed33e10/"}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.waline.el).then(() => 
+    NexT.utils.getScript(CONFIG.waline.libUrl, { condition: window.Waline })
+  ).then(() => {
+    new Waline(CONFIG.waline);
+  });
+});
+</script>
+  <script src="//cdn.jsdelivr.net/gh/theme-next/theme-next-needmoreshare2@1/needsharebutton.min.js"></script>
+  <script>
+      pbOptions = {};
+        pbOptions.iconStyle = "default";
+        pbOptions.boxForm = "horizontal";
+        pbOptions.position = "middleCenter";
+        pbOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+  </script>
+</body>
+</html>
