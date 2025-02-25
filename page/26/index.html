@@ -276,7 +276,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/48353052/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/5832e44e/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/lion.png">
@@ -294,7 +294,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/48353052/" class="post-title-link" itemprop="url">mysql连表操作后字符集不同导致索引失效问题</a>
+          <a href="/posts/5832e44e/" class="post-title-link" itemprop="url">shell知识点</a>
         </h2>
 
         <div class="post-meta-container">
@@ -323,7 +323,7 @@
       </span>
       <span class="post-meta-item-text">分类于</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+          <a href="/categories/%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">工具</span></a>
         </span>
     </span>
 
@@ -336,8 +336,8 @@
     </span>
     <span class="post-meta-item-text">Waline：</span>
   
-    <a title="waline" href="/posts/48353052/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/48353052/" data-xid="/posts/48353052/" itemprop="commentCount"></span>
+    <a title="waline" href="/posts/5832e44e/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/5832e44e/" data-xid="/posts/5832e44e/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -348,14 +348,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>1.2k</span>
+      <span>2k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>1 分钟</span>
+      <span>2 分钟</span>
     </span>
 </div>
 
@@ -366,36 +366,242 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="mysql-连表操作后字符集不同导致索引失效"><a href="#mysql-连表操作后字符集不同导致索引失效" class="headerlink" title="mysql 连表操作后字符集不同导致索引失效"></a>mysql 连表操作后字符集不同导致索引失效</h1><h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>一个表的字符集为utf8mb4<br>一个表的字符集为utf8</p>
-<p>连表查询后可以发现索引失效的情况，查询很慢。</p>
-<p>t1为utf8，t2为utf8mb4。但是为什么表字符集不一样（实际是字段字符集不一样）就会导致t1全表扫描呢？</p>
-<h2 id="分析原因"><a href="#分析原因" class="headerlink" title="分析原因"></a>分析原因</h2><p>（1）首先t2 left join t1决定了t2是驱动表，这一步相当于执行了</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> t2 <span class="keyword">where</span> t2.name <span class="operator">=</span> <span class="string">&#x27;dddd&#x27;</span></span><br></pre></td></tr></table></figure>
+          <h1 id="1易混淆点"><a href="#1易混淆点" class="headerlink" title="$1易混淆点"></a>$1易混淆点</h1><h2 id="一、标准输入和参数的区别"><a href="#一、标准输入和参数的区别" class="headerlink" title="一、标准输入和参数的区别"></a>一、标准输入和参数的区别</h2><p>这个问题一定是最容易让人迷惑的，具体来说，就是搞不清什么时候用管道 符| 和文件重定向&gt; ，&lt; ，什么时候用变量$ 。</p>
+<p>比如说，我现在有个自动连接宽带的 shell 脚本 connect.sh ，存在我的家目录:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">where</span> connect.sh </span><br><span class="line">/home/fdl/bin/connect.sh</span><br></pre></td></tr></table></figure>
 
-<p>取出code字段的值，假如为’8a77a32a7e0825f7c8634226105c42e5’;</p>
-<p>（2）然后拿t2查到的code的值根据join条件去t1里面查找，这一步就相当于执行了</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> t1 <span class="keyword">where</span> t1.code <span class="operator">=</span> <span class="string">&#x27;8a77a32a7e0825f7c8634226105c42e5&#x27;</span>;</span><br></pre></td></tr></table></figure>
+<p>如果我想删除这个脚本，而且想少敲几次键盘，应该怎么操作呢?我曾经这<br>样尝试过:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">where</span> connect.sh | <span class="built_in">rm</span></span><br></pre></td></tr></table></figure>
 
-<p>（3）但是由于第（1）步里面t2表取出的code字段是utf8mb4字符集，而t1表里面的code是utf8字符集，这里需要做字符集转换，字符集转换遵循由小到大的原则，因为utf8mb4是utf8的超集，所以这里把utf8转换成utf8mb4，即把t1.code转换成utf8mb4字符集，转换了之后，由于t1.code上面的索引仍然是utf8字符集，所以这个索引会被执行计划忽略了，然后t1表只能选择全表扫描。如果t2筛选出来的记录不止1条，那么t1就会被多次全表扫描，性能之差可想而知。</p>
-<h2 id="修改字符集"><a href="#修改字符集" class="headerlink" title="修改字符集"></a>修改字符集</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> t1 charset utf8mb4;</span><br></pre></td></tr></table></figure>
+<p>实际上，这样操作是错误的，正确的做法应该是这样的:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">rm</span> $(<span class="built_in">where</span> connect.sh)</span><br></pre></td></tr></table></figure>
 
-<p>这是错的，这只是改了表的默认字符集，即新的字段才会使用utf8mb4，已经存在的字段仍然是utf8。</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> t1 <span class="keyword">convert</span> <span class="keyword">to</span> charset utf8mb4;</span><br></pre></td></tr></table></figure>
+<p>前者试图将 where 的结果连接到 rm 的标准输入，后者试图将结果作为命令行参数传入。</p>
+<p><strong>标准输入就是编程语言中诸如</strong> <strong>scanf</strong> <strong>或者</strong> <strong>readline</strong> <strong>这种命令;而参数是指 程序的</strong> <strong>main</strong> <strong>函数传入的</strong> <strong>args</strong> <strong>字符数组</strong>。</p>
+<p>前文「Linux文件描述符」说过，管道符和重定向符是将数据作为程序的标 准输入，而 $(cmd) 是读取 cmd 命令输出的数据作为参数。</p>
+<p>用刚才的例子说， rm 命令源代码中肯定不接受标准输入，而是接收命令行 参数，删除相应的文件。作为对比， cat 命令是既接受标准输入，又接受 命令行参数:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cat</span> filename </span><br><span class="line">...file text...</span><br><span class="line">$ <span class="built_in">cat</span> &lt; filename</span><br><span class="line">...file text...</span><br><span class="line">$ <span class="built_in">echo</span> <span class="string">&#x27;hello world&#x27;</span> | <span class="built_in">cat</span></span><br><span class="line">hello world</span><br></pre></td></tr></table></figure>
 
-<p>查看 SHOW FULL COLUMNS FROM t1 ;会发现字段的字符已经改变。</p>
-<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><p><strong>排序规则概念：</strong>是指对指定字符集下不同字符的比较规则。排序规则有以下特征：</p>
+<p><strong>如果命令能够让终端阻塞，说明该命令接收标准输入，反之就是不接受</strong>，比 如你只运行 cat 命令不加任何参数，终端就会阻塞，等待你输入字符串并 回显相同的字符串。</p>
+<h2 id="二、后台运行程序"><a href="#二、后台运行程序" class="headerlink" title="二、后台运行程序"></a><strong>二、后台运行程序</strong></h2><p>比如说你远程登录到服务器上，运行一个 Django web 程序:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ python manager.py runserver 0.0.0.0 Listening on 0.0.0.0:8080...</span><br></pre></td></tr></table></figure>
+
+<p>现在你可以通过服务器的 IP 地址测试 Django 服务，但是终端此时就阻塞 了，你输入什么都不响应，除非输入 Ctrl-C 或者 Ctrl-&#x2F; 终止 python 进程。</p>
+<p>可以在命令之后加一个 &amp; 符号，这样命令行不会阻塞，可以响应你后续输 入的命令，但是如果你退出服务器的登录，就不能访问该网⻚了。</p>
+<p>如果你想在退出服务器之后仍然能够访问web服务，应该这样写命令 (cmd &amp;) :</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ (python manager.py runserver 0.0.0.0 &amp;) Listening on 0.0.0.0:8080...</span><br><span class="line"></span><br><span class="line">$ <span class="built_in">logout</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>底层原理是这样的</strong>:</p>
+<p>每一个命令行终端都是一个 shell 进程，你在这个终端里执行的程序实际上 都是这个 shell 进程分出来的子进程。正常情况下，shell 进程会阻塞，等待 子进程退出才重新接收你输入的新的命令。加上 &amp; 号，只是让 shell 进程不 再阻塞，可以继续响应你的新命令。但是无论如何，你如果关掉了这个 shell 命令行端口，依附于它的所有子进程都会退出。</p>
+<p><strong>而 (cmd &amp;) 这样运行命令，则是将 cmd 命令挂到一个 systemd 系统守护进程名下，认 systemd 做爸爸，这样当你退出当前终端时，对于刚才的 cmd 命令就完全没有影响了。</strong></p>
+<p>类似的，还有一种后台运行常用的做法是这样:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ nohub some_cmd &amp;</span><br></pre></td></tr></table></figure>
+
+<p>nohub 命令也是类似的原理，不过通过我的测试，<strong>还是 (cmd &amp;) 这种形式 更加稳定</strong>。</p>
+<h2 id="三、单引号和双引号的区别"><a href="#三、单引号和双引号的区别" class="headerlink" title="三、单引号和双引号的区别"></a>三、单引号和双引号的区别</h2><p>不同的 shell 行为会有细微区别，但有一点是确定的，<strong>对于</strong> <strong>$</strong> <strong>，</strong> <strong>(</strong> <strong>，</strong> <strong>)</strong> <strong>这 几个符号，单引号包围的字符串不会做任何转义，双引号包围的字符串会转 义</strong>。</p>
+<p>shell 的行为可以测试，使用 set -x 命令，会开启 shell 的命令回显，你可 以通过回显观察 shell 到底在执行什么命令:</p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/acjc30_20210910112344.png"></p>
+<p>可⻅ echo $(cmd) 和 echo “$(cmd)” ，结果差不多，但是仍然有区别。注 意观察，双引号转义完成的结果会自动增加单引号，而前者不会。</p>
+<p><strong>也就是说，如果</strong> <strong>$</strong> <strong>读取出的参数字符串包含空格，应该用双引号括起来， 否则就会出错</strong>。</p>
+<h2 id="四、-sudo-找不到命令"><a href="#四、-sudo-找不到命令" class="headerlink" title="四、****sudo 找不到命令"></a><strong>四、****sudo</strong> <strong>找不到命令</strong></h2><p>有时候我们普通用户可以用的命令，用 sudo 加权限之后却报错 command not found:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ connect.sh</span><br><span class="line"> network-manager: Permission denied</span><br><span class="line"></span><br><span class="line">$ sudo connect.sh</span><br><span class="line"> sudo: <span class="built_in">command</span> not found</span><br></pre></td></tr></table></figure>
+
+<p>原因在于， connect.sh 这个脚本仅存在于该用户的环境变量中:</p>
+<p><strong>当使用</strong> <strong>sudo</strong> <strong>时，系统会使用</strong> <strong>&#x2F;etc&#x2F;sudoers</strong> <strong>这个文件中规定的该用户的权 限和环境变量</strong>，而这个脚本在 &#x2F;etc&#x2F;sudoers 环境变量目录中当然是找不到 的。</p>
+<p>解决方法是使用脚本文件的路径，而不是仅仅通过脚本名称:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo /home/fdl/bin/connect.sh</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>l
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/98b63d5c/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lion.png">
+      <meta itemprop="name" content="swimminghao">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="swimminghao's blog">
+      <meta itemprop="description" content="swimminghao的学习博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | swimminghao's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/98b63d5c/" class="post-title-link" itemprop="url">shell效率</a>
+        </h2>
+
+        <div class="post-meta-container">
+
+          
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2025-02-13 16:20:39" itemprop="dateModified" datetime="2025-02-13T16:20:39+08:00">2025-02-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">工具</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/posts/98b63d5c/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/98b63d5c/" data-xid="/posts/98b63d5c/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>3.3k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>3 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="§1效率"><a href="#§1效率" class="headerlink" title="§1效率"></a>§1效率</h1><h2 id="输入相似文件名太麻烦"><a href="#输入相似文件名太麻烦" class="headerlink" title="输入相似文件名太麻烦"></a><strong>输入相似文件名太麻烦</strong></h2><p>用花括号括起来的字符串用逗号连接，可以自动扩展，非常有用，直接看例子:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">echo</span> &#123;one,two,three&#125;file</span><br><span class="line">onefile twofile threefile</span><br><span class="line">$ <span class="built_in">echo</span> &#123;one,two,three&#125;&#123;1,2,3&#125;</span><br><span class="line">one1 one2 one3 two1 two2 two3 three1 three2 three3</span><br></pre></td></tr></table></figure>
+
+<p>你看，花括号中的每个字符都可以和之后(或之前)的字符串进行组合拼 接，<strong>注意花括号和其中的逗号不可以用空格分隔，否则会被认为是普通的字 符串对待</strong>。</p>
+<p>这个技巧有什么实际用处呢?最简单有用的就是给 cp , mv , rm 等命令扩 展参数:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cp</span> /very/long/path/file&#123;,.bak&#125;</span><br><span class="line">==&gt; <span class="built_in">cp</span> /very/long/path/file /very/long/path/file.bak</span><br><span class="line"><span class="comment"># 给 file 复制一个叫做 file.bak 的副本</span></span><br><span class="line"></span><br><span class="line">$ <span class="built_in">rm</span> file&#123;1,3,5&#125;.txt</span><br><span class="line"><span class="comment"># 删除 file1.txt file3.txt file5.txt</span></span><br><span class="line"></span><br><span class="line">$ <span class="built_in">mv</span> *.&#123;c,cpp&#125; src/</span><br><span class="line"><span class="comment"># 将所有 .c 和 .cpp 为后缀的文件移入 src 文件夹</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="输入路径名称太麻烦"><a href="#输入路径名称太麻烦" class="headerlink" title="输入路径名称太麻烦"></a><strong>输入路径名称太麻烦</strong></h2><ul>
+<li><strong>用</strong> <strong>cd -</strong> <strong>返回刚才呆的目录</strong>，直接看例子吧:</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">pwd</span></span><br><span class="line"> /very/long/path</span><br><span class="line"> $ <span class="built_in">cd</span> <span class="comment"># 回到家目录瞅瞅</span></span><br><span class="line"> $ <span class="built_in">pwd</span></span><br><span class="line"> /home/labuladong</span><br><span class="line"> $ <span class="built_in">cd</span> - <span class="comment"># 再返回刚才那个目录 $ pwd</span></span><br><span class="line"> /very/long/path</span><br></pre></td></tr></table></figure>
+
 <ul>
-<li>它和字符集（CHARSET）相关</li>
-<li>每种字符集都有多种它支持的排序规则</li>
-<li>每种字符集都会默认指定一种排序规则为默认值。</li>
-<li>mysql可对相应字符集，单独设置排序规则</li>
+<li><strong>特殊命令</strong> <strong>!$</strong> <strong>会替换成上一次输入的命令最后的路径</strong>，直接看例子:</li>
 </ul>
-<p><strong>排序规则作用</strong>：排序规则指定后，它会影响我们使用 ORDER BY语句查询的结果顺序，会影响到 WHERE条件中大于小于号的筛选结果，会影响 DISTINCT、GROUP BY、HAVING 语句的查询结果。另外，mysql 建索引的时候，如果索引列是字符类型，也会影响索引创建，只不过这种影响我们感知不到。总之，凡是涉及到字符类型比较或排序的地方，都和排序规则有关。</p>
-<h2 id="注意点"><a href="#注意点" class="headerlink" title="注意点"></a>注意点</h2><ul>
-<li>表字符集不同时，可能导致join的SQL使用不到索引，引起严重的性能问题；</li>
-<li>建表语句一定要设置默认字符集，需要关联的表字符集一定要统一；</li>
-<li>统一dev、fat、test、prod环境mysql对应库的字符集，可以及早发现问题；</li>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#没有加可执行权限</span></span><br><span class="line">$ /usr/bin/script.sh</span><br><span class="line">zsh: permission denied: /usr/bin/script.sh</span><br><span class="line"></span><br><span class="line">$ <span class="built_in">chmod</span> +x !$</span><br><span class="line"><span class="built_in">chmod</span> +x /usr/bin/script.sh</span><br><span class="line"><span class="built_in">export</span> lessCharset-uft8</span><br></pre></td></tr></table></figure>
+
+<p><strong>特殊命令</strong> <strong>!*</strong> <strong>会替换成上一次命令输入的所有文件路径</strong>，直接看例子:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建了三个脚本文件</span></span><br><span class="line">$ file script1.sh script2.sh script3.sh</span><br><span class="line"></span><br><span class="line"><span class="comment"># 给它们全部加上可执行权限</span></span><br><span class="line">$ <span class="built_in">chmod</span> +x !*</span><br><span class="line"><span class="built_in">chmod</span> +x script1.sh script2.sh script3.sh</span><br></pre></td></tr></table></figure>
+
+<p><strong>可以在环境变量</strong> <strong>CDPATH</strong> <strong>中加入你常用的工作目录</strong>，当 cd 命令在当前目 录中找不到你指定的文件&#x2F;目录时，会自动到 CDPATH 中的目录中寻找。</p>
+<p>比如说我常去 &#x2F;var&#x2F;log 目录找日志，可以执行如下命令:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">export</span> CDPATH=<span class="string">&#x27;~:/var/log&#x27;</span></span><br><span class="line"><span class="comment"># cd 命令将会在 〜 目录和 /var/log 目录扩展搜索$ pwd</span></span><br><span class="line">/home/labuladong/musics</span><br><span class="line">$ <span class="built_in">cd</span> mysql</span><br><span class="line"><span class="built_in">cd</span> /var/log/mysql</span><br><span class="line">$ <span class="built_in">pwd</span></span><br><span class="line">/var/log/mysql</span><br><span class="line">$ <span class="built_in">cd</span> my_pictures</span><br><span class="line"><span class="built_in">cd</span> /home/labuladong/my_pictures</span><br></pre></td></tr></table></figure>
+
+<p>这个技巧是十分好用的，这样就免了经常写完整的路径名称，节约不少时间。</p>
+<p>需要注意的是，以上操作是 bash 支持的，其他主流 shell 解释器当然都支持 扩展 cd 命令的搜索目录，但可能不是修改 CDPATH 这个变量，具体的设 置方法可以自行搜索。</p>
+<h2 id="输入重复命令太麻烦"><a href="#输入重复命令太麻烦" class="headerlink" title="输入重复命令太麻烦"></a>输入重复命令太麻烦</h2><p>** <strong>使用特殊命令</strong> <strong>!!</strong> <strong>，可以自动替换成上一次使用的命令</strong>:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ apt install net-tools</span><br><span class="line"> E: Could not open lock file - open (13: Permission denied)</span><br><span class="line"></span><br><span class="line">$ sudo !!</span><br><span class="line"> sudo apt install net-tools [sudo] password <span class="keyword">for</span> fdl:</span><br></pre></td></tr></table></figure>
+
+<p>有的命令很⻓，一时间想不起来具体参数了怎么办?</p>
+<p><strong>对于</strong> <strong>bash</strong> <strong>终端，可以使用</strong> <strong>Ctrl+R</strong> <strong>快捷键反向搜索历史命令</strong>，之所以说是 反向搜索，就是搜索最近一次输入的命令。</p>
+<p>比如按下 Ctrl+R 之后，输入 sudo ，bash 就会搜索出最近一次包含 sudo 的命令，你回⻋之后就可以运行该命令了:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(reverse-i-search)`sudo<span class="string">&#x27;: sudo apt install git</span></span><br></pre></td></tr></table></figure>
+
+<p>但是这个方法有缺点:首先，该功能似乎只有 bash 支持，我用的 zsh 作为 shell 终端，就用不了;第二，只能查找出一个(最近的)命令，如果我想 找以前的某个命令，就没办法了。</p>
+<p>对于这种情况，<strong>我们最常用的方法是使用</strong> <strong>history</strong> <strong>命令配合管道符和</strong> <strong>grep</strong> <strong>命令来寻找某个历史命令</strong>:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 过滤出所有包含 config 字段的历史命令</span></span><br><span class="line">$ <span class="built_in">history</span> | grep <span class="string">&#x27;config&#x27;</span></span><br><span class="line">	7352 ./configure</span><br><span class="line">	7434 git config --global --<span class="built_in">unset</span> https.proxy 9609 ifconfig</span><br><span class="line">	9985 clip -o | sed -z <span class="string">&#x27;s/\n/,\n/g&#x27;</span> | clip</span><br><span class="line">	10433 <span class="built_in">cd</span> ~/.config</span><br></pre></td></tr></table></figure>
+
+<p>你使用的所有 shell 命令都会被记录，前面的数字就表示这是第几个命令， 找到你想重复使用的命令后，也不需要复制粘贴该命令，<strong>只要使用</strong> <strong>!</strong> <strong>+</strong> <strong>你 想重用的命令编号即可运行该命令</strong>。<br>拿上面的例子，我想重新运行 git config 那条命令，就可以这样:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ !7434</span><br><span class="line">git config --global --<span class="built_in">unset</span> https.proxy <span class="comment"># 运行完成</span></span><br></pre></td></tr></table></figure>
+
+<p>我觉得 history 加管道加 grep 这样打的字还是太多，可以在 你的 shell 配置文件中( .bashrc ， .zshrc 等) 中写这样一个函数:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">his</span></span>() &#123;</span><br><span class="line">	<span class="built_in">history</span> | grep <span class="string">&quot;<span class="variable">$@</span>&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这样就不需要写那么多，只需要 his ‘some_keyword’ 即可搜索历史命令。</p>
+<p>我一般不使用 bash 作为终端，我给大家推荐一款很好用的 shell 终端叫做 zsh，这也是我自己使用的 shell。这款终端还可以扩展各种插件，非常好 用，具体配置方法可自行搜索。</p>
+<h2 id="其他小技巧"><a href="#其他小技巧" class="headerlink" title="其他小技巧"></a>其他小技巧</h2><ul>
+<li><p>**yes <strong>命令自动输入字符</strong>y **进行确认</p>
+<p>我们安装某些软件的时候，可能有交互式的提问:</p>
+</li>
 </ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt install XXX</span><br><span class="line">...</span><br><span class="line">XXX will use 996 MB disk space, <span class="built_in">continue</span>? [y/n]</span><br></pre></td></tr></table></figure>
+
+<p>一般情况下我们都是一路 y 到底，但如果我们想自动化一些软件的安装就很 烦，遇到这种交互式提问就卡住了，还得手动处理。</p>
+<p>yes 命令可以帮助我们:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">yes</span> | your_cmd</span><br></pre></td></tr></table></figure>
+
+<p>这样就会一路自动 y 下去，不会停下让我们输入了。 如果你读过前文Linux 文件描述符，就知道其原理很简单:</p>
+<p>你单独运行一下 yes 命令，发现它就是打印出一大堆字符 y，通过管道把 输出和 your_cmd 的标准输入相连接，如果 your_cmd 又提出无聊的问题， 就会从标准输入读取数据，也就会读取到一个 y 和换行符，和你手动输入 y 确认是一个效果。</p>
+<ul>
+<li><strong>特殊变量</strong> <strong>$?</strong> <strong>记录上一次命令的返回值</strong>。</li>
+</ul>
+<p>在 Linux shell 中，遵循 C 语言的习惯，返回值为 0 的话就是程序正常退 出，非 0 值就是异常退出出。读取上一次命令的返回值在平时使用命令行时 感觉没什么用，但是如果你想编写一些 shell 脚本，知道返回值非常有用。</p>
+<p><strong>举个实际的例子</strong>，比如我的 Github 仓库 fucking-algorithm ，我需要给其中 所有 markdown 文件最下方添加上一篇、下一篇、目录三个⻚脚链接，有的 文章已经有了⻚脚，大部分都没有。</p>
+<p>为了防止重复添加，我必须知道一个 md 文件下方是否已添加，这时候就可 以使用 $? 变量配合 grep 命令做到:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line">filename=<span class="variable">$1</span></span><br><span class="line"><span class="comment"># 查看文件尾部是否包含关键词</span></span><br><span class="line"><span class="built_in">tail</span> | grep <span class="string">&#x27;下一篇&#x27;</span> <span class="variable">$filename</span></span><br><span class="line"><span class="comment"># grep 查找到匹配会返回 0，找不到则返回非 0 值</span></span><br><span class="line">[ $? -ne 0 ] &amp;&amp; &#123; 添加⻚脚; &#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>特殊变量</strong> <strong>$$</strong> <strong>记录当前进程的</strong> <strong>PID</strong>。</li>
+</ul>
+<p>这个功能可能在平时使用时也不怎么用，但是在写 shell 脚本时也非常有 用，比如说你要在 &#x2F;tmp 创建临时文件，给文件起名字一直都是非常让人 费脑子 的，这时候可以使用 $$ 变量扩展出当前进程的 PID 作为临时文件的名字。</p>
 
       
     </div>
@@ -427,7 +633,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/6f1ea5f/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/969e74c3/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/lion.png">
@@ -445,7 +651,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/6f1ea5f/" class="post-title-link" itemprop="url">mysql连表操作后字符集不同导致索引失效问题1</a>
+          <a href="/posts/969e74c3/" class="post-title-link" itemprop="url">shell效率0</a>
         </h2>
 
         <div class="post-meta-container">
@@ -474,7 +680,7 @@
       </span>
       <span class="post-meta-item-text">分类于</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+          <a href="/categories/%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">工具</span></a>
         </span>
     </span>
 
@@ -487,8 +693,8 @@
     </span>
     <span class="post-meta-item-text">Waline：</span>
   
-    <a title="waline" href="/posts/6f1ea5f/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/6f1ea5f/" data-xid="/posts/6f1ea5f/" itemprop="commentCount"></span>
+    <a title="waline" href="/posts/969e74c3/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/969e74c3/" data-xid="/posts/969e74c3/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -499,155 +705,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>1k</span>
+      <span>3.3k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>1 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="mysql-连表操作后字符集不同导致索引失效"><a href="#mysql-连表操作后字符集不同导致索引失效" class="headerlink" title="mysql 连表操作后字符集不同导致索引失效"></a>mysql 连表操作后字符集不同导致索引失效</h1><h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>一个表的字符集为utf8mb4<br>一个表的字符集为utf8</p>
-<p>连表查询后可以发现索引失效的情况，查询很慢。这时候可以通过show warnings;查询警告信息。发现了convert(testdb.t1.code using utf8mb4)之后，发现2个表的字符集不一样。</p>
-<p>t1为utf8，t2为utf8mb4。但是为什么表字符集不一样（实际是字段字符集不一样）就会导致t1全表扫描呢？下面来做分析。</p>
-<h2 id="分析原因"><a href="#分析原因" class="headerlink" title="分析原因"></a>分析原因</h2><p>（1）首先t2 left join t1决定了t2是驱动表，这一步相当于执行了</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> t2 <span class="keyword">where</span> t2.name <span class="operator">=</span> <span class="string">&#x27;dddd&#x27;</span></span><br></pre></td></tr></table></figure>
-
-<p>取出code字段的值，这里为’8a77a32a7e0825f7c8634226105c42e5’;</p>
-<p>（2）然后拿t2查到的code的值根据join条件去t1里面查找，这一步就相当于执行了</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> t1 <span class="keyword">where</span> t1.code <span class="operator">=</span> <span class="string">&#x27;8a77a32a7e0825f7c8634226105c42e5&#x27;</span>;</span><br></pre></td></tr></table></figure>
-
-<p>（3）但是由于第（1）步里面t2表取出的code字段是utf8mb4字符集，而t1表里面的code是utf8字符集，这里需要做字符集转换，字符集转换遵循由小到大的原则，因为utf8mb4是utf8的超集，所以这里把utf8转换成utf8mb4，即把t1.code转换成utf8mb4字符集，转换了之后，由于t1.code上面的索引仍然是utf8字符集，所以这个索引就被执行计划忽略了，然后t1表只能选择全表扫描。如果t2筛选出来的记录不止1条，那么t1就会被多次全表扫描，性能之差可想而知。</p>
-<h2 id="修改字符集"><a href="#修改字符集" class="headerlink" title="修改字符集"></a>修改字符集</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> t1 charset utf8mb4;</span><br></pre></td></tr></table></figure>
-
-<p>但这是错的，这只是改了表的默认字符集，即新的字段才会使用utf8mb4，已经存在的字段仍然是utf8。<br>show create table t1 会发现DEFAULT CHARSET&#x3D;utf8mb4改变了，但是SHOW FULL COLUMNS FROM pay_log_all_from_mq;会发现字段的字符集没有改变。</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> t1 <span class="keyword">convert</span> <span class="keyword">to</span> charset utf8mb4;</span><br></pre></td></tr></table></figure>
-
-<p>查看 SHOW FULL COLUMNS FROM t1 ;会发现字段的字符已经改变。</p>
-<h2 id="注意点"><a href="#注意点" class="headerlink" title="注意点"></a>注意点</h2><ul>
-<li>表字符集不同时，可能导致join的SQL使用不到索引，引起严重的性能问题；</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>l
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/513a500a/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/lion.png">
-      <meta itemprop="name" content="swimminghao">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="swimminghao's blog">
-      <meta itemprop="description" content="swimminghao的学习博客">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | swimminghao's blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/513a500a/" class="post-title-link" itemprop="url">算法中文手册</a>
-        </h2>
-
-        <div class="post-meta-container">
-
-          
-
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2025-02-13 16:20:39" itemprop="dateModified" datetime="2025-02-13T16:20:39+08:00">2025-02-13</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="far fa-comment"></i>
-    </span>
-    <span class="post-meta-item-text">Waline：</span>
-  
-    <a title="waline" href="/posts/513a500a/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/513a500a/" data-xid="/posts/513a500a/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>1.2k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>1 分钟</span>
+      <span>3 分钟</span>
     </span>
 </div>
 
@@ -659,7 +724,202 @@
     
     <div class="post-body" itemprop="articleBody">
           <p>[toc]</p>
-<h3 id="开篇词"><a href="#开篇词" class="headerlink" title="开篇词"></a>开篇词</h3><h2 id="第零章、必读系列"><a href="#第零章、必读系列" class="headerlink" title="第零章、必读系列"></a>第零章、必读系列</h2><h3 id="学习算法和刷题的框架思维"><a href="#学习算法和刷题的框架思维" class="headerlink" title="学习算法和刷题的框架思维"></a>学习算法和刷题的框架思维</h3><h3 id="动态规划解题套路框架"><a href="#动态规划解题套路框架" class="headerlink" title="动态规划解题套路框架"></a>动态规划解题套路框架</h3><h3 id="回溯算法解题套路框架"><a href="#回溯算法解题套路框架" class="headerlink" title="回溯算法解题套路框架"></a>回溯算法解题套路框架</h3><h3 id="BFS-算法解题套路框架"><a href="#BFS-算法解题套路框架" class="headerlink" title="BFS 算法解题套路框架"></a>BFS 算法解题套路框架</h3><h3 id="我写了首诗，让你闭着眼睛也能写对二分搜索"><a href="#我写了首诗，让你闭着眼睛也能写对二分搜索" class="headerlink" title="我写了首诗，让你闭着眼睛也能写对二分搜索"></a>我写了首诗，让你闭着眼睛也能写对二分搜索</h3><h3 id="我写了首诗，把滑动窗口算法算法变成了默写题"><a href="#我写了首诗，把滑动窗口算法算法变成了默写题" class="headerlink" title="我写了首诗，把滑动窗口算法算法变成了默写题"></a>我写了首诗，把滑动窗口算法算法变成了默写题</h3><h3 id="一个方法团灭-LeetCode-股票买卖问题"><a href="#一个方法团灭-LeetCode-股票买卖问题" class="headerlink" title="一个方法团灭 LeetCode 股票买卖问题"></a>一个方法团灭 LeetCode 股票买卖问题</h3><h3 id="一个方法团灭-LeetCode-打家劫舍问题"><a href="#一个方法团灭-LeetCode-打家劫舍问题" class="headerlink" title="一个方法团灭 LeetCode 打家劫舍问题"></a>一个方法团灭 LeetCode 打家劫舍问题</h3><h3 id="一个方法团灭-nSum-问题"><a href="#一个方法团灭-nSum-问题" class="headerlink" title="一个方法团灭 nSum 问题"></a>一个方法团灭 nSum 问题</h3><h3 id="经典动态规划-高楼扔鸡蛋"><a href="#经典动态规划-高楼扔鸡蛋" class="headerlink" title="经典动态规划:高楼扔鸡蛋"></a>经典动态规划:高楼扔鸡蛋</h3><h3 id="经典动态规划-子集背包问题"><a href="#经典动态规划-子集背包问题" class="headerlink" title="经典动态规划:子集背包问题"></a>经典动态规划:子集背包问题</h3><h3 id="经典动态规划-完全背包问题"><a href="#经典动态规划-完全背包问题" class="headerlink" title="经典动态规划:完全背包问题"></a>经典动态规划:完全背包问题</h3><h3 id="表达式求值算法-实现计算器"><a href="#表达式求值算法-实现计算器" class="headerlink" title="表达式求值算法:实现计算器"></a>表达式求值算法:实现计算器</h3><h2 id="第一章、动态规划系列"><a href="#第一章、动态规划系列" class="headerlink" title="第一章、动态规划系列"></a>第一章、动态规划系列</h2><h3 id="动态规划解题套路框架-1"><a href="#动态规划解题套路框架-1" class="headerlink" title="动态规划解题套路框架"></a>动态规划解题套路框架</h3><h3 id="动态规划答疑篇"><a href="#动态规划答疑篇" class="headerlink" title="动态规划答疑篇"></a>动态规划答疑篇</h3><h3 id="动态规划和回溯算法到底谁是谁爹"><a href="#动态规划和回溯算法到底谁是谁爹" class="headerlink" title="动态规划和回溯算法到底谁是谁爹?"></a>动态规划和回溯算法到底谁是谁爹?</h3><h3 id="动态规划设计-最⻓递增子序列"><a href="#动态规划设计-最⻓递增子序列" class="headerlink" title="动态规划设计:最⻓递增子序列"></a>动态规划设计:最⻓递增子序列</h3><h3 id="动态规划设计-最大子数组"><a href="#动态规划设计-最大子数组" class="headerlink" title="动态规划设计:最大子数组"></a>动态规划设计:最大子数组</h3><h3 id="经典动态规划-0-1-背包问题"><a href="#经典动态规划-0-1-背包问题" class="headerlink" title="经典动态规划:0-1 背包问题"></a>经典动态规划:0-1 背包问题</h3><h3 id="经典动态规划-子集背包问题-1"><a href="#经典动态规划-子集背包问题-1" class="headerlink" title="经典动态规划:子集背包问题"></a>经典动态规划:子集背包问题</h3><h3 id="经典动态规划-完全背包问题-1"><a href="#经典动态规划-完全背包问题-1" class="headerlink" title="经典动态规划:完全背包问题"></a>经典动态规划:完全背包问题</h3><h3 id="经典动态规划-编辑距离"><a href="#经典动态规划-编辑距离" class="headerlink" title="经典动态规划:编辑距离"></a>经典动态规划:编辑距离</h3><h3 id="经典动态规划-高楼扔鸡蛋-1"><a href="#经典动态规划-高楼扔鸡蛋-1" class="headerlink" title="经典动态规划:高楼扔鸡蛋"></a>经典动态规划:高楼扔鸡蛋</h3><h3 id="经典动态规划-高楼扔鸡蛋-进阶"><a href="#经典动态规划-高楼扔鸡蛋-进阶" class="headerlink" title="经典动态规划:高楼扔鸡蛋(进阶)"></a>经典动态规划:高楼扔鸡蛋(进阶)</h3><h3 id="经典动态规划-戳气球"><a href="#经典动态规划-戳气球" class="headerlink" title="经典动态规划:戳气球"></a>经典动态规划:戳气球</h3><h3 id="经典动态规划-最⻓公共子序列"><a href="#经典动态规划-最⻓公共子序列" class="headerlink" title="经典动态规划:最⻓公共子序列"></a>经典动态规划:最⻓公共子序列</h3><h3 id="动态规划之子序列问题解题模板"><a href="#动态规划之子序列问题解题模板" class="headerlink" title="动态规划之子序列问题解题模板"></a>动态规划之子序列问题解题模板</h3><h3 id="动态规划之博弈问题"><a href="#动态规划之博弈问题" class="headerlink" title="动态规划之博弈问题"></a>动态规划之博弈问题</h3><h3 id="动态规划之正则表达"><a href="#动态规划之正则表达" class="headerlink" title="动态规划之正则表达"></a>动态规划之正则表达</h3><h3 id="动态规划之四键键盘"><a href="#动态规划之四键键盘" class="headerlink" title="动态规划之四键键盘"></a>动态规划之四键键盘</h3><h3 id="动态规划之KMP字符匹配算法"><a href="#动态规划之KMP字符匹配算法" class="headerlink" title="动态规划之KMP字符匹配算法"></a>动态规划之KMP字符匹配算法</h3><h3 id="贪心算法之区间调度问题"><a href="#贪心算法之区间调度问题" class="headerlink" title="贪心算法之区间调度问题"></a>贪心算法之区间调度问题</h3><h3 id="团灭-LeetCode-股票买卖问题"><a href="#团灭-LeetCode-股票买卖问题" class="headerlink" title="团灭 LeetCode 股票买卖问题"></a>团灭 LeetCode 股票买卖问题</h3><h3 id="团灭-LeetCode-打家劫舍问题"><a href="#团灭-LeetCode-打家劫舍问题" class="headerlink" title="团灭 LeetCode 打家劫舍问题"></a>团灭 LeetCode 打家劫舍问题</h3><h2 id="第二章、数据结构系列"><a href="#第二章、数据结构系列" class="headerlink" title="第二章、数据结构系列"></a>第二章、数据结构系列</h2><h3 id="学习数据结构和算法读什么书"><a href="#学习数据结构和算法读什么书" class="headerlink" title="学习数据结构和算法读什么书"></a>学习数据结构和算法读什么书</h3><h3 id="算法学习之路"><a href="#算法学习之路" class="headerlink" title="算法学习之路"></a>算法学习之路</h3><h3 id="二叉堆详解实现优先级队列"><a href="#二叉堆详解实现优先级队列" class="headerlink" title="二叉堆详解实现优先级队列"></a>二叉堆详解实现优先级队列</h3><h3 id="LRU算法详解"><a href="#LRU算法详解" class="headerlink" title="LRU算法详解"></a>LRU算法详解</h3><h3 id="二叉搜索树操作集锦"><a href="#二叉搜索树操作集锦" class="headerlink" title="二叉搜索树操作集锦"></a>二叉搜索树操作集锦</h3><h3 id="如何计算完全二叉树的节点数"><a href="#如何计算完全二叉树的节点数" class="headerlink" title="如何计算完全二叉树的节点数"></a>如何计算完全二叉树的节点数</h3><h3 id="特殊数据结构-单调栈"><a href="#特殊数据结构-单调栈" class="headerlink" title="特殊数据结构:单调栈"></a>特殊数据结构:单调栈</h3><h3 id="特殊数据结构-单调队列"><a href="#特殊数据结构-单调队列" class="headerlink" title="特殊数据结构:单调队列"></a>特殊数据结构:单调队列</h3><h3 id="设计Twitter-递归反转链表的一部分"><a href="#设计Twitter-递归反转链表的一部分" class="headerlink" title="设计Twitter 递归反转链表的一部分"></a>设计Twitter 递归反转链表的一部分</h3><h3 id="队列实现栈-栈实现队列"><a href="#队列实现栈-栈实现队列" class="headerlink" title="队列实现栈|栈实现队列"></a>队列实现栈|栈实现队列</h3><h2 id="第三章、算法思维系列"><a href="#第三章、算法思维系列" class="headerlink" title="第三章、算法思维系列"></a>第三章、算法思维系列</h2><h3 id="学习算法和刷题的思路指南"><a href="#学习算法和刷题的思路指南" class="headerlink" title="学习算法和刷题的思路指南"></a>学习算法和刷题的思路指南</h3><h3 id="回溯算法解题套路框架-1"><a href="#回溯算法解题套路框架-1" class="headerlink" title="回溯算法解题套路框架"></a>回溯算法解题套路框架</h3><h3 id="回溯算法团灭子集、排列、组合问题"><a href="#回溯算法团灭子集、排列、组合问题" class="headerlink" title="回溯算法团灭子集、排列、组合问题"></a>回溯算法团灭子集、排列、组合问题</h3><h3 id="回溯算法最佳实践-解数独"><a href="#回溯算法最佳实践-解数独" class="headerlink" title="回溯算法最佳实践:解数独"></a>回溯算法最佳实践:解数独</h3><h3 id="回溯算法最佳实践-括号生成"><a href="#回溯算法最佳实践-括号生成" class="headerlink" title="回溯算法最佳实践:括号生成"></a>回溯算法最佳实践:括号生成</h3><h3 id="二分查找详解"><a href="#二分查找详解" class="headerlink" title="二分查找详解"></a>二分查找详解</h3><h3 id="双指针技巧总结"><a href="#双指针技巧总结" class="headerlink" title="双指针技巧总结"></a>双指针技巧总结</h3><h3 id="滑动窗口技巧"><a href="#滑动窗口技巧" class="headerlink" title="滑动窗口技巧"></a>滑动窗口技巧</h3><h3 id="twoSum问题的核心思想"><a href="#twoSum问题的核心思想" class="headerlink" title="twoSum问题的核心思想"></a>twoSum问题的核心思想</h3><h3 id="常用的位操作"><a href="#常用的位操作" class="headerlink" title="常用的位操作"></a>常用的位操作</h3><h3 id="拆解复杂问题-实现计算器"><a href="#拆解复杂问题-实现计算器" class="headerlink" title="拆解复杂问题:实现计算器"></a>拆解复杂问题:实现计算器</h3><h3 id="烧饼排序"><a href="#烧饼排序" class="headerlink" title="烧饼排序"></a>烧饼排序</h3><h3 id="前缀和技巧"><a href="#前缀和技巧" class="headerlink" title="前缀和技巧"></a>前缀和技巧</h3><h3 id="字符串乘法"><a href="#字符串乘法" class="headerlink" title="字符串乘法"></a>字符串乘法</h3><h3 id="FloodFill算法详解及应用"><a href="#FloodFill算法详解及应用" class="headerlink" title="FloodFill算法详解及应用"></a>FloodFill算法详解及应用</h3><h3 id="区间调度之区间合并问题"><a href="#区间调度之区间合并问题" class="headerlink" title="区间调度之区间合并问题"></a>区间调度之区间合并问题</h3><h3 id="区间调度之区间交集问题"><a href="#区间调度之区间交集问题" class="headerlink" title="区间调度之区间交集问题"></a>区间调度之区间交集问题</h3><h3 id="信封嵌套问题"><a href="#信封嵌套问题" class="headerlink" title="信封嵌套问题"></a>信封嵌套问题</h3><h3 id="几个反直觉的概率问题"><a href="#几个反直觉的概率问题" class="headerlink" title="几个反直觉的概率问题"></a>几个反直觉的概率问题</h3><h2 id="第四章、高频面试系列"><a href="#第四章、高频面试系列" class="headerlink" title="第四章、高频面试系列"></a>第四章、高频面试系列</h2><h3 id="如何实现LRU算法"><a href="#如何实现LRU算法" class="headerlink" title="如何实现LRU算法"></a>如何实现LRU算法</h3><h3 id="如何用-BFS-算法秒杀各种智力题"><a href="#如何用-BFS-算法秒杀各种智力题" class="headerlink" title="如何用 BFS 算法秒杀各种智力题"></a>如何用 BFS 算法秒杀各种智力题</h3><h3 id="如何高效寻找素数"><a href="#如何高效寻找素数" class="headerlink" title="如何高效寻找素数"></a>如何高效寻找素数</h3><h3 id="如何高效进行模幂运算"><a href="#如何高效进行模幂运算" class="headerlink" title="如何高效进行模幂运算"></a>如何高效进行模幂运算</h3><h3 id="如何计算编辑距离"><a href="#如何计算编辑距离" class="headerlink" title="如何计算编辑距离"></a>如何计算编辑距离</h3><h3 id="如何运用二分查找算法"><a href="#如何运用二分查找算法" class="headerlink" title="如何运用二分查找算法"></a>如何运用二分查找算法</h3><h3 id="如何高效解决接雨水问题"><a href="#如何高效解决接雨水问题" class="headerlink" title="如何高效解决接雨水问题"></a>如何高效解决接雨水问题</h3><h3 id="如何去除有序数组的重复元素"><a href="#如何去除有序数组的重复元素" class="headerlink" title="如何去除有序数组的重复元素"></a>如何去除有序数组的重复元素</h3><h3 id="如何寻找最⻓回文子串"><a href="#如何寻找最⻓回文子串" class="headerlink" title="如何寻找最⻓回文子串"></a>如何寻找最⻓回文子串</h3><h3 id="如何运用贪心思想玩跳跃游戏"><a href="#如何运用贪心思想玩跳跃游戏" class="headerlink" title="如何运用贪心思想玩跳跃游戏"></a>如何运用贪心思想玩跳跃游戏</h3><h3 id="如何k个一组反转链表"><a href="#如何k个一组反转链表" class="headerlink" title="如何k个一组反转链表"></a>如何k个一组反转链表</h3><h3 id="如何判定括号合法性"><a href="#如何判定括号合法性" class="headerlink" title="如何判定括号合法性"></a>如何判定括号合法性</h3><h3 id="如何寻找缺失的元素"><a href="#如何寻找缺失的元素" class="headerlink" title="如何寻找缺失的元素"></a>如何寻找缺失的元素</h3><h3 id="如何同时寻找缺失和重复的元素"><a href="#如何同时寻找缺失和重复的元素" class="headerlink" title="如何同时寻找缺失和重复的元素"></a>如何同时寻找缺失和重复的元素</h3><h3 id="如何判断回文链表"><a href="#如何判断回文链表" class="headerlink" title="如何判断回文链表"></a>如何判断回文链表</h3><h3 id="如何在无限序列中随机抽取元素"><a href="#如何在无限序列中随机抽取元素" class="headerlink" title="如何在无限序列中随机抽取元素"></a>如何在无限序列中随机抽取元素</h3><h3 id="如何调度考生的座位"><a href="#如何调度考生的座位" class="headerlink" title="如何调度考生的座位"></a>如何调度考生的座位</h3><h3 id="Union-Find算法详解"><a href="#Union-Find算法详解" class="headerlink" title="Union-Find算法详解"></a>Union-Find算法详解</h3><h3 id="Union-Find算法应用"><a href="#Union-Find算法应用" class="headerlink" title="Union-Find算法应用"></a>Union-Find算法应用</h3><h3 id="一行代码就能解决的算法题"><a href="#一行代码就能解决的算法题" class="headerlink" title="一行代码就能解决的算法题"></a>一行代码就能解决的算法题</h3><h3 id="二分查找高效判定子序列"><a href="#二分查找高效判定子序列" class="headerlink" title="二分查找高效判定子序列"></a>二分查找高效判定子序列</h3><h2 id="第五章、技术文章系列"><a href="#第五章、技术文章系列" class="headerlink" title="第五章、技术文章系列"></a>第五章、技术文章系列</h2><h3 id="Linux的进程、线程、文件描述符是什么"><a href="#Linux的进程、线程、文件描述符是什么" class="headerlink" title="Linux的进程、线程、文件描述符是什么"></a>Linux的进程、线程、文件描述符是什么</h3><h3 id="关于-Linux-shell-你必须知道的"><a href="#关于-Linux-shell-你必须知道的" class="headerlink" title="关于 Linux shell 你必须知道的"></a>关于 Linux shell 你必须知道的</h3><h3 id="Linux-shell-的实用小技巧"><a href="#Linux-shell-的实用小技巧" class="headerlink" title="Linux shell 的实用小技巧"></a>Linux shell 的实用小技巧</h3><h3 id="一文看懂-session-和-cookie"><a href="#一文看懂-session-和-cookie" class="headerlink" title="一文看懂 session 和 cookie"></a>一文看懂 session 和 cookie</h3><h3 id="加密算法的前身今世"><a href="#加密算法的前身今世" class="headerlink" title="加密算法的前身今世"></a>加密算法的前身今世</h3><h3 id="我用四个命令概括了-Git-的所有套路"><a href="#我用四个命令概括了-Git-的所有套路" class="headerlink" title="我用四个命令概括了 Git 的所有套路"></a>我用四个命令概括了 Git 的所有套路</h3><h3 id="Git-x2F-SQL-x2F-正则表达式的在线练习平台"><a href="#Git-x2F-SQL-x2F-正则表达式的在线练习平台" class="headerlink" title="Git&#x2F;SQL&#x2F;正则表达式的在线练习平台"></a>Git&#x2F;SQL&#x2F;正则表达式的在线练习平台</h3>
+<h1 id="§1效率"><a href="#§1效率" class="headerlink" title="§1效率"></a>§1效率</h1><h2 id="输入相似文件名太麻烦"><a href="#输入相似文件名太麻烦" class="headerlink" title="输入相似文件名太麻烦"></a><strong>输入相似文件名太麻烦</strong></h2><p>用花括号括起来的字符串用逗号连接，可以自动扩展，非常有用，直接看例子:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">echo</span> &#123;one,two,three&#125;file</span><br><span class="line">onefile twofile threefile</span><br><span class="line">$ <span class="built_in">echo</span> &#123;one,two,three&#125;&#123;1,2,3&#125;</span><br><span class="line">one1 one2 one3 two1 two2 two3 three1 three2 three3</span><br></pre></td></tr></table></figure>
+
+<p>你看，花括号中的每个字符都可以和之后(或之前)的字符串进行组合拼 接，<strong>注意花括号和其中的逗号不可以用空格分隔，否则会被认为是普通的字 符串对待</strong>。</p>
+<p>这个技巧有什么实际用处呢?最简单有用的就是给 cp , mv , rm 等命令扩 展参数:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cp</span> /very/long/path/file&#123;,.bak&#125;</span><br><span class="line">==&gt; <span class="built_in">cp</span> /very/long/path/file /very/long/path/file.bak</span><br><span class="line"><span class="comment"># 给 file 复制一个叫做 file.bak 的副本</span></span><br><span class="line"></span><br><span class="line">$ <span class="built_in">rm</span> file&#123;1,3,5&#125;.txt</span><br><span class="line"><span class="comment"># 删除 file1.txt file3.txt file5.txt</span></span><br><span class="line"></span><br><span class="line">$ <span class="built_in">mv</span> *.&#123;c,cpp&#125; src/</span><br><span class="line"><span class="comment"># 将所有 .c 和 .cpp 为后缀的文件移入 src 文件夹</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="输入路径名称太麻烦"><a href="#输入路径名称太麻烦" class="headerlink" title="输入路径名称太麻烦"></a><strong>输入路径名称太麻烦</strong></h2><ul>
+<li><strong>用</strong> <strong>cd -</strong> <strong>返回刚才呆的目录</strong>，直接看例子吧:</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">pwd</span></span><br><span class="line"> /very/long/path</span><br><span class="line"> $ <span class="built_in">cd</span> <span class="comment"># 回到家目录瞅瞅</span></span><br><span class="line"> $ <span class="built_in">pwd</span></span><br><span class="line"> /home/labuladong</span><br><span class="line"> $ <span class="built_in">cd</span> - <span class="comment"># 再返回刚才那个目录 $ pwd</span></span><br><span class="line"> /very/long/path</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>特殊命令</strong> <strong>!$</strong> <strong>会替换成上一次输入的命令最后的路径</strong>，直接看例子:</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#没有加可执行权限</span></span><br><span class="line">$ /usr/bin/script.sh</span><br><span class="line">zsh: permission denied: /usr/bin/script.sh</span><br><span class="line"></span><br><span class="line">$ <span class="built_in">chmod</span> +x !$</span><br><span class="line"><span class="built_in">chmod</span> +x /usr/bin/script.sh</span><br><span class="line"><span class="built_in">export</span> lessCharset-uft8</span><br></pre></td></tr></table></figure>
+
+<p><strong>特殊命令</strong> <strong>!*</strong> <strong>会替换成上一次命令输入的所有文件路径</strong>，直接看例子:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建了三个脚本文件</span></span><br><span class="line">$ file script1.sh script2.sh script3.sh</span><br><span class="line"></span><br><span class="line"><span class="comment"># 给它们全部加上可执行权限</span></span><br><span class="line">$ <span class="built_in">chmod</span> +x !*</span><br><span class="line"><span class="built_in">chmod</span> +x script1.sh script2.sh script3.sh</span><br></pre></td></tr></table></figure>
+
+<p><strong>可以在环境变量</strong> <strong>CDPATH</strong> <strong>中加入你常用的工作目录</strong>，当 cd 命令在当前目 录中找不到你指定的文件&#x2F;目录时，会自动到 CDPATH 中的目录中寻找。</p>
+<p>比如说我常去 &#x2F;var&#x2F;log 目录找日志，可以执行如下命令:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">export</span> CDPATH=<span class="string">&#x27;~:/var/log&#x27;</span></span><br><span class="line"><span class="comment"># cd 命令将会在 〜 目录和 /var/log 目录扩展搜索$ pwd</span></span><br><span class="line">/home/labuladong/musics</span><br><span class="line">$ <span class="built_in">cd</span> mysql</span><br><span class="line"><span class="built_in">cd</span> /var/log/mysql</span><br><span class="line">$ <span class="built_in">pwd</span></span><br><span class="line">/var/log/mysql</span><br><span class="line">$ <span class="built_in">cd</span> my_pictures</span><br><span class="line"><span class="built_in">cd</span> /home/labuladong/my_pictures</span><br></pre></td></tr></table></figure>
+
+<p>这个技巧是十分好用的，这样就免了经常写完整的路径名称，节约不少时间。</p>
+<p>需要注意的是，以上操作是 bash 支持的，其他主流 shell 解释器当然都支持 扩展 cd 命令的搜索目录，但可能不是修改 CDPATH 这个变量，具体的设 置方法可以自行搜索。</p>
+<h2 id="输入重复命令太麻烦"><a href="#输入重复命令太麻烦" class="headerlink" title="输入重复命令太麻烦"></a>输入重复命令太麻烦</h2><p>** <strong>使用特殊命令</strong> <strong>!!</strong> <strong>，可以自动替换成上一次使用的命令</strong>:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ apt install net-tools</span><br><span class="line"> E: Could not open lock file - open (13: Permission denied)</span><br><span class="line"></span><br><span class="line">$ sudo !!</span><br><span class="line"> sudo apt install net-tools [sudo] password <span class="keyword">for</span> fdl:</span><br></pre></td></tr></table></figure>
+
+<p>有的命令很⻓，一时间想不起来具体参数了怎么办?</p>
+<p><strong>对于</strong> <strong>bash</strong> <strong>终端，可以使用</strong> <strong>Ctrl+R</strong> <strong>快捷键反向搜索历史命令</strong>，之所以说是 反向搜索，就是搜索最近一次输入的命令。</p>
+<p>比如按下 Ctrl+R 之后，输入 sudo ，bash 就会搜索出最近一次包含 sudo 的命令，你回⻋之后就可以运行该命令了:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(reverse-i-search)`sudo<span class="string">&#x27;: sudo apt install git</span></span><br></pre></td></tr></table></figure>
+
+<p>但是这个方法有缺点:首先，该功能似乎只有 bash 支持，我用的 zsh 作为 shell 终端，就用不了;第二，只能查找出一个(最近的)命令，如果我想 找以前的某个命令，就没办法了。</p>
+<p>对于这种情况，<strong>我们最常用的方法是使用</strong> <strong>history</strong> <strong>命令配合管道符和</strong> <strong>grep</strong> <strong>命令来寻找某个历史命令</strong>:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 过滤出所有包含 config 字段的历史命令</span></span><br><span class="line">$ <span class="built_in">history</span> | grep <span class="string">&#x27;config&#x27;</span></span><br><span class="line">	7352 ./configure</span><br><span class="line">	7434 git config --global --<span class="built_in">unset</span> https.proxy 9609 ifconfig</span><br><span class="line">	9985 clip -o | sed -z <span class="string">&#x27;s/\n/,\n/g&#x27;</span> | clip</span><br><span class="line">	10433 <span class="built_in">cd</span> ~/.config</span><br></pre></td></tr></table></figure>
+
+<p>你使用的所有 shell 命令都会被记录，前面的数字就表示这是第几个命令， 找到你想重复使用的命令后，也不需要复制粘贴该命令，<strong>只要使用</strong> <strong>!</strong> <strong>+</strong> <strong>你 想重用的命令编号即可运行该命令</strong>。<br>拿上面的例子，我想重新运行 git config 那条命令，就可以这样:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ !7434</span><br><span class="line">git config --global --<span class="built_in">unset</span> https.proxy <span class="comment"># 运行完成</span></span><br></pre></td></tr></table></figure>
+
+<p>我觉得 history 加管道加 grep 这样打的字还是太多，可以在 你的 shell 配置文件中( .bashrc ， .zshrc 等) 中写这样一个函数:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">his</span></span>() &#123;</span><br><span class="line">	<span class="built_in">history</span> | grep <span class="string">&quot;<span class="variable">$@</span>&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这样就不需要写那么多，只需要 his ‘some_keyword’ 即可搜索历史命令。</p>
+<p>我一般不使用 bash 作为终端，我给大家推荐一款很好用的 shell 终端叫做 zsh，这也是我自己使用的 shell。这款终端还可以扩展各种插件，非常好 用，具体配置方法可自行搜索。</p>
+<h2 id="其他小技巧"><a href="#其他小技巧" class="headerlink" title="其他小技巧"></a>其他小技巧</h2><ul>
+<li><p>**yes <strong>命令自动输入字符</strong>y **进行确认</p>
+<p>我们安装某些软件的时候，可能有交互式的提问:</p>
+</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt install XXX</span><br><span class="line">...</span><br><span class="line">XXX will use 996 MB disk space, <span class="built_in">continue</span>? [y/n]</span><br></pre></td></tr></table></figure>
+
+<p>一般情况下我们都是一路 y 到底，但如果我们想自动化一些软件的安装就很 烦，遇到这种交互式提问就卡住了，还得手动处理。</p>
+<p>yes 命令可以帮助我们:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">yes</span> | your_cmd</span><br></pre></td></tr></table></figure>
+
+<p>这样就会一路自动 y 下去，不会停下让我们输入了。 如果你读过前文Linux 文件描述符，就知道其原理很简单:</p>
+<p>你单独运行一下 yes 命令，发现它就是打印出一大堆字符 y，通过管道把 输出和 your_cmd 的标准输入相连接，如果 your_cmd 又提出无聊的问题， 就会从标准输入读取数据，也就会读取到一个 y 和换行符，和你手动输入 y 确认是一个效果。</p>
+<ul>
+<li><strong>特殊变量</strong> <strong>$?</strong> <strong>记录上一次命令的返回值</strong>。</li>
+</ul>
+<p>在 Linux shell 中，遵循 C 语言的习惯，返回值为 0 的话就是程序正常退 出，非 0 值就是异常退出出。读取上一次命令的返回值在平时使用命令行时 感觉没什么用，但是如果你想编写一些 shell 脚本，知道返回值非常有用。</p>
+<p><strong>举个实际的例子</strong>，比如我的 Github 仓库 fucking-algorithm ，我需要给其中 所有 markdown 文件最下方添加上一篇、下一篇、目录三个⻚脚链接，有的 文章已经有了⻚脚，大部分都没有。</p>
+<p>为了防止重复添加，我必须知道一个 md 文件下方是否已添加，这时候就可 以使用 $? 变量配合 grep 命令做到:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line">filename=<span class="variable">$1</span></span><br><span class="line"><span class="comment"># 查看文件尾部是否包含关键词</span></span><br><span class="line"><span class="built_in">tail</span> | grep <span class="string">&#x27;下一篇&#x27;</span> <span class="variable">$filename</span></span><br><span class="line"><span class="comment"># grep 查找到匹配会返回 0，找不到则返回非 0 值</span></span><br><span class="line">[ $? -ne 0 ] &amp;&amp; &#123; 添加⻚脚; &#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>特殊变量</strong> <strong>$$</strong> <strong>记录当前进程的</strong> <strong>PID</strong>。</li>
+</ul>
+<p>这个功能可能在平时使用时也不怎么用，但是在写 shell 脚本时也非常有 用，比如说你要在 &#x2F;tmp 创建临时文件，给文件起名字一直都是非常让人 费脑子 的，这时候可以使用 $$ 变量扩展出当前进程的 PID 作为临时文件的名字。</p>
+
+      
+    </div>
+
+    
+    
+    
+
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>l
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/9efd0db9/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lion.png">
+      <meta itemprop="name" content="swimminghao">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="swimminghao's blog">
+      <meta itemprop="description" content="swimminghao的学习博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | swimminghao's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/9efd0db9/" class="post-title-link" itemprop="url">报告分类bash</a>
+        </h2>
+
+        <div class="post-meta-container">
+
+          
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2025-02-13 16:20:39" itemprop="dateModified" datetime="2025-02-13T16:20:39+08:00">2025-02-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">工具</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/posts/9efd0db9/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/9efd0db9/" data-xid="/posts/9efd0db9/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>137</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>1 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="报告分类bash"><a href="#报告分类bash" class="headerlink" title="报告分类bash"></a>报告分类bash</h1><pre><code class="java">for file in *.pdf; do mkdir -p -- &quot;$&#123;file%%-*&#125;&quot; &amp;&amp; \
+    mv -- &quot;$file&quot; &quot;$&#123;file%%-*&#125;&quot;; done
+</code></pre>
+
       
     </div>
 
@@ -964,247 +1224,6 @@
 </ul>
 <h2 id="12-单元测试-x2F-部署"><a href="#12-单元测试-x2F-部署" class="headerlink" title="12.单元测试&#x2F;部署"></a>12.单元测试&#x2F;部署</h2><ul>
 <li>部署：运维，llinux nigix反向代理，与正向对比。负载均衡：为什么要负载均衡。</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>l
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/73169f18/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/lion.png">
-      <meta itemprop="name" content="swimminghao">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="swimminghao's blog">
-      <meta itemprop="description" content="swimminghao的学习博客">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | swimminghao's blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/73169f18/" class="post-title-link" itemprop="url">正则</a>
-        </h2>
-
-        <div class="post-meta-container">
-
-          
-
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2025-02-13 16:20:39" itemprop="dateModified" datetime="2025-02-13T16:20:39+08:00">2025-02-13</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E8%AF%AD%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">语法</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="far fa-comment"></i>
-    </span>
-    <span class="post-meta-item-text">Waline：</span>
-  
-    <a title="waline" href="/posts/73169f18/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/73169f18/" data-xid="/posts/73169f18/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>22k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>20 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="规则"><a href="#规则" class="headerlink" title="规则"></a>规则</h1><p>abcdefghijklmnopqurtuvwxyz<br>ABCDEFGHIJKLMNOPQRSTUVWXYZa<br>abced<br>abd</p>
-<p>A[A-Z]{24}Z<br>abbabbbc<br>abbc<br>abc<br>ac</p>
-<p>ab{5}c</p>
-<p>ab((ce)?d)?</p>
-<p>10^6ml<br>10^9ML<br>10E9 ML</p>
-<p>10[^E][369] ?(ml|ML)</p>
-<p>ad<br>1234567890<br>[^\s]<br>Ha HaHa<br>.转义<br>[abc]<br>[^abc]<br>[a-z]<br>[^a-z]<br>[a-zA-Z]<br>.<br>\s\S space<br>\w\W word<br>\d\D digit<br>(a|b)<br>a? 0-1次<br>a* 0-任意次<br>a+ 1-任意次<br>a{3} 3次<br>a{3,6} 三到六次<br>a{,6} 至多6次<br>a{3,} 至少三次<br>(a{3}|a{6}) 3次或6次<br>^ 开头<br>$ 结尾</p>
-<p>MetaCharacters (Need to be escaped):<br>.[{()^$|?*+</p>
-<p>coreyms.com<br>[-a-zA-Z0-9.&#x2F;]+.[a-zA-Z]+&#x2F;?</p>
-<p>\d{3}[.-]\d{3}[.-]\d{4}</p>
-<p>192.168.0.1<br>255.255.255.255</p>
-<p>[1-9]?\d|1\d{2}|2([0-4]\d|5[0-5])</p>
-<p>(([1-9]?\d|1\d{2}|2([0-4]\d|5[0-5])).){3}([1-9]?\d|1\d{2}|2([0-4]\d|5[0-5])))</p>
-<p>321-555-4321<br>123.555.1234</p>
-<p>Mr. Schafer<br>Mr Smith<br>Ms Davis<br>Mrs. Robinson<br>Mr. T<br>Mr. t</p>
-<p>M(s|r|rs).? [A-Z][a-z]*</p>
-<p><a target="_blank" rel="noopener" href="https://deerchao.net/tutorials/regex/regex.htm">https://deerchao.net/tutorials/regex/regex.htm</a><br><a target="_blank" rel="noopener" href="https://regex101.com/">https://regex101.com/</a><br><a target="_blank" rel="noopener" href="https://www.regular-expressions.info/">https://www.regular-expressions.info/</a></p>
-<h1 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h1><p>Dave Martin<br>615-555-7164<br>173 Main St., Springfield RI 55924<br><a href="mailto:&#x64;&#x61;&#x76;&#101;&#109;&#97;&#x72;&#116;&#105;&#x6e;&#64;&#x62;&#x6f;&#x67;&#117;&#x73;&#x65;&#x6d;&#97;&#x69;&#108;&#46;&#99;&#x6f;&#109;">&#x64;&#x61;&#x76;&#101;&#109;&#97;&#x72;&#116;&#105;&#x6e;&#64;&#x62;&#x6f;&#x67;&#117;&#x73;&#x65;&#x6d;&#97;&#x69;&#108;&#46;&#99;&#x6f;&#109;</a></p>
-<p>Charles Harris<br>800-555-5669<br>969 High St., Atlantis VA 34075<br><a href="mailto:&#x63;&#x68;&#x61;&#x72;&#108;&#101;&#115;&#104;&#x61;&#x72;&#114;&#105;&#x73;&#64;&#98;&#x6f;&#x67;&#x75;&#115;&#101;&#109;&#97;&#x69;&#x6c;&#46;&#99;&#111;&#x6d;">&#x63;&#x68;&#x61;&#x72;&#108;&#101;&#115;&#104;&#x61;&#x72;&#114;&#105;&#x73;&#64;&#98;&#x6f;&#x67;&#x75;&#115;&#101;&#109;&#97;&#x69;&#x6c;&#46;&#99;&#111;&#x6d;</a></p>
-<p>Eric Williams<br>560-555-5153<br>806 1st St., Faketown AK 86847<br><a href="mailto:&#108;&#x61;&#x75;&#114;&#x61;&#119;&#x69;&#108;&#108;&#105;&#x61;&#x6d;&#x73;&#64;&#x62;&#x6f;&#x67;&#117;&#115;&#101;&#x6d;&#x61;&#x69;&#x6c;&#x2e;&#99;&#111;&#x6d;">&#108;&#x61;&#x75;&#114;&#x61;&#119;&#x69;&#108;&#108;&#105;&#x61;&#x6d;&#x73;&#64;&#x62;&#x6f;&#x67;&#117;&#115;&#101;&#x6d;&#x61;&#x69;&#x6c;&#x2e;&#99;&#111;&#x6d;</a></p>
-<p>Corey Jefferson<br>900-555-9340<br>826 Elm St., Epicburg NE 10671<br><a href="mailto:&#x63;&#x6f;&#x72;&#101;&#121;&#x6a;&#101;&#102;&#102;&#101;&#x72;&#115;&#111;&#110;&#64;&#x62;&#111;&#103;&#x75;&#x73;&#101;&#109;&#x61;&#105;&#108;&#x2e;&#x63;&#x6f;&#x6d;">&#x63;&#x6f;&#x72;&#101;&#121;&#x6a;&#101;&#102;&#102;&#101;&#x72;&#115;&#111;&#110;&#64;&#x62;&#111;&#103;&#x75;&#x73;&#101;&#109;&#x61;&#105;&#108;&#x2e;&#x63;&#x6f;&#x6d;</a></p>
-<p>Jennifer Martin-White<br>714-555-7405<br>212 Cedar St., Sunnydale CT 74983<br><a href="mailto:&#x6a;&#101;&#110;&#x6e;&#105;&#102;&#x65;&#x72;&#119;&#104;&#105;&#x74;&#101;&#64;&#x62;&#x6f;&#103;&#117;&#115;&#101;&#x6d;&#x61;&#105;&#108;&#x2e;&#x63;&#111;&#109;">&#x6a;&#101;&#110;&#x6e;&#105;&#102;&#x65;&#x72;&#119;&#104;&#105;&#x74;&#101;&#64;&#x62;&#x6f;&#103;&#117;&#115;&#101;&#x6d;&#x61;&#105;&#108;&#x2e;&#x63;&#111;&#109;</a></p>
-<p>Erick Davis<br>800-555-6771<br>519 Washington St., Olympus TN 32425<br><a href="mailto:&#116;&#x6f;&#x6d;&#x64;&#x61;&#118;&#x69;&#115;&#64;&#98;&#x6f;&#x67;&#x75;&#x73;&#x65;&#109;&#97;&#x69;&#108;&#46;&#x63;&#x6f;&#x6d;">&#116;&#x6f;&#x6d;&#x64;&#x61;&#118;&#x69;&#115;&#64;&#98;&#x6f;&#x67;&#x75;&#x73;&#x65;&#109;&#97;&#x69;&#108;&#46;&#x63;&#x6f;&#x6d;</a></p>
-<p>Neil Patterson<br>783-555-4799<br>625 Oak St., Dawnstar IL 61914<br><a href="mailto:&#110;&#x65;&#105;&#x6c;&#112;&#x61;&#x74;&#x74;&#101;&#114;&#x73;&#x6f;&#110;&#64;&#x62;&#111;&#x67;&#x75;&#x73;&#101;&#109;&#x61;&#105;&#x6c;&#46;&#x63;&#x6f;&#x6d;">&#110;&#x65;&#105;&#x6c;&#112;&#x61;&#x74;&#x74;&#101;&#114;&#x73;&#x6f;&#110;&#64;&#x62;&#111;&#x67;&#x75;&#x73;&#101;&#109;&#x61;&#105;&#x6c;&#46;&#x63;&#x6f;&#x6d;</a></p>
-<p>Laura Jefferson<br>516-555-4615<br>890 Main St., Pythonville LA 29947<br><a href="mailto:&#x6c;&#x61;&#117;&#114;&#x61;&#106;&#x65;&#102;&#x66;&#101;&#114;&#115;&#x6f;&#x6e;&#64;&#x62;&#x6f;&#103;&#x75;&#x73;&#101;&#x6d;&#97;&#x69;&#x6c;&#x2e;&#x63;&#x6f;&#x6d;">&#x6c;&#x61;&#117;&#114;&#x61;&#106;&#x65;&#102;&#x66;&#101;&#114;&#115;&#x6f;&#x6e;&#64;&#x62;&#x6f;&#103;&#x75;&#x73;&#101;&#x6d;&#97;&#x69;&#x6c;&#x2e;&#x63;&#x6f;&#x6d;</a></p>
-<p>Maria Johnson<br>127-555-1867<br>884 High St., Braavos‎ ME 43597<br><a href="mailto:&#109;&#97;&#114;&#x69;&#97;&#x6a;&#x6f;&#104;&#110;&#x73;&#111;&#110;&#64;&#98;&#111;&#103;&#x75;&#115;&#101;&#x6d;&#97;&#105;&#108;&#x2e;&#99;&#x6f;&#109;">&#109;&#97;&#114;&#x69;&#97;&#x6a;&#x6f;&#104;&#110;&#x73;&#111;&#110;&#64;&#98;&#111;&#103;&#x75;&#115;&#101;&#x6d;&#97;&#105;&#108;&#x2e;&#99;&#x6f;&#109;</a></p>
-<p>Michael Arnold<br>608-555-4938<br>249 Elm St., Quahog OR 90938<br><a href="mailto:&#109;&#105;&#99;&#x68;&#x61;&#101;&#x6c;&#x61;&#x72;&#x6e;&#111;&#108;&#100;&#x40;&#x62;&#x6f;&#103;&#117;&#115;&#101;&#109;&#x61;&#x69;&#108;&#46;&#x63;&#111;&#x6d;">&#109;&#105;&#99;&#x68;&#x61;&#101;&#x6c;&#x61;&#x72;&#x6e;&#111;&#108;&#100;&#x40;&#x62;&#x6f;&#103;&#117;&#115;&#101;&#109;&#x61;&#x69;&#108;&#46;&#x63;&#111;&#x6d;</a></p>
-<p>Michael Smith<br>568-555-6051<br>619 Park St., Winterfell VA 99000<br><a href="mailto:&#109;&#x69;&#x63;&#104;&#97;&#x65;&#x6c;&#x73;&#109;&#105;&#x74;&#104;&#64;&#x62;&#x6f;&#x67;&#x75;&#115;&#x65;&#x6d;&#97;&#x69;&#108;&#46;&#99;&#111;&#109;">&#109;&#x69;&#x63;&#104;&#97;&#x65;&#x6c;&#x73;&#109;&#105;&#x74;&#104;&#64;&#x62;&#x6f;&#x67;&#x75;&#115;&#x65;&#x6d;&#97;&#x69;&#108;&#46;&#99;&#111;&#109;</a></p>
-<p>Erik Stuart<br>292-555-1875<br>220 Cedar St., Lakeview NY 87282<br><a href="mailto:&#x72;&#111;&#98;&#101;&#114;&#116;&#x73;&#116;&#117;&#x61;&#x72;&#116;&#64;&#x62;&#x6f;&#103;&#117;&#115;&#101;&#109;&#97;&#105;&#108;&#x2e;&#99;&#111;&#109;">&#x72;&#111;&#98;&#101;&#114;&#116;&#x73;&#116;&#117;&#x61;&#x72;&#116;&#64;&#x62;&#x6f;&#103;&#117;&#115;&#101;&#109;&#97;&#105;&#108;&#x2e;&#99;&#111;&#109;</a></p>
-<p>Laura Martin<br>900-555-3205<br>391 High St., Smalltown WY 28362<br><a href="mailto:&#108;&#97;&#117;&#x72;&#97;&#109;&#97;&#x72;&#116;&#x69;&#110;&#64;&#x62;&#111;&#103;&#117;&#115;&#101;&#109;&#x61;&#105;&#108;&#x2e;&#99;&#111;&#x6d;">&#108;&#97;&#117;&#x72;&#97;&#109;&#97;&#x72;&#116;&#x69;&#110;&#64;&#x62;&#111;&#103;&#117;&#115;&#101;&#109;&#x61;&#105;&#108;&#x2e;&#99;&#111;&#x6d;</a></p>
-<p>Barbara Martin<br>614-555-1166<br>121 Hill St., Braavos‎ UT 92474<br><a href="mailto:&#x62;&#97;&#114;&#98;&#x61;&#x72;&#97;&#x6d;&#97;&#114;&#x74;&#105;&#110;&#64;&#x62;&#x6f;&#103;&#x75;&#x73;&#x65;&#x6d;&#x61;&#x69;&#108;&#46;&#99;&#x6f;&#109;">&#x62;&#97;&#114;&#98;&#x61;&#x72;&#97;&#x6d;&#97;&#114;&#x74;&#105;&#110;&#64;&#x62;&#x6f;&#103;&#x75;&#x73;&#x65;&#x6d;&#x61;&#x69;&#108;&#46;&#99;&#x6f;&#109;</a></p>
-<p>Linda Jackson<br>530-555-2676<br>433 Elm St., Westworld TX 61967<br><a href="mailto:&#108;&#105;&#x6e;&#100;&#x61;&#106;&#x61;&#99;&#107;&#x73;&#x6f;&#x6e;&#64;&#x62;&#111;&#x67;&#x75;&#x73;&#101;&#x6d;&#x61;&#105;&#x6c;&#46;&#99;&#x6f;&#109;">&#108;&#105;&#x6e;&#100;&#x61;&#106;&#x61;&#99;&#107;&#x73;&#x6f;&#x6e;&#64;&#x62;&#111;&#x67;&#x75;&#x73;&#101;&#x6d;&#x61;&#105;&#x6c;&#46;&#99;&#x6f;&#109;</a></p>
-<p>Eric Miller<br>470-555-2750<br>838 Main St., Balmora MT 56526<br><a href="mailto:&#115;&#116;&#101;&#118;&#x65;&#x6d;&#x69;&#x6c;&#108;&#101;&#114;&#x40;&#98;&#x6f;&#x67;&#117;&#x73;&#x65;&#x6d;&#97;&#105;&#108;&#46;&#99;&#111;&#109;">&#115;&#116;&#101;&#118;&#x65;&#x6d;&#x69;&#x6c;&#108;&#101;&#114;&#x40;&#98;&#x6f;&#x67;&#117;&#x73;&#x65;&#x6d;&#97;&#105;&#108;&#46;&#99;&#111;&#109;</a></p>
-<p>Dave Arnold<br>800-555-6089<br>732 High St., Valyria KY 97152<br><a href="mailto:&#x64;&#x61;&#118;&#x65;&#97;&#114;&#110;&#111;&#x6c;&#x64;&#64;&#98;&#111;&#103;&#x75;&#x73;&#101;&#109;&#x61;&#105;&#x6c;&#x2e;&#x63;&#111;&#109;">&#x64;&#x61;&#118;&#x65;&#97;&#114;&#110;&#111;&#x6c;&#x64;&#64;&#98;&#111;&#103;&#x75;&#x73;&#101;&#109;&#x61;&#105;&#x6c;&#x2e;&#x63;&#111;&#109;</a></p>
-<p>Jennifer Jacobs<br>880-555-8319<br>217 High St., Old-town IA 82767<br><a href="mailto:&#106;&#x65;&#x6e;&#110;&#x69;&#x66;&#x65;&#114;&#106;&#x61;&#x63;&#111;&#x62;&#115;&#64;&#x62;&#111;&#x67;&#x75;&#x73;&#x65;&#x6d;&#x61;&#105;&#x6c;&#46;&#99;&#111;&#109;">&#106;&#x65;&#x6e;&#110;&#x69;&#x66;&#x65;&#114;&#106;&#x61;&#x63;&#111;&#x62;&#115;&#64;&#x62;&#111;&#x67;&#x75;&#x73;&#x65;&#x6d;&#x61;&#105;&#x6c;&#46;&#99;&#111;&#109;</a></p>
-<p>Neil Wilson<br>777-555-8378<br>191 Main St., Mordor IL 72160<br><a href="mailto:&#x6e;&#x65;&#105;&#108;&#x77;&#x69;&#108;&#115;&#111;&#x6e;&#64;&#x62;&#x6f;&#103;&#x75;&#x73;&#x65;&#x6d;&#x61;&#x69;&#x6c;&#x2e;&#x63;&#111;&#x6d;">&#x6e;&#x65;&#105;&#108;&#x77;&#x69;&#108;&#115;&#111;&#x6e;&#64;&#x62;&#x6f;&#103;&#x75;&#x73;&#x65;&#x6d;&#x61;&#x69;&#x6c;&#x2e;&#x63;&#111;&#x6d;</a></p>
-<p>Kurt Jackson<br>998-555-7385<br>607 Washington St., Blackwater NH 97183<br><a href="mailto:&#107;&#x75;&#114;&#x74;&#106;&#97;&#x63;&#x6b;&#115;&#111;&#x6e;&#x40;&#x62;&#x6f;&#x67;&#117;&#115;&#101;&#x6d;&#97;&#105;&#108;&#46;&#x63;&#x6f;&#109;">&#107;&#x75;&#114;&#x74;&#106;&#97;&#x63;&#x6b;&#115;&#111;&#x6e;&#x40;&#x62;&#x6f;&#x67;&#117;&#115;&#101;&#x6d;&#97;&#105;&#108;&#46;&#x63;&#x6f;&#109;</a></p>
-<p>Mary Jacobs<br>800-555-7100<br>478 Oak St., Bedrock IA 58176<br><a href="mailto:&#109;&#97;&#114;&#121;&#106;&#x61;&#99;&#111;&#x62;&#115;&#x40;&#98;&#x6f;&#103;&#x75;&#115;&#101;&#109;&#97;&#x69;&#x6c;&#x2e;&#99;&#x6f;&#109;">&#109;&#97;&#114;&#121;&#106;&#x61;&#99;&#111;&#x62;&#115;&#x40;&#98;&#x6f;&#103;&#x75;&#115;&#101;&#109;&#97;&#x69;&#x6c;&#x2e;&#99;&#x6f;&#109;</a></p>
-<p>Michael White<br>903-555-8277<br>906 Elm St., Mordor TX 89212<br><a href="mailto:&#109;&#x69;&#99;&#104;&#97;&#101;&#x6c;&#119;&#104;&#105;&#116;&#x65;&#x40;&#x62;&#111;&#x67;&#117;&#115;&#x65;&#x6d;&#x61;&#105;&#x6c;&#46;&#x63;&#x6f;&#x6d;">&#109;&#x69;&#99;&#104;&#97;&#101;&#x6c;&#119;&#104;&#105;&#116;&#x65;&#x40;&#x62;&#111;&#x67;&#117;&#115;&#x65;&#x6d;&#x61;&#105;&#x6c;&#46;&#x63;&#x6f;&#x6d;</a></p>
-<p>Jennifer Jenkins<br>196-555-5674<br>949 Main St., Smalltown SC 96962<br><a href="mailto:&#106;&#x65;&#x6e;&#110;&#105;&#x66;&#x65;&#x72;&#106;&#101;&#x6e;&#x6b;&#x69;&#110;&#x73;&#64;&#x62;&#111;&#x67;&#x75;&#115;&#101;&#109;&#97;&#x69;&#x6c;&#46;&#99;&#x6f;&#109;">&#106;&#x65;&#x6e;&#110;&#105;&#x66;&#x65;&#x72;&#106;&#101;&#x6e;&#x6b;&#x69;&#110;&#x73;&#64;&#x62;&#111;&#x67;&#x75;&#115;&#101;&#109;&#97;&#x69;&#x6c;&#46;&#99;&#x6f;&#109;</a></p>
-<p>Sam Wright<br>900-555-5118<br>835 Pearl St., Smalltown ND 77737<br><a href="mailto:&#x73;&#97;&#109;&#119;&#x72;&#105;&#x67;&#104;&#116;&#64;&#x62;&#x6f;&#103;&#117;&#x73;&#101;&#109;&#97;&#x69;&#x6c;&#46;&#99;&#111;&#x6d;">&#x73;&#97;&#109;&#119;&#x72;&#105;&#x67;&#104;&#116;&#64;&#x62;&#x6f;&#103;&#117;&#x73;&#101;&#109;&#97;&#x69;&#x6c;&#46;&#99;&#111;&#x6d;</a></p>
-<p>John Davis<br>905-555-1630<br>451 Lake St., Bedrock GA 34615<br><a href="mailto:&#x6a;&#x6f;&#x68;&#110;&#x64;&#x61;&#118;&#x69;&#x73;&#64;&#98;&#x6f;&#x67;&#x75;&#115;&#x65;&#x6d;&#x61;&#105;&#x6c;&#x2e;&#99;&#x6f;&#109;">&#x6a;&#x6f;&#x68;&#110;&#x64;&#x61;&#118;&#x69;&#x73;&#64;&#98;&#x6f;&#x67;&#x75;&#115;&#x65;&#x6d;&#x61;&#105;&#x6c;&#x2e;&#99;&#x6f;&#109;</a></p>
-<p>Eric Davis<br>203-555-3475<br>419 Lake St., Balmora OR 30826<br><a href="mailto:&#110;&#x65;&#105;&#108;&#100;&#x61;&#118;&#105;&#x73;&#x40;&#98;&#x6f;&#103;&#117;&#115;&#x65;&#109;&#97;&#x69;&#x6c;&#x2e;&#x63;&#x6f;&#x6d;">&#110;&#x65;&#105;&#108;&#100;&#x61;&#118;&#105;&#x73;&#x40;&#98;&#x6f;&#103;&#117;&#115;&#x65;&#109;&#97;&#x69;&#x6c;&#x2e;&#x63;&#x6f;&#x6d;</a></p>
-<p>Laura Jackson<br>884-555-8444<br>443 Maple St., Quahog MS 29348<br><a href="mailto:&#108;&#97;&#117;&#114;&#x61;&#106;&#97;&#x63;&#x6b;&#115;&#x6f;&#x6e;&#64;&#98;&#111;&#103;&#117;&#115;&#x65;&#109;&#x61;&#x69;&#x6c;&#x2e;&#99;&#x6f;&#x6d;">&#108;&#97;&#117;&#114;&#x61;&#106;&#97;&#x63;&#x6b;&#115;&#x6f;&#x6e;&#64;&#98;&#111;&#103;&#117;&#115;&#x65;&#109;&#x61;&#x69;&#x6c;&#x2e;&#99;&#x6f;&#x6d;</a></p>
-<p>John Williams<br>904-555-8559<br>756 Hill St., Valyria KY 94854<br><a href="mailto:&#106;&#111;&#x68;&#110;&#119;&#105;&#x6c;&#x6c;&#105;&#x61;&#x6d;&#x73;&#64;&#98;&#111;&#103;&#117;&#x73;&#x65;&#x6d;&#97;&#x69;&#108;&#x2e;&#99;&#x6f;&#109;">&#106;&#111;&#x68;&#110;&#119;&#105;&#x6c;&#x6c;&#105;&#x61;&#x6d;&#x73;&#64;&#98;&#111;&#103;&#117;&#x73;&#x65;&#x6d;&#97;&#x69;&#108;&#x2e;&#99;&#x6f;&#109;</a></p>
-<p>Michael Martin<br>889-555-7393<br>216 High St., Olympus NV 21888<br><a href="mailto:&#x6d;&#105;&#x63;&#x68;&#x61;&#x65;&#108;&#x6d;&#97;&#x72;&#116;&#x69;&#110;&#64;&#x62;&#x6f;&#103;&#x75;&#115;&#x65;&#109;&#97;&#x69;&#108;&#46;&#x63;&#x6f;&#x6d;">&#x6d;&#105;&#x63;&#x68;&#x61;&#x65;&#108;&#x6d;&#97;&#x72;&#116;&#x69;&#110;&#64;&#x62;&#x6f;&#103;&#x75;&#115;&#x65;&#109;&#97;&#x69;&#108;&#46;&#x63;&#x6f;&#x6d;</a></p>
-<p>Maggie Brown<br>195-555-2405<br>806 Lake St., Lakeview MD 59348<br><a href="mailto:&#x6d;&#x61;&#x67;&#103;&#105;&#x65;&#x62;&#114;&#x6f;&#x77;&#110;&#64;&#98;&#x6f;&#103;&#117;&#x73;&#x65;&#109;&#x61;&#105;&#108;&#46;&#x63;&#111;&#109;">&#x6d;&#x61;&#x67;&#103;&#105;&#x65;&#x62;&#114;&#x6f;&#x77;&#110;&#64;&#98;&#x6f;&#103;&#117;&#x73;&#x65;&#109;&#x61;&#105;&#108;&#46;&#x63;&#111;&#109;</a></p>
-<p>Erik Wilson<br>321-555-9053<br>354 Hill St., Mordor FL 74122<br><a href="mailto:&#107;&#x75;&#x72;&#116;&#x77;&#x69;&#x6c;&#115;&#x6f;&#110;&#x40;&#98;&#111;&#103;&#x75;&#x73;&#101;&#109;&#97;&#x69;&#x6c;&#46;&#99;&#x6f;&#x6d;">&#107;&#x75;&#x72;&#116;&#x77;&#x69;&#x6c;&#115;&#x6f;&#110;&#x40;&#98;&#111;&#103;&#x75;&#x73;&#101;&#109;&#97;&#x69;&#x6c;&#46;&#99;&#x6f;&#x6d;</a></p>
-<p>Elizabeth Arnold<br>133-555-1711<br>805 Maple St., Winterfell NV 99431<br><a href="mailto:&#x65;&#x6c;&#x69;&#122;&#97;&#98;&#x65;&#116;&#x68;&#x61;&#114;&#110;&#x6f;&#x6c;&#100;&#x40;&#98;&#x6f;&#x67;&#x75;&#115;&#x65;&#109;&#x61;&#x69;&#x6c;&#x2e;&#x63;&#111;&#109;">&#x65;&#x6c;&#x69;&#122;&#97;&#98;&#x65;&#116;&#x68;&#x61;&#114;&#110;&#x6f;&#x6c;&#100;&#x40;&#98;&#x6f;&#x67;&#x75;&#115;&#x65;&#109;&#x61;&#x69;&#x6c;&#x2e;&#x63;&#111;&#109;</a></p>
-<p>Jane Martin<br>900-555-5428<br>418 Park St., Metropolis ID 16576<br><a href="mailto:&#106;&#x61;&#x6e;&#101;&#x6d;&#x61;&#114;&#x74;&#105;&#110;&#x40;&#98;&#x6f;&#103;&#117;&#x73;&#x65;&#x6d;&#97;&#105;&#108;&#x2e;&#x63;&#x6f;&#109;">&#106;&#x61;&#x6e;&#101;&#x6d;&#x61;&#114;&#x74;&#105;&#110;&#x40;&#98;&#x6f;&#103;&#117;&#x73;&#x65;&#x6d;&#97;&#105;&#108;&#x2e;&#x63;&#x6f;&#109;</a></p>
-<p>Travis Johnson<br>760-555-7147<br>749 Washington St., Braavos‎ SD 25668<br><a href="mailto:&#116;&#114;&#x61;&#118;&#x69;&#x73;&#106;&#x6f;&#x68;&#x6e;&#115;&#111;&#110;&#x40;&#x62;&#x6f;&#103;&#x75;&#x73;&#x65;&#109;&#97;&#105;&#108;&#x2e;&#x63;&#x6f;&#109;">&#116;&#114;&#x61;&#118;&#x69;&#x73;&#106;&#x6f;&#x68;&#x6e;&#115;&#111;&#110;&#x40;&#x62;&#x6f;&#103;&#x75;&#x73;&#x65;&#109;&#97;&#105;&#108;&#x2e;&#x63;&#x6f;&#109;</a></p>
-<p>Laura Jefferson<br>391-555-6621<br>122 High St., Metropolis ME 29540<br><a href="mailto:&#108;&#x61;&#x75;&#114;&#97;&#106;&#101;&#x66;&#x66;&#x65;&#114;&#115;&#x6f;&#110;&#64;&#98;&#x6f;&#103;&#117;&#115;&#101;&#x6d;&#97;&#x69;&#108;&#46;&#99;&#111;&#x6d;">&#108;&#x61;&#x75;&#114;&#97;&#106;&#101;&#x66;&#x66;&#x65;&#114;&#115;&#x6f;&#110;&#64;&#98;&#x6f;&#103;&#117;&#115;&#101;&#x6d;&#97;&#x69;&#108;&#46;&#99;&#111;&#x6d;</a></p>
-<p>Tom Williams<br>932-555-7724<br>610 High St., Old-town FL 60758<br><a href="mailto:&#x74;&#x6f;&#109;&#119;&#x69;&#x6c;&#x6c;&#x69;&#x61;&#109;&#115;&#64;&#x62;&#111;&#103;&#x75;&#x73;&#101;&#x6d;&#x61;&#x69;&#x6c;&#x2e;&#x63;&#111;&#x6d;">&#x74;&#x6f;&#109;&#119;&#x69;&#x6c;&#x6c;&#x69;&#x61;&#109;&#115;&#64;&#x62;&#111;&#103;&#x75;&#x73;&#101;&#x6d;&#x61;&#x69;&#x6c;&#x2e;&#x63;&#111;&#x6d;</a></p>
-<p>Jennifer Taylor<br>609-555-7908<br>332 Main St., Pythonville OH 78172<br><a href="mailto:&#106;&#101;&#x6e;&#x6e;&#x69;&#x66;&#101;&#x72;&#116;&#x61;&#x79;&#108;&#x6f;&#114;&#64;&#98;&#111;&#x67;&#x75;&#115;&#101;&#x6d;&#97;&#x69;&#x6c;&#x2e;&#99;&#111;&#109;">&#106;&#101;&#x6e;&#x6e;&#x69;&#x66;&#101;&#x72;&#116;&#x61;&#x79;&#108;&#x6f;&#114;&#64;&#98;&#111;&#x67;&#x75;&#115;&#101;&#x6d;&#97;&#x69;&#x6c;&#x2e;&#99;&#111;&#109;</a></p>
-<p>Erick Wright<br>800-555-8810<br>858 Hill St., Blackwater NC 79714<br><a href="mailto:&#106;&#x65;&#110;&#x6e;&#105;&#102;&#x65;&#x72;&#119;&#114;&#105;&#103;&#x68;&#116;&#64;&#98;&#111;&#103;&#117;&#x73;&#101;&#109;&#x61;&#105;&#x6c;&#46;&#x63;&#111;&#x6d;">&#106;&#x65;&#110;&#x6e;&#105;&#102;&#x65;&#x72;&#119;&#114;&#105;&#103;&#x68;&#116;&#64;&#98;&#111;&#103;&#117;&#x73;&#101;&#109;&#x61;&#105;&#x6c;&#46;&#x63;&#111;&#x6d;</a></p>
-<p>Steve Doe<br>149-555-7657<br>441 Elm St., Atlantis MS 87195<br><a href="mailto:&#115;&#x74;&#x65;&#118;&#101;&#100;&#x6f;&#x65;&#x40;&#98;&#x6f;&#x67;&#x75;&#x73;&#101;&#x6d;&#97;&#x69;&#x6c;&#x2e;&#x63;&#x6f;&#109;">&#115;&#x74;&#x65;&#118;&#101;&#100;&#x6f;&#x65;&#x40;&#98;&#x6f;&#x67;&#x75;&#x73;&#101;&#x6d;&#97;&#x69;&#x6c;&#x2e;&#x63;&#x6f;&#109;</a></p>
-<p>Kurt Davis<br>130-555-9709<br>404 Oak St., Atlantis ND 85386<br><a href="mailto:&#x6b;&#x75;&#114;&#116;&#100;&#x61;&#118;&#105;&#115;&#64;&#x62;&#111;&#x67;&#117;&#115;&#101;&#x6d;&#97;&#105;&#x6c;&#46;&#99;&#x6f;&#x6d;">&#x6b;&#x75;&#114;&#116;&#100;&#x61;&#118;&#105;&#115;&#64;&#x62;&#111;&#x67;&#117;&#115;&#101;&#x6d;&#97;&#105;&#x6c;&#46;&#99;&#x6f;&#x6d;</a></p>
-<p>Corey Harris<br>143-555-9295<br>286 Pearl St., Vice City TX 57112<br><a href="mailto:&#99;&#x6f;&#114;&#101;&#x79;&#x68;&#97;&#x72;&#x72;&#x69;&#x73;&#x40;&#x62;&#111;&#103;&#x75;&#115;&#x65;&#x6d;&#97;&#105;&#x6c;&#46;&#99;&#111;&#x6d;">&#99;&#x6f;&#114;&#101;&#x79;&#x68;&#97;&#x72;&#x72;&#x69;&#x73;&#x40;&#x62;&#111;&#103;&#x75;&#115;&#x65;&#x6d;&#97;&#105;&#x6c;&#46;&#99;&#111;&#x6d;</a></p>
-<p>Nicole Taylor<br>903-555-9878<br>465 Hill St., Old-town LA 64102<br><a href="mailto:&#x6e;&#x69;&#99;&#x6f;&#x6c;&#101;&#116;&#x61;&#121;&#108;&#111;&#x72;&#x40;&#x62;&#111;&#103;&#117;&#x73;&#x65;&#x6d;&#97;&#x69;&#108;&#46;&#99;&#x6f;&#109;">&#x6e;&#x69;&#99;&#x6f;&#x6c;&#101;&#116;&#x61;&#121;&#108;&#111;&#x72;&#x40;&#x62;&#111;&#103;&#117;&#x73;&#x65;&#x6d;&#97;&#x69;&#108;&#46;&#99;&#x6f;&#109;</a></p>
-<p>Elizabeth Davis<br>574-555-3194<br>151 Lake St., Eerie SD 17880<br><a href="mailto:&#x65;&#108;&#105;&#122;&#97;&#x62;&#101;&#x74;&#x68;&#x64;&#97;&#118;&#105;&#x73;&#64;&#98;&#111;&#x67;&#x75;&#115;&#101;&#x6d;&#x61;&#105;&#108;&#46;&#99;&#111;&#x6d;">&#x65;&#108;&#105;&#122;&#97;&#x62;&#101;&#x74;&#x68;&#x64;&#97;&#118;&#105;&#x73;&#64;&#98;&#111;&#x67;&#x75;&#115;&#101;&#x6d;&#x61;&#105;&#108;&#46;&#99;&#111;&#x6d;</a></p>
-<p>Maggie Jenkins<br>496-555-7533<br>504 Lake St., Gotham PA 46692<br><a href="mailto:&#x6d;&#x61;&#103;&#x67;&#105;&#101;&#x6a;&#101;&#x6e;&#x6b;&#105;&#x6e;&#115;&#x40;&#x62;&#111;&#103;&#117;&#x73;&#x65;&#109;&#97;&#105;&#x6c;&#x2e;&#99;&#111;&#109;">&#x6d;&#x61;&#103;&#x67;&#105;&#101;&#x6a;&#101;&#x6e;&#x6b;&#105;&#x6e;&#115;&#x40;&#x62;&#111;&#103;&#117;&#x73;&#x65;&#109;&#97;&#105;&#x6c;&#x2e;&#99;&#111;&#109;</a></p>
-<p>Linda Davis<br>210-555-3757<br>201 Pine St., Vice City AR 78455<br><a href="mailto:&#x6c;&#105;&#110;&#100;&#x61;&#x64;&#x61;&#118;&#x69;&#x73;&#64;&#x62;&#111;&#x67;&#117;&#x73;&#101;&#x6d;&#x61;&#105;&#108;&#x2e;&#99;&#111;&#x6d;">&#x6c;&#105;&#110;&#100;&#x61;&#x64;&#x61;&#118;&#x69;&#x73;&#64;&#x62;&#111;&#x67;&#117;&#x73;&#101;&#x6d;&#x61;&#105;&#108;&#x2e;&#99;&#111;&#x6d;</a></p>
-<p>Dave Moore<br>900-555-9598<br>251 Pine St., Old-town OK 29087<br><a href="mailto:&#x64;&#97;&#x76;&#101;&#x6d;&#111;&#x6f;&#x72;&#101;&#64;&#x62;&#x6f;&#x67;&#x75;&#115;&#x65;&#109;&#97;&#105;&#108;&#x2e;&#99;&#111;&#109;">&#x64;&#97;&#x76;&#101;&#x6d;&#111;&#x6f;&#x72;&#101;&#64;&#x62;&#x6f;&#x67;&#x75;&#115;&#x65;&#109;&#97;&#105;&#108;&#x2e;&#99;&#111;&#109;</a></p>
-<p>Linda Jenkins<br>866-555-9844<br>117 High St., Bedrock NE 11899<br><a href="mailto:&#108;&#105;&#x6e;&#x64;&#97;&#x6a;&#101;&#x6e;&#107;&#x69;&#110;&#115;&#64;&#98;&#111;&#103;&#117;&#x73;&#101;&#109;&#x61;&#x69;&#108;&#x2e;&#99;&#111;&#x6d;">&#108;&#105;&#x6e;&#x64;&#97;&#x6a;&#101;&#x6e;&#107;&#x69;&#110;&#115;&#64;&#98;&#111;&#103;&#117;&#x73;&#101;&#109;&#x61;&#x69;&#108;&#x2e;&#99;&#111;&#x6d;</a></p>
-<p>Eric White<br>669-555-7159<br>650 Oak St., Smalltown TN 43281<br><a href="mailto:&#115;&#x61;&#109;&#119;&#x68;&#105;&#116;&#101;&#64;&#x62;&#111;&#x67;&#x75;&#x73;&#x65;&#109;&#x61;&#x69;&#x6c;&#x2e;&#x63;&#x6f;&#109;">&#115;&#x61;&#109;&#119;&#x68;&#105;&#116;&#101;&#64;&#x62;&#111;&#x67;&#x75;&#x73;&#x65;&#109;&#x61;&#x69;&#x6c;&#x2e;&#x63;&#x6f;&#109;</a></p>
-<p>Laura Robinson<br>152-555-7417<br>377 Pine St., Valyria NC 78036<br><a href="mailto:&#108;&#x61;&#x75;&#114;&#97;&#114;&#111;&#98;&#105;&#x6e;&#115;&#x6f;&#x6e;&#64;&#98;&#x6f;&#103;&#117;&#x73;&#101;&#109;&#x61;&#105;&#108;&#x2e;&#99;&#111;&#x6d;">&#108;&#x61;&#x75;&#114;&#97;&#114;&#111;&#98;&#105;&#x6e;&#115;&#x6f;&#x6e;&#64;&#98;&#x6f;&#103;&#117;&#x73;&#101;&#109;&#x61;&#105;&#108;&#x2e;&#99;&#111;&#x6d;</a></p>
-<p>Charles Patterson<br>893-555-9832<br>416 Pearl St., Valyria AK 62260<br><a href="mailto:&#99;&#x68;&#x61;&#114;&#x6c;&#x65;&#x73;&#112;&#x61;&#116;&#116;&#101;&#114;&#115;&#111;&#x6e;&#64;&#98;&#111;&#x67;&#117;&#115;&#101;&#109;&#x61;&#x69;&#x6c;&#46;&#99;&#x6f;&#109;">&#99;&#x68;&#x61;&#114;&#x6c;&#x65;&#x73;&#112;&#x61;&#116;&#116;&#101;&#114;&#115;&#111;&#x6e;&#64;&#98;&#111;&#x67;&#117;&#115;&#101;&#109;&#x61;&#x69;&#x6c;&#46;&#99;&#x6f;&#109;</a></p>
-<p>Joe Jackson<br>217-555-7123<br>683 Cedar St., South Park KS 66724<br><a href="mailto:&#x6a;&#111;&#x65;&#x6a;&#x61;&#99;&#x6b;&#x73;&#111;&#x6e;&#64;&#x62;&#x6f;&#103;&#117;&#115;&#x65;&#x6d;&#x61;&#105;&#x6c;&#46;&#x63;&#x6f;&#109;">&#x6a;&#111;&#x65;&#x6a;&#x61;&#99;&#x6b;&#x73;&#111;&#x6e;&#64;&#x62;&#x6f;&#103;&#117;&#115;&#x65;&#x6d;&#x61;&#105;&#x6c;&#46;&#x63;&#x6f;&#109;</a></p>
-<p>Michael Johnson<br>786-555-6544<br>288 Hill St., Smalltown AZ 18586<br><a href="mailto:&#109;&#105;&#x63;&#x68;&#x61;&#101;&#x6c;&#x6a;&#111;&#104;&#110;&#x73;&#111;&#x6e;&#64;&#x62;&#111;&#103;&#117;&#x73;&#x65;&#x6d;&#97;&#105;&#x6c;&#x2e;&#99;&#111;&#109;">&#109;&#105;&#x63;&#x68;&#x61;&#101;&#x6c;&#x6a;&#111;&#104;&#110;&#x73;&#111;&#x6e;&#64;&#x62;&#111;&#103;&#117;&#x73;&#x65;&#x6d;&#97;&#105;&#x6c;&#x2e;&#99;&#111;&#109;</a></p>
-<p>Corey Miller<br>780-555-2574<br>286 High St., Springfield IA 16272<br><a href="mailto:&#x63;&#x6f;&#x72;&#101;&#121;&#109;&#x69;&#x6c;&#108;&#101;&#x72;&#x40;&#98;&#x6f;&#103;&#117;&#115;&#x65;&#109;&#97;&#x69;&#108;&#46;&#x63;&#111;&#x6d;">&#x63;&#x6f;&#x72;&#101;&#121;&#109;&#x69;&#x6c;&#108;&#101;&#x72;&#x40;&#98;&#x6f;&#103;&#117;&#115;&#x65;&#109;&#97;&#x69;&#108;&#46;&#x63;&#111;&#x6d;</a></p>
-<p>James Moore<br>926-555-8735<br>278 Main St., Gotham KY 89569<br><a href="mailto:&#x6a;&#x61;&#x6d;&#101;&#115;&#x6d;&#111;&#x6f;&#114;&#x65;&#x40;&#x62;&#111;&#103;&#117;&#x73;&#x65;&#x6d;&#x61;&#x69;&#x6c;&#x2e;&#x63;&#111;&#x6d;">&#x6a;&#x61;&#x6d;&#101;&#115;&#x6d;&#111;&#x6f;&#114;&#x65;&#x40;&#x62;&#111;&#103;&#117;&#x73;&#x65;&#x6d;&#x61;&#x69;&#x6c;&#x2e;&#x63;&#111;&#x6d;</a></p>
-<p>Jennifer Stuart<br>895-555-3539<br>766 Hill St., King’s Landing GA 54999<br><a href="mailto:&#x6a;&#101;&#110;&#110;&#x69;&#102;&#x65;&#x72;&#115;&#116;&#117;&#x61;&#x72;&#116;&#64;&#98;&#111;&#x67;&#117;&#x73;&#101;&#x6d;&#x61;&#105;&#x6c;&#46;&#99;&#111;&#x6d;">&#x6a;&#101;&#110;&#110;&#x69;&#102;&#x65;&#x72;&#115;&#116;&#117;&#x61;&#x72;&#116;&#64;&#98;&#111;&#x67;&#117;&#x73;&#101;&#x6d;&#x61;&#105;&#x6c;&#46;&#99;&#111;&#x6d;</a></p>
-<p>Charles Martin<br>874-555-3949<br>775 High St., Faketown PA 89260<br><a href="mailto:&#x63;&#x68;&#x61;&#114;&#x6c;&#101;&#x73;&#x6d;&#97;&#114;&#x74;&#105;&#x6e;&#64;&#x62;&#x6f;&#103;&#x75;&#x73;&#101;&#x6d;&#x61;&#105;&#x6c;&#46;&#x63;&#111;&#x6d;">&#x63;&#x68;&#x61;&#114;&#x6c;&#101;&#x73;&#x6d;&#97;&#114;&#x74;&#105;&#x6e;&#64;&#x62;&#x6f;&#103;&#x75;&#x73;&#101;&#x6d;&#x61;&#105;&#x6c;&#46;&#x63;&#111;&#x6d;</a></p>
-<p>Eric Wilks<br>800-555-2420<br>885 Main St., Blackwater OH 61275<br><a href="mailto:&#x6a;&#x6f;&#101;&#119;&#x69;&#x6c;&#107;&#115;&#64;&#98;&#111;&#x67;&#x75;&#115;&#101;&#x6d;&#97;&#x69;&#x6c;&#x2e;&#x63;&#x6f;&#x6d;">&#x6a;&#x6f;&#101;&#119;&#x69;&#x6c;&#107;&#115;&#64;&#98;&#111;&#x67;&#x75;&#115;&#101;&#x6d;&#97;&#x69;&#x6c;&#x2e;&#x63;&#x6f;&#x6d;</a></p>
-<p>Elizabeth Arnold<br>936-555-6340<br>528 Hill St., Atlantis NH 88289<br><a href="mailto:&#101;&#108;&#x69;&#122;&#97;&#x62;&#x65;&#x74;&#x68;&#x61;&#x72;&#x6e;&#x6f;&#x6c;&#100;&#64;&#98;&#x6f;&#103;&#117;&#115;&#101;&#x6d;&#97;&#105;&#x6c;&#46;&#x63;&#x6f;&#x6d;">&#101;&#108;&#x69;&#122;&#97;&#x62;&#x65;&#x74;&#x68;&#x61;&#x72;&#x6e;&#x6f;&#x6c;&#100;&#64;&#98;&#x6f;&#103;&#117;&#115;&#101;&#x6d;&#97;&#105;&#x6c;&#46;&#x63;&#x6f;&#x6d;</a></p>
-<p>John Miller<br>372-555-9809<br>117 Cedar St., Thundera NM 75205<br><a href="mailto:&#106;&#111;&#104;&#110;&#109;&#x69;&#x6c;&#108;&#101;&#114;&#x40;&#x62;&#x6f;&#103;&#x75;&#x73;&#101;&#x6d;&#97;&#105;&#108;&#46;&#x63;&#111;&#x6d;">&#106;&#111;&#104;&#110;&#109;&#x69;&#x6c;&#108;&#101;&#114;&#x40;&#x62;&#x6f;&#103;&#x75;&#x73;&#101;&#x6d;&#97;&#105;&#108;&#46;&#x63;&#111;&#x6d;</a></p>
-<p>Corey Jackson<br>890-555-5618<br>115 Oak St., Gotham UT 36433<br><a href="mailto:&#x63;&#111;&#114;&#101;&#121;&#106;&#x61;&#x63;&#107;&#115;&#111;&#x6e;&#64;&#x62;&#x6f;&#x67;&#117;&#115;&#x65;&#x6d;&#97;&#105;&#108;&#x2e;&#x63;&#x6f;&#109;">&#x63;&#111;&#114;&#101;&#121;&#106;&#x61;&#x63;&#107;&#115;&#111;&#x6e;&#64;&#x62;&#x6f;&#x67;&#117;&#115;&#x65;&#x6d;&#97;&#105;&#108;&#x2e;&#x63;&#x6f;&#109;</a></p>
-<p>Sam Thomas<br>670-555-3005<br>743 Lake St., Springfield MS 25473<br><a href="mailto:&#115;&#97;&#109;&#x74;&#104;&#111;&#x6d;&#97;&#x73;&#x40;&#x62;&#111;&#x67;&#x75;&#x73;&#x65;&#x6d;&#x61;&#x69;&#x6c;&#46;&#99;&#x6f;&#x6d;">&#115;&#97;&#109;&#x74;&#104;&#111;&#x6d;&#97;&#x73;&#x40;&#x62;&#111;&#x67;&#x75;&#x73;&#x65;&#x6d;&#x61;&#x69;&#x6c;&#46;&#99;&#x6f;&#x6d;</a></p>
-<p>Patricia Thomas<br>509-555-5997<br>381 Hill St., Blackwater CT 30958<br><a href="mailto:&#112;&#x61;&#116;&#114;&#105;&#x63;&#105;&#x61;&#x74;&#x68;&#111;&#109;&#x61;&#x73;&#64;&#98;&#111;&#x67;&#117;&#x73;&#101;&#x6d;&#97;&#x69;&#x6c;&#x2e;&#99;&#111;&#109;">&#112;&#x61;&#116;&#114;&#105;&#x63;&#105;&#x61;&#x74;&#x68;&#111;&#109;&#x61;&#x73;&#64;&#98;&#111;&#x67;&#117;&#x73;&#101;&#x6d;&#97;&#x69;&#x6c;&#x2e;&#99;&#111;&#109;</a></p>
-<p>Jennifer Davis<br>721-555-5632<br>125 Main St., Smalltown MT 62155<br><a href="mailto:&#x6a;&#101;&#x6e;&#110;&#105;&#102;&#x65;&#114;&#100;&#x61;&#118;&#105;&#115;&#x40;&#98;&#x6f;&#103;&#x75;&#x73;&#x65;&#x6d;&#97;&#105;&#108;&#46;&#99;&#x6f;&#x6d;">&#x6a;&#101;&#x6e;&#110;&#105;&#102;&#x65;&#114;&#100;&#x61;&#118;&#105;&#115;&#x40;&#98;&#x6f;&#103;&#x75;&#x73;&#x65;&#x6d;&#97;&#105;&#108;&#46;&#99;&#x6f;&#x6d;</a></p>
-<p>Patricia Brown<br>900-555-3567<br>292 Hill St., Gotham WV 57680<br><a href="mailto:&#112;&#97;&#x74;&#x72;&#x69;&#99;&#105;&#x61;&#x62;&#x72;&#111;&#119;&#110;&#x40;&#x62;&#111;&#x67;&#x75;&#x73;&#101;&#x6d;&#x61;&#x69;&#108;&#x2e;&#x63;&#111;&#x6d;">&#112;&#97;&#x74;&#x72;&#x69;&#99;&#105;&#x61;&#x62;&#x72;&#111;&#119;&#110;&#x40;&#x62;&#111;&#x67;&#x75;&#x73;&#101;&#x6d;&#x61;&#x69;&#108;&#x2e;&#x63;&#111;&#x6d;</a></p>
-<p>Barbara Williams<br>147-555-6830<br>514 Park St., Balmora NV 55462<br><a href="mailto:&#98;&#97;&#114;&#98;&#x61;&#114;&#x61;&#119;&#x69;&#108;&#108;&#x69;&#97;&#x6d;&#x73;&#x40;&#98;&#111;&#x67;&#117;&#115;&#101;&#x6d;&#97;&#105;&#108;&#46;&#99;&#111;&#109;">&#98;&#97;&#114;&#98;&#x61;&#114;&#x61;&#119;&#x69;&#108;&#108;&#x69;&#97;&#x6d;&#x73;&#x40;&#98;&#111;&#x67;&#117;&#115;&#101;&#x6d;&#97;&#105;&#108;&#46;&#99;&#111;&#109;</a></p>
-<p>James Taylor<br>582-555-3426<br>776 Hill St., Dawnstar MA 51312<br><a href="mailto:&#x6a;&#x61;&#x6d;&#x65;&#115;&#x74;&#x61;&#121;&#x6c;&#111;&#x72;&#64;&#x62;&#111;&#x67;&#117;&#x73;&#x65;&#109;&#97;&#105;&#108;&#46;&#x63;&#111;&#x6d;">&#x6a;&#x61;&#x6d;&#x65;&#115;&#x74;&#x61;&#121;&#x6c;&#111;&#x72;&#64;&#x62;&#111;&#x67;&#117;&#x73;&#x65;&#109;&#97;&#105;&#108;&#46;&#x63;&#111;&#x6d;</a></p>
-<p>Eric Harris<br>400-555-1706<br>421 Elm St., Smalltown NV 72025<br><a href="mailto:&#x62;&#x61;&#114;&#x62;&#x61;&#x72;&#97;&#104;&#97;&#x72;&#x72;&#x69;&#115;&#64;&#x62;&#111;&#x67;&#117;&#115;&#101;&#x6d;&#x61;&#x69;&#108;&#x2e;&#99;&#111;&#109;">&#x62;&#x61;&#114;&#x62;&#x61;&#x72;&#97;&#104;&#97;&#x72;&#x72;&#x69;&#115;&#64;&#x62;&#111;&#x67;&#117;&#115;&#101;&#x6d;&#x61;&#x69;&#108;&#x2e;&#99;&#111;&#109;</a></p>
-<p>Travis Anderson<br>525-555-1793<br>937 Cedar St., Thundera WA 78862<br><a href="mailto:&#116;&#114;&#x61;&#x76;&#105;&#115;&#x61;&#110;&#100;&#x65;&#x72;&#x73;&#x6f;&#110;&#x40;&#98;&#x6f;&#x67;&#x75;&#115;&#x65;&#x6d;&#97;&#105;&#108;&#x2e;&#99;&#111;&#x6d;">&#116;&#114;&#x61;&#x76;&#105;&#115;&#x61;&#110;&#100;&#x65;&#x72;&#x73;&#x6f;&#110;&#x40;&#98;&#x6f;&#x67;&#x75;&#115;&#x65;&#x6d;&#97;&#105;&#108;&#x2e;&#99;&#111;&#x6d;</a></p>
-<p>Sam Robinson<br>317-555-6700<br>417 Pine St., Lakeview MD 13147<br><a href="mailto:&#x73;&#97;&#109;&#114;&#111;&#98;&#105;&#x6e;&#115;&#x6f;&#110;&#64;&#98;&#x6f;&#x67;&#117;&#115;&#101;&#109;&#97;&#105;&#108;&#46;&#x63;&#111;&#x6d;">&#x73;&#97;&#109;&#114;&#111;&#98;&#105;&#x6e;&#115;&#x6f;&#110;&#64;&#98;&#x6f;&#x67;&#117;&#115;&#101;&#109;&#97;&#105;&#108;&#46;&#x63;&#111;&#x6d;</a></p>
-<p>Steve Robinson<br>974-555-8301<br>478 Park St., Springfield NM 92369<br><a href="mailto:&#x73;&#116;&#101;&#118;&#x65;&#114;&#x6f;&#98;&#105;&#x6e;&#x73;&#111;&#x6e;&#x40;&#98;&#x6f;&#103;&#x75;&#x73;&#x65;&#109;&#x61;&#x69;&#108;&#x2e;&#99;&#111;&#x6d;">&#x73;&#116;&#101;&#118;&#x65;&#114;&#x6f;&#98;&#105;&#x6e;&#x73;&#111;&#x6e;&#x40;&#98;&#x6f;&#103;&#x75;&#x73;&#x65;&#109;&#x61;&#x69;&#108;&#x2e;&#99;&#111;&#x6d;</a></p>
-<p>Mary Wilson<br>800-555-3216<br>708 Maple St., Braavos‎ UT 29551<br><a href="mailto:&#x6d;&#97;&#114;&#121;&#x77;&#x69;&#108;&#x73;&#x6f;&#x6e;&#64;&#98;&#x6f;&#x67;&#x75;&#x73;&#x65;&#109;&#x61;&#x69;&#x6c;&#46;&#99;&#x6f;&#x6d;">&#x6d;&#97;&#114;&#121;&#x77;&#x69;&#108;&#x73;&#x6f;&#x6e;&#64;&#98;&#x6f;&#x67;&#x75;&#x73;&#x65;&#109;&#x61;&#x69;&#x6c;&#46;&#99;&#x6f;&#x6d;</a></p>
-<p>Sam Wilson<br>746-555-4094<br>557 Pearl St., Westworld KS 23225<br><a href="mailto:&#115;&#97;&#109;&#x77;&#x69;&#108;&#115;&#111;&#110;&#x40;&#x62;&#x6f;&#103;&#x75;&#115;&#x65;&#x6d;&#97;&#105;&#108;&#46;&#99;&#x6f;&#x6d;">&#115;&#97;&#109;&#x77;&#x69;&#108;&#115;&#111;&#110;&#x40;&#x62;&#x6f;&#103;&#x75;&#115;&#x65;&#x6d;&#97;&#105;&#108;&#46;&#99;&#x6f;&#x6d;</a></p>
-<p>Charles Jones<br>922-555-1773<br>855 Hill St., Olympus HI 81427<br><a href="mailto:&#99;&#104;&#97;&#x72;&#x6c;&#x65;&#115;&#x6a;&#x6f;&#110;&#x65;&#115;&#x40;&#98;&#x6f;&#x67;&#x75;&#115;&#101;&#x6d;&#97;&#x69;&#108;&#x2e;&#x63;&#x6f;&#x6d;">&#99;&#104;&#97;&#x72;&#x6c;&#x65;&#115;&#x6a;&#x6f;&#110;&#x65;&#115;&#x40;&#98;&#x6f;&#x67;&#x75;&#115;&#101;&#x6d;&#97;&#x69;&#108;&#x2e;&#x63;&#x6f;&#x6d;</a></p>
-<p>Laura Brown<br>711-555-4427<br>980 Maple St., Smalltown MO 96421<br><a href="mailto:&#x6c;&#97;&#x75;&#114;&#x61;&#x62;&#x72;&#111;&#119;&#110;&#64;&#x62;&#111;&#103;&#117;&#x73;&#101;&#109;&#x61;&#x69;&#x6c;&#x2e;&#x63;&#111;&#x6d;">&#x6c;&#97;&#x75;&#114;&#x61;&#x62;&#x72;&#111;&#119;&#110;&#64;&#x62;&#111;&#103;&#117;&#x73;&#101;&#109;&#x61;&#x69;&#x6c;&#x2e;&#x63;&#111;&#x6d;</a></p>
-<p>Tom Harris<br>355-555-1872<br>676 Hill St., Blackwater AR 96698<br><a href="mailto:&#x74;&#111;&#109;&#x68;&#97;&#114;&#x72;&#105;&#x73;&#x40;&#x62;&#111;&#x67;&#117;&#x73;&#101;&#x6d;&#97;&#105;&#x6c;&#x2e;&#99;&#111;&#109;">&#x74;&#111;&#109;&#x68;&#97;&#114;&#x72;&#105;&#x73;&#x40;&#x62;&#111;&#x67;&#117;&#x73;&#101;&#x6d;&#97;&#105;&#x6c;&#x2e;&#99;&#111;&#109;</a></p>
-<p>Patricia Taylor<br>852-555-6521<br>588 Pine St., Olympus FL 98412<br><a href="mailto:&#x70;&#97;&#x74;&#114;&#105;&#x63;&#105;&#x61;&#x74;&#x61;&#x79;&#108;&#x6f;&#114;&#x40;&#x62;&#111;&#103;&#117;&#115;&#x65;&#x6d;&#97;&#x69;&#x6c;&#46;&#x63;&#111;&#109;">&#x70;&#97;&#x74;&#114;&#105;&#x63;&#105;&#x61;&#x74;&#x61;&#x79;&#108;&#x6f;&#114;&#x40;&#x62;&#111;&#103;&#117;&#115;&#x65;&#x6d;&#97;&#x69;&#x6c;&#46;&#x63;&#111;&#109;</a></p>
-<p>Barbara Williams<br>691-555-5773<br>351 Elm St., Sunnydale GA 26245<br><a href="mailto:&#98;&#x61;&#114;&#98;&#x61;&#114;&#97;&#x77;&#105;&#108;&#x6c;&#x69;&#97;&#x6d;&#x73;&#x40;&#98;&#x6f;&#x67;&#117;&#115;&#x65;&#x6d;&#x61;&#105;&#108;&#46;&#99;&#111;&#109;">&#98;&#x61;&#114;&#98;&#x61;&#114;&#97;&#x77;&#105;&#108;&#x6c;&#x69;&#97;&#x6d;&#x73;&#x40;&#98;&#x6f;&#x67;&#117;&#115;&#x65;&#x6d;&#x61;&#105;&#108;&#46;&#99;&#111;&#109;</a></p>
-<p>Maggie Johnson<br>332-555-5441<br>948 Cedar St., Quahog DE 56449<br><a href="mailto:&#x6d;&#97;&#x67;&#x67;&#x69;&#101;&#x6a;&#111;&#104;&#x6e;&#x73;&#x6f;&#110;&#64;&#x62;&#111;&#103;&#x75;&#x73;&#x65;&#109;&#97;&#105;&#x6c;&#x2e;&#99;&#111;&#109;">&#x6d;&#97;&#x67;&#x67;&#x69;&#101;&#x6a;&#111;&#104;&#x6e;&#x73;&#x6f;&#110;&#64;&#x62;&#111;&#103;&#x75;&#x73;&#x65;&#109;&#97;&#105;&#x6c;&#x2e;&#99;&#111;&#109;</a></p>
-<p>Kurt Miller<br>900-555-7755<br>381 Hill St., Quahog AL 97503<br><a href="mailto:&#x6b;&#117;&#x72;&#116;&#x6d;&#105;&#108;&#x6c;&#x65;&#114;&#64;&#98;&#x6f;&#x67;&#x75;&#115;&#101;&#109;&#97;&#x69;&#108;&#x2e;&#x63;&#111;&#x6d;">&#x6b;&#117;&#x72;&#116;&#x6d;&#105;&#108;&#x6c;&#x65;&#114;&#64;&#98;&#x6f;&#x67;&#x75;&#115;&#101;&#109;&#97;&#x69;&#108;&#x2e;&#x63;&#111;&#x6d;</a></p>
-<p>Neil Stuart<br>379-555-3685<br>496 Cedar St., Sunnydale RI 49113<br><a href="mailto:&#110;&#101;&#105;&#108;&#x73;&#116;&#117;&#97;&#114;&#x74;&#x40;&#x62;&#111;&#x67;&#x75;&#115;&#101;&#x6d;&#x61;&#x69;&#x6c;&#x2e;&#99;&#111;&#109;">&#110;&#101;&#105;&#108;&#x73;&#116;&#117;&#97;&#114;&#x74;&#x40;&#x62;&#111;&#x67;&#x75;&#115;&#101;&#x6d;&#x61;&#x69;&#x6c;&#x2e;&#99;&#111;&#109;</a></p>
-<p>Linda Patterson<br>127-555-9682<br>736 Cedar St., Lakeview KY 47472<br><a href="mailto:&#x6c;&#x69;&#110;&#100;&#97;&#x70;&#x61;&#116;&#x74;&#101;&#x72;&#115;&#x6f;&#110;&#64;&#x62;&#111;&#x67;&#117;&#x73;&#101;&#x6d;&#x61;&#105;&#x6c;&#46;&#x63;&#x6f;&#x6d;">&#x6c;&#x69;&#110;&#100;&#97;&#x70;&#x61;&#116;&#x74;&#101;&#x72;&#115;&#x6f;&#110;&#64;&#x62;&#111;&#x67;&#117;&#x73;&#101;&#x6d;&#x61;&#105;&#x6c;&#46;&#x63;&#x6f;&#x6d;</a></p>
-<p>Charles Davis<br>789-555-7032<br>678 Lake St., Mordor MN 11845<br><a href="mailto:&#x63;&#x68;&#x61;&#x72;&#x6c;&#101;&#115;&#x64;&#97;&#118;&#105;&#x73;&#64;&#x62;&#111;&#x67;&#117;&#x73;&#101;&#x6d;&#x61;&#105;&#x6c;&#x2e;&#99;&#x6f;&#109;">&#x63;&#x68;&#x61;&#x72;&#x6c;&#101;&#115;&#x64;&#97;&#118;&#105;&#x73;&#64;&#x62;&#111;&#x67;&#117;&#x73;&#101;&#x6d;&#x61;&#105;&#x6c;&#x2e;&#99;&#x6f;&#109;</a></p>
-<p>Jennifer Jefferson<br>783-555-5135<br>289 Park St., Sunnydale WA 74526<br><a href="mailto:&#x6a;&#x65;&#x6e;&#110;&#x69;&#x66;&#x65;&#114;&#106;&#101;&#102;&#x66;&#101;&#x72;&#x73;&#111;&#110;&#x40;&#x62;&#x6f;&#103;&#x75;&#x73;&#x65;&#109;&#x61;&#x69;&#108;&#x2e;&#99;&#111;&#109;">&#x6a;&#x65;&#x6e;&#110;&#x69;&#x66;&#x65;&#114;&#106;&#101;&#102;&#x66;&#101;&#x72;&#x73;&#111;&#110;&#x40;&#x62;&#x6f;&#103;&#x75;&#x73;&#x65;&#109;&#x61;&#x69;&#108;&#x2e;&#99;&#111;&#109;</a></p>
-<p>Erick Taylor<br>315-555-6507<br>245 Washington St., Bedrock IL 26941<br><a href="mailto:&#x63;&#x6f;&#x72;&#x65;&#x79;&#x74;&#x61;&#x79;&#x6c;&#x6f;&#x72;&#x40;&#98;&#x6f;&#103;&#117;&#115;&#x65;&#109;&#x61;&#x69;&#108;&#46;&#99;&#111;&#x6d;">&#x63;&#x6f;&#x72;&#x65;&#x79;&#x74;&#x61;&#x79;&#x6c;&#x6f;&#x72;&#x40;&#98;&#x6f;&#103;&#117;&#115;&#x65;&#109;&#x61;&#x69;&#108;&#46;&#99;&#111;&#x6d;</a></p>
-<p>Robert Wilks<br>481-555-5835<br>573 Elm St., Sunnydale IL 47182<br><a href="mailto:&#114;&#x6f;&#98;&#x65;&#x72;&#x74;&#119;&#x69;&#108;&#x6b;&#x73;&#64;&#98;&#111;&#103;&#117;&#115;&#x65;&#x6d;&#x61;&#x69;&#x6c;&#x2e;&#99;&#x6f;&#x6d;">&#114;&#x6f;&#98;&#x65;&#x72;&#x74;&#119;&#x69;&#108;&#x6b;&#x73;&#64;&#98;&#111;&#103;&#117;&#115;&#x65;&#x6d;&#x61;&#x69;&#x6c;&#x2e;&#99;&#x6f;&#x6d;</a></p>
-<p>Travis Jackson<br>365-555-8287<br>851 Lake St., Metropolis PA 22772<br><a href="mailto:&#116;&#x72;&#x61;&#118;&#105;&#x73;&#x6a;&#97;&#99;&#x6b;&#115;&#x6f;&#x6e;&#x40;&#x62;&#x6f;&#x67;&#117;&#115;&#x65;&#x6d;&#x61;&#105;&#x6c;&#x2e;&#99;&#111;&#109;">&#116;&#x72;&#x61;&#118;&#105;&#x73;&#x6a;&#97;&#99;&#x6b;&#115;&#x6f;&#x6e;&#x40;&#x62;&#x6f;&#x67;&#117;&#115;&#x65;&#x6d;&#x61;&#105;&#x6c;&#x2e;&#99;&#111;&#109;</a></p>
-<p>Travis Jackson<br>911-555-7535<br>489 Oak St., Atlantis HI 73725<br><a href="mailto:&#x74;&#x72;&#x61;&#118;&#x69;&#x73;&#x6a;&#x61;&#x63;&#107;&#115;&#x6f;&#110;&#64;&#x62;&#111;&#x67;&#x75;&#115;&#101;&#x6d;&#x61;&#105;&#108;&#x2e;&#99;&#x6f;&#109;">&#x74;&#x72;&#x61;&#118;&#x69;&#x73;&#x6a;&#x61;&#x63;&#107;&#115;&#x6f;&#110;&#64;&#x62;&#111;&#x67;&#x75;&#115;&#101;&#x6d;&#x61;&#105;&#108;&#x2e;&#99;&#x6f;&#109;</a></p>
-<p>Laura Wilks<br>681-555-2460<br>371 Pearl St., Smalltown SC 47466<br><a href="mailto:&#x6c;&#x61;&#117;&#x72;&#97;&#x77;&#105;&#108;&#107;&#115;&#x40;&#98;&#111;&#x67;&#x75;&#x73;&#x65;&#109;&#97;&#x69;&#x6c;&#x2e;&#99;&#111;&#109;">&#x6c;&#x61;&#117;&#x72;&#97;&#x77;&#105;&#108;&#107;&#115;&#x40;&#98;&#111;&#x67;&#x75;&#x73;&#x65;&#109;&#97;&#x69;&#x6c;&#x2e;&#99;&#111;&#109;</a></p>
-<p>Neil Arnold<br>274-555-9800<br>504 Oak St., Faketown PA 73860<br><a href="mailto:&#110;&#101;&#x69;&#108;&#97;&#114;&#x6e;&#x6f;&#x6c;&#x64;&#x40;&#x62;&#x6f;&#103;&#x75;&#x73;&#x65;&#x6d;&#x61;&#x69;&#108;&#x2e;&#x63;&#x6f;&#109;">&#110;&#101;&#x69;&#108;&#97;&#114;&#x6e;&#x6f;&#x6c;&#x64;&#x40;&#x62;&#x6f;&#103;&#x75;&#x73;&#x65;&#x6d;&#x61;&#x69;&#108;&#x2e;&#x63;&#x6f;&#109;</a></p>
-<p>Linda Johnson<br>800-555-1372<br>667 High St., Balmora IN 82473<br><a href="mailto:&#108;&#105;&#x6e;&#100;&#x61;&#106;&#111;&#x68;&#x6e;&#115;&#111;&#x6e;&#64;&#x62;&#111;&#103;&#x75;&#115;&#101;&#x6d;&#97;&#x69;&#108;&#x2e;&#x63;&#111;&#x6d;">&#108;&#105;&#x6e;&#100;&#x61;&#106;&#111;&#x68;&#x6e;&#115;&#111;&#x6e;&#64;&#x62;&#111;&#103;&#x75;&#115;&#101;&#x6d;&#97;&#x69;&#108;&#x2e;&#x63;&#111;&#x6d;</a></p>
-<p>Jennifer Wilson<br>300-555-7821<br>266 Pine St., Westworld DC 58720<br><a href="mailto:&#106;&#101;&#x6e;&#110;&#105;&#102;&#101;&#114;&#119;&#105;&#x6c;&#115;&#x6f;&#x6e;&#x40;&#98;&#x6f;&#x67;&#x75;&#x73;&#x65;&#109;&#97;&#105;&#108;&#x2e;&#x63;&#111;&#x6d;">&#106;&#101;&#x6e;&#110;&#105;&#102;&#101;&#114;&#119;&#105;&#x6c;&#115;&#x6f;&#x6e;&#x40;&#98;&#x6f;&#x67;&#x75;&#x73;&#x65;&#109;&#97;&#105;&#108;&#x2e;&#x63;&#111;&#x6d;</a></p>
-<p>Nicole White<br>133-555-3889<br>276 High St., Braavos‎ IL 57764<br><a href="mailto:&#x6e;&#105;&#x63;&#x6f;&#x6c;&#x65;&#x77;&#104;&#105;&#116;&#101;&#x40;&#x62;&#x6f;&#103;&#x75;&#x73;&#x65;&#109;&#x61;&#105;&#108;&#46;&#99;&#111;&#x6d;">&#x6e;&#105;&#x63;&#x6f;&#x6c;&#x65;&#x77;&#104;&#105;&#116;&#101;&#x40;&#x62;&#x6f;&#103;&#x75;&#x73;&#x65;&#109;&#x61;&#105;&#108;&#46;&#99;&#111;&#x6d;</a></p>
-<p>Maria Arnold<br>705-555-6863<br>491 Elm St., Metropolis PA 31836<br><a href="mailto:&#109;&#97;&#x72;&#105;&#x61;&#97;&#x72;&#x6e;&#111;&#108;&#100;&#64;&#x62;&#x6f;&#103;&#x75;&#115;&#101;&#x6d;&#x61;&#105;&#108;&#46;&#x63;&#x6f;&#109;">&#109;&#97;&#x72;&#105;&#x61;&#97;&#x72;&#x6e;&#111;&#108;&#100;&#64;&#x62;&#x6f;&#103;&#x75;&#115;&#101;&#x6d;&#x61;&#105;&#108;&#46;&#x63;&#x6f;&#109;</a></p>
-<p>Jennifer Davis<br>215-555-9449<br>859 Cedar St., Old-town MT 31169<br><a href="mailto:&#106;&#x65;&#110;&#x6e;&#105;&#102;&#x65;&#x72;&#100;&#x61;&#118;&#105;&#115;&#x40;&#x62;&#111;&#x67;&#x75;&#x73;&#x65;&#x6d;&#x61;&#105;&#108;&#46;&#99;&#111;&#109;">&#106;&#x65;&#110;&#x6e;&#105;&#102;&#x65;&#x72;&#100;&#x61;&#118;&#105;&#115;&#x40;&#x62;&#111;&#x67;&#x75;&#x73;&#x65;&#x6d;&#x61;&#105;&#108;&#46;&#99;&#111;&#109;</a></p>
-<p>Mary Patterson<br>988-555-6112<br>956 Park St., Valyria CT 81541<br><a href="mailto:&#109;&#97;&#114;&#x79;&#112;&#97;&#116;&#116;&#101;&#114;&#115;&#111;&#110;&#64;&#98;&#111;&#103;&#x75;&#x73;&#x65;&#x6d;&#x61;&#105;&#108;&#46;&#99;&#111;&#109;">&#109;&#97;&#114;&#x79;&#112;&#97;&#116;&#116;&#101;&#114;&#115;&#111;&#110;&#64;&#98;&#111;&#103;&#x75;&#x73;&#x65;&#x6d;&#x61;&#105;&#108;&#46;&#99;&#111;&#109;</a></p>
-<p>Jane Stuart<br>623-555-3006<br>983 Oak St., Old-town RI 15445<br><a href="mailto:&#106;&#97;&#x6e;&#x65;&#115;&#116;&#117;&#97;&#114;&#x74;&#x40;&#98;&#111;&#x67;&#117;&#115;&#x65;&#109;&#97;&#105;&#108;&#46;&#x63;&#x6f;&#x6d;">&#106;&#97;&#x6e;&#x65;&#115;&#116;&#117;&#97;&#114;&#x74;&#x40;&#98;&#111;&#x67;&#117;&#115;&#x65;&#109;&#97;&#105;&#108;&#46;&#x63;&#x6f;&#x6d;</a></p>
-<p>Robert Davis<br>192-555-4977<br>789 Maple St., Mordor IN 22215<br><a href="mailto:&#x72;&#x6f;&#98;&#101;&#114;&#x74;&#100;&#x61;&#118;&#x69;&#115;&#x40;&#x62;&#111;&#x67;&#x75;&#x73;&#x65;&#109;&#97;&#105;&#108;&#x2e;&#x63;&#x6f;&#109;">&#x72;&#x6f;&#98;&#101;&#114;&#x74;&#100;&#x61;&#118;&#x69;&#115;&#x40;&#x62;&#111;&#x67;&#x75;&#x73;&#x65;&#109;&#97;&#105;&#108;&#x2e;&#x63;&#x6f;&#109;</a></p>
-<p>James Taylor<br>178-555-4899<br>439 Hill St., Olympus NV 39308<br><a href="mailto:&#x6a;&#x61;&#109;&#x65;&#115;&#116;&#97;&#x79;&#x6c;&#111;&#114;&#64;&#98;&#x6f;&#103;&#x75;&#115;&#x65;&#109;&#x61;&#x69;&#x6c;&#46;&#x63;&#x6f;&#x6d;">&#x6a;&#x61;&#109;&#x65;&#115;&#116;&#97;&#x79;&#x6c;&#111;&#114;&#64;&#98;&#x6f;&#103;&#x75;&#115;&#x65;&#109;&#x61;&#x69;&#x6c;&#46;&#x63;&#x6f;&#x6d;</a></p>
-<p>Eric Stuart<br>952-555-3089<br>777 High St., King’s Landing AZ 16547<br><a href="mailto:&#x6a;&#x6f;&#104;&#x6e;&#x73;&#x74;&#x75;&#x61;&#114;&#x74;&#64;&#x62;&#111;&#103;&#x75;&#x73;&#x65;&#x6d;&#x61;&#x69;&#x6c;&#46;&#x63;&#111;&#x6d;">&#x6a;&#x6f;&#104;&#x6e;&#x73;&#x74;&#x75;&#x61;&#114;&#x74;&#64;&#x62;&#111;&#103;&#x75;&#x73;&#x65;&#x6d;&#x61;&#x69;&#x6c;&#46;&#x63;&#111;&#x6d;</a></p>
-<p>Charles Miller<br>900-555-6426<br>207 Washington St., Blackwater MA 24886<br><a href="mailto:&#x63;&#104;&#97;&#x72;&#108;&#101;&#x73;&#x6d;&#105;&#108;&#x6c;&#x65;&#x72;&#x40;&#98;&#111;&#103;&#x75;&#x73;&#x65;&#109;&#x61;&#105;&#x6c;&#x2e;&#99;&#x6f;&#x6d;">&#x63;&#104;&#97;&#x72;&#108;&#101;&#x73;&#x6d;&#105;&#108;&#x6c;&#x65;&#x72;&#x40;&#98;&#111;&#103;&#x75;&#x73;&#x65;&#109;&#x61;&#105;&#x6c;&#x2e;&#99;&#x6f;&#x6d;</a></p>
-<ul>
-<li>ip正则：<br>(((\d{1,2})|(1\d{2})|(2[0-4]\d)|(25[0-5])).){3}((\d{1,2})|(1\d{2})|(2[0-4]\d)|(25[0-5]))</li>
 </ul>
 
       
