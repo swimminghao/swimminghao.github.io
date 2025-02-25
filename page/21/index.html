@@ -276,7 +276,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/b8eb8241/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/36f701ea/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/lion.png">
@@ -294,7 +294,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/b8eb8241/" class="post-title-link" itemprop="url">32、【对线面试官】如何实现幂等和去重？</a>
+          <a href="/posts/36f701ea/" class="post-title-link" itemprop="url">17、【对线面试官】Redis基础</a>
         </h2>
 
         <div class="post-meta-container">
@@ -336,8 +336,8 @@
     </span>
     <span class="post-meta-item-text">Waline：</span>
   
-    <a title="waline" href="/posts/b8eb8241/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/b8eb8241/" data-xid="/posts/b8eb8241/" itemprop="commentCount"></span>
+    <a title="waline" href="/posts/36f701ea/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/36f701ea/" data-xid="/posts/36f701ea/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -348,686 +348,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>1.6k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>1 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="如何实现去重和幂等"><a href="#如何实现去重和幂等" class="headerlink" title="如何实现去重和幂等"></a>如何实现去重和幂等</h1><h2 id="去重与幂等"><a href="#去重与幂等" class="headerlink" title="去重与幂等"></a>去重与幂等</h2><ul>
-<li>区别<ul>
-<li>「去重」是对请求或者消息在「一定时间内」进行去重「N次」</li>
-<li>「幂等」则是保证请求或消息在「任意时间内」进行处理，都需要保证它的结果是一致</li>
-</ul>
-</li>
-<li>以项目举例，我维护的「消息管理平台」是有「去重」的功能的：「5分钟相同内容消息去重」「1小时内模板去重」「一天内渠道达到N次阈值去重」.</li>
-<li>再次强调下「幂等」和「去重」的本质：「唯一Key」+「存储」</li>
-</ul>
-<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><ul>
-<li>不同的业务场景，唯一Key是不一样的，由业务決定</li>
-<li>存储选择挺多的，比如「本地缓存」&#x2F;「 Redis」&#x2F;「 MYSQL」&#x2F;「 Hbase」等等，具体选取什么，也跟业务有关</li>
-<li>比如说，在「消息管理平台」这个场景下，我存储选择的「 Redis」（读写性能优越）， Redis也有「过期时间」方便解决「一定时间内」的问题</li>
-<li>而唯一Key，自然就是根据不同的业务构建不同的。</li>
-<li>比如说「5分钟相同内容消息去重」，我直接MD5请求参数作为唯一Key。「1小时模板去重」则是「模板ID+ userid」作为唯一Key，「ー天内渠道去重」则是「渠道ID+ userid」作为唯一Key.</li>
-</ul>
-<h2 id="提到了「去重」了，你听过布隆过滤器吗？"><a href="#提到了「去重」了，你听过布隆过滤器吗？" class="headerlink" title="提到了「去重」了，你听过布隆过滤器吗？"></a>提到了「去重」了，你听过布隆过滤器吗？</h2><ul>
-<li>布隆过滤器的底层数据结构可以理解为bitmap， bitmap也可以简单理解为是一个数组，元素只存储0和1，所以它占用的空间相对较小</li>
-<li>当一个元素要存入 bitmap时，其实是要去看存储到 bitmap的哪个位置，这时一般用的就是「哈希算法」，存进去的位置标记为1</li>
-<li>标记为1的位置表示存在，标记为0的位置标示不存在</li>
-<li>布隆过滤器是可以以较低的空间占用来判断元素是否存在进而用于去重，但是它也有对应的缺点</li>
-<li>只要使用哈希算法离不开「哈希冲突」，导致有存在「误判」的情况</li>
-<li>在布隆过滤器中，如果元素判定为存在，那该元素「未必」真实存在。如果元素判定为不存在，那就肯定是不存在</li>
-<li>这应该不用我多解释了吧？（结合「哈希算法」和「标记为1的位置表示存在，标记为0的位置表示不存在」这两者就能得出上面结论）</li>
-<li>布隆过滤器也不能「删除」元素（也是哈希算法的局限性，在布隆过滤器中是不能准确定位一个元素的）</li>
-<li>如果要用的话，布隆过滤器的实现可以直接上 guava已经实现好的，不过这个是单机的</li>
-<li>而分布式下的布隆过滤器，一般现在会用 Redis，但也不是每个公司都会部暑布隆过潓器的 Redis版（还是有局限，像我以前公司就没有）</li>
-<li>所以，目前我负责的项目都是没有用布隆过滤器的</li>
-</ul>
-<h2 id="去重开销大"><a href="#去重开销大" class="headerlink" title="去重开销大"></a>去重开销大</h2><ul>
-<li>如果「去重」开销比较大，可以考虑建立「多层过滤」的逻辑</li>
-<li>比如，先看看『本地缓存』能不能过滤一部分，剩下「强校验」交由『远程存储』（常见的 Redis或者DB）进行二次过滤</li>
-</ul>
-<h2 id="kafka场景"><a href="#kafka场景" class="headerlink" title="kafka场景"></a>kafka场景</h2><ul>
-<li>当时你说在处理订单时实现了 at least one+幂等</li>
-<li>幂等处理时：前置过滤使用的是 Redis，强一致校验时使用的是DB唯一索引，也是为了提高性能，唯一Key好像就是「订单编号+订单状态」</li>
-</ul>
-<h2 id="方案的场景适用"><a href="#方案的场景适用" class="headerlink" title="方案的场景适用"></a>方案的场景适用</h2><ol>
-<li>一般我们需要对数据强一致性校验，就直接上 MYSQL（DB），毕竟有事务的支持</li>
-<li>「本地缓存」如果业务适合，那可以作为一个「前置」判断</li>
-<li>Redis高性能读写，前置判断和后置均可</li>
-<li>而 Hbasel则一般用于庞大数据量的场景下（ Redis内存太贵，DB不够灵活也不适合单表存大量数据）</li>
-</ol>
-<h2 id="幂等"><a href="#幂等" class="headerlink" title="幂等"></a>幂等</h2><ul>
-<li>至于幂等，一般的方案下存储还是「Redis」和「数据库」</li>
-<li>最最最最常见的就是数据库「唯一索」来实现幂等（我所负责的好几个项目都是用这个）</li>
-<li>构建「唯一Key」是业务相关的事了（一般是用自己的业务ID进行拼接，生成一个有意义”的唯一Key</li>
-<li>当然，也有用「 Redis」和「 MYSQL」实现分布式锁来实现幂等的（：）</li>
-<li>但 Redis’分布式锁是不能完全保证安全的，而MNSL实现分布式锁（乐观锁和悲观锁），不过还是看业务吧，我是没用到过的</li>
-<li>网上有很多实现「幂等」的方案，本质上都是围绕着「存储」和「唯一Key」做了些变种，然后取了个名字</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>l
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/63b182f/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/lion.png">
-      <meta itemprop="name" content="swimminghao">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="swimminghao's blog">
-      <meta itemprop="description" content="swimminghao的学习博客">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | swimminghao's blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/63b182f/" class="post-title-link" itemprop="url">33、【对线面试官】Redis主从架构</a>
-        </h2>
-
-        <div class="post-meta-container">
-
-          
-
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2025-02-13 16:20:39" itemprop="dateModified" datetime="2025-02-13T16:20:39+08:00">2025-02-13</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="far fa-comment"></i>
-    </span>
-    <span class="post-meta-item-text">Waline：</span>
-  
-    <a title="waline" href="/posts/63b182f/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/63b182f/" data-xid="/posts/63b182f/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>3.1k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>3 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="33、【对线面试官】Redis主从架构"><a href="#33、【对线面试官】Redis主从架构" class="headerlink" title="33、【对线面试官】Redis主从架构"></a>33、【对线面试官】Redis主从架构</h1><h2 id="要不你来讲讲你公司的Redis是什么架构的咯？"><a href="#要不你来讲讲你公司的Redis是什么架构的咯？" class="headerlink" title="要不你来讲讲你公司的Redis是什么架构的咯？"></a>要不你来讲讲你公司的Redis是什么架构的咯？</h2><ul>
-<li>我前公司的Redis架构是「分片集群」，使用的是「Proxy」层来对Key进行分流到不同的Redis服务器上</li>
-<li>支持动态扩容、故障恢复等等…</li>
-</ul>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/exJQS5_20211229222731.png"></p>
-<h2 id="那你来聊下Proxy-层的架构和基本实现原理？"><a href="#那你来聊下Proxy-层的架构和基本实现原理？" class="headerlink" title="那你来聊下Proxy.层的架构和基本实现原理？"></a>那你来聊下Proxy.层的架构和基本实现原理？</h2><ul>
-<li><p>抱歉，这块由中间件团队负责，具体我也没仔细看过</p>
-</li>
-<li><p>不过，我可以给你讲讲现有常见开源的Redis架构</p>
-<ul>
-<li><p>在之前提到了Redis有持久化机制，即便Redis重启了，可以依靠RDB或者AOF文件对数据进行重新加载</p>
-</li>
-<li><p>但在这时，只有一台Redis服务器存储着所有的数据，此时如果Redis服务器「暂时」没办法修复了，那依赖Redis的服务就没了</p>
-</li>
-<li><p>所以，为了Redis「高可用」，现在基本都会给Redis做「备份」：多启一台Redis服务器，形成「主从架构」</p>
-</li>
-<li><p>「从服务器」的数据由「主服务器」复制过去，主从服务器的数据是一致的</p>
-</li>
-<li><p>如果主服务器挂了，那可以「手动」把「从服务器」升级为「主服务器」，缩短不可用时间</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/jCY34w_20211229225726.png"></p>
-</li>
-</ul>
-</li>
-</ul>
-<h2 id="那「主服务器」是如何把自身的数据「复制」给「从服务器」的呢？"><a href="#那「主服务器」是如何把自身的数据「复制」给「从服务器」的呢？" class="headerlink" title="那「主服务器」是如何把自身的数据「复制」给「从服务器」的呢？"></a>那「主服务器」是如何把自身的数据「复制」给「从服务器」的呢？</h2><ul>
-<li>「复制」也叫「同步」，在Redis使用的是「PSYNC」命令进行同步，该命令有两种模型：完全重同步和部分重同步</li>
-<li>可以简单理解为：如果是第一次「同步」，从服务器没有复制过任何的主服务器，或者从服务器要复制的主服务器跟上次复制的主服务器不一样，那就会采用「完全重同步」模式进行复制</li>
-<li>如果只是由于网络中断，只是「短时间」断连，那就会采用「部分重同步」模式进行复制</li>
-<li>（假如主从服务器的数据差距实在是过大了，还是会采用「完全重同步」模式进行复制）</li>
-</ul>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/8nL2eT_20211229225855.png"></p>
-<h2 id="同步原理"><a href="#同步原理" class="headerlink" title="同步原理"></a>同步原理</h2><ul>
-<li><p>主服务器要复制数据到从服务器，首先是建立Socket「连接」，这个过程会干一些信息校验啊、身份校验啊等事情</p>
-</li>
-<li><p>然后从服务器就会发「PSYNC」命令给主服务器，要求同步（这时会带「服务器ID」RUNID和「复制进度」offset参数。如果从服务器是新的，那就没有）</p>
-</li>
-<li><p>主服务器发现这是一个新的从服务器（因为参数没带上来），就会采用「完全重同步」模式，并把「服务器ID」（runld）和「复制进度」（offset）发给从服务器，从服务器就会记下这些信息。</p>
-</li>
-<li><p>随后，主服务器会在后台生成RDB文件，通过前面建立好的连接发给从服务器从服务器收到RDB文件后，首先把自己的数据清空，然后对RDB文件进行加载恢复</p>
-</li>
-<li><p>这个过程中，主服务器也没闲着（继续接收着客户端的请求）</p>
-</li>
-<li><p>主服务器把生成RDB文件「之后修改的命令」会用「ouffer.」记录下来，等到从服务器加载完RDB之后，主服务器会把「buffer.」记录下的命令都发给从服务器</p>
-</li>
-<li><p>这样一来，主从服务器就达到了数据一致性了（复制过程是异步的，所以数据是『最终一致性』）</p>
-</li>
-</ul>
-<h2 id="那「部分重同步」的过程呢？"><a href="#那「部分重同步」的过程呢？" class="headerlink" title="那「部分重同步」的过程呢？"></a>那「部分重同步」的过程呢？</h2><ul>
-<li><p>嗯，其实就是靠「offset」来进行部分重同步。每次主服务器传播命令的时候，都会把「offset」给到从服务器</p>
-</li>
-<li><p>主服务器和从服务器都会将「offset」保存起来（如果两边的offset存在差异，那么说明主从服务器数据未完全同步）</p>
-</li>
-<li><p>从服务器断连之后进行重连，就会发「PSYNC」命令给主服务器，同样也会带着RUNID和offset（重连之后，这些信息还是存在的）</p>
-</li>
-<li><p>主服务器收到命令之后，看RUNID是否能对得上，对得上，说明这可能以前就同步过一部分了</p>
-</li>
-<li><p>接着检查该「offset在主服务器里还是否存在（主服务器记录主从服务器offset的信息用的是环形buffer，如果该ouffer）满了，会覆盖以前的记录。而记录客户端的修改命令用的是另一个buffer）</p>
-</li>
-<li><p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/4mdp0i_20211229230139.png"></p>
-</li>
-<li><p>如果从backlog_buffer找到了，那就把从缺失的一部分offer开始，把对应的修改命令发给从服务器</p>
-</li>
-<li><p>如果从环形ouffer（backlog._buffer）没找到，那只能使用「完全重同步」模式再次进行主从复制了</p>
-<ul>
-<li><p>懂了，无非就是有个关联关系记录下来，只不过存储是环形（可能会造成覆盖）</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/oGR8JD_20211229230354.png"></p>
-</li>
-</ul>
-</li>
-</ul>
-<h2 id="Redis主库如果挂了，你还是得「手动」将从库升级为主库啊？你知道有什么办法能做到「自动」进行故障恢复吗？"><a href="#Redis主库如果挂了，你还是得「手动」将从库升级为主库啊？你知道有什么办法能做到「自动」进行故障恢复吗？" class="headerlink" title="Redis主库如果挂了，你还是得「手动」将从库升级为主库啊？你知道有什么办法能做到「自动」进行故障恢复吗？"></a>Redis主库如果挂了，你还是得「手动」将从库升级为主库啊？你知道有什么办法能做到「自动」进行故障恢复吗？</h2><ul>
-<li><p>哨兵</p>
-<ul>
-<li><p>「哨兵」干的事情主要就是：监控（监控主服务器的状态）、选主（主服务器挂了，在从服务器选出一个作为主服务器）、通知（故障发送消息给管理员）和配置（作为配置中心，提供当前主服务器的信息）</p>
-</li>
-<li><p>可以把「哨兵」当做是运行在「特殊」模式下的Redis服务器，为了「高可用」，哨兵也是集群架构的。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/iPv3vB_20211229230508.png"></p>
-</li>
-<li><p>首先它需要跟Redis主从服务器创建对应的连接（获取它们的信息）</p>
-</li>
-<li><p>每个哨兵不断地用ping命令看主服务器有没有下线，如果主服务器在「配置时间」内没有正常响应，那当前哨兵就「主观」认为该主服务器下线了</p>
-</li>
-<li><p>其他「哨兵」同样也会ping该主服务器，如果「足够多」（还是看配置）的哨兵认为该主服务器已经下线，那就认为「客观下线」，这时就要对主服务器执行故障转移操作。</p>
-</li>
-<li><p>「哨兵」之间会选出一个「领头」，选出领头的规则也比较多，总的来说就是先到先得（哪个快，就选哪个）</p>
-</li>
-<li><p>由「领头哨兵」对已下线的主服务器进行故障转移</p>
-<ul>
-<li>过程<ul>
-<li>首先要在「从服务器」上挑选出一个，来作为主服务器</li>
-<li>（这里也挑选讲究，比如：从库的配置优先级、要判断哪个从服务器的复制offset最大、RunID大小、跟master断开连接的时长…）</li>
-<li>然后，以前的从服务器都需要跟新的主服务器进行「主从复制」</li>
-<li>已经下线的主服务器，再次重连的时候，需要让他成为新的主服务器的从服务器</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h2 id="了解，我想问问，Redis在主从复制和故障转移的过程中会导致数据丢失吗"><a href="#了解，我想问问，Redis在主从复制和故障转移的过程中会导致数据丢失吗" class="headerlink" title="了解，我想问问，Redis在主从复制和故障转移的过程中会导致数据丢失吗"></a>了解，我想问问，Redis在主从复制和故障转移的过程中会导致数据丢失吗</h2><ul>
-<li><p>会的</p>
-<ul>
-<li><p>1）从上面的「主从复制」流程来看，这个过程是异步的（在复制的过程中：主服务器会一直接收请求，然后把修改命令发给从服务器）</p>
-</li>
-<li><p>假如主服务器的命令还没发完给从服务器，自己就挂掉了。这时候想要让从服务器顶上主服务器，但从服务器的数据是不全的</p>
-</li>
-<li><p>2）还有另一种情况就是：有可能哨兵认为主服务器挂了，但真实是主服务器并没有挂（网络抖动），而哨兵已经选举了一台从服务器当做是主服务器了，此时「客户端」还没反应过来，还继续写向旧主服务器写数据</p>
-</li>
-<li><p>等到旧主服务器重连的时候，已经被纳入到新主服务器的从服务器了…所以，那段时间里，客户端写进旧主服务器的数据就丢了</p>
-</li>
-</ul>
-</li>
-<li><p>上面这两种情况（主从复制延迟&amp;&amp;脑裂），都可以通过配置来「尽可能」避免数据的丢失</p>
-</li>
-<li><p>（达到一定的阈值，直接禁止主服务器接收写请求，企图减少数据丢失的风险）</p>
-</li>
-</ul>
-<h2 id="要不再来聊聊Redis分片集群？"><a href="#要不再来聊聊Redis分片集群？" class="headerlink" title="要不再来聊聊Redis分片集群？"></a>要不再来聊聊Redis分片集群？</h2><ul>
-<li>分片集群就是往每个Redis服务器存储一部分数据，所有的Redis服务器数据加起来，才组成完整的数据（分布式）</li>
-<li>要想组成分片集群，那就需要对key进行「路由」（分片）<ul>
-<li>现在一般的路由方案有两种：「客户端路由」（SDK）和「服务端路由」（Proxy）</li>
-<li>客户端路由的代表（Redis Cluster），服务端路由的代表（Codis）</li>
-<li>区别？</li>
-</ul>
-</li>
-</ul>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p><strong>Redis实现高可用</strong>：</p>
-<ul>
-<li>AOF&#x2F;RDB持久化机制</li>
-<li>主从架构（主服务器挂了，手动由从服务器顶上）</li>
-<li>引入哨兵机制自动故障转义</li>
-</ul>
-<p><strong>主从复制原理</strong>：</p>
-<ul>
-<li>PSYNC命令两种模式：完全重同步、部分重同步</li>
-<li>完全重同步：主从服务器建立连接、主服务器生成RDB文件发给从服务器、主服务器不阻塞（相关修改命令记录至buffer）、将修改命令发给从服务器</li>
-<li>部分重同步：从服务器断线重连，发送RunId和offset给主服务器，主服务器判断offset和runId，将还未同步给从服务器的offset相关指令进行发送</li>
-</ul>
-<p><strong>哨兵机制</strong>：</p>
-<ul>
-<li>哨兵可以理解为特殊的Redis服务器，一般会组成哨兵集群</li>
-<li>哨兵主要工作是监控、告警、配置以及选主</li>
-<li>当主服务器发生故障时，会「选出」一台从服务器来顶上「客观下线」的服务器，由「领头哨兵」进行切换</li>
-</ul>
-<p><strong>数据丢失</strong>：</p>
-<ul>
-<li>Redis的主从复制和故障转移阶段都有可能发生数据丢失问题（通过配置尽可能避免）</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>l
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/f4ff0293/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/lion.png">
-      <meta itemprop="name" content="swimminghao">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="swimminghao's blog">
-      <meta itemprop="description" content="swimminghao的学习博客">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | swimminghao's blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/f4ff0293/" class="post-title-link" itemprop="url">34、【对线面试官】Redis分片集群</a>
-        </h2>
-
-        <div class="post-meta-container">
-
-          
-
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2025-02-13 16:20:39" itemprop="dateModified" datetime="2025-02-13T16:20:39+08:00">2025-02-13</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="far fa-comment"></i>
-    </span>
-    <span class="post-meta-item-text">Waline：</span>
-  
-    <a title="waline" href="/posts/f4ff0293/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/f4ff0293/" data-xid="/posts/f4ff0293/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>3.6k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>3 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="34、【对线面试官】Redis分片集群"><a href="#34、【对线面试官】Redis分片集群" class="headerlink" title="34、【对线面试官】Redis分片集群"></a>34、【对线面试官】Redis分片集群</h1><h2 id="要不接着上一次的话题呗？聊下Redis的分片集群，先聊Redis-Clusters好咯？"><a href="#要不接着上一次的话题呗？聊下Redis的分片集群，先聊Redis-Clusters好咯？" class="headerlink" title="要不接着上一次的话题呗？聊下Redis的分片集群，先聊Redis Clusters好咯？"></a>要不接着上一次的话题呗？聊下Redis的分片集群，先聊Redis Clusters好咯？</h2><ul>
-<li><p>基础</p>
-<ul>
-<li><p>在前面聊Redisl的时候，提到的Redis都是「单实例」存储所有的数据</p>
-</li>
-<li><p>1.主从模式下实现读写分离的架构，可以让多个从服务器承载「读流量」，但面对「写流量」时，始终是只有主服务器在抗。</p>
-</li>
-<li><p>2.「纵向扩展」升级Redis服务器硬件能力，但升级至一定程度下，就不划算了。</p>
-</li>
-<li><p>纵向扩展意味着「大内存」，Redis：持久化时的”成本”会加大（Redis做RDB持久化，是全量的，fork子进程时有可能由于使用内存过大，导致主线程阻塞时间过长）</p>
-</li>
-<li><p>所以，「单实例」是有瓶颈的这里的。单实例我指的是：某台Redis服务器存储着某业务的所有数据</p>
-</li>
-<li><p>「纵向扩展」不行，就「横向扩展」呗。</p>
-</li>
-<li><p>用多个Redis实例来组成一个集群，按照一定的规则把数据「分发」到不同的Redis实例上。当集群所有的Redis实例的数据加起来，那这份数据就是全的</p>
-</li>
-<li><p>其实就是「分布式」的概念（：只不过，在Redis.里，好像叫「分片集群」的人比较多？</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/UjVuJE_20211230101518.png"></p>
-</li>
-<li><p>从前面就得知了，要「分布式存储」，就肯定避免不了对数据进行「分发」（也是路由的意思）</p>
-</li>
-<li><p>从Redis Clusteri讲起吧，它的「路由」是做在客户端的（SDK已经集成了路由转发的功能）</p>
-</li>
-<li><p>Redis Cluster）对数据的分发的逻辑中，涉及到「哈希槽」（Hash Solt）的概念</p>
-</li>
-<li><p>Redis Cluster默认一个集群有16384个哈希槽，这些哈希槽会分配到不同的Redis实例中</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/wG6xGm_20211230101625.png"></p>
-</li>
-<li><p>至于怎么「瓜分」，可以直接均分，也可以「手动」设置每个Redis实例的哈希槽，全由我们来决定</p>
-</li>
-<li><p>重要的是，我们要把这16384个都得瓜分完，不能有剩余！</p>
-</li>
-<li><p>当客户端有数据进行写入的时候，首先会对key按照CRC16算法计算出16bit的值（可以理解为就是做hash），然后得到的值对16384进行取模</p>
-</li>
-<li><p>取模之后，自然就得到其中一个哈希槽，然后就可以将数据插入到分配至该哈希槽的Redis实例中</p>
-</li>
-</ul>
-</li>
-</ul>
-<h2 id="那问题就来了，现在客户端通过hash算法算出了哈希槽的位置，那客户端怎么知道这个哈希槽在哪台Redis实例上呢？"><a href="#那问题就来了，现在客户端通过hash算法算出了哈希槽的位置，那客户端怎么知道这个哈希槽在哪台Redis实例上呢？" class="headerlink" title="那问题就来了，现在客户端通过hash算法算出了哈希槽的位置，那客户端怎么知道这个哈希槽在哪台Redis实例上呢？"></a>那问题就来了，现在客户端通过hash算法算出了哈希槽的位置，那客户端怎么知道这个哈希槽在哪台Redis实例上呢？</h2><ul>
-<li>是这样的，在集群的中每个Redis实例都会向其他实例「传播」自己所负责的哈希槽有哪些。这样一来，每台Redis实例就可以记录着「所有哈希槽与实例」的关系了</li>
-<li>有了这个映射关系以后，客户端也会「缓存」一份到自己的本地上，那自然客户端就知道去哪个Redis实例上操作</li>
-</ul>
-<h2 id="那我又有问题了，在集群里也可以新增画者删除Redis：实例啊，这个怎么整？（扩容、缩容很常见的操作）"><a href="#那我又有问题了，在集群里也可以新增画者删除Redis：实例啊，这个怎么整？（扩容、缩容很常见的操作）" class="headerlink" title="那我又有问题了，在集群里也可以新增画者删除Redis：实例啊，这个怎么整？（扩容、缩容很常见的操作）"></a>那我又有问题了，在集群里也可以新增画者删除Redis：实例啊，这个怎么整？（扩容、缩容很常见的操作）</h2><ul>
-<li>当集群删除或者新增Redis实例时，那总会有某Redis实例所负责的哈希槽关系会发生变化</li>
-<li>发生变化的信息会通过消息发送至整个集群中，所有的Redis实例都会知道该变化，然后更新自己所保存的映射关系</li>
-<li>但这时候，客户端其实是不感知的</li>
-<li>所以，当客户端请求时某Key时，还是会请求到「原来」的Redis实例上。</li>
-<li>而原来的Redis实例会返回「noved」命令，告诉客户端应该要去新的Redis：实例上去请求啦</li>
-<li>客户端接收到「moved」命令之后，就知道去新的Redis实例请求了，并且更新客户端自身「哈希槽与实例之间的映射关系」</li>
-<li>总结起来就是：数据迁移完毕后被响应，客户端会收到「moved」命令，并且会更新本地缓存</li>
-<li>那数据还没完全迁移完呢？</li>
-<li>如果数据还没完全迁移完，那这时候会返回客户端「ask」命令。也是让客户端去请求新的Redis实例，但客户端这时候不会更新本地缓存</li>
-</ul>
-<h2 id="那你知道为什么哈希槽是16384个吗？"><a href="#那你知道为什么哈希槽是16384个吗？" class="headerlink" title="那你知道为什么哈希槽是16384个吗？"></a>那你知道为什么哈希槽是16384个吗？</h2><ul>
-<li>嗯，这个。是这样的，Redis：实例之间「通讯」会相互交换「槽信息」，那如果槽过多（意味着网络包会变大），网络包变大，那是不是就意味着会「过度占用」网络的带宽</li>
-<li>另外一块是，Redis作者认为集群在一般情况下是不会超过1000个实例</li>
-<li>那就取了16384个，即可以将数据合理打散至Redis：集群中的不同实例，又不会在交换数据时导致带宽占用过多</li>
-</ul>
-<h2 id="那你知道为什么对数据进行分区在Redis中用的是「哈希槽」这种方式吗？而不是一致性哈希算法"><a href="#那你知道为什么对数据进行分区在Redis中用的是「哈希槽」这种方式吗？而不是一致性哈希算法" class="headerlink" title="那你知道为什么对数据进行分区在Redis中用的是「哈希槽」这种方式吗？而不是一致性哈希算法"></a>那你知道为什么对数据进行分区在Redis中用的是「哈希槽」这种方式吗？而不是一致性哈希算法</h2><ul>
-<li>在我理解下，一致性哈希算法就是有个「哈希环」，当客户端请求时，会对Key进行hash，确定在哈希环上的位置，然后顺时针往后找，找到的第一个节点</li>
-<li>一致性哈希算法比「传统固定取模」的好处就是：如果集群中需要新增或删除某实例，只会影响一小部分的数据</li>
-<li>但如果在集群中新增或者删除实例，在一致性哈希算法下，就得知道是「哪一部分数据」受到影响了，需要进行对受影响的数据进行迁移</li>
-<li>而哈希槽的方式，我们通过上面已经可以发现：在集群中的每个实例都能拿到槽位相关的信息（去中心化）</li>
-<li>当客户端对key进行hash运算之后，如果发现请求的实例没有相关的数据，实例会返回「重定向」命令告诉客户端应该去哪儿请求</li>
-<li>集群的扩容、缩容都是以「哈希槽」作为基本单位进行操作，总的来说就是「实现」会更加简单（简洁，高效，有弹性）</li>
-<li>过程大概就是把部分槽进行重新分配，然后迁移槽中的数据即可，不会影响到集群中某个实例的所有数据。</li>
-</ul>
-<h2 id="那你了解「服务端路由」的大致原理吗？"><a href="#那你了解「服务端路由」的大致原理吗？" class="headerlink" title="那你了解「服务端路由」的大致原理吗？"></a>那你了解「服务端路由」的大致原理吗？</h2><ul>
-<li><p>嗯，服务端路由一般指的就是，有个代理层专门对接客户端的请求，然后再转发到Redis集群进行处理</p>
-</li>
-<li><p>上次最后面试的时候，也提到了，现在比较流行的是Codis</p>
-</li>
-<li><p>它与Redis Clusteri最大的区别就是，Redis Cluster是直连Redis实例的，而Codis则客户端直连Proxy，再由Proxy进行分发到不同的Redis实例进行处理</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/5iNRXA_20211230102232.png"></p>
-</li>
-<li><p>在Codis对Key路由的方案跟Redis Cluster很类似，Codis初始化出1024个哈希槽，然后分配到不同的Redis服务器中</p>
-</li>
-<li><p>哈希槽与Redis实例的映射关系由Zookeeper进行存储和管理，Proxy会通过CodisDashBoard得到最新的映射关系，并缓存在本地上</p>
-</li>
-</ul>
-<h2 id="那如果我要扩容Codis-Redis实例的流程是怎么样的？"><a href="#那如果我要扩容Codis-Redis实例的流程是怎么样的？" class="headerlink" title="那如果我要扩容Codis Redis实例的流程是怎么样的？"></a>那如果我要扩容Codis Redis实例的流程是怎么样的？</h2><ul>
-<li>简单来说就是：把新的Redis：实例加入到集群中，然后把部分数据迁移到新的实例上</li>
-<li>大概的过程就是：<ul>
-<li>1.「原实例」某一个Solt的部分数据发送给「目标实例」</li>
-<li>2.「目标实例」收到数据后，给「原实例」返回ack</li>
-<li>3.「原实例」收到ack之后，在本地删除掉刚刚给「目标实例」的数据</li>
-<li>4.不断循环1、2、3步骤，直至整个solt迁移完毕</li>
-</ul>
-</li>
-<li>Codis和Redis Cluster迁移的步骤都差不多的</li>
-<li>不过Codis：是支持「异步迁移」的，针对上面的步骤2，「原实例」发送数据后，不等待「目标实例」返回ack，就可以继续接收客户端的请求</li>
-<li>未迁移完的数据标记为「只读」，就不会影响到数据的一致性</li>
-<li>如果对迁移中的数据存在「写操作」，那会让客户端进行「重试」，最后会写到「目标实例」上</li>
-<li>还有就是，针对bigkey，异步迁移采用了「拆分指令」的方式进行迁移，比如有个set元素有10000个，那「原实例」可能就发送10000条命令给「目标实例」，而不是一整个bigkey一次性迁移（因为大对象容易造成阻塞）</li>
-</ul>
-<h2 id="Redis-Cluster和Codis的总体区别"><a href="#Redis-Cluster和Codis的总体区别" class="headerlink" title="Redis Cluster和Codis的总体区别"></a>Redis Cluster和Codis的总体区别</h2><p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/EArvDs_20211230102555.png"></p>
-<h2 id="总结1"><a href="#总结1" class="headerlink" title="总结1"></a>总结1</h2><ul>
-<li>说白了就是，如果集群Redis实例存在变动，由于Redis实例之间会「通讯」</li>
-<li>所以等到客户端请求时，Redis实例总会知道客户端所要请求的数据在哪个Redis实例上</li>
-<li>如果已经迁移完毕了，那就返回「move」命令告诉客户端应该去找哪个Redis实例要数据，并且客户端应该更新自己的缓存（映射关系）</li>
-<li>如果正在迁移中，那就返回「ack」命令告诉客户端应该去找哪个Redis实例要数据</li>
-</ul>
-<h2 id="总结2"><a href="#总结2" class="headerlink" title="总结2"></a>总结2</h2><p><strong>分片集群诞生理由</strong>：写性能在高并发下会遇到瓶颈&amp;&amp;无法无限地纵向扩展（不划算）</p>
-<p><strong>分片集群</strong>：需要解决「数据路由」和「数据迁移」的问题</p>
-<p><strong>Redis Cluster数据路由</strong>：</p>
-<ul>
-<li>Redis Cluster默认一个集群有16384个哈希槽，哈希槽会被分配到Redis集群中的实例中</li>
-<li>Redis集群的实例会相互「通讯」，交互自己所负责哈希槽信息（最终每个实例都有完整的映射关系）</li>
-<li>当客户端请求时，使用CRC16算法算出Hash值并模以16384，自然就能得到哈希槽进而得到所对应的Redis实例位置</li>
-</ul>
-<p><strong>为什么16384个哈希槽</strong>：16384个既能让Redis实例分配到的数据相对均匀，又不会影响Redis实例之间交互槽信息产生严重的网络性能开销问题</p>
-<p><strong>Redis Cluster 为什么使用哈希槽，而非一致性哈希算法</strong>：哈希槽实现相对简单高效，每次扩缩容只需要动对应Solt（槽）的数据，一般不会动整个Redis实例</p>
-<p><strong>Codis数据路由</strong>：默认分配1024个哈希槽，映射相关信息会被保存至Zookeeper集群。Proxy会缓存一份至本地，Redis集群实例发生变化时，DashBoard更新Zookeeper和Proxy的映射信息</p>
-<p><strong>Redis Cluster和Codis数据迁移</strong>：Redis Cluster支持同步迁移，Codis支持同步迁移&amp;&amp;异步迁移</p>
-
-      
-    </div>
-
-    
-    
-    
-
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>l
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/89b0310a/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/lion.png">
-      <meta itemprop="name" content="swimminghao">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="swimminghao's blog">
-      <meta itemprop="description" content="swimminghao的学习博客">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | swimminghao's blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/89b0310a/" class="post-title-link" itemprop="url">35、【对线面试官】系统需求多变时，如何设计</a>
-        </h2>
-
-        <div class="post-meta-container">
-
-          
-
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2025-02-13 16:20:39" itemprop="dateModified" datetime="2025-02-13T16:20:39+08:00">2025-02-13</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="far fa-comment"></i>
-    </span>
-    <span class="post-meta-item-text">Waline：</span>
-  
-    <a title="waline" href="/posts/89b0310a/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/89b0310a/" data-xid="/posts/89b0310a/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>1.8k</span>
+      <span>1.7k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -1045,91 +366,60 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="35、【对线面试官】系统需求多变时，如何设计"><a href="#35、【对线面试官】系统需求多变时，如何设计" class="headerlink" title="35、【对线面试官】系统需求多变时，如何设计"></a>35、【对线面试官】系统需求多变时，如何设计</h1><h2 id="我现在有个系统会根据请求的入参，做出不同动作。但是，这块不同的动作很有可能是会发生需求变动的，这块系统你会怎么样设计？"><a href="#我现在有个系统会根据请求的入参，做出不同动作。但是，这块不同的动作很有可能是会发生需求变动的，这块系统你会怎么样设计？" class="headerlink" title="我现在有个系统会根据请求的入参，做出不同动作。但是，这块不同的动作很有可能是会发生需求变动的，这块系统你会怎么样设计？"></a>我现在有个系统会根据请求的入参，做出不同动作。但是，这块不同的动作很有可能是会发生需求变动的，这块系统你会怎么样设计？</h2><h2 id="实际的例子：现在有多个第三方渠道，系统需要对各种渠道进行订单归因"><a href="#实际的例子：现在有多个第三方渠道，系统需要对各种渠道进行订单归因" class="headerlink" title="实际的例子：现在有多个第三方渠道，系统需要对各种渠道进行订单归因"></a>实际的例子：现在有多个第三方渠道，系统需要对各种渠道进行订单归因</h2><h2 id="但是归因的逻辑很有可能会发生变化，不同的渠道归因的逻辑也不太一样，此时系统里的逻辑相对比较复杂"><a href="#但是归因的逻辑很有可能会发生变化，不同的渠道归因的逻辑也不太一样，此时系统里的逻辑相对比较复杂" class="headerlink" title="但是归因的逻辑很有可能会发生变化，不同的渠道归因的逻辑也不太一样，此时系统里的逻辑相对比较复杂"></a>但是归因的逻辑很有可能会发生变化，不同的渠道归因的逻辑也不太一样，此时系统里的逻辑相对比较复杂</h2><h2 id="如果让你优化一下，你会怎么设计？"><a href="#如果让你优化一下，你会怎么设计？" class="headerlink" title="如果让你优化一下，你会怎么设计？"></a>如果让你优化一下，你会怎么设计？</h2><ul>
-<li><p>问题转化</p>
+          <h1 id="17、【对线面试官】Redis基础"><a href="#17、【对线面试官】Redis基础" class="headerlink" title="17、【对线面试官】Redis基础"></a>17、【对线面试官】Redis基础</h1><h2 id="你先来讲讲为什么要用Redis吧？"><a href="#你先来讲讲为什么要用Redis吧？" class="headerlink" title="你先来讲讲为什么要用Redis吧？"></a>你先来讲讲为什么要用Redis吧？</h2><ol>
+<li>我个人是这样理解的：无论Redis也好、MySQL也好、HDFS也好、HBase也好</li>
+<li>他们都是存储数据的地方</li>
+<li>因为它们的设计理念的不同，我们会根据不同的应用场景使用不同的存储</li>
+<li>像Redis一般我们会把它用作于缓存</li>
+<li>当然啦，日常有的应用场景比较简单，用个HashMap也能解决很多的问题了，没必要上Redis</li>
+<li>这就好比，有的单机限流可能应对某些场景就够用了，也没必要说一定要上分布式限流把系统搞得复杂</li>
+</ol>
+<h2 id="那你在项目里有用到Redis吗？怎么用的？"><a href="#那你在项目里有用到Redis吗？怎么用的？" class="headerlink" title="那你在项目里有用到Redis吗？怎么用的？"></a>那你在项目里有用到Redis吗？怎么用的？</h2><ol>
+<li>Redis肯定是用到的，我负责的项目几乎都会有Redisl的踪影</li>
+<li>我举几个我这边项目用的案例呗？</li>
+<li>我这边负责消息管理平台，简单来说就是发消息的</li>
+<li>那发完消息肯定我们是得知道消息有没有下发成功的，是吧？</li>
+<li>于是我们系统有一套完整的链路追踪体系</li>
+<li>其中实时的数据我们就用Redis来进行存储，有实时肯定就会有离线的嘛（离线的数据我们是存储到Hive的）</li>
+<li>对消息进行实时链路追踪，我这边就用了Redis好几种的数据结构，分别有Set、List和Hash</li>
+<li>我再稍微铺垫下链路追踪的背景吧~</li>
+<li>要在消息管理平台发消息，首先得在后台新建一个「模板」，有模板自然会有一个模板ID</li>
+<li>对模板D进行扩展，比如说加上日期和固定的业务参数，形成的ID可以唯一标识某个模板的下发链路</li>
+<li>在系统上，我这边叫它为UMPID</li>
+<li>在发送入口处会对所有需要下发的消息打上UMPID，然后在关键链路上打上对应的点位</li>
+<li>接下来的工作就是清洗出统一的模型，然后根据不同维度进行处理啦。比如说：</li>
+<li>我要看某一天下发的所有模板有哪些，那只要我把清洗出来后数据的，将对应UMPID扔到了Set就好了</li>
+<li>我要看某一个模板的消息下发的整体链路情况，那我以UMPID为Key，Value是Hash结构，Key是state，Value则是人数</li>
+<li>这里的state我们在下发的过程中打的关键点位，比如接收到消息打个51，消息被去重了打个61，消息成功下发了打个81…</li>
+<li>以UMPID为Key，Hash结构的Key（State）进行不断的累加，就可以实现某一个模板的消息下发的整体链路情况</li>
+<li>我要看某个用户当天下发的消息有哪些，以及这些消息的整体链路是如何。</li>
+<li>这边我用的是List结构，Key是userld，Value则是UMPID+state（关键点位）+processTime（处理时间）</li>
+</ol>
 <ul>
-<li>归根到底，就是处理的逻辑相对复杂，if else的判断太多了</li>
-<li>虽然新的需求来了，都可以添加if else进行解决</li>
-<li>但你想要的就是，系统的可扩展性和可维护性更强</li>
-<li>想要我这边出一个方案，来解决类似的问题</li>
+<li>简单来说，就是通过Redis丰富的数据结构来实现对下发消息多个维度的统计</li>
+<li>不同的应用场景选择不同的数据结构，再等到透出做处理的时候，就变得十分简单了</li>
+<li>消息下发过程中去重或者一般正常的场景就直接Key-Value就能符合需求了</li>
+<li>像bitmap、hyperloglogs、sortset、steam等等这些数据结构在我所负责的项目用得是真不多</li>
+<li>要是我有机会去到贵公司，贵公司有相关的应用场景，我相信我也很快就能掌握</li>
+<li>这些数据结构底层都由对应的object来支撑着，objecti记录对应的「编码」</li>
+<li>其实就是会根据key-value存储的数量或者长度来使用选择不同的底层数据结构实现</li>
+<li>比如说：ziplist压缩列表这个底层数据结构有可能上层的实现是list、hash和sortset</li>
+<li>Hash结构的底层数据结构可能是hash和ziplist</li>
+<li>在节省内存和性能的考量之中切换,Redis还是有点屌的啊。</li>
 </ul>
-</li>
-<li><p>回答</p>
-<ul>
-<li><p>在这之前，一般上网搜如何解决if else，大多数都说是策略模式</p>
-</li>
-<li><p>但是举的例子我又没感同身受，很多时候看完就过去了</p>
-</li>
-<li><p>实际上，在项目里边，用策略模式还是蛮多的，可能无意间就已经用上了（毕竟面向接口编程嘛）</p>
-</li>
-<li><p>而我认为，策略模式不是解决if else的关键</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/HPysDw_20211230104621.png"></p>
-</li>
-<li><p>这个问题，我的项目里的做法是：责任链模式</p>
-<ul>
-<li><p>把每个流程单独抽取成一个Process（可以理解为一个模块或节点），然后请求都会塞进Context中</p>
-</li>
-<li><p>比如，之前维护过一个项目，也是类似于不同的渠道走不同的逻辑</p>
-</li>
-<li><p>我们这边的做法是：抽取相关的逻辑到Process中，为不同的渠道分配不同的责任链</p>
-</li>
-<li><p>比如渠道A的责任链是：WhiteListProcess-&gt;DataAssembleProcess-&gt;ChannelAProcess-&gt;SendProcess</p>
-</li>
-<li><p>而渠道B的责任链是：WhiteListProcess-&gt;DataAssembleProcess-&gt;ChannelBProcess-&gt;SendProcess</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/3IQouH_20211230104740.png"></p>
-</li>
-<li><p>在责任链基础之上，又可以在代码里内嵌「脚本」</p>
-</li>
-<li><p>比如在SendProcess上，内置发送消息的脚本（脚本可以选择不同的运营商进行发送消息）。有了「脚本」以后，那就可以做到对逻辑的改动不需要重启就可以生效。</p>
-</li>
-<li><p>有人把这一套东西叫做「规则引擎」</p>
-</li>
-<li><p>比如，规则引擎中比较出名的实现框架「Drools」就可以做到类似的事</p>
-</li>
-<li><p>把易改动的逻辑写在「脚本」上（至少我们认为，脚本和我们的应用真实逻辑是分离）</p>
-</li>
-<li><p>（脚本我这里指的是规则集，它可以是Drools的dsl，也可以是Groovy，也可以是aviator等等）</p>
-</li>
-<li><p>在我之前的公司，使用的是Groovyl脚本</p>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h2 id="具体怎么做的"><a href="#具体怎么做的" class="headerlink" title="具体怎么做的"></a>具体怎么做的</h2><ul>
-<li><p>大致的实现逻辑就是：有专门后台对脚本进行管理，然后会把脚本写到「分布式配置中心」（实时刷新），客户端监听「分布式配置中心」所存储的脚本是否有改动</p>
-</li>
-<li><p>如果存在改动，则通过Groovy类加载器重新编译并加载脚本，最后放到Spring容器对外使用</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/Kpog15_20211230104940.png"></p>
-</li>
-<li><p>我目前所负责的系统就是这样处理多变以及需求变更频繁的业务（责任链+规则引擎）</p>
-</li>
-<li><p>不过据我了解，我们的玩法业务在实现上在「责任链」多做了些事情（所谓的可配置化）</p>
-</li>
-<li><p>「责任链」不再从代码里编写，而是下沉到平台去做「服务编排」，就是由程序员去「服务编排后台」上配置信息（配置责任链的每一个节点）</p>
-</li>
-<li><p>在业务系统里使用「服务编排」的客户端，请求时只要传入「服务编排」的ID，就可以按「服务编排」的流程执行代码</p>
-</li>
-<li><p>这样做的好处就是：业务链是在后台配置的，不用在系统业务上维护链，灵活性更高（写好的责任链节点可以随意组合）</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/30jP6P_20211230105053.png"></p>
-</li>
-</ul>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>遇到这道题之后，其实我当时答得不太行（当时只是简单说了下责任链和脚本）</p>
-<p>于是面试题发给前同事A，让他给我出出意见，同事A给我回答的内容是：「<strong>抽象，模块化，配置化</strong>」</p>
-<p>光看这几个词，他说得也没错，但我理解不了。让他具体点，他也不展开了</p>
-<p>于是，我又厚着脸皮去找别的前同事B，得出的回答是：</p>
-<ul>
-<li>「<strong>是否可以做成配置化、动态替换、插件式、不需要人去开发</strong>」</li>
-<li>「<strong>规则引擎</strong>」</li>
-</ul>
-<p>当我问他，什么是「规则引擎」时，反手就被教育了，<strong>问我到底这两年学了什么，这都不懂，这也太菜了</strong>。</p>
-<p>有了”方向”以后，我花了点时间去搜了下「<strong>规则引擎</strong>」的资料，顺便入门了下「Drools」，发现这玩意不就类似于我之前在公司用的Groovy脚本平台</p>
-<p>（当时还在纳闷想为啥那后台的名字叫做规则平台）…</p>
-<p>于是又去简单翻了下我们的Groovy脚本平台是怎么实现这套东西的</p>
-<p>「服务编排」这块之前在公司里因为项目的缘故，自己也没接入过，但一直听有其他的团队在用，顺便也简单看了下代码（：</p>
-<p>后来再去找同事B时，他说现在自己公司用的是「<strong>流程引擎</strong>」，画图就ok了</p>
-<p><strong>其实，搞了半天，还是写if else 舒服!</strong></p>
+<h2 id="就你上面那个实时链路场景，可以用其他的存储替代吗？"><a href="#就你上面那个实时链路场景，可以用其他的存储替代吗？" class="headerlink" title="就你上面那个实时链路场景，可以用其他的存储替代吗？"></a>就你上面那个实时链路场景，可以用其他的存储替代吗？</h2><ol>
+<li>嗯，理论上是可以的（或许可以尝试用HBase），但总体来说没这么好吧</li>
+<li>因为Redis拥有丰富的数据结构，在透出的时候，处理会非常的方便。</li>
+<li>如果不用Redis的话，还得做很多解析的工作</li>
+<li>并且，我那场景的并发还是相当大的（就一条消息发送，可能就产生10条记录）</li>
+<li>监控峰值命令处理数会去到20K+QPS，当然了，这场景我肯定用了Pipeline的（不然处理会慢很多）</li>
+<li>综合上面并发量和实时性以及数据结构，用Redis：是一个比较好的选择。</li>
+</ol>
+<h2 id="你觉得为什么Redis可以这么快？"><a href="#你觉得为什么Redis可以这么快？" class="headerlink" title="你觉得为什么Redis可以这么快？"></a>你觉得为什么Redis可以这么快？</h2><ol>
+<li>首先，它是纯内存操作，内存本身就很快</li>
+<li>其次，它是单线程的，Redis服务器核心是基于非阻塞的O多路复用机制，单线程避免了多线程的频繁上下文切换问题</li>
+<li>至于这个单线程，其实官网也有过说明（：表示使用Redis往往的瓶颈在于内与和网络，而不在于CPU</li>
+</ol>
 
       
     </div>
@@ -1161,7 +451,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/2b7e87b2/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/eb97ef3e/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/lion.png">
@@ -1179,7 +469,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/2b7e87b2/" class="post-title-link" itemprop="url">36、【对线面试官】设计模式</a>
+          <a href="/posts/eb97ef3e/" class="post-title-link" itemprop="url">18、【对线面试官】Redis持久化</a>
         </h2>
 
         <div class="post-meta-container">
@@ -1221,747 +511,8 @@
     </span>
     <span class="post-meta-item-text">Waline：</span>
   
-    <a title="waline" href="/posts/2b7e87b2/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/2b7e87b2/" data-xid="/posts/2b7e87b2/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>3.3k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>3 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="36、【对线面试官】设计模式"><a href="#36、【对线面试官】设计模式" class="headerlink" title="36、【对线面试官】设计模式"></a>36、【对线面试官】设计模式</h1><h2 id="熟悉哪些常见的设计模式？"><a href="#熟悉哪些常见的设计模式？" class="headerlink" title="熟悉哪些常见的设计模式？"></a>熟悉哪些常见的设计模式？</h2><ul>
-<li>常见的工厂模式、代理模式、模板方法模式、责任链模式、单例模式、包装设计模式、策略模式等都是有所了解的</li>
-<li>项目手写代码用得比较多的，一般就模板方法模式、责任链模式、策略模式、单例模式吧</li>
-<li>像工厂模式、代理模式这种，手写倒是不多，但毕竟Java后端一般环境下都用Spring嘛，所以还是比较熟悉的</li>
-</ul>
-<h2 id="手写单例模式"><a href="#手写单例模式" class="headerlink" title="手写单例模式"></a>手写单例模式</h2><ul>
-<li>单例模式一般会有好几种写法<ul>
-<li>饿汉式、简单懒汉式（在方法声明时加锁）、DCL双重检验加锁（进阶懒汉式）、静态内部类（优雅懒汉式）、枚举</li>
-<li>所谓「饿汉式」指的就是还没被用到，就直接初始化了对象。所谓「懒汉式」指的就是等用到的时候，才进行初始化</li>
-</ul>
-</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//DCL懒汉式</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Singleton1</span> &#123;</span><br><span class="line">    <span class="comment">//第一次减少锁的开销、第二次防止重复、volatile防止重排序导致实例化未完成</span></span><br><span class="line">    <span class="keyword">private</span> <span class="title function_">Singleton1</span><span class="params">()</span>&#123;&#125;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">volatile</span> <span class="keyword">static</span> Singleton1 singleton;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Singleton1 <span class="title function_">getInstance</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(singleton == <span class="literal">null</span>)&#123; <span class="comment">//线程1，2，3到达这里</span></span><br><span class="line">            <span class="keyword">synchronized</span> (Singleton1.class)&#123;<span class="comment">//线程1到这里开始继续往下执行，线程2，3等待</span></span><br><span class="line">                <span class="keyword">if</span>(singleton == <span class="literal">null</span>)&#123;<span class="comment">//线程1到这里发现instance为空，继续执行if代码块</span></span><br><span class="line">                    <span class="comment">//执行晚后退出同步区域，然后线程2进入同步代码块，如果在这里不再加一次判断</span></span><br><span class="line">                    <span class="comment">//就会造成instance再次实例化</span></span><br><span class="line">                    singleton = <span class="keyword">new</span> <span class="title class_">Singleton1</span>();</span><br><span class="line">                    <span class="comment">//new Singleton1();可以分解为3行伪代码</span></span><br><span class="line">                    <span class="comment">//1、memory = allocate() //分配内存</span></span><br><span class="line">                    <span class="comment">//2、ctorInstanc(memory) //初始化对象</span></span><br><span class="line">                    <span class="comment">//3.调用构造函数，</span></span><br><span class="line">                    <span class="comment">//4.返回地址给引用。而cpu为了优化程序，可能会进行指令重排序，打乱这3，4这几个步骤，导致实例内存还没分配，就被使用了。</span></span><br><span class="line">                    <span class="comment">//线程A和线程B举例。线程A执行到new Singleton()，开始初始化实例对象，由于存在指令重排序，这次new操作，先把引用赋值了，还没有执行构造函数。</span></span><br><span class="line">                    <span class="comment">//这时时间片结束了，切换到线程B执行，线程B调用new Singleton()方法，发现引用不等于null，就直接返回引用地址了，然后线程B执行了一些操作，就可能导致线程B使用了还没有被初始化的变量。</span></span><br><span class="line">                    <span class="comment">//volatile防止重排序导致实例化未完成，就将对象赋值使用</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> singleton;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//静态内部类 懒汉式</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Singleton2</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="title function_">Singleton2</span><span class="params">()</span> &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">class</span> <span class="title class_">SingletonHolder</span> &#123;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">static</span> <span class="type">Singleton2</span> <span class="variable">INSTANCE</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Singleton2</span>();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Singleton2 <span class="title function_">getInstance</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> SingletonHolder.INSTANCE;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//枚举</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Singleton3</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="title function_">Singleton3</span><span class="params">()</span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 枚举类型是线程安全的，并且只会装载一次</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">enum</span> <span class="title class_">Singleton</span>&#123;</span><br><span class="line">        INSTANCE;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">final</span> Singleton3 instance;</span><br><span class="line"></span><br><span class="line">        Singleton()&#123;</span><br><span class="line">            instance = <span class="keyword">new</span> <span class="title class_">Singleton3</span>();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">private</span> Singleton3 <span class="title function_">getInstance</span><span class="params">()</span>&#123;</span><br><span class="line">            <span class="keyword">return</span> instance;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Singleton3 <span class="title function_">getInstance</span><span class="params">()</span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> Singleton.INSTANCE.getInstance();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//枚举</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Singleton4</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="title function_">Singleton4</span><span class="params">()</span>&#123;&#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">enum</span> <span class="title class_">SingletonEnum</span> &#123;</span><br><span class="line">        SINGLETON;</span><br><span class="line">        <span class="keyword">private</span> <span class="type">Singleton4</span> <span class="variable">instance</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">        SingletonEnum()&#123;</span><br><span class="line">            instance = <span class="keyword">new</span> <span class="title class_">Singleton4</span>();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">public</span> Singleton4 <span class="title function_">getInstance</span><span class="params">()</span>&#123;</span><br><span class="line">            <span class="keyword">return</span> instance;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Singleton4 <span class="title function_">getInstance</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> SingletonEnum.SINGLETON.getInstance();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="那你们用的哪种比较多？"><a href="#那你们用的哪种比较多？" class="headerlink" title="那你们用的哪种比较多？"></a>那你们用的哪种比较多？</h2><ul>
-<li>一般我们项目里用静态内部类的方式实现单例会比较多（如果没有Springl的环境下），代码简洁易读</li>
-<li>如果有Spring环境，那还是直接交由Spring容器管理会比较方便（Spring默认就是单例的）</li>
-<li>枚举一般我们就用它来做「标识」吧，而DCL这种方式也有同学会在项目里写（在一些源码里也能看到其身影），但总体太不利于阅读和理解</li>
-<li>总的来说，用哪一种都可以的，关键我觉得要看团队的代码风格吧（保持一致就行），即便都用「饿汉式」也没啥大的问题（现在内存也没那么稀缺，我认为可读性比较重要）</li>
-</ul>
-<h2 id="我看你在DCL的单例代码上，写了volatile修饰嘛？为什么呢？"><a href="#我看你在DCL的单例代码上，写了volatile修饰嘛？为什么呢？" class="headerlink" title="我看你在DCL的单例代码上，写了volatile修饰嘛？为什么呢？"></a>我看你在DCL的单例代码上，写了volatile修饰嘛？为什么呢？</h2><ul>
-<li>指令是有可能乱序执行的（编译器优化导致乱序、CPU缓存架构导致乱序、CPU原生重排导致乱序）</li>
-<li>在代码new Object的时候，不是一条原子的指令，它会由几个步骤组成，在这过程中，就可能会发生指令重排的问题，而volatile这个关键字就可以避免指令重排的发生。</li>
-</ul>
-<h2 id="那你说下你在项目里用到的设计模式吧？"><a href="#那你说下你在项目里用到的设计模式吧？" class="headerlink" title="那你说下你在项目里用到的设计模式吧？"></a>那你说下你在项目里用到的设计模式吧？</h2><ul>
-<li><p>嗯，比如说，我这边在处理请求的时候，会用到责任链模式进行处理（减免if else并且让项目结构更加清晰）</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/X77vb4_20211230110546.png"></p>
-<ul>
-<li>在处理公共逻辑时，会使用模板方法模式进行抽象，具体不同的逻辑会由不同的实现类处理（每种消息发送前都需要经过文案校验，所以可以把文案校验的逻辑写在抽象类上）</li>
-</ul>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/wEKBZr_20211230110629.png"></p>
-</li>
-<li><p>代理模式手写的机会比较少（因为项目一般有Spring：环境，直接用Spring的AOP代理就好了）</p>
-<ul>
-<li><p>我之前使用过AOP把「监控客户端」封装以「注解」的方式进行使用（不用以硬编码的方式来进行监控，只要有注解就行）</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/gF5mCF_20211230110735.png"></p>
-</li>
-</ul>
-</li>
-</ul>
-<h2 id="那你能聊聊Spring使用到的常见设计模嘛？"><a href="#那你能聊聊Spring使用到的常见设计模嘛？" class="headerlink" title="那你能聊聊Spring使用到的常见设计模嘛？"></a>那你能聊聊Spring使用到的常见设计模嘛？</h2><ul>
-<li>比如，Spring IOC容器可以理解为应用了「工厂模式」（通过ApplicationContext或者BeanFactory去获取对象）</li>
-<li>Spring的对象默认都是单例的，所以肯定是用了「单例模式」（源码里对单例的实现是用的DCL来实现单例）</li>
-<li>Spring AOP的底层原理就是用了「代理模式」，实现可能是JDK动态代理，也可能是CGLIB动态代理</li>
-<li>Spring有很多地方都用了「模板方法模式」，比如事务管理器（AbstractPlatformTransactionManager),getTransaction定义了框架，其中很多都由子类实现</li>
-<li>Spring的事件驱动模型用了「观察者模式」，具体实现就是ApplicationContextEvent、ApplicationListener</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>l
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/53284982/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/lion.png">
-      <meta itemprop="name" content="swimminghao">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="swimminghao's blog">
-      <meta itemprop="description" content="swimminghao的学习博客">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | swimminghao's blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/53284982/" class="post-title-link" itemprop="url">37、【对线面试官】JVM调优</a>
-        </h2>
-
-        <div class="post-meta-container">
-
-          
-
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2025-02-13 16:20:39" itemprop="dateModified" datetime="2025-02-13T16:20:39+08:00">2025-02-13</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="far fa-comment"></i>
-    </span>
-    <span class="post-meta-item-text">Waline：</span>
-  
-    <a title="waline" href="/posts/53284982/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/53284982/" data-xid="/posts/53284982/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>2.2k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>2 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="JVM调优"><a href="#JVM调优" class="headerlink" title="JVM调优"></a>JVM调优</h1><h2 id="今天要不来聊聊JVM调优相关的吧？你曾经在生产环境下有过调优JVM的经历吗？"><a href="#今天要不来聊聊JVM调优相关的吧？你曾经在生产环境下有过调优JVM的经历吗？" class="headerlink" title="今天要不来聊聊JVM调优相关的吧？你曾经在生产环境下有过调优JVM的经历吗？"></a>今天要不来聊聊JVM调优相关的吧？你曾经在生产环境下有过调优JVM的经历吗？</h2><ul>
-<li><p>没有</p>
-</li>
-<li><p>嗯.是这样的，我们一般优化系统的思路是这样的</p>
-<ul>
-<li><p>1.一般来说关系型数据库是先到瓶颈，首先排查是否为数据库的问题</p>
-<ul>
-<li>（这个过程中就需要评估自己建的索引是否合理、是否需要引入分布式缓存是否需要分库分表等等）</li>
-</ul>
-</li>
-<li><p>2.然后，我们会考虑是否需要扩容（横向和纵向都会考虑）</p>
-<ul>
-<li>（这个过程中我们会怀疑是系统的压力过大或者是系统的硬件能力不足导致系统频繁出现问题）</li>
-</ul>
-</li>
-<li><p>3.接着，应用代码层面上排查并优化</p>
-<ul>
-<li>扩容是不能无止境的，里头里外都是钱阿，这个过程中我们会审视自己写的代码是否存在资源浪费的问题，又或者是在逻辑上可存在优化的地方，比如说通过并行的方式处理某些请求）</li>
-</ul>
-</li>
-<li><p>4.再接着，JVM层面上排查并优化</p>
-</li>
-<li><p>审视完代码之后，这个过程我们观察JVM是否存在多次GC问题等等）</p>
-</li>
-<li><p>5.最后，网络和操作系统层面排查</p>
-<ul>
-<li>（这个过程查看内存CPU&#x2F;网络&#x2F;硬盘读写指标是否正常等等）</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>绝大多数情况下，到第三步就结束了，    一般经过「运维团队」给我们设置的JVM和机器上的参数，已经满足绝大多数的需求了。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/1iVqn7_20211230111504.png" alt="调优顺序"></p>
-</li>
-<li><p>之前有过其他团队在「大促」发现接口处理超时的问题，那吋候查各种监控怀疑是 FULL GC频率稍大所导致的</p>
-<ul>
-<li>第一想法不是说去调节各种JVM参数来进行优化，而是直接加机器</li>
-<li>（用最粗暴的方法，解决问题是最简单的，扩容）</li>
-<li>不过，我是学过JM相关的调优命令和思路的。</li>
-<li>在我的理解下，调优JVM其实就是在「理解」JM内存结构以及各种垃圾收集器前提下，结合自己的现有的业务来「调整参数」，使自己的应用能够正常稳定运行</li>
-</ul>
-</li>
-<li><p>jvm调优</p>
-<ul>
-<li><p>一般调优JVM我们认为会有几种指标可以参考：『吞吐量』、『停顿时间』和垃圾回收频率』</p>
-</li>
-<li><p>基于这些指标，我们就有可能需要调整</p>
-<ul>
-<li>1.内存区域大小以及相关策略（比如整块堆内存占多少、新生代占多少、老年代占多少、 Survivor占多少、晋升老年代的条件等等<ul>
-<li>比如（-Xmx：设置堆的最大值、-Xms：设置堆的初始值、-Xmn：表示年轻代的大小、- XX： Survivorratio：伊甸区和幸存区的比例等等</li>
-<li>按经验来说：IO密集型的可以稍微把「年轻代」空间加大些，因为大多数对象都是在年轻代就会灭亡。内存计算密集型的可以稍微把「老年代」空间加大些，对象存活时间会更长些）</li>
-</ul>
-</li>
-<li>2.垃圾回收器（选择合适的垃圾回收器，以及各个垃圾回收器的各种调优参数）<ul>
-<li>比如（-XX：+UseG1GC：指定JVM使用的垃圾回收器为G1、- XX： Maxgcpause Miliis：设置目标停顿时间、-XX:InitiatingHeapoccupancypercent：当整个堆内存使用达到一定比例，全局并发标记阶段就会被启动等等）</li>
-<li>没错，这些都是因地制宜，具体问题具体分析（前提是得懂JVM的各种基础知识，基础知识都不懂，谈何调优）</li>
-<li>在大多数场景下，JWM已经能够达到「开箱即用」</li>
-</ul>
-</li>
-</ul>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/aGMnp8_20211230111916.png" alt="调优"></p>
-</li>
-<li><p>一般我们是「遇到问题」之后才进行调优的，而遇到问题后需要利用各种的「工具」进行排查</p>
-<ul>
-<li>1.通过ps命令查看Java进程「基础」信息（进程号、主类）。这个命令很常用的就是用来看当前服务器有多少Java进程在运行，它们的进程号和加载主类是啥</li>
-<li>2.通过stat命令査看Java进程「统计类」相关的信息（类加载、编译相关信息统计，各个内存区域GC概况和统计）。这个命令很常用于看GC的情况</li>
-<li>3.通过jnfo命令来查看和调整Java进程的「运行参数」</li>
-<li>4.通过imap命令来査看Java进程的「内存信息」。这个命令很常用于把JVM内存信息dump到文件，然后再用MAT（Memory Analyzer tool内存解析工具）把文件进行分析</li>
-<li>5.通过 stack命令来查看JVM「线程信息」。这个命令用常用语排查死锁相关的问题</li>
-<li>6.还有近期比较热门的 Arthas（阿里开源的诊断工具），涵盖了上面很多命令的功能且自带图形化界面。这也是我这边常用的排查和分析工具</li>
-</ul>
-</li>
-</ul>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/pKXHUi_20211230112100.png" alt="监控工具"></p>
-</li>
-</ul>
-<h2 id="之前聊JVM的时候，你也提到过在「解释」阶段，会有两种方式把字节码信息解释成机器指令码，一个是字节码解释器、一个是即时编译器（JIT）。我想问问，你了解JVM的JT优化技术嘛？"><a href="#之前聊JVM的时候，你也提到过在「解释」阶段，会有两种方式把字节码信息解释成机器指令码，一个是字节码解释器、一个是即时编译器（JIT）。我想问问，你了解JVM的JT优化技术嘛？" class="headerlink" title="之前聊JVM的时候，你也提到过在「解释」阶段，会有两种方式把字节码信息解释成机器指令码，一个是字节码解释器、一个是即时编译器（JIT）。我想问问，你了解JVM的JT优化技术嘛？"></a>之前聊JVM的时候，你也提到过在「解释」阶段，会有两种方式把字节码信息解释成机器指令码，一个是字节码解释器、一个是即时编译器（JIT）。我想问问，你了解JVM的JT优化技术嘛？</h2><ul>
-<li><p>JT优化技术比较出名的有两种：方法内联和逃逸分析</p>
-<ul>
-<li>所谓方法内联就是把「目标方法」的代码复制到「调用的方法」中，避免发生真实的方法调用<ul>
-<li>因为每次方法调用都会生成栈帧（压栈出栈记录方法调用位置等等）会带来定的性能损耗，所以「方法内联」的优化可以提高一定的性能</li>
-<li>在JVM中也有相关的参数给予我们指定(-XX: Maxfreainlinesize-xx: Maxinliresize等等）</li>
-</ul>
-</li>
-<li>而「逃逸分析」则是判断一个对象是否被外部方法引用或外部线程访问的分析技术，如果「没有被引用」，就可以对其进行优化</li>
-</ul>
-</li>
-<li><p>下面我举几个可优化的例子（思路）</p>
-<p>1.锁消除（同步忽略）：该对象只在方法內部被访问，不会被别的地方引用，那么就一定是线程安全的，可以把锁相关的代码给忽略掉</p>
-<p>2.栈上分配：该对象只会在方法內部被访问，直接将对象分配在「栈」中（Java默认是将对象分配在「堆」中，是需要通过JM垃圾回收期进行回收，需要损耗一定的性能，而栈内分配则快很多）</p>
-<p>3.标量替换分离对象：当程序真正执行的时候可以不创建这个对象，而直接创建它的成员变量来代替。将对象拆分后，可以分配对象的成员变量在栈或寄存器上，原本的对象就无需分配内存空间了</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/dQHEF8_20211230112436.png" alt="JIT常见优化"></p>
-</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>l
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/561aa315/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/lion.png">
-      <meta itemprop="name" content="swimminghao">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="swimminghao's blog">
-      <meta itemprop="description" content="swimminghao的学习博客">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | swimminghao's blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/561aa315/" class="post-title-link" itemprop="url">38、【对线面试官】HTTP</a>
-        </h2>
-
-        <div class="post-meta-container">
-
-          
-
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2025-02-13 16:20:39" itemprop="dateModified" datetime="2025-02-13T16:20:39+08:00">2025-02-13</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="far fa-comment"></i>
-    </span>
-    <span class="post-meta-item-text">Waline：</span>
-  
-    <a title="waline" href="/posts/561aa315/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/561aa315/" data-xid="/posts/561aa315/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>1.4k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>1 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="今天要不来聊聊HTTP吧"><a href="#今天要不来聊聊HTTP吧" class="headerlink" title="今天要不来聊聊HTTP吧"></a>今天要不来聊聊HTTP吧</h1><h2 id="今天要不来聊聊HTTP吧？"><a href="#今天要不来聊聊HTTP吧？" class="headerlink" title="今天要不来聊聊HTTP吧？"></a>今天要不来聊聊HTTP吧？</h2><ul>
-<li>HTTP「协议」是客户端和服务器「交互」的一种通迅的格式<ul>
-<li>所谓的「协议」实际上就是双方约定好的「格式」，让双方都能看得懂的东西而已</li>
-<li>所谓的交互实际上就是「请求」和「响应」</li>
-</ul>
-</li>
-</ul>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/KF4FUG_20211230112604.png"></p>
-<h2 id="那你知道HTTP各个版本之间的区别吗？"><a href="#那你知道HTTP各个版本之间的区别吗？" class="headerlink" title="那你知道HTTP各个版本之间的区别吗？"></a>那你知道HTTP各个版本之间的区别吗？</h2><ul>
-<li>HTP1.0默认是短连接，每次与服务器交互，都需要新开一个连接</li>
-<li>HTTP1.1版本最主要的是「默认持久连接」。只要客户端服务端没有断开TCP连接，就一直保持连接，可以发送多次HTTP请求</li>
-<li>其次就是「断点续传」（ Chunked transfer-coding）。利用HTTP消息头使用分块传输编码，将实体主体分块进行传输</li>
-<li>HTTP&#x2F;2不再以文本的方式传输，采用「二进制分帧层」，对头部进行了「压缩」，支持「流控」，最主要就是HTTP&#x2F;2是支持「多路复用」的（通过单一的TCP连接「并行」发起多个的请求和响应消息）</li>
-<li>HTTP&#x2F;3跟前面版本最大的区别就是：HTTP1.x和HTTP&#x2F;2底层都是TCP，而HTTP&#x2F;3底层是UDP。使用HTTP&#x2F;3能够減少RTT「往返时延」（TCP三次握手，TLS握手）</li>
-</ul>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/8se2HT_20211230113041.png"></p>
-<h2 id="嗯，稍微打断下。我知道HTTP1-1版本有个管线化（-pipelining）理论，但默认是关闭的。管线化这个跟HTTP-x2F-2的「多路复用」是很类似的，它们有什么区别呀？"><a href="#嗯，稍微打断下。我知道HTTP1-1版本有个管线化（-pipelining）理论，但默认是关闭的。管线化这个跟HTTP-x2F-2的「多路复用」是很类似的，它们有什么区别呀？" class="headerlink" title="嗯，稍微打断下。我知道HTTP1.1版本有个管线化（ pipelining）理论，但默认是关闭的。管线化这个跟HTTP&#x2F;2的「多路复用」是很类似的，它们有什么区别呀？"></a>嗯，稍微打断下。我知道HTTP1.1版本有个管线化（ pipelining）理论，但默认是关闭的。管线化这个跟HTTP&#x2F;2的「多路复用」是很类似的，它们有什么区别呀？</h2><ul>
-<li><p>HTTP1.1提出的「管线化」只能「串行」（一个响应必须完全返回后，下个请求才会开始传输）</p>
-</li>
-<li><p>HTTP&#x2F;2多路复用则是利用「分帧」数据流，把HTTP协议分解为「互不依赖」的帧（为每个帧「标序」发送，接收回来的时候按序重组），进而可以「乱序」发送避免「一定程度上」的队首阻塞问题</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/MC43LZ_20211230112912.png"></p>
-</li>
-<li><p>但是，无论是HTTP1.1还是HTTP&#x2F;2，respanel响应的「处理顺序」总是需要跟request请求顺序保持一致的。假如某个请求的 response响应慢了，还是同样会有阻塞的问题</p>
-</li>
-<li><p>这受限于HTTP底层的传输协议是TCP，没办法完全解決「线头阻塞」的问题</p>
-</li>
-</ul>
-<h2 id="那你了解HTPS的过程吗？"><a href="#那你了解HTPS的过程吗？" class="headerlink" title="那你了解HTPS的过程吗？"></a>那你了解HTPS的过程吗？</h2><ul>
-<li><p>对于HTTPS，我的理解下：就是「安全」的HTTP协议（客户端与服务端的传输链路中进行加密）</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/pOPVGJ_20211230113132.png"></p>
-</li>
-<li><p>HTPS首先要解決的是：认证的问题</p>
-<ul>
-<li>客户端是需要确切地知道服务端是不是「真实」，所以在HTPS中会有一个角色：CA（公信机构）</li>
-<li>服务端在使用HTTPSI前，需要去认证的CA机构申请一份「数字证书」。数字证书里包含有证书持有者、证书有效期「服务器公钥」等信息</li>
-<li>CA机构也有自己的一份公私钥，在发布数字证书之前，会用自己的「私钥」对这份数字证书进行加密</li>
-<li>等到客户端请求服务器的时候，服务端返回证书给客户端。客户端用CA的公钥对证书解密（因为CA是公信机构，会内置到浏览器或操作系统中，所以客户端会有公钥）。这个时候，客户端会判断这个「证书是否可信有无被簒改」</li>
-<li>私钥加密，公钥解密我们叫做「数字签名」（这种方式可以查看有无被簒改）</li>
-<li>到这里，就解决了「认证」的问题，至少客户端能保证是在跟「真实的服务器」进行通信。</li>
-</ul>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/D1hA0I_20211230113315.png"></p>
-</li>
-<li><p>保密问题</p>
-<ul>
-<li>客户端与服务器的通讯内容在传输中不会泄露给第三方</li>
-<li>客户端从CA拿到数字证书后，就能拿到服务端的公钥</li>
-<li>客户端生成一个Key作为「对称加密」的秘钥，用服务端的「公钥加密」传给服务端</li>
-<li>服务端用自己的「私钥解密」客户端的数据，得到对称加密的秘钥</li>
-<li>之后客户端与服务端就可以使用「对称加密的秘钥」愉快地发送和接收消息</li>
-</ul>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/oU2mh1_20211230113435.png"></p>
-</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>l
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/d38e357c/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/lion.png">
-      <meta itemprop="name" content="swimminghao">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="swimminghao's blog">
-      <meta itemprop="description" content="swimminghao的学习博客">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | swimminghao's blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/d38e357c/" class="post-title-link" itemprop="url">3、【对线面试官】Java NIO</a>
-        </h2>
-
-        <div class="post-meta-container">
-
-          
-
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2025-02-13 16:20:39" itemprop="dateModified" datetime="2025-02-13T16:20:39+08:00">2025-02-13</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="far fa-comment"></i>
-    </span>
-    <span class="post-meta-item-text">Waline：</span>
-  
-    <a title="waline" href="/posts/d38e357c/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/d38e357c/" data-xid="/posts/d38e357c/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>4.9k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>4 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="3、【对线面试官】Java-NIO"><a href="#3、【对线面试官】Java-NIO" class="headerlink" title="3、【对线面试官】Java NIO"></a>3、【对线面试官】Java NIO</h1><h2 id="这次咱们就来聊聊Java的NIO呗？你对NIO有多少了解？"><a href="#这次咱们就来聊聊Java的NIO呗？你对NIO有多少了解？" class="headerlink" title="这次咱们就来聊聊Java的NIO呗？你对NIO有多少了解？"></a>这次咱们就来聊聊Java的NIO呗？你对NIO有多少了解？</h2><ol>
-<li>嗯，我对Java NIO还是有一定的了解的，NIO是JDK1.4开始有的，其目的是为了提高速度。NIO翻译成no-blockingo或者newio都无所谓啦，反正都说得通</li>
-</ol>
-<h2 id="在真实项目中写过NIO相关"><a href="#在真实项目中写过NIO相关" class="headerlink" title="在真实项目中写过NIO相关"></a>在真实项目中写过NIO相关</h2><ol>
-<li>这块在我所负责的系统中，一般用不上N10，要不我跟你讲讲NIO相关的知识点呗？</li>
-</ol>
-<h2 id="可以吧，你先来讲讲NIO和传统IO有什么区别吧"><a href="#可以吧，你先来讲讲NIO和传统IO有什么区别吧" class="headerlink" title="可以吧，你先来讲讲NIO和传统IO有什么区别吧"></a>可以吧，你先来讲讲NIO和传统IO有什么区别吧</h2><ol>
-<li>传统IO是一次一个字节地处理数据，NIO是以块（缓冲区）的形式处理数据。最主要的是，NIO可以实现非阻塞，而传统IO只能是阻塞的。</li>
-<li>IO的实际场景是文件IO和网络IO，NIO 在网络IO场景下提升就尤其明显了。</li>
-<li>在Java NIO有三个核心部分组成。分别是Buffer（缓冲区）、Channel（管道）以及Selector（选择器）</li>
-<li>可以简单的理解为：Buffer是存储数据的地方，Channel是运输数据的载体，而Selector用于检查多个Channel的状态变更情况，</li>
-</ol>
-<h2 id="有写过相关的Demo代码吗？"><a href="#有写过相关的Demo代码吗？" class="headerlink" title="有写过相关的Demo代码吗？"></a>有写过相关的Demo代码吗？</h2><ol>
-<li><p>我曾经写过一个NIO Demo，面试官可以看看。</p>
-</li>
-<li><p>大概的实现就是：服务端接收图片后保存，能够通知客户端已经收到图片。而客户端发送图片给客户端，并接收服务端的响应</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//服务端</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">NoBlockServer</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException &#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 1.获取通道</span></span><br><span class="line">        <span class="type">ServerSocketChannel</span> <span class="variable">server</span> <span class="operator">=</span> ServerSocketChannel.open();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 2.切换成非阻塞模式</span></span><br><span class="line">        server.configureBlocking(<span class="literal">false</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 3. 绑定连接</span></span><br><span class="line">        server.bind(<span class="keyword">new</span> <span class="title class_">InetSocketAddress</span>(<span class="number">6666</span>));</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 4. 获取选择器</span></span><br><span class="line">        <span class="type">Selector</span> <span class="variable">selector</span> <span class="operator">=</span> Selector.open();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 4.1将通道注册到选择器上，指定接收“监听通道”事件</span></span><br><span class="line">        server.register(selector, SelectionKey.OP_ACCEPT);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 5. 轮训地获取选择器上已“就绪”的事件---&gt;只要select()&gt;0，说明已就绪</span></span><br><span class="line">        <span class="keyword">while</span> (selector.select() &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="comment">// 6. 获取当前选择器所有注册的“选择键”(已就绪的监听事件)</span></span><br><span class="line">            Iterator&lt;SelectionKey&gt; iterator = selector.selectedKeys().iterator();</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 7. 获取已“就绪”的事件，(不同的事件做不同的事)</span></span><br><span class="line">            <span class="keyword">while</span> (iterator.hasNext()) &#123;</span><br><span class="line"></span><br><span class="line">                <span class="type">SelectionKey</span> <span class="variable">selectionKey</span> <span class="operator">=</span> iterator.next();</span><br><span class="line"></span><br><span class="line">                <span class="comment">// 接收事件就绪</span></span><br><span class="line">                <span class="keyword">if</span> (selectionKey.isAcceptable()) &#123;</span><br><span class="line"></span><br><span class="line">                    <span class="comment">// 8. 获取客户端的链接</span></span><br><span class="line">                    <span class="type">SocketChannel</span> <span class="variable">client</span> <span class="operator">=</span> server.accept();</span><br><span class="line"></span><br><span class="line">                    <span class="comment">// 8.1 切换成非阻塞状态</span></span><br><span class="line">                    client.configureBlocking(<span class="literal">false</span>);</span><br><span class="line"></span><br><span class="line">                    <span class="comment">// 8.2 注册到选择器上--&gt;拿到客户端的连接为了读取通道的数据(监听读就绪事件)</span></span><br><span class="line">                    client.register(selector, SelectionKey.OP_READ);</span><br><span class="line"></span><br><span class="line">                &#125; <span class="keyword">else</span> <span class="keyword">if</span> (selectionKey.isReadable()) &#123; <span class="comment">// 读事件就绪</span></span><br><span class="line"></span><br><span class="line">                    <span class="comment">// 9. 获取当前选择器读就绪状态的通道</span></span><br><span class="line">                    <span class="type">SocketChannel</span> <span class="variable">client</span> <span class="operator">=</span> (SocketChannel) selectionKey.channel();</span><br><span class="line"></span><br><span class="line">                    <span class="comment">// 9.1读取数据</span></span><br><span class="line">                    <span class="type">ByteBuffer</span> <span class="variable">buffer</span> <span class="operator">=</span> ByteBuffer.allocate(<span class="number">1024</span>);</span><br><span class="line"></span><br><span class="line">                    <span class="comment">// 9.2得到文件通道，将客户端传递过来的图片写到本地项目下(写模式、没有则创建)</span></span><br><span class="line">                    <span class="type">FileChannel</span> <span class="variable">outChannel</span> <span class="operator">=</span> FileChannel.open(Paths.get(<span class="string">&quot;2.png&quot;</span>), StandardOpenOption.WRITE, StandardOpenOption.CREATE);</span><br><span class="line"></span><br><span class="line">                    <span class="keyword">while</span> (client.read(buffer) &gt; <span class="number">0</span>) &#123;</span><br><span class="line">                        <span class="comment">// 在读之前都要切换成读模式</span></span><br><span class="line">                        buffer.flip();</span><br><span class="line"></span><br><span class="line">                        outChannel.write(buffer);</span><br><span class="line"></span><br><span class="line">                        <span class="comment">// 读完切换成写模式，能让管道继续读取文件的数据</span></span><br><span class="line">                        buffer.clear();</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="comment">// 10. 取消选择键(已经处理过的事件，就应该取消掉了)</span></span><br><span class="line">                iterator.remove();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//客户端</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">NoBlockClient</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException &#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 1. 获取通道</span></span><br><span class="line">        <span class="type">SocketChannel</span> <span class="variable">socketChannel</span> <span class="operator">=</span> SocketChannel.open(<span class="keyword">new</span> <span class="title class_">InetSocketAddress</span>(<span class="string">&quot;127.0.0.1&quot;</span>, <span class="number">6666</span>));</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 1.1切换成非阻塞模式</span></span><br><span class="line">        socketChannel.configureBlocking(<span class="literal">false</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 1.2获取选择器</span></span><br><span class="line">        <span class="type">Selector</span> <span class="variable">selector</span> <span class="operator">=</span> Selector.open();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 1.3将通道注册到选择器中，获取服务端返回的数据</span></span><br><span class="line">        socketChannel.register(selector, SelectionKey.OP_READ);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 2. 发送一张图片给服务端吧</span></span><br><span class="line">        <span class="type">FileChannel</span> <span class="variable">fileChannel</span> <span class="operator">=</span> FileChannel.open(Paths.get(<span class="string">&quot;X:\\Users\\ozc\\Desktop\\面试造火箭\\1.png&quot;</span>), StandardOpenOption.READ);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 3.要使用NIO，有了Channel，就必然要有Buffer，Buffer是与数据打交道的呢</span></span><br><span class="line">        <span class="type">ByteBuffer</span> <span class="variable">buffer</span> <span class="operator">=</span> ByteBuffer.allocate(<span class="number">1024</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 4.读取本地文件(图片)，发送到服务器</span></span><br><span class="line">        <span class="keyword">while</span> (fileChannel.read(buffer) != -<span class="number">1</span>) &#123;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 在读之前都要切换成读模式</span></span><br><span class="line">            buffer.flip();</span><br><span class="line"></span><br><span class="line">            socketChannel.write(buffer);</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 读完切换成写模式，能让管道继续读取文件的数据</span></span><br><span class="line">            buffer.clear();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 5. 轮训地获取选择器上已“就绪”的事件---&gt;只要select()&gt;0，说明已就绪</span></span><br><span class="line">        <span class="keyword">while</span> (selector.select() &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="comment">// 6. 获取当前选择器所有注册的“选择键”(已就绪的监听事件)</span></span><br><span class="line">            Iterator&lt;SelectionKey&gt; iterator = selector.selectedKeys().iterator();</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 7. 获取已“就绪”的事件，(不同的事件做不同的事)</span></span><br><span class="line">            <span class="keyword">while</span> (iterator.hasNext()) &#123;</span><br><span class="line"></span><br><span class="line">                <span class="type">SelectionKey</span> <span class="variable">selectionKey</span> <span class="operator">=</span> iterator.next();</span><br><span class="line"></span><br><span class="line">                <span class="comment">// 8. 读事件就绪</span></span><br><span class="line">                <span class="keyword">if</span> (selectionKey.isReadable()) &#123;</span><br><span class="line"></span><br><span class="line">                    <span class="comment">// 8.1得到对应的通道</span></span><br><span class="line">                    <span class="type">SocketChannel</span> <span class="variable">channel</span> <span class="operator">=</span> (SocketChannel) selectionKey.channel();</span><br><span class="line"></span><br><span class="line">                    <span class="type">ByteBuffer</span> <span class="variable">responseBuffer</span> <span class="operator">=</span> ByteBuffer.allocate(<span class="number">1024</span>);</span><br><span class="line"></span><br><span class="line">                    <span class="comment">// 9. 知道服务端要返回响应的数据给客户端，客户端在这里接收</span></span><br><span class="line">                    <span class="type">int</span> <span class="variable">readBytes</span> <span class="operator">=</span> channel.read(responseBuffer);</span><br><span class="line"></span><br><span class="line">                    <span class="keyword">if</span> (readBytes &gt; <span class="number">0</span>) &#123;</span><br><span class="line">                        <span class="comment">// 切换读模式</span></span><br><span class="line">                        responseBuffer.flip();</span><br><span class="line">                        System.out.println(<span class="keyword">new</span> <span class="title class_">String</span>(responseBuffer.array(), <span class="number">0</span>, readBytes));</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                <span class="comment">// 10. 取消选择键(已经处理过的事件，就应该取消掉了)</span></span><br><span class="line">                iterator.remove();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="就考考相关的概念原理呗"><a href="#就考考相关的概念原理呗" class="headerlink" title="就考考相关的概念原理呗"></a>就考考相关的概念原理呗</h2><h3 id="你知道IO模型有几种吗"><a href="#你知道IO模型有几种吗" class="headerlink" title="你知道IO模型有几种吗"></a>你知道IO模型有几种吗</h3><ol>
-<li>在Unix下IO模型分别有：阻塞IO、非阻塞IO、IO复用、信号驱动以及异步I&#x2F;0。在开发中碰得最多的就是阻塞I0、非阻塞IO以及IO复用。</li>
-</ol>
-<h3 id="来重点讲讲-O复用模型吧"><a href="#来重点讲讲-O复用模型吧" class="headerlink" title="来重点讲讲|O复用模型吧"></a>来重点讲讲|O复用模型吧</h3><ol>
-<li>我就以Linux系统为例好了，我们都知道Linux对文件的操作实际上就是通过文件描述符（fd）</li>
-<li>1O复用模型指的就是：通过一个进程监听多个文件描述符，一旦某个文件描述符准备就绪，就去通知程序做相对应的处理</li>
-<li>这种以通知的方式，优势并不是对于单个连接能处理得更快，而是在于它能处理更多的连接。</li>
-<li>在Linux下IO复用模型用的函数有select&#x2F;poll和epoll</li>
-</ol>
-<h3 id="那你来讲讲这select和epll函数的区别呗？"><a href="#那你来讲讲这select和epll函数的区别呗？" class="headerlink" title="那你来讲讲这select和epll函数的区别呗？"></a>那你来讲讲这select和epll函数的区别呗？</h3><ul>
-<li><p>select</p>
-<ol>
-<li>select函数它支持最大的连接数是1024或 2048，因为在select函数下要传入fd_set参数，这个fd_set的大小要么1024或2048（其实就看操作系统的位数）</li>
-<li>fd_set就是bitmap的数据结构，可以简单理解为只要位为0，那说明还没数据到缓冲区，只要位为1，那说明数据已经到缓冲区。</li>
-<li>而select函数做的就是每次将fd_set遍历，判断标志位有没有发现变化，如果有变化则通知程序做中断处理。</li>
-</ol>
-</li>
-<li><p>epoll</p>
-<ol>
-<li>epoll是在Linux2.6内核正式提出，完善了select的一些缺点。</li>
-<li>它定义了epoll_event结构体来处理，不存在最大连接数的限制。</li>
-<li>并且它不像select函数每次把所有的文件描述符（fd）都遍历，简单理解就是epoll把就绪的文件描述符（fd）专门维护了一块空间，每次从就绪列表里边拿就好了，不再进行对所有文件描述符（fd）进行遍历。</li>
-</ol>
-</li>
-</ul>
-</li>
-</ol>
-<h3 id="嗯，了解了，另外你知道什么叫做零拷贝吗？"><a href="#嗯，了解了，另外你知道什么叫做零拷贝吗？" class="headerlink" title="嗯，了解了，另外你知道什么叫做零拷贝吗？"></a>嗯，了解了，另外你知道什么叫做零拷贝吗？</h3><ol>
-<li>知道的。我们以读操作为例，假设用户程序发起一次读请求。</li>
-<li>其实会调用read相关的「系统函数」，然后会从用户态切换到内核态，随后CPU会告诉DMA去磁盘把数据拷贝到内核空间。</li>
-<li>等到「内核缓冲区」真正有数据之后，CPU会把「内核缓存区」数据拷贝到「用户缓冲区」，最终用户程序才能获取到。</li>
-<li>稍微解释一下上面的意思~</li>
-<li>为了保证内核的安全，操作系统将虚拟空间划分为「用户空间」和「内核空间」，所以在读系统数据的时候会有状态切换</li>
-<li>因为应用程序不能直接去读取硬盘的数据。从上面描述可知读写需要依赖「内核缓冲区」</li>
-<li>一次读操作会让DMA拷贝（direct memory access 直接内存拷贝，不使用cpu）将磁盘数据拷贝到内核缓冲区，CPU将内核缓冲区数据拷贝到用户缓冲区。</li>
-<li>所谓的零拷贝就是将「CPU将内核缓冲区数据拷贝到用户缓冲区」这次CPU拷贝给省去，来提高效率和性能</li>
-<li>常见的零拷贝技术有mmap（内核缓冲区与用户缓冲区的共享） 、sendfile（系统底层函数支持）。</li>
-<li>零拷贝可以提高数据传输的性能，这块在Kafka等框架也有相关的实践。</li>
-</ol>
-
-      
-    </div>
-
-    
-    
-    
-
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>l
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/986aa405/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/lion.png">
-      <meta itemprop="name" content="swimminghao">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="swimminghao's blog">
-      <meta itemprop="description" content="swimminghao的学习博客">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | swimminghao's blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/986aa405/" class="post-title-link" itemprop="url">4、【对线面试官】Java反射 & 动态代理.md</a>
-        </h2>
-
-        <div class="post-meta-container">
-
-          
-
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2025-02-13 16:20:39" itemprop="dateModified" datetime="2025-02-13T16:20:39+08:00">2025-02-13</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="far fa-comment"></i>
-    </span>
-    <span class="post-meta-item-text">Waline：</span>
-  
-    <a title="waline" href="/posts/986aa405/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/986aa405/" data-xid="/posts/986aa405/" itemprop="commentCount"></span>
+    <a title="waline" href="/posts/eb97ef3e/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/eb97ef3e/" data-xid="/posts/eb97ef3e/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -1990,43 +541,67 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="4、【对线面试官】Java反射-amp-动态代理-md"><a href="#4、【对线面试官】Java反射-amp-动态代理-md" class="headerlink" title="4、【对线面试官】Java反射 &amp; 动态代理.md"></a>4、【对线面试官】Java反射 &amp; 动态代理.md</h1><h2 id="今天要不来聊聊Java反射？你对Java反射了解多少？"><a href="#今天要不来聊聊Java反射？你对Java反射了解多少？" class="headerlink" title="今天要不来聊聊Java反射？你对Java反射了解多少？"></a>今天要不来聊聊Java反射？你对Java反射了解多少？</h2><ol>
-<li>嗯，Java反射在JavaSE基础中还是很重要的。</li>
-<li>简单来说，反射就是Java可以给我们在运行时获取类的信息<br>在初学的时候可能看不懂、又或是学不太会反射，因为初学的时候往往给的例子都是用反射创建对象，用反射去获取对象上的方法&#x2F;属性什么的，感觉没多大用</li>
-<li>但毕竟我已经不是以前的我了，跟以前的看法就不一样了。</li>
-<li>理解反射重点就在于理解什么是「运行时」，为什么我们要在「运行时」获取类的信息</li>
-<li>在当时学注解的时候，我们可以发现注解的生命周期有三个枚举值（当时我还告诉过面试官你呢~）</li>
-<li>分别是SOURCE、CLASS和RUNTIME，其实一样的，RUNTIME就是对标着运行时</li>
-<li>我们都知道：我们在编译器写的代码是j ava文件，经过javac编译会变成.class文件，class文件会被JVM装载运行（这里就是真正运行着我们所写的代码（虽然是被编译过的），也就所谓的运行时。</li>
+          <h1 id="18、【对线面试官】Redis持久化"><a href="#18、【对线面试官】Redis持久化" class="headerlink" title="18、【对线面试官】Redis持久化"></a>18、【对线面试官】Redis持久化</h1><h2 id="嗯，开始吧，今天要不来聊聊Redisl的持久化机制吧？"><a href="#嗯，开始吧，今天要不来聊聊Redisl的持久化机制吧？" class="headerlink" title="嗯，开始吧，今天要不来聊聊Redisl的持久化机制吧？"></a>嗯，开始吧，今天要不来聊聊Redisl的持久化机制吧？</h2><ol>
+<li><p>在上一次面试已经说过了Redis：是基于内存的</p>
+</li>
+<li><p>假设我们不做任何操作，只要Redis服务器重启（或者中途故障挂掉了），那内存的数据就会没掉</p>
+</li>
+<li><p>所以Redis：提供了持久化机制给我们用，分别是RDB和AOF</p>
+<p>1）RDB指的就是：根据我们自己配置的时间或者手动去执行BGSAVE或SAVE命令，Redisi就会去生成RDB文件</p>
+<p>2）这个RDB文件实际上就是一个经过压缩的二进制文件，Redis可以通过这个文件在启动的时候来还原我们的数据</p>
+<p>1）而AOF则是把Redis服务器接收到的所有写命令都记录到日志中</p>
+<p>2）Redis重跑一遍这个记录下的日志文件，就相当于还原了数据</p>
+</li>
 </ol>
-<h2 id="嗯，你说了那么多，就讲述了什么是运行时，还是快点进入重点吧"><a href="#嗯，你说了那么多，就讲述了什么是运行时，还是快点进入重点吧" class="headerlink" title="嗯，你说了那么多，就讲述了什么是运行时，还是快点进入重点吧"></a>嗯，你说了那么多，就讲述了什么是运行时，还是快点进入重点吧</h2><ol>
-<li>在运行时获取类的信息，其实就是为了让我们所写的代码更具有「通用性」和「灵活性」</li>
-<li>要理解反射，需要抛开我们日常写的业务代码。以更高的维度或者说是抽象的思维去看待我们所写的“工具”</li>
-<li>所谓的“工具”：在单个系统使用叫做“Utils”、被多个系统使用打成jar包叫做“组件”、组件继续发展壮大就叫做“框架”</li>
-<li>一个好用的“工具”是需要兼容各种情况的。</li>
-<li>你肯定是不知道用该“工具“的用户传入的是什么对象，但你需要帮他们得到需要的结果。</li>
-<li>例如SpringMVC你在方法上写上对象，传入的参数就会帮你封装到对象上</li>
-<li>Mybatis可以让我们只写接口，不写实现类，就可以执行SQL</li>
-<li>你在类上加上@Component注解，Sprin g就帮你创建对象</li>
-<li>这些统统都有反射的身影：约定大于配置，配置大于硬编码。</li>
-<li>通过”约定“使用姿势，使用反射在运行时获取相应的信息（毕竟作为一个”工具“是真的不知道你是怎么用的），实现代码功能的「通用性」和「灵活性」</li>
+<h2 id="那我就想问了，你上次不是说Redis是单线程吗？那比如你说的RDB，它会执行SAVE或BESAVE命令，生成文件。那不是非常耗时的吗，那如果只有一个线程处理，那其他的请求不就得等了？"><a href="#那我就想问了，你上次不是说Redis是单线程吗？那比如你说的RDB，它会执行SAVE或BESAVE命令，生成文件。那不是非常耗时的吗，那如果只有一个线程处理，那其他的请求不就得等了？" class="headerlink" title="那我就想问了，你上次不是说Redis是单线程吗？那比如你说的RDB，它会执行SAVE或BESAVE命令，生成文件。那不是非常耗时的吗，那如果只有一个线程处理，那其他的请求不就得等了？"></a>那我就想问了，你上次不是说Redis是单线程吗？那比如你说的RDB，它会执行SAVE或BESAVE命令，生成文件。那不是非常耗时的吗，那如果只有一个线程处理，那其他的请求不就得等了？</h2><ol>
+<li>嗯，没错，Redis是单线程的。</li>
+<li>以RDB持久化的过程为例，假设我们在配置上是定时去执行RDB存储</li>
+<li>Redis有自己的一套事件处理机制，主要处理文件事件（命令请求和应答等等）和时间事件（RDB定时持久化、清理过期的Key等的）</li>
+<li>所以，定时的RDB实际上就是一个时间事件</li>
+<li>线程不停地轮询就绪的事件，发现RDB的事件可执行时，则调用BGSAVE命令</li>
+<li>而BGSAVE命令实际上会fork出一个子进程来进行完成持久化（生成RDB文件）</li>
+<li>在fork的过程中，父进程（主线程）肯定是阻塞的。</li>
+<li>但fork完之后，是fork出来的子进程去完成持久化。处理请求的进程该干嘛的就干嘛</li>
+<li>所以说啊，Redis：是单线程，理解是没错的，但没说人家不能fork进程来处理事情。</li>
+<li>还有就是，其实Redis在较新的版本中，有些地方都使用了多线程来进行处理</li>
+<li>比如说，一些删除的操作（UNLINK、FLUSHALL ASYNC等等）还有Redis6.x之后对网络数据的解析都用了多线程处理了。</li>
+<li>只不过，核心的处理命令请求和响应还是单线程。</li>
 </ol>
-<h2 id="结合之前说的泛型，想问下：你应该知道泛型是会擦除的，那为什么反射能获取到泛型的信息呢？"><a href="#结合之前说的泛型，想问下：你应该知道泛型是会擦除的，那为什么反射能获取到泛型的信息呢？" class="headerlink" title="结合之前说的泛型，想问下：你应该知道泛型是会擦除的，那为什么反射能获取到泛型的信息呢？"></a>结合之前说的泛型，想问下：你应该知道泛型是会擦除的，那为什么反射能获取到泛型的信息呢？</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 抽象类，定义泛型&lt;T&gt;</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title class_">BaseDao</span>&lt;T&gt; &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">BaseDao</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="type">Class</span> <span class="variable">clazz</span> <span class="operator">=</span> <span class="built_in">this</span>.getClass();</span><br><span class="line">        <span class="type">ParameterizedType</span>  <span class="variable">pt</span> <span class="operator">=</span> (ParameterizedType) clazz.getGenericSuperclass(); </span><br><span class="line">        clazz = (Class) pt.getActualTypeArguments()[<span class="number">0</span>];</span><br><span class="line">        System.out.println(clazz);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 实现类</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">UserDao</span> <span class="keyword">extends</span> <span class="title class_">BaseDao</span>&lt;User&gt; &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        BaseDao&lt;User&gt; userDao = <span class="keyword">new</span> <span class="title class_">UserDao</span>();</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 执行结果输出</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">com</span>.entity.User</span><br></pre></td></tr></table></figure>
-
-<ol>
-<li>嗯，这个问题我在学习的时候也想过</li>
-<li>其实是这样的，可以理解为泛型擦除是有范围的，定义在类上的泛型信息是不会被擦除的。</li>
-<li>Java编译器仍在class文件以Signature 属性的方式保留了泛型信息</li>
-<li>Type作为顶级接口，Type下还有几种类型，比如TypeVariable、 ParameterizedT ype、 WildCardType、 GenericArrayType、以及Class。通过这些接口我们就可以在运行时获取泛型相关的信息。</li>
+<h2 id="那AOF呢？AOF不是也要写文件吗？难道也是fork了个子进程去做的？"><a href="#那AOF呢？AOF不是也要写文件吗？难道也是fork了个子进程去做的？" class="headerlink" title="那AOF呢？AOF不是也要写文件吗？难道也是fork了个子进程去做的？"></a>那AOF呢？AOF不是也要写文件吗？难道也是fork了个子进程去做的？</h2><ol>
+<li>emm，不是的。AOF是在命令执行完之后，把命令写在buffer缓冲区的（直接追加写）</li>
+<li>那想要持久化，肯定得存盘嘛。Redis：提供了几种策略供我们选择什么时候把缓冲区的数据写到磁盘</li>
+<li>我记得好像有：每秒一次&#x2F;每条命令都执行从不存盘；一般我们会选每秒一次</li>
+<li>Redis会启一个线程去刷盘，也不是用主线程去干的</li>
 </ol>
-<h2 id="你了解动态代理吗？"><a href="#你了解动态代理吗？" class="headerlink" title="你了解动态代理吗？"></a>你了解动态代理吗？</h2><ol>
-<li>嗯，了解的。动态代理其实就是代理模式的一种，代理模式是设计模式之一。</li>
-<li>代理模型有静态代理和动态代理。静态代理需要自己写代理类，实现对应的接口，比较麻烦。</li>
-<li>在Java中，动态代理常见的又有两种实现方式：JDK动态代理和CGLIB代理</li>
-<li>JDK动态代理其实就是运用了反射的机制，而CGLIB代理则用的是利用ASM框架，通过修改其字节码生成子类来处理。</li>
-<li>JDK动态代理会帮我们实现接口的方法，通过invokeHandler对所需要的方法进行增强。</li>
-<li>动态代理这一技术在实际或者框架原理中是非常常见的</li>
-<li>像上面所讲的Mybatis不用写实现类，只写接口就可以执行SQL，又或是SpringAOP等等好用的技术，实际上用的就是动态代理。</li>
+<h2 id="那如果把执行过的命令都存起来；等启动的时候是可以再把这些写命令再执行一遍，达到恢复数据的效果；这样会有什么样的问题吗？"><a href="#那如果把执行过的命令都存起来；等启动的时候是可以再把这些写命令再执行一遍，达到恢复数据的效果；这样会有什么样的问题吗？" class="headerlink" title="那如果把执行过的命令都存起来；等启动的时候是可以再把这些写命令再执行一遍，达到恢复数据的效果；这样会有什么样的问题吗？"></a>那如果把执行过的命令都存起来；等启动的时候是可以再把这些写命令再执行一遍，达到恢复数据的效果；这样会有什么样的问题吗？</h2><ol>
+<li>嗯，问题就是，如果这些写入磁盘的「命令集合」不做任何处理，那该「命令集合」就会一直膨胀</li>
+<li>其实就是该文件会变得非常大</li>
+<li>Redis当然也考虑了这一点，它会fork个子进程会对「原始」命令集合进行重写</li>
+<li>说白了就是会压缩，压缩完了之后只要替换原始文件就好了</li>
+</ol>
+<h2 id="那我又想问了，既然它是fork一个进程来对AOF进行重写的；前面你也提到了再fork时，主进程是阻塞的，但fork后，主进程会继续接收命令；你是说重写完（压缩）会进行文件覆盖；那这样不会丢数据吗？毕竟主进程在fork之后是一直会接收命令的"><a href="#那我又想问了，既然它是fork一个进程来对AOF进行重写的；前面你也提到了再fork时，主进程是阻塞的，但fork后，主进程会继续接收命令；你是说重写完（压缩）会进行文件覆盖；那这样不会丢数据吗？毕竟主进程在fork之后是一直会接收命令的" class="headerlink" title="那我又想问了，既然它是fork一个进程来对AOF进行重写的；前面你也提到了再fork时，主进程是阻塞的，但fork后，主进程会继续接收命令；你是说重写完（压缩）会进行文件覆盖；那这样不会丢数据吗？毕竟主进程在fork之后是一直会接收命令的"></a>那我又想问了，既然它是fork一个进程来对AOF进行重写的；前面你也提到了再fork时，主进程是阻塞的，但fork后，主进程会继续接收命令；你是说重写完（压缩）会进行文件覆盖；那这样不会丢数据吗？毕竟主进程在fork之后是一直会接收命令的</h2><ol>
+<li>其实做法很简单啊，在fork子进程之后，把新接收到命令再写到另一个缓冲区不就好了吗</li>
+</ol>
+<h2 id="那AOF和RDB用哪一个呢？"><a href="#那AOF和RDB用哪一个呢？" class="headerlink" title="那AOF和RDB用哪一个呢？"></a>那AOF和RDB用哪一个呢？</h2><ol>
+<li>主要是看业务场景吧，我们这边是基于Redis使用了一套开源的key-value存储</li>
+<li>使用Redis前，首先要去新增实例，在新增时会让你选择对应的使用场景</li>
+<li>就是会让你通过不同的应用场景进行配置选择</li>
+<li>比如说，业务上是允许重启时部分数据丢失的，那RDB就够用了</li>
+<li>RDB在启动的时候恢复数据会比AOF快很多</li>
+<li>在Redis4.0以后也支持了AOF和RDB混合</li>
+<li>至于AOF的话，官网是不建议仅仅只使用AOF的，如果对数据丢失容忍度是有要求的，建议是开启AOF+RDB一起用</li>
+<li>总的来说，不同的场景使用不同的持久化策略吧</li>
+<li>我们公司也是不建议把Redis当做存储去使用的（毕竟没有事务保证，也还是可能导致数据丢失）</li>
+</ol>
+<h2 id="顺便我想问下，假如Redisl的内存满了，但业务还在写数据，会怎么样？"><a href="#顺便我想问下，假如Redisl的内存满了，但业务还在写数据，会怎么样？" class="headerlink" title="顺便我想问下，假如Redisl的内存满了，但业务还在写数据，会怎么样？"></a>顺便我想问下，假如Redisl的内存满了，但业务还在写数据，会怎么样？</h2><ol>
+<li>嗯，这个问题我也遇到过</li>
+<li>一般来说，我们会淘汰那些「不活跃」的数据，然后把新的数据写进去</li>
+<li>更多情况下，还是做好对应的监控和容量的考量吧。等容量达到阈值的时候，及时发现和扩容</li>
+</ol>
+<h2 id="那要不来讲讲扩容和Redisl的架构吧？"><a href="#那要不来讲讲扩容和Redisl的架构吧？" class="headerlink" title="那要不来讲讲扩容和Redisl的架构吧？"></a>那要不来讲讲扩容和Redisl的架构吧？</h2><p>下次吧</p>
+<h2 id="那要不来讲讲扩容和Redisl的架构吧？-1"><a href="#那要不来讲讲扩容和Redisl的架构吧？-1" class="headerlink" title="那要不来讲讲扩容和Redisl的架构吧？"></a>那要不来讲讲扩容和Redisl的架构吧？</h2><ol>
+<li>Redis的官网啊，看了这么多技术官网，我觉得Redis的官网弄得是真不错</li>
+<li>《Redis设计与实现》这本书也挺不错的</li>
 </ol>
 
       
@@ -2059,7 +634,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/986aa405/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/49c930c7/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/lion.png">
@@ -2077,7 +652,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/986aa405/" class="post-title-link" itemprop="url">5、【对线面试官】多线程基础</a>
+          <a href="/posts/49c930c7/" class="post-title-link" itemprop="url">19、【对线面试官】kafka基础</a>
         </h2>
 
         <div class="post-meta-container">
@@ -2119,8 +694,8 @@
     </span>
     <span class="post-meta-item-text">Waline：</span>
   
-    <a title="waline" href="/posts/986aa405/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/986aa405/" data-xid="/posts/986aa405/" itemprop="commentCount"></span>
+    <a title="waline" href="/posts/49c930c7/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/49c930c7/" data-xid="/posts/49c930c7/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -2131,7 +706,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>2.2k</span>
+      <span>1.7k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -2149,67 +724,1485 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="5、【对线面试官】多线程基础"><a href="#5、【对线面试官】多线程基础" class="headerlink" title="5、【对线面试官】多线程基础"></a>5、【对线面试官】多线程基础</h1><h2 id="首先你来讲讲进程和线程的区别吧？"><a href="#首先你来讲讲进程和线程的区别吧？" class="headerlink" title="首先你来讲讲进程和线程的区别吧？"></a>首先你来讲讲进程和线程的区别吧？</h2><ol>
-<li>进程是系统进行资源分配和调度的独立单位，每一个进程都有它自己的内存空间和系统资源</li>
-<li>进程实现多处理机环境下的进程调度，分派，切换时，都需要花费较大的时间和空间开销</li>
-<li>为了提高系统的执行效率，减少处理机的空转时间和调度切换的时间，以及便于系统管理，所以有了线程，线程取代了进程了调度的基本功能</li>
-<li>简单来说，进程作为资源分配的基本单位，线程作为资源调度的基本单位</li>
-</ol>
-<h2 id="那我们为什么要用多线程呢？你平时工作中用得多吗？"><a href="#那我们为什么要用多线程呢？你平时工作中用得多吗？" class="headerlink" title="那我们为什么要用多线程呢？你平时工作中用得多吗？"></a>那我们为什么要用多线程呢？你平时工作中用得多吗？</h2><ol>
-<li>使用多线程最主要的原因是提高系统的资源利用率。</li>
-<li>现在CPU基本都是多核的，如果你只用单线程，那就是只用到了一个核心，其他的核心就相当于空闲在那里了。</li>
-<li>在平时工作中多线程是随时都可见的。</li>
-<li>比如说，我们系统Web服务器用的是Tomcat，Tomcat处理每一个请求都会从线程连接池里边用一个线程去处理。</li>
-<li>又比如说，我们用连接数据库会用对应的连接池Druid&#x2F;C3P0&#x2F;DBCP等等</li>
-<li>等等这些都用了多线程的。</li>
-<li>上面这些框架已经帮我们屏蔽掉「手写」多线程的问题</li>
-</ol>
-<h3 id="嗯，了解，那你实际开发中有用过吗？"><a href="#嗯，了解，那你实际开发中有用过吗？" class="headerlink" title="嗯，了解，那你实际开发中有用过吗？"></a>嗯，了解，那你实际开发中有用过吗？</h3><ol>
-<li><p>当然有了，在我所负责的系统也会用到多线程的。</p>
+          <h1 id="19、【对线面试官】kafka基础"><a href="#19、【对线面试官】kafka基础" class="headerlink" title="19、【对线面试官】kafka基础"></a>19、【对线面试官】kafka基础</h1><h2 id="今天要不来聊聊消息队列吧？我看你项目不少地方都写到Kafka了-你简单说明下你使用Kafka的场景吧"><a href="#今天要不来聊聊消息队列吧？我看你项目不少地方都写到Kafka了-你简单说明下你使用Kafka的场景吧" class="headerlink" title="今天要不来聊聊消息队列吧？我看你项目不少地方都写到Kafka了.你简单说明下你使用Kafka的场景吧"></a>今天要不来聊聊消息队列吧？我看你项目不少地方都写到Kafka了.你简单说明下你使用Kafka的场景吧</h2><ol>
+<li><p>使用消息队列的目的总的来说可以有三种情况：解耦、异步和削峰</p>
 </li>
-<li><p>比如说，现在要跑一个定时任务，该任务的链路执行时间和过程都非常长，我这边就用一个线程池将该定时任务的请求进行处理。</p>
+<li><p>比如举我项目的例子吧，我现在维护一个消息管理平台系统，对外提供发送接口给各个业务方调用</p>
 </li>
-<li><p>这样做的好处就是可以及时返回结果给调用方，能够提高系统的吞吐量。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 请求直接交给线程池来处理</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">push</span><span class="params">(PushParam pushParam)</span> &#123;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    pushServiceThreadExecutor.submit(() -&gt; &#123;</span><br><span class="line">      handler(pushParam);</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">    logger.error(<span class="string">&quot;pushServiceThreadExecutor error, exception&#123;&#125;:&quot;</span>, e);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<li><p>他们调用接口之后，实际上『不是同步』下发了消息。</p>
 </li>
-<li><p>还有就是我的系统中用了很多生产者与消费者模式，会用多个线程去消费队列的消息，来提高并发度</p>
+<li><p>在接口处理层只是把该条消息放到了消息队列上，随后就直接返回结果给接口调用者了。</p>
+</li>
+<li><p>这样的好处就是：</p>
+<p>1）接口的吞吐量会大幅度提高（因为未做真正实际调用，接口RT会非常低）【异步】</p>
+<p>2）即便有大批量的消息调用接口都不会让系统受到影响（流量由消息队列承载）【削峰】</p>
 </li>
 </ol>
-<h2 id="你如果在项目中用到了多线程，那肯定得考虑线程安全的问题的吧"><a href="#你如果在项目中用到了多线程，那肯定得考虑线程安全的问题的吧" class="headerlink" title="你如果在项目中用到了多线程，那肯定得考虑线程安全的问题的吧"></a>你如果在项目中用到了多线程，那肯定得考虑线程安全的问题的吧</h2><ol>
-<li>在我的理解下，在Java世界里边，所谓线程安全就是多个线程去执行某类，这个类始终能表现出正确的行为，那么这个类就是线程安全的。</li>
-<li>比如我有一个count变量，在service方法不断的累加这个count变量。</li>
-<li>假设相同的条件下，count变量每次执行的结果都是相同，那我们就可以说是线程安全的干</li>
-<li>显然下面的代码肯定不是线程安全的</li>
+<h2 id="有点抽象，再举个实际案例？"><a href="#有点抽象，再举个实际案例？" class="headerlink" title="有点抽象，再举个实际案例？"></a>有点抽象，再举个实际案例？</h2><ol>
+<li><p>又比如说，我这边还有个项目是广告订单归因工程，主要做的事情就是得到订单数据，给各个业务广告计算对应的佣金。</p>
+</li>
+<li><p>订单的数据是从消息队列里取出的</p>
+</li>
+<li><p>这样设计的好处就是：</p>
+<p>1）交易团队的同学只要把订单消息写到消息队列，该订单数据的Topic由各个业务方自行消费使用【解耦】【异步】</p>
+<p>2）即便下单QPS猛增，对下游业务无太大的感知（因为下游业务只消费消息队列的数据，不会直接影响到机器性能）【削峰】</p>
+</li>
 </ol>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">UnsafeCountingServlet</span> <span class="keyword">extends</span> <span class="title class_">GenericServlet</span> <span class="keyword">implements</span> <span class="title class_">Servlet</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">long</span> <span class="variable">count</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">long</span> <span class="title function_">getCount</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> count;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">service</span><span class="params">(ServletRequest servletRequest, ServletResponse servletResponse)</span> <span class="keyword">throws</span> ServletException, IOException &#123;</span><br><span class="line"></span><br><span class="line">        ++count;</span><br><span class="line">        <span class="comment">// To something else...</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="那我想问下，你觉得为什么消息队列能削峰？或者换个问法，为什么Kafka能承载这么大的QPS？"><a href="#那我想问下，你觉得为什么消息队列能削峰？或者换个问法，为什么Kafka能承载这么大的QPS？" class="headerlink" title="那我想问下，你觉得为什么消息队列能削峰？或者换个问法，为什么Kafka能承载这么大的QPS？"></a>那我想问下，你觉得为什么消息队列能削峰？或者换个问法，为什么Kafka能承载这么大的QPS？</h2><ol>
+<li><p>消息队列「最核心的功能就是把生产的数据存储起来，然后给各个业务把数据再读取出来。</p>
+</li>
+<li><p>跟我们处理请求时不一样，我们在业务处理时可能会调别人的接口，可能会需要去查数据库…等等等一系列的操作才行</p>
+</li>
+<li><p>这些业务操作都是非常耗时的，像Kafka在「存储」和「读取」这个过程中又做了很多的优化</p>
+</li>
+<li><p>举几个例子，比如说：</p>
+<p>1）我们往一个Topic发送消息或者读取消息时，实际内部是多个Partition在处理【并行】</p>
+<p>2）在存储消息时，Kafka内部是顺序写磁盘的，并且利用了操作系统的缓冲区来提高性能【append+cache】</p>
+<p>3）在读写数据中也减少CPU拷贝的次数【零拷贝】</p>
+</li>
+</ol>
+<h2 id="嗯，你既然提到减少CPU拷贝的次数，可以给我说下这项技术吗？"><a href="#嗯，你既然提到减少CPU拷贝的次数，可以给我说下这项技术吗？" class="headerlink" title="嗯，你既然提到减少CPU拷贝的次数，可以给我说下这项技术吗？"></a>嗯，你既然提到减少CPU拷贝的次数，可以给我说下这项技术吗？</h2><ol>
+<li><p>嗯，可以的，其实就是零拷贝技术。</p>
+</li>
+<li><p>比如我们正常调用read函数时，会发生以下的步骤（以读磁盘的数据为例）：</p>
+<p>1）DMA把磁盘数据拷贝到读内核缓存区</p>
+<p>2）CPU把读内核缓冲区的数据拷贝到用户空间</p>
+</li>
+<li><p>正常调用write函数时，会发生以下的步骤（数据写到网卡为例）：</p>
+<p>1）CPU把用户空间的数据拷贝到Socket内核缓存区</p>
+<p>2）DMA把Socket内核缓冲区的数据拷贝到网卡</p>
+</li>
+<li><p>可以发现完成「一次读写」需要2次DMA拷贝，2次CPU拷贝。</p>
+</li>
+<li><p>而DMA拷贝是省不了的，所谓的零拷贝技术就是把CPU的拷贝给省掉</p>
+</li>
+<li><p>并且为了避免用户进程直接操作内核，保证内核安全，应用程序在调用系统函数时，会发生上下文切换（上述的过程一共会发生4次）</p>
+</li>
+<li><p>目前零拷贝技术主要有：mmap和sendfile</p>
+</li>
+<li><p>比如说：mmap是将读缓冲区的地址和用户空间的地址进行映射，实现读内核缓冲区和应用缓冲区共享</p>
+</li>
+<li><p>从而减少了从读缓冲区到用户缓冲区的一次CPU拷贝</p>
+</li>
+<li><p>使用mmap的后一次读写就可以简化为：、</p>
+<p>一、DMA把硬盘数据拷贝到读内核缓冲</p>
+<p>二、CPU把读内核缓存区拷贝至Socket内核缓冲区。</p>
+<p>三、DMA把Socket内核缓冲区拷贝至网</p>
+</li>
+<li><p>由于读内核缓冲区与用户空间做了映射，所以会省了一次CPU拷贝</p>
+</li>
+<li><p>而sendfile+DMA Scatter&#x2F;Gather！则是把读内核缓存区的文件描述符&#x2F;长度信息发到Socket内核缓冲区，实现CPU零拷贝</p>
+</li>
+<li><p>使用sendfile+DMA Scatter&#x2F;Gather一次读写就可以简化为：</p>
+<p>1）DMA把硬盘数据拷贝至读内核缓冲区</p>
+<p>2）CPU把读缓冲区的文件描述符和长度信息发到Socket缓冲区。</p>
+<p>3）DMA根据文件描述符和数据长度从读内核缓冲区把数据拷贝至网卡</p>
+</li>
+<li><p>回到kafka上吧</p>
+</li>
+<li><p>从Producer-》Broker，Kafka是把网卡的数据持久化硬盘，用的是mmap（从2次<br>CPU拷贝减至1次） </p>
+</li>
+<li><p>从Broker-》Consumer，Kafka是从硬盘的数据发送至网卡，用的是sendFile（实<br>现CPU零拷贝）</p>
+</li>
+</ol>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>Kafka能这么快的原因就是实现了并行、充分利用操作系统cache、顺序写和零拷贝</p>
 
-<h2 id="那你平时是怎么解决，或者怎么思考线程安全问题的呢？"><a href="#那你平时是怎么解决，或者怎么思考线程安全问题的呢？" class="headerlink" title="那你平时是怎么解决，或者怎么思考线程安全问题的呢？"></a>那你平时是怎么解决，或者怎么思考线程安全问题的呢？</h2><ol>
-<li>其实大部分时间我们在代码里边都没有显式去处理线程安全问题，因为这大部分都由框架所做了。</li>
-<li>正如上面提到的Tomcat、Druid、SpringMVC等等。</li>
-<li>很多时候，我们判断是否要处理线程安全问题，就看有没有多个线程同时访问一个共享变量。</li>
-<li>像SpringMVC这种，我们日常开发时，不涉及到操作同一个成员变量，那我们就很少需要考虑线程安全问题。</li>
-<li>我个人解决线程安全问题的思路有以下：<ul>
-<li>能不能保证操作的原子性，考虑atomi c包下的类够不够我们使用。</li>
-<li>能不能保证操作的可见性，考虑volatil e关键字够不够我们使用</li>
-<li>如果涉及到对线程的控制（比如一次能使用多少个线程，当前线程触发的条件是否依赖其他线程的结果），考虑CountDownLatch&#x2F;Semaphore等等。</li>
-<li>如果是集合，考虑java.util.concurrent 包下的集合类。</li>
-<li>如果synchronized无法满足，考虑lock 包下的类</li>
+      
+    </div>
+
+    
+    
+    
+
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>l
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/c5b7e17d/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lion.png">
+      <meta itemprop="name" content="swimminghao">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="swimminghao's blog">
+      <meta itemprop="description" content="swimminghao的学习博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | swimminghao's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/c5b7e17d/" class="post-title-link" itemprop="url">20、【对线面试官】使用kafka会考虑什么问题</a>
+        </h2>
+
+        <div class="post-meta-container">
+
+          
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2025-02-13 16:20:39" itemprop="dateModified" datetime="2025-02-13T16:20:39+08:00">2025-02-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/posts/c5b7e17d/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/c5b7e17d/" data-xid="/posts/c5b7e17d/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>1.8k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>2 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="20、【对线面试官】使用kafka会考虑什么问题"><a href="#20、【对线面试官】使用kafka会考虑什么问题" class="headerlink" title="20、【对线面试官】使用kafka会考虑什么问题"></a>20、【对线面试官】使用kafka会考虑什么问题</h1><h2 id="你提到了你这边会从交易的消息报获取到订单的数据，然后做业务的处理；也提到了你用的是Kafka，我想问下，Kafka会丢数据吗？"><a href="#你提到了你这边会从交易的消息报获取到订单的数据，然后做业务的处理；也提到了你用的是Kafka，我想问下，Kafka会丢数据吗？" class="headerlink" title="你提到了你这边会从交易的消息报获取到订单的数据，然后做业务的处理；也提到了你用的是Kafka，我想问下，Kafka会丢数据吗？"></a>你提到了你这边会从交易的消息报获取到订单的数据，然后做业务的处理；也提到了你用的是Kafka，我想问下，Kafka会丢数据吗？</h2><ol>
+<li><p>嗯，使用Kafkal时，有可能会有以下场景会丢消息</p>
+</li>
+<li><p>比如说，我们用Producer发消息至Broke的时候，就有可能会丢消息</p>
+</li>
+<li><p>如果你不想丢消息，那在发送消息的时候，需要选择带有callBack的api进行发送</p>
+</li>
+<li><p>其实就意味着，如果你发送成功了，会回调告诉你已经发送成功了。如果失败了，那收到回调之后自己在业务上做重试就好了。</p>
+</li>
+<li><p>等到把消息发送到Brokerl以后，也有可能丢消息</p>
+</li>
+<li><p>一般我们的线上环境都是集群环境下嘛，但可能你发送的消息后broker就挂了，这时挂掉的broker还没来得及把数据同步给别的broker，数据就自然就丢了</p>
+</li>
+<li><p>发送到Broker之后，也不能保证数据就一定不丢了，毕竟Broker会把数据存储到磁盘之前，走的是操作系统缓存</p>
+</li>
+<li><p>也就是异步刷盘这个过程还有可能导致数据会丢</p>
+</li>
+<li><p>嗯，到这里其实我已经说了三个场景了，分别是：producer-》broker，broker-》broker之间同步，以及broker-》磁盘</p>
+</li>
+<li><p>要解决上面所讲的问题也比较简单，这块也没什么好说的…</p>
+</li>
+<li><p>不想丢数据，那就使用带有callback的api设置acks、retries、factor等等些参数来保证Producer发送的消息不会丢就好啦。</p>
+</li>
+</ol>
+<h2 id="一般来说，还是client消费broker丢消息的场景比较多；那你们在消费数据的时候是怎么保证数据的可靠性的呢？"><a href="#一般来说，还是client消费broker丢消息的场景比较多；那你们在消费数据的时候是怎么保证数据的可靠性的呢？" class="headerlink" title="一般来说，还是client消费broker丢消息的场景比较多；那你们在消费数据的时候是怎么保证数据的可靠性的呢？"></a>一般来说，还是client消费broker丢消息的场景比较多；那你们在消费数据的时候是怎么保证数据的可靠性的呢？</h2><ol>
+<li><p>首先，要想client端消费数据不能丢，肯定是不能使用autoCommit的，所以必须是手动提交的。</p>
+</li>
+<li><p>我们这边是这样实现的：</p>
+<p>一、从Kafka拉取消息、（一次批量拉取500条，这里主要看配置）<br>二、为每条拉取的消息分配一个msgld（递增）<br>三、将msgld存入内存队列（sortSet）中<br>四、使用Map存储msgld.与msg（有offset相关的信息）的映射关系</p>
+<p>五、当业务处理完消息后，ack时，获取当前处理的消息nsgld，然后从sortSet删除该msgld（此时代表已经处理过了）<br>六、接着与sortSet队列的首部第一个ld比较（其实就是最小的msgld），如果当前msgld&lt;&#x3D;sort Set第一个ID，则提交当前offset</p>
+<p>七、系统即便挂了，在下次重启时就会从sortSet队首的消息开始拉取，实现至少处理一次语义<br>八、会有少量的消息重复，但只要下游做好幂等就OK了</p>
+</li>
+</ol>
+<h2 id="嗯，你也提到了幂等，你们是怎么实现幂等性的呢？"><a href="#嗯，你也提到了幂等，你们是怎么实现幂等性的呢？" class="headerlink" title="嗯，你也提到了幂等，你们是怎么实现幂等性的呢？"></a>嗯，你也提到了幂等，你们是怎么实现幂等性的呢？</h2><ol>
+<li>嗯，还是以处理订单消息为例好了。</li>
+<li>幂等Key我们由订单编号+订单状态所组成（一笔订单的状态只会处理一次）</li>
+<li>在处理之前，我们首先会去查Redis：是否存在该Key，如果存在，则说明我们已经处理过了，直接丢掉</li>
+<li>如果Redis没处理过，则继续往下处理，最终的逻辑是将处理过的数据插入到业务DB上，再到最后把幂等Key插入到Redis上</li>
+<li>显然，单纯通过Redis是无法保证幂等的</li>
+<li>所以，Redis其实只是一个「前置」处理，最终的幂等性是依赖数据库的唯一Key来保证的（唯一Key实际上也是订单编号+状态）</li>
+<li>而插入DB是依赖事务的，所以是没问题的</li>
+<li>总的来说，就是通过Redis做前置处理，DB唯一索引做最终保证来实现幂等性的</li>
+</ol>
+<h2 id="你们那边遇到过顺序消费的问题吗？"><a href="#你们那边遇到过顺序消费的问题吗？" class="headerlink" title="你们那边遇到过顺序消费的问题吗？"></a>你们那边遇到过顺序消费的问题吗？</h2><ol>
+<li><p>嗯，也是有的，我举个例子</p>
+</li>
+<li><p>订单的状态比如有支付、确认收货、完成等等，而订单下还有计费、退款的消息报</p>
+</li>
+<li><p>理论上来说，支付的消息报肯定要比退款消息报先到嘛，但程序处理的过程中可不一定的嘛</p>
+</li>
+<li><p>所以在这边也是有消费顺序的问题（先处理了支付，才能退款啊）</p>
+</li>
+<li><p>但在广告场景下不是「强顺序」的，只要保证最终一致性就好了。</p>
+</li>
+<li><p>所以我们这边处理「乱序」消息的实现是这样的：</p>
+<p>1）宽表：将每一个订单状态，单独分出一个或多个独立的字段。消息来时只更新对应的字段就好，消息只会存在短暂的状态不一致问题，但是状态最终是一致的</p>
+<p>2）消息补偿机制：另一个进行消费相同topicl的数据，消息落盘，延迟处理。将消息与DB进行对比，如果发现数据不一致，再重新发送消息至主进程处理</p>
+<p>3）还有部分场景，可能我们只需要把相同userld&#x2F;orderld.发送到相同的partition（因为一个partition由一个Consumer消费），又能解决大部分消费顺序的问题了呢。</p>
+</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>l
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/ace2edeb/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lion.png">
+      <meta itemprop="name" content="swimminghao">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="swimminghao's blog">
+      <meta itemprop="description" content="swimminghao的学习博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | swimminghao's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/ace2edeb/" class="post-title-link" itemprop="url">21、【对线面试官】Mysql索引</a>
+        </h2>
+
+        <div class="post-meta-container">
+
+          
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2025-02-13 16:20:39" itemprop="dateModified" datetime="2025-02-13T16:20:39+08:00">2025-02-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/posts/ace2edeb/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/ace2edeb/" data-xid="/posts/ace2edeb/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>1.8k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>2 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="21、【对线面试官】Mysql索引"><a href="#21、【对线面试官】Mysql索引" class="headerlink" title="21、【对线面试官】Mysql索引"></a>21、【对线面试官】Mysql索引</h1><h2 id="我看你简历上写了MySQL，对MySQL-InnoDB引擎的索引了解吗？"><a href="#我看你简历上写了MySQL，对MySQL-InnoDB引擎的索引了解吗？" class="headerlink" title="我看你简历上写了MySQL，对MySQL InnoDB引擎的索引了解吗？"></a>我看你简历上写了MySQL，对MySQL InnoDB引擎的索引了解吗？</h2><ol>
+<li>嗯啊，使用索引可以加快查询速度，其实上就是将无序的数据变成有序（有序就能加快检索速度）</li>
+<li>在InnoDB引擎中，索引的底层数据结构是**<code>B+树</code>**</li>
+</ol>
+<h2 id="那为什么不使用红黑树或者B树呢？"><a href="#那为什么不使用红黑树或者B树呢？" class="headerlink" title="那为什么不使用红黑树或者B树呢？"></a>那为什么不使用红黑树或者B树呢？</h2><ol>
+<li><p>MySQL的数据是存储在硬盘的，在查询时一般是不能「一次性」把全部数据加载到内存中</p>
+</li>
+<li><p>红黑树是「二叉查找树」的变种，一个Node节点只能存储一个Key和一个Value</p>
+</li>
+<li><p>B和B+树跟红黑树不一样，它们算是「多路搜索树」，相较于「二叉搜索树」而言，一个Node节点可以存储的信息会更多，「多路搜索树」的高度会比「二叉搜索树」更低。</p>
+</li>
+<li><p>了解了区别之后，其实就很容易发现，在数据不能一次加载至内存的场景下，数据需要被检索出来</p>
+</li>
+<li><p>选择B或B+树的理由就很充分了（一个Node节点存储信息更多（相较于二叉搜索树），树的高度更低，树的高度影响检索的速度）</p>
+</li>
+<li><p>B+树相对于B树而言，它又有两种特性。</p>
+<p>1）B+树非叶子节点不存储数据，在相同的数据量下，B+树更加矮壮。（这个应该不用多解释了，数据都存储在叶子节点上，非叶子节点的存储能存储更多的索引，所以整棵树就更加矮壮）</p>
+<p>2）B+树叶子节点之间组成一个链表，方便于遍历查询（遍历操作在MySQL中比较常见）</p>
+</li>
+<li><p>我稍微解释一下吧，你可以脑补下画面</p>
+</li>
+<li><p>我们在MySQL InnoDB引擎下，每创建一个索引，相当于生成了一颗B+树。</p>
+</li>
+<li><p>如果该索引是「聚集（聚簇）索引」，那当前B+树的叶子节点存储着「主键和当前行的数据」</p>
+</li>
+<li><p>如果该索引是「非聚簇索引小」，那当前B+树的叶子节点存储着「主键和当前索引列值」</p>
+</li>
+<li><p>比如写了一句sql：select*from user where id&gt;&#x3D;10，那只要定位到id为10的记录，然后在叶子节点之间通过遍历链表（叶子节点组成的链表），即可找到往后的记录了。</p>
+</li>
+<li><p>由于B树是会在非叶子节点也存储数据，要遍历的时候可能就得跨层检索，相对麻烦些。</p>
+</li>
+<li><p>基于树的层级以及业务使用场景的特性，所以MySQL选择了B+树作为索引的底层数据结构。</p>
+</li>
+<li><p>对于哈希结构，其实InnoDB引擎是「自适应」哈希索引的（hash索引的创建由lnnoDB存储引擎自动优化创建，我们是干预不了）</p>
+</li>
+</ol>
+<h2 id="你知道什么是回表吗？"><a href="#你知道什么是回表吗？" class="headerlink" title="你知道什么是回表吗？"></a>你知道什么是回表吗？</h2><ol>
+<li>所谓的回表其实就是，当我们使用非聚簇索引查询数据时，检索出来的数据可能包含其他列</li>
+<li>但走的索引树叶子节点只能查到当前列值以及主键ID，所以需要根据主键ID再去查一遍数据，得到SQL所需的列</li>
+<li>举个例子，我这边建了给订单号ID建了个索引，但我的SQL是：select orderld，orderName from orderdetail where orderld &#x3D; 123</li>
+<li>SQL走订单ID索引，但在订单ID的索引树的叶子节点只有orderld和ld，而我们还想检索出orderName，所以MySQL会拿到ID再去查出orderName给我们返回，这种操作就叫回表</li>
+</ol>
+<h2 id="如何避免回表"><a href="#如何避免回表" class="headerlink" title="如何避免回表"></a>如何避免回表</h2><ol>
+<li>想要避免回表，可以使用覆盖索引</li>
+<li>所谓的覆盖索引，实际上就是你想要查出的列刚好在叶子节点上都存在，比如我建了orderld和orderName.联合索引l，刚好我需要查询也是orderld和orderName，这些数据都存在索引树的叶子节点上，就不需要回表操作了。</li>
+</ol>
+<h2 id="既然你也提到了联合索引，我想问下你了解最左匹配原则吗"><a href="#既然你也提到了联合索引，我想问下你了解最左匹配原则吗" class="headerlink" title="既然你也提到了联合索引，我想问下你了解最左匹配原则吗"></a>既然你也提到了联合索引，我想问下你了解最左匹配原则吗</h2><ol>
+<li>嗯，要说明这个概念，还是举例子比较容易</li>
+<li>如有索引（a，b，c，d），查询条件a&#x3D;1and b&#x3D;2 and c&gt;3 and d&#x3D;4，则会在每个节点依次命中a、b、c，无法命中d</li>
+<li>先匹配最左边的，索引只能用于查找key是否存在（相等），遇到范围查询（&gt;、&lt;、between、like左匹配）等就不能进一步匹配了，后续退化为线性查找</li>
+<li>这就是最左匹配原则</li>
+</ol>
+<h2 id="嗯嗯，我还想问下你们主键是怎么生成的？"><a href="#嗯嗯，我还想问下你们主键是怎么生成的？" class="headerlink" title="嗯嗯，我还想问下你们主键是怎么生成的？"></a>嗯嗯，我还想问下你们主键是怎么生成的？</h2><p>主键就自增的</p>
+<h2 id="那假设我不用MySQL自增的主键，你觉得会有什么问题呢？"><a href="#那假设我不用MySQL自增的主键，你觉得会有什么问题呢？" class="headerlink" title="那假设我不用MySQL自增的主键，你觉得会有什么问题呢？"></a>那假设我不用MySQL自增的主键，你觉得会有什么问题呢？</h2><ol>
+<li>首先主键得保证它的唯一性和空间尽可能短吧，这两块是需要考虑的。</li>
+<li>另外，由于索引的特性（有序），如果生成像uuid类似的主键，那插入的的性能是比自增的要差的</li>
+<li>因为生成的uuid，在插入时有可能需要移动磁盘块（比如，块内的空间在当前时刻已经存储满了，但新生成的uuid需要插入已满的块内，就需要移动块的数据）</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>l
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/b4eb9a6c/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lion.png">
+      <meta itemprop="name" content="swimminghao">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="swimminghao's blog">
+      <meta itemprop="description" content="swimminghao的学习博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | swimminghao's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/b4eb9a6c/" class="post-title-link" itemprop="url">23、【对线面试官】InnoDB引擎中的事务</a>
+        </h2>
+
+        <div class="post-meta-container">
+
+          
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2025-02-13 16:20:39" itemprop="dateModified" datetime="2025-02-13T16:20:39+08:00">2025-02-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/posts/b4eb9a6c/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/b4eb9a6c/" data-xid="/posts/b4eb9a6c/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>4k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>4 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="这次我想问下，你是怎么理解InnoDB引擎中的事务的？"><a href="#这次我想问下，你是怎么理解InnoDB引擎中的事务的？" class="headerlink" title="这次我想问下，你是怎么理解InnoDB引擎中的事务的？"></a>这次我想问下，你是怎么理解InnoDB引擎中的事务的？</h1><ol>
+<li>在我的理解下，事务可以使「一组操作」要么全部成功，要么全部失败</li>
+<li>事务其目的是为了「保证数据最终的一致性」。</li>
+<li>举个例子，我给你发支付宝转了888块红包。那自然我的支付宝余额会扣减888块，你的支付宝余额会增加888块。</li>
+<li>而事务就是保证我的余额扣减跟你的余额增添是同时成功或者同时失败的，这样这次转账就正常了</li>
+</ol>
+<h2 id="嗯，那你了解事务的几大特性吗？"><a href="#嗯，那你了解事务的几大特性吗？" class="headerlink" title="嗯，那你了解事务的几大特性吗？"></a>嗯，那你了解事务的几大特性吗？</h2><p>嗯，就是ACID嘛，分别是原子性（Atomicity）、一致性（Consistency）、隔离性（Isolation）、持久性（Durability）。</p>
+<ol>
+<li><p>原子性指的是：当前事务的操作要么同时成功，要么同时失败。原子性由undo Iog日志来保证，因为undo log记载着数据修改前的信息。</p>
+<p>1）比如我们要insert一条数据了，那undo Iog会记录的一条对应的delete日志。我们要update一条记录时，那undo log会记录之前的「旧值」的update记录。</p>
+<p>2）如果执行事务过程中出现异常的情况，那执行「回滚」。InnoDB引擎就是利用undo log记录下的数据，来将数据「恢复」到事务开始之前</p>
+</li>
+<li><p>隔离性指的是：在事务「并发」执行时，他们内部的操作不能互相干扰。</p>
+<p>1）如果多个事务可以在同一时刻操作同一份数据，那么就会可能会产生脏读、重复读、幻读的问题。</p>
+<p>2）于是，事务与事务之间需要存在「一定」的隔离。在nnoDB引擎中，定义了四种隔离级别供我们使用：分别是：read uncommit（读未提交）、read commit（读已提交）、repeatable read（可重复复读）、serializable（串行）</p>
+<p>3）不同的隔离级别对事务之间的隔离性是不一样的（级别越高事务隔离性越好，但性能就越低），而隔离性是由MySQL的各种锁来实现的，只是它屏蔽了加锁的细节。</p>
+</li>
+<li><p>持久性指的就是：一旦提交了事务，它对数据库的改变就应该是永久性的。说白了就是，会将数据持久化在硬盘上。</p>
+<p>1）而持久性由redo log日志来保证，当我们要修改数据时，MySQL是先把这条记录所在的「页」找到，然后把该页加载到内存中，将对应记录进行修改。</p>
+<p>2）为了防止内存修改完了，MySQL就挂掉了（如果内存改完，直接挂掉，那这次的修改相当于就丢失了）。</p>
+<p>3）MySQL引入了redo log，内存写完了，然后会写一份redo log，这份redo log记载着这次在某个页上做了什么修改。</p>
+<p>4）即便MySQL在中途挂了，我们还可以根据redo log：来对数据进行恢复。</p>
+<p>5）redo log是顺序写的，写入速度很快。并且它记录的是物理修改（xxxx页做了xxx修改），文件的体积很小，恢复速度也很快。</p>
+</li>
+<li><p>「一致性」可以理解为我们使用事务的「目的」，而「隔离性」「原子性」「持久性」均是为了保障「一致性」的手段，保证一致性需要由应用程序代码来保证</p>
+<p>1）比如，如果事务在发生的过程中，出现了异常情况，此时你就得回滚事务，而不是强行提交事务来导致数据不一致。</p>
+</li>
+</ol>
+<h2 id="刚才你也提到了隔离性嘛，然后你说在MySQL中有四种隔离级别，能分别来介绍下吗？"><a href="#刚才你也提到了隔离性嘛，然后你说在MySQL中有四种隔离级别，能分别来介绍下吗？" class="headerlink" title="刚才你也提到了隔离性嘛，然后你说在MySQL中有四种隔离级别，能分别来介绍下吗？"></a>刚才你也提到了隔离性嘛，然后你说在MySQL中有四种隔离级别，能分别来介绍下吗？</h2><ol>
+<li><p>嗯，为了讲清楚隔离级别，我顺带来说下MySQL锁相关的知识吧。</p>
+<p>1）在InnoDB引擎下，按锁的粒度分类，可以简单分为行锁和表锁。</p>
+<p>2）行锁实际上是作用在索引之上的（索引上次已经说过了，这里就不赘述了）</p>
+<p>3）当我们的SQL命中了索引，那锁住的就是命中条件内的索引节点（这种就是行锁），如果没有命中索引，那我们锁的就是整个索引树（表锁）。</p>
+<p>4）简单来说就是：锁住的是整棵树还是某几个节点，完全取决于SQL条件是否有命中到对应的索引节点。</p>
+<p>5）而行锁又可以简单分为读锁（共享锁、S锁）和写锁（排它锁、X锁）。</p>
+<p>6）读锁是共享的，多个事务可以同时读取同一个资源，但不允许其他事务修改。写锁是排他的，写锁会阻塞其他的写锁和读锁。</p>
+</li>
+<li><p>我现在就再回到隔离级别上吧，就直接以例子来说明啦。</p>
+<p>1）首先来说下read uncommit（读未提交）。比如说：A向B转账，A执行了转账语句，但A还没有提交事务，B读取数据，发现自己账户钱变多了！B跟A说，我已经收到钱了。A回滚事务【rollback】，等B再查看账户的钱时，发现钱并没有多。</p>
+<p>​    （1）简单的定义就是：事务B读取到了事务A还没提交的数据，这种用专业术语来说叫做「脏读」。</p>
+<p>​    （2）对于锁的维度而言，其实就是在read uncommit隔离级别下，读不会加任何锁，而写会加排他锁。读什么锁都不加，这就让排他锁无法排它了。</p>
+<p>​    （3）我们又知道，对于更新操作而言，lnnODB是肯定会加写锁的（数据库是不可能允许在同一时间，更新同一条记录的）。而读操作，如果不加任何锁，那就会造成上面的脏读。</p>
+<p>​    （4）脏读在生产环境下肯定是无法接受的，那如果读加锁的话，那意味着：当更新数据的时，就没办法读取了，这会极大地降低数据库性能。</p>
+<ul>
+<li><p>在MySQL InnoDB引擎层面，又有新的解决方案（解决加锁后读写性能问题），叫做MVCC（Multi-Version Concurrency Control）多版本并发控制</p>
+</li>
+<li><p>在MVCC下，就可以做到读写不阻塞，且避免了类似脏读这样的问题。那MVCC是怎么做的呢？</p>
+</li>
+<li><p>MVCC通过生成数据快照（Snapshot），并用这个快照来提供一定级别（语句级或事务级）的一致性读取</p>
+</li>
+</ul>
+<p>  （5）回到事务隔离级别下，针对于read commit（读已提交）隔离级别，它生成的就是语句级快照，而针对于repeatable read（可重复读），它生成的就是事务级的快照。</p>
+<p>2）前面提到过read uncommit隔离级别下会产生脏读，而read commit（读已提交）隔离级别解决了脏读</p>
+<p>​    （1）思想其实很简单：在读取的时候生成一个”版本号”，等到其他事务commit了之后，才会读取最新已commit的”版本号”数据。</p>
+<p>​    （2）比如说：事务A读取了记录（生成版本号），事务B修改了记录（此时加了写锁），事务A再读取的时候，是依据最新的版本号来读取的（当事务B执行commit了之后，会生成一个新的版本号），如果事务B还没有commit.那事务A读取的还是之前版本号的数据。</p>
+<p>​    （3）通过「版本」的概念，这样就解决了脏读的问题，而通过「版本」又可以对应快照的数据。read commit（读已提交）解决了脏读。</p>
+<p>3）read commit（读已提交）解决了脏读，但也会有其他并发的问题。「不可重复读」：一个事务读取到另外一个事务已经提交的数据，也就是说一个事务可以看到其他事务所做的修改。</p>
+<p>​    （1）不可重复读的例子：A查询数据库得到数据，B去修改数据库的数据，导致A多次查询数据库的结果都不一样【危害：A每次查询的结果都是受B的影响的】</p>
+<p>​    （2）了解MVCC基础之后，就很容易想到repeatable read（可重复复读）隔离级别是怎么避免不可重复读的问题了（前面也提到了）。</p>
+<p>​    （3）repeatable read（可重复复读）隔离级别是「事务级别」的快照！每次读取的都是「当前事务的版本」，即使当前数据被其他事务修改了（commit），也只会读取当前事务版本的数据。</p>
+<p>​    （4）在InnoDB引擎下的的repeatable read（可重复复读）隔离级别下，在MVCC下，快照读，已经解决了幻读的问题（因为它是读历史版本的数据）</p>
+<p>​    （5）而如果是当前读（比如select*from table for update），则需要配合间隙锁来解决幻读的问题。</p>
+<p>4）剩下的就是serializable（串行）隔离级别了，它的最高的隔离级别，相当于不允许事务的并发，事务与事务之间执行是串行的，它的效率最低，但同时也是最安全的。</p>
+</li>
+</ol>
+<h2 id="我看你提到了MVCC了，不妨来说下他的原理？"><a href="#我看你提到了MVCC了，不妨来说下他的原理？" class="headerlink" title="我看你提到了MVCC了，不妨来说下他的原理？"></a>我看你提到了MVCC了，不妨来说下他的原理？</h2><ol>
+<li>MVCC的主要是通过read view和undo log来实现的</li>
+<li>undo log前面也提到了，它会记录修改数据之前的信息，事务中的原子性就是通过undo log：来实现的。所以，有undo log可以帮我们找到「版本」的数据</li>
+<li>而read view实际上就是在查询时，lnnoDB会生成一个read view，read view有几个重要的字段，看下去就懂了</li>
+<li>分别是：trx ids（尚未提交commit的事务版本号集合），low limit id（下一次要生成的事务D值），low limit id（尚未提交版本号的事务D最小值）以及creator trx id（当前的事务版本号）</li>
+<li>在每行数据有两列隐藏的字段，分别是DB_TRX_ID（记录着当前ID）以及DB_ROLL _PTR（指向上一个版本数据在undolog里的位置指针）</li>
+<li>垫到这了，很容易就发现，MVCC其实就是靠「比对版本」来实现读写不阻塞，而版本的数据存在于undo log中。</li>
+<li>而针对于不同的隔离级别（read commit和repeatable read），无非就是read commit隔离级别下，每次都获取一个新的read view，repeatable read隔离级别则每次事务只获取一个read view</li>
+</ol>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ul>
+<li><p>事务为了保证数据的最终一致性</p>
+</li>
+<li><p>事务有四大特性，分别是原子性、一致性、隔离性、持久性</p>
+</li>
+<li><ul>
+<li>原子性由undo log保证</li>
+<li>持久性由redo log 保证</li>
+<li>隔离性由数据库隔离级别供我们选择，分别有read uncommit,read commit,repeatable read,serializable</li>
+<li>一致性是事务的目的，一致性由应用程序来保证</li>
 </ul>
 </li>
-<li>总的来说，就是先判断有没有线程安全问题，如果存在则根据具体的情况去判断使用什么方式去处理线程安全的问题。</li>
-<li>虽然synchronized很牛逼，但无脑使用synchronized会影响我们程序的性能的。</li>
-</ol>
-<h2 id="死锁你了解吗？什么情况会造成死锁？要是你能给我讲清楚死锁，我就录取你了"><a href="#死锁你了解吗？什么情况会造成死锁？要是你能给我讲清楚死锁，我就录取你了" class="headerlink" title="死锁你了解吗？什么情况会造成死锁？要是你能给我讲清楚死锁，我就录取你了"></a>死锁你了解吗？什么情况会造成死锁？要是你能给我讲清楚死锁，我就录取你了</h2><ol>
-<li>要是你录取我，我就给你讲清楚死锁</li>
-<li>造成死锁的原因可以简单概括为：当前线程拥有其他线程需要的资源，当前线程等待其他线程已拥有的资源，都不放弃自己拥有的资源。</li>
-<li>避免死锁的方式一般有以下方案：<ul>
-<li>固定加锁的顺序，比如我们可以使用Hash值的大小来确定加锁的先后</li>
-<li>尽可能缩减加锁的范围，等到操作共享变量的时候才加锁。</li>
-<li>使用可释放的定时锁（一段时间申请不到锁的权限了，直接释放掉）</li>
+<li><p>事务并发会存在各种问题，分别有脏读、重复读、幻读问题。上面的不同隔离级别可以解决掉由于并发事务所造成的问题，而隔离级别实际上就是由MySQL锁来实现的</p>
+</li>
+<li><p>频繁加锁会导致数据库性能低下，引入了MVCC多版本控制来实现读写不阻塞，提高数据库性能</p>
+</li>
+<li><p>MVCC原理即通过read view 以及undo log来实现</p>
+</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>l
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/3e598844/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lion.png">
+      <meta itemprop="name" content="swimminghao">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="swimminghao's blog">
+      <meta itemprop="description" content="swimminghao的学习博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | swimminghao's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/3e598844/" class="post-title-link" itemprop="url">23、【对线面试官】Mysql调优</a>
+        </h2>
+
+        <div class="post-meta-container">
+
+          
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2025-02-13 16:20:39" itemprop="dateModified" datetime="2025-02-13T16:20:39+08:00">2025-02-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/posts/3e598844/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/3e598844/" data-xid="/posts/3e598844/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>3.1k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>3 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="23、【对线面试官】Mysql调优"><a href="#23、【对线面试官】Mysql调优" class="headerlink" title="23、【对线面试官】Mysql调优"></a>23、【对线面试官】Mysql调优</h1><h2 id="要不你来讲讲你们对MySQL是怎么调优的？"><a href="#要不你来讲讲你们对MySQL是怎么调优的？" class="headerlink" title="要不你来讲讲你们对MySQL是怎么调优的？"></a>要不你来讲讲你们对MySQL是怎么调优的？</h2><ul>
+<li>哇，这命题很大阿…我认为，对于开发者而言，对MySQL的调优重点一般是在「开发规范」、「数据库索引」又或者说解决线上慢查询上。</li>
+<li>而对于MySQL内部的参数调优，由专业的DBA来搞。</li>
+</ul>
+<h2 id="那你来聊聊你们平时开发的规范和索引这块，平时是怎么样的吧。"><a href="#那你来聊聊你们平时开发的规范和索引这块，平时是怎么样的吧。" class="headerlink" title="那你来聊聊你们平时开发的规范和索引这块，平时是怎么样的吧。"></a>那你来聊聊你们平时开发的规范和索引这块，平时是怎么样的吧。</h2><ul>
+<li><p>嗯，首先，我们在生产环境下，创建数据库表，都是在工单系统下完成的（那就自然需要DBA审批）</p>
+</li>
+<li><p>如果在创建表时检测到没有创建索引，那就会直接提示warning</p>
+</li>
+<li><p>理论上来说，如果表有一定的数据量，那就应该要创建对应的索引</p>
+</li>
+<li><p>从数据库查询数据需要注意的地方还是蛮多的，其中很多都是平时积累来的比如说：</p>
+<ul>
+<li>1.是否能使用「覆盖索引」，减少「回表」所消耗的时间。意味着，我们在select的时候，一定要指明对应的列，而不是select</li>
+<li>2.考虑是否组建「联合索引小」，如果组建「联合索引小」，尽量将区分度最高的放在最左边，并且需要考虑「最左匹配原则」</li>
+<li>3.对索引进行函数操作或者表达式计算会导致索引失效</li>
+<li>4.利用子查询优化超多分页场景。比如limit offset，n在MySQL是获取offset+n的记录，再返回n条。而利用子查询则是查出n条，通过ID检索对应的记录出来，提高查询效率。</li>
+<li>5.通过explain命令来查看SQL的执行计划，看看自己写的SQL是否走了索引，走了什么索引。通过show profile来查看SQL对系统资源的损耗情况（不过一般还是比较少用到的）</li>
+<li>6.在开启事务后，在事务内尽可能只操作数据库，并有意识地减少锁的持有时间（比如在事务内需要插入&amp;&amp;修改数据，那可以先插入后修改。因为修改是更新操作，会加行锁。如果先更新，那并发下可能会导致多个事务的请求等待行锁释放）</li>
 </ul>
 </li>
+</ul>
+<h2 id="嗯，你提到了事务，之前也讲过了事务的隔离级别嘛，那你线上用的是什么隔离级别？"><a href="#嗯，你提到了事务，之前也讲过了事务的隔离级别嘛，那你线上用的是什么隔离级别？" class="headerlink" title="嗯，你提到了事务，之前也讲过了事务的隔离级别嘛，那你线上用的是什么隔离级别？"></a>嗯，你提到了事务，之前也讲过了事务的隔离级别嘛，那你线上用的是什么隔离级别？</h2><ul>
+<li>嗯，我们这边用的是Read Commit（读已提交），MySQL默认用的是Repeatable read（可重复读）</li>
+<li>选用什么隔离级别，主要看应用场景嘛，因为隔离级别越低，事务并发性能越高。</li>
+<li>（一般互联网公司都选择Read Commit作为主要的隔离级别）</li>
+<li>像Repeatable read（可重复读）隔离级别，就有可能因为「间隙锁」导致的死锁问题。</li>
+<li>但，MySQL默认的隔离级别为Repeatable read。很大一部分原因是在最开始的时候，MySQL的binlog没有row模式，在read commit隔离级别下会存在「主从数据不一致」的问题</li>
+<li>binlog记录了数据库表结构和表数据「变更」，比如update&#x2F;delete&#x2F;insert&#x2F;truncate&#x2F;create。在MySQL中，主从同步实际上就是应用了binlog：来实现的</li>
+<li>有了该历史原因，所以MySQL就将默认的隔离级别设置为Repeatable read</li>
+</ul>
+<h2 id="了解了，那我顺便想问下，你们遇到过类似的问题吗：即便走对了索引，线上查询还是慢。"><a href="#了解了，那我顺便想问下，你们遇到过类似的问题吗：即便走对了索引，线上查询还是慢。" class="headerlink" title="了解了，那我顺便想问下，你们遇到过类似的问题吗：即便走对了索引，线上查询还是慢。"></a>了解了，那我顺便想问下，你们遇到过类似的问题吗：即便走对了索引，线上查询还是慢。</h2><ul>
+<li>如果走对了索引，但查询还是慢，那一般来说就是表的数据量实在是太大了。</li>
+<li>首先，考虑能不能把「旧的数据」给”删掉”，对于我们公司而言，我们都会把数据同步到Hive，说明已经离线存储了一份了。</li>
+<li>那如果「旧的数据」已经没有查询的业务了，那最简单的办法肯定是”删掉”部分数据咯。数据量降低了，那自然，检索速度就快了…</li>
+<li>但，只有极少部分业务可以删掉数据</li>
+<li>随后，就考虑另一种情况，能不能在查询数据库之前，直接走一层缓存（Redis)。<ul>
+<li>而走缓存的话，又要看业务能不能忍受读取的「非真正实时」的数据（毕竟Redis和MySQL的数据一致性需要保证），如果查询条件相对复杂且多变的话（涉及各种group by和sum），那走缓存也不是一种好的办法，维护起来就不方便了…</li>
+<li>再看看是不是有「字符串」检索的场景导致查询低效，如果是的话，可以考虑把表的数据导入至Elasticsearch类的搜索引擎，后续的线上查询就直接走Elasticsearch了。</li>
+<li>MySQL-&gt;Elasticsearch需要有对应的同步程序（一般就是监听MySQL的binlog，解析binlog.后导入到Elasticsearch）</li>
+<li>如果还不是的话，那考虑要不要根据查询条件的维度，做相对应的聚合表，线上的请求就查询聚合表的数据，不走原表。<ul>
+<li>比如，用户下单后，有一份订单明细，而订单明细表的量级太大。但在产品侧（前台）透出的查询功能是以「天」维度来展示的，那就可以将每个用户的每天数据聚合起来，在聚合表就是一个用户一天只有一条汇总后的数据。</li>
+<li>查询走聚合后的表，那速度肯定杠杠的（聚合后的表数据量肯定比原始表要少很多）</li>
+<li>思路大致的就是「以空间换时间」，相同的数据换别的地方也存储一份，提高查询效率</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="那我还想问下，除了读之外，写性能同样有瓶颈，怎么办？"><a href="#那我还想问下，除了读之外，写性能同样有瓶颈，怎么办？" class="headerlink" title="那我还想问下，除了读之外，写性能同样有瓶颈，怎么办？"></a>那我还想问下，除了读之外，写性能同样有瓶颈，怎么办？</h2><ul>
+<li>如果在MySQL读写都有瓶颈，那首先看下目前MySQL的架构是怎么样的。</li>
+<li>如果是单库的，那是不是可以考虑升级至主从架构，实现读写分离。<ul>
+<li>简单理解就是：主库接收写请求，从库接收读请求。从库的数据由主库发送的binlog进而更新，实现主从数据一致（在一般场景下，主从的数据是通过异步来保证最终一致性的）</li>
+</ul>
+</li>
+<li>如果在主从架构下，读写仍存在瓶颈，那就要考虑是否要分库分表了<ul>
+<li>至少在我前公司的架构下，业务是区分的。流量有流量数据库，广告有广告的数据库，商品有商品的数据库</li>
+<li>所以，我这里讲的分库分表的含义是：在原来的某个库的某个表进而拆分。<ul>
+<li>比如，现在我有一张业务订单表，这张订单表在广告库中，假定这张业务订单表已经有1亿数据量了，现在我要分库分表<ul>
+<li>那就会将这张表的数据分至多个广告库以及多张表中</li>
+<li>分库分表的最明显的好处就是把请求进行均摊（本来单个库单个表有一亿的数据，那假设我分开8个库，那每个库1200+W的数据量，每个库下分8张表，那每张表就150W的数据量）。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="你们是以什么来作为分库分表键的？"><a href="#你们是以什么来作为分库分表键的？" class="headerlink" title="你们是以什么来作为分库分表键的？"></a>你们是以什么来作为分库分表键的？</h2><ul>
+<li>按照我们这边的经验，一般来说是按照userld的（因为按照用户的维度查询比较多），如果要按照其他的维度进行查询，那还是参照上面的的思路（以空间换时间）。</li>
+</ul>
+<h2 id="那分库分表后的D是怎么生成的？"><a href="#那分库分表后的D是怎么生成的？" class="headerlink" title="那分库分表后的D是怎么生成的？"></a>那分库分表后的D是怎么生成的？</h2><ul>
+<li>这就涉及到分布式D生成的方式了，思路有很多。有借助MySQL自增的，有借助Redis自增的，有基于「雪花算法」自增的</li>
+<li>具体使用哪种方式，那就看公司的技术栈了，一般使用Redis和基于「雪花算法」实现用得比较多。</li>
+<li>至于为什么强调自增（还是跟索引是有序有关，前面已经讲过了，你应该还记得）</li>
+</ul>
+<h2 id="嗯，那如果我要分库分表了，迁移的过程是怎么样的呢"><a href="#嗯，那如果我要分库分表了，迁移的过程是怎么样的呢" class="headerlink" title="嗯，那如果我要分库分表了，迁移的过程是怎么样的呢"></a>嗯，那如果我要分库分表了，迁移的过程是怎么样的呢</h2><ul>
+<li>我们一般采取「双写」的方式来进行迁移，大致步骤就是：<ul>
+<li>1.增量的消息各自往新表和旧表写一份</li>
+<li>2.将旧表的数据迁移至新库</li>
+<li>3.迟早新表的数据都会追得上旧表（在某个节点上数据是同步的）</li>
+<li>4.校验新表和老表的数据是否正常（主要看能不能对得上）</li>
+<li>5.开启双读（一部分流量走新表，一部分流量走老表），相当于灰度上线的过程</li>
+<li>6.读流量全部切新表，停止老表的写入</li>
+</ul>
+</li>
+<li>另外，提前准备回滚机制，临时切换失败能恢复正常业务以及有修数据的相关程序。</li>
+</ul>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ul>
+<li>数据库表存在一定数据量，就需要有对应的索引</li>
+<li>发现慢查询时，检查是否走对索引，是否能用更好的索引进行优化查询速度，查看使用索引的姿势有没有问题</li>
+<li>当索引解决不了慢查询时，一般由于业务表的数据量太大导致，利用空间换时间的思想（NOSQL、聚合、冗余…)</li>
+<li>当读写性能均遇到瓶颈时，先考虑能否升级数据库架构即可解决问题，若不能则需要考虑分库分表</li>
+<li>分库分表虽然能解决掉读写瓶颈，但同时会带来各种问题，需要提前调研解决方案和踩坑</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>l
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/691a1255/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lion.png">
+      <meta itemprop="name" content="swimminghao">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="swimminghao's blog">
+      <meta itemprop="description" content="swimminghao的学习博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | swimminghao's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/691a1255/" class="post-title-link" itemprop="url">24、【对线面试官】为什么需要Java内存模型</a>
+        </h2>
+
+        <div class="post-meta-container">
+
+          
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2025-02-13 16:20:39" itemprop="dateModified" datetime="2025-02-13T16:20:39+08:00">2025-02-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/posts/691a1255/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/691a1255/" data-xid="/posts/691a1255/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>3.6k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>3 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="24、【对线面试官】为什么需要Java内存模型"><a href="#24、【对线面试官】为什么需要Java内存模型" class="headerlink" title="24、【对线面试官】为什么需要Java内存模型"></a>24、【对线面试官】为什么需要Java内存模型</h1><h2 id="今天想跟你聊聊Java内存模型，这块你了解过吗？"><a href="#今天想跟你聊聊Java内存模型，这块你了解过吗？" class="headerlink" title="今天想跟你聊聊Java内存模型，这块你了解过吗？"></a>今天想跟你聊聊Java内存模型，这块你了解过吗？</h2><ul>
+<li><p>嗯，我简单说下我的理解吧。那我就从为什么要有Java内存模型开始讲起吧</p>
+<ul>
+<li><p>单线程下，可见性&#x2F;有序性&#x2F;原子性都没问题</p>
+</li>
+<li><p>CPU为了效率，有了高速缓存、有了指令重排序等等，整块架构都变得复杂了。我们写的程序肯定也想要「充分」利用CPU的资源啊！于是乎，我们使用起了多线程</p>
+<ul>
+<li><p>多线程在意味着并发，并发就意味着我们需要考虑线程安全问题</p>
+<ul>
+<li>1.缓存数据不一致：多个线程同时修改「共享变量」，CPU核心下的高速缓存是「不共享」的，那多个cache与内存之间的数据同步该怎么做？</li>
+<li>2.CPU指令重排序在多线程下会导致代码在非预期下执行，最终会导致结果存在错误的情况。</li>
+</ul>
+</li>
+<li><p>针对于「缓存不一致」问题，CPU也有其解决办法，常被大家所认识的有两种：</p>
+<p>1.使用「总线锁」：某个核心在修改数据的过程中，其他核心均无法修改内存中的数据。（类似于独占内存的概念，只要有CPU在修改，那别的CPU就得等待当前CPU释放）</p>
+<p>2.缓存一致性协议（MESI协议，其实协议有很多，只是举个大家都可能见过的）。MESI拆开英文是（Modified（修改状态）、Exclusive（独占状态）、Share（共享状态）、Invalid（无效状态））</p>
+</li>
+<li><p>缓存一致性协议我认为可以理解为「缓存锁」，它针对的是「缓存行」（Cache Iine）进行”加锁”，所谓「缓存行」其实就是高速缓存存储的最小单位。</p>
+</li>
+<li><p>MESI协议的原理大概就是：当每个CPU读取共享变量之前，会先识别数据的「对象状态」（是修改、还是共享、还是独占、还是无效）。</p>
+</li>
+<li><p>如果是独占，说明当前CPU将要得到的变量数据是最新的，没有被其他CPU所同时读取</p>
+</li>
+<li><p>如果是共享，说明当前CPU将要得到的变量数据还是最新的，有其他的CPU在同时读取，但还没被修改</p>
+</li>
+<li><p>如果是修改，说明当前CPU正在修改该变量的值，同时会向其他CPU发送该数据状态为invalid（无效）的通知，得到其他CPU响应后（其他CPU将数据状态从共享（share）变成invalid（无效），会当前CPU将高速缓存的数据写到主存，并把自己的状态从modify（修改）变成exclusive（独占）</p>
+</li>
+<li><p>如果是无效，说明当前数据是被改过了，需要从主存重新读取最新的数据。</p>
+</li>
+<li><p>其实MESI协议做的就是判断「对象状态」，根据「对象状态」做不同的策略移动</p>
+</li>
+<li><p>关键就在于某个CPU在对数据进行修改时，需要「同步」通知其他CPU，表示这个数据被我修改了，你们不能用了。</p>
+</li>
+<li><p>比较于「总线锁」，MESI协议的”锁粒度”更小了，性能那肯定会更高咯</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="但据我了解，CPU还有优化，你还知道吗？"><a href="#但据我了解，CPU还有优化，你还知道吗？" class="headerlink" title="但据我了解，CPU还有优化，你还知道吗？"></a>但据我了解，CPU还有优化，你还知道吗？</h2><ul>
+<li>同步，意味着等待，等待意味着什么都干不了。CPU肯定不乐意啊，所以又优化了一把。</li>
+<li>优化思路就是从「同步」变成「异步」。</li>
+<li>在修改时会「同步」告诉其他CPU，而现在则把最新修改的值写到「store buffe」中，并通知其他CPU记得要改状态，随后CPU就直接返回干其他事了。</li>
+<li>等到收到其它CPU发过来的响应消息，再将数据更新到高速缓存中。</li>
+<li>其他CPU接收到invalid（无效）通知时，也会把接收到的消息放入「invalid queue」中，只要写到「invalid queue.」就会直接返回告诉修改数据的CPU已经将状态置为「invalid」</li>
+<li>而异步又会带来新问题：那我现在CPU修改完A值，写到「store buffer」了，CPU就可以干其他事了</li>
+<li>那如果该CPU又接收指令需要修改A值，但上一次修改的值还在「store buffer.」中呢，没修改至高速缓存呢。</li>
+<li>所以CPU在读取的时候，需要去「storebuffer.」看看存不存在，存在则直接取，不存在才读主存的数据。【Store Forwarding】</li>
+<li>好了，解决掉第一个异步带来的问题了。（相同的核心对数据进行读写，由于异步，很可能会导致第二次读取的还是旧值，所以首先读「store buffer」。</li>
+<li>那当然啊，那「异步化」会导致相同核心读写共享变量有问题，那当然也会导致「不同」核心读写共享变量有问题啊</li>
+<li>CPU1修改了A值，已把修改后值写到「store buffer.」并通知CPU2对该值进行invalid（无效）操作，而CPU2可能还没收到invalid（无效）通知，就去做了其他的操作，导致CPU2读到的还是旧值。</li>
+<li>即便CPU2收到了invalid（无效）通知，但CPU1的值还没写到主存，那CPU2再次向主存读取的时候，还是旧值…</li>
+<li>变量之间很多时候是具有「相关性」（a&#x3D;1；b&#x3D;0；b&#x3D;a），这对于CPU又是无感知的.…</li>
+<li>总体而言，由于CPU对「缓存一致性协议」进行的异步优化「store buffer」「invalid queue.」，很可能导致后面的指令很可能查不到前面指令的执行结果（各个指令的执行顺序非代码执行顺序），这种现象很多时候被称作「CPU乱序执行」</li>
+<li>为了解决乱序问题（也可以理解为可见性问题，修改完没有及时同步到其他的CPU），又引出了「内存屏障」的概念。</li>
+<li>「内存屏障」其实就是为了解决「异步优化」导致「CPU乱序执行」&#x2F;「缓存不及时可见」的问题，那怎么解决的呢？嗯，就是把「异步优化」给”禁用“掉</li>
+<li>内存屏障可以分为三种类型：写屏障，读屏障以及全能屏障（包含了读写屏障）</li>
+<li>屏障可以简单理解为：在操作数据的时候，往数据插入一条”特殊的指令”。只要遇到这条指令，那前面的操作都得「完成」。</li>
+<li>那写屏障就可以这样理解：CPU当发现写屏障的指令时，会把该指令「之前」存在于「store Buffer.」所有写指令刷入高速缓存。</li>
+<li>通过这种方式就可以让CPU修改的数据可以马上暴露给其他CPU，达到「写操作」可见性的效果。</li>
+<li>那读屏障也是类似的：CPU当发现读屏障的指令时，会把该指令「之前」存在于「invalid queue」所有的指令都处理掉</li>
+<li>通过这种方式就可以确保当前CPU的缓存状态是准确的，达到「读操作」一定是读取最新的效果。</li>
+</ul>
+<h2 id="聊了半天，我一直在讲硬件-x2F-操作系统的东西，我要回到正题上了。"><a href="#聊了半天，我一直在讲硬件-x2F-操作系统的东西，我要回到正题上了。" class="headerlink" title="聊了半天，我一直在讲硬件&#x2F;操作系统的东西，我要回到正题上了。"></a>聊了半天，我一直在讲硬件&#x2F;操作系统的东西，我要回到正题上了。</h2><ul>
+<li>由于不同CPU架构的缓存体系不一样、缓存一致性协议不一样、重排序的策略不一样、所提供的内存屏障指令也有差异，为了简化Java开发人员的工作。Java封装了一套规范，这套规范就是「Java内存模型」</li>
+<li>再详细地说，「Java内存模型」希望屏蔽各种硬件和操作系统的访问差异，保证了Java程序在各种平台下对内存的访问都能得到一致效果。</li>
+<li>目的是解决多线程存在的原子性、可见性（缓存一致性）以及有序性问题。</li>
+</ul>
+<h2 id="那要不简单聊聊Java内存模型的规范和内容吧？"><a href="#那要不简单聊聊Java内存模型的规范和内容吧？" class="headerlink" title="那要不简单聊聊Java内存模型的规范和内容吧？"></a>那要不简单聊聊Java内存模型的规范和内容吧？</h2><p>下次</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ul>
+<li><p>并发问题产生的三大根源是「可见性」「有序性」「原子性」</p>
+</li>
+<li><p>可见性：CPU架构下存在高速缓存，每个核心下的L1&#x2F;L2高速缓存不共享（不可见）</p>
+</li>
+<li><p>有序性：主要有三部分可能导致打破（编译器和处理器可以在不改变「单线程」程序语义的情况下，可以对代码语句顺序进行调整重新排序</p>
+</li>
+<li><ul>
+<li>编译器优化导致重排序（编译器重排）</li>
+<li>指令集并行重排序（CPU原生重排）</li>
+<li>内存系统重排序（CPU架构下很可能有store buffer &#x2F;invalid queue 缓冲区，这种「异步」很可能会导致指令重排）</li>
+</ul>
+</li>
+<li><p>原子性：Java的一条语句往往需要多条 CPU 指令完成(i++)，由于操作系统的线程切换很可能导致 i++ 操作未完成，其他线程“中途”操作了共享变量  i ，导致最终结果并非我们所期待的。</p>
+</li>
+<li><p>在CPU层级下，为了解决「缓存一致性」问题，有相关的“锁”来保证，比如“总线锁”和“缓存锁”。</p>
+</li>
+<li><ul>
+<li>总线锁是锁总线，对共享变量的修改在相同的时刻只允许一个CPU操作。</li>
+<li>缓存锁是锁缓存行(cache line)，其中比较出名的是MESI协议，对缓存行标记状态，通过“同步通知”的方式，来实现(缓存行)数据的可见性和有序性</li>
+<li>但“同步通知”会影响性能，所以会有内存缓冲区(store buffer&#x2F;invalid queue)来实现「异步」进而提高CPU的工作效率</li>
+<li>引入了内存缓冲区后，又会存在「可见性」和「有序性」的问题，平日大多数情况下是可以享受「异步」带来的好处的，但少数情况下，需要强「可见性」和「有序性」，只能”禁用”缓存的优化。</li>
+<li>“禁用”缓存优化在CPU层面下有「内存屏障」，读屏障&#x2F;写屏障&#x2F;全能屏障，本质上是插入一条”屏障指令”，使得缓冲区(store buffer&#x2F;invalid queue)在屏障指令之前的操作均已被处理，进而达到 读写 在CPU层面上是可见和有序的。</li>
+</ul>
+</li>
+<li><p>不同的CPU实现的架构不一样，Java为了屏蔽硬件和操作系统访问内存的各种差异，提出了「Java内存模型」的规范，保证了Java程序在各种平台下对内存的访问都能得到一致效果。</p>
+</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>l
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/b7f54c91/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lion.png">
+      <meta itemprop="name" content="swimminghao">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="swimminghao's blog">
+      <meta itemprop="description" content="swimminghao的学习博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | swimminghao's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/b7f54c91/" class="post-title-link" itemprop="url">25、【对线面试官】java从编译到执行，发生了什么</a>
+        </h2>
+
+        <div class="post-meta-container">
+
+          
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2025-02-13 16:20:39" itemprop="dateModified" datetime="2025-02-13T16:20:39+08:00">2025-02-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/posts/b7f54c91/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/b7f54c91/" data-xid="/posts/b7f54c91/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>1.9k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>2 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="25、【对线面试官】java从编译到执行，发生了什么"><a href="#25、【对线面试官】java从编译到执行，发生了什么" class="headerlink" title="25、【对线面试官】java从编译到执行，发生了什么"></a>25、【对线面试官】java从编译到执行，发生了什么</h1><h2 id="从基础先问起吧，你是怎么理解Java是一门「跨平台」的语言，也就是「一次编译，到处运行的」？"><a href="#从基础先问起吧，你是怎么理解Java是一门「跨平台」的语言，也就是「一次编译，到处运行的」？" class="headerlink" title="从基础先问起吧，你是怎么理解Java是一门「跨平台」的语言，也就是「一次编译，到处运行的」？"></a>从基础先问起吧，你是怎么理解Java是一门「跨平台」的语言，也就是「一次编译，到处运行的」？</h2><ul>
+<li>因为有JVM</li>
+<li>Java源代码会被编译为class文件，class文件是运行在JVM之上的。</li>
+<li>当我们日常开发安装JDK的时候，可以发现JDK是分「不同的操作系统」，JDK里是包含JVM的，所以Java依赖着JVM实现了『跨平台』</li>
+<li>通俗点来讲，JVM是面向操作系统的，它负责把Class字节码解释成系统所能识别的指令并执行，同时也负责程序运行时内存的管理。</li>
+</ul>
+<h2 id="那要不你来聊聊从源码文件（java）到代码执行的过程呗？"><a href="#那要不你来聊聊从源码文件（java）到代码执行的过程呗？" class="headerlink" title="那要不你来聊聊从源码文件（java）到代码执行的过程呗？"></a>那要不你来聊聊从源码文件（java）到代码执行的过程呗？</h2><ul>
+<li><p>简单总结的话，我认为就4个步骤：编译-&gt;加载-&gt;解释-&gt;执行</p>
+<ul>
+<li><p>编译：将源码文件编译成JVM可以解释的class文件。</p>
+<ul>
+<li>编译过程会对源代码程序做「语法分析」「语义分析」「注解处理」等等处理，最后才生成字节码文件。</li>
+<li>比如对泛型的擦除和我们经常用的Lombok就是在编译阶段干的。</li>
+</ul>
+</li>
+<li><p>加载：将编译后的class文件加载到JVM中。</p>
+<ul>
+<li><p>在加载阶段又可以细化几个步骤：装载-&gt;连接-&gt;初始化</p>
+<ul>
+<li>【装载时机】为了节省内存的开销，并不会一次性把所有的类都装载至JVM，而是等到「有需要」的时候才进行装载（比如new和反射等等）</li>
+<li>【装载发生】class文件是通过「类加载器」装载到jvm中的，为了防止内存中出现多份同样的字节码，使用了双亲委派机制（它不会自己去尝试加载这个类，而是把请求委托给父加载器去完成，依次向上）</li>
+<li>【装载规则】JDK中的本地方法类一般由根加载器（Bootstrp loader）装载，JDK中内部实现的扩展类一般由扩展加载器（ExtClassLoader）实现装载，而程序中的类文件则由系统加载器（AppClassLoader）实现装载。</li>
+</ul>
+</li>
+<li><p>装载这个阶段它做的事情总结：查找并加载类的二进制数据，在JVM「堆」中创建一个java.lang.Class类的对象，并将类相关的信息存储在JVM「方法区」中</p>
+<ul>
+<li>通过「装载」这个步骤后，现在已经把class文件装载到JVM中了，并创建出对应的Class.对象以及类信息存储至方法区了。</li>
+</ul>
+</li>
+<li><p>「连接」这个阶段它做的事情总结：对class的信息进行验证、为「类变量」分配内存空间并对其赋默认值。</p>
+<ul>
+<li><p>连接又可以细化为几个步骤：验证-》准备-》解析</p>
+<p>1.验证：验证类是否符合Java规范和JVM规范</p>
+<p>2.准备：为类的静态变量分配内存，初始化为系统的初始值</p>
+<p>3.解析：将符号引用转为直接引用的过程</p>
+</li>
+<li><p>通过「连接」这个步骤后，现在已经对class信息做校验并分配了内存空间和默认值了。</p>
+</li>
+</ul>
+</li>
+<li><p>「初始化」阶段总结：为类的静态变量赋予正确的初始值。</p>
+<ul>
+<li>过程大概就是收集class的静态变量、静态代码块、静态方法至clinit（）方法，随后从上往下开始执行。</li>
+<li>如果「实例化对象」则会调用方法对实例变量进行初始化，并执行对应的构造方法内的代码。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>解释：把字节码转换为操作系统识别的指令</p>
+<ul>
+<li>在解释阶段会有两种方式把字节码信息解释成机器指令码，一个是字节码解释器、一个是即时编译器（JIT）</li>
+<li>JVM会对「热点代码」做编译，非热点代码直接进行解释。当JVM发现某个方法或代码块的运行特别频繁的时候，就有可能把这部分代码认定为「热点代码」</li>
+<li>使用「热点探测」来检测是否为热点代码。「热点探测」一般有两种方式，计数器和抽样。HotSpot使用的是「计数器」的方式进行探测，为每个方法准备了两类计数器：方法调用计数器和回边计数器</li>
+<li>这两个计数器都有一个确定的阈值，当计数器超过阈值溢出了，就会触发JIT编译。</li>
+<li>即时编译器把热点方法的指令码保存起来，下次执行的时候就无需重复的进行解释，直接执行缓存的机器语言</li>
+</ul>
+</li>
+<li><p>执行：操作系统把解释器解析出来的指令码，调用系统的硬件执行最终的程序指令。</p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ul>
+<li><p>Java跨平台因为有JVM屏蔽了底层操作系统</p>
+</li>
+<li><p>Java源码到执行的过程，从JVM的角度看可以总结为四个步骤：编译-&gt;加载-&gt;解释-&gt;执行</p>
+</li>
+<li><ul>
+<li>「编译」经过 语法分析、语义分析、注解处理 最后才生成会class文件</li>
+<li>「加载」又可以细分步骤为：装载-&gt;连接-&gt;初始化。装载则把class文件装载至JVM，连接则校验class信息、分配内存空间及赋默认值，初始化则为变量赋值为正确的初始值。连接里又可以细化为：验证、准备、解析</li>
+<li>「解释」则是把字节码转换成操作系统可识别的执行指令，在JVM中会有字节码解释器和即时编译器。在解释时会对代码进行分析，查看是否为「热点代码」，如果为「热点代码」则触发JIT编译，下次执行时就无需重复进行解释，提高解释速度</li>
+<li>「执行」调用系统的硬件执行最终的程序指令</li>
+<li></li>
+</ul>
+</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/36XlDf_20211229115158.png"></p>
+
+      
+    </div>
+
+    
+    
+    
+
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>l
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/3973d3db/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lion.png">
+      <meta itemprop="name" content="swimminghao">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="swimminghao's blog">
+      <meta itemprop="description" content="swimminghao的学习博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | swimminghao's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/3973d3db/" class="post-title-link" itemprop="url">26、【对线面试官】双亲委派机制</a>
+        </h2>
+
+        <div class="post-meta-container">
+
+          
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2025-02-13 16:20:39" itemprop="dateModified" datetime="2025-02-13T16:20:39+08:00">2025-02-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/posts/3973d3db/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/3973d3db/" data-xid="/posts/3973d3db/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>2.9k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>3 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="26、【对线面试官】双亲委派机制"><a href="#26、【对线面试官】双亲委派机制" class="headerlink" title="26、【对线面试官】双亲委派机制"></a>26、【对线面试官】双亲委派机制</h1><h2 id="接着上次的话题吧，要不你来详细讲讲双亲委派机制？"><a href="#接着上次的话题吧，要不你来详细讲讲双亲委派机制？" class="headerlink" title="接着上次的话题吧，要不你来详细讲讲双亲委派机制？"></a>接着上次的话题吧，要不你来详细讲讲双亲委派机制？</h2><ul>
+<li>上次提到了：class文件是通过「类加载器」装载至JVM中的</li>
+<li>为了防止内存中存在多份同样的字节码，使用了双亲委派机制（它不会自己去尝试加载类，而是把请求委托给父加载器去完成，依次向上）</li>
+<li>JDK中的本地方法类一般由根加载器（Bootstrp loader）装载JDK中内部实现的扩展类一般由扩展加载器（ExtClassLoader）实现装载入而程序中的类文件则由系统加载器（AppClassLoader）实现装载。</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/aWnCRl_20211229133925.png" alt="java类加载结构图"></p>
+<h2 id="打破双亲委派机制是什么意思？"><a href="#打破双亲委派机制是什么意思？" class="headerlink" title="打破双亲委派机制是什么意思？"></a>打破双亲委派机制是什么意思？</h2><ul>
+<li>很好理解啊，意思就是：只要我加载类的时候，不是从App ClassLoader-》ExtClassLoader-&gt;BootStrap ClassLoader这个顺序找，那就算是打破了啊</li>
+<li>因为加载classi核心的方法在LoaderClass类的loadClass方法上（双亲委派机制的核心实现）</li>
+<li>那只要我自定义个ClassLoader，重写loadClass方法（不依照往上开始寻找类加载器），那就算是打破双亲委派机制了。</li>
+</ul>
+<h2 id="那你知道有哪个场景破坏了双亲委派机制吗？"><a href="#那你知道有哪个场景破坏了双亲委派机制吗？" class="headerlink" title="那你知道有哪个场景破坏了双亲委派机制吗？"></a>那你知道有哪个场景破坏了双亲委派机制吗？</h2><ul>
+<li>tomcat</li>
+<li>部署项目时，会把war包放到tomcat的webapp下，这意味着一个tomcat可以运行多个Web应用程序<ul>
+<li>那假设我现在有两个Web应用程序，它们都有一个类，叫做User，并且它们的类全限定名都一样，比如都是com.yyy.User。但是他们的具体实现是不一样的</li>
+<li>那么Tomcat是如何保证它们是不会冲突的呢？</li>
+</ul>
+</li>
+<li>答案就是，那就是tomcat做了Web应用层级的隔离。Tomcat给每个Web应用创建一个类加载器实例（WebAppClassLoader），该加载器重写了loadClass方法，优先加载当前应用目录下的类，如果当前找不到了，才一层一层往上找</li>
+</ul>
+<h2 id="Tomcat还有哪些类加载器吗？"><a href="#Tomcat还有哪些类加载器吗？" class="headerlink" title="Tomcat还有哪些类加载器吗？"></a>Tomcat还有哪些类加载器吗？</h2><ul>
+<li><p>并不是Web应用程序下的所有依赖都需要隔离的，比如Redis，因为如果版本相同，没必要每个Web应用程序都独自加载一份，就可以Web应用程序之间共享</p>
+<ul>
+<li>做法也很简单，Tomcat就在WebAppClassLoader.上加了个父类加载器（SharedClassLoader），如果WebAppClassLoader自身没有加载到某个类，那就委托SharedClassLoader去加载。</li>
+<li>（无非就是把需要应用程序之间需要共享的类放到一个共享目录下，Share ClassLoader读共享目录的类就好了）</li>
+</ul>
+</li>
+<li><p>为了隔绝Web应用程序与Tomcat本身的类，又有类加载器（CatalinaClassLoader）来装载Tomcat本身的依赖</p>
+</li>
+<li><p>如果Tomcat本身的依赖和Web应用还需要共享，那么还有类加载器（CommonClassLoader）来装载进而达到共享</p>
+</li>
+<li><p>各个类加载器的加载目录可以到tomcat的catalina.properties配置文件上查看</p>
+<center>Tomcat的类加载结构图</center>
+![](https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/Q0RM1Q_20211229140203.png)</li>
+</ul>
+<h2 id="JDBC你不是知道吗，听说它也是破坏了双亲委派模型的，你是怎么理解的？"><a href="#JDBC你不是知道吗，听说它也是破坏了双亲委派模型的，你是怎么理解的？" class="headerlink" title="JDBC你不是知道吗，听说它也是破坏了双亲委派模型的，你是怎么理解的？"></a>JDBC你不是知道吗，听说它也是破坏了双亲委派模型的，你是怎么理解的？</h2><ul>
+<li><p>JDBC定义了接口。具体实现类由各个厂商进行实现嘛（比如MySQL）</p>
+<ul>
+<li>类加载有个规则：如里一个类由类加载器A加载那么，这个类的依赖类也是由「相同的类加载器」加载。</li>
+<li>我们用JDBC的时候，是用DriverManager进而获取Connection，DriverManager在java.sql包下，显然是由BootStrap类加载器进行装载</li>
+<li>当我们使用DriverManager.getConnection()时，得到的一定是厂商实现的类.</li>
+<li>但因为这些实现类又不在java包中，BootStrap ClassLoaders并不能加载到各个厂商实现的类</li>
+</ul>
+</li>
+<li><p>DriverManager的解决方案就是，在DriverManager切始化的时候，得到「线程上下文加载器」</p>
+<ul>
+<li>获取Connection的时候，是使用「线程上下文加载器」去加载Connection的，而这里的线程上下文加载器实际上还是App ClassLoader</li>
+<li>所以在获取Connection的时候，还是先找ExtClassLoader和BootStrapClassLoader，只不过这两加载器肯定是加载不到的，最终会由AppClassLoader进行加载</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>那这种情况，有的人觉得破坏了双亲委派机制，因为本来明明应该是由BootStrapClassLoader进行加载的，结果来了手「线程上下文加载器」，改掉了<br>类加载器</li>
+<li>有的人觉得没破坏双亲委派机制，只是改成由「线程上下文加载器」进行类载，但还是遵守着：「依次往上找父类加载器进行加载，都找不到时才由自身加载」。认为“原则“上是没变的。</li>
+</ul>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p><strong>前置知识</strong>：JDK中默认类加载器有三个：AppClassLoader、Ext ClassLoader、BootStrap ClassLoader。AppClassLoader的父加载器为Ext ClassLoader、Ext ClassLoader的父加载器为BootStrap ClassLoader。这里的父子关系并不是通过继承实现的，而是组合。</p>
+<p><strong>什么是双亲委派机制</strong>：加载器在加载过程中，先把类交由父类加载器进行加载，父类加载器没找到才由自身加载。</p>
+<p><strong>双亲委派机制目的</strong>：为了防止内存中存在多份同样的字节码（安全）</p>
+<p><strong>类加载规则</strong>：如果一个类由类加载器A加载，那么这个类的依赖类也是由「相同的类加载器」加载。</p>
+<p><strong>如何打破双亲委派机制</strong>：自定义ClassLoader，重写loadClass方法（只要不依次往上交给父加载器进行加载，就算是打破双亲委派机制）</p>
+<p><strong>打破双亲委派机制案例</strong>：Tomcat</p>
+<ol>
+<li>为了Web应用程序类之间隔离，为每个应用程序创建WebAppClassLoader类加载器</li>
+<li>为了Web应用程序类之间共享，把ShareClassLoader作为WebAppClassLoader的父类加载器，如果WebAppClassLoader加载器找不到，则尝试用ShareClassLoader进行加载</li>
+<li>为了Tomcat本身与Web应用程序类隔离，用CatalinaClassLoader类加载器进行隔离，CatalinaClassLoader加载Tomcat本身的类</li>
+<li>为了Tomcat与Web应用程序类共享，用CommonClassLoader作为CatalinaClassLoader和ShareClassLoader的父类加载器</li>
+<li>ShareClassLoader、CatalinaClassLoader、CommonClassLoader的目录可以在Tomcat的catalina.properties进行配置</li>
 </ol>
-<h2 id="价值体现"><a href="#价值体现" class="headerlink" title="价值体现"></a>价值体现</h2><p>嗯，其实我想问，就是我要是..去到贵公司是做什么内容？还有就是..</p>
+<p><strong>线程上下文加载器</strong>：由于类加载的规则，很可能导致父加载器加载时依赖子加载器的类，导致无法加载成功（BootStrap ClassLoader无法加载第三方库的类），所以存在「线程上下文加载器」来进行加载。</p>
 
       
     </div>
