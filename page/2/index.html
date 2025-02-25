@@ -219,6 +219,11 @@
 	</div>
 	<ul class="links-of-blogroll-list recent-posts-list">
 	        <li class="my-links-of-blogroll-item">
+		    <a href="/posts/ce2466fb/" title="解决 Parallels Desktop 17 无法连接网络问题" target="">
+		    解决 Parallels Desktop 17 无法连接网络问题
+		    </a>
+		</li>
+	        <li class="my-links-of-blogroll-item">
 		    <a href="/posts/967669ed/" title="holer-server项目解读" target="">
 		    holer-server项目解读
 		    </a>
@@ -236,11 +241,6 @@
 	        <li class="my-links-of-blogroll-item">
 		    <a href="/posts/1afe5736/" title="DBeaver Ultimate Edition 免费破解使用" target="">
 		    DBeaver Ultimate Edition 免费破解使用
-		    </a>
-		</li>
-	        <li class="my-links-of-blogroll-item">
-		    <a href="/posts/7a47e8be/" title="为何大多数程序员做不了独立开发者？" target="">
-		    为何大多数程序员做不了独立开发者？
 		    </a>
 		</li>
 	</ul>
@@ -267,6 +267,141 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/243c12fc/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lion.png">
+      <meta itemprop="name" content="swimminghao">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="swimminghao's blog">
+      <meta itemprop="description" content="swimminghao的学习博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | swimminghao's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/243c12fc/" class="post-title-link" itemprop="url">mac catalina 手动安装openssl@3</a>
+        </h2>
+
+        <div class="post-meta-container">
+
+          
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2024-04-30 23:30:00" itemprop="dateCreated datePublished" datetime="2024-04-30T23:30:00+08:00">2024-04-30</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2025-02-13 16:20:39" itemprop="dateModified" datetime="2025-02-13T16:20:39+08:00">2025-02-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">工具</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/posts/243c12fc/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/243c12fc/" data-xid="/posts/243c12fc/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>775</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>1 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="mac-catalina-手动安装openssl-3"><a href="#mac-catalina-手动安装openssl-3" class="headerlink" title="mac catalina 手动安装openssl@3"></a>mac catalina 手动安装openssl@3</h1><p>mac catalina 通过homebrew 安装 openssl 失败，被嫌弃系统太老，make test 测试不通过</p>
+<p>I manually installed openssl@3 with the following commands</p>
+<ol>
+<li>Download the latest version from <code>https://www.openssl.org/source/openssl-3.1.1.tar.gz</code></li>
+<li>Uncompress the file with double click and open the terminal. Find the created folder and cd openssl-3.1.1</li>
+<li>Continue with<br><code>perl ./Configure --prefix=/usr/local --openssldir=/usr/local/openssl no-ssl3 no-ssl3-method no-zlib darwin64-x86_64-cc enable-ec_nistp_64_gcc_128</code></li>
+<li><code>make</code></li>
+<li><code>make test</code> (optional) I passed all tests</li>
+<li><code>sudo make install MANDIR=/usr/local/Cellar/openssl@3/3.1.1_1/share/man MANSUFFIX=ssl</code></li>
+<li><code>openssl version</code> (optional - verification). It should report OpenSSL 3.1.1 30 May 2023 (Library: OpenSSL 3.1.1 30 May 2023)</li>
+<li><code>which -a openssl</code> (optional).</li>
+<li><code>brew link openssl@3</code></li>
+<li><code>brew list</code> (optional) you should see the openssl@3 inside installed packages.</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>l
+
+
+
 
     
 
@@ -400,155 +535,6 @@
 <ol>
 <li>重装旧版本应用，重装后不要立即启动</li>
 <li>停用所有更新相关服务</li>
-</ol>
-
-      
-    </div>
-
-    
-    
-    
-
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>l
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/ce2466fb/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/lion.png">
-      <meta itemprop="name" content="swimminghao">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="swimminghao's blog">
-      <meta itemprop="description" content="swimminghao的学习博客">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | swimminghao's blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/ce2466fb/" class="post-title-link" itemprop="url">解决 Parallels Desktop 17 无法连接网络问题</a>
-        </h2>
-
-        <div class="post-meta-container">
-
-          
-
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2024-02-25 15:59:00" itemprop="dateCreated datePublished" datetime="2024-02-25T15:59:00+08:00">2024-02-25</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2025-02-25 15:59:49" itemprop="dateModified" datetime="2025-02-25T15:59:49+08:00">2025-02-25</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">工具</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="far fa-comment"></i>
-    </span>
-    <span class="post-meta-item-text">Waline：</span>
-  
-    <a title="waline" href="/posts/ce2466fb/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/ce2466fb/" data-xid="/posts/ce2466fb/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>1.2k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>1 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="解决-Parallels-Desktop-17-无法连接网络问题"><a href="#解决-Parallels-Desktop-17-无法连接网络问题" class="headerlink" title="解决 Parallels Desktop 17 无法连接网络问题"></a>解决 Parallels Desktop 17 无法连接网络问题</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>不少小伙伴在 macOS Big Sur 或 Monterey 中安装 Parallels Desktop 16&#x2F;17 之后，都遇到了<strong>初始化网络失败</strong>，无法连接网络的问题。</p>
-<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><p>我们只要修改两个文件的配置即可：</p>
-<blockquote>
-<ul>
-<li><code>/Library/Preferences/Parallels/dispatcher.desktop.xml</code></li>
-<li><code>/Library/Preferences/Parallels/network.desktop.xml</code></li>
-</ul>
-</blockquote>
-<p>可以通过 Finder 的<strong>前往文件夹</strong>功能直达:</p>
-<ol>
-<li>打开 <code>dispatcher.desktop.xml</code> 文件，找到 <code>&lt;Usb&gt;0&lt;/Usb&gt;</code>，修改为 <code>&lt;Usb&gt;1&lt;/Usb&gt;</code> 并保存。</li>
-</ol>
-<blockquote>
-<p>另外，有些小白朋友可能按截图中的行号来找，这是不对的。可通过 ⌘ + F 键，然后输入关键词，来快速定位。</p>
-</blockquote>
-<p>![3.webp.jpg](<a target="_blank" rel="noopener" href="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2024/09/13/CleanShot">https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2024/09/13/CleanShot</a> 2024-09-13 at <a href="mailto:&#x31;&#x30;&#x2e;&#50;&#51;&#46;&#x33;&#54;&#64;&#x32;&#120;&#46;&#112;&#110;&#103;">&#x31;&#x30;&#x2e;&#50;&#51;&#46;&#x33;&#54;&#64;&#x32;&#120;&#46;&#112;&#110;&#103;</a>)</p>
-<ol start="2">
-<li>打开 <code>network.desktop.xml</code> 文件，找到 <code>&lt;UseKextless&gt;1&lt;/UseKextless&gt;</code> 或 <code>&lt;UseKextless&gt;-1&lt;/UseKextless&gt;</code>，修改为 <code>&lt;UseKextless&gt;0&lt;/UseKextless&gt;</code> 并保存。</li>
-</ol>
-<p>![2.webp.jpg](<a target="_blank" rel="noopener" href="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2024/09/13/CleanShot">https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2024/09/13/CleanShot</a> 2024-09-13 at <a href="mailto:&#x31;&#48;&#x2e;&#x32;&#52;&#x2e;&#49;&#55;&#x40;&#x32;&#x78;&#46;&#x70;&#x6e;&#103;">&#x31;&#48;&#x2e;&#x32;&#52;&#x2e;&#49;&#55;&#x40;&#x32;&#x78;&#46;&#x70;&#x6e;&#103;</a>)</p>
-<p>如果找不到 <code>&lt;UseKextless&gt;1&lt;/UseKextless&gt;</code> 或 <code>&lt;UseKextless&gt;-1&lt;/UseKextless&gt;</code>，那么需要新增一行。</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">ParallelsNetworkConfig</span> <span class="attr">schemaVersion</span>=<span class="string">&quot;1.0&quot;</span> <span class="attr">dyn_lists</span>=<span class="string">&quot;VirtualNetworks 1&quot;</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- 在第一行新增即可 --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">UseKextless</span>&gt;</span>0<span class="tag">&lt;/<span class="name">UseKextless</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ParallelsNetworkConfig</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-
-
-<ol start="3">
-<li>完全退出 Parallels Desktop，重新打开，就能正常连接网络了。</li>
 </ol>
 
       
