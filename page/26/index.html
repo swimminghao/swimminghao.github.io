@@ -104,7 +104,7 @@
         <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
         <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">52</span></a></li>
         <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">17</span></a></li>
-        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">271</span></a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">272</span></a></li>
         <li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
@@ -176,7 +176,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">271</span>
+          <span class="site-state-item-count">272</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -267,6 +267,348 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/cec762c6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lion.png">
+      <meta itemprop="name" content="swimminghao">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="swimminghao's blog">
+      <meta itemprop="description" content="swimminghao的学习博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | swimminghao's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/cec762c6/" class="post-title-link" itemprop="url">explain结果每个字段的含义说明</a>
+        </h2>
+
+        <div class="post-meta-container">
+
+          
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2025-02-13 16:20:39" itemprop="dateModified" datetime="2025-02-13T16:20:39+08:00">2025-02-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/posts/cec762c6/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/cec762c6/" data-xid="/posts/cec762c6/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>6.4k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>6 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="explain结果每个字段的含义说明"><a href="#explain结果每个字段的含义说明" class="headerlink" title="explain结果每个字段的含义说明"></a>explain结果每个字段的含义说明</h1><p>我们都知道用<code>explain xxx</code>分析sql语句的性能，但是具体从explain的结果怎么分析性能以及每个字段的含义你清楚吗？这里我做下总结记录，也是供自己以后参考。</p>
+<blockquote>
+<ul>
+<li>首先需要注意：<strong>MYSQL 5.6.3</strong>以前只能<code>EXPLAIN SELECT</code>; MYSQL5.6.3以后就可以<code>EXPLAIN SELECT,UPDATE,DELETE</code></li>
+</ul>
+</blockquote>
+<hr>
+<p>explain结果示例：</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; explain select * from staff;</span><br><span class="line">+----+-------------+-------+------+---------------+------+---------+------+------+-------+</span><br><span class="line"><span class="params">| id |</span> select_type <span class="params">| table |</span> type <span class="params">| possible_keys |</span> key  <span class="params">| key_len |</span> ref  <span class="params">| rows |</span> Extra <span class="params">|</span></span><br><span class="line"><span class="params">+----+-------------+-------+------+---------------+------+---------+------+------+-------+</span></span><br><span class="line"><span class="params">|</span>  <span class="number">1</span> <span class="params">| SIMPLE      |</span> staff <span class="params">| ALL  |</span> NULL          <span class="params">| NULL |</span> NULL    <span class="params">| NULL |</span>    <span class="number">2</span> <span class="params">| NULL  |</span></span><br><span class="line">+----+-------------+-------+------+---------------+------+---------+------+------+-------+</span><br><span class="line"><span class="number">1</span> row <span class="keyword">in</span> set</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p>先上一个官方文档表格的中文版：</p>
+<table>
+<thead>
+<tr>
+<th>Column</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>id</td>
+<td>查询序号</td>
+</tr>
+<tr>
+<td>select_type</td>
+<td>查询类型</td>
+</tr>
+<tr>
+<td>table</td>
+<td>表名</td>
+</tr>
+<tr>
+<td>partitions</td>
+<td>匹配的分区</td>
+</tr>
+<tr>
+<td>type</td>
+<td>join类型</td>
+</tr>
+<tr>
+<td>prossible_keys</td>
+<td>可能会选择的索引</td>
+</tr>
+<tr>
+<td>key</td>
+<td>实际选择的索引</td>
+</tr>
+<tr>
+<td>key_len</td>
+<td>索引的长度</td>
+</tr>
+<tr>
+<td>ref</td>
+<td>与索引作比较的列</td>
+</tr>
+<tr>
+<td>rows</td>
+<td>要检索的行数(估算值)</td>
+</tr>
+<tr>
+<td>filtered</td>
+<td>查询条件过滤的行数的百分比</td>
+</tr>
+<tr>
+<td>Extra</td>
+<td>额外信息</td>
+</tr>
+</tbody></table>
+<p>这是explain结果的各个字段，分别解释下含义：</p>
+<h2 id="1-id"><a href="#1-id" class="headerlink" title="1. id"></a>1. id</h2><p>SQL查询中的序列号。</p>
+<blockquote>
+<p>id列数字越大越先执行，如果说数字一样大，那么就从上往下依次执行。</p>
+</blockquote>
+<h2 id="2-select-type"><a href="#2-select-type" class="headerlink" title="2. select_type"></a>2. select_type</h2><p>查询的类型，可以是下表的任何一种类型：</p>
+<table>
+<thead>
+<tr>
+<th>select_type</th>
+<th>类型说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>SIMPLE</td>
+<td>简单SELECT(不使用UNION或子查询)</td>
+</tr>
+<tr>
+<td>PRIMARY</td>
+<td>最外层的SELECT</td>
+</tr>
+<tr>
+<td>UNION</td>
+<td>UNION中第二个或之后的SELECT语句</td>
+</tr>
+<tr>
+<td>DEPENDENT UNION</td>
+<td>UNION中第二个或之后的SELECT语句取决于外面的查询</td>
+</tr>
+<tr>
+<td>UNION RESULT</td>
+<td>UNION的结果</td>
+</tr>
+<tr>
+<td>SUBQUERY</td>
+<td>子查询中的第一个SELECT</td>
+</tr>
+<tr>
+<td>DEPENDENT SUBQUERY</td>
+<td>子查询中的第一个SELECT, 取决于外面的查询</td>
+</tr>
+<tr>
+<td>DERIVED</td>
+<td>衍生表(FROM子句中的子查询)</td>
+</tr>
+<tr>
+<td>MATERIALIZED</td>
+<td>物化子查询</td>
+</tr>
+<tr>
+<td>UNCACHEABLE SUBQUERY</td>
+<td>结果集无法缓存的子查询，必须重新评估外部查询的每一行</td>
+</tr>
+<tr>
+<td>UNCACHEABLE UNION</td>
+<td>UNION中第二个或之后的SELECT，属于无法缓存的子查询</td>
+</tr>
+</tbody></table>
+<p>DEPENDENT 意味着使用了关联子查询。</p>
+<h2 id="3-table"><a href="#3-table" class="headerlink" title="3. table"></a>3. table</h2><p>查询的表名。不一定是实际存在的表名。<br>可以为如下的值：</p>
+<ul>
+<li>&lt;unionM,N&gt;: 引用id为M和N UNION后的结果。</li>
+<li><derivedN>: 引用id为N的结果派生出的表。派生表可以是一个结果集，例如派生自FROM中子查询的结果。</li>
+<li><subqueryN>: 引用id为N的子查询结果物化得到的表。即生成一个临时表保存子查询的结果。</li>
+</ul>
+<h2 id="4-type（重要）"><a href="#4-type（重要）" class="headerlink" title="4. type（重要）"></a>4. type（重要）</h2><p>这是<strong>最重要的字段之一</strong>，显示查询使用了何种类型。从最好到最差的连接类型依次为：</p>
+<blockquote>
+<p><strong>system，const，eq_ref，ref，fulltext，ref_or_null，index_merge，unique_subquery，index_subquery，range，index，ALL</strong></p>
+</blockquote>
+<p>除了all之外，其他的type都可以使用到索引，除了index_merge之外，其他的type只可以用到一个索引。</p>
+<ul>
+<li><h6 id="1、system"><a href="#1、system" class="headerlink" title="1、system"></a>1、system</h6></li>
+</ul>
+<p>表中只有一行数据或者是空表，这是const类型的一个特例。且只能用于myisam和memory表。如果是Innodb引擎表，type列在这个情况通常都是all或者index</p>
+<ul>
+<li><h6 id="2、const"><a href="#2、const" class="headerlink" title="2、const"></a>2、const</h6></li>
+</ul>
+<p>最多只有一行记录匹配。当联合主键或唯一索引的所有字段跟常量值比较时，join类型为const。其他数据库也叫做唯一索引扫描</p>
+<ul>
+<li><h6 id="3、eq-ref"><a href="#3、eq-ref" class="headerlink" title="3、eq_ref"></a>3、eq_ref</h6></li>
+</ul>
+<p>多表join时，对于来自前面表的每一行，在当前表中只能找到一行。这可能是除了system和const之外最好的类型。当主键或唯一非NULL索引的所有字段都被用作join联接时会使用此类型。</p>
+<p>eq_ref可用于使用’&#x3D;’操作符作比较的索引列。比较的值可以是常量，也可以是使用在此表之前读取的表的列的表达式。</p>
+<blockquote>
+<p><strong>相对于下面的ref区别就是它使用的唯一索引，即主键或唯一索引，而ref使用的是非唯一索引或者普通索引。<br>eq_ref只能找到一行，而ref能找到多行。</strong></p>
+</blockquote>
+<ul>
+<li><h6 id="4、ref"><a href="#4、ref" class="headerlink" title="4、ref"></a>4、ref</h6></li>
+</ul>
+<p>对于来自前面表的每一行，在此表的索引中可以匹配到多行。若联接只用到索引的最左前缀或索引不是主键或唯一索引时，使用ref类型（也就是说，此联接能够匹配多行记录）。</p>
+<p>ref可用于使用’&#x3D;’或’&lt;&#x3D;&gt;’操作符作比较的索引列。</p>
+<ul>
+<li><h6 id="5、-fulltext"><a href="#5、-fulltext" class="headerlink" title="5、 fulltext"></a>5、 fulltext</h6></li>
+</ul>
+<p>使用全文索引的时候是这个类型。要注意，<strong>全文索引的优先级很高</strong>，若全文索引和普通索引同时存在时，mysql不管代价，优先选择使用全文索引</p>
+<ul>
+<li><h6 id="6、ref-or-null"><a href="#6、ref-or-null" class="headerlink" title="6、ref_or_null"></a>6、ref_or_null</h6></li>
+</ul>
+<p>跟ref类型类似，只是增加了null值的比较。实际用的不多。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">eg.</span><br><span class="line">SELECT * FROM ref_table</span><br><span class="line">WHERE key_column=expr OR key_column IS <span class="literal">NULL</span>;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><h6 id="7、index-merge"><a href="#7、index-merge" class="headerlink" title="7、index_merge"></a>7、index_merge</h6></li>
+</ul>
+<p>表示查询使用了两个以上的索引，最后取交集或者并集，常见and ，or的条件使用了不同的索引，官方排序这个在ref_or_null之后，但是实际上由于要读取多个索引，性能可能大部分时间都不如range</p>
+<ul>
+<li><h6 id="8、unique-subquery"><a href="#8、unique-subquery" class="headerlink" title="8、unique_subquery"></a>8、unique_subquery</h6></li>
+</ul>
+<p>用于where中的in形式子查询，子查询返回不重复值唯一值，可以完全替换子查询，效率更高。<br>该类型替换了下面形式的IN子查询的ref：<br><code>value IN (SELECT primary_key FROM single_table WHERE some_expr)</code></p>
+<ul>
+<li><h6 id="9、index-subquery"><a href="#9、index-subquery" class="headerlink" title="9、index_subquery"></a>9、index_subquery</h6></li>
+</ul>
+<p>该联接类型类似于unique_subquery。适用于非唯一索引，可以返回重复值。</p>
+<ul>
+<li><h6 id="10、range"><a href="#10、range" class="headerlink" title="10、range"></a>10、range</h6></li>
+</ul>
+<p>索引范围查询，常见于使用 &#x3D;, &lt;&gt;, &gt;, &gt;&#x3D;, &lt;, &lt;&#x3D;, IS NULL, &lt;&#x3D;&gt;, BETWEEN, IN()或者like等运算符的查询中。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM tbl_name</span><br><span class="line">  WHERE key_column BETWEEN <span class="number">10</span> <span class="keyword">and</span> <span class="number">20</span>;</span><br><span class="line"></span><br><span class="line"><span class="function">SELECT * FROM tbl_name</span></span><br><span class="line"><span class="function">  WHERE key_column <span class="title">IN</span> <span class="params">(<span class="number">10</span>,<span class="number">20</span>,<span class="number">30</span>)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><h6 id="11、index"><a href="#11、index" class="headerlink" title="11、index"></a>11、index</h6></li>
+</ul>
+<p>索引全表扫描，把索引从头到尾扫一遍。这里包含两种情况：<br>一种是查询使用了覆盖索引，那么它只需要扫描索引就可以获得数据，这个效率要比全表扫描要快，因为索引通常比数据表小，而且还能避免二次查询。在extra中显示Using index，反之，如果在索引上进行全表扫描，没有Using index的提示。</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 此表见有一个name列索引。</span></span><br><span class="line"><span class="comment"># 因为查询的列name上建有索引，所以如果这样type走的是index</span></span><br><span class="line">mysql&gt; explain select name from testa;</span><br><span class="line">+----+-------------+-------+-------+---------------+----------+---------+------+------+-------------+</span><br><span class="line"><span class="params">| id |</span> select_type <span class="params">| table |</span> type  <span class="params">| possible_keys |</span> key      <span class="params">| key_len |</span> ref  <span class="params">| rows |</span> Extra       <span class="params">|</span></span><br><span class="line"><span class="params">+----+-------------+-------+-------+---------------+----------+---------+------+------+-------------+</span></span><br><span class="line"><span class="params">|</span>  <span class="number">1</span> <span class="params">| SIMPLE      |</span> testa <span class="params">| index |</span> NULL          <span class="params">| idx_name |</span> <span class="number">33</span>      <span class="params">| NULL |</span>    <span class="number">2</span> <span class="params">| Using index |</span></span><br><span class="line">+----+-------------+-------+-------+---------------+----------+---------+------+------+-------------+</span><br><span class="line"><span class="number">1</span> row <span class="keyword">in</span> set</span><br><span class="line"></span><br><span class="line"><span class="comment"># 因为查询的列cusno没有建索引，或者查询的列包含没有索引的列，这样查询就会走ALL扫描，如下：</span></span><br><span class="line">mysql&gt; explain select cusno from testa;</span><br><span class="line">+----+-------------+-------+------+---------------+------+---------+------+------+-------+</span><br><span class="line"><span class="params">| id |</span> select_type <span class="params">| table |</span> type <span class="params">| possible_keys |</span> key  <span class="params">| key_len |</span> ref  <span class="params">| rows |</span> Extra <span class="params">|</span></span><br><span class="line"><span class="params">+----+-------------+-------+------+---------------+------+---------+------+------+-------+</span></span><br><span class="line"><span class="params">|</span>  <span class="number">1</span> <span class="params">| SIMPLE      |</span> testa <span class="params">| ALL  |</span> NULL          <span class="params">| NULL |</span> NULL    <span class="params">| NULL |</span>    <span class="number">2</span> <span class="params">| NULL  |</span></span><br><span class="line">+----+-------------+-------+------+---------------+------+---------+------+------+-------+</span><br><span class="line"><span class="number">1</span> row <span class="keyword">in</span> set</span><br><span class="line"></span><br><span class="line"><span class="comment"># 包含有未见索引的列</span></span><br><span class="line">mysql&gt; explain select * from testa;</span><br><span class="line">+----+-------------+-------+------+---------------+------+---------+------+------+-------+</span><br><span class="line"><span class="params">| id |</span> select_type <span class="params">| table |</span> type <span class="params">| possible_keys |</span> key  <span class="params">| key_len |</span> ref  <span class="params">| rows |</span> Extra <span class="params">|</span></span><br><span class="line"><span class="params">+----+-------------+-------+------+---------------+------+---------+------+------+-------+</span></span><br><span class="line"><span class="params">|</span>  <span class="number">1</span> <span class="params">| SIMPLE      |</span> testa <span class="params">| ALL  |</span> NULL          <span class="params">| NULL |</span> NULL    <span class="params">| NULL |</span>    <span class="number">2</span> <span class="params">| NULL  |</span></span><br><span class="line">+----+-------------+-------+------+---------------+------+---------+------+------+-------+</span><br><span class="line"><span class="number">1</span> row <span class="keyword">in</span> set</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><h6 id="12、all"><a href="#12、all" class="headerlink" title="12、all"></a>12、all</h6></li>
+</ul>
+<p>全表扫描，性能最差。</p>
+<h2 id="5-partitions"><a href="#5-partitions" class="headerlink" title="5. partitions"></a>5. partitions</h2><p>版本5.7以前，该项是explain partitions显示的选项，5.7以后成为了默认选项。该列显示的为分区表命中的分区情况。非分区表该字段为空（null）。</p>
+<h2 id="6-possible-keys"><a href="#6-possible-keys" class="headerlink" title="6. possible_keys"></a>6. possible_keys</h2><p>查询可能使用到的索引都会在这里列出来</p>
+<h2 id="7-key"><a href="#7-key" class="headerlink" title="7. key"></a>7. key</h2><p>查询真正使用到的索引。<br>select_type为index_merge时，这里可能出现两个以上的索引，其他的select_type这里只会出现一个。</p>
+<h2 id="8-key-len"><a href="#8-key-len" class="headerlink" title="8. key_len"></a>8. key_len</h2><p>查询用到的索引长度（字节数）。<br>如果是单列索引，那就整个索引长度算进去，如果是多列索引，那么查询不一定都能使用到所有的列，用多少算多少。留意下这个列的值，算一下你的多列索引总长度就知道有没有使用到所有的列了。</p>
+<blockquote>
+<p>key_len只计算<strong>where</strong>条件用到的索引长度，而排序和分组就算用到了索引，也不会计算到key_len中。</p>
+</blockquote>
+<h2 id="9-ref"><a href="#9-ref" class="headerlink" title="9. ref"></a>9. ref</h2><p>如果是使用的常数等值查询，这里会显示const，如果是连接查询，被驱动表的执行计划这里会显示驱动表的关联字段，如果是条件使用了表达式或者函数，或者条件列发生了内部隐式转换，这里可能显示为func</p>
+<h2 id="10-rows（重要）"><a href="#10-rows（重要）" class="headerlink" title="10. rows（重要）"></a>10. rows（重要）</h2><p><strong>rows 也是一个重要的字段</strong>。 这是mysql估算的需要扫描的行数（不是精确值）。<br>这个值非常直观显示 SQL 的效率好坏, 原则上 rows 越少越好.</p>
+<h2 id="11-filtered"><a href="#11-filtered" class="headerlink" title="11. filtered"></a>11. filtered</h2><p>这个字段表示存储引擎返回的数据在server层过滤后，剩下多少满足查询的记录数量的比例，注意是百分比，不是具体记录数。这个字段不重要</p>
+<h2 id="12-extra（重要）"><a href="#12-extra（重要）" class="headerlink" title="12. extra（重要）"></a>12. extra（重要）</h2><p>EXplain 中的很多额外的信息会在 Extra 字段显示, 常见的有以下几种内容:</p>
+<ul>
+<li><strong>distinct</strong>：在select部分使用了distinc关键字</li>
+<li><strong>Using filesort</strong>：当 Extra 中有 Using filesort 时, 表示 MySQL 需额外的排序操作, 不能通过索引顺序达到排序效果. 一般有 Using filesort, 都建议优化去掉, 因为这样的查询 CPU 资源消耗大.</li>
+</ul>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"># 例如下面的例子:</span><br><span class="line"></span><br><span class="line">mysql&gt; EXPLAIN SELECT * FROM order_info ORDER BY product_name \G</span><br><span class="line">*************************** <span class="number">1.</span> row ***************************</span><br><span class="line">           <span class="keyword">id</span>: <span class="number">1</span></span><br><span class="line">  select_type: SIMPLE</span><br><span class="line">        table: order_info</span><br><span class="line">   partitions: <span class="literal">NULL</span></span><br><span class="line">         type: index</span><br><span class="line">possible_keys: <span class="literal">NULL</span></span><br><span class="line">          key: user_product_detail_index</span><br><span class="line">      key_len: <span class="number">253</span></span><br><span class="line">          ref: <span class="literal">NULL</span></span><br><span class="line">         rows: <span class="number">9</span></span><br><span class="line">     filtered: <span class="number">100.00</span></span><br><span class="line">        Extra: Using index; Using filesort</span><br><span class="line"><span class="number">1</span> row <span class="keyword">in</span> set, <span class="number">1</span> warning (<span class="number">0.00</span> sec)</span><br><span class="line">我们的索引是</span><br><span class="line"></span><br><span class="line">KEY `user_product_detail_index` (`user_id`, `product_name`, `productor`)</span><br><span class="line">但是上面的查询中根据 product_name 来排序, 因此不能使用索引进行优化, 进而会产生 Using filesort.</span><br><span class="line">如果我们将排序依据改为 ORDER BY user_id, product_name, 那么就不会出现 Using filesort 了. 例如:</span><br><span class="line"></span><br><span class="line">mysql&gt; EXPLAIN SELECT * FROM order_info ORDER BY user_id, product_name \G</span><br><span class="line">*************************** <span class="number">1.</span> row ***************************</span><br><span class="line">           <span class="keyword">id</span>: <span class="number">1</span></span><br><span class="line">  select_type: SIMPLE</span><br><span class="line">        table: order_info</span><br><span class="line">   partitions: <span class="literal">NULL</span></span><br><span class="line">         type: index</span><br><span class="line">possible_keys: <span class="literal">NULL</span></span><br><span class="line">          key: user_product_detail_index</span><br><span class="line">      key_len: <span class="number">253</span></span><br><span class="line">          ref: <span class="literal">NULL</span></span><br><span class="line">         rows: <span class="number">9</span></span><br><span class="line">     filtered: <span class="number">100.00</span></span><br><span class="line">        Extra: Using index</span><br><span class="line"><span class="number">1</span> row <span class="keyword">in</span> set, <span class="number">1</span> warning (<span class="number">0.00</span> sec)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>Using index</strong><br>“覆盖索引扫描”, 表示查询在索引树中就可查找所需数据, 不用扫描表数据文件, 往往说明<strong>性能不错</strong></li>
+<li><strong>Using temporary</strong><br>查询有使用临时表, 一般出现于排序, 分组和多表 join 的情况, 查询效率不高, 建议优化.</li>
+</ul>
+<p>除此之外还有其他值，这里就不一一一列举了。</p>
+<hr>
+<p>通过以上这些总结，以后我们看到explain的结果，就知道该从哪些字段值去分析sql语句的执行效率了。</p>
+
+      
+    </div>
+
+    
+    
+    
+
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>l
+
+
+
 
     
 
@@ -524,106 +866,106 @@
 <p>Mr. Schafer<br>Mr Smith<br>Ms Davis<br>Mrs. Robinson<br>Mr. T<br>Mr. t</p>
 <p>M(s|r|rs).? [A-Z][a-z]*</p>
 <p><a target="_blank" rel="noopener" href="https://deerchao.net/tutorials/regex/regex.htm">https://deerchao.net/tutorials/regex/regex.htm</a><br><a target="_blank" rel="noopener" href="https://regex101.com/">https://regex101.com/</a><br><a target="_blank" rel="noopener" href="https://www.regular-expressions.info/">https://www.regular-expressions.info/</a></p>
-<h1 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h1><p>Dave Martin<br>615-555-7164<br>173 Main St., Springfield RI 55924<br><a href="mailto:&#100;&#97;&#x76;&#101;&#109;&#x61;&#x72;&#x74;&#x69;&#x6e;&#x40;&#x62;&#111;&#103;&#117;&#x73;&#x65;&#x6d;&#x61;&#x69;&#108;&#x2e;&#x63;&#111;&#x6d;">&#100;&#97;&#x76;&#101;&#109;&#x61;&#x72;&#x74;&#x69;&#x6e;&#x40;&#x62;&#111;&#103;&#117;&#x73;&#x65;&#x6d;&#x61;&#x69;&#108;&#x2e;&#x63;&#111;&#x6d;</a></p>
-<p>Charles Harris<br>800-555-5669<br>969 High St., Atlantis VA 34075<br><a href="mailto:&#x63;&#x68;&#97;&#114;&#x6c;&#x65;&#x73;&#x68;&#x61;&#x72;&#114;&#x69;&#x73;&#64;&#x62;&#x6f;&#103;&#x75;&#115;&#x65;&#109;&#97;&#105;&#x6c;&#x2e;&#99;&#x6f;&#x6d;">&#x63;&#x68;&#97;&#114;&#x6c;&#x65;&#x73;&#x68;&#x61;&#x72;&#114;&#x69;&#x73;&#64;&#x62;&#x6f;&#103;&#x75;&#115;&#x65;&#109;&#97;&#105;&#x6c;&#x2e;&#99;&#x6f;&#x6d;</a></p>
-<p>Eric Williams<br>560-555-5153<br>806 1st St., Faketown AK 86847<br><a href="mailto:&#x6c;&#x61;&#117;&#x72;&#97;&#x77;&#105;&#108;&#108;&#x69;&#97;&#x6d;&#115;&#x40;&#98;&#x6f;&#x67;&#x75;&#115;&#101;&#x6d;&#x61;&#x69;&#x6c;&#x2e;&#x63;&#x6f;&#109;">&#x6c;&#x61;&#117;&#x72;&#97;&#x77;&#105;&#108;&#108;&#x69;&#97;&#x6d;&#115;&#x40;&#98;&#x6f;&#x67;&#x75;&#115;&#101;&#x6d;&#x61;&#x69;&#x6c;&#x2e;&#x63;&#x6f;&#109;</a></p>
-<p>Corey Jefferson<br>900-555-9340<br>826 Elm St., Epicburg NE 10671<br><a href="mailto:&#x63;&#x6f;&#114;&#x65;&#121;&#106;&#101;&#102;&#x66;&#101;&#114;&#x73;&#111;&#110;&#x40;&#98;&#x6f;&#103;&#x75;&#x73;&#101;&#109;&#x61;&#105;&#x6c;&#x2e;&#x63;&#111;&#x6d;">&#x63;&#x6f;&#114;&#x65;&#121;&#106;&#101;&#102;&#x66;&#101;&#114;&#x73;&#111;&#110;&#x40;&#98;&#x6f;&#103;&#x75;&#x73;&#101;&#109;&#x61;&#105;&#x6c;&#x2e;&#x63;&#111;&#x6d;</a></p>
-<p>Jennifer Martin-White<br>714-555-7405<br>212 Cedar St., Sunnydale CT 74983<br><a href="mailto:&#x6a;&#101;&#x6e;&#x6e;&#x69;&#x66;&#101;&#x72;&#x77;&#x68;&#x69;&#116;&#101;&#x40;&#x62;&#111;&#103;&#117;&#115;&#101;&#109;&#97;&#x69;&#x6c;&#x2e;&#99;&#111;&#109;">&#x6a;&#101;&#x6e;&#x6e;&#x69;&#x66;&#101;&#x72;&#x77;&#x68;&#x69;&#116;&#101;&#x40;&#x62;&#111;&#103;&#117;&#115;&#101;&#109;&#97;&#x69;&#x6c;&#x2e;&#99;&#111;&#109;</a></p>
-<p>Erick Davis<br>800-555-6771<br>519 Washington St., Olympus TN 32425<br><a href="mailto:&#116;&#x6f;&#109;&#x64;&#x61;&#118;&#105;&#x73;&#x40;&#98;&#x6f;&#x67;&#x75;&#115;&#101;&#109;&#x61;&#105;&#x6c;&#46;&#x63;&#111;&#109;">&#116;&#x6f;&#109;&#x64;&#x61;&#118;&#105;&#x73;&#x40;&#98;&#x6f;&#x67;&#x75;&#115;&#101;&#109;&#x61;&#105;&#x6c;&#46;&#x63;&#111;&#109;</a></p>
-<p>Neil Patterson<br>783-555-4799<br>625 Oak St., Dawnstar IL 61914<br><a href="mailto:&#110;&#101;&#x69;&#108;&#112;&#97;&#116;&#116;&#x65;&#x72;&#x73;&#111;&#x6e;&#x40;&#98;&#x6f;&#103;&#117;&#x73;&#x65;&#x6d;&#x61;&#x69;&#108;&#46;&#99;&#x6f;&#x6d;">&#110;&#101;&#x69;&#108;&#112;&#97;&#116;&#116;&#x65;&#x72;&#x73;&#111;&#x6e;&#x40;&#98;&#x6f;&#103;&#117;&#x73;&#x65;&#x6d;&#x61;&#x69;&#108;&#46;&#99;&#x6f;&#x6d;</a></p>
-<p>Laura Jefferson<br>516-555-4615<br>890 Main St., Pythonville LA 29947<br><a href="mailto:&#108;&#x61;&#x75;&#x72;&#x61;&#x6a;&#101;&#102;&#102;&#101;&#114;&#x73;&#x6f;&#x6e;&#64;&#x62;&#x6f;&#103;&#117;&#x73;&#x65;&#109;&#97;&#105;&#108;&#x2e;&#99;&#x6f;&#x6d;">&#108;&#x61;&#x75;&#x72;&#x61;&#x6a;&#101;&#102;&#102;&#101;&#114;&#x73;&#x6f;&#x6e;&#64;&#x62;&#x6f;&#103;&#117;&#x73;&#x65;&#109;&#97;&#105;&#108;&#x2e;&#99;&#x6f;&#x6d;</a></p>
-<p>Maria Johnson<br>127-555-1867<br>884 High St., Braavos‎ ME 43597<br><a href="mailto:&#x6d;&#x61;&#x72;&#105;&#x61;&#106;&#111;&#x68;&#x6e;&#x73;&#111;&#x6e;&#x40;&#98;&#111;&#103;&#x75;&#115;&#101;&#x6d;&#x61;&#105;&#108;&#46;&#x63;&#x6f;&#x6d;">&#x6d;&#x61;&#x72;&#105;&#x61;&#106;&#111;&#x68;&#x6e;&#x73;&#111;&#x6e;&#x40;&#98;&#111;&#103;&#x75;&#115;&#101;&#x6d;&#x61;&#105;&#108;&#46;&#x63;&#x6f;&#x6d;</a></p>
-<p>Michael Arnold<br>608-555-4938<br>249 Elm St., Quahog OR 90938<br><a href="mailto:&#109;&#105;&#x63;&#x68;&#x61;&#101;&#x6c;&#x61;&#x72;&#110;&#111;&#x6c;&#x64;&#x40;&#x62;&#111;&#x67;&#x75;&#x73;&#x65;&#x6d;&#x61;&#x69;&#108;&#46;&#99;&#x6f;&#x6d;">&#109;&#105;&#x63;&#x68;&#x61;&#101;&#x6c;&#x61;&#x72;&#110;&#111;&#x6c;&#x64;&#x40;&#x62;&#111;&#x67;&#x75;&#x73;&#x65;&#x6d;&#x61;&#x69;&#108;&#46;&#99;&#x6f;&#x6d;</a></p>
-<p>Michael Smith<br>568-555-6051<br>619 Park St., Winterfell VA 99000<br><a href="mailto:&#x6d;&#x69;&#99;&#104;&#97;&#x65;&#x6c;&#115;&#109;&#x69;&#x74;&#x68;&#x40;&#x62;&#111;&#x67;&#117;&#x73;&#x65;&#109;&#97;&#105;&#x6c;&#x2e;&#99;&#x6f;&#x6d;">&#x6d;&#x69;&#99;&#104;&#97;&#x65;&#x6c;&#115;&#109;&#x69;&#x74;&#x68;&#x40;&#x62;&#111;&#x67;&#117;&#x73;&#x65;&#109;&#97;&#105;&#x6c;&#x2e;&#99;&#x6f;&#x6d;</a></p>
-<p>Erik Stuart<br>292-555-1875<br>220 Cedar St., Lakeview NY 87282<br><a href="mailto:&#114;&#x6f;&#98;&#x65;&#114;&#x74;&#x73;&#116;&#x75;&#97;&#114;&#x74;&#64;&#98;&#x6f;&#103;&#117;&#x73;&#x65;&#109;&#97;&#105;&#108;&#x2e;&#x63;&#x6f;&#x6d;">&#114;&#x6f;&#98;&#x65;&#114;&#x74;&#x73;&#116;&#x75;&#97;&#114;&#x74;&#64;&#98;&#x6f;&#103;&#117;&#x73;&#x65;&#109;&#97;&#105;&#108;&#x2e;&#x63;&#x6f;&#x6d;</a></p>
-<p>Laura Martin<br>900-555-3205<br>391 High St., Smalltown WY 28362<br><a href="mailto:&#x6c;&#97;&#x75;&#114;&#x61;&#x6d;&#x61;&#x72;&#116;&#105;&#x6e;&#x40;&#98;&#x6f;&#x67;&#117;&#x73;&#101;&#x6d;&#97;&#x69;&#x6c;&#x2e;&#99;&#x6f;&#x6d;">&#x6c;&#97;&#x75;&#114;&#x61;&#x6d;&#x61;&#x72;&#116;&#105;&#x6e;&#x40;&#98;&#x6f;&#x67;&#117;&#x73;&#101;&#x6d;&#97;&#x69;&#x6c;&#x2e;&#99;&#x6f;&#x6d;</a></p>
-<p>Barbara Martin<br>614-555-1166<br>121 Hill St., Braavos‎ UT 92474<br><a href="mailto:&#98;&#x61;&#x72;&#98;&#97;&#x72;&#x61;&#x6d;&#x61;&#x72;&#x74;&#x69;&#x6e;&#x40;&#98;&#x6f;&#103;&#117;&#115;&#x65;&#x6d;&#x61;&#x69;&#108;&#x2e;&#x63;&#x6f;&#x6d;">&#98;&#x61;&#x72;&#98;&#97;&#x72;&#x61;&#x6d;&#x61;&#x72;&#x74;&#x69;&#x6e;&#x40;&#98;&#x6f;&#103;&#117;&#115;&#x65;&#x6d;&#x61;&#x69;&#108;&#x2e;&#x63;&#x6f;&#x6d;</a></p>
-<p>Linda Jackson<br>530-555-2676<br>433 Elm St., Westworld TX 61967<br><a href="mailto:&#108;&#105;&#110;&#x64;&#x61;&#106;&#97;&#x63;&#107;&#115;&#x6f;&#110;&#x40;&#x62;&#x6f;&#x67;&#117;&#115;&#x65;&#109;&#97;&#x69;&#108;&#x2e;&#99;&#x6f;&#x6d;">&#108;&#105;&#110;&#x64;&#x61;&#106;&#97;&#x63;&#107;&#115;&#x6f;&#110;&#x40;&#x62;&#x6f;&#x67;&#117;&#115;&#x65;&#109;&#97;&#x69;&#108;&#x2e;&#99;&#x6f;&#x6d;</a></p>
-<p>Eric Miller<br>470-555-2750<br>838 Main St., Balmora MT 56526<br><a href="mailto:&#x73;&#116;&#101;&#x76;&#x65;&#109;&#x69;&#108;&#x6c;&#101;&#x72;&#64;&#98;&#x6f;&#103;&#x75;&#x73;&#x65;&#x6d;&#x61;&#x69;&#108;&#x2e;&#99;&#x6f;&#x6d;">&#x73;&#116;&#101;&#x76;&#x65;&#109;&#x69;&#108;&#x6c;&#101;&#x72;&#64;&#98;&#x6f;&#103;&#x75;&#x73;&#x65;&#x6d;&#x61;&#x69;&#108;&#x2e;&#99;&#x6f;&#x6d;</a></p>
-<p>Dave Arnold<br>800-555-6089<br>732 High St., Valyria KY 97152<br><a href="mailto:&#100;&#97;&#x76;&#x65;&#97;&#x72;&#x6e;&#x6f;&#x6c;&#100;&#64;&#98;&#x6f;&#x67;&#x75;&#115;&#x65;&#109;&#x61;&#x69;&#x6c;&#x2e;&#x63;&#111;&#x6d;">&#100;&#97;&#x76;&#x65;&#97;&#x72;&#x6e;&#x6f;&#x6c;&#100;&#64;&#98;&#x6f;&#x67;&#x75;&#115;&#x65;&#109;&#x61;&#x69;&#x6c;&#x2e;&#x63;&#111;&#x6d;</a></p>
-<p>Jennifer Jacobs<br>880-555-8319<br>217 High St., Old-town IA 82767<br><a href="mailto:&#106;&#x65;&#110;&#x6e;&#x69;&#x66;&#x65;&#114;&#106;&#x61;&#x63;&#111;&#98;&#115;&#64;&#x62;&#111;&#103;&#117;&#x73;&#101;&#109;&#x61;&#105;&#x6c;&#x2e;&#99;&#111;&#x6d;">&#106;&#x65;&#110;&#x6e;&#x69;&#x66;&#x65;&#114;&#106;&#x61;&#x63;&#111;&#98;&#115;&#64;&#x62;&#111;&#103;&#117;&#x73;&#101;&#109;&#x61;&#105;&#x6c;&#x2e;&#99;&#111;&#x6d;</a></p>
-<p>Neil Wilson<br>777-555-8378<br>191 Main St., Mordor IL 72160<br><a href="mailto:&#110;&#101;&#x69;&#x6c;&#x77;&#x69;&#108;&#x73;&#x6f;&#110;&#64;&#x62;&#x6f;&#103;&#117;&#115;&#x65;&#x6d;&#x61;&#105;&#108;&#46;&#99;&#111;&#109;">&#110;&#101;&#x69;&#x6c;&#x77;&#x69;&#108;&#x73;&#x6f;&#110;&#64;&#x62;&#x6f;&#103;&#117;&#115;&#x65;&#x6d;&#x61;&#105;&#108;&#46;&#99;&#111;&#109;</a></p>
-<p>Kurt Jackson<br>998-555-7385<br>607 Washington St., Blackwater NH 97183<br><a href="mailto:&#107;&#117;&#x72;&#116;&#x6a;&#x61;&#x63;&#x6b;&#115;&#x6f;&#110;&#x40;&#x62;&#111;&#103;&#x75;&#115;&#101;&#109;&#97;&#105;&#x6c;&#x2e;&#x63;&#111;&#109;">&#107;&#117;&#x72;&#116;&#x6a;&#x61;&#x63;&#x6b;&#115;&#x6f;&#110;&#x40;&#x62;&#111;&#103;&#x75;&#115;&#101;&#109;&#97;&#105;&#x6c;&#x2e;&#x63;&#111;&#109;</a></p>
-<p>Mary Jacobs<br>800-555-7100<br>478 Oak St., Bedrock IA 58176<br><a href="mailto:&#109;&#97;&#x72;&#x79;&#x6a;&#97;&#99;&#x6f;&#98;&#115;&#64;&#x62;&#x6f;&#103;&#x75;&#x73;&#x65;&#x6d;&#x61;&#105;&#x6c;&#46;&#99;&#x6f;&#109;">&#109;&#97;&#x72;&#x79;&#x6a;&#97;&#99;&#x6f;&#98;&#115;&#64;&#x62;&#x6f;&#103;&#x75;&#x73;&#x65;&#x6d;&#x61;&#105;&#x6c;&#46;&#99;&#x6f;&#109;</a></p>
-<p>Michael White<br>903-555-8277<br>906 Elm St., Mordor TX 89212<br><a href="mailto:&#x6d;&#105;&#x63;&#104;&#97;&#101;&#108;&#119;&#x68;&#105;&#116;&#x65;&#x40;&#x62;&#x6f;&#103;&#x75;&#x73;&#x65;&#109;&#x61;&#105;&#x6c;&#46;&#x63;&#x6f;&#x6d;">&#x6d;&#105;&#x63;&#104;&#97;&#101;&#108;&#119;&#x68;&#105;&#116;&#x65;&#x40;&#x62;&#x6f;&#103;&#x75;&#x73;&#x65;&#109;&#x61;&#105;&#x6c;&#46;&#x63;&#x6f;&#x6d;</a></p>
-<p>Jennifer Jenkins<br>196-555-5674<br>949 Main St., Smalltown SC 96962<br><a href="mailto:&#x6a;&#x65;&#110;&#x6e;&#105;&#x66;&#101;&#114;&#x6a;&#x65;&#110;&#107;&#105;&#110;&#115;&#64;&#x62;&#x6f;&#103;&#x75;&#115;&#101;&#109;&#x61;&#x69;&#108;&#46;&#99;&#x6f;&#109;">&#x6a;&#x65;&#110;&#x6e;&#105;&#x66;&#101;&#114;&#x6a;&#x65;&#110;&#107;&#105;&#110;&#115;&#64;&#x62;&#x6f;&#103;&#x75;&#115;&#101;&#109;&#x61;&#x69;&#108;&#46;&#99;&#x6f;&#109;</a></p>
-<p>Sam Wright<br>900-555-5118<br>835 Pearl St., Smalltown ND 77737<br><a href="mailto:&#x73;&#97;&#x6d;&#119;&#114;&#105;&#103;&#104;&#116;&#x40;&#98;&#111;&#103;&#117;&#x73;&#x65;&#109;&#97;&#x69;&#x6c;&#x2e;&#x63;&#x6f;&#109;">&#x73;&#97;&#x6d;&#119;&#114;&#105;&#103;&#104;&#116;&#x40;&#98;&#111;&#103;&#117;&#x73;&#x65;&#109;&#97;&#x69;&#x6c;&#x2e;&#x63;&#x6f;&#109;</a></p>
-<p>John Davis<br>905-555-1630<br>451 Lake St., Bedrock GA 34615<br><a href="mailto:&#106;&#111;&#x68;&#x6e;&#100;&#x61;&#118;&#105;&#x73;&#64;&#98;&#111;&#x67;&#x75;&#115;&#101;&#x6d;&#x61;&#105;&#x6c;&#46;&#x63;&#x6f;&#109;">&#106;&#111;&#x68;&#x6e;&#100;&#x61;&#118;&#105;&#x73;&#64;&#98;&#111;&#x67;&#x75;&#115;&#101;&#x6d;&#x61;&#105;&#x6c;&#46;&#x63;&#x6f;&#109;</a></p>
-<p>Eric Davis<br>203-555-3475<br>419 Lake St., Balmora OR 30826<br><a href="mailto:&#x6e;&#101;&#105;&#x6c;&#x64;&#97;&#x76;&#105;&#x73;&#x40;&#98;&#111;&#x67;&#x75;&#115;&#x65;&#109;&#97;&#105;&#108;&#46;&#x63;&#x6f;&#109;">&#x6e;&#101;&#105;&#x6c;&#x64;&#97;&#x76;&#105;&#x73;&#x40;&#98;&#111;&#x67;&#x75;&#115;&#x65;&#109;&#97;&#105;&#108;&#46;&#x63;&#x6f;&#109;</a></p>
-<p>Laura Jackson<br>884-555-8444<br>443 Maple St., Quahog MS 29348<br><a href="mailto:&#x6c;&#97;&#x75;&#x72;&#97;&#106;&#97;&#99;&#x6b;&#115;&#x6f;&#110;&#64;&#x62;&#x6f;&#x67;&#x75;&#115;&#x65;&#x6d;&#97;&#x69;&#108;&#x2e;&#99;&#x6f;&#x6d;">&#x6c;&#97;&#x75;&#x72;&#97;&#106;&#97;&#99;&#x6b;&#115;&#x6f;&#110;&#64;&#x62;&#x6f;&#x67;&#x75;&#115;&#x65;&#x6d;&#97;&#x69;&#108;&#x2e;&#99;&#x6f;&#x6d;</a></p>
-<p>John Williams<br>904-555-8559<br>756 Hill St., Valyria KY 94854<br><a href="mailto:&#x6a;&#x6f;&#104;&#x6e;&#119;&#x69;&#x6c;&#x6c;&#x69;&#97;&#x6d;&#115;&#x40;&#x62;&#x6f;&#103;&#x75;&#x73;&#x65;&#x6d;&#97;&#105;&#108;&#46;&#x63;&#111;&#109;">&#x6a;&#x6f;&#104;&#x6e;&#119;&#x69;&#x6c;&#x6c;&#x69;&#97;&#x6d;&#115;&#x40;&#x62;&#x6f;&#103;&#x75;&#x73;&#x65;&#x6d;&#97;&#105;&#108;&#46;&#x63;&#111;&#109;</a></p>
-<p>Michael Martin<br>889-555-7393<br>216 High St., Olympus NV 21888<br><a href="mailto:&#x6d;&#x69;&#99;&#x68;&#x61;&#101;&#x6c;&#x6d;&#97;&#114;&#116;&#x69;&#x6e;&#x40;&#x62;&#111;&#x67;&#117;&#x73;&#x65;&#109;&#x61;&#x69;&#x6c;&#46;&#x63;&#x6f;&#109;">&#x6d;&#x69;&#99;&#x68;&#x61;&#101;&#x6c;&#x6d;&#97;&#114;&#116;&#x69;&#x6e;&#x40;&#x62;&#111;&#x67;&#117;&#x73;&#x65;&#109;&#x61;&#x69;&#x6c;&#46;&#x63;&#x6f;&#109;</a></p>
-<p>Maggie Brown<br>195-555-2405<br>806 Lake St., Lakeview MD 59348<br><a href="mailto:&#109;&#x61;&#103;&#x67;&#x69;&#101;&#98;&#x72;&#x6f;&#x77;&#x6e;&#64;&#x62;&#111;&#103;&#117;&#115;&#x65;&#109;&#x61;&#105;&#x6c;&#x2e;&#x63;&#x6f;&#x6d;">&#109;&#x61;&#103;&#x67;&#x69;&#101;&#98;&#x72;&#x6f;&#x77;&#x6e;&#64;&#x62;&#111;&#103;&#117;&#115;&#x65;&#109;&#x61;&#105;&#x6c;&#x2e;&#x63;&#x6f;&#x6d;</a></p>
-<p>Erik Wilson<br>321-555-9053<br>354 Hill St., Mordor FL 74122<br><a href="mailto:&#x6b;&#x75;&#x72;&#116;&#119;&#x69;&#108;&#x73;&#x6f;&#x6e;&#64;&#98;&#111;&#103;&#117;&#x73;&#101;&#109;&#97;&#105;&#108;&#x2e;&#x63;&#111;&#109;">&#x6b;&#x75;&#x72;&#116;&#119;&#x69;&#108;&#x73;&#x6f;&#x6e;&#64;&#98;&#111;&#103;&#117;&#x73;&#101;&#109;&#97;&#105;&#108;&#x2e;&#x63;&#111;&#109;</a></p>
-<p>Elizabeth Arnold<br>133-555-1711<br>805 Maple St., Winterfell NV 99431<br><a href="mailto:&#x65;&#x6c;&#x69;&#122;&#x61;&#98;&#101;&#116;&#x68;&#x61;&#x72;&#x6e;&#111;&#x6c;&#100;&#64;&#98;&#x6f;&#x67;&#117;&#115;&#x65;&#109;&#x61;&#105;&#108;&#x2e;&#99;&#x6f;&#109;">&#x65;&#x6c;&#x69;&#122;&#x61;&#98;&#101;&#116;&#x68;&#x61;&#x72;&#x6e;&#111;&#x6c;&#100;&#64;&#98;&#x6f;&#x67;&#117;&#115;&#x65;&#109;&#x61;&#105;&#108;&#x2e;&#99;&#x6f;&#109;</a></p>
-<p>Jane Martin<br>900-555-5428<br>418 Park St., Metropolis ID 16576<br><a href="mailto:&#x6a;&#x61;&#110;&#101;&#x6d;&#x61;&#114;&#116;&#x69;&#110;&#64;&#x62;&#x6f;&#103;&#117;&#x73;&#x65;&#x6d;&#97;&#105;&#108;&#x2e;&#x63;&#x6f;&#109;">&#x6a;&#x61;&#110;&#101;&#x6d;&#x61;&#114;&#116;&#x69;&#110;&#64;&#x62;&#x6f;&#103;&#117;&#x73;&#x65;&#x6d;&#97;&#105;&#108;&#x2e;&#x63;&#x6f;&#109;</a></p>
-<p>Travis Johnson<br>760-555-7147<br>749 Washington St., Braavos‎ SD 25668<br><a href="mailto:&#x74;&#x72;&#x61;&#118;&#x69;&#x73;&#x6a;&#111;&#x68;&#x6e;&#x73;&#x6f;&#110;&#64;&#x62;&#x6f;&#x67;&#117;&#115;&#x65;&#109;&#97;&#105;&#x6c;&#x2e;&#x63;&#111;&#109;">&#x74;&#x72;&#x61;&#118;&#x69;&#x73;&#x6a;&#111;&#x68;&#x6e;&#x73;&#x6f;&#110;&#64;&#x62;&#x6f;&#x67;&#117;&#115;&#x65;&#109;&#97;&#105;&#x6c;&#x2e;&#x63;&#111;&#109;</a></p>
-<p>Laura Jefferson<br>391-555-6621<br>122 High St., Metropolis ME 29540<br><a href="mailto:&#108;&#97;&#x75;&#x72;&#97;&#x6a;&#101;&#x66;&#x66;&#x65;&#114;&#115;&#x6f;&#110;&#64;&#98;&#x6f;&#103;&#x75;&#x73;&#x65;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;">&#108;&#97;&#x75;&#x72;&#97;&#x6a;&#101;&#x66;&#x66;&#x65;&#114;&#115;&#x6f;&#110;&#64;&#98;&#x6f;&#103;&#x75;&#x73;&#x65;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;</a></p>
-<p>Tom Williams<br>932-555-7724<br>610 High St., Old-town FL 60758<br><a href="mailto:&#x74;&#111;&#x6d;&#x77;&#x69;&#108;&#108;&#105;&#x61;&#109;&#115;&#x40;&#98;&#111;&#103;&#117;&#115;&#101;&#109;&#x61;&#x69;&#108;&#x2e;&#x63;&#x6f;&#109;">&#x74;&#111;&#x6d;&#x77;&#x69;&#108;&#108;&#105;&#x61;&#109;&#115;&#x40;&#98;&#111;&#103;&#117;&#115;&#101;&#109;&#x61;&#x69;&#108;&#x2e;&#x63;&#x6f;&#109;</a></p>
-<p>Jennifer Taylor<br>609-555-7908<br>332 Main St., Pythonville OH 78172<br><a href="mailto:&#x6a;&#101;&#110;&#x6e;&#x69;&#x66;&#x65;&#114;&#x74;&#97;&#x79;&#108;&#111;&#x72;&#64;&#98;&#111;&#103;&#117;&#115;&#x65;&#x6d;&#97;&#x69;&#x6c;&#46;&#99;&#x6f;&#109;">&#x6a;&#101;&#110;&#x6e;&#x69;&#x66;&#x65;&#114;&#x74;&#97;&#x79;&#108;&#111;&#x72;&#64;&#98;&#111;&#103;&#117;&#115;&#x65;&#x6d;&#97;&#x69;&#x6c;&#46;&#99;&#x6f;&#109;</a></p>
-<p>Erick Wright<br>800-555-8810<br>858 Hill St., Blackwater NC 79714<br><a href="mailto:&#x6a;&#x65;&#x6e;&#x6e;&#105;&#102;&#x65;&#114;&#119;&#114;&#105;&#103;&#104;&#116;&#x40;&#98;&#111;&#103;&#117;&#x73;&#101;&#x6d;&#97;&#105;&#x6c;&#x2e;&#x63;&#x6f;&#x6d;">&#x6a;&#x65;&#x6e;&#x6e;&#105;&#102;&#x65;&#114;&#119;&#114;&#105;&#103;&#104;&#116;&#x40;&#98;&#111;&#103;&#117;&#x73;&#101;&#x6d;&#97;&#105;&#x6c;&#x2e;&#x63;&#x6f;&#x6d;</a></p>
-<p>Steve Doe<br>149-555-7657<br>441 Elm St., Atlantis MS 87195<br><a href="mailto:&#x73;&#116;&#x65;&#x76;&#x65;&#100;&#111;&#101;&#64;&#98;&#x6f;&#x67;&#x75;&#x73;&#101;&#109;&#97;&#105;&#108;&#46;&#x63;&#111;&#109;">&#x73;&#116;&#x65;&#x76;&#x65;&#100;&#111;&#101;&#64;&#98;&#x6f;&#x67;&#x75;&#x73;&#101;&#109;&#97;&#105;&#108;&#46;&#x63;&#111;&#109;</a></p>
-<p>Kurt Davis<br>130-555-9709<br>404 Oak St., Atlantis ND 85386<br><a href="mailto:&#107;&#117;&#114;&#116;&#100;&#x61;&#x76;&#x69;&#x73;&#64;&#98;&#111;&#103;&#x75;&#x73;&#x65;&#109;&#97;&#x69;&#x6c;&#x2e;&#99;&#111;&#x6d;">&#107;&#117;&#114;&#116;&#100;&#x61;&#x76;&#x69;&#x73;&#64;&#98;&#111;&#103;&#x75;&#x73;&#x65;&#109;&#97;&#x69;&#x6c;&#x2e;&#99;&#111;&#x6d;</a></p>
-<p>Corey Harris<br>143-555-9295<br>286 Pearl St., Vice City TX 57112<br><a href="mailto:&#99;&#111;&#114;&#x65;&#121;&#x68;&#97;&#114;&#x72;&#x69;&#115;&#x40;&#98;&#111;&#103;&#117;&#x73;&#x65;&#109;&#97;&#x69;&#x6c;&#46;&#99;&#x6f;&#109;">&#99;&#111;&#114;&#x65;&#121;&#x68;&#97;&#114;&#x72;&#x69;&#115;&#x40;&#98;&#111;&#103;&#117;&#x73;&#x65;&#109;&#97;&#x69;&#x6c;&#46;&#99;&#x6f;&#109;</a></p>
-<p>Nicole Taylor<br>903-555-9878<br>465 Hill St., Old-town LA 64102<br><a href="mailto:&#110;&#x69;&#x63;&#x6f;&#108;&#101;&#x74;&#x61;&#x79;&#108;&#x6f;&#114;&#x40;&#x62;&#x6f;&#x67;&#117;&#115;&#x65;&#x6d;&#97;&#x69;&#x6c;&#46;&#99;&#x6f;&#109;">&#110;&#x69;&#x63;&#x6f;&#108;&#101;&#x74;&#x61;&#x79;&#108;&#x6f;&#114;&#x40;&#x62;&#x6f;&#x67;&#117;&#115;&#x65;&#x6d;&#97;&#x69;&#x6c;&#46;&#99;&#x6f;&#109;</a></p>
-<p>Elizabeth Davis<br>574-555-3194<br>151 Lake St., Eerie SD 17880<br><a href="mailto:&#x65;&#x6c;&#105;&#122;&#x61;&#98;&#101;&#116;&#x68;&#100;&#97;&#118;&#x69;&#115;&#64;&#98;&#111;&#x67;&#x75;&#115;&#x65;&#109;&#x61;&#105;&#108;&#46;&#99;&#111;&#109;">&#x65;&#x6c;&#105;&#122;&#x61;&#98;&#101;&#116;&#x68;&#100;&#97;&#118;&#x69;&#115;&#64;&#98;&#111;&#x67;&#x75;&#115;&#x65;&#109;&#x61;&#105;&#108;&#46;&#99;&#111;&#109;</a></p>
-<p>Maggie Jenkins<br>496-555-7533<br>504 Lake St., Gotham PA 46692<br><a href="mailto:&#109;&#97;&#x67;&#x67;&#x69;&#x65;&#106;&#101;&#110;&#107;&#105;&#x6e;&#115;&#x40;&#x62;&#x6f;&#x67;&#x75;&#x73;&#101;&#x6d;&#97;&#x69;&#108;&#x2e;&#99;&#111;&#109;">&#109;&#97;&#x67;&#x67;&#x69;&#x65;&#106;&#101;&#110;&#107;&#105;&#x6e;&#115;&#x40;&#x62;&#x6f;&#x67;&#x75;&#x73;&#101;&#x6d;&#97;&#x69;&#108;&#x2e;&#99;&#111;&#109;</a></p>
-<p>Linda Davis<br>210-555-3757<br>201 Pine St., Vice City AR 78455<br><a href="mailto:&#108;&#x69;&#110;&#x64;&#x61;&#x64;&#x61;&#x76;&#105;&#x73;&#64;&#98;&#111;&#103;&#117;&#115;&#101;&#x6d;&#97;&#105;&#108;&#46;&#99;&#111;&#109;">&#108;&#x69;&#110;&#x64;&#x61;&#x64;&#x61;&#x76;&#105;&#x73;&#64;&#98;&#111;&#103;&#117;&#115;&#101;&#x6d;&#97;&#105;&#108;&#46;&#99;&#111;&#109;</a></p>
-<p>Dave Moore<br>900-555-9598<br>251 Pine St., Old-town OK 29087<br><a href="mailto:&#100;&#97;&#x76;&#x65;&#109;&#x6f;&#x6f;&#x72;&#101;&#64;&#98;&#x6f;&#103;&#x75;&#115;&#101;&#109;&#x61;&#105;&#x6c;&#x2e;&#x63;&#x6f;&#109;">&#100;&#97;&#x76;&#x65;&#109;&#x6f;&#x6f;&#x72;&#101;&#64;&#98;&#x6f;&#103;&#x75;&#115;&#101;&#109;&#x61;&#105;&#x6c;&#x2e;&#x63;&#x6f;&#109;</a></p>
-<p>Linda Jenkins<br>866-555-9844<br>117 High St., Bedrock NE 11899<br><a href="mailto:&#x6c;&#105;&#110;&#x64;&#97;&#x6a;&#x65;&#110;&#x6b;&#x69;&#x6e;&#x73;&#64;&#x62;&#x6f;&#x67;&#117;&#x73;&#101;&#109;&#97;&#x69;&#x6c;&#x2e;&#99;&#x6f;&#x6d;">&#x6c;&#105;&#110;&#x64;&#97;&#x6a;&#x65;&#110;&#x6b;&#x69;&#x6e;&#x73;&#64;&#x62;&#x6f;&#x67;&#117;&#x73;&#101;&#109;&#97;&#x69;&#x6c;&#x2e;&#99;&#x6f;&#x6d;</a></p>
-<p>Eric White<br>669-555-7159<br>650 Oak St., Smalltown TN 43281<br><a href="mailto:&#x73;&#97;&#109;&#119;&#104;&#105;&#116;&#x65;&#64;&#x62;&#x6f;&#103;&#117;&#115;&#101;&#x6d;&#97;&#105;&#x6c;&#x2e;&#99;&#111;&#x6d;">&#x73;&#97;&#109;&#119;&#104;&#105;&#116;&#x65;&#64;&#x62;&#x6f;&#103;&#117;&#115;&#101;&#x6d;&#97;&#105;&#x6c;&#x2e;&#99;&#111;&#x6d;</a></p>
-<p>Laura Robinson<br>152-555-7417<br>377 Pine St., Valyria NC 78036<br><a href="mailto:&#x6c;&#97;&#117;&#x72;&#x61;&#x72;&#x6f;&#98;&#x69;&#110;&#x73;&#111;&#110;&#x40;&#x62;&#x6f;&#x67;&#117;&#115;&#101;&#109;&#97;&#x69;&#108;&#x2e;&#99;&#x6f;&#109;">&#x6c;&#97;&#117;&#x72;&#x61;&#x72;&#x6f;&#98;&#x69;&#110;&#x73;&#111;&#110;&#x40;&#x62;&#x6f;&#x67;&#117;&#115;&#101;&#109;&#97;&#x69;&#108;&#x2e;&#99;&#x6f;&#109;</a></p>
-<p>Charles Patterson<br>893-555-9832<br>416 Pearl St., Valyria AK 62260<br><a href="mailto:&#99;&#x68;&#x61;&#114;&#108;&#x65;&#x73;&#x70;&#x61;&#x74;&#116;&#101;&#114;&#115;&#x6f;&#110;&#x40;&#98;&#111;&#x67;&#x75;&#x73;&#x65;&#109;&#x61;&#105;&#x6c;&#46;&#99;&#x6f;&#109;">&#99;&#x68;&#x61;&#114;&#108;&#x65;&#x73;&#x70;&#x61;&#x74;&#116;&#101;&#114;&#115;&#x6f;&#110;&#x40;&#98;&#111;&#x67;&#x75;&#x73;&#x65;&#109;&#x61;&#105;&#x6c;&#46;&#99;&#x6f;&#109;</a></p>
-<p>Joe Jackson<br>217-555-7123<br>683 Cedar St., South Park KS 66724<br><a href="mailto:&#x6a;&#x6f;&#x65;&#x6a;&#97;&#x63;&#107;&#x73;&#111;&#110;&#64;&#98;&#111;&#x67;&#117;&#x73;&#x65;&#x6d;&#x61;&#105;&#108;&#x2e;&#x63;&#111;&#109;">&#x6a;&#x6f;&#x65;&#x6a;&#97;&#x63;&#107;&#x73;&#111;&#110;&#64;&#98;&#111;&#x67;&#117;&#x73;&#x65;&#x6d;&#x61;&#105;&#108;&#x2e;&#x63;&#111;&#109;</a></p>
-<p>Michael Johnson<br>786-555-6544<br>288 Hill St., Smalltown AZ 18586<br><a href="mailto:&#x6d;&#x69;&#x63;&#x68;&#x61;&#101;&#108;&#106;&#x6f;&#104;&#110;&#115;&#111;&#x6e;&#x40;&#98;&#111;&#x67;&#x75;&#x73;&#101;&#x6d;&#x61;&#105;&#108;&#x2e;&#99;&#111;&#x6d;">&#x6d;&#x69;&#x63;&#x68;&#x61;&#101;&#108;&#106;&#x6f;&#104;&#110;&#115;&#111;&#x6e;&#x40;&#98;&#111;&#x67;&#x75;&#x73;&#101;&#x6d;&#x61;&#105;&#108;&#x2e;&#99;&#111;&#x6d;</a></p>
-<p>Corey Miller<br>780-555-2574<br>286 High St., Springfield IA 16272<br><a href="mailto:&#99;&#111;&#114;&#x65;&#121;&#109;&#x69;&#108;&#x6c;&#101;&#x72;&#x40;&#x62;&#x6f;&#x67;&#117;&#115;&#x65;&#x6d;&#x61;&#x69;&#108;&#46;&#99;&#x6f;&#109;">&#99;&#111;&#114;&#x65;&#121;&#109;&#x69;&#108;&#x6c;&#101;&#x72;&#x40;&#x62;&#x6f;&#x67;&#117;&#115;&#x65;&#x6d;&#x61;&#x69;&#108;&#46;&#99;&#x6f;&#109;</a></p>
-<p>James Moore<br>926-555-8735<br>278 Main St., Gotham KY 89569<br><a href="mailto:&#x6a;&#x61;&#109;&#x65;&#x73;&#109;&#x6f;&#111;&#x72;&#101;&#64;&#x62;&#111;&#x67;&#x75;&#x73;&#101;&#109;&#x61;&#105;&#108;&#46;&#99;&#x6f;&#109;">&#x6a;&#x61;&#109;&#x65;&#x73;&#109;&#x6f;&#111;&#x72;&#101;&#64;&#x62;&#111;&#x67;&#x75;&#x73;&#101;&#109;&#x61;&#105;&#108;&#46;&#99;&#x6f;&#109;</a></p>
-<p>Jennifer Stuart<br>895-555-3539<br>766 Hill St., King’s Landing GA 54999<br><a href="mailto:&#x6a;&#101;&#110;&#x6e;&#x69;&#x66;&#101;&#114;&#x73;&#x74;&#117;&#97;&#x72;&#x74;&#x40;&#98;&#111;&#x67;&#117;&#x73;&#101;&#x6d;&#x61;&#105;&#108;&#46;&#x63;&#111;&#x6d;">&#x6a;&#101;&#110;&#x6e;&#x69;&#x66;&#101;&#114;&#x73;&#x74;&#117;&#97;&#x72;&#x74;&#x40;&#98;&#111;&#x67;&#117;&#x73;&#101;&#x6d;&#x61;&#105;&#108;&#46;&#x63;&#111;&#x6d;</a></p>
-<p>Charles Martin<br>874-555-3949<br>775 High St., Faketown PA 89260<br><a href="mailto:&#x63;&#104;&#97;&#x72;&#x6c;&#x65;&#115;&#109;&#x61;&#x72;&#x74;&#x69;&#x6e;&#64;&#x62;&#x6f;&#103;&#117;&#x73;&#101;&#x6d;&#97;&#105;&#108;&#46;&#x63;&#111;&#x6d;">&#x63;&#104;&#97;&#x72;&#x6c;&#x65;&#115;&#109;&#x61;&#x72;&#x74;&#x69;&#x6e;&#64;&#x62;&#x6f;&#103;&#117;&#x73;&#101;&#x6d;&#97;&#105;&#108;&#46;&#x63;&#111;&#x6d;</a></p>
-<p>Eric Wilks<br>800-555-2420<br>885 Main St., Blackwater OH 61275<br><a href="mailto:&#x6a;&#111;&#x65;&#119;&#x69;&#x6c;&#x6b;&#115;&#64;&#98;&#x6f;&#x67;&#x75;&#115;&#101;&#109;&#97;&#105;&#x6c;&#46;&#x63;&#x6f;&#x6d;">&#x6a;&#111;&#x65;&#119;&#x69;&#x6c;&#x6b;&#115;&#64;&#98;&#x6f;&#x67;&#x75;&#115;&#101;&#109;&#97;&#105;&#x6c;&#46;&#x63;&#x6f;&#x6d;</a></p>
-<p>Elizabeth Arnold<br>936-555-6340<br>528 Hill St., Atlantis NH 88289<br><a href="mailto:&#x65;&#108;&#x69;&#122;&#97;&#98;&#x65;&#x74;&#x68;&#x61;&#114;&#x6e;&#111;&#108;&#x64;&#64;&#x62;&#x6f;&#x67;&#x75;&#115;&#x65;&#x6d;&#97;&#105;&#108;&#x2e;&#99;&#x6f;&#109;">&#x65;&#108;&#x69;&#122;&#97;&#98;&#x65;&#x74;&#x68;&#x61;&#114;&#x6e;&#111;&#108;&#x64;&#64;&#x62;&#x6f;&#x67;&#x75;&#115;&#x65;&#x6d;&#97;&#105;&#108;&#x2e;&#99;&#x6f;&#109;</a></p>
-<p>John Miller<br>372-555-9809<br>117 Cedar St., Thundera NM 75205<br><a href="mailto:&#106;&#111;&#104;&#x6e;&#x6d;&#x69;&#x6c;&#108;&#x65;&#x72;&#x40;&#x62;&#111;&#x67;&#117;&#115;&#x65;&#109;&#97;&#105;&#x6c;&#x2e;&#x63;&#111;&#109;">&#106;&#111;&#104;&#x6e;&#x6d;&#x69;&#x6c;&#108;&#x65;&#x72;&#x40;&#x62;&#111;&#x67;&#117;&#115;&#x65;&#109;&#97;&#105;&#x6c;&#x2e;&#x63;&#111;&#109;</a></p>
-<p>Corey Jackson<br>890-555-5618<br>115 Oak St., Gotham UT 36433<br><a href="mailto:&#x63;&#111;&#114;&#101;&#121;&#x6a;&#97;&#x63;&#x6b;&#x73;&#x6f;&#x6e;&#x40;&#98;&#111;&#103;&#x75;&#x73;&#x65;&#x6d;&#97;&#105;&#x6c;&#46;&#x63;&#x6f;&#x6d;">&#x63;&#111;&#114;&#101;&#121;&#x6a;&#97;&#x63;&#x6b;&#x73;&#x6f;&#x6e;&#x40;&#98;&#111;&#103;&#x75;&#x73;&#x65;&#x6d;&#97;&#105;&#x6c;&#46;&#x63;&#x6f;&#x6d;</a></p>
-<p>Sam Thomas<br>670-555-3005<br>743 Lake St., Springfield MS 25473<br><a href="mailto:&#x73;&#97;&#109;&#116;&#104;&#111;&#x6d;&#x61;&#115;&#64;&#98;&#111;&#x67;&#117;&#115;&#x65;&#109;&#x61;&#x69;&#x6c;&#x2e;&#99;&#111;&#109;">&#x73;&#97;&#109;&#116;&#104;&#111;&#x6d;&#x61;&#115;&#64;&#98;&#111;&#x67;&#117;&#115;&#x65;&#109;&#x61;&#x69;&#x6c;&#x2e;&#99;&#111;&#109;</a></p>
-<p>Patricia Thomas<br>509-555-5997<br>381 Hill St., Blackwater CT 30958<br><a href="mailto:&#x70;&#x61;&#116;&#x72;&#x69;&#99;&#x69;&#x61;&#x74;&#104;&#x6f;&#109;&#97;&#x73;&#64;&#x62;&#x6f;&#x67;&#117;&#115;&#101;&#109;&#97;&#x69;&#x6c;&#x2e;&#99;&#111;&#109;">&#x70;&#x61;&#116;&#x72;&#x69;&#99;&#x69;&#x61;&#x74;&#104;&#x6f;&#109;&#97;&#x73;&#64;&#x62;&#x6f;&#x67;&#117;&#115;&#101;&#109;&#97;&#x69;&#x6c;&#x2e;&#99;&#111;&#109;</a></p>
-<p>Jennifer Davis<br>721-555-5632<br>125 Main St., Smalltown MT 62155<br><a href="mailto:&#106;&#x65;&#110;&#x6e;&#105;&#102;&#x65;&#114;&#100;&#97;&#118;&#105;&#115;&#64;&#x62;&#111;&#x67;&#x75;&#115;&#x65;&#109;&#97;&#x69;&#x6c;&#x2e;&#99;&#111;&#x6d;">&#106;&#x65;&#110;&#x6e;&#105;&#102;&#x65;&#114;&#100;&#97;&#118;&#105;&#115;&#64;&#x62;&#111;&#x67;&#x75;&#115;&#x65;&#109;&#97;&#x69;&#x6c;&#x2e;&#99;&#111;&#x6d;</a></p>
-<p>Patricia Brown<br>900-555-3567<br>292 Hill St., Gotham WV 57680<br><a href="mailto:&#112;&#x61;&#x74;&#x72;&#x69;&#99;&#x69;&#x61;&#98;&#114;&#x6f;&#119;&#x6e;&#x40;&#98;&#111;&#103;&#x75;&#115;&#x65;&#109;&#97;&#105;&#x6c;&#46;&#99;&#x6f;&#109;">&#112;&#x61;&#x74;&#x72;&#x69;&#99;&#x69;&#x61;&#98;&#114;&#x6f;&#119;&#x6e;&#x40;&#98;&#111;&#103;&#x75;&#115;&#x65;&#109;&#97;&#105;&#x6c;&#46;&#99;&#x6f;&#109;</a></p>
-<p>Barbara Williams<br>147-555-6830<br>514 Park St., Balmora NV 55462<br><a href="mailto:&#x62;&#97;&#114;&#98;&#x61;&#114;&#97;&#x77;&#105;&#108;&#108;&#105;&#97;&#109;&#x73;&#x40;&#x62;&#x6f;&#x67;&#x75;&#x73;&#101;&#109;&#97;&#105;&#x6c;&#46;&#x63;&#x6f;&#109;">&#x62;&#97;&#114;&#98;&#x61;&#114;&#97;&#x77;&#105;&#108;&#108;&#105;&#97;&#109;&#x73;&#x40;&#x62;&#x6f;&#x67;&#x75;&#x73;&#101;&#109;&#97;&#105;&#x6c;&#46;&#x63;&#x6f;&#109;</a></p>
-<p>James Taylor<br>582-555-3426<br>776 Hill St., Dawnstar MA 51312<br><a href="mailto:&#106;&#x61;&#x6d;&#x65;&#115;&#x74;&#x61;&#121;&#108;&#111;&#x72;&#x40;&#x62;&#111;&#x67;&#x75;&#x73;&#101;&#109;&#x61;&#x69;&#108;&#x2e;&#99;&#x6f;&#109;">&#106;&#x61;&#x6d;&#x65;&#115;&#x74;&#x61;&#121;&#108;&#111;&#x72;&#x40;&#x62;&#111;&#x67;&#x75;&#x73;&#101;&#109;&#x61;&#x69;&#108;&#x2e;&#99;&#x6f;&#109;</a></p>
-<p>Eric Harris<br>400-555-1706<br>421 Elm St., Smalltown NV 72025<br><a href="mailto:&#98;&#x61;&#114;&#98;&#x61;&#x72;&#97;&#104;&#x61;&#114;&#114;&#105;&#115;&#x40;&#x62;&#111;&#x67;&#x75;&#115;&#101;&#109;&#x61;&#105;&#x6c;&#x2e;&#x63;&#x6f;&#109;">&#98;&#x61;&#114;&#98;&#x61;&#x72;&#97;&#104;&#x61;&#114;&#114;&#105;&#115;&#x40;&#x62;&#111;&#x67;&#x75;&#115;&#101;&#109;&#x61;&#105;&#x6c;&#x2e;&#x63;&#x6f;&#109;</a></p>
-<p>Travis Anderson<br>525-555-1793<br>937 Cedar St., Thundera WA 78862<br><a href="mailto:&#x74;&#114;&#97;&#x76;&#x69;&#x73;&#97;&#110;&#100;&#101;&#x72;&#x73;&#111;&#x6e;&#x40;&#98;&#x6f;&#103;&#x75;&#115;&#x65;&#109;&#97;&#x69;&#108;&#x2e;&#x63;&#x6f;&#x6d;">&#x74;&#114;&#97;&#x76;&#x69;&#x73;&#97;&#110;&#100;&#101;&#x72;&#x73;&#111;&#x6e;&#x40;&#98;&#x6f;&#103;&#x75;&#115;&#x65;&#109;&#97;&#x69;&#108;&#x2e;&#x63;&#x6f;&#x6d;</a></p>
-<p>Sam Robinson<br>317-555-6700<br>417 Pine St., Lakeview MD 13147<br><a href="mailto:&#115;&#97;&#x6d;&#114;&#x6f;&#x62;&#x69;&#110;&#115;&#111;&#x6e;&#x40;&#x62;&#x6f;&#103;&#x75;&#115;&#x65;&#109;&#x61;&#105;&#108;&#x2e;&#99;&#x6f;&#x6d;">&#115;&#97;&#x6d;&#114;&#x6f;&#x62;&#x69;&#110;&#115;&#111;&#x6e;&#x40;&#x62;&#x6f;&#103;&#x75;&#115;&#x65;&#109;&#x61;&#105;&#108;&#x2e;&#99;&#x6f;&#x6d;</a></p>
-<p>Steve Robinson<br>974-555-8301<br>478 Park St., Springfield NM 92369<br><a href="mailto:&#115;&#x74;&#101;&#118;&#101;&#114;&#111;&#x62;&#x69;&#x6e;&#x73;&#111;&#x6e;&#64;&#98;&#111;&#103;&#117;&#x73;&#x65;&#109;&#97;&#105;&#x6c;&#46;&#99;&#111;&#x6d;">&#115;&#x74;&#101;&#118;&#101;&#114;&#111;&#x62;&#x69;&#x6e;&#x73;&#111;&#x6e;&#64;&#98;&#111;&#103;&#117;&#x73;&#x65;&#109;&#97;&#105;&#x6c;&#46;&#99;&#111;&#x6d;</a></p>
-<p>Mary Wilson<br>800-555-3216<br>708 Maple St., Braavos‎ UT 29551<br><a href="mailto:&#109;&#x61;&#114;&#x79;&#119;&#x69;&#108;&#x73;&#111;&#x6e;&#64;&#x62;&#x6f;&#x67;&#117;&#x73;&#101;&#109;&#97;&#105;&#108;&#46;&#x63;&#x6f;&#109;">&#109;&#x61;&#114;&#x79;&#119;&#x69;&#108;&#x73;&#111;&#x6e;&#64;&#x62;&#x6f;&#x67;&#117;&#x73;&#101;&#109;&#97;&#105;&#108;&#46;&#x63;&#x6f;&#109;</a></p>
-<p>Sam Wilson<br>746-555-4094<br>557 Pearl St., Westworld KS 23225<br><a href="mailto:&#115;&#x61;&#x6d;&#x77;&#105;&#x6c;&#115;&#111;&#x6e;&#64;&#x62;&#x6f;&#x67;&#117;&#x73;&#101;&#109;&#x61;&#105;&#x6c;&#x2e;&#99;&#x6f;&#x6d;">&#115;&#x61;&#x6d;&#x77;&#105;&#x6c;&#115;&#111;&#x6e;&#64;&#x62;&#x6f;&#x67;&#117;&#x73;&#101;&#109;&#x61;&#105;&#x6c;&#x2e;&#99;&#x6f;&#x6d;</a></p>
-<p>Charles Jones<br>922-555-1773<br>855 Hill St., Olympus HI 81427<br><a href="mailto:&#99;&#x68;&#97;&#114;&#108;&#x65;&#115;&#106;&#111;&#110;&#x65;&#x73;&#x40;&#x62;&#x6f;&#103;&#x75;&#115;&#101;&#x6d;&#97;&#x69;&#108;&#x2e;&#x63;&#111;&#109;">&#99;&#x68;&#97;&#114;&#108;&#x65;&#115;&#106;&#111;&#110;&#x65;&#x73;&#x40;&#x62;&#x6f;&#103;&#x75;&#115;&#101;&#x6d;&#97;&#x69;&#108;&#x2e;&#x63;&#111;&#109;</a></p>
-<p>Laura Brown<br>711-555-4427<br>980 Maple St., Smalltown MO 96421<br><a href="mailto:&#108;&#x61;&#x75;&#114;&#x61;&#x62;&#x72;&#x6f;&#x77;&#110;&#x40;&#98;&#111;&#103;&#117;&#x73;&#x65;&#109;&#97;&#105;&#108;&#x2e;&#x63;&#111;&#x6d;">&#108;&#x61;&#x75;&#114;&#x61;&#x62;&#x72;&#x6f;&#x77;&#110;&#x40;&#98;&#111;&#103;&#117;&#x73;&#x65;&#109;&#97;&#105;&#108;&#x2e;&#x63;&#111;&#x6d;</a></p>
-<p>Tom Harris<br>355-555-1872<br>676 Hill St., Blackwater AR 96698<br><a href="mailto:&#x74;&#111;&#109;&#104;&#97;&#114;&#x72;&#x69;&#x73;&#x40;&#x62;&#111;&#x67;&#117;&#115;&#101;&#109;&#x61;&#105;&#x6c;&#46;&#x63;&#x6f;&#x6d;">&#x74;&#111;&#109;&#104;&#97;&#114;&#x72;&#x69;&#x73;&#x40;&#x62;&#111;&#x67;&#117;&#115;&#101;&#109;&#x61;&#105;&#x6c;&#46;&#x63;&#x6f;&#x6d;</a></p>
-<p>Patricia Taylor<br>852-555-6521<br>588 Pine St., Olympus FL 98412<br><a href="mailto:&#112;&#x61;&#x74;&#114;&#x69;&#x63;&#105;&#97;&#116;&#x61;&#x79;&#108;&#111;&#x72;&#x40;&#x62;&#111;&#103;&#117;&#115;&#101;&#109;&#97;&#105;&#x6c;&#46;&#x63;&#111;&#x6d;">&#112;&#x61;&#x74;&#114;&#x69;&#x63;&#105;&#97;&#116;&#x61;&#x79;&#108;&#111;&#x72;&#x40;&#x62;&#111;&#103;&#117;&#115;&#101;&#109;&#97;&#105;&#x6c;&#46;&#x63;&#111;&#x6d;</a></p>
-<p>Barbara Williams<br>691-555-5773<br>351 Elm St., Sunnydale GA 26245<br><a href="mailto:&#x62;&#x61;&#x72;&#98;&#x61;&#114;&#97;&#119;&#105;&#x6c;&#x6c;&#105;&#x61;&#x6d;&#115;&#64;&#x62;&#111;&#x67;&#117;&#115;&#x65;&#x6d;&#97;&#105;&#108;&#x2e;&#99;&#111;&#109;">&#x62;&#x61;&#x72;&#98;&#x61;&#114;&#97;&#119;&#105;&#x6c;&#x6c;&#105;&#x61;&#x6d;&#115;&#64;&#x62;&#111;&#x67;&#117;&#115;&#x65;&#x6d;&#97;&#105;&#108;&#x2e;&#99;&#111;&#109;</a></p>
-<p>Maggie Johnson<br>332-555-5441<br>948 Cedar St., Quahog DE 56449<br><a href="mailto:&#109;&#97;&#103;&#x67;&#105;&#101;&#106;&#111;&#104;&#110;&#x73;&#111;&#x6e;&#x40;&#98;&#111;&#103;&#117;&#x73;&#x65;&#x6d;&#97;&#105;&#x6c;&#46;&#99;&#111;&#109;">&#109;&#97;&#103;&#x67;&#105;&#101;&#106;&#111;&#104;&#110;&#x73;&#111;&#x6e;&#x40;&#98;&#111;&#103;&#117;&#x73;&#x65;&#x6d;&#97;&#105;&#x6c;&#46;&#99;&#111;&#109;</a></p>
-<p>Kurt Miller<br>900-555-7755<br>381 Hill St., Quahog AL 97503<br><a href="mailto:&#x6b;&#117;&#x72;&#x74;&#x6d;&#x69;&#x6c;&#x6c;&#x65;&#114;&#x40;&#x62;&#111;&#103;&#117;&#115;&#x65;&#109;&#97;&#x69;&#108;&#x2e;&#99;&#111;&#x6d;">&#x6b;&#117;&#x72;&#x74;&#x6d;&#x69;&#x6c;&#x6c;&#x65;&#114;&#x40;&#x62;&#111;&#103;&#117;&#115;&#x65;&#109;&#97;&#x69;&#108;&#x2e;&#99;&#111;&#x6d;</a></p>
-<p>Neil Stuart<br>379-555-3685<br>496 Cedar St., Sunnydale RI 49113<br><a href="mailto:&#x6e;&#x65;&#x69;&#x6c;&#x73;&#116;&#x75;&#97;&#114;&#116;&#64;&#x62;&#111;&#103;&#117;&#x73;&#x65;&#x6d;&#97;&#105;&#x6c;&#46;&#x63;&#x6f;&#109;">&#x6e;&#x65;&#x69;&#x6c;&#x73;&#116;&#x75;&#97;&#114;&#116;&#64;&#x62;&#111;&#103;&#117;&#x73;&#x65;&#x6d;&#97;&#105;&#x6c;&#46;&#x63;&#x6f;&#109;</a></p>
-<p>Linda Patterson<br>127-555-9682<br>736 Cedar St., Lakeview KY 47472<br><a href="mailto:&#108;&#x69;&#x6e;&#100;&#x61;&#x70;&#x61;&#116;&#x74;&#101;&#x72;&#x73;&#x6f;&#110;&#64;&#98;&#x6f;&#x67;&#x75;&#x73;&#101;&#x6d;&#x61;&#x69;&#108;&#x2e;&#99;&#x6f;&#109;">&#108;&#x69;&#x6e;&#100;&#x61;&#x70;&#x61;&#116;&#x74;&#101;&#x72;&#x73;&#x6f;&#110;&#64;&#98;&#x6f;&#x67;&#x75;&#x73;&#101;&#x6d;&#x61;&#x69;&#108;&#x2e;&#99;&#x6f;&#109;</a></p>
-<p>Charles Davis<br>789-555-7032<br>678 Lake St., Mordor MN 11845<br><a href="mailto:&#x63;&#x68;&#97;&#114;&#108;&#101;&#x73;&#x64;&#x61;&#x76;&#105;&#x73;&#x40;&#98;&#x6f;&#x67;&#x75;&#115;&#101;&#x6d;&#x61;&#105;&#x6c;&#x2e;&#99;&#x6f;&#109;">&#x63;&#x68;&#97;&#114;&#108;&#101;&#x73;&#x64;&#x61;&#x76;&#105;&#x73;&#x40;&#98;&#x6f;&#x67;&#x75;&#115;&#101;&#x6d;&#x61;&#105;&#x6c;&#x2e;&#99;&#x6f;&#109;</a></p>
-<p>Jennifer Jefferson<br>783-555-5135<br>289 Park St., Sunnydale WA 74526<br><a href="mailto:&#x6a;&#x65;&#110;&#110;&#105;&#x66;&#101;&#x72;&#x6a;&#101;&#x66;&#x66;&#x65;&#x72;&#115;&#x6f;&#110;&#x40;&#98;&#111;&#x67;&#x75;&#x73;&#101;&#x6d;&#97;&#105;&#x6c;&#x2e;&#x63;&#x6f;&#109;">&#x6a;&#x65;&#110;&#110;&#105;&#x66;&#101;&#x72;&#x6a;&#101;&#x66;&#x66;&#x65;&#x72;&#115;&#x6f;&#110;&#x40;&#98;&#111;&#x67;&#x75;&#x73;&#101;&#x6d;&#97;&#105;&#x6c;&#x2e;&#x63;&#x6f;&#109;</a></p>
-<p>Erick Taylor<br>315-555-6507<br>245 Washington St., Bedrock IL 26941<br><a href="mailto:&#x63;&#111;&#114;&#101;&#x79;&#x74;&#x61;&#x79;&#x6c;&#x6f;&#114;&#x40;&#98;&#x6f;&#103;&#117;&#115;&#x65;&#109;&#97;&#105;&#108;&#x2e;&#99;&#111;&#109;">&#x63;&#111;&#114;&#101;&#x79;&#x74;&#x61;&#x79;&#x6c;&#x6f;&#114;&#x40;&#98;&#x6f;&#103;&#117;&#115;&#x65;&#109;&#97;&#105;&#108;&#x2e;&#99;&#111;&#109;</a></p>
-<p>Robert Wilks<br>481-555-5835<br>573 Elm St., Sunnydale IL 47182<br><a href="mailto:&#114;&#x6f;&#x62;&#101;&#114;&#x74;&#x77;&#x69;&#x6c;&#x6b;&#x73;&#x40;&#98;&#x6f;&#103;&#117;&#x73;&#x65;&#x6d;&#x61;&#x69;&#108;&#x2e;&#x63;&#x6f;&#109;">&#114;&#x6f;&#x62;&#101;&#114;&#x74;&#x77;&#x69;&#x6c;&#x6b;&#x73;&#x40;&#98;&#x6f;&#103;&#117;&#x73;&#x65;&#x6d;&#x61;&#x69;&#108;&#x2e;&#x63;&#x6f;&#109;</a></p>
-<p>Travis Jackson<br>365-555-8287<br>851 Lake St., Metropolis PA 22772<br><a href="mailto:&#x74;&#x72;&#97;&#x76;&#x69;&#115;&#x6a;&#x61;&#x63;&#107;&#115;&#111;&#x6e;&#64;&#x62;&#x6f;&#103;&#117;&#x73;&#101;&#109;&#x61;&#105;&#x6c;&#x2e;&#x63;&#111;&#109;">&#x74;&#x72;&#97;&#x76;&#x69;&#115;&#x6a;&#x61;&#x63;&#107;&#115;&#111;&#x6e;&#64;&#x62;&#x6f;&#103;&#117;&#x73;&#101;&#109;&#x61;&#105;&#x6c;&#x2e;&#x63;&#111;&#109;</a></p>
-<p>Travis Jackson<br>911-555-7535<br>489 Oak St., Atlantis HI 73725<br><a href="mailto:&#116;&#x72;&#97;&#x76;&#105;&#x73;&#x6a;&#97;&#99;&#107;&#x73;&#111;&#110;&#x40;&#98;&#111;&#x67;&#117;&#115;&#x65;&#109;&#97;&#x69;&#x6c;&#46;&#99;&#111;&#109;">&#116;&#x72;&#97;&#x76;&#105;&#x73;&#x6a;&#97;&#99;&#107;&#x73;&#111;&#110;&#x40;&#98;&#111;&#x67;&#117;&#115;&#x65;&#109;&#97;&#x69;&#x6c;&#46;&#99;&#111;&#109;</a></p>
-<p>Laura Wilks<br>681-555-2460<br>371 Pearl St., Smalltown SC 47466<br><a href="mailto:&#x6c;&#x61;&#117;&#114;&#x61;&#x77;&#105;&#x6c;&#107;&#x73;&#x40;&#98;&#x6f;&#103;&#x75;&#x73;&#x65;&#109;&#97;&#x69;&#x6c;&#46;&#x63;&#x6f;&#x6d;">&#x6c;&#x61;&#117;&#114;&#x61;&#x77;&#105;&#x6c;&#107;&#x73;&#x40;&#98;&#x6f;&#103;&#x75;&#x73;&#x65;&#109;&#97;&#x69;&#x6c;&#46;&#x63;&#x6f;&#x6d;</a></p>
-<p>Neil Arnold<br>274-555-9800<br>504 Oak St., Faketown PA 73860<br><a href="mailto:&#x6e;&#x65;&#x69;&#x6c;&#x61;&#x72;&#x6e;&#x6f;&#108;&#x64;&#64;&#98;&#x6f;&#x67;&#x75;&#115;&#101;&#109;&#97;&#105;&#x6c;&#x2e;&#99;&#111;&#x6d;">&#x6e;&#x65;&#x69;&#x6c;&#x61;&#x72;&#x6e;&#x6f;&#108;&#x64;&#64;&#98;&#x6f;&#x67;&#x75;&#115;&#101;&#109;&#97;&#105;&#x6c;&#x2e;&#99;&#111;&#x6d;</a></p>
-<p>Linda Johnson<br>800-555-1372<br>667 High St., Balmora IN 82473<br><a href="mailto:&#x6c;&#105;&#110;&#100;&#97;&#106;&#x6f;&#104;&#x6e;&#115;&#x6f;&#x6e;&#x40;&#x62;&#111;&#x67;&#x75;&#115;&#101;&#109;&#97;&#105;&#x6c;&#46;&#x63;&#x6f;&#x6d;">&#x6c;&#105;&#110;&#100;&#97;&#106;&#x6f;&#104;&#x6e;&#115;&#x6f;&#x6e;&#x40;&#x62;&#111;&#x67;&#x75;&#115;&#101;&#109;&#97;&#105;&#x6c;&#46;&#x63;&#x6f;&#x6d;</a></p>
-<p>Jennifer Wilson<br>300-555-7821<br>266 Pine St., Westworld DC 58720<br><a href="mailto:&#106;&#101;&#x6e;&#x6e;&#x69;&#x66;&#x65;&#x72;&#x77;&#x69;&#108;&#x73;&#111;&#x6e;&#64;&#98;&#x6f;&#103;&#117;&#x73;&#x65;&#x6d;&#97;&#105;&#x6c;&#46;&#x63;&#111;&#x6d;">&#106;&#101;&#x6e;&#x6e;&#x69;&#x66;&#x65;&#x72;&#x77;&#x69;&#108;&#x73;&#111;&#x6e;&#64;&#98;&#x6f;&#103;&#117;&#x73;&#x65;&#x6d;&#97;&#105;&#x6c;&#46;&#x63;&#111;&#x6d;</a></p>
-<p>Nicole White<br>133-555-3889<br>276 High St., Braavos‎ IL 57764<br><a href="mailto:&#x6e;&#105;&#x63;&#111;&#108;&#x65;&#119;&#x68;&#105;&#116;&#x65;&#x40;&#98;&#x6f;&#103;&#x75;&#x73;&#x65;&#x6d;&#x61;&#105;&#108;&#x2e;&#99;&#x6f;&#x6d;">&#x6e;&#105;&#x63;&#111;&#108;&#x65;&#119;&#x68;&#105;&#116;&#x65;&#x40;&#98;&#x6f;&#103;&#x75;&#x73;&#x65;&#x6d;&#x61;&#105;&#108;&#x2e;&#99;&#x6f;&#x6d;</a></p>
-<p>Maria Arnold<br>705-555-6863<br>491 Elm St., Metropolis PA 31836<br><a href="mailto:&#109;&#97;&#x72;&#x69;&#x61;&#97;&#114;&#110;&#111;&#x6c;&#100;&#x40;&#98;&#111;&#x67;&#117;&#x73;&#x65;&#109;&#97;&#x69;&#x6c;&#46;&#x63;&#x6f;&#109;">&#109;&#97;&#x72;&#x69;&#x61;&#97;&#114;&#110;&#111;&#x6c;&#100;&#x40;&#98;&#111;&#x67;&#117;&#x73;&#x65;&#109;&#97;&#x69;&#x6c;&#46;&#x63;&#x6f;&#109;</a></p>
-<p>Jennifer Davis<br>215-555-9449<br>859 Cedar St., Old-town MT 31169<br><a href="mailto:&#x6a;&#101;&#x6e;&#x6e;&#x69;&#102;&#101;&#114;&#100;&#97;&#118;&#x69;&#x73;&#64;&#x62;&#x6f;&#x67;&#x75;&#115;&#x65;&#109;&#97;&#105;&#108;&#x2e;&#99;&#111;&#109;">&#x6a;&#101;&#x6e;&#x6e;&#x69;&#102;&#101;&#114;&#100;&#97;&#118;&#x69;&#x73;&#64;&#x62;&#x6f;&#x67;&#x75;&#115;&#x65;&#109;&#97;&#105;&#108;&#x2e;&#99;&#111;&#109;</a></p>
-<p>Mary Patterson<br>988-555-6112<br>956 Park St., Valyria CT 81541<br><a href="mailto:&#x6d;&#x61;&#114;&#x79;&#112;&#97;&#116;&#116;&#x65;&#114;&#115;&#x6f;&#x6e;&#64;&#98;&#x6f;&#x67;&#x75;&#115;&#x65;&#109;&#x61;&#105;&#x6c;&#46;&#x63;&#x6f;&#x6d;">&#x6d;&#x61;&#114;&#x79;&#112;&#97;&#116;&#116;&#x65;&#114;&#115;&#x6f;&#x6e;&#64;&#98;&#x6f;&#x67;&#x75;&#115;&#x65;&#109;&#x61;&#105;&#x6c;&#46;&#x63;&#x6f;&#x6d;</a></p>
-<p>Jane Stuart<br>623-555-3006<br>983 Oak St., Old-town RI 15445<br><a href="mailto:&#x6a;&#97;&#x6e;&#x65;&#115;&#116;&#x75;&#x61;&#114;&#x74;&#x40;&#x62;&#x6f;&#103;&#x75;&#115;&#x65;&#109;&#97;&#x69;&#108;&#x2e;&#99;&#111;&#109;">&#x6a;&#97;&#x6e;&#x65;&#115;&#116;&#x75;&#x61;&#114;&#x74;&#x40;&#x62;&#x6f;&#103;&#x75;&#115;&#x65;&#109;&#97;&#x69;&#108;&#x2e;&#99;&#111;&#109;</a></p>
-<p>Robert Davis<br>192-555-4977<br>789 Maple St., Mordor IN 22215<br><a href="mailto:&#114;&#111;&#x62;&#x65;&#114;&#116;&#x64;&#97;&#x76;&#x69;&#115;&#64;&#98;&#x6f;&#103;&#x75;&#x73;&#x65;&#109;&#x61;&#105;&#108;&#x2e;&#x63;&#111;&#x6d;">&#114;&#111;&#x62;&#x65;&#114;&#116;&#x64;&#97;&#x76;&#x69;&#115;&#64;&#98;&#x6f;&#103;&#x75;&#x73;&#x65;&#109;&#x61;&#105;&#108;&#x2e;&#x63;&#111;&#x6d;</a></p>
-<p>James Taylor<br>178-555-4899<br>439 Hill St., Olympus NV 39308<br><a href="mailto:&#x6a;&#97;&#109;&#x65;&#x73;&#116;&#97;&#121;&#x6c;&#111;&#x72;&#64;&#98;&#111;&#x67;&#117;&#115;&#101;&#x6d;&#97;&#105;&#108;&#x2e;&#x63;&#111;&#109;">&#x6a;&#97;&#109;&#x65;&#x73;&#116;&#97;&#121;&#x6c;&#111;&#x72;&#64;&#98;&#111;&#x67;&#117;&#115;&#101;&#x6d;&#97;&#105;&#108;&#x2e;&#x63;&#111;&#109;</a></p>
-<p>Eric Stuart<br>952-555-3089<br>777 High St., King’s Landing AZ 16547<br><a href="mailto:&#106;&#x6f;&#104;&#x6e;&#115;&#116;&#117;&#97;&#x72;&#116;&#x40;&#x62;&#x6f;&#103;&#x75;&#115;&#x65;&#x6d;&#x61;&#105;&#108;&#x2e;&#x63;&#111;&#109;">&#106;&#x6f;&#104;&#x6e;&#115;&#116;&#117;&#97;&#x72;&#116;&#x40;&#x62;&#x6f;&#103;&#x75;&#115;&#x65;&#x6d;&#x61;&#105;&#108;&#x2e;&#x63;&#111;&#109;</a></p>
-<p>Charles Miller<br>900-555-6426<br>207 Washington St., Blackwater MA 24886<br><a href="mailto:&#99;&#x68;&#x61;&#x72;&#x6c;&#x65;&#115;&#x6d;&#x69;&#108;&#x6c;&#x65;&#114;&#64;&#98;&#x6f;&#103;&#x75;&#115;&#101;&#x6d;&#97;&#x69;&#x6c;&#x2e;&#x63;&#111;&#x6d;">&#99;&#x68;&#x61;&#x72;&#x6c;&#x65;&#115;&#x6d;&#x69;&#108;&#x6c;&#x65;&#114;&#64;&#98;&#x6f;&#103;&#x75;&#115;&#101;&#x6d;&#97;&#x69;&#x6c;&#x2e;&#x63;&#111;&#x6d;</a></p>
+<h1 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h1><p>Dave Martin<br>615-555-7164<br>173 Main St., Springfield RI 55924<br><a href="mailto:&#100;&#x61;&#x76;&#x65;&#109;&#x61;&#x72;&#116;&#105;&#110;&#x40;&#98;&#x6f;&#103;&#117;&#x73;&#x65;&#x6d;&#97;&#105;&#x6c;&#x2e;&#x63;&#111;&#x6d;">&#100;&#x61;&#x76;&#x65;&#109;&#x61;&#x72;&#116;&#105;&#110;&#x40;&#98;&#x6f;&#103;&#117;&#x73;&#x65;&#x6d;&#97;&#105;&#x6c;&#x2e;&#x63;&#111;&#x6d;</a></p>
+<p>Charles Harris<br>800-555-5669<br>969 High St., Atlantis VA 34075<br><a href="mailto:&#x63;&#104;&#97;&#114;&#x6c;&#101;&#x73;&#104;&#97;&#114;&#114;&#105;&#x73;&#64;&#x62;&#111;&#103;&#117;&#x73;&#x65;&#109;&#x61;&#x69;&#x6c;&#x2e;&#x63;&#111;&#109;">&#x63;&#104;&#97;&#114;&#x6c;&#101;&#x73;&#104;&#97;&#114;&#114;&#105;&#x73;&#64;&#x62;&#111;&#103;&#117;&#x73;&#x65;&#109;&#x61;&#x69;&#x6c;&#x2e;&#x63;&#111;&#109;</a></p>
+<p>Eric Williams<br>560-555-5153<br>806 1st St., Faketown AK 86847<br><a href="mailto:&#108;&#x61;&#x75;&#x72;&#x61;&#119;&#x69;&#108;&#x6c;&#x69;&#x61;&#109;&#115;&#64;&#98;&#111;&#103;&#x75;&#115;&#101;&#x6d;&#97;&#105;&#108;&#46;&#x63;&#x6f;&#x6d;">&#108;&#x61;&#x75;&#x72;&#x61;&#119;&#x69;&#108;&#x6c;&#x69;&#x61;&#109;&#115;&#64;&#98;&#111;&#103;&#x75;&#115;&#101;&#x6d;&#97;&#105;&#108;&#46;&#x63;&#x6f;&#x6d;</a></p>
+<p>Corey Jefferson<br>900-555-9340<br>826 Elm St., Epicburg NE 10671<br><a href="mailto:&#x63;&#111;&#x72;&#101;&#x79;&#x6a;&#x65;&#102;&#102;&#x65;&#x72;&#115;&#x6f;&#x6e;&#x40;&#98;&#x6f;&#103;&#x75;&#x73;&#101;&#x6d;&#97;&#105;&#x6c;&#46;&#99;&#x6f;&#109;">&#x63;&#111;&#x72;&#101;&#x79;&#x6a;&#x65;&#102;&#102;&#x65;&#x72;&#115;&#x6f;&#x6e;&#x40;&#98;&#x6f;&#103;&#x75;&#x73;&#101;&#x6d;&#97;&#105;&#x6c;&#46;&#99;&#x6f;&#109;</a></p>
+<p>Jennifer Martin-White<br>714-555-7405<br>212 Cedar St., Sunnydale CT 74983<br><a href="mailto:&#106;&#101;&#x6e;&#110;&#105;&#102;&#x65;&#x72;&#119;&#x68;&#105;&#116;&#x65;&#64;&#98;&#x6f;&#103;&#x75;&#x73;&#x65;&#109;&#97;&#105;&#x6c;&#46;&#99;&#x6f;&#x6d;">&#106;&#101;&#x6e;&#110;&#105;&#102;&#x65;&#x72;&#119;&#x68;&#105;&#116;&#x65;&#64;&#98;&#x6f;&#103;&#x75;&#x73;&#x65;&#109;&#97;&#105;&#x6c;&#46;&#99;&#x6f;&#x6d;</a></p>
+<p>Erick Davis<br>800-555-6771<br>519 Washington St., Olympus TN 32425<br><a href="mailto:&#116;&#111;&#x6d;&#x64;&#97;&#118;&#105;&#x73;&#x40;&#x62;&#x6f;&#103;&#117;&#x73;&#x65;&#x6d;&#x61;&#105;&#x6c;&#46;&#x63;&#111;&#x6d;">&#116;&#111;&#x6d;&#x64;&#97;&#118;&#105;&#x73;&#x40;&#x62;&#x6f;&#103;&#117;&#x73;&#x65;&#x6d;&#x61;&#105;&#x6c;&#46;&#x63;&#111;&#x6d;</a></p>
+<p>Neil Patterson<br>783-555-4799<br>625 Oak St., Dawnstar IL 61914<br><a href="mailto:&#x6e;&#x65;&#x69;&#x6c;&#112;&#x61;&#116;&#x74;&#x65;&#x72;&#x73;&#x6f;&#x6e;&#x40;&#98;&#111;&#x67;&#x75;&#x73;&#x65;&#x6d;&#x61;&#x69;&#x6c;&#x2e;&#99;&#111;&#109;">&#x6e;&#x65;&#x69;&#x6c;&#112;&#x61;&#116;&#x74;&#x65;&#x72;&#x73;&#x6f;&#x6e;&#x40;&#98;&#111;&#x67;&#x75;&#x73;&#x65;&#x6d;&#x61;&#x69;&#x6c;&#x2e;&#99;&#111;&#109;</a></p>
+<p>Laura Jefferson<br>516-555-4615<br>890 Main St., Pythonville LA 29947<br><a href="mailto:&#x6c;&#97;&#x75;&#x72;&#97;&#x6a;&#x65;&#x66;&#x66;&#101;&#x72;&#115;&#111;&#x6e;&#64;&#98;&#x6f;&#103;&#x75;&#x73;&#x65;&#x6d;&#x61;&#105;&#x6c;&#46;&#x63;&#111;&#x6d;">&#x6c;&#97;&#x75;&#x72;&#97;&#x6a;&#x65;&#x66;&#x66;&#101;&#x72;&#115;&#111;&#x6e;&#64;&#98;&#x6f;&#103;&#x75;&#x73;&#x65;&#x6d;&#x61;&#105;&#x6c;&#46;&#x63;&#111;&#x6d;</a></p>
+<p>Maria Johnson<br>127-555-1867<br>884 High St., Braavos‎ ME 43597<br><a href="mailto:&#x6d;&#x61;&#x72;&#105;&#97;&#106;&#x6f;&#x68;&#x6e;&#115;&#x6f;&#x6e;&#64;&#x62;&#x6f;&#x67;&#x75;&#x73;&#x65;&#x6d;&#x61;&#105;&#x6c;&#46;&#99;&#x6f;&#109;">&#x6d;&#x61;&#x72;&#105;&#97;&#106;&#x6f;&#x68;&#x6e;&#115;&#x6f;&#x6e;&#64;&#x62;&#x6f;&#x67;&#x75;&#x73;&#x65;&#x6d;&#x61;&#105;&#x6c;&#46;&#99;&#x6f;&#109;</a></p>
+<p>Michael Arnold<br>608-555-4938<br>249 Elm St., Quahog OR 90938<br><a href="mailto:&#109;&#x69;&#99;&#x68;&#x61;&#101;&#x6c;&#x61;&#x72;&#x6e;&#111;&#x6c;&#100;&#x40;&#x62;&#x6f;&#103;&#x75;&#115;&#x65;&#109;&#x61;&#x69;&#108;&#x2e;&#x63;&#x6f;&#x6d;">&#109;&#x69;&#99;&#x68;&#x61;&#101;&#x6c;&#x61;&#x72;&#x6e;&#111;&#x6c;&#100;&#x40;&#x62;&#x6f;&#103;&#x75;&#115;&#x65;&#109;&#x61;&#x69;&#108;&#x2e;&#x63;&#x6f;&#x6d;</a></p>
+<p>Michael Smith<br>568-555-6051<br>619 Park St., Winterfell VA 99000<br><a href="mailto:&#109;&#x69;&#99;&#104;&#x61;&#x65;&#x6c;&#115;&#109;&#x69;&#x74;&#104;&#64;&#98;&#x6f;&#x67;&#117;&#115;&#x65;&#109;&#97;&#105;&#x6c;&#46;&#99;&#111;&#109;">&#109;&#x69;&#99;&#104;&#x61;&#x65;&#x6c;&#115;&#109;&#x69;&#x74;&#104;&#64;&#98;&#x6f;&#x67;&#117;&#115;&#x65;&#109;&#97;&#105;&#x6c;&#46;&#99;&#111;&#109;</a></p>
+<p>Erik Stuart<br>292-555-1875<br>220 Cedar St., Lakeview NY 87282<br><a href="mailto:&#x72;&#x6f;&#x62;&#x65;&#114;&#x74;&#x73;&#116;&#117;&#x61;&#114;&#116;&#64;&#98;&#x6f;&#x67;&#117;&#115;&#101;&#109;&#x61;&#x69;&#x6c;&#46;&#99;&#x6f;&#x6d;">&#x72;&#x6f;&#x62;&#x65;&#114;&#x74;&#x73;&#116;&#117;&#x61;&#114;&#116;&#64;&#98;&#x6f;&#x67;&#117;&#115;&#101;&#109;&#x61;&#x69;&#x6c;&#46;&#99;&#x6f;&#x6d;</a></p>
+<p>Laura Martin<br>900-555-3205<br>391 High St., Smalltown WY 28362<br><a href="mailto:&#108;&#97;&#x75;&#114;&#97;&#109;&#97;&#114;&#x74;&#105;&#110;&#x40;&#x62;&#111;&#103;&#x75;&#x73;&#x65;&#109;&#x61;&#105;&#108;&#46;&#99;&#x6f;&#109;">&#108;&#97;&#x75;&#114;&#97;&#109;&#97;&#114;&#x74;&#105;&#110;&#x40;&#x62;&#111;&#103;&#x75;&#x73;&#x65;&#109;&#x61;&#105;&#108;&#46;&#99;&#x6f;&#109;</a></p>
+<p>Barbara Martin<br>614-555-1166<br>121 Hill St., Braavos‎ UT 92474<br><a href="mailto:&#98;&#x61;&#114;&#x62;&#x61;&#114;&#97;&#x6d;&#97;&#114;&#x74;&#105;&#110;&#64;&#98;&#111;&#103;&#117;&#115;&#x65;&#x6d;&#x61;&#x69;&#x6c;&#x2e;&#x63;&#x6f;&#x6d;">&#98;&#x61;&#114;&#x62;&#x61;&#114;&#97;&#x6d;&#97;&#114;&#x74;&#105;&#110;&#64;&#98;&#111;&#103;&#117;&#115;&#x65;&#x6d;&#x61;&#x69;&#x6c;&#x2e;&#x63;&#x6f;&#x6d;</a></p>
+<p>Linda Jackson<br>530-555-2676<br>433 Elm St., Westworld TX 61967<br><a href="mailto:&#x6c;&#x69;&#x6e;&#x64;&#x61;&#106;&#97;&#99;&#107;&#115;&#111;&#x6e;&#x40;&#98;&#x6f;&#103;&#117;&#x73;&#101;&#x6d;&#x61;&#x69;&#108;&#46;&#99;&#x6f;&#x6d;">&#x6c;&#x69;&#x6e;&#x64;&#x61;&#106;&#97;&#99;&#107;&#115;&#111;&#x6e;&#x40;&#98;&#x6f;&#103;&#117;&#x73;&#101;&#x6d;&#x61;&#x69;&#108;&#46;&#99;&#x6f;&#x6d;</a></p>
+<p>Eric Miller<br>470-555-2750<br>838 Main St., Balmora MT 56526<br><a href="mailto:&#115;&#x74;&#x65;&#118;&#101;&#109;&#105;&#108;&#108;&#101;&#x72;&#64;&#x62;&#111;&#103;&#117;&#115;&#x65;&#x6d;&#x61;&#x69;&#108;&#46;&#x63;&#111;&#109;">&#115;&#x74;&#x65;&#118;&#101;&#109;&#105;&#108;&#108;&#101;&#x72;&#64;&#x62;&#111;&#103;&#117;&#115;&#x65;&#x6d;&#x61;&#x69;&#108;&#46;&#x63;&#111;&#109;</a></p>
+<p>Dave Arnold<br>800-555-6089<br>732 High St., Valyria KY 97152<br><a href="mailto:&#x64;&#x61;&#118;&#x65;&#97;&#114;&#x6e;&#x6f;&#108;&#x64;&#x40;&#x62;&#x6f;&#x67;&#117;&#115;&#x65;&#x6d;&#97;&#x69;&#108;&#46;&#x63;&#x6f;&#109;">&#x64;&#x61;&#118;&#x65;&#97;&#114;&#x6e;&#x6f;&#108;&#x64;&#x40;&#x62;&#x6f;&#x67;&#117;&#115;&#x65;&#x6d;&#97;&#x69;&#108;&#46;&#x63;&#x6f;&#109;</a></p>
+<p>Jennifer Jacobs<br>880-555-8319<br>217 High St., Old-town IA 82767<br><a href="mailto:&#106;&#x65;&#110;&#x6e;&#x69;&#102;&#101;&#x72;&#106;&#97;&#x63;&#x6f;&#98;&#115;&#x40;&#x62;&#x6f;&#103;&#x75;&#115;&#101;&#109;&#97;&#105;&#x6c;&#46;&#x63;&#111;&#109;">&#106;&#x65;&#110;&#x6e;&#x69;&#102;&#101;&#x72;&#106;&#97;&#x63;&#x6f;&#98;&#115;&#x40;&#x62;&#x6f;&#103;&#x75;&#115;&#101;&#109;&#97;&#105;&#x6c;&#46;&#x63;&#111;&#109;</a></p>
+<p>Neil Wilson<br>777-555-8378<br>191 Main St., Mordor IL 72160<br><a href="mailto:&#110;&#101;&#x69;&#x6c;&#x77;&#x69;&#x6c;&#x73;&#111;&#x6e;&#x40;&#98;&#x6f;&#103;&#117;&#x73;&#101;&#109;&#x61;&#x69;&#108;&#x2e;&#99;&#x6f;&#x6d;">&#110;&#101;&#x69;&#x6c;&#x77;&#x69;&#x6c;&#x73;&#111;&#x6e;&#x40;&#98;&#x6f;&#103;&#117;&#x73;&#101;&#109;&#x61;&#x69;&#108;&#x2e;&#99;&#x6f;&#x6d;</a></p>
+<p>Kurt Jackson<br>998-555-7385<br>607 Washington St., Blackwater NH 97183<br><a href="mailto:&#x6b;&#x75;&#x72;&#x74;&#x6a;&#x61;&#99;&#x6b;&#115;&#111;&#x6e;&#x40;&#98;&#x6f;&#103;&#117;&#115;&#101;&#109;&#97;&#105;&#x6c;&#x2e;&#x63;&#111;&#109;">&#x6b;&#x75;&#x72;&#x74;&#x6a;&#x61;&#99;&#x6b;&#115;&#111;&#x6e;&#x40;&#98;&#x6f;&#103;&#117;&#115;&#101;&#109;&#97;&#105;&#x6c;&#x2e;&#x63;&#111;&#109;</a></p>
+<p>Mary Jacobs<br>800-555-7100<br>478 Oak St., Bedrock IA 58176<br><a href="mailto:&#109;&#x61;&#x72;&#121;&#x6a;&#x61;&#99;&#111;&#98;&#115;&#x40;&#98;&#111;&#103;&#x75;&#x73;&#x65;&#x6d;&#x61;&#x69;&#x6c;&#x2e;&#99;&#111;&#109;">&#109;&#x61;&#x72;&#121;&#x6a;&#x61;&#99;&#111;&#98;&#115;&#x40;&#98;&#111;&#103;&#x75;&#x73;&#x65;&#x6d;&#x61;&#x69;&#x6c;&#x2e;&#99;&#111;&#109;</a></p>
+<p>Michael White<br>903-555-8277<br>906 Elm St., Mordor TX 89212<br><a href="mailto:&#109;&#105;&#99;&#104;&#x61;&#101;&#108;&#x77;&#x68;&#x69;&#116;&#x65;&#64;&#98;&#x6f;&#103;&#117;&#x73;&#101;&#x6d;&#x61;&#105;&#108;&#x2e;&#99;&#111;&#109;">&#109;&#105;&#99;&#104;&#x61;&#101;&#108;&#x77;&#x68;&#x69;&#116;&#x65;&#64;&#98;&#x6f;&#103;&#117;&#x73;&#101;&#x6d;&#x61;&#105;&#108;&#x2e;&#99;&#111;&#109;</a></p>
+<p>Jennifer Jenkins<br>196-555-5674<br>949 Main St., Smalltown SC 96962<br><a href="mailto:&#106;&#101;&#110;&#110;&#x69;&#x66;&#101;&#x72;&#106;&#x65;&#x6e;&#107;&#105;&#110;&#x73;&#x40;&#x62;&#x6f;&#x67;&#117;&#x73;&#x65;&#x6d;&#x61;&#105;&#108;&#46;&#99;&#x6f;&#109;">&#106;&#101;&#110;&#110;&#x69;&#x66;&#101;&#x72;&#106;&#x65;&#x6e;&#107;&#105;&#110;&#x73;&#x40;&#x62;&#x6f;&#x67;&#117;&#x73;&#x65;&#x6d;&#x61;&#105;&#108;&#46;&#99;&#x6f;&#109;</a></p>
+<p>Sam Wright<br>900-555-5118<br>835 Pearl St., Smalltown ND 77737<br><a href="mailto:&#115;&#97;&#x6d;&#119;&#x72;&#x69;&#x67;&#x68;&#116;&#64;&#98;&#111;&#103;&#x75;&#115;&#x65;&#109;&#97;&#x69;&#108;&#x2e;&#x63;&#x6f;&#x6d;">&#115;&#97;&#x6d;&#119;&#x72;&#x69;&#x67;&#x68;&#116;&#64;&#98;&#111;&#103;&#x75;&#115;&#x65;&#109;&#97;&#x69;&#108;&#x2e;&#x63;&#x6f;&#x6d;</a></p>
+<p>John Davis<br>905-555-1630<br>451 Lake St., Bedrock GA 34615<br><a href="mailto:&#x6a;&#x6f;&#104;&#x6e;&#100;&#x61;&#118;&#105;&#x73;&#64;&#x62;&#x6f;&#x67;&#x75;&#x73;&#x65;&#109;&#x61;&#105;&#x6c;&#x2e;&#99;&#x6f;&#109;">&#x6a;&#x6f;&#104;&#x6e;&#100;&#x61;&#118;&#105;&#x73;&#64;&#x62;&#x6f;&#x67;&#x75;&#x73;&#x65;&#109;&#x61;&#105;&#x6c;&#x2e;&#99;&#x6f;&#109;</a></p>
+<p>Eric Davis<br>203-555-3475<br>419 Lake St., Balmora OR 30826<br><a href="mailto:&#x6e;&#x65;&#x69;&#x6c;&#100;&#97;&#118;&#105;&#115;&#64;&#x62;&#111;&#x67;&#117;&#115;&#x65;&#x6d;&#97;&#105;&#108;&#x2e;&#99;&#x6f;&#109;">&#x6e;&#x65;&#x69;&#x6c;&#100;&#97;&#118;&#105;&#115;&#64;&#x62;&#111;&#x67;&#117;&#115;&#x65;&#x6d;&#97;&#105;&#108;&#x2e;&#99;&#x6f;&#109;</a></p>
+<p>Laura Jackson<br>884-555-8444<br>443 Maple St., Quahog MS 29348<br><a href="mailto:&#108;&#x61;&#x75;&#114;&#97;&#106;&#97;&#99;&#x6b;&#115;&#x6f;&#110;&#64;&#98;&#111;&#103;&#x75;&#x73;&#x65;&#x6d;&#97;&#105;&#x6c;&#46;&#99;&#x6f;&#x6d;">&#108;&#x61;&#x75;&#114;&#97;&#106;&#97;&#99;&#x6b;&#115;&#x6f;&#110;&#64;&#98;&#111;&#103;&#x75;&#x73;&#x65;&#x6d;&#97;&#105;&#x6c;&#46;&#99;&#x6f;&#x6d;</a></p>
+<p>John Williams<br>904-555-8559<br>756 Hill St., Valyria KY 94854<br><a href="mailto:&#x6a;&#x6f;&#x68;&#110;&#x77;&#x69;&#x6c;&#x6c;&#x69;&#x61;&#109;&#x73;&#x40;&#98;&#111;&#103;&#x75;&#115;&#x65;&#x6d;&#97;&#x69;&#x6c;&#46;&#x63;&#x6f;&#x6d;">&#x6a;&#x6f;&#x68;&#110;&#x77;&#x69;&#x6c;&#x6c;&#x69;&#x61;&#109;&#x73;&#x40;&#98;&#111;&#103;&#x75;&#115;&#x65;&#x6d;&#97;&#x69;&#x6c;&#46;&#x63;&#x6f;&#x6d;</a></p>
+<p>Michael Martin<br>889-555-7393<br>216 High St., Olympus NV 21888<br><a href="mailto:&#109;&#x69;&#x63;&#x68;&#97;&#101;&#108;&#x6d;&#97;&#114;&#x74;&#x69;&#x6e;&#x40;&#98;&#111;&#103;&#117;&#115;&#101;&#x6d;&#97;&#105;&#108;&#46;&#x63;&#111;&#109;">&#109;&#x69;&#x63;&#x68;&#97;&#101;&#108;&#x6d;&#97;&#114;&#x74;&#x69;&#x6e;&#x40;&#98;&#111;&#103;&#117;&#115;&#101;&#x6d;&#97;&#105;&#108;&#46;&#x63;&#111;&#109;</a></p>
+<p>Maggie Brown<br>195-555-2405<br>806 Lake St., Lakeview MD 59348<br><a href="mailto:&#x6d;&#97;&#x67;&#x67;&#x69;&#101;&#x62;&#114;&#111;&#x77;&#x6e;&#x40;&#x62;&#111;&#103;&#117;&#115;&#101;&#109;&#x61;&#105;&#x6c;&#46;&#99;&#x6f;&#x6d;">&#x6d;&#97;&#x67;&#x67;&#x69;&#101;&#x62;&#114;&#111;&#x77;&#x6e;&#x40;&#x62;&#111;&#103;&#117;&#115;&#101;&#109;&#x61;&#105;&#x6c;&#46;&#99;&#x6f;&#x6d;</a></p>
+<p>Erik Wilson<br>321-555-9053<br>354 Hill St., Mordor FL 74122<br><a href="mailto:&#x6b;&#117;&#114;&#x74;&#x77;&#x69;&#x6c;&#115;&#111;&#110;&#x40;&#x62;&#x6f;&#x67;&#x75;&#115;&#x65;&#x6d;&#97;&#105;&#x6c;&#x2e;&#x63;&#111;&#109;">&#x6b;&#117;&#114;&#x74;&#x77;&#x69;&#x6c;&#115;&#111;&#110;&#x40;&#x62;&#x6f;&#x67;&#x75;&#115;&#x65;&#x6d;&#97;&#105;&#x6c;&#x2e;&#x63;&#111;&#109;</a></p>
+<p>Elizabeth Arnold<br>133-555-1711<br>805 Maple St., Winterfell NV 99431<br><a href="mailto:&#x65;&#x6c;&#105;&#x7a;&#x61;&#98;&#101;&#x74;&#x68;&#x61;&#114;&#x6e;&#111;&#x6c;&#100;&#x40;&#98;&#x6f;&#103;&#117;&#115;&#101;&#109;&#x61;&#x69;&#108;&#x2e;&#x63;&#x6f;&#x6d;">&#x65;&#x6c;&#105;&#x7a;&#x61;&#98;&#101;&#x74;&#x68;&#x61;&#114;&#x6e;&#111;&#x6c;&#100;&#x40;&#98;&#x6f;&#103;&#117;&#115;&#101;&#109;&#x61;&#x69;&#108;&#x2e;&#x63;&#x6f;&#x6d;</a></p>
+<p>Jane Martin<br>900-555-5428<br>418 Park St., Metropolis ID 16576<br><a href="mailto:&#106;&#97;&#x6e;&#x65;&#x6d;&#97;&#114;&#x74;&#105;&#x6e;&#64;&#x62;&#x6f;&#103;&#117;&#x73;&#101;&#109;&#97;&#x69;&#108;&#x2e;&#x63;&#x6f;&#x6d;">&#106;&#97;&#x6e;&#x65;&#x6d;&#97;&#114;&#x74;&#105;&#x6e;&#64;&#x62;&#x6f;&#103;&#117;&#x73;&#101;&#109;&#97;&#x69;&#108;&#x2e;&#x63;&#x6f;&#x6d;</a></p>
+<p>Travis Johnson<br>760-555-7147<br>749 Washington St., Braavos‎ SD 25668<br><a href="mailto:&#116;&#114;&#x61;&#118;&#105;&#115;&#x6a;&#111;&#104;&#x6e;&#115;&#x6f;&#110;&#x40;&#98;&#111;&#x67;&#x75;&#115;&#101;&#109;&#97;&#105;&#x6c;&#x2e;&#99;&#x6f;&#x6d;">&#116;&#114;&#x61;&#118;&#105;&#115;&#x6a;&#111;&#104;&#x6e;&#115;&#x6f;&#110;&#x40;&#98;&#111;&#x67;&#x75;&#115;&#101;&#109;&#97;&#105;&#x6c;&#x2e;&#99;&#x6f;&#x6d;</a></p>
+<p>Laura Jefferson<br>391-555-6621<br>122 High St., Metropolis ME 29540<br><a href="mailto:&#x6c;&#97;&#x75;&#x72;&#x61;&#106;&#x65;&#x66;&#x66;&#101;&#114;&#x73;&#111;&#x6e;&#x40;&#x62;&#111;&#103;&#117;&#x73;&#101;&#109;&#97;&#x69;&#x6c;&#x2e;&#99;&#x6f;&#109;">&#x6c;&#97;&#x75;&#x72;&#x61;&#106;&#x65;&#x66;&#x66;&#101;&#114;&#x73;&#111;&#x6e;&#x40;&#x62;&#111;&#103;&#117;&#x73;&#101;&#109;&#97;&#x69;&#x6c;&#x2e;&#99;&#x6f;&#109;</a></p>
+<p>Tom Williams<br>932-555-7724<br>610 High St., Old-town FL 60758<br><a href="mailto:&#116;&#111;&#109;&#119;&#x69;&#x6c;&#x6c;&#105;&#x61;&#x6d;&#x73;&#64;&#98;&#111;&#x67;&#117;&#115;&#x65;&#x6d;&#97;&#105;&#108;&#x2e;&#99;&#x6f;&#109;">&#116;&#111;&#109;&#119;&#x69;&#x6c;&#x6c;&#105;&#x61;&#x6d;&#x73;&#64;&#98;&#111;&#x67;&#117;&#115;&#x65;&#x6d;&#97;&#105;&#108;&#x2e;&#99;&#x6f;&#109;</a></p>
+<p>Jennifer Taylor<br>609-555-7908<br>332 Main St., Pythonville OH 78172<br><a href="mailto:&#x6a;&#x65;&#110;&#x6e;&#x69;&#x66;&#x65;&#114;&#116;&#97;&#121;&#x6c;&#x6f;&#x72;&#64;&#98;&#x6f;&#103;&#117;&#115;&#101;&#109;&#x61;&#105;&#x6c;&#x2e;&#x63;&#111;&#109;">&#x6a;&#x65;&#110;&#x6e;&#x69;&#x66;&#x65;&#114;&#116;&#97;&#121;&#x6c;&#x6f;&#x72;&#64;&#98;&#x6f;&#103;&#117;&#115;&#101;&#109;&#x61;&#105;&#x6c;&#x2e;&#x63;&#111;&#109;</a></p>
+<p>Erick Wright<br>800-555-8810<br>858 Hill St., Blackwater NC 79714<br><a href="mailto:&#106;&#x65;&#110;&#110;&#x69;&#x66;&#101;&#114;&#119;&#x72;&#105;&#x67;&#x68;&#x74;&#64;&#98;&#111;&#103;&#117;&#115;&#x65;&#x6d;&#97;&#x69;&#x6c;&#46;&#x63;&#x6f;&#109;">&#106;&#x65;&#110;&#110;&#x69;&#x66;&#101;&#114;&#119;&#x72;&#105;&#x67;&#x68;&#x74;&#64;&#98;&#111;&#103;&#117;&#115;&#x65;&#x6d;&#97;&#x69;&#x6c;&#46;&#x63;&#x6f;&#109;</a></p>
+<p>Steve Doe<br>149-555-7657<br>441 Elm St., Atlantis MS 87195<br><a href="mailto:&#115;&#116;&#101;&#x76;&#x65;&#100;&#111;&#101;&#x40;&#98;&#111;&#103;&#x75;&#x73;&#x65;&#109;&#x61;&#105;&#108;&#x2e;&#99;&#111;&#109;">&#115;&#116;&#101;&#x76;&#x65;&#100;&#111;&#101;&#x40;&#98;&#111;&#103;&#x75;&#x73;&#x65;&#109;&#x61;&#105;&#108;&#x2e;&#99;&#111;&#109;</a></p>
+<p>Kurt Davis<br>130-555-9709<br>404 Oak St., Atlantis ND 85386<br><a href="mailto:&#107;&#117;&#x72;&#116;&#x64;&#97;&#x76;&#105;&#x73;&#x40;&#98;&#x6f;&#103;&#117;&#x73;&#101;&#109;&#97;&#x69;&#108;&#x2e;&#x63;&#x6f;&#x6d;">&#107;&#117;&#x72;&#116;&#x64;&#97;&#x76;&#105;&#x73;&#x40;&#98;&#x6f;&#103;&#117;&#x73;&#101;&#109;&#97;&#x69;&#108;&#x2e;&#x63;&#x6f;&#x6d;</a></p>
+<p>Corey Harris<br>143-555-9295<br>286 Pearl St., Vice City TX 57112<br><a href="mailto:&#99;&#x6f;&#x72;&#x65;&#x79;&#104;&#97;&#x72;&#x72;&#x69;&#115;&#64;&#x62;&#111;&#103;&#117;&#115;&#101;&#109;&#97;&#x69;&#x6c;&#46;&#99;&#x6f;&#109;">&#99;&#x6f;&#x72;&#x65;&#x79;&#104;&#97;&#x72;&#x72;&#x69;&#115;&#64;&#x62;&#111;&#103;&#117;&#115;&#101;&#109;&#97;&#x69;&#x6c;&#46;&#99;&#x6f;&#109;</a></p>
+<p>Nicole Taylor<br>903-555-9878<br>465 Hill St., Old-town LA 64102<br><a href="mailto:&#x6e;&#105;&#x63;&#111;&#x6c;&#x65;&#116;&#x61;&#121;&#x6c;&#111;&#x72;&#x40;&#x62;&#111;&#103;&#x75;&#115;&#x65;&#x6d;&#x61;&#105;&#x6c;&#x2e;&#x63;&#x6f;&#109;">&#x6e;&#105;&#x63;&#111;&#x6c;&#x65;&#116;&#x61;&#121;&#x6c;&#111;&#x72;&#x40;&#x62;&#111;&#103;&#x75;&#115;&#x65;&#x6d;&#x61;&#105;&#x6c;&#x2e;&#x63;&#x6f;&#109;</a></p>
+<p>Elizabeth Davis<br>574-555-3194<br>151 Lake St., Eerie SD 17880<br><a href="mailto:&#x65;&#x6c;&#x69;&#122;&#x61;&#98;&#101;&#x74;&#x68;&#100;&#x61;&#118;&#105;&#115;&#64;&#98;&#111;&#103;&#117;&#x73;&#x65;&#109;&#x61;&#x69;&#108;&#46;&#x63;&#111;&#x6d;">&#x65;&#x6c;&#x69;&#122;&#x61;&#98;&#101;&#x74;&#x68;&#100;&#x61;&#118;&#105;&#115;&#64;&#98;&#111;&#103;&#117;&#x73;&#x65;&#109;&#x61;&#x69;&#108;&#46;&#x63;&#111;&#x6d;</a></p>
+<p>Maggie Jenkins<br>496-555-7533<br>504 Lake St., Gotham PA 46692<br><a href="mailto:&#x6d;&#97;&#103;&#103;&#105;&#x65;&#x6a;&#x65;&#x6e;&#x6b;&#105;&#x6e;&#x73;&#64;&#x62;&#111;&#103;&#117;&#x73;&#x65;&#x6d;&#x61;&#x69;&#x6c;&#46;&#99;&#x6f;&#x6d;">&#x6d;&#97;&#103;&#103;&#105;&#x65;&#x6a;&#x65;&#x6e;&#x6b;&#105;&#x6e;&#x73;&#64;&#x62;&#111;&#103;&#117;&#x73;&#x65;&#x6d;&#x61;&#x69;&#x6c;&#46;&#99;&#x6f;&#x6d;</a></p>
+<p>Linda Davis<br>210-555-3757<br>201 Pine St., Vice City AR 78455<br><a href="mailto:&#108;&#105;&#110;&#x64;&#x61;&#100;&#97;&#x76;&#x69;&#x73;&#64;&#x62;&#111;&#103;&#x75;&#x73;&#x65;&#109;&#97;&#105;&#x6c;&#x2e;&#x63;&#x6f;&#x6d;">&#108;&#105;&#110;&#x64;&#x61;&#100;&#97;&#x76;&#x69;&#x73;&#64;&#x62;&#111;&#103;&#x75;&#x73;&#x65;&#109;&#97;&#105;&#x6c;&#x2e;&#x63;&#x6f;&#x6d;</a></p>
+<p>Dave Moore<br>900-555-9598<br>251 Pine St., Old-town OK 29087<br><a href="mailto:&#100;&#97;&#x76;&#101;&#109;&#111;&#111;&#114;&#x65;&#64;&#98;&#111;&#x67;&#117;&#115;&#x65;&#x6d;&#x61;&#x69;&#x6c;&#x2e;&#x63;&#x6f;&#x6d;">&#100;&#97;&#x76;&#101;&#109;&#111;&#111;&#114;&#x65;&#64;&#98;&#111;&#x67;&#117;&#115;&#x65;&#x6d;&#x61;&#x69;&#x6c;&#x2e;&#x63;&#x6f;&#x6d;</a></p>
+<p>Linda Jenkins<br>866-555-9844<br>117 High St., Bedrock NE 11899<br><a href="mailto:&#x6c;&#105;&#x6e;&#x64;&#x61;&#x6a;&#101;&#110;&#107;&#105;&#x6e;&#115;&#x40;&#98;&#x6f;&#x67;&#117;&#x73;&#101;&#x6d;&#97;&#105;&#108;&#x2e;&#99;&#x6f;&#x6d;">&#x6c;&#105;&#x6e;&#x64;&#x61;&#x6a;&#101;&#110;&#107;&#105;&#x6e;&#115;&#x40;&#98;&#x6f;&#x67;&#117;&#x73;&#101;&#x6d;&#97;&#105;&#108;&#x2e;&#99;&#x6f;&#x6d;</a></p>
+<p>Eric White<br>669-555-7159<br>650 Oak St., Smalltown TN 43281<br><a href="mailto:&#x73;&#x61;&#x6d;&#119;&#x68;&#105;&#x74;&#x65;&#64;&#98;&#111;&#x67;&#117;&#115;&#x65;&#109;&#x61;&#105;&#108;&#46;&#x63;&#111;&#109;">&#x73;&#x61;&#x6d;&#119;&#x68;&#105;&#x74;&#x65;&#64;&#98;&#111;&#x67;&#117;&#115;&#x65;&#109;&#x61;&#105;&#108;&#46;&#x63;&#111;&#109;</a></p>
+<p>Laura Robinson<br>152-555-7417<br>377 Pine St., Valyria NC 78036<br><a href="mailto:&#x6c;&#x61;&#x75;&#x72;&#97;&#114;&#x6f;&#x62;&#x69;&#x6e;&#115;&#111;&#110;&#x40;&#98;&#111;&#103;&#x75;&#115;&#101;&#x6d;&#97;&#105;&#108;&#x2e;&#x63;&#111;&#109;">&#x6c;&#x61;&#x75;&#x72;&#97;&#114;&#x6f;&#x62;&#x69;&#x6e;&#115;&#111;&#110;&#x40;&#98;&#111;&#103;&#x75;&#115;&#101;&#x6d;&#97;&#105;&#108;&#x2e;&#x63;&#111;&#109;</a></p>
+<p>Charles Patterson<br>893-555-9832<br>416 Pearl St., Valyria AK 62260<br><a href="mailto:&#99;&#x68;&#x61;&#x72;&#108;&#x65;&#x73;&#112;&#97;&#x74;&#x74;&#101;&#x72;&#115;&#x6f;&#110;&#x40;&#x62;&#x6f;&#103;&#x75;&#115;&#101;&#109;&#x61;&#x69;&#108;&#46;&#99;&#111;&#x6d;">&#99;&#x68;&#x61;&#x72;&#108;&#x65;&#x73;&#112;&#97;&#x74;&#x74;&#101;&#x72;&#115;&#x6f;&#110;&#x40;&#x62;&#x6f;&#103;&#x75;&#115;&#101;&#109;&#x61;&#x69;&#108;&#46;&#99;&#111;&#x6d;</a></p>
+<p>Joe Jackson<br>217-555-7123<br>683 Cedar St., South Park KS 66724<br><a href="mailto:&#x6a;&#x6f;&#x65;&#x6a;&#x61;&#x63;&#107;&#115;&#111;&#x6e;&#64;&#98;&#x6f;&#103;&#117;&#x73;&#x65;&#x6d;&#x61;&#x69;&#x6c;&#46;&#x63;&#x6f;&#x6d;">&#x6a;&#x6f;&#x65;&#x6a;&#x61;&#x63;&#107;&#115;&#111;&#x6e;&#64;&#98;&#x6f;&#103;&#117;&#x73;&#x65;&#x6d;&#x61;&#x69;&#x6c;&#46;&#x63;&#x6f;&#x6d;</a></p>
+<p>Michael Johnson<br>786-555-6544<br>288 Hill St., Smalltown AZ 18586<br><a href="mailto:&#109;&#105;&#99;&#x68;&#x61;&#101;&#108;&#x6a;&#x6f;&#104;&#x6e;&#x73;&#111;&#x6e;&#x40;&#98;&#111;&#103;&#117;&#115;&#101;&#109;&#97;&#x69;&#x6c;&#46;&#99;&#x6f;&#109;">&#109;&#105;&#99;&#x68;&#x61;&#101;&#108;&#x6a;&#x6f;&#104;&#x6e;&#x73;&#111;&#x6e;&#x40;&#98;&#111;&#103;&#117;&#115;&#101;&#109;&#97;&#x69;&#x6c;&#46;&#99;&#x6f;&#109;</a></p>
+<p>Corey Miller<br>780-555-2574<br>286 High St., Springfield IA 16272<br><a href="mailto:&#99;&#x6f;&#x72;&#x65;&#x79;&#x6d;&#x69;&#108;&#x6c;&#x65;&#114;&#64;&#98;&#111;&#x67;&#x75;&#115;&#101;&#x6d;&#97;&#x69;&#108;&#x2e;&#99;&#111;&#x6d;">&#99;&#x6f;&#x72;&#x65;&#x79;&#x6d;&#x69;&#108;&#x6c;&#x65;&#114;&#64;&#98;&#111;&#x67;&#x75;&#115;&#101;&#x6d;&#97;&#x69;&#108;&#x2e;&#99;&#111;&#x6d;</a></p>
+<p>James Moore<br>926-555-8735<br>278 Main St., Gotham KY 89569<br><a href="mailto:&#x6a;&#x61;&#109;&#x65;&#115;&#109;&#x6f;&#111;&#x72;&#x65;&#64;&#98;&#x6f;&#103;&#117;&#x73;&#101;&#x6d;&#x61;&#x69;&#x6c;&#x2e;&#99;&#x6f;&#x6d;">&#x6a;&#x61;&#109;&#x65;&#115;&#109;&#x6f;&#111;&#x72;&#x65;&#64;&#98;&#x6f;&#103;&#117;&#x73;&#101;&#x6d;&#x61;&#x69;&#x6c;&#x2e;&#99;&#x6f;&#x6d;</a></p>
+<p>Jennifer Stuart<br>895-555-3539<br>766 Hill St., King’s Landing GA 54999<br><a href="mailto:&#x6a;&#101;&#110;&#110;&#x69;&#x66;&#101;&#114;&#115;&#x74;&#x75;&#x61;&#114;&#116;&#64;&#98;&#x6f;&#103;&#117;&#115;&#x65;&#x6d;&#x61;&#105;&#x6c;&#46;&#99;&#111;&#109;">&#x6a;&#101;&#110;&#110;&#x69;&#x66;&#101;&#114;&#115;&#x74;&#x75;&#x61;&#114;&#116;&#64;&#98;&#x6f;&#103;&#117;&#115;&#x65;&#x6d;&#x61;&#105;&#x6c;&#46;&#99;&#111;&#109;</a></p>
+<p>Charles Martin<br>874-555-3949<br>775 High St., Faketown PA 89260<br><a href="mailto:&#99;&#x68;&#x61;&#114;&#108;&#x65;&#115;&#109;&#x61;&#x72;&#x74;&#x69;&#110;&#x40;&#98;&#x6f;&#x67;&#117;&#x73;&#101;&#109;&#97;&#x69;&#108;&#46;&#x63;&#111;&#x6d;">&#99;&#x68;&#x61;&#114;&#108;&#x65;&#115;&#109;&#x61;&#x72;&#x74;&#x69;&#110;&#x40;&#98;&#x6f;&#x67;&#117;&#x73;&#101;&#109;&#97;&#x69;&#108;&#46;&#x63;&#111;&#x6d;</a></p>
+<p>Eric Wilks<br>800-555-2420<br>885 Main St., Blackwater OH 61275<br><a href="mailto:&#x6a;&#111;&#x65;&#119;&#105;&#x6c;&#107;&#115;&#x40;&#x62;&#111;&#x67;&#x75;&#x73;&#101;&#x6d;&#x61;&#105;&#108;&#46;&#99;&#x6f;&#x6d;">&#x6a;&#111;&#x65;&#119;&#105;&#x6c;&#107;&#115;&#x40;&#x62;&#111;&#x67;&#x75;&#x73;&#101;&#x6d;&#x61;&#105;&#108;&#46;&#99;&#x6f;&#x6d;</a></p>
+<p>Elizabeth Arnold<br>936-555-6340<br>528 Hill St., Atlantis NH 88289<br><a href="mailto:&#x65;&#x6c;&#x69;&#x7a;&#x61;&#x62;&#x65;&#x74;&#104;&#x61;&#114;&#x6e;&#111;&#x6c;&#100;&#64;&#98;&#x6f;&#x67;&#117;&#115;&#x65;&#109;&#x61;&#x69;&#x6c;&#x2e;&#x63;&#x6f;&#109;">&#x65;&#x6c;&#x69;&#x7a;&#x61;&#x62;&#x65;&#x74;&#104;&#x61;&#114;&#x6e;&#111;&#x6c;&#100;&#64;&#98;&#x6f;&#x67;&#117;&#115;&#x65;&#109;&#x61;&#x69;&#x6c;&#x2e;&#x63;&#x6f;&#109;</a></p>
+<p>John Miller<br>372-555-9809<br>117 Cedar St., Thundera NM 75205<br><a href="mailto:&#x6a;&#x6f;&#104;&#110;&#x6d;&#x69;&#108;&#x6c;&#101;&#x72;&#64;&#x62;&#111;&#x67;&#117;&#x73;&#101;&#109;&#97;&#105;&#108;&#46;&#x63;&#111;&#109;">&#x6a;&#x6f;&#104;&#110;&#x6d;&#x69;&#108;&#x6c;&#101;&#x72;&#64;&#x62;&#111;&#x67;&#117;&#x73;&#101;&#109;&#97;&#105;&#108;&#46;&#x63;&#111;&#109;</a></p>
+<p>Corey Jackson<br>890-555-5618<br>115 Oak St., Gotham UT 36433<br><a href="mailto:&#x63;&#111;&#x72;&#101;&#x79;&#106;&#97;&#x63;&#107;&#x73;&#111;&#x6e;&#x40;&#98;&#x6f;&#x67;&#x75;&#x73;&#101;&#109;&#x61;&#105;&#x6c;&#46;&#x63;&#111;&#109;">&#x63;&#111;&#x72;&#101;&#x79;&#106;&#97;&#x63;&#107;&#x73;&#111;&#x6e;&#x40;&#98;&#x6f;&#x67;&#x75;&#x73;&#101;&#109;&#x61;&#105;&#x6c;&#46;&#x63;&#111;&#109;</a></p>
+<p>Sam Thomas<br>670-555-3005<br>743 Lake St., Springfield MS 25473<br><a href="mailto:&#115;&#97;&#x6d;&#x74;&#104;&#111;&#109;&#x61;&#115;&#64;&#x62;&#x6f;&#103;&#x75;&#115;&#x65;&#109;&#x61;&#105;&#108;&#46;&#99;&#x6f;&#109;">&#115;&#97;&#x6d;&#x74;&#104;&#111;&#109;&#x61;&#115;&#64;&#x62;&#x6f;&#103;&#x75;&#115;&#x65;&#109;&#x61;&#105;&#108;&#46;&#99;&#x6f;&#109;</a></p>
+<p>Patricia Thomas<br>509-555-5997<br>381 Hill St., Blackwater CT 30958<br><a href="mailto:&#x70;&#97;&#116;&#x72;&#105;&#99;&#105;&#x61;&#x74;&#104;&#111;&#109;&#97;&#115;&#x40;&#x62;&#111;&#103;&#117;&#x73;&#101;&#x6d;&#x61;&#x69;&#108;&#46;&#99;&#111;&#x6d;">&#x70;&#97;&#116;&#x72;&#105;&#99;&#105;&#x61;&#x74;&#104;&#111;&#109;&#97;&#115;&#x40;&#x62;&#111;&#103;&#117;&#x73;&#101;&#x6d;&#x61;&#x69;&#108;&#46;&#99;&#111;&#x6d;</a></p>
+<p>Jennifer Davis<br>721-555-5632<br>125 Main St., Smalltown MT 62155<br><a href="mailto:&#106;&#x65;&#x6e;&#x6e;&#x69;&#x66;&#x65;&#x72;&#x64;&#97;&#x76;&#105;&#115;&#64;&#98;&#111;&#103;&#117;&#x73;&#101;&#109;&#x61;&#x69;&#108;&#x2e;&#99;&#x6f;&#x6d;">&#106;&#x65;&#x6e;&#x6e;&#x69;&#x66;&#x65;&#x72;&#x64;&#97;&#x76;&#105;&#115;&#64;&#98;&#111;&#103;&#117;&#x73;&#101;&#109;&#x61;&#x69;&#108;&#x2e;&#99;&#x6f;&#x6d;</a></p>
+<p>Patricia Brown<br>900-555-3567<br>292 Hill St., Gotham WV 57680<br><a href="mailto:&#112;&#x61;&#116;&#x72;&#105;&#99;&#x69;&#97;&#x62;&#114;&#x6f;&#x77;&#x6e;&#x40;&#98;&#x6f;&#x67;&#x75;&#115;&#x65;&#x6d;&#x61;&#105;&#108;&#46;&#x63;&#111;&#x6d;">&#112;&#x61;&#116;&#x72;&#105;&#99;&#x69;&#97;&#x62;&#114;&#x6f;&#x77;&#x6e;&#x40;&#98;&#x6f;&#x67;&#x75;&#115;&#x65;&#x6d;&#x61;&#105;&#108;&#46;&#x63;&#111;&#x6d;</a></p>
+<p>Barbara Williams<br>147-555-6830<br>514 Park St., Balmora NV 55462<br><a href="mailto:&#98;&#97;&#114;&#x62;&#97;&#114;&#97;&#119;&#105;&#108;&#x6c;&#x69;&#x61;&#109;&#115;&#64;&#98;&#x6f;&#103;&#117;&#115;&#101;&#x6d;&#97;&#x69;&#108;&#46;&#99;&#x6f;&#x6d;">&#98;&#97;&#114;&#x62;&#97;&#114;&#97;&#119;&#105;&#108;&#x6c;&#x69;&#x61;&#109;&#115;&#64;&#98;&#x6f;&#103;&#117;&#115;&#101;&#x6d;&#97;&#x69;&#108;&#46;&#99;&#x6f;&#x6d;</a></p>
+<p>James Taylor<br>582-555-3426<br>776 Hill St., Dawnstar MA 51312<br><a href="mailto:&#106;&#97;&#x6d;&#x65;&#x73;&#116;&#x61;&#121;&#108;&#x6f;&#x72;&#x40;&#x62;&#111;&#x67;&#x75;&#115;&#101;&#109;&#97;&#105;&#108;&#46;&#x63;&#111;&#x6d;">&#106;&#97;&#x6d;&#x65;&#x73;&#116;&#x61;&#121;&#108;&#x6f;&#x72;&#x40;&#x62;&#111;&#x67;&#x75;&#115;&#101;&#109;&#97;&#105;&#108;&#46;&#x63;&#111;&#x6d;</a></p>
+<p>Eric Harris<br>400-555-1706<br>421 Elm St., Smalltown NV 72025<br><a href="mailto:&#x62;&#x61;&#114;&#98;&#97;&#x72;&#x61;&#104;&#97;&#x72;&#114;&#105;&#x73;&#64;&#98;&#111;&#x67;&#117;&#115;&#101;&#x6d;&#97;&#105;&#108;&#x2e;&#99;&#x6f;&#109;">&#x62;&#x61;&#114;&#98;&#97;&#x72;&#x61;&#104;&#97;&#x72;&#114;&#105;&#x73;&#64;&#98;&#111;&#x67;&#117;&#115;&#101;&#x6d;&#97;&#105;&#108;&#x2e;&#99;&#x6f;&#109;</a></p>
+<p>Travis Anderson<br>525-555-1793<br>937 Cedar St., Thundera WA 78862<br><a href="mailto:&#x74;&#x72;&#97;&#x76;&#x69;&#115;&#97;&#110;&#x64;&#101;&#x72;&#x73;&#x6f;&#110;&#x40;&#x62;&#111;&#x67;&#x75;&#115;&#101;&#109;&#97;&#x69;&#108;&#x2e;&#x63;&#x6f;&#x6d;">&#x74;&#x72;&#97;&#x76;&#x69;&#115;&#97;&#110;&#x64;&#101;&#x72;&#x73;&#x6f;&#110;&#x40;&#x62;&#111;&#x67;&#x75;&#115;&#101;&#109;&#97;&#x69;&#108;&#x2e;&#x63;&#x6f;&#x6d;</a></p>
+<p>Sam Robinson<br>317-555-6700<br>417 Pine St., Lakeview MD 13147<br><a href="mailto:&#115;&#97;&#x6d;&#114;&#x6f;&#98;&#x69;&#x6e;&#x73;&#111;&#110;&#64;&#x62;&#111;&#x67;&#117;&#x73;&#101;&#x6d;&#x61;&#105;&#108;&#46;&#99;&#111;&#109;">&#115;&#97;&#x6d;&#114;&#x6f;&#98;&#x69;&#x6e;&#x73;&#111;&#110;&#64;&#x62;&#111;&#x67;&#117;&#x73;&#101;&#x6d;&#x61;&#105;&#108;&#46;&#99;&#111;&#109;</a></p>
+<p>Steve Robinson<br>974-555-8301<br>478 Park St., Springfield NM 92369<br><a href="mailto:&#115;&#x74;&#x65;&#118;&#101;&#114;&#111;&#98;&#x69;&#110;&#115;&#111;&#110;&#x40;&#x62;&#111;&#x67;&#x75;&#x73;&#101;&#x6d;&#97;&#x69;&#108;&#46;&#x63;&#111;&#x6d;">&#115;&#x74;&#x65;&#118;&#101;&#114;&#111;&#98;&#x69;&#110;&#115;&#111;&#110;&#x40;&#x62;&#111;&#x67;&#x75;&#x73;&#101;&#x6d;&#97;&#x69;&#108;&#46;&#x63;&#111;&#x6d;</a></p>
+<p>Mary Wilson<br>800-555-3216<br>708 Maple St., Braavos‎ UT 29551<br><a href="mailto:&#x6d;&#97;&#114;&#121;&#x77;&#x69;&#x6c;&#115;&#111;&#110;&#x40;&#98;&#x6f;&#x67;&#117;&#115;&#101;&#x6d;&#x61;&#x69;&#x6c;&#x2e;&#99;&#111;&#109;">&#x6d;&#97;&#114;&#121;&#x77;&#x69;&#x6c;&#115;&#111;&#110;&#x40;&#98;&#x6f;&#x67;&#117;&#115;&#101;&#x6d;&#x61;&#x69;&#x6c;&#x2e;&#99;&#111;&#109;</a></p>
+<p>Sam Wilson<br>746-555-4094<br>557 Pearl St., Westworld KS 23225<br><a href="mailto:&#x73;&#97;&#x6d;&#119;&#x69;&#108;&#x73;&#x6f;&#110;&#64;&#x62;&#111;&#103;&#x75;&#115;&#101;&#x6d;&#97;&#105;&#x6c;&#x2e;&#99;&#111;&#x6d;">&#x73;&#97;&#x6d;&#119;&#x69;&#108;&#x73;&#x6f;&#110;&#64;&#x62;&#111;&#103;&#x75;&#115;&#101;&#x6d;&#97;&#105;&#x6c;&#x2e;&#99;&#111;&#x6d;</a></p>
+<p>Charles Jones<br>922-555-1773<br>855 Hill St., Olympus HI 81427<br><a href="mailto:&#x63;&#104;&#97;&#114;&#108;&#101;&#x73;&#x6a;&#x6f;&#110;&#x65;&#115;&#64;&#98;&#111;&#103;&#117;&#x73;&#101;&#109;&#97;&#x69;&#108;&#x2e;&#x63;&#x6f;&#109;">&#x63;&#104;&#97;&#114;&#108;&#101;&#x73;&#x6a;&#x6f;&#110;&#x65;&#115;&#64;&#98;&#111;&#103;&#117;&#x73;&#101;&#109;&#97;&#x69;&#108;&#x2e;&#x63;&#x6f;&#109;</a></p>
+<p>Laura Brown<br>711-555-4427<br>980 Maple St., Smalltown MO 96421<br><a href="mailto:&#108;&#x61;&#x75;&#x72;&#x61;&#98;&#114;&#111;&#x77;&#110;&#x40;&#98;&#111;&#103;&#x75;&#x73;&#101;&#x6d;&#x61;&#x69;&#x6c;&#46;&#x63;&#111;&#109;">&#108;&#x61;&#x75;&#x72;&#x61;&#98;&#114;&#111;&#x77;&#110;&#x40;&#98;&#111;&#103;&#x75;&#x73;&#101;&#x6d;&#x61;&#x69;&#x6c;&#46;&#x63;&#111;&#109;</a></p>
+<p>Tom Harris<br>355-555-1872<br>676 Hill St., Blackwater AR 96698<br><a href="mailto:&#x74;&#111;&#109;&#104;&#97;&#114;&#114;&#105;&#115;&#64;&#98;&#111;&#103;&#117;&#x73;&#x65;&#109;&#x61;&#105;&#108;&#x2e;&#x63;&#x6f;&#x6d;">&#x74;&#111;&#109;&#104;&#97;&#114;&#114;&#105;&#115;&#64;&#98;&#111;&#103;&#117;&#x73;&#x65;&#109;&#x61;&#105;&#108;&#x2e;&#x63;&#x6f;&#x6d;</a></p>
+<p>Patricia Taylor<br>852-555-6521<br>588 Pine St., Olympus FL 98412<br><a href="mailto:&#x70;&#x61;&#116;&#114;&#x69;&#99;&#105;&#x61;&#116;&#97;&#x79;&#x6c;&#111;&#x72;&#x40;&#x62;&#x6f;&#x67;&#x75;&#x73;&#x65;&#109;&#x61;&#x69;&#108;&#x2e;&#99;&#111;&#109;">&#x70;&#x61;&#116;&#114;&#x69;&#99;&#105;&#x61;&#116;&#97;&#x79;&#x6c;&#111;&#x72;&#x40;&#x62;&#x6f;&#x67;&#x75;&#x73;&#x65;&#109;&#x61;&#x69;&#108;&#x2e;&#99;&#111;&#109;</a></p>
+<p>Barbara Williams<br>691-555-5773<br>351 Elm St., Sunnydale GA 26245<br><a href="mailto:&#98;&#97;&#114;&#98;&#97;&#114;&#97;&#119;&#x69;&#x6c;&#x6c;&#105;&#97;&#109;&#x73;&#x40;&#98;&#111;&#103;&#x75;&#115;&#101;&#x6d;&#97;&#105;&#x6c;&#46;&#99;&#111;&#x6d;">&#98;&#97;&#114;&#98;&#97;&#114;&#97;&#119;&#x69;&#x6c;&#x6c;&#105;&#97;&#109;&#x73;&#x40;&#98;&#111;&#103;&#x75;&#115;&#101;&#x6d;&#97;&#105;&#x6c;&#46;&#99;&#111;&#x6d;</a></p>
+<p>Maggie Johnson<br>332-555-5441<br>948 Cedar St., Quahog DE 56449<br><a href="mailto:&#109;&#97;&#103;&#103;&#105;&#101;&#106;&#111;&#x68;&#110;&#x73;&#111;&#x6e;&#64;&#x62;&#111;&#103;&#117;&#x73;&#101;&#x6d;&#97;&#105;&#x6c;&#46;&#x63;&#x6f;&#109;">&#109;&#97;&#103;&#103;&#105;&#101;&#106;&#111;&#x68;&#110;&#x73;&#111;&#x6e;&#64;&#x62;&#111;&#103;&#117;&#x73;&#101;&#x6d;&#97;&#105;&#x6c;&#46;&#x63;&#x6f;&#109;</a></p>
+<p>Kurt Miller<br>900-555-7755<br>381 Hill St., Quahog AL 97503<br><a href="mailto:&#x6b;&#x75;&#x72;&#116;&#109;&#105;&#108;&#108;&#x65;&#x72;&#x40;&#x62;&#x6f;&#103;&#x75;&#x73;&#x65;&#x6d;&#97;&#105;&#108;&#x2e;&#99;&#x6f;&#x6d;">&#x6b;&#x75;&#x72;&#116;&#109;&#105;&#108;&#108;&#x65;&#x72;&#x40;&#x62;&#x6f;&#103;&#x75;&#x73;&#x65;&#x6d;&#97;&#105;&#108;&#x2e;&#99;&#x6f;&#x6d;</a></p>
+<p>Neil Stuart<br>379-555-3685<br>496 Cedar St., Sunnydale RI 49113<br><a href="mailto:&#x6e;&#x65;&#x69;&#x6c;&#115;&#116;&#x75;&#97;&#x72;&#116;&#64;&#98;&#111;&#103;&#117;&#x73;&#101;&#109;&#97;&#x69;&#x6c;&#x2e;&#99;&#111;&#109;">&#x6e;&#x65;&#x69;&#x6c;&#115;&#116;&#x75;&#97;&#x72;&#116;&#64;&#98;&#111;&#103;&#117;&#x73;&#101;&#109;&#97;&#x69;&#x6c;&#x2e;&#99;&#111;&#109;</a></p>
+<p>Linda Patterson<br>127-555-9682<br>736 Cedar St., Lakeview KY 47472<br><a href="mailto:&#108;&#105;&#110;&#x64;&#x61;&#x70;&#97;&#116;&#x74;&#x65;&#114;&#115;&#111;&#110;&#64;&#x62;&#111;&#103;&#117;&#x73;&#x65;&#109;&#97;&#x69;&#108;&#46;&#x63;&#x6f;&#109;">&#108;&#105;&#110;&#x64;&#x61;&#x70;&#97;&#116;&#x74;&#x65;&#114;&#115;&#111;&#110;&#64;&#x62;&#111;&#103;&#117;&#x73;&#x65;&#109;&#97;&#x69;&#108;&#46;&#x63;&#x6f;&#109;</a></p>
+<p>Charles Davis<br>789-555-7032<br>678 Lake St., Mordor MN 11845<br><a href="mailto:&#x63;&#104;&#x61;&#x72;&#x6c;&#x65;&#x73;&#x64;&#97;&#x76;&#105;&#115;&#x40;&#98;&#x6f;&#x67;&#117;&#115;&#101;&#x6d;&#x61;&#x69;&#108;&#x2e;&#x63;&#111;&#x6d;">&#x63;&#104;&#x61;&#x72;&#x6c;&#x65;&#x73;&#x64;&#97;&#x76;&#105;&#115;&#x40;&#98;&#x6f;&#x67;&#117;&#115;&#101;&#x6d;&#x61;&#x69;&#108;&#x2e;&#x63;&#111;&#x6d;</a></p>
+<p>Jennifer Jefferson<br>783-555-5135<br>289 Park St., Sunnydale WA 74526<br><a href="mailto:&#x6a;&#x65;&#x6e;&#x6e;&#x69;&#x66;&#x65;&#x72;&#x6a;&#101;&#x66;&#x66;&#101;&#x72;&#115;&#x6f;&#x6e;&#x40;&#x62;&#x6f;&#x67;&#x75;&#x73;&#101;&#109;&#x61;&#105;&#108;&#x2e;&#99;&#x6f;&#x6d;">&#x6a;&#x65;&#x6e;&#x6e;&#x69;&#x66;&#x65;&#x72;&#x6a;&#101;&#x66;&#x66;&#101;&#x72;&#115;&#x6f;&#x6e;&#x40;&#x62;&#x6f;&#x67;&#x75;&#x73;&#101;&#109;&#x61;&#105;&#108;&#x2e;&#99;&#x6f;&#x6d;</a></p>
+<p>Erick Taylor<br>315-555-6507<br>245 Washington St., Bedrock IL 26941<br><a href="mailto:&#99;&#111;&#114;&#x65;&#x79;&#116;&#97;&#x79;&#108;&#x6f;&#x72;&#x40;&#x62;&#x6f;&#103;&#x75;&#115;&#101;&#x6d;&#x61;&#x69;&#x6c;&#x2e;&#x63;&#111;&#109;">&#99;&#111;&#114;&#x65;&#x79;&#116;&#97;&#x79;&#108;&#x6f;&#x72;&#x40;&#x62;&#x6f;&#103;&#x75;&#115;&#101;&#x6d;&#x61;&#x69;&#x6c;&#x2e;&#x63;&#111;&#109;</a></p>
+<p>Robert Wilks<br>481-555-5835<br>573 Elm St., Sunnydale IL 47182<br><a href="mailto:&#114;&#x6f;&#x62;&#101;&#114;&#x74;&#x77;&#105;&#108;&#x6b;&#115;&#64;&#x62;&#111;&#x67;&#x75;&#x73;&#101;&#109;&#x61;&#105;&#x6c;&#x2e;&#99;&#x6f;&#109;">&#114;&#x6f;&#x62;&#101;&#114;&#x74;&#x77;&#105;&#108;&#x6b;&#115;&#64;&#x62;&#111;&#x67;&#x75;&#x73;&#101;&#109;&#x61;&#105;&#x6c;&#x2e;&#99;&#x6f;&#109;</a></p>
+<p>Travis Jackson<br>365-555-8287<br>851 Lake St., Metropolis PA 22772<br><a href="mailto:&#x74;&#x72;&#97;&#x76;&#x69;&#115;&#x6a;&#97;&#99;&#107;&#115;&#111;&#x6e;&#64;&#x62;&#111;&#103;&#117;&#x73;&#x65;&#109;&#x61;&#x69;&#108;&#x2e;&#x63;&#111;&#109;">&#x74;&#x72;&#97;&#x76;&#x69;&#115;&#x6a;&#97;&#99;&#107;&#115;&#111;&#x6e;&#64;&#x62;&#111;&#103;&#117;&#x73;&#x65;&#109;&#x61;&#x69;&#108;&#x2e;&#x63;&#111;&#109;</a></p>
+<p>Travis Jackson<br>911-555-7535<br>489 Oak St., Atlantis HI 73725<br><a href="mailto:&#x74;&#114;&#97;&#x76;&#x69;&#x73;&#106;&#x61;&#99;&#107;&#115;&#111;&#x6e;&#64;&#x62;&#x6f;&#x67;&#x75;&#x73;&#x65;&#109;&#97;&#105;&#108;&#46;&#x63;&#111;&#x6d;">&#x74;&#114;&#97;&#x76;&#x69;&#x73;&#106;&#x61;&#99;&#107;&#115;&#111;&#x6e;&#64;&#x62;&#x6f;&#x67;&#x75;&#x73;&#x65;&#109;&#97;&#105;&#108;&#46;&#x63;&#111;&#x6d;</a></p>
+<p>Laura Wilks<br>681-555-2460<br>371 Pearl St., Smalltown SC 47466<br><a href="mailto:&#108;&#97;&#x75;&#114;&#x61;&#119;&#x69;&#x6c;&#107;&#x73;&#x40;&#98;&#x6f;&#x67;&#x75;&#x73;&#101;&#x6d;&#97;&#105;&#108;&#x2e;&#99;&#111;&#x6d;">&#108;&#97;&#x75;&#114;&#x61;&#119;&#x69;&#x6c;&#107;&#x73;&#x40;&#98;&#x6f;&#x67;&#x75;&#x73;&#101;&#x6d;&#97;&#105;&#108;&#x2e;&#99;&#111;&#x6d;</a></p>
+<p>Neil Arnold<br>274-555-9800<br>504 Oak St., Faketown PA 73860<br><a href="mailto:&#x6e;&#101;&#x69;&#108;&#x61;&#114;&#x6e;&#111;&#x6c;&#100;&#64;&#98;&#x6f;&#103;&#117;&#x73;&#x65;&#109;&#x61;&#x69;&#108;&#x2e;&#x63;&#111;&#109;">&#x6e;&#101;&#x69;&#108;&#x61;&#114;&#x6e;&#111;&#x6c;&#100;&#64;&#98;&#x6f;&#103;&#117;&#x73;&#x65;&#109;&#x61;&#x69;&#108;&#x2e;&#x63;&#111;&#109;</a></p>
+<p>Linda Johnson<br>800-555-1372<br>667 High St., Balmora IN 82473<br><a href="mailto:&#108;&#105;&#110;&#100;&#x61;&#x6a;&#111;&#x68;&#110;&#x73;&#111;&#110;&#x40;&#98;&#111;&#103;&#117;&#x73;&#x65;&#x6d;&#97;&#105;&#x6c;&#46;&#99;&#111;&#x6d;">&#108;&#105;&#110;&#100;&#x61;&#x6a;&#111;&#x68;&#110;&#x73;&#111;&#110;&#x40;&#98;&#111;&#103;&#117;&#x73;&#x65;&#x6d;&#97;&#105;&#x6c;&#46;&#99;&#111;&#x6d;</a></p>
+<p>Jennifer Wilson<br>300-555-7821<br>266 Pine St., Westworld DC 58720<br><a href="mailto:&#x6a;&#x65;&#110;&#110;&#105;&#x66;&#x65;&#x72;&#119;&#105;&#108;&#115;&#111;&#110;&#x40;&#98;&#111;&#103;&#x75;&#115;&#101;&#x6d;&#x61;&#x69;&#x6c;&#x2e;&#x63;&#x6f;&#x6d;">&#x6a;&#x65;&#110;&#110;&#105;&#x66;&#x65;&#x72;&#119;&#105;&#108;&#115;&#111;&#110;&#x40;&#98;&#111;&#103;&#x75;&#115;&#101;&#x6d;&#x61;&#x69;&#x6c;&#x2e;&#x63;&#x6f;&#x6d;</a></p>
+<p>Nicole White<br>133-555-3889<br>276 High St., Braavos‎ IL 57764<br><a href="mailto:&#110;&#x69;&#x63;&#x6f;&#x6c;&#x65;&#119;&#x68;&#x69;&#116;&#101;&#64;&#98;&#111;&#103;&#x75;&#x73;&#101;&#109;&#97;&#105;&#108;&#46;&#99;&#x6f;&#x6d;">&#110;&#x69;&#x63;&#x6f;&#x6c;&#x65;&#119;&#x68;&#x69;&#116;&#101;&#64;&#98;&#111;&#103;&#x75;&#x73;&#101;&#109;&#97;&#105;&#108;&#46;&#99;&#x6f;&#x6d;</a></p>
+<p>Maria Arnold<br>705-555-6863<br>491 Elm St., Metropolis PA 31836<br><a href="mailto:&#x6d;&#x61;&#x72;&#x69;&#97;&#x61;&#x72;&#x6e;&#111;&#108;&#x64;&#x40;&#x62;&#111;&#103;&#117;&#x73;&#x65;&#x6d;&#97;&#105;&#x6c;&#x2e;&#99;&#x6f;&#109;">&#x6d;&#x61;&#x72;&#x69;&#97;&#x61;&#x72;&#x6e;&#111;&#108;&#x64;&#x40;&#x62;&#111;&#103;&#117;&#x73;&#x65;&#x6d;&#97;&#105;&#x6c;&#x2e;&#99;&#x6f;&#109;</a></p>
+<p>Jennifer Davis<br>215-555-9449<br>859 Cedar St., Old-town MT 31169<br><a href="mailto:&#106;&#101;&#110;&#110;&#105;&#x66;&#x65;&#114;&#x64;&#97;&#118;&#105;&#115;&#x40;&#x62;&#111;&#103;&#x75;&#x73;&#x65;&#109;&#97;&#x69;&#108;&#46;&#x63;&#111;&#x6d;">&#106;&#101;&#110;&#110;&#105;&#x66;&#x65;&#114;&#x64;&#97;&#118;&#105;&#115;&#x40;&#x62;&#111;&#103;&#x75;&#x73;&#x65;&#109;&#97;&#x69;&#108;&#46;&#x63;&#111;&#x6d;</a></p>
+<p>Mary Patterson<br>988-555-6112<br>956 Park St., Valyria CT 81541<br><a href="mailto:&#x6d;&#x61;&#x72;&#121;&#x70;&#97;&#x74;&#x74;&#101;&#114;&#115;&#x6f;&#x6e;&#64;&#98;&#111;&#x67;&#117;&#115;&#x65;&#109;&#97;&#105;&#108;&#x2e;&#99;&#x6f;&#109;">&#x6d;&#x61;&#x72;&#121;&#x70;&#97;&#x74;&#x74;&#101;&#114;&#115;&#x6f;&#x6e;&#64;&#98;&#111;&#x67;&#117;&#115;&#x65;&#109;&#97;&#105;&#108;&#x2e;&#99;&#x6f;&#109;</a></p>
+<p>Jane Stuart<br>623-555-3006<br>983 Oak St., Old-town RI 15445<br><a href="mailto:&#x6a;&#97;&#x6e;&#101;&#x73;&#x74;&#117;&#x61;&#x72;&#x74;&#64;&#x62;&#111;&#x67;&#x75;&#x73;&#101;&#x6d;&#97;&#105;&#108;&#x2e;&#99;&#111;&#109;">&#x6a;&#97;&#x6e;&#101;&#x73;&#x74;&#117;&#x61;&#x72;&#x74;&#64;&#x62;&#111;&#x67;&#x75;&#x73;&#101;&#x6d;&#97;&#105;&#108;&#x2e;&#99;&#111;&#109;</a></p>
+<p>Robert Davis<br>192-555-4977<br>789 Maple St., Mordor IN 22215<br><a href="mailto:&#114;&#x6f;&#x62;&#x65;&#x72;&#116;&#100;&#x61;&#118;&#105;&#x73;&#64;&#x62;&#x6f;&#103;&#117;&#x73;&#x65;&#109;&#x61;&#105;&#x6c;&#x2e;&#99;&#111;&#x6d;">&#114;&#x6f;&#x62;&#x65;&#x72;&#116;&#100;&#x61;&#118;&#105;&#x73;&#64;&#x62;&#x6f;&#103;&#117;&#x73;&#x65;&#109;&#x61;&#105;&#x6c;&#x2e;&#99;&#111;&#x6d;</a></p>
+<p>James Taylor<br>178-555-4899<br>439 Hill St., Olympus NV 39308<br><a href="mailto:&#106;&#x61;&#109;&#101;&#x73;&#x74;&#x61;&#x79;&#x6c;&#x6f;&#114;&#64;&#98;&#x6f;&#103;&#117;&#x73;&#101;&#109;&#97;&#x69;&#x6c;&#x2e;&#99;&#111;&#x6d;">&#106;&#x61;&#109;&#101;&#x73;&#x74;&#x61;&#x79;&#x6c;&#x6f;&#114;&#64;&#98;&#x6f;&#103;&#117;&#x73;&#101;&#109;&#97;&#x69;&#x6c;&#x2e;&#99;&#111;&#x6d;</a></p>
+<p>Eric Stuart<br>952-555-3089<br>777 High St., King’s Landing AZ 16547<br><a href="mailto:&#106;&#x6f;&#x68;&#110;&#115;&#116;&#x75;&#97;&#114;&#116;&#64;&#x62;&#x6f;&#x67;&#117;&#x73;&#101;&#109;&#97;&#105;&#108;&#46;&#99;&#x6f;&#109;">&#106;&#x6f;&#x68;&#110;&#115;&#116;&#x75;&#97;&#114;&#116;&#64;&#x62;&#x6f;&#x67;&#117;&#x73;&#101;&#109;&#97;&#105;&#108;&#46;&#99;&#x6f;&#109;</a></p>
+<p>Charles Miller<br>900-555-6426<br>207 Washington St., Blackwater MA 24886<br><a href="mailto:&#x63;&#104;&#97;&#x72;&#108;&#x65;&#x73;&#x6d;&#105;&#108;&#108;&#x65;&#114;&#x40;&#98;&#111;&#103;&#x75;&#x73;&#x65;&#x6d;&#97;&#x69;&#108;&#x2e;&#99;&#111;&#109;">&#x63;&#104;&#97;&#x72;&#108;&#x65;&#x73;&#x6d;&#105;&#108;&#108;&#x65;&#114;&#x40;&#98;&#111;&#103;&#x75;&#x73;&#x65;&#x6d;&#97;&#x69;&#108;&#x2e;&#99;&#111;&#109;</a></p>
 <ul>
 <li>ip正则：<br>(((\d{1,2})|(1\d{2})|(2[0-4]\d)|(25[0-5])).){3}((\d{1,2})|(1\d{2})|(2[0-4]\d)|(25[0-5]))</li>
 </ul>
@@ -1404,369 +1746,6 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/117b65dd/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/lion.png">
-      <meta itemprop="name" content="swimminghao">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="swimminghao's blog">
-      <meta itemprop="description" content="swimminghao的学习博客">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | swimminghao's blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/117b65dd/" class="post-title-link" itemprop="url">动态规划设计之最长递增子序列</a>
-        </h2>
-
-        <div class="post-meta-container">
-
-          
-
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2025-02-13 16:20:39" itemprop="dateModified" datetime="2025-02-13T16:20:39+08:00">2025-02-13</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="far fa-comment"></i>
-    </span>
-    <span class="post-meta-item-text">Waline：</span>
-  
-    <a title="waline" href="/posts/117b65dd/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/117b65dd/" data-xid="/posts/117b65dd/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>2.5k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>2 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="动态规划设计之最长递增子序列"><a href="#动态规划设计之最长递增子序列" class="headerlink" title="动态规划设计之最长递增子序列"></a>动态规划设计之最长递增子序列</h1><h2 id="预计阅读时间：-9-分钟"><a href="#预计阅读时间：-9-分钟" class="headerlink" title="预计阅读时间： 9 分钟"></a>预计阅读时间： 9 分钟</h2><p>很多读者反应，就算看了前文 <a target="_blank" rel="noopener" href="http://mp.weixin.qq.com/s?__biz=MzU0MDg5OTYyOQ==&mid=2247483818&idx=1&sn=6035f861d1b2bfd0178e842f26ac4836&chksm=fb3361e8cc44e8fe331154bfd32bd7b3b4f159bfad5d38d4a6b0b9f0d7e3485b93b828ee72cc&scene=21#wechat_redirect">动态规划详解</a>，了解了动态规划的套路，也不会写状态转移方程，没有思路，怎么办？本文就借助「最长递增子序列」来讲一种设计动态规划的通用技巧：数学归纳思想。</p>
-<p>最长递增子序列（Longest Increasing Subsequence，简写 LIS）是比较经典的一个问题，比较容易想到的是动态规划解法，时间复杂度 O(N^2)，我们借这个问题来由浅入深讲解如何写动态规划。</p>
-<p>比较难想到的是利用二分查找，时间复杂度是 O(NlogN)，我们通过一种简单的纸牌游戏来辅助理解这种巧妙的解法。</p>
-<p>先看一下题目，很容易理解：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/MEAMGr_20210715222744.png" alt="图片"></p>
-<p>注意「子序列」和「子串」这两个名词的区别，子串一定是连续的，而子序列不一定是连续的。下面先来一步一步设计动态规划算法解决这个问题。</p>
-<h2 id="一、动态规划解法"><a href="#一、动态规划解法" class="headerlink" title="一、动态规划解法"></a>一、动态规划解法</h2><p><strong>动态规划的核心设计思想是数学归纳法。</strong></p>
-<p>相信大家对数学归纳法都不陌生，高中就学过，而且思路很简单。比如我们想证明一个数学结论，那么我们先假设这个结论在 k&lt;n 时成立，然后想办法证明 k&#x3D;<em>n</em> 的时候此结论也成立。如果能够证明出来，那么就说明这个结论对于 k 等于任何数都成立。</p>
-<p>类似的，我们设计动态规划算法，不是需要一个 dp 数组吗？我们可以假设 <em>dp</em>[0…<em>i</em>−1] 都已经被算出来了，然后问自己：怎么通过这些结果算出<em>dp[i] ?</em></p>
-<p>直接拿最长递增子序列这个问题举例你就明白了。不过，首先要定义清楚 dp 数组的含义，即 dp[i] 的值到底代表着什么？</p>
-<p><strong>我们的定义是这样的：****dp[i] 表示以 nums[i] 这个数结尾的最长递增子序列的长度。</strong></p>
-<p>举个例子：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/S9DvIE_20210715222829.png" alt="图片"></p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/vrYoH4_20210715222841.png" alt="图片"></p>
-<p>算法演进的过程是这样的：<img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/640_20210715222950.gif" alt="图片"></p>
-<p>根据这个定义，我们的最终结果（子序列的最大长度）应该是 dp 数组中的最大值。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="variable">res</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; dp.length; i++) &#123;</span><br><span class="line">    res = Math.max(res, dp[i]);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> res;</span><br></pre></td></tr></table></figure>
-
-
-
-<p>读者也许会问，刚才这个过程中每个 dp[i] 的结果是我们肉眼看出来的，我们应该怎么设计算法逻辑来正确计算每个 dp[i] 呢？</p>
-<p>这就是动态规划的重头戏了，要思考如何进行状态转移，这里就可以使用数学归纳的思想：</p>
-<p>我们已经知道了 <em>d**p</em>[0…4] 的所有结果，我们如何通过这些已知结果推出 <em>d**p</em>[5] 呢？</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/xpC5LY_20210715223016.png" alt="图片"></p>
-<p>根据刚才我们对 dp 数组的定义，现在想求 dp[5] 的值，也就是想求以 nums[5] 为结尾的最长递增子序列。</p>
-<p>nums[5] &#x3D; 3，既然是递增子序列，我们只要找到前面那些结尾比 3 小的子序列，然后把 3 接到最后，就可以形成一个新的递增子序列，而且这个新的子序列长度加一。</p>
-<p>当然，可能形成很多种新的子序列，但是我们只要最长的，把最长子序列的长度作为 dp[5] 的值即可。</p>
-<p>![图片](<a target="_blank" rel="noopener" href="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/640">https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/640</a> (1)_20210715223303.gif)</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/QksgN5_20210715223039.png" alt="图片"></p>
-<p>这段代码的逻辑就可以算出 dp[5]。到这里，这道算法题我们就基本做完了。读者也许会问，我们刚才只是算了 dp[5] 呀，dp[4], dp[3] 这些怎么算呢？</p>
-<p>类似数学归纳法，你已经可以通过 dp[0…4] 算出 dp[5] 了，那么任意 dp[i] 你肯定都可以算出来：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/9CYook_20210715223056.png" alt="图片"></p>
-<p>还有一个细节问题，就是 base case。dp 数组应该全部初始化为 1，因为子序列最少也要包含自己，所以长度最小为 1。下面我们看一下完整代码：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/image-20210715223113307_20210715223113.png" alt="图片"></p>
-<p>至此，这道题就解决了，时间复杂度 O(N^2)。总结一下动态规划的设计流程：</p>
-<p>首先明确 dp 数组所存数据的含义。这步很重要，如果不得当或者不够清晰，会阻碍之后的步骤。</p>
-<p>然后根据 dp 数组的定义，运用数学归纳法的思想，假设 <em>d**p</em>[0…<em>i</em>−1] 都已知，想办法求出 <em>d**p</em>[<em>i</em>]，一旦这一步完成，整个题目基本就解决了。</p>
-<p>但如果无法完成这一步，很可能就是 dp 数组的定义不够恰当，需要重新定义 dp 数组的含义；或者可能是 dp 数组存储的信息还不够，不足以推出下一步的答案，需要把 dp 数组扩大成二维数组甚至三维数组。</p>
-<h2 id="二、二分查找解法"><a href="#二、二分查找解法" class="headerlink" title="二、二分查找解法"></a>二、二分查找解法</h2><p>这个解法的时间复杂度会将为 O(NlogN)，但是说实话，正常人基本想不到这种解法（也许玩过某些纸牌游戏的人可以想出来）。所以如果大家了解一下就好，正常情况下能够给出动态规划解法就已经很不错了。</p>
-<p>根据题目的意思，我都很难想象这个问题竟然能和二分查找扯上关系。其实最长递增子序列和一种叫做 patience game 的纸牌游戏有关，甚至有一种排序方法就叫做 patience sorting（耐心排序）。</p>
-<p>为了简单起见，后文跳过所有数学证明，通过一个简化的例子来理解一下思路。</p>
-<p>首先，给你一排扑克牌，我们像遍历数组那样从左到右一张一张处理这些扑克牌，最终要把这些牌分成若干堆。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/DFBLV6_20210715223123.png" alt="图片"></p>
-<p>处理这些扑克牌要遵循以下规则：</p>
-<p>只能把点数小的牌压到点数比它大的牌上。如果当前牌点数较大没有可以放置的堆，则新建一个堆，把这张牌放进去。如果当前牌有多个堆可供选择，则选择最左边的堆放置。</p>
-<p>比如说上述的扑克牌最终会被分成这样 5 堆（我们认为 A 的值是最大的，而不是 1）。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/image-20210715223138612_20210715223138.png" alt="图片"></p>
-<p>为什么遇到多个可选择堆的时候要放到最左边的堆上呢？因为这样可以保证牌堆顶的牌有序（2, 4, 7, 8, Q），证明略。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/Cnd9HF_20210715223145.png" alt="图片"></p>
-<p>按照上述规则执行，可以算出最长递增子序列，牌的堆数就是我们想求的最长递增子序列的长度，证明略。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/8SHDGY_20210715223158.png" alt="图片"></p>
-<p>我们只要把处理扑克牌的过程编程写出来即可。每次处理一张扑克牌不是要找一个合适的牌堆顶来放吗，牌堆顶的牌不是有序吗，这就能用到二分查找了：用二分查找来搜索当前牌应放置的位置。</p>
-<p>PS：旧文 <a target="_blank" rel="noopener" href="http://mp.weixin.qq.com/s?__biz=MzU0MDg5OTYyOQ==&mid=2247484090&idx=1&sn=5635cf1c4fd8a8570b63c7ae9b4304c2&chksm=fb3362f8cc44ebee0a19a4cfba7f2e13923e05f47e15f2e99a1f42b01aeee83b946aceac3d4c&scene=21#wechat_redirect">二分查找算法详解</a> 详细介绍了二分查找的细节及变体，这里就完美应用上了。如果没读过强烈建议阅读。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/f6Golz_20210715223219.png" alt="图片"></p>
-<p>至此，二分查找的解法也讲解完毕。</p>
-<p>这个解法确实很难想到。首先涉及数学证明，谁能想到按照这些规则执行，就能得到最长递增子序列呢？其次还有二分查找的运用，要是对二分查找的细节不清楚，给了思路也很难写对。</p>
-<p>所以，这个方法作为思维拓展好了。但动态规划的设计方法应该完全理解：假设之前的答案已知，利用数学归纳的思想正确进行状态的推演转移，最终得到答案。</p>
-
-      
-    </div>
-
-    
-    
-    
-
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>l
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/6e5dcbe0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/lion.png">
-      <meta itemprop="name" content="swimminghao">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="swimminghao's blog">
-      <meta itemprop="description" content="swimminghao的学习博客">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | swimminghao's blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/6e5dcbe0/" class="post-title-link" itemprop="url">回溯算法团灭排列组合子集问题</a>
-        </h2>
-
-        <div class="post-meta-container">
-
-          
-
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2025-02-13 16:20:39" itemprop="dateModified" datetime="2025-02-13T16:20:39+08:00">2025-02-13</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="far fa-comment"></i>
-    </span>
-    <span class="post-meta-item-text">Waline：</span>
-  
-    <a title="waline" href="/posts/6e5dcbe0/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/6e5dcbe0/" data-xid="/posts/6e5dcbe0/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>4.5k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>4 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="回溯算法团灭排列-x2F-组合-x2F-子集问题"><a href="#回溯算法团灭排列-x2F-组合-x2F-子集问题" class="headerlink" title="回溯算法团灭排列&#x2F;组合&#x2F;子集问题"></a>回溯算法团灭排列&#x2F;组合&#x2F;子集问题</h1><h2 id="回溯算法团灭排列-x2F-组合-x2F-子集问题-1"><a href="#回溯算法团灭排列-x2F-组合-x2F-子集问题-1" class="headerlink" title="回溯算法团灭排列&#x2F;组合&#x2F;子集问题"></a>回溯算法团灭排列&#x2F;组合&#x2F;子集问题</h2><h2 id="预计阅读时间：7-分钟"><a href="#预计阅读时间：7-分钟" class="headerlink" title="预计阅读时间：7 分钟"></a>预计阅读时间：7 分钟</h2><p>今天就来聊三道考察频率高，而且容易让人搞混的算法问题，分别是求子集（subset），求排列（permutation），求组合（combination）。这几个问题都可以用回溯算法解决。</p>
-<h3 id="一、子集"><a href="#一、子集" class="headerlink" title="一、子集"></a>一、子集</h3><p>问题很简单，输入一个<strong>不包含重复数字</strong>的数组，要求算法输出这些数字的所有子集。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; <span class="title function_">subsets</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums)</span>;</span><br></pre></td></tr></table></figure>
-
-<p>比如输入 <code>nums = [1,2,3]</code>，你的算法应输出 8 个子集，包含空集和本身，顺序可以不同：</p>
-<p>[ [],[1],[2],[3],[1,3],[2,3],[1,2],[1,2,3] ]</p>
-<p><strong>第一个解法是利用数学归纳的思想</strong>：假设我现在知道了规模更小的子问题的结果，如何推导出当前问题的结果呢？</p>
-<p>具体来说就是，现在让你求 <code>[1,2,3]</code> 的子集，如果你知道了 <code>[1,2]</code> 的子集，是否可以推导出 <code>[1,2,3]</code> 的子集呢？先把  <code>[1,2]</code> 的子集写出来瞅瞅：</p>
-<p>[ [],[1],[2],[1,2] ]</p>
-<p>你会发现这样一个规律：</p>
-<p>subset(<code>[1,2,3]</code>) - subset(<code>[1,2]</code>)</p>
-<p>&#x3D; [3],[1,3],[2,3],[1,2,3]</p>
-<p>而这个结果，就是把 sebset(<code>[1,2]</code>) 的结果中每个集合再添加上 3。</p>
-<p>换句话说，如果 <code>A = subset([1,2])</code> ，那么：</p>
-<p>subset(<code>[1,2,3]</code>)</p>
-<p>&#x3D; A + [A[i].add(3) for i &#x3D; 1..len(A)]</p>
-<p>这就是一个典型的递归结构嘛，<code>[1,2,3]</code> 的子集可以由 <code>[1,2]</code> 追加得出，<code>[1,2]</code> 的子集可以由 <code>[1]</code> 追加得出，base case 显然就是当输入集合为空集时，输出子集也就是一个空集。</p>
-<p>翻译成代码就很容易理解了：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; <span class="title function_">subsets</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums)</span> &#123;</span><br><span class="line">    <span class="comment">// base case，返回一个空集</span></span><br><span class="line">    <span class="keyword">if</span> (nums.empty()) <span class="keyword">return</span> &#123;&#123;&#125;&#125;;</span><br><span class="line">    <span class="comment">// 把最后一个元素拿出来</span></span><br><span class="line">    <span class="type">int</span> <span class="variable">n</span> <span class="operator">=</span> nums.back();</span><br><span class="line">    nums.pop_back();</span><br><span class="line">    <span class="comment">// 先递归算出前面元素的所有子集</span></span><br><span class="line">    vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; res = subsets(nums);</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> <span class="variable">size</span> <span class="operator">=</span> res.size();</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; size; i++) &#123;</span><br><span class="line">        <span class="comment">// 然后在之前的结果之上追加</span></span><br><span class="line">        res.push_back(res[i]);</span><br><span class="line">        res.back().push_back(n);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><strong>这个问题的时间复杂度计算比较容易坑人</strong>。我们之前说的计算递归算法时间复杂度的方法，是找到递归深度，然后乘以每次递归中迭代的次数。对于这个问题，递归深度显然是 N，但我们发现每次递归 for 循环的迭代次数取决于 <code>res</code> 的长度，并不是固定的。</p>
-<p>根据刚才的思路，<code>res</code> 的长度应该是每次递归都翻倍，所以说总的迭代次数应该是 2^N。或者不用这么麻烦，你想想一个大小为 N 的集合的子集总共有几个？2^N 个对吧，所以说至少要对 <code>res</code> 添加 2^N 次元素。</p>
-<p>那么算法的时间复杂度就是 O(2^N) 吗？还是不对，2^N 个子集是 <code>push_back</code> 添加进 <code>res</code> 的，所以要考虑 <code>push_back</code> 这个操作的效率：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; res = ...</span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; size; i++) &#123;</span><br><span class="line">    res.push_back(res[i]); <span class="comment">// O(N)</span></span><br><span class="line">    res.back().push_back(n); <span class="comment">// O(1)</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>因为 <code>res[i]</code> 也是一个数组呀，<code>push_back</code> 是把 <code>res[i]</code> copy 一份然后添加到数组的最后，所以一次操作的时间是 O(N)。</p>
-<p>综上，总的时间复杂度就是 O(N*2^N)，还是比较耗时的。</p>
-<p>空间复杂度的话，如果不计算储存返回结果所用的空间的，只需要 O(N) 的递归堆栈空间。如果计算 <code>res</code> 所需的空间，应该是 O(N*2^N)。</p>
-<p><strong>第二种通用方法就是回溯算法</strong>。旧文「回溯算法详解」写过回溯算法的模板：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">result = []</span><br><span class="line">def <span class="title function_">backtrack</span><span class="params">(路径, 选择列表)</span>:</span><br><span class="line">    <span class="keyword">if</span> 满足结束条件:</span><br><span class="line">        result.add(路径)</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    <span class="keyword">for</span> 选择 in 选择列表:</span><br><span class="line">        做选择</span><br><span class="line">        backtrack(路径, 选择列表)</span><br><span class="line">        撤销选择</span><br></pre></td></tr></table></figure>
-
-<p>只要改造回溯算法的模板就行了：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; res;</span><br><span class="line"></span><br><span class="line">vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; <span class="title function_">subsets</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums)</span> &#123;</span><br><span class="line">    <span class="comment">// 记录走过的路径</span></span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; track;</span><br><span class="line">    backtrack(nums, <span class="number">0</span>, track);</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> <span class="title function_">backtrack</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums, <span class="type">int</span> start, vector&lt;<span class="type">int</span>&gt;&amp; track)</span> &#123;</span><br><span class="line">    res.push_back(track);</span><br><span class="line">    <span class="comment">// 注意 i 从 start 开始递增</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> start; i &lt; nums.size(); i++) &#123;</span><br><span class="line">        <span class="comment">// 做选择</span></span><br><span class="line">        track.push_back(nums[i]);</span><br><span class="line">        <span class="comment">// 回溯</span></span><br><span class="line">        backtrack(nums, i + <span class="number">1</span>, track);</span><br><span class="line">        <span class="comment">// 撤销选择</span></span><br><span class="line">        track.pop_back();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>可以看见，对 <code>res</code> 的更新是一个<strong>前序遍历</strong>，也就是说，<code>res</code> 就是树上的所有节点：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/sULT7a_20210507182400.png" alt="图片"></p>
-<h3 id="二、组合"><a href="#二、组合" class="headerlink" title="二、组合"></a>二、组合</h3><p>输入两个数字 <code>n, k</code>，算法输出 <code>[1..n]</code> 中 k 个数字的所有组合。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; <span class="title function_">combine</span><span class="params">(<span class="type">int</span> n, <span class="type">int</span> k)</span>;</span><br></pre></td></tr></table></figure>
-
-<p>比如输入 <code>n = 4, k = 2</code>，输出如下结果，顺序无所谓，但是不能包含重复（按照组合的定义，<code>[1,2]</code> 和 <code>[2,1]</code> 也算重复）：</p>
-<p>[<br> [1,2],<br> [1,3],<br> [1,4],<br> [2,3],<br> [2,4],<br> [3,4]<br>]</p>
-<p>这就是典型的回溯算法，<code>k</code> 限制了树的高度，<code>n</code> 限制了树的宽度，直接套我们以前讲过的回溯算法模板框架就行了：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/y3DT6L_20210507182421.png" alt="图片"></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;vector&lt;<span class="type">int</span>&gt;&gt;res;</span><br><span class="line"></span><br><span class="line">vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; <span class="title function_">combine</span><span class="params">(<span class="type">int</span> n, <span class="type">int</span> k)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (k &lt;= <span class="number">0</span> || n &lt;= <span class="number">0</span>) <span class="keyword">return</span> res;</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; track;</span><br><span class="line">    backtrack(n, k, <span class="number">1</span>, track);</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> <span class="title function_">backtrack</span><span class="params">(<span class="type">int</span> n, <span class="type">int</span> k, <span class="type">int</span> start, vector&lt;<span class="type">int</span>&gt;&amp; track)</span> &#123;</span><br><span class="line">    <span class="comment">// 到达树的底部</span></span><br><span class="line">    <span class="keyword">if</span> (k == track.size()) &#123;</span><br><span class="line">        res.push_back(track);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 注意 i 从 start 开始递增</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> start; i &lt;= n; i++) &#123;</span><br><span class="line">        <span class="comment">// 做选择</span></span><br><span class="line">        track.push_back(i);</span><br><span class="line">        backtrack(n, k, i + <span class="number">1</span>, track);</span><br><span class="line">        <span class="comment">// 撤销选择</span></span><br><span class="line">        track.pop_back();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><code>backtrack</code> 函数和计算子集的差不多，<strong>区别在于，更新 <code>res</code> 的地方是树的底端</strong>。</p>
-<h3 id="三、排列"><a href="#三、排列" class="headerlink" title="三、排列"></a>三、排列</h3><p>输入一个不包含重复数字的数组 <code>nums</code>，返回这些数字的全部排列。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; <span class="title function_">permute</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums)</span>;</span><br></pre></td></tr></table></figure>
-
-<p>比如说输入数组 <code>[1,2,3]</code>，输出结果应该如下，顺序无所谓，不能有重复：</p>
-<p>[<br> [1,2,3],<br> [1,3,2],<br> [2,1,3],<br> [2,3,1],<br> [3,1,2],<br> [3,2,1]<br>]</p>
-<p><a target="_blank" rel="noopener" href="http://mp.weixin.qq.com/s?__biz=MzAxODQxMDM0Mw==&mid=2247484709&idx=1&sn=1c24a5c41a5a255000532e83f38f2ce4&chksm=9bd7fb2daca0723be888b30345e2c5e64649fc31a00b05c27a0843f349e2dd9363338d0dac61&scene=21#wechat_redirect">回溯算法详解</a> 中就是拿这个问题来解释回溯模板的。这里又列出这个问题，是将「排列」和「组合」这两个回溯算法的代码拿出来对比。</p>
-<p>首先画出回溯树来看一看：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/uRIb5X_20210507182434.png" alt="图片"></p>
-<p>我们当时使用 Java 代码写的解法：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">List&lt;List&lt;Integer&gt;&gt; res = <span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;();</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 主函数，输入一组不重复的数字，返回它们的全排列 */</span></span><br><span class="line">List&lt;List&lt;Integer&gt;&gt; <span class="title function_">permute</span><span class="params">(<span class="type">int</span>[] nums)</span> &#123;</span><br><span class="line">    <span class="comment">// 记录「路径」</span></span><br><span class="line">    LinkedList&lt;Integer&gt; track = <span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;();</span><br><span class="line">    backtrack(nums, track);</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> <span class="title function_">backtrack</span><span class="params">(<span class="type">int</span>[] nums, LinkedList&lt;Integer&gt; track)</span> &#123;</span><br><span class="line">    <span class="comment">// 触发结束条件</span></span><br><span class="line">    <span class="keyword">if</span> (track.size() == nums.length) &#123;</span><br><span class="line">        res.add(<span class="keyword">new</span> <span class="title class_">LinkedList</span>(track));</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; nums.length; i++) &#123;</span><br><span class="line">        <span class="comment">// 排除不合法的选择</span></span><br><span class="line">        <span class="keyword">if</span> (track.contains(nums[i]))</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        <span class="comment">// 做选择</span></span><br><span class="line">        track.add(nums[i]);</span><br><span class="line">        <span class="comment">// 进入下一层决策树</span></span><br><span class="line">        backtrack(nums, track);</span><br><span class="line">        <span class="comment">// 取消选择</span></span><br><span class="line">        track.removeLast();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>回溯模板依然没有变，但是根据排列问题和组合问题画出的树来看，排列问题的树比较对称，而组合问题的树越靠右节点越少。</p>
-<p>在代码中的体现就是，排列问题每次通过 <code>contains</code> 方法来排除在 <code>track</code> 中已经选择过的数字；而组合问题通过传入一个 <code>start</code> 参数，来排除 <code>start</code> 索引之前的数字。</p>
-<p><strong>以上，就是排列组合和子集三个问题的解法，总结一下</strong>：</p>
-<p>子集问题可以利用数学归纳思想，假设已知一个规模较小的问题的结果，思考如何推导出原问题的结果。也可以用回溯算法，要用 <code>start</code> 参数排除已选择的数字。</p>
-<p>组合问题利用的是回溯思想，结果可以表示成树结构，我们只要套用回溯算法模板即可，关键点在于要用一个 <code>start</code> 排除已经选择过的数字。</p>
-<p>排列问题是回溯思想，也可以表示成树结构套用算法模板，不同之处在于使用 <code>contains</code> 方法排除已经选择的数字，前文有详细分析，这里主要是和组合问题作对比。</p>
-<p>对于这三个问题，关键区别在于回溯树的结构，不妨多观察递归树的结构，很自然就可以理解代码的含义了。</p>
-
-      
-    </div>
-
-    
-    
-    
-
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>l
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://example.com/posts/e775a8f2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1968,6 +1947,184 @@
 
 
 
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/117b65dd/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lion.png">
+      <meta itemprop="name" content="swimminghao">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="swimminghao's blog">
+      <meta itemprop="description" content="swimminghao的学习博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | swimminghao's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/117b65dd/" class="post-title-link" itemprop="url">动态规划设计之最长递增子序列</a>
+        </h2>
+
+        <div class="post-meta-container">
+
+          
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2025-02-13 16:20:39" itemprop="dateModified" datetime="2025-02-13T16:20:39+08:00">2025-02-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/posts/117b65dd/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/117b65dd/" data-xid="/posts/117b65dd/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>2.5k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>2 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="动态规划设计之最长递增子序列"><a href="#动态规划设计之最长递增子序列" class="headerlink" title="动态规划设计之最长递增子序列"></a>动态规划设计之最长递增子序列</h1><h2 id="预计阅读时间：-9-分钟"><a href="#预计阅读时间：-9-分钟" class="headerlink" title="预计阅读时间： 9 分钟"></a>预计阅读时间： 9 分钟</h2><p>很多读者反应，就算看了前文 <a target="_blank" rel="noopener" href="http://mp.weixin.qq.com/s?__biz=MzU0MDg5OTYyOQ==&mid=2247483818&idx=1&sn=6035f861d1b2bfd0178e842f26ac4836&chksm=fb3361e8cc44e8fe331154bfd32bd7b3b4f159bfad5d38d4a6b0b9f0d7e3485b93b828ee72cc&scene=21#wechat_redirect">动态规划详解</a>，了解了动态规划的套路，也不会写状态转移方程，没有思路，怎么办？本文就借助「最长递增子序列」来讲一种设计动态规划的通用技巧：数学归纳思想。</p>
+<p>最长递增子序列（Longest Increasing Subsequence，简写 LIS）是比较经典的一个问题，比较容易想到的是动态规划解法，时间复杂度 O(N^2)，我们借这个问题来由浅入深讲解如何写动态规划。</p>
+<p>比较难想到的是利用二分查找，时间复杂度是 O(NlogN)，我们通过一种简单的纸牌游戏来辅助理解这种巧妙的解法。</p>
+<p>先看一下题目，很容易理解：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/MEAMGr_20210715222744.png" alt="图片"></p>
+<p>注意「子序列」和「子串」这两个名词的区别，子串一定是连续的，而子序列不一定是连续的。下面先来一步一步设计动态规划算法解决这个问题。</p>
+<h2 id="一、动态规划解法"><a href="#一、动态规划解法" class="headerlink" title="一、动态规划解法"></a>一、动态规划解法</h2><p><strong>动态规划的核心设计思想是数学归纳法。</strong></p>
+<p>相信大家对数学归纳法都不陌生，高中就学过，而且思路很简单。比如我们想证明一个数学结论，那么我们先假设这个结论在 k&lt;n 时成立，然后想办法证明 k&#x3D;<em>n</em> 的时候此结论也成立。如果能够证明出来，那么就说明这个结论对于 k 等于任何数都成立。</p>
+<p>类似的，我们设计动态规划算法，不是需要一个 dp 数组吗？我们可以假设 <em>dp</em>[0…<em>i</em>−1] 都已经被算出来了，然后问自己：怎么通过这些结果算出<em>dp[i] ?</em></p>
+<p>直接拿最长递增子序列这个问题举例你就明白了。不过，首先要定义清楚 dp 数组的含义，即 dp[i] 的值到底代表着什么？</p>
+<p><strong>我们的定义是这样的：****dp[i] 表示以 nums[i] 这个数结尾的最长递增子序列的长度。</strong></p>
+<p>举个例子：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/S9DvIE_20210715222829.png" alt="图片"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/vrYoH4_20210715222841.png" alt="图片"></p>
+<p>算法演进的过程是这样的：<img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/640_20210715222950.gif" alt="图片"></p>
+<p>根据这个定义，我们的最终结果（子序列的最大长度）应该是 dp 数组中的最大值。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="variable">res</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; dp.length; i++) &#123;</span><br><span class="line">    res = Math.max(res, dp[i]);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> res;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>读者也许会问，刚才这个过程中每个 dp[i] 的结果是我们肉眼看出来的，我们应该怎么设计算法逻辑来正确计算每个 dp[i] 呢？</p>
+<p>这就是动态规划的重头戏了，要思考如何进行状态转移，这里就可以使用数学归纳的思想：</p>
+<p>我们已经知道了 <em>d**p</em>[0…4] 的所有结果，我们如何通过这些已知结果推出 <em>d**p</em>[5] 呢？</p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/xpC5LY_20210715223016.png" alt="图片"></p>
+<p>根据刚才我们对 dp 数组的定义，现在想求 dp[5] 的值，也就是想求以 nums[5] 为结尾的最长递增子序列。</p>
+<p>nums[5] &#x3D; 3，既然是递增子序列，我们只要找到前面那些结尾比 3 小的子序列，然后把 3 接到最后，就可以形成一个新的递增子序列，而且这个新的子序列长度加一。</p>
+<p>当然，可能形成很多种新的子序列，但是我们只要最长的，把最长子序列的长度作为 dp[5] 的值即可。</p>
+<p>![图片](<a target="_blank" rel="noopener" href="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/640">https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/640</a> (1)_20210715223303.gif)</p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/QksgN5_20210715223039.png" alt="图片"></p>
+<p>这段代码的逻辑就可以算出 dp[5]。到这里，这道算法题我们就基本做完了。读者也许会问，我们刚才只是算了 dp[5] 呀，dp[4], dp[3] 这些怎么算呢？</p>
+<p>类似数学归纳法，你已经可以通过 dp[0…4] 算出 dp[5] 了，那么任意 dp[i] 你肯定都可以算出来：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/9CYook_20210715223056.png" alt="图片"></p>
+<p>还有一个细节问题，就是 base case。dp 数组应该全部初始化为 1，因为子序列最少也要包含自己，所以长度最小为 1。下面我们看一下完整代码：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/image-20210715223113307_20210715223113.png" alt="图片"></p>
+<p>至此，这道题就解决了，时间复杂度 O(N^2)。总结一下动态规划的设计流程：</p>
+<p>首先明确 dp 数组所存数据的含义。这步很重要，如果不得当或者不够清晰，会阻碍之后的步骤。</p>
+<p>然后根据 dp 数组的定义，运用数学归纳法的思想，假设 <em>d**p</em>[0…<em>i</em>−1] 都已知，想办法求出 <em>d**p</em>[<em>i</em>]，一旦这一步完成，整个题目基本就解决了。</p>
+<p>但如果无法完成这一步，很可能就是 dp 数组的定义不够恰当，需要重新定义 dp 数组的含义；或者可能是 dp 数组存储的信息还不够，不足以推出下一步的答案，需要把 dp 数组扩大成二维数组甚至三维数组。</p>
+<h2 id="二、二分查找解法"><a href="#二、二分查找解法" class="headerlink" title="二、二分查找解法"></a>二、二分查找解法</h2><p>这个解法的时间复杂度会将为 O(NlogN)，但是说实话，正常人基本想不到这种解法（也许玩过某些纸牌游戏的人可以想出来）。所以如果大家了解一下就好，正常情况下能够给出动态规划解法就已经很不错了。</p>
+<p>根据题目的意思，我都很难想象这个问题竟然能和二分查找扯上关系。其实最长递增子序列和一种叫做 patience game 的纸牌游戏有关，甚至有一种排序方法就叫做 patience sorting（耐心排序）。</p>
+<p>为了简单起见，后文跳过所有数学证明，通过一个简化的例子来理解一下思路。</p>
+<p>首先，给你一排扑克牌，我们像遍历数组那样从左到右一张一张处理这些扑克牌，最终要把这些牌分成若干堆。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/DFBLV6_20210715223123.png" alt="图片"></p>
+<p>处理这些扑克牌要遵循以下规则：</p>
+<p>只能把点数小的牌压到点数比它大的牌上。如果当前牌点数较大没有可以放置的堆，则新建一个堆，把这张牌放进去。如果当前牌有多个堆可供选择，则选择最左边的堆放置。</p>
+<p>比如说上述的扑克牌最终会被分成这样 5 堆（我们认为 A 的值是最大的，而不是 1）。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/image-20210715223138612_20210715223138.png" alt="图片"></p>
+<p>为什么遇到多个可选择堆的时候要放到最左边的堆上呢？因为这样可以保证牌堆顶的牌有序（2, 4, 7, 8, Q），证明略。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/Cnd9HF_20210715223145.png" alt="图片"></p>
+<p>按照上述规则执行，可以算出最长递增子序列，牌的堆数就是我们想求的最长递增子序列的长度，证明略。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/8SHDGY_20210715223158.png" alt="图片"></p>
+<p>我们只要把处理扑克牌的过程编程写出来即可。每次处理一张扑克牌不是要找一个合适的牌堆顶来放吗，牌堆顶的牌不是有序吗，这就能用到二分查找了：用二分查找来搜索当前牌应放置的位置。</p>
+<p>PS：旧文 <a target="_blank" rel="noopener" href="http://mp.weixin.qq.com/s?__biz=MzU0MDg5OTYyOQ==&mid=2247484090&idx=1&sn=5635cf1c4fd8a8570b63c7ae9b4304c2&chksm=fb3362f8cc44ebee0a19a4cfba7f2e13923e05f47e15f2e99a1f42b01aeee83b946aceac3d4c&scene=21#wechat_redirect">二分查找算法详解</a> 详细介绍了二分查找的细节及变体，这里就完美应用上了。如果没读过强烈建议阅读。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/f6Golz_20210715223219.png" alt="图片"></p>
+<p>至此，二分查找的解法也讲解完毕。</p>
+<p>这个解法确实很难想到。首先涉及数学证明，谁能想到按照这些规则执行，就能得到最长递增子序列呢？其次还有二分查找的运用，要是对二分查找的细节不清楚，给了思路也很难写对。</p>
+<p>所以，这个方法作为思维拓展好了。但动态规划的设计方法应该完全理解：假设之前的答案已知，利用数学归纳的思想正确进行状态的推演转移，最终得到答案。</p>
+
+      
+    </div>
+
+    
+    
+    
+
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>l
+
+
+
+
   <nav class="pagination">
     <a class="extend prev" rel="prev" href="/page/25/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/25/">25</a><span class="page-number current">26</span><a class="page-number" href="/page/27/">27</a><a class="page-number" href="/page/28/">28</a><a class="extend next" rel="next" href="/page/27/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
@@ -1998,7 +2155,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">18:03</span>
+    <span title="站点阅读时长">18:04</span>
   </span>
 </div>
 

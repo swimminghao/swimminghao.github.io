@@ -104,7 +104,7 @@
         <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
         <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">52</span></a></li>
         <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">17</span></a></li>
-        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">271</span></a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">272</span></a></li>
         <li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
@@ -176,7 +176,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">271</span>
+          <span class="site-state-item-count">272</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -267,6 +267,191 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/6e5dcbe0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lion.png">
+      <meta itemprop="name" content="swimminghao">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="swimminghao's blog">
+      <meta itemprop="description" content="swimminghao的学习博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | swimminghao's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/6e5dcbe0/" class="post-title-link" itemprop="url">回溯算法团灭排列组合子集问题</a>
+        </h2>
+
+        <div class="post-meta-container">
+
+          
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2025-02-13 16:20:39" itemprop="dateModified" datetime="2025-02-13T16:20:39+08:00">2025-02-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/posts/6e5dcbe0/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/6e5dcbe0/" data-xid="/posts/6e5dcbe0/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>4.5k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>4 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="回溯算法团灭排列-x2F-组合-x2F-子集问题"><a href="#回溯算法团灭排列-x2F-组合-x2F-子集问题" class="headerlink" title="回溯算法团灭排列&#x2F;组合&#x2F;子集问题"></a>回溯算法团灭排列&#x2F;组合&#x2F;子集问题</h1><h2 id="回溯算法团灭排列-x2F-组合-x2F-子集问题-1"><a href="#回溯算法团灭排列-x2F-组合-x2F-子集问题-1" class="headerlink" title="回溯算法团灭排列&#x2F;组合&#x2F;子集问题"></a>回溯算法团灭排列&#x2F;组合&#x2F;子集问题</h2><h2 id="预计阅读时间：7-分钟"><a href="#预计阅读时间：7-分钟" class="headerlink" title="预计阅读时间：7 分钟"></a>预计阅读时间：7 分钟</h2><p>今天就来聊三道考察频率高，而且容易让人搞混的算法问题，分别是求子集（subset），求排列（permutation），求组合（combination）。这几个问题都可以用回溯算法解决。</p>
+<h3 id="一、子集"><a href="#一、子集" class="headerlink" title="一、子集"></a>一、子集</h3><p>问题很简单，输入一个<strong>不包含重复数字</strong>的数组，要求算法输出这些数字的所有子集。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; <span class="title function_">subsets</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums)</span>;</span><br></pre></td></tr></table></figure>
+
+<p>比如输入 <code>nums = [1,2,3]</code>，你的算法应输出 8 个子集，包含空集和本身，顺序可以不同：</p>
+<p>[ [],[1],[2],[3],[1,3],[2,3],[1,2],[1,2,3] ]</p>
+<p><strong>第一个解法是利用数学归纳的思想</strong>：假设我现在知道了规模更小的子问题的结果，如何推导出当前问题的结果呢？</p>
+<p>具体来说就是，现在让你求 <code>[1,2,3]</code> 的子集，如果你知道了 <code>[1,2]</code> 的子集，是否可以推导出 <code>[1,2,3]</code> 的子集呢？先把  <code>[1,2]</code> 的子集写出来瞅瞅：</p>
+<p>[ [],[1],[2],[1,2] ]</p>
+<p>你会发现这样一个规律：</p>
+<p>subset(<code>[1,2,3]</code>) - subset(<code>[1,2]</code>)</p>
+<p>&#x3D; [3],[1,3],[2,3],[1,2,3]</p>
+<p>而这个结果，就是把 sebset(<code>[1,2]</code>) 的结果中每个集合再添加上 3。</p>
+<p>换句话说，如果 <code>A = subset([1,2])</code> ，那么：</p>
+<p>subset(<code>[1,2,3]</code>)</p>
+<p>&#x3D; A + [A[i].add(3) for i &#x3D; 1..len(A)]</p>
+<p>这就是一个典型的递归结构嘛，<code>[1,2,3]</code> 的子集可以由 <code>[1,2]</code> 追加得出，<code>[1,2]</code> 的子集可以由 <code>[1]</code> 追加得出，base case 显然就是当输入集合为空集时，输出子集也就是一个空集。</p>
+<p>翻译成代码就很容易理解了：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; <span class="title function_">subsets</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums)</span> &#123;</span><br><span class="line">    <span class="comment">// base case，返回一个空集</span></span><br><span class="line">    <span class="keyword">if</span> (nums.empty()) <span class="keyword">return</span> &#123;&#123;&#125;&#125;;</span><br><span class="line">    <span class="comment">// 把最后一个元素拿出来</span></span><br><span class="line">    <span class="type">int</span> <span class="variable">n</span> <span class="operator">=</span> nums.back();</span><br><span class="line">    nums.pop_back();</span><br><span class="line">    <span class="comment">// 先递归算出前面元素的所有子集</span></span><br><span class="line">    vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; res = subsets(nums);</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> <span class="variable">size</span> <span class="operator">=</span> res.size();</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; size; i++) &#123;</span><br><span class="line">        <span class="comment">// 然后在之前的结果之上追加</span></span><br><span class="line">        res.push_back(res[i]);</span><br><span class="line">        res.back().push_back(n);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>这个问题的时间复杂度计算比较容易坑人</strong>。我们之前说的计算递归算法时间复杂度的方法，是找到递归深度，然后乘以每次递归中迭代的次数。对于这个问题，递归深度显然是 N，但我们发现每次递归 for 循环的迭代次数取决于 <code>res</code> 的长度，并不是固定的。</p>
+<p>根据刚才的思路，<code>res</code> 的长度应该是每次递归都翻倍，所以说总的迭代次数应该是 2^N。或者不用这么麻烦，你想想一个大小为 N 的集合的子集总共有几个？2^N 个对吧，所以说至少要对 <code>res</code> 添加 2^N 次元素。</p>
+<p>那么算法的时间复杂度就是 O(2^N) 吗？还是不对，2^N 个子集是 <code>push_back</code> 添加进 <code>res</code> 的，所以要考虑 <code>push_back</code> 这个操作的效率：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; res = ...</span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; size; i++) &#123;</span><br><span class="line">    res.push_back(res[i]); <span class="comment">// O(N)</span></span><br><span class="line">    res.back().push_back(n); <span class="comment">// O(1)</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>因为 <code>res[i]</code> 也是一个数组呀，<code>push_back</code> 是把 <code>res[i]</code> copy 一份然后添加到数组的最后，所以一次操作的时间是 O(N)。</p>
+<p>综上，总的时间复杂度就是 O(N*2^N)，还是比较耗时的。</p>
+<p>空间复杂度的话，如果不计算储存返回结果所用的空间的，只需要 O(N) 的递归堆栈空间。如果计算 <code>res</code> 所需的空间，应该是 O(N*2^N)。</p>
+<p><strong>第二种通用方法就是回溯算法</strong>。旧文「回溯算法详解」写过回溯算法的模板：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">result = []</span><br><span class="line">def <span class="title function_">backtrack</span><span class="params">(路径, 选择列表)</span>:</span><br><span class="line">    <span class="keyword">if</span> 满足结束条件:</span><br><span class="line">        result.add(路径)</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    <span class="keyword">for</span> 选择 in 选择列表:</span><br><span class="line">        做选择</span><br><span class="line">        backtrack(路径, 选择列表)</span><br><span class="line">        撤销选择</span><br></pre></td></tr></table></figure>
+
+<p>只要改造回溯算法的模板就行了：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; res;</span><br><span class="line"></span><br><span class="line">vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; <span class="title function_">subsets</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums)</span> &#123;</span><br><span class="line">    <span class="comment">// 记录走过的路径</span></span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; track;</span><br><span class="line">    backtrack(nums, <span class="number">0</span>, track);</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> <span class="title function_">backtrack</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums, <span class="type">int</span> start, vector&lt;<span class="type">int</span>&gt;&amp; track)</span> &#123;</span><br><span class="line">    res.push_back(track);</span><br><span class="line">    <span class="comment">// 注意 i 从 start 开始递增</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> start; i &lt; nums.size(); i++) &#123;</span><br><span class="line">        <span class="comment">// 做选择</span></span><br><span class="line">        track.push_back(nums[i]);</span><br><span class="line">        <span class="comment">// 回溯</span></span><br><span class="line">        backtrack(nums, i + <span class="number">1</span>, track);</span><br><span class="line">        <span class="comment">// 撤销选择</span></span><br><span class="line">        track.pop_back();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>可以看见，对 <code>res</code> 的更新是一个<strong>前序遍历</strong>，也就是说，<code>res</code> 就是树上的所有节点：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/sULT7a_20210507182400.png" alt="图片"></p>
+<h3 id="二、组合"><a href="#二、组合" class="headerlink" title="二、组合"></a>二、组合</h3><p>输入两个数字 <code>n, k</code>，算法输出 <code>[1..n]</code> 中 k 个数字的所有组合。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; <span class="title function_">combine</span><span class="params">(<span class="type">int</span> n, <span class="type">int</span> k)</span>;</span><br></pre></td></tr></table></figure>
+
+<p>比如输入 <code>n = 4, k = 2</code>，输出如下结果，顺序无所谓，但是不能包含重复（按照组合的定义，<code>[1,2]</code> 和 <code>[2,1]</code> 也算重复）：</p>
+<p>[<br> [1,2],<br> [1,3],<br> [1,4],<br> [2,3],<br> [2,4],<br> [3,4]<br>]</p>
+<p>这就是典型的回溯算法，<code>k</code> 限制了树的高度，<code>n</code> 限制了树的宽度，直接套我们以前讲过的回溯算法模板框架就行了：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/y3DT6L_20210507182421.png" alt="图片"></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;vector&lt;<span class="type">int</span>&gt;&gt;res;</span><br><span class="line"></span><br><span class="line">vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; <span class="title function_">combine</span><span class="params">(<span class="type">int</span> n, <span class="type">int</span> k)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (k &lt;= <span class="number">0</span> || n &lt;= <span class="number">0</span>) <span class="keyword">return</span> res;</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; track;</span><br><span class="line">    backtrack(n, k, <span class="number">1</span>, track);</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> <span class="title function_">backtrack</span><span class="params">(<span class="type">int</span> n, <span class="type">int</span> k, <span class="type">int</span> start, vector&lt;<span class="type">int</span>&gt;&amp; track)</span> &#123;</span><br><span class="line">    <span class="comment">// 到达树的底部</span></span><br><span class="line">    <span class="keyword">if</span> (k == track.size()) &#123;</span><br><span class="line">        res.push_back(track);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 注意 i 从 start 开始递增</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> start; i &lt;= n; i++) &#123;</span><br><span class="line">        <span class="comment">// 做选择</span></span><br><span class="line">        track.push_back(i);</span><br><span class="line">        backtrack(n, k, i + <span class="number">1</span>, track);</span><br><span class="line">        <span class="comment">// 撤销选择</span></span><br><span class="line">        track.pop_back();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>backtrack</code> 函数和计算子集的差不多，<strong>区别在于，更新 <code>res</code> 的地方是树的底端</strong>。</p>
+<h3 id="三、排列"><a href="#三、排列" class="headerlink" title="三、排列"></a>三、排列</h3><p>输入一个不包含重复数字的数组 <code>nums</code>，返回这些数字的全部排列。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; <span class="title function_">permute</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums)</span>;</span><br></pre></td></tr></table></figure>
+
+<p>比如说输入数组 <code>[1,2,3]</code>，输出结果应该如下，顺序无所谓，不能有重复：</p>
+<p>[<br> [1,2,3],<br> [1,3,2],<br> [2,1,3],<br> [2,3,1],<br> [3,1,2],<br> [3,2,1]<br>]</p>
+<p><a target="_blank" rel="noopener" href="http://mp.weixin.qq.com/s?__biz=MzAxODQxMDM0Mw==&mid=2247484709&idx=1&sn=1c24a5c41a5a255000532e83f38f2ce4&chksm=9bd7fb2daca0723be888b30345e2c5e64649fc31a00b05c27a0843f349e2dd9363338d0dac61&scene=21#wechat_redirect">回溯算法详解</a> 中就是拿这个问题来解释回溯模板的。这里又列出这个问题，是将「排列」和「组合」这两个回溯算法的代码拿出来对比。</p>
+<p>首先画出回溯树来看一看：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/uRIb5X_20210507182434.png" alt="图片"></p>
+<p>我们当时使用 Java 代码写的解法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">List&lt;List&lt;Integer&gt;&gt; res = <span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;();</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 主函数，输入一组不重复的数字，返回它们的全排列 */</span></span><br><span class="line">List&lt;List&lt;Integer&gt;&gt; <span class="title function_">permute</span><span class="params">(<span class="type">int</span>[] nums)</span> &#123;</span><br><span class="line">    <span class="comment">// 记录「路径」</span></span><br><span class="line">    LinkedList&lt;Integer&gt; track = <span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;();</span><br><span class="line">    backtrack(nums, track);</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> <span class="title function_">backtrack</span><span class="params">(<span class="type">int</span>[] nums, LinkedList&lt;Integer&gt; track)</span> &#123;</span><br><span class="line">    <span class="comment">// 触发结束条件</span></span><br><span class="line">    <span class="keyword">if</span> (track.size() == nums.length) &#123;</span><br><span class="line">        res.add(<span class="keyword">new</span> <span class="title class_">LinkedList</span>(track));</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; nums.length; i++) &#123;</span><br><span class="line">        <span class="comment">// 排除不合法的选择</span></span><br><span class="line">        <span class="keyword">if</span> (track.contains(nums[i]))</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        <span class="comment">// 做选择</span></span><br><span class="line">        track.add(nums[i]);</span><br><span class="line">        <span class="comment">// 进入下一层决策树</span></span><br><span class="line">        backtrack(nums, track);</span><br><span class="line">        <span class="comment">// 取消选择</span></span><br><span class="line">        track.removeLast();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>回溯模板依然没有变，但是根据排列问题和组合问题画出的树来看，排列问题的树比较对称，而组合问题的树越靠右节点越少。</p>
+<p>在代码中的体现就是，排列问题每次通过 <code>contains</code> 方法来排除在 <code>track</code> 中已经选择过的数字；而组合问题通过传入一个 <code>start</code> 参数，来排除 <code>start</code> 索引之前的数字。</p>
+<p><strong>以上，就是排列组合和子集三个问题的解法，总结一下</strong>：</p>
+<p>子集问题可以利用数学归纳思想，假设已知一个规模较小的问题的结果，思考如何推导出原问题的结果。也可以用回溯算法，要用 <code>start</code> 参数排除已选择的数字。</p>
+<p>组合问题利用的是回溯思想，结果可以表示成树结构，我们只要套用回溯算法模板即可，关键点在于要用一个 <code>start</code> 排除已经选择过的数字。</p>
+<p>排列问题是回溯思想，也可以表示成树结构套用算法模板，不同之处在于使用 <code>contains</code> 方法排除已经选择的数字，前文有详细分析，这里主要是和组合问题作对比。</p>
+<p>对于这三个问题，关键区别在于回溯树的结构，不妨多观察递归树的结构，很自然就可以理解代码的含义了。</p>
+
+      
+    </div>
+
+    
+    
+    
+
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>l
+
+
+
 
     
 
@@ -951,6 +1136,223 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/50cab45/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lion.png">
+      <meta itemprop="name" content="swimminghao">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="swimminghao's blog">
+      <meta itemprop="description" content="swimminghao的学习博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | swimminghao's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/50cab45/" class="post-title-link" itemprop="url">滑动窗口</a>
+        </h2>
+
+        <div class="post-meta-container">
+
+          
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2025-02-13 16:20:39" itemprop="dateModified" datetime="2025-02-13T16:20:39+08:00">2025-02-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/posts/50cab45/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/50cab45/" data-xid="/posts/50cab45/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>6.9k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>6 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="滑动窗口算法"><a href="#滑动窗口算法" class="headerlink" title="滑动窗口算法"></a>滑动窗口算法</h1><h2 id="滑动窗口算法-1"><a href="#滑动窗口算法-1" class="headerlink" title="滑动窗口算法"></a>滑动窗口算法</h2><p><strong>滑动窗口框架套路详解</strong></p>
+<p>在滑动窗口算法框架中，我编写一首小诗来歌颂滑动窗口算法的伟大：</p>
+<p><img src="https://mmbiz.qpic.cn/sz_mmbiz_png/gibkIz0MVqdEsLiaY9d9CcVdNcPTAdO5MRwZhsxtTc6BaDMpHQtibCX5kY406sxFeaClrlft3j6XiaJ48jq0Gnj2dQ/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1" alt="图片"></p>
+<p>关于双指针的快慢指针和左右指针的用法，可以参见前文 <a target="_blank" rel="noopener" href="http://mp.weixin.qq.com/s?__biz=MzAxODQxMDM0Mw==&mid=2247484505&idx=1&sn=0e9517f7c4021df0e6146c6b2b0c4aba&chksm=9bd7fa51aca07347009c591c403b3228f41617806429e738165bd58d60220bf8f15f92ff8a2e&scene=21#wechat_redirect">双指针技巧汇总</a>，<strong>本文就解决一类最难掌握的双指针技巧：滑动窗口技巧，并总结出一套框架，可以保你闭着眼直接套出答案。</strong></p>
+<p>说起滑动窗口算法，很多读者都会头疼。这个算法技巧的思路非常简单，就是维护一个窗口，不断滑动，然后更新答案么。LeetCode 上有起码 10 道运用滑动窗口算法的题目，难度都是中等和困难。该算法的大致逻辑如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="variable">left</span> <span class="operator">=</span> <span class="number">0</span>, right = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> (right &lt; s.size()) &#123;</span><br><span class="line">    <span class="comment">// 增大窗口</span></span><br><span class="line">    window.add(s[right]);</span><br><span class="line">    right++;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (window needs shrink) &#123;</span><br><span class="line">        <span class="comment">// 缩小窗口</span></span><br><span class="line">        window.remove(s[left]);</span><br><span class="line">        left++;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这个算法技巧的时间复杂度是 O(N)，比一般的字符串暴力算法要高效得多。</p>
+<p><strong><em>其实困扰大家的</em>，不是算法的思路，而是各种细节问题</strong>。比如说如何向窗口中添加新元素，如何缩小窗口，在窗口滑动的哪个阶段更新结果。即便你明白了这些细节，也容易出 bug，找 bug 还不知道怎么找，真的挺让人心烦的。</p>
+<p><strong>所以今天我就写一套滑动窗口算法的代码框架，我连在哪里做输出 debug 都给你写好了，以后遇到相关的问题，你就默写出来如下框架然后改三个地方就行，还不会出边界问题</strong>：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 滑动窗口算法框架 */</span></span><br><span class="line"><span class="keyword">void</span> <span class="title function_">slidingWindow</span>(<span class="params">string s, string t</span>) &#123;</span><br><span class="line">    unordered_map&lt;char, int&gt; need, <span class="variable language_">window</span>;</span><br><span class="line">    <span class="keyword">for</span> (char c : t) need[c]++;</span><br><span class="line"></span><br><span class="line">    int left = <span class="number">0</span>, right = <span class="number">0</span>;</span><br><span class="line">    int valid = <span class="number">0</span>; </span><br><span class="line">    <span class="keyword">while</span> (right &lt; s.<span class="title function_">size</span>()) &#123;</span><br><span class="line">        <span class="comment">// c 是将移入窗口的字符</span></span><br><span class="line">        char c = s[right];</span><br><span class="line">        <span class="comment">// 右移窗口</span></span><br><span class="line">        right++;</span><br><span class="line">        <span class="comment">// 进行窗口内数据的一系列更新</span></span><br><span class="line">        ...</span><br><span class="line"></span><br><span class="line">        <span class="comment">/*** debug 输出的位置 ***/</span></span><br><span class="line">        <span class="title function_">printf</span>(<span class="string">&quot;window: [%d, %d)\n&quot;</span>, left, right);</span><br><span class="line">        <span class="comment">/********************/</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 判断左侧窗口是否要收缩</span></span><br><span class="line">        <span class="keyword">while</span> (<span class="variable language_">window</span> needs shrink) &#123;</span><br><span class="line">            <span class="comment">// d 是将移出窗口的字符</span></span><br><span class="line">            char d = s[left];</span><br><span class="line">            <span class="comment">// 左移窗口</span></span><br><span class="line">            left++;</span><br><span class="line">            <span class="comment">// 进行窗口内数据的一系列更新</span></span><br><span class="line">            ...</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>其中两处<code>...</code>表示的更新窗口数据的地方，到时候你直接往里面填就行了</strong>。</p>
+<p>而且，这两个<code>...</code>处的操作分别是右移和左移窗口更新操作，等会你会发现它们操作是完全对称的。</p>
+<p><strong>说句题外话，其实有很多人喜欢执着于表象，不喜欢探求问题的本质。</strong>比如说有很多人评论我这个框架，说什么散列表速度慢，不如用数组代替散列表；还有很多人喜欢把代码写得特别短小，说我这样代码太多余，影响编译速度，LeetCode 上速度不够快。</p>
+<p>我也是服了，算法看的是时间复杂度，你能确保自己的时间复杂度最优就行了。至于 LeetCode 所谓的运行速度，那个都是玄学，只要不是慢的离谱就没啥问题，根本不值得你从编译层面优化，不要舍本逐末……</p>
+<p>重点在于算法思想，你把框架思维了然于心套出解法，然后随你再魔改代码好吧，你高兴就好。</p>
+<p>言归正传，<strong>下面就直接上*<em>四道*</em> LeetCode 原题来套这个框架</strong>，其中第一道题会详细说明其原理，后面四道就直接闭眼睛秒杀了。</p>
+<p>本文代码为 C++ 实现，不会用到什么编程方面的奇技淫巧，但是还是简单介绍一下一些用到的数据结构，以免有的读者因为语言的细节问题阻碍对算法思想的理解：</p>
+<p><code>unordered_map</code>就是哈希表（字典），它的一个方法<code>count(key)</code>相当于 Java 的<code>containsKey(key)</code>可以判断键 key 是否存在。</p>
+<p>可以使用方括号访问键对应的值<code>map[key]</code>。需要注意的是，如果该<code>key</code>不存在，C++ 会自动创建这个 key，并把<code>map[key]</code>赋值为 0。</p>
+<p>所以代码中多次出现的<code>map[key]++</code>相当于 Java 的<code>map.put(key, map.getOrDefault(key, 0) + 1)</code>。</p>
+<h3 id="一、最小覆盖子串"><a href="#一、最小覆盖子串" class="headerlink" title="一、最小覆盖子串"></a>一、最小覆盖子串</h3><p>LeetCode 76 题，Minimum Window Substring，难度 <strong>Hard</strong>，我带大家看看它到底有多 <strong>Hard</strong>：</p>
+<p><img src="https://mmbiz.qpic.cn/sz_mmbiz_png/gibkIz0MVqdGQlBxOlAet1AXGPoibCzEowk6hiaxmGN6ibHiaTqxHMqYvCRA4lWuRCQicPSfZY78De1GmwkXviar4psjw/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1" alt="图片"></p>
+<p>就是说要在<code>S</code>(source) 中找到包含<code>T</code>(target) 中全部字母的一个子串，且这个子串一定是所有可能子串中最短的。</p>
+<p>如果我们使用暴力解法，代码大概是这样的：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; s.size(); i++)</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> i + <span class="number">1</span>; j &lt; s.size(); j++)</span><br><span class="line">        <span class="keyword">if</span> s[i:j] 包含 t 的所有字母:</span><br><span class="line">            更新答案</span><br></pre></td></tr></table></figure>
+
+<p>思路很直接，但是显然，这个算法的复杂度肯定大于 O(N^2) 了，不好。</p>
+<p><strong>滑动窗口算法的思路是这样</strong>：</p>
+<p><em><strong>1、</strong></em>我们在字符串<code>S</code>中使用双指针中的左右指针技巧，初始化<code>left = right = 0</code>，<strong>把索引左闭右开区间<code>[left, right)</code>称为一个「窗口」</strong>。</p>
+<p><em><strong>2、</strong></em>我们先不断地增加<code>right</code>指针扩大窗口<code>[left, right)</code>，直到窗口中的字符串符合要求（包含了<code>T</code>中的所有字符）。</p>
+<p><em><strong>3、</strong></em>此时，我们停止增加<code>right</code>，转而不断增加<code>left</code>指针缩小窗口<code>[left, right)</code>，直到窗口中的字符串不再符合要求（不包含<code>T</code>中的所有字符了）。同时，每次增加<code>left</code>，我们都要更新一轮结果。</p>
+<p><em><strong>4、</strong></em>重复第 2 和第 3 步，直到<code>right</code>到达字符串<code>S</code>的尽头。</p>
+<p>这个思路其实也不难，<strong>第 2 步相当于在寻找一个「可行解」，然后第 3 步在优化这个「可行解」，最终找到最优解，</strong>也就是最短的覆盖子串。左右指针轮流前进，窗口大小增增减减，窗口不断向右滑动，这就是「滑动窗口」这个名字的来历。</p>
+<p>下面画图理解一下，<code>needs</code>和<code>window</code>相当于计数器，分别记录<code>T</code>中字符出现次数和「窗口」中的相应字符的出现次数。</p>
+<p>初始状态：</p>
+<p><img src="https://mmbiz.qpic.cn/sz_mmbiz_png/gibkIz0MVqdGQlBxOlAet1AXGPoibCzEow6FwvAvsZKyCTCtrmLcvKDxhYAJEqI36cAZxfoIWLFibEhmz9IfHf24Q/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1" alt="图片"></p>
+<p>增加<code>right</code>，直到窗口<code>[left, right)</code>包含了<code>T</code>中所有字符：</p>
+<p><img src="https://mmbiz.qpic.cn/sz_mmbiz_png/gibkIz0MVqdGQlBxOlAet1AXGPoibCzEowCyAS47jbjAGEfqUVRzkKDWbT6Y8JiarUicPMVR2yI72X3X6hjBGj4bGw/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1" alt="图片"></p>
+<p>现在开始增加<code>left</code>，缩小窗口<code>[left, right)</code>。</p>
+<p><img src="https://mmbiz.qpic.cn/sz_mmbiz_png/gibkIz0MVqdGQlBxOlAet1AXGPoibCzEowoE6BjdgVFKZwEb1q6VibCzIsNuoYmHuNicVdlDibQrQD6lRJbibjkBxO4A/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1" alt="图片"></p>
+<p>直到窗口中的字符串不再符合要求，<code>left</code>不再继续移动。</p>
+<p><img src="https://mmbiz.qpic.cn/sz_mmbiz_png/gibkIz0MVqdGQlBxOlAet1AXGPoibCzEowZQrqU81dPoEicq1J93aicY0A70IdicorFC5kfhJKa66CibKQTJxY4A60jA/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1" alt="图片"></p>
+<p>之后重复上述过程，先移动<code>right</code>，再移动<code>left</code>…… 直到<code>right</code>指针到达字符串<code>S</code>的末端，算法结束。</p>
+<p>如果你能够理解上述过程，恭喜，你已经完全掌握了滑动窗口算法思想。<strong>现在我们来看看这个滑动窗口代码框架怎么用</strong>：</p>
+<p>首先，初始化<code>window</code>和<code>need</code>两个哈希表，记录窗口中的字符和需要凑齐的字符：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">unordered_map&lt;<span class="type">char</span>, <span class="type">int</span>&gt; need, window;</span><br><span class="line"><span class="keyword">for</span> (<span class="type">char</span> c : t) need[c]++;</span><br></pre></td></tr></table></figure>
+
+<p>然后，使用<code>left</code>和<code>right</code>变量初始化窗口的两端，不要忘了，区间<code>[left, right)</code>是左闭右开的，所以初始情况下窗口没有包含任何元素：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="variable">left</span> <span class="operator">=</span> <span class="number">0</span>, right = <span class="number">0</span>;</span><br><span class="line"><span class="type">int</span> <span class="variable">valid</span> <span class="operator">=</span> <span class="number">0</span>; </span><br><span class="line"><span class="keyword">while</span> (right &lt; s.size()) &#123;</span><br><span class="line">    <span class="comment">// 开始滑动</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>其中<code>valid</code>变量表示窗口中满足<code>need</code>条件的字符个数</strong>，如果<code>valid</code>和<code>need.size</code>的大小相同，则说明窗口已满足条件，已经完全覆盖了串<code>T</code>。</p>
+<p><strong>现在开始套模板，只需要思考以下四个问题</strong>：</p>
+<p><strong>1、</strong>当移动<code>right</code>扩大窗口，即加入字符时，应该更新哪些数据？</p>
+<p><strong>2、</strong>什么条件下，窗口应该暂停扩大，开始移动<code>left</code>缩小窗口？</p>
+<p><strong>3、</strong>当移动<code>left</code>缩小窗口，即移出字符时，应该更新哪些数据？</p>
+<p><strong>4、</strong>我们要的结果应该在扩大窗口时还是缩小窗口时进行更新？</p>
+<p>如果一个字符进入窗口，应该增加<code>window</code>计数器；如果一个字符将移出窗口的时候，应该减少<code>window</code>计数器；当<code>valid</code>满足<code>need</code>时应该收缩窗口；应该在收缩窗口的时候更新最终结果。</p>
+<p>下面是完整代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">string <span class="title function_">minWindow</span><span class="params">(string s, string t)</span> &#123;</span><br><span class="line">    unordered_map&lt;<span class="type">char</span>, <span class="type">int</span>&gt; need, window;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">char</span> c : t) need[c]++;</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> <span class="variable">left</span> <span class="operator">=</span> <span class="number">0</span>, right = <span class="number">0</span>;</span><br><span class="line">    <span class="type">int</span> <span class="variable">valid</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">    <span class="comment">// 记录最小覆盖子串的起始索引及长度</span></span><br><span class="line">    <span class="type">int</span> <span class="variable">start</span> <span class="operator">=</span> <span class="number">0</span>, len = INT_MAX;</span><br><span class="line">    <span class="keyword">while</span> (right &lt; s.size()) &#123;</span><br><span class="line">        <span class="comment">// c 是将移入窗口的字符</span></span><br><span class="line">        <span class="type">char</span> <span class="variable">c</span> <span class="operator">=</span> s[right];</span><br><span class="line">        <span class="comment">// 右移窗口</span></span><br><span class="line">        right++;</span><br><span class="line">        <span class="comment">// 进行窗口内数据的一系列更新</span></span><br><span class="line">        <span class="keyword">if</span> (need.count(c)) &#123;</span><br><span class="line">            window[c]++;</span><br><span class="line">            <span class="keyword">if</span> (window[c] == need[c])</span><br><span class="line">                valid++;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 判断左侧窗口是否要收缩</span></span><br><span class="line">        <span class="keyword">while</span> (valid == need.size()) &#123;</span><br><span class="line">            <span class="comment">// 在这里更新最小覆盖子串</span></span><br><span class="line">            <span class="keyword">if</span> (right - left &lt; len) &#123;</span><br><span class="line">                start = left;</span><br><span class="line">                len = right - left;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// d 是将移出窗口的字符</span></span><br><span class="line">            <span class="type">char</span> <span class="variable">d</span> <span class="operator">=</span> s[left];</span><br><span class="line">            <span class="comment">// 左移窗口</span></span><br><span class="line">            left++;</span><br><span class="line">            <span class="comment">// 进行窗口内数据的一系列更新</span></span><br><span class="line">            <span class="keyword">if</span> (need.count(d)) &#123;</span><br><span class="line">                <span class="keyword">if</span> (window[d] == need[d])</span><br><span class="line">                    valid--;</span><br><span class="line">                window[d]--;</span><br><span class="line">            &#125;                    </span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 返回最小覆盖子串</span></span><br><span class="line">    <span class="type">return</span> <span class="variable">len</span> <span class="operator">=</span>= INT_MAX ?</span><br><span class="line">        <span class="string">&quot;&quot;</span> : s.substr(start, len);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>需要注意的是，当我们发现某个字符在<code>window</code>的数量满足了<code>need</code>的需要，就要更新<code>valid</code>，表示有一个字符已经满足要求。而且，你能发现，两次对窗口内数据的更新操作是完全对称的。</p>
+<p>当<code>valid == need.size()</code>时，说明<code>T</code>中所有字符已经被覆盖，已经得到一个可行的覆盖子串，现在应该开始收缩窗口了，以便得到「最小覆盖子串」。</p>
+<p>移动<code>left</code>收缩窗口时，窗口内的字符都是可行解，所以应该在收缩窗口的阶段进行最小覆盖子串的更新，以便从可行解中找到长度最短的最终结果。</p>
+<p>至此，应该可以完全理解这套框架了，滑动窗口算法又不难，就是细节问题让人烦得很。<strong>以后遇到滑动窗口算法，你就按照这框架写代码，保准没有 bug，还省事儿</strong>。</p>
+<p>下面就直接利用这套框架秒杀几道题吧，你基本上一眼就能看出思路了。</p>
+<h3 id="二、字符串排列"><a href="#二、字符串排列" class="headerlink" title="二、字符串排列"></a>二、字符串排列</h3><p>LeetCode 567 题，Permutation in String，难度 Medium：</p>
+<p><img src="https://mmbiz.qpic.cn/sz_mmbiz_png/gibkIz0MVqdGQlBxOlAet1AXGPoibCzEowmo3G9oN6XDmHeHjGic6tUauwoZia40pxjbicJXtN1RcjMMRDkfcGaVNVg/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1" alt="图片"></p>
+<p>注意哦，输入的<code>s1</code>是可以包含重复字符的，所以这个题难度不小。</p>
+<p>这种题目，是明显的滑动窗口算法，<strong>相当给你一个<code>S</code>和一个<code>T</code>，请问你<code>S</code>中是否存在一个子串，包含<code>T</code>中所有字符且不包含其他字符</strong>？</p>
+<p>首先，先复制粘贴之前的算法框架代码，然后明确刚才提出的 4 个问题，即可写出这道题的答案：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 判断 s 中是否存在 t 的排列</span></span><br><span class="line">bool <span class="title function_">checkInclusion</span><span class="params">(string t, string s)</span> &#123;</span><br><span class="line">    unordered_map&lt;<span class="type">char</span>, <span class="type">int</span>&gt; need, window;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">char</span> c : t) need[c]++;</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> <span class="variable">left</span> <span class="operator">=</span> <span class="number">0</span>, right = <span class="number">0</span>;</span><br><span class="line">    <span class="type">int</span> <span class="variable">valid</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (right &lt; s.size()) &#123;</span><br><span class="line">        <span class="type">char</span> <span class="variable">c</span> <span class="operator">=</span> s[right];</span><br><span class="line">        right++;</span><br><span class="line">        <span class="comment">// 进行窗口内数据的一系列更新</span></span><br><span class="line">        <span class="keyword">if</span> (need.count(c)) &#123;</span><br><span class="line">            window[c]++;</span><br><span class="line">            <span class="keyword">if</span> (window[c] == need[c])</span><br><span class="line">                valid++;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 判断左侧窗口是否要收缩</span></span><br><span class="line">        <span class="keyword">while</span> (right - left &gt;= t.size()) &#123;</span><br><span class="line">            <span class="comment">// 在这里判断是否找到了合法的子串</span></span><br><span class="line">            <span class="keyword">if</span> (valid == need.size())</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">            <span class="type">char</span> <span class="variable">d</span> <span class="operator">=</span> s[left];</span><br><span class="line">            left++;</span><br><span class="line">            <span class="comment">// 进行窗口内数据的一系列更新</span></span><br><span class="line">            <span class="keyword">if</span> (need.count(d)) &#123;</span><br><span class="line">                <span class="keyword">if</span> (window[d] == need[d])</span><br><span class="line">                    valid--;</span><br><span class="line">                window[d]--;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 未找到符合条件的子串</span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>对于这道题的解法代码，基本上和最小覆盖子串一模一样，只需要改变两个地方：</p>
+<p><strong>1、</strong>本题移动<code>left</code>缩小窗口的时机是窗口大小大于<code>t.size()</code>时，因为排列嘛，显然长度应该是一样的。</p>
+<p><strong>2、</strong>当发现<code>valid == need.size()</code>时，就说明窗口中就是一个合法的排列，所以立即返回<code>true</code>。</p>
+<p>至于如何处理窗口的扩大和缩小，和最小覆盖子串完全相同。</p>
+<h3 id="三、找所有字母异位词"><a href="#三、找所有字母异位词" class="headerlink" title="三、找所有字母异位词"></a>三、找所有字母异位词</h3><p>这是 LeetCode 第 438 题，Find All Anagrams in a String，难度 Medium：</p>
+<p><img src="https://mmbiz.qpic.cn/sz_mmbiz_png/gibkIz0MVqdGQlBxOlAet1AXGPoibCzEowe98rknTABmhPaxgzV5Vv9gHdEpNUDia6CO0gxuPpNR5My6ogK8wuibTQ/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1" alt="图片"></p>
+<p>呵呵，这个所谓的字母异位词，不就是排列吗，搞个高端的说法就能糊弄人了吗？<strong>相当于，输入一个串<code>S</code>，一个串<code>T</code>，找到<code>S</code>中所有<code>T</code>的排列，返回它们的起始索引</strong>。</p>
+<p>直接默写一下框架，明确刚才讲的 4 个问题，即可秒杀这道题：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;<span class="type">int</span>&gt; <span class="title function_">findAnagrams</span><span class="params">(string s, string t)</span> &#123;</span><br><span class="line">    unordered_map&lt;<span class="type">char</span>, <span class="type">int</span>&gt; need, window;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">char</span> c : t) need[c]++;</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> <span class="variable">left</span> <span class="operator">=</span> <span class="number">0</span>, right = <span class="number">0</span>;</span><br><span class="line">    <span class="type">int</span> <span class="variable">valid</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; res; <span class="comment">// 记录结果</span></span><br><span class="line">    <span class="keyword">while</span> (right &lt; s.size()) &#123;</span><br><span class="line">        <span class="type">char</span> <span class="variable">c</span> <span class="operator">=</span> s[right];</span><br><span class="line">        right++;</span><br><span class="line">        <span class="comment">// 进行窗口内数据的一系列更新</span></span><br><span class="line">        <span class="keyword">if</span> (need.count(c)) &#123;</span><br><span class="line">            window[c]++;</span><br><span class="line">            <span class="keyword">if</span> (window[c] == need[c]) </span><br><span class="line">                valid++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 判断左侧窗口是否要收缩</span></span><br><span class="line">        <span class="keyword">while</span> (right - left &gt;= t.size()) &#123;</span><br><span class="line">            <span class="comment">// 当窗口符合条件时，把起始索引加入 res</span></span><br><span class="line">            <span class="keyword">if</span> (valid == need.size())</span><br><span class="line">                res.push_back(left);</span><br><span class="line">            <span class="type">char</span> <span class="variable">d</span> <span class="operator">=</span> s[left];</span><br><span class="line">            left++;</span><br><span class="line">            <span class="comment">// 进行窗口内数据的一系列更新</span></span><br><span class="line">            <span class="keyword">if</span> (need.count(d)) &#123;</span><br><span class="line">                <span class="keyword">if</span> (window[d] == need[d])</span><br><span class="line">                    valid--;</span><br><span class="line">                window[d]--;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>跟寻找字符串的排列一样，只是找到一个合法异位词（排列）之后将起始索引加入<code>res</code>即可。</p>
+<h3 id="四、最长无重复子串"><a href="#四、最长无重复子串" class="headerlink" title="四、最长无重复子串"></a>四、最长无重复子串</h3><p>这是 LeetCode 第 3 题，Longest Substring Without Repeating Characters，难度 Medium：</p>
+<p><img src="https://mmbiz.qpic.cn/sz_mmbiz_png/gibkIz0MVqdGQlBxOlAet1AXGPoibCzEowdOEyLaTVTiabiabMHr2Z7SzZZ08fxMDZt4uzzRcfvoI7sJzfdORvH0tA/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1" alt="图片"></p>
+<p>这个题终于有了点新意，不是一套框架就出答案，不过反而更简单了，稍微改一改框架就行了：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">lengthOfLongestSubstring</span><span class="params">(string s)</span> &#123;</span><br><span class="line">    unordered_map&lt;<span class="type">char</span>, <span class="type">int</span>&gt; window;</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> <span class="variable">left</span> <span class="operator">=</span> <span class="number">0</span>, right = <span class="number">0</span>;</span><br><span class="line">    <span class="type">int</span> <span class="variable">res</span> <span class="operator">=</span> <span class="number">0</span>; <span class="comment">// 记录结果</span></span><br><span class="line">    <span class="keyword">while</span> (right &lt; s.size()) &#123;</span><br><span class="line">        <span class="type">char</span> <span class="variable">c</span> <span class="operator">=</span> s[right];</span><br><span class="line">        right++;</span><br><span class="line">        <span class="comment">// 进行窗口内数据的一系列更新</span></span><br><span class="line">        window[c]++;</span><br><span class="line">        <span class="comment">// 判断左侧窗口是否要收缩</span></span><br><span class="line">        <span class="keyword">while</span> (window[c] &gt; <span class="number">1</span>) &#123;</span><br><span class="line">            <span class="type">char</span> <span class="variable">d</span> <span class="operator">=</span> s[left];</span><br><span class="line">            left++;</span><br><span class="line">            <span class="comment">// 进行窗口内数据的一系列更新</span></span><br><span class="line">            window[d]--;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 在这里更新答案</span></span><br><span class="line">        res = max(res, right - left);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这就是变简单了，连<code>need</code>和<code>valid</code>都不需要，而且更新窗口内数据也只需要简单的更新计数器<code>window</code>即可。</p>
+<p>当<code>window[c]</code>值大于 1 时，说明窗口中存在重复字符，不符合条件，就该移动<code>left</code>缩小窗口了嘛。</p>
+<p>唯一需要注意的是，在哪里更新结果<code>res</code>呢？我们要的是最长无重复子串，哪一个阶段可以保证窗口中的字符串是没有重复的呢？</p>
+<p>这里和之前不一样，**要在收缩窗口完成后更新<code>res</code>**，因为窗口收缩的 while 条件是存在重复元素，换句话说收缩完成后一定保证窗口中没有重复嘛。</p>
+<h3 id="五、最后总结"><a href="#五、最后总结" class="headerlink" title="五、最后总结"></a>五、最后总结</h3><p><strong>建议背诵并默写这套框架，顺便背诵一下文章开头的那首诗。以后就再也不怕子串、子数组问题了。</strong></p>
+<p>我觉得吧，能够看到这的都是高手，要么就是在成为高手的路上。有了框架，任他窗口怎么滑，东哥这波车开得依然稳如老狗。</p>
+
+      
+    </div>
+
+    
+    
+    
+
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>l
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://example.com/posts/20eb9dff/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1241,223 +1643,6 @@
 <p>现在你看这个解法代码，是不是感觉非常简单，就是把我们刚才分析的思路原封不动翻译了一下而已。</p>
 <p>所以说，明确了动态规划的套路，思路就显得行云流水，非常自然就出答案了。</p>
 <p>至此，背包问题就解决了。相比而言，我觉得这是比较简单的动态规划问题，因为状态转移的推导逻辑比较容易想到，基本上你明确了<code>dp</code>数组的定义，就可以理所当然地确定状态转移了。</p>
-
-      
-    </div>
-
-    
-    
-    
-
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>l
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/50cab45/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/lion.png">
-      <meta itemprop="name" content="swimminghao">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="swimminghao's blog">
-      <meta itemprop="description" content="swimminghao的学习博客">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | swimminghao's blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/50cab45/" class="post-title-link" itemprop="url">滑动窗口</a>
-        </h2>
-
-        <div class="post-meta-container">
-
-          
-
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2025-02-13 16:20:39" itemprop="dateModified" datetime="2025-02-13T16:20:39+08:00">2025-02-13</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="far fa-comment"></i>
-    </span>
-    <span class="post-meta-item-text">Waline：</span>
-  
-    <a title="waline" href="/posts/50cab45/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/50cab45/" data-xid="/posts/50cab45/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>6.9k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>6 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="滑动窗口算法"><a href="#滑动窗口算法" class="headerlink" title="滑动窗口算法"></a>滑动窗口算法</h1><h2 id="滑动窗口算法-1"><a href="#滑动窗口算法-1" class="headerlink" title="滑动窗口算法"></a>滑动窗口算法</h2><p><strong>滑动窗口框架套路详解</strong></p>
-<p>在滑动窗口算法框架中，我编写一首小诗来歌颂滑动窗口算法的伟大：</p>
-<p><img src="https://mmbiz.qpic.cn/sz_mmbiz_png/gibkIz0MVqdEsLiaY9d9CcVdNcPTAdO5MRwZhsxtTc6BaDMpHQtibCX5kY406sxFeaClrlft3j6XiaJ48jq0Gnj2dQ/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1" alt="图片"></p>
-<p>关于双指针的快慢指针和左右指针的用法，可以参见前文 <a target="_blank" rel="noopener" href="http://mp.weixin.qq.com/s?__biz=MzAxODQxMDM0Mw==&mid=2247484505&idx=1&sn=0e9517f7c4021df0e6146c6b2b0c4aba&chksm=9bd7fa51aca07347009c591c403b3228f41617806429e738165bd58d60220bf8f15f92ff8a2e&scene=21#wechat_redirect">双指针技巧汇总</a>，<strong>本文就解决一类最难掌握的双指针技巧：滑动窗口技巧，并总结出一套框架，可以保你闭着眼直接套出答案。</strong></p>
-<p>说起滑动窗口算法，很多读者都会头疼。这个算法技巧的思路非常简单，就是维护一个窗口，不断滑动，然后更新答案么。LeetCode 上有起码 10 道运用滑动窗口算法的题目，难度都是中等和困难。该算法的大致逻辑如下：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="variable">left</span> <span class="operator">=</span> <span class="number">0</span>, right = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> (right &lt; s.size()) &#123;</span><br><span class="line">    <span class="comment">// 增大窗口</span></span><br><span class="line">    window.add(s[right]);</span><br><span class="line">    right++;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (window needs shrink) &#123;</span><br><span class="line">        <span class="comment">// 缩小窗口</span></span><br><span class="line">        window.remove(s[left]);</span><br><span class="line">        left++;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>这个算法技巧的时间复杂度是 O(N)，比一般的字符串暴力算法要高效得多。</p>
-<p><strong><em>其实困扰大家的</em>，不是算法的思路，而是各种细节问题</strong>。比如说如何向窗口中添加新元素，如何缩小窗口，在窗口滑动的哪个阶段更新结果。即便你明白了这些细节，也容易出 bug，找 bug 还不知道怎么找，真的挺让人心烦的。</p>
-<p><strong>所以今天我就写一套滑动窗口算法的代码框架，我连在哪里做输出 debug 都给你写好了，以后遇到相关的问题，你就默写出来如下框架然后改三个地方就行，还不会出边界问题</strong>：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 滑动窗口算法框架 */</span></span><br><span class="line"><span class="keyword">void</span> <span class="title function_">slidingWindow</span>(<span class="params">string s, string t</span>) &#123;</span><br><span class="line">    unordered_map&lt;char, int&gt; need, <span class="variable language_">window</span>;</span><br><span class="line">    <span class="keyword">for</span> (char c : t) need[c]++;</span><br><span class="line"></span><br><span class="line">    int left = <span class="number">0</span>, right = <span class="number">0</span>;</span><br><span class="line">    int valid = <span class="number">0</span>; </span><br><span class="line">    <span class="keyword">while</span> (right &lt; s.<span class="title function_">size</span>()) &#123;</span><br><span class="line">        <span class="comment">// c 是将移入窗口的字符</span></span><br><span class="line">        char c = s[right];</span><br><span class="line">        <span class="comment">// 右移窗口</span></span><br><span class="line">        right++;</span><br><span class="line">        <span class="comment">// 进行窗口内数据的一系列更新</span></span><br><span class="line">        ...</span><br><span class="line"></span><br><span class="line">        <span class="comment">/*** debug 输出的位置 ***/</span></span><br><span class="line">        <span class="title function_">printf</span>(<span class="string">&quot;window: [%d, %d)\n&quot;</span>, left, right);</span><br><span class="line">        <span class="comment">/********************/</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 判断左侧窗口是否要收缩</span></span><br><span class="line">        <span class="keyword">while</span> (<span class="variable language_">window</span> needs shrink) &#123;</span><br><span class="line">            <span class="comment">// d 是将移出窗口的字符</span></span><br><span class="line">            char d = s[left];</span><br><span class="line">            <span class="comment">// 左移窗口</span></span><br><span class="line">            left++;</span><br><span class="line">            <span class="comment">// 进行窗口内数据的一系列更新</span></span><br><span class="line">            ...</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><strong>其中两处<code>...</code>表示的更新窗口数据的地方，到时候你直接往里面填就行了</strong>。</p>
-<p>而且，这两个<code>...</code>处的操作分别是右移和左移窗口更新操作，等会你会发现它们操作是完全对称的。</p>
-<p><strong>说句题外话，其实有很多人喜欢执着于表象，不喜欢探求问题的本质。</strong>比如说有很多人评论我这个框架，说什么散列表速度慢，不如用数组代替散列表；还有很多人喜欢把代码写得特别短小，说我这样代码太多余，影响编译速度，LeetCode 上速度不够快。</p>
-<p>我也是服了，算法看的是时间复杂度，你能确保自己的时间复杂度最优就行了。至于 LeetCode 所谓的运行速度，那个都是玄学，只要不是慢的离谱就没啥问题，根本不值得你从编译层面优化，不要舍本逐末……</p>
-<p>重点在于算法思想，你把框架思维了然于心套出解法，然后随你再魔改代码好吧，你高兴就好。</p>
-<p>言归正传，<strong>下面就直接上*<em>四道*</em> LeetCode 原题来套这个框架</strong>，其中第一道题会详细说明其原理，后面四道就直接闭眼睛秒杀了。</p>
-<p>本文代码为 C++ 实现，不会用到什么编程方面的奇技淫巧，但是还是简单介绍一下一些用到的数据结构，以免有的读者因为语言的细节问题阻碍对算法思想的理解：</p>
-<p><code>unordered_map</code>就是哈希表（字典），它的一个方法<code>count(key)</code>相当于 Java 的<code>containsKey(key)</code>可以判断键 key 是否存在。</p>
-<p>可以使用方括号访问键对应的值<code>map[key]</code>。需要注意的是，如果该<code>key</code>不存在，C++ 会自动创建这个 key，并把<code>map[key]</code>赋值为 0。</p>
-<p>所以代码中多次出现的<code>map[key]++</code>相当于 Java 的<code>map.put(key, map.getOrDefault(key, 0) + 1)</code>。</p>
-<h3 id="一、最小覆盖子串"><a href="#一、最小覆盖子串" class="headerlink" title="一、最小覆盖子串"></a>一、最小覆盖子串</h3><p>LeetCode 76 题，Minimum Window Substring，难度 <strong>Hard</strong>，我带大家看看它到底有多 <strong>Hard</strong>：</p>
-<p><img src="https://mmbiz.qpic.cn/sz_mmbiz_png/gibkIz0MVqdGQlBxOlAet1AXGPoibCzEowk6hiaxmGN6ibHiaTqxHMqYvCRA4lWuRCQicPSfZY78De1GmwkXviar4psjw/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1" alt="图片"></p>
-<p>就是说要在<code>S</code>(source) 中找到包含<code>T</code>(target) 中全部字母的一个子串，且这个子串一定是所有可能子串中最短的。</p>
-<p>如果我们使用暴力解法，代码大概是这样的：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; s.size(); i++)</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> i + <span class="number">1</span>; j &lt; s.size(); j++)</span><br><span class="line">        <span class="keyword">if</span> s[i:j] 包含 t 的所有字母:</span><br><span class="line">            更新答案</span><br></pre></td></tr></table></figure>
-
-<p>思路很直接，但是显然，这个算法的复杂度肯定大于 O(N^2) 了，不好。</p>
-<p><strong>滑动窗口算法的思路是这样</strong>：</p>
-<p><em><strong>1、</strong></em>我们在字符串<code>S</code>中使用双指针中的左右指针技巧，初始化<code>left = right = 0</code>，<strong>把索引左闭右开区间<code>[left, right)</code>称为一个「窗口」</strong>。</p>
-<p><em><strong>2、</strong></em>我们先不断地增加<code>right</code>指针扩大窗口<code>[left, right)</code>，直到窗口中的字符串符合要求（包含了<code>T</code>中的所有字符）。</p>
-<p><em><strong>3、</strong></em>此时，我们停止增加<code>right</code>，转而不断增加<code>left</code>指针缩小窗口<code>[left, right)</code>，直到窗口中的字符串不再符合要求（不包含<code>T</code>中的所有字符了）。同时，每次增加<code>left</code>，我们都要更新一轮结果。</p>
-<p><em><strong>4、</strong></em>重复第 2 和第 3 步，直到<code>right</code>到达字符串<code>S</code>的尽头。</p>
-<p>这个思路其实也不难，<strong>第 2 步相当于在寻找一个「可行解」，然后第 3 步在优化这个「可行解」，最终找到最优解，</strong>也就是最短的覆盖子串。左右指针轮流前进，窗口大小增增减减，窗口不断向右滑动，这就是「滑动窗口」这个名字的来历。</p>
-<p>下面画图理解一下，<code>needs</code>和<code>window</code>相当于计数器，分别记录<code>T</code>中字符出现次数和「窗口」中的相应字符的出现次数。</p>
-<p>初始状态：</p>
-<p><img src="https://mmbiz.qpic.cn/sz_mmbiz_png/gibkIz0MVqdGQlBxOlAet1AXGPoibCzEow6FwvAvsZKyCTCtrmLcvKDxhYAJEqI36cAZxfoIWLFibEhmz9IfHf24Q/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1" alt="图片"></p>
-<p>增加<code>right</code>，直到窗口<code>[left, right)</code>包含了<code>T</code>中所有字符：</p>
-<p><img src="https://mmbiz.qpic.cn/sz_mmbiz_png/gibkIz0MVqdGQlBxOlAet1AXGPoibCzEowCyAS47jbjAGEfqUVRzkKDWbT6Y8JiarUicPMVR2yI72X3X6hjBGj4bGw/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1" alt="图片"></p>
-<p>现在开始增加<code>left</code>，缩小窗口<code>[left, right)</code>。</p>
-<p><img src="https://mmbiz.qpic.cn/sz_mmbiz_png/gibkIz0MVqdGQlBxOlAet1AXGPoibCzEowoE6BjdgVFKZwEb1q6VibCzIsNuoYmHuNicVdlDibQrQD6lRJbibjkBxO4A/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1" alt="图片"></p>
-<p>直到窗口中的字符串不再符合要求，<code>left</code>不再继续移动。</p>
-<p><img src="https://mmbiz.qpic.cn/sz_mmbiz_png/gibkIz0MVqdGQlBxOlAet1AXGPoibCzEowZQrqU81dPoEicq1J93aicY0A70IdicorFC5kfhJKa66CibKQTJxY4A60jA/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1" alt="图片"></p>
-<p>之后重复上述过程，先移动<code>right</code>，再移动<code>left</code>…… 直到<code>right</code>指针到达字符串<code>S</code>的末端，算法结束。</p>
-<p>如果你能够理解上述过程，恭喜，你已经完全掌握了滑动窗口算法思想。<strong>现在我们来看看这个滑动窗口代码框架怎么用</strong>：</p>
-<p>首先，初始化<code>window</code>和<code>need</code>两个哈希表，记录窗口中的字符和需要凑齐的字符：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">unordered_map&lt;<span class="type">char</span>, <span class="type">int</span>&gt; need, window;</span><br><span class="line"><span class="keyword">for</span> (<span class="type">char</span> c : t) need[c]++;</span><br></pre></td></tr></table></figure>
-
-<p>然后，使用<code>left</code>和<code>right</code>变量初始化窗口的两端，不要忘了，区间<code>[left, right)</code>是左闭右开的，所以初始情况下窗口没有包含任何元素：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="variable">left</span> <span class="operator">=</span> <span class="number">0</span>, right = <span class="number">0</span>;</span><br><span class="line"><span class="type">int</span> <span class="variable">valid</span> <span class="operator">=</span> <span class="number">0</span>; </span><br><span class="line"><span class="keyword">while</span> (right &lt; s.size()) &#123;</span><br><span class="line">    <span class="comment">// 开始滑动</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><strong>其中<code>valid</code>变量表示窗口中满足<code>need</code>条件的字符个数</strong>，如果<code>valid</code>和<code>need.size</code>的大小相同，则说明窗口已满足条件，已经完全覆盖了串<code>T</code>。</p>
-<p><strong>现在开始套模板，只需要思考以下四个问题</strong>：</p>
-<p><strong>1、</strong>当移动<code>right</code>扩大窗口，即加入字符时，应该更新哪些数据？</p>
-<p><strong>2、</strong>什么条件下，窗口应该暂停扩大，开始移动<code>left</code>缩小窗口？</p>
-<p><strong>3、</strong>当移动<code>left</code>缩小窗口，即移出字符时，应该更新哪些数据？</p>
-<p><strong>4、</strong>我们要的结果应该在扩大窗口时还是缩小窗口时进行更新？</p>
-<p>如果一个字符进入窗口，应该增加<code>window</code>计数器；如果一个字符将移出窗口的时候，应该减少<code>window</code>计数器；当<code>valid</code>满足<code>need</code>时应该收缩窗口；应该在收缩窗口的时候更新最终结果。</p>
-<p>下面是完整代码：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">string <span class="title function_">minWindow</span><span class="params">(string s, string t)</span> &#123;</span><br><span class="line">    unordered_map&lt;<span class="type">char</span>, <span class="type">int</span>&gt; need, window;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">char</span> c : t) need[c]++;</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> <span class="variable">left</span> <span class="operator">=</span> <span class="number">0</span>, right = <span class="number">0</span>;</span><br><span class="line">    <span class="type">int</span> <span class="variable">valid</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">    <span class="comment">// 记录最小覆盖子串的起始索引及长度</span></span><br><span class="line">    <span class="type">int</span> <span class="variable">start</span> <span class="operator">=</span> <span class="number">0</span>, len = INT_MAX;</span><br><span class="line">    <span class="keyword">while</span> (right &lt; s.size()) &#123;</span><br><span class="line">        <span class="comment">// c 是将移入窗口的字符</span></span><br><span class="line">        <span class="type">char</span> <span class="variable">c</span> <span class="operator">=</span> s[right];</span><br><span class="line">        <span class="comment">// 右移窗口</span></span><br><span class="line">        right++;</span><br><span class="line">        <span class="comment">// 进行窗口内数据的一系列更新</span></span><br><span class="line">        <span class="keyword">if</span> (need.count(c)) &#123;</span><br><span class="line">            window[c]++;</span><br><span class="line">            <span class="keyword">if</span> (window[c] == need[c])</span><br><span class="line">                valid++;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 判断左侧窗口是否要收缩</span></span><br><span class="line">        <span class="keyword">while</span> (valid == need.size()) &#123;</span><br><span class="line">            <span class="comment">// 在这里更新最小覆盖子串</span></span><br><span class="line">            <span class="keyword">if</span> (right - left &lt; len) &#123;</span><br><span class="line">                start = left;</span><br><span class="line">                len = right - left;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// d 是将移出窗口的字符</span></span><br><span class="line">            <span class="type">char</span> <span class="variable">d</span> <span class="operator">=</span> s[left];</span><br><span class="line">            <span class="comment">// 左移窗口</span></span><br><span class="line">            left++;</span><br><span class="line">            <span class="comment">// 进行窗口内数据的一系列更新</span></span><br><span class="line">            <span class="keyword">if</span> (need.count(d)) &#123;</span><br><span class="line">                <span class="keyword">if</span> (window[d] == need[d])</span><br><span class="line">                    valid--;</span><br><span class="line">                window[d]--;</span><br><span class="line">            &#125;                    </span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 返回最小覆盖子串</span></span><br><span class="line">    <span class="type">return</span> <span class="variable">len</span> <span class="operator">=</span>= INT_MAX ?</span><br><span class="line">        <span class="string">&quot;&quot;</span> : s.substr(start, len);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>需要注意的是，当我们发现某个字符在<code>window</code>的数量满足了<code>need</code>的需要，就要更新<code>valid</code>，表示有一个字符已经满足要求。而且，你能发现，两次对窗口内数据的更新操作是完全对称的。</p>
-<p>当<code>valid == need.size()</code>时，说明<code>T</code>中所有字符已经被覆盖，已经得到一个可行的覆盖子串，现在应该开始收缩窗口了，以便得到「最小覆盖子串」。</p>
-<p>移动<code>left</code>收缩窗口时，窗口内的字符都是可行解，所以应该在收缩窗口的阶段进行最小覆盖子串的更新，以便从可行解中找到长度最短的最终结果。</p>
-<p>至此，应该可以完全理解这套框架了，滑动窗口算法又不难，就是细节问题让人烦得很。<strong>以后遇到滑动窗口算法，你就按照这框架写代码，保准没有 bug，还省事儿</strong>。</p>
-<p>下面就直接利用这套框架秒杀几道题吧，你基本上一眼就能看出思路了。</p>
-<h3 id="二、字符串排列"><a href="#二、字符串排列" class="headerlink" title="二、字符串排列"></a>二、字符串排列</h3><p>LeetCode 567 题，Permutation in String，难度 Medium：</p>
-<p><img src="https://mmbiz.qpic.cn/sz_mmbiz_png/gibkIz0MVqdGQlBxOlAet1AXGPoibCzEowmo3G9oN6XDmHeHjGic6tUauwoZia40pxjbicJXtN1RcjMMRDkfcGaVNVg/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1" alt="图片"></p>
-<p>注意哦，输入的<code>s1</code>是可以包含重复字符的，所以这个题难度不小。</p>
-<p>这种题目，是明显的滑动窗口算法，<strong>相当给你一个<code>S</code>和一个<code>T</code>，请问你<code>S</code>中是否存在一个子串，包含<code>T</code>中所有字符且不包含其他字符</strong>？</p>
-<p>首先，先复制粘贴之前的算法框架代码，然后明确刚才提出的 4 个问题，即可写出这道题的答案：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 判断 s 中是否存在 t 的排列</span></span><br><span class="line">bool <span class="title function_">checkInclusion</span><span class="params">(string t, string s)</span> &#123;</span><br><span class="line">    unordered_map&lt;<span class="type">char</span>, <span class="type">int</span>&gt; need, window;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">char</span> c : t) need[c]++;</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> <span class="variable">left</span> <span class="operator">=</span> <span class="number">0</span>, right = <span class="number">0</span>;</span><br><span class="line">    <span class="type">int</span> <span class="variable">valid</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (right &lt; s.size()) &#123;</span><br><span class="line">        <span class="type">char</span> <span class="variable">c</span> <span class="operator">=</span> s[right];</span><br><span class="line">        right++;</span><br><span class="line">        <span class="comment">// 进行窗口内数据的一系列更新</span></span><br><span class="line">        <span class="keyword">if</span> (need.count(c)) &#123;</span><br><span class="line">            window[c]++;</span><br><span class="line">            <span class="keyword">if</span> (window[c] == need[c])</span><br><span class="line">                valid++;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 判断左侧窗口是否要收缩</span></span><br><span class="line">        <span class="keyword">while</span> (right - left &gt;= t.size()) &#123;</span><br><span class="line">            <span class="comment">// 在这里判断是否找到了合法的子串</span></span><br><span class="line">            <span class="keyword">if</span> (valid == need.size())</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">            <span class="type">char</span> <span class="variable">d</span> <span class="operator">=</span> s[left];</span><br><span class="line">            left++;</span><br><span class="line">            <span class="comment">// 进行窗口内数据的一系列更新</span></span><br><span class="line">            <span class="keyword">if</span> (need.count(d)) &#123;</span><br><span class="line">                <span class="keyword">if</span> (window[d] == need[d])</span><br><span class="line">                    valid--;</span><br><span class="line">                window[d]--;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 未找到符合条件的子串</span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>对于这道题的解法代码，基本上和最小覆盖子串一模一样，只需要改变两个地方：</p>
-<p><strong>1、</strong>本题移动<code>left</code>缩小窗口的时机是窗口大小大于<code>t.size()</code>时，因为排列嘛，显然长度应该是一样的。</p>
-<p><strong>2、</strong>当发现<code>valid == need.size()</code>时，就说明窗口中就是一个合法的排列，所以立即返回<code>true</code>。</p>
-<p>至于如何处理窗口的扩大和缩小，和最小覆盖子串完全相同。</p>
-<h3 id="三、找所有字母异位词"><a href="#三、找所有字母异位词" class="headerlink" title="三、找所有字母异位词"></a>三、找所有字母异位词</h3><p>这是 LeetCode 第 438 题，Find All Anagrams in a String，难度 Medium：</p>
-<p><img src="https://mmbiz.qpic.cn/sz_mmbiz_png/gibkIz0MVqdGQlBxOlAet1AXGPoibCzEowe98rknTABmhPaxgzV5Vv9gHdEpNUDia6CO0gxuPpNR5My6ogK8wuibTQ/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1" alt="图片"></p>
-<p>呵呵，这个所谓的字母异位词，不就是排列吗，搞个高端的说法就能糊弄人了吗？<strong>相当于，输入一个串<code>S</code>，一个串<code>T</code>，找到<code>S</code>中所有<code>T</code>的排列，返回它们的起始索引</strong>。</p>
-<p>直接默写一下框架，明确刚才讲的 4 个问题，即可秒杀这道题：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;<span class="type">int</span>&gt; <span class="title function_">findAnagrams</span><span class="params">(string s, string t)</span> &#123;</span><br><span class="line">    unordered_map&lt;<span class="type">char</span>, <span class="type">int</span>&gt; need, window;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">char</span> c : t) need[c]++;</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> <span class="variable">left</span> <span class="operator">=</span> <span class="number">0</span>, right = <span class="number">0</span>;</span><br><span class="line">    <span class="type">int</span> <span class="variable">valid</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; res; <span class="comment">// 记录结果</span></span><br><span class="line">    <span class="keyword">while</span> (right &lt; s.size()) &#123;</span><br><span class="line">        <span class="type">char</span> <span class="variable">c</span> <span class="operator">=</span> s[right];</span><br><span class="line">        right++;</span><br><span class="line">        <span class="comment">// 进行窗口内数据的一系列更新</span></span><br><span class="line">        <span class="keyword">if</span> (need.count(c)) &#123;</span><br><span class="line">            window[c]++;</span><br><span class="line">            <span class="keyword">if</span> (window[c] == need[c]) </span><br><span class="line">                valid++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 判断左侧窗口是否要收缩</span></span><br><span class="line">        <span class="keyword">while</span> (right - left &gt;= t.size()) &#123;</span><br><span class="line">            <span class="comment">// 当窗口符合条件时，把起始索引加入 res</span></span><br><span class="line">            <span class="keyword">if</span> (valid == need.size())</span><br><span class="line">                res.push_back(left);</span><br><span class="line">            <span class="type">char</span> <span class="variable">d</span> <span class="operator">=</span> s[left];</span><br><span class="line">            left++;</span><br><span class="line">            <span class="comment">// 进行窗口内数据的一系列更新</span></span><br><span class="line">            <span class="keyword">if</span> (need.count(d)) &#123;</span><br><span class="line">                <span class="keyword">if</span> (window[d] == need[d])</span><br><span class="line">                    valid--;</span><br><span class="line">                window[d]--;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>跟寻找字符串的排列一样，只是找到一个合法异位词（排列）之后将起始索引加入<code>res</code>即可。</p>
-<h3 id="四、最长无重复子串"><a href="#四、最长无重复子串" class="headerlink" title="四、最长无重复子串"></a>四、最长无重复子串</h3><p>这是 LeetCode 第 3 题，Longest Substring Without Repeating Characters，难度 Medium：</p>
-<p><img src="https://mmbiz.qpic.cn/sz_mmbiz_png/gibkIz0MVqdGQlBxOlAet1AXGPoibCzEowdOEyLaTVTiabiabMHr2Z7SzZZ08fxMDZt4uzzRcfvoI7sJzfdORvH0tA/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1" alt="图片"></p>
-<p>这个题终于有了点新意，不是一套框架就出答案，不过反而更简单了，稍微改一改框架就行了：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">lengthOfLongestSubstring</span><span class="params">(string s)</span> &#123;</span><br><span class="line">    unordered_map&lt;<span class="type">char</span>, <span class="type">int</span>&gt; window;</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> <span class="variable">left</span> <span class="operator">=</span> <span class="number">0</span>, right = <span class="number">0</span>;</span><br><span class="line">    <span class="type">int</span> <span class="variable">res</span> <span class="operator">=</span> <span class="number">0</span>; <span class="comment">// 记录结果</span></span><br><span class="line">    <span class="keyword">while</span> (right &lt; s.size()) &#123;</span><br><span class="line">        <span class="type">char</span> <span class="variable">c</span> <span class="operator">=</span> s[right];</span><br><span class="line">        right++;</span><br><span class="line">        <span class="comment">// 进行窗口内数据的一系列更新</span></span><br><span class="line">        window[c]++;</span><br><span class="line">        <span class="comment">// 判断左侧窗口是否要收缩</span></span><br><span class="line">        <span class="keyword">while</span> (window[c] &gt; <span class="number">1</span>) &#123;</span><br><span class="line">            <span class="type">char</span> <span class="variable">d</span> <span class="operator">=</span> s[left];</span><br><span class="line">            left++;</span><br><span class="line">            <span class="comment">// 进行窗口内数据的一系列更新</span></span><br><span class="line">            window[d]--;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 在这里更新答案</span></span><br><span class="line">        res = max(res, right - left);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>这就是变简单了，连<code>need</code>和<code>valid</code>都不需要，而且更新窗口内数据也只需要简单的更新计数器<code>window</code>即可。</p>
-<p>当<code>window[c]</code>值大于 1 时，说明窗口中存在重复字符，不符合条件，就该移动<code>left</code>缩小窗口了嘛。</p>
-<p>唯一需要注意的是，在哪里更新结果<code>res</code>呢？我们要的是最长无重复子串，哪一个阶段可以保证窗口中的字符串是没有重复的呢？</p>
-<p>这里和之前不一样，**要在收缩窗口完成后更新<code>res</code>**，因为窗口收缩的 while 条件是存在重复元素，换句话说收缩完成后一定保证窗口中没有重复嘛。</p>
-<h3 id="五、最后总结"><a href="#五、最后总结" class="headerlink" title="五、最后总结"></a>五、最后总结</h3><p><strong>建议背诵并默写这套框架，顺便背诵一下文章开头的那首诗。以后就再也不怕子串、子数组问题了。</strong></p>
-<p>我觉得吧，能够看到这的都是高手，要么就是在成为高手的路上。有了框架，任他窗口怎么滑，东哥这波车开得依然稳如老狗。</p>
 
       
     </div>
@@ -1837,208 +2022,6 @@
 
 
 
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/d0fbc9db/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/lion.png">
-      <meta itemprop="name" content="swimminghao">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="swimminghao's blog">
-      <meta itemprop="description" content="swimminghao的学习博客">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | swimminghao's blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/d0fbc9db/" class="post-title-link" itemprop="url">经典动态规划：高楼扔鸡蛋（进阶篇）</a>
-        </h2>
-
-        <div class="post-meta-container">
-
-          
-
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2025-02-13 16:20:39" itemprop="dateModified" datetime="2025-02-13T16:20:39+08:00">2025-02-13</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="far fa-comment"></i>
-    </span>
-    <span class="post-meta-item-text">Waline：</span>
-  
-    <a title="waline" href="/posts/d0fbc9db/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/d0fbc9db/" data-xid="/posts/d0fbc9db/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>4.6k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>4 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="经典动态规划：高楼扔鸡蛋（进阶篇）"><a href="#经典动态规划：高楼扔鸡蛋（进阶篇）" class="headerlink" title="经典动态规划：高楼扔鸡蛋（进阶篇）"></a>经典动态规划：高楼扔鸡蛋（进阶篇）</h1><p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/mp/appmsgalbum?__biz=MzAxODQxMDM0Mw==&action=getalbum&album_id=1318881141113536512&scene=173&from_msgid=2247484675&from_itemidx=1&count=3&nolastread=1#wechat_redirect">手把手刷动态规划 25个</a></p>
-<h2 id="预计阅读时间：9-分钟"><a href="#预计阅读时间：9-分钟" class="headerlink" title="预计阅读时间：9 分钟"></a>预计阅读时间：9 分钟</h2><p>我们在 <a target="_blank" rel="noopener" href="http://mp.weixin.qq.com/s?__biz=MzAxODQxMDM0Mw==&mid=2247484675&idx=1&sn=4a4ac1c0f1279530b42fedacc6cca6e6&chksm=9bd7fb0baca0721dda1eaa1d00b9a520672dc9d5c3be762eeca869be35d7ce232922ba8e928b&scene=21#wechat_redirect">上篇文章</a> 聊了高楼扔鸡蛋问题，讲了一种效率不是很高，但是较为容易理解的动态规划解法。后台很多读者问如何更高效地解决这个问题，今天就谈两种思路，来优化一下这个问题，分别是二分查找优化和重新定义状态转移。</p>
-<p>如果还不知道高楼扔鸡蛋问题的读者可以看下 <a target="_blank" rel="noopener" href="http://mp.weixin.qq.com/s?__biz=MzAxODQxMDM0Mw==&mid=2247484675&idx=1&sn=4a4ac1c0f1279530b42fedacc6cca6e6&chksm=9bd7fb0baca0721dda1eaa1d00b9a520672dc9d5c3be762eeca869be35d7ce232922ba8e928b&scene=21#wechat_redirect">经典动态规划：高楼扔鸡蛋</a>，<strong>那篇文章详解了题目的含义和基本的动态规划解题思路，请确保理解前文，<strong><strong>因为</strong></strong>今天的优化都是基于这个基本解法的</strong>。</p>
-<p>二分搜索的优化思路也许是我们可以尽力尝试写出的，而修改状态转移的解法可能是不容易想到的，可以借此见识一下动态规划算法设计的玄妙，当做思维拓展。</p>
-<h2 id="一、二分搜索优化"><a href="#一、二分搜索优化" class="headerlink" title="一、二分搜索优化"></a>一、二分搜索优化</h2><p>之前提到过这个解法，核心是因为状态转移方程的单调性，这里可以具体展开看看。</p>
-<p>题目要求最坏情况下至少需要扔几次鸡蛋才能测出鸡蛋恰好摔不碎的楼层<code>F</code>。首先简述一下原始动态规划的思路：</p>
-<p><strong>1</strong>、暴力穷举尝试在所有楼层<code>1 &lt;= i &lt;= N</code>扔鸡蛋，每次选择尝试次数<strong>最少</strong>的那一层；</p>
-<p><strong>2</strong>、每次扔鸡蛋有两种可能，要么碎，要么没碎；</p>
-<p><strong>3</strong>、如果鸡蛋碎了，<code>F</code>应该在第<code>i</code>层下面，否则，<code>F</code>应该在第<code>i</code>层上面；</p>
-<p><strong>4</strong>、鸡蛋是碎了还是没碎，取决于哪种情况下尝试次数<strong>更多</strong>，因为我们想求的是最坏情况下的结果。</p>
-<p>核心的状态转移代码是这段：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"># 当前状态为 K 个鸡蛋，面对 N 层楼</span><br><span class="line"># 返回这个状态下的最优结果</span><br><span class="line">def <span class="title function_">dp</span><span class="params">(K, N)</span>:</span><br><span class="line">    <span class="keyword">for</span> <span class="number">1</span> &lt;= i &lt;= N:</span><br><span class="line">        # 最坏情况下的最少扔鸡蛋次数</span><br><span class="line">        res = min(res, </span><br><span class="line">                  max( </span><br><span class="line">                        dp(K - <span class="number">1</span>, i - <span class="number">1</span>), # 碎</span><br><span class="line">                        dp(K, N - i)      # 没碎</span><br><span class="line">                     ) + <span class="number">1</span> # 在第 i 楼扔了一次</span><br><span class="line">                 )</span><br><span class="line">    <span class="keyword">return</span> </span><br></pre></td></tr></table></figure>
-
-<p>这个 for 循环就是下面这个状态转移方程的具体代码实现：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/CyPTgO_20210429195258.png" alt="图片"></p>
-<p>如果能够理解这个状态转移方程，那么就很容易理解二分查找的优化思路。</p>
-<p>首先我们根据<code>dp(K, N)</code>数组的定义（有<code>K</code>个鸡蛋面对<code>N</code>层楼，最少需要扔 dp(K, N) 次），<strong>很容易知道<code>K</code>固定时，这个函数随着<code>N</code>的增加一定是单调递增的</strong>，无论你策略多聪明，楼层增加的话，测试次数一定要增加。</p>
-<p>那么注意<code>dp(K - 1, i - 1)</code>和<code>dp(K, N - i)</code>这两个函数，其中<code>i</code>是从 1 到<code>N</code>单增的，如果我们固定<code>K</code>和<code>N</code>，<strong>把这两个函数看做关于<code>i</code>的函数，前者随着<code>i</code>的增加应该也是单调递增的，而后者随着<code>i</code>的增加应该是单调递减的</strong>：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/6NYUjf_20210429195215.png" alt="图片"></p>
-<p>这时候求二者的较大值，再求这些最大值之中的最小值，其实就是求这两条直线交点，也就是红色折线的最低点嘛。</p>
-<p>我们前文 <a target="_blank" rel="noopener" href="http://mp.weixin.qq.com/s?__biz=MzAxODQxMDM0Mw==&mid=2247484598&idx=1&sn=69edaf4a7f6bfd0b1185cae5d0689c1d&chksm=9bd7fabeaca073a8820bc93cb67a8e26fa9eaa1ab9717b7e3ac41b4aac12235067c8af3520d5&scene=21#wechat_redirect">二分搜索只能用来查找元素吗？</a>讲过，二分查找的运用很广泛，形如下面这种形式的 for 循环代码：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">    <span class="keyword">if</span> (isOK(i))</span><br><span class="line">        <span class="keyword">return</span> i;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>都很有可能可以运用二分查找来优化线性搜索的复杂度，回顾这两个<code>dp</code>函数的曲线，我们要找的最低点其实就是这种情况：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span>; i &lt;= N; i++) &#123;</span><br><span class="line">    <span class="keyword">if</span> (dp(K - <span class="number">1</span>, i - <span class="number">1</span>) == dp(K, N - i))</span><br><span class="line">        <span class="keyword">return</span> dp(K, N - i);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>熟悉二分搜索的同学肯定敏感地想到了，这不就是相当于求 Valley（山谷）值嘛，可以用二分查找来快速寻找这个点的，直接看代码吧，整体的思路还是一样，只是加快了搜索速度：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">def <span class="title function_">superEggDrop</span><span class="params">(self, K: <span class="type">int</span>, N: <span class="type">int</span>)</span> -&gt; <span class="type">int</span>:</span><br><span class="line"></span><br><span class="line">    memo = dict()</span><br><span class="line">    def <span class="title function_">dp</span><span class="params">(K, N)</span>:</span><br><span class="line">        <span class="type">if</span> <span class="variable">K</span> <span class="operator">=</span>= <span class="number">1</span>: <span class="keyword">return</span> N</span><br><span class="line">        <span class="type">if</span> <span class="variable">N</span> <span class="operator">=</span>= <span class="number">0</span>: <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">        <span class="keyword">if</span> (K, N) in memo:</span><br><span class="line">            <span class="keyword">return</span> memo[(K, N)]</span><br><span class="line"></span><br><span class="line">        # <span class="keyword">for</span> <span class="number">1</span> &lt;= i &lt;= N:</span><br><span class="line">        #     res = min(res, </span><br><span class="line">        #             max( </span><br><span class="line">        #                 dp(K - <span class="number">1</span>, i - <span class="number">1</span>), </span><br><span class="line">        #                 dp(K, N - i)      </span><br><span class="line">        #                 ) + <span class="number">1</span> </span><br><span class="line">        #             )</span><br><span class="line"></span><br><span class="line">        res = <span class="type">float</span>(<span class="string">&#x27;INF&#x27;</span>)</span><br><span class="line">        # 用二分搜索代替线性搜索</span><br><span class="line">        lo, hi = <span class="number">1</span>, N</span><br><span class="line">        <span class="keyword">while</span> lo &lt;= hi:</span><br><span class="line">            mid = (lo + hi) <span class="comment">// 2</span></span><br><span class="line">            broken = dp(K - <span class="number">1</span>, mid - <span class="number">1</span>) # 碎</span><br><span class="line">            not_broken = dp(K, N - mid) # 没碎</span><br><span class="line">            # res = min(max(碎，没碎) + <span class="number">1</span>)</span><br><span class="line">            <span class="keyword">if</span> broken &gt; not_broken:</span><br><span class="line">                hi = mid - <span class="number">1</span></span><br><span class="line">                res = min(res, broken + <span class="number">1</span>)</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                lo = mid + <span class="number">1</span></span><br><span class="line">                res = min(res, not_broken + <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">        memo[(K, N)] = res</span><br><span class="line">        <span class="keyword">return</span> res</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> dp(K, N)</span><br></pre></td></tr></table></figure>
-
-<p>这个算法的时间复杂度是多少呢？<strong>动态规划算法的时间复杂度就是子问题个数 × 函数本身的复杂度</strong>。</p>
-<p>函数本身的复杂度就是忽略递归部分的复杂度，这里<code>dp</code>函数中用了一个二分搜索，所以函数本身的复杂度是 O(logN)。</p>
-<p>子问题个数也就是不同状态组合的总数，显然是两个状态的乘积，也就是 O(KN)。</p>
-<p>所以算法的总时间复杂度是 O(K<em>N</em>logN), 空间复杂度 O(KN)。效率上比之前的算法 O(KN^2) 要高效不少。</p>
-<h2 id="二、重写状态转移"><a href="#二、重写状态转移" class="headerlink" title="二、重写状态转移"></a>二、重写状态转移</h2><p>前文 <a target="_blank" rel="noopener" href="http://mp.weixin.qq.com/s?__biz=MzAxODQxMDM0Mw==&mid=2247484469&idx=1&sn=e8d321c8ad62483874a997e9dd72da8f&chksm=9bd7fa3daca0732b316aa0afa58e70357e1cb7ab1fe0855d06bc4a852abb1b434c01c7dd19d6&scene=21#wechat_redirect">动态规划：不同的定义产生不同的解法</a> 就提过，找动态规划的状态转移本就是见仁见智，比较玄学的事情。不同的状态定义可以衍生出不同的解法，其解法和复杂程度都可能有巨大差异。这里就是一个很好的例子。</p>
-<p>再回顾一下我们之前定义的<code>dp</code>数组含义：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">def <span class="title function_">dp</span><span class="params">(k, n)</span> -&gt; <span class="type">int</span></span><br><span class="line"># 当前状态为 k 个鸡蛋，面对 n 层楼</span><br><span class="line"># 返回这个状态下最少的扔鸡蛋次数</span><br></pre></td></tr></table></figure>
-
-<p>用 dp 数组表示的话也是一样的：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">dp[k][n] = m</span><br><span class="line"># 当前状态为 k 个鸡蛋，面对 n 层楼</span><br><span class="line"># 这个状态下最少的扔鸡蛋次数为 m</span><br></pre></td></tr></table></figure>
-
-<p>按照这个定义，就是<strong>确定当前的鸡蛋个数和面对的楼层数，就知道最小扔鸡蛋次数</strong>。最终我们想要的答案就是<code>dp(K, N)</code>的结果。</p>
-<p>这种思路下，肯定要穷举所有可能的扔法的，用二分搜索优化也只是做了「剪枝」，减小了搜索空间，但本质思路没有变，只不过是更聪明的穷举。</p>
-<p>现在，我们稍微修改<code>dp</code>数组的定义，<strong>确定当前的鸡蛋个数和最多允许的扔鸡蛋次数，就知道能够确定<code>F</code>的最高楼层数</strong>。</p>
-<p>有点绕口，具体来说是这个意思：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">dp[k][m] = n</span><br><span class="line"># 当前有 k 个鸡蛋，可以尝试扔 m 次鸡蛋</span><br><span class="line"># 这个状态下，最坏情况下最多能确切测试一栋 n 层的楼</span><br><span class="line"></span><br><span class="line"># 比如说 dp[<span class="number">1</span>][<span class="number">7</span>] = <span class="number">7</span> 表示：</span><br><span class="line"># 现在有 <span class="number">1</span> 个鸡蛋，允许你扔 <span class="number">7</span> 次;</span><br><span class="line"># 这个状态下最多给你 <span class="number">7</span> 层楼，</span><br><span class="line"># 使得你可以确定楼层 F 使得鸡蛋恰好摔不碎</span><br><span class="line"># （一层一层线性探查嘛）</span><br></pre></td></tr></table></figure>
-
-<p>这其实就是我们原始思路的一个「反向」版本，我们先不管这种思路的状态转移怎么写，先来思考一下这种定义之下，最终想求的答案是什么？</p>
-<p>我们最终要求的其实是扔鸡蛋次数<code>m</code>，但是这时候<code>m</code>在状态之中而不是<code>dp</code>数组的结果，可以这样处理：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">superEggDrop</span><span class="params">(<span class="type">int</span> K, <span class="type">int</span> N)</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> <span class="variable">m</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (dp[K][m] &lt; N) &#123;</span><br><span class="line">        m++;</span><br><span class="line">        <span class="comment">// 状态转移...</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> m;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>题目不是<strong>给你<code>K</code>鸡蛋，<code>N</code>层楼，让你求最坏情况下最少的测试次数<code>m</code></strong> 吗？<code>while</code>循环结束的条件是<code>dp[K][m] == N</code>，也就是<strong>给你<code>K</code>个鸡蛋，允许测试<code>m</code>次，最坏情况下最多能测试<code>N</code>层楼</strong>。</p>
-<p>注意看这两段描述，是完全一样的！所以说这样组织代码是正确的，关键就是状态转移方程怎么找呢？还得从我们原始的思路开始讲。之前的解法配了这样图帮助大家理解状态转移思路：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/image-20210429195434229_20210429195434.png" alt="图片"></p>
-<p>这个图描述的仅仅是某一个楼层<code>i</code>，原始解法还得线性或者二分扫描所有楼层，要求最大值、最小值。但是现在这种<code>dp</code>定义根本不需要这些了，基于下面两个事实：</p>
-<p><strong>1、无论你在哪层楼扔鸡蛋，鸡蛋只可能摔碎或者没摔碎，碎了的话就测楼下，没碎的话就测楼上</strong>。</p>
-<p><strong>2、无论你上楼还是下楼，总的楼层数 &#x3D; 楼上的楼层数 + 楼下的楼层数 + 1（当前这层楼）</strong>。</p>
-<p>根据这个特点，可以写出下面的状态转移方程：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dp[k][m] = dp[k][m-<span class="number">1</span>] + dp[k-<span class="number">1</span>][m-<span class="number">1</span>] + <span class="number">1</span></span><br></pre></td></tr></table></figure>
-
-<p><strong><code>dp[k][m - 1]</code>就是楼上的楼层数</strong>，因为鸡蛋个数<code>k</code>不变，也就是鸡蛋没碎，扔鸡蛋次数<code>m</code>减一；</p>
-<p><strong><code>dp[k - 1][m - 1]</code>就是楼下的楼层数</strong>，因为鸡蛋个数<code>k</code>减一，也就是鸡蛋碎了，同时扔鸡蛋次数<code>m</code>减一。</p>
-<p>PS：这个<code>m</code>为什么要减一而不是加一？之前定义得很清楚，这个<code>m</code>是一个允许的次数上界，而不是扔了几次。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/72KWkN_20210429195454.png" alt="图片"></p>
-<p>至此，整个思路就完成了，只要把状态转移方程填进框架即可：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">superEggDrop</span><span class="params">(<span class="type">int</span> K, <span class="type">int</span> N)</span> &#123;</span><br><span class="line">    <span class="comment">// m 最多不会超过 N 次（线性扫描）</span></span><br><span class="line">    <span class="type">int</span>[][] dp = <span class="keyword">new</span> <span class="title class_">int</span>[K + <span class="number">1</span>][N + <span class="number">1</span>];</span><br><span class="line">    <span class="comment">// base case:</span></span><br><span class="line">    <span class="comment">// dp[0][..] = 0</span></span><br><span class="line">    <span class="comment">// dp[..][0] = 0</span></span><br><span class="line">    <span class="comment">// Java 默认初始化数组都为 0</span></span><br><span class="line">    <span class="type">int</span> <span class="variable">m</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (dp[K][m] &lt; N) &#123;</span><br><span class="line">        m++;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">k</span> <span class="operator">=</span> <span class="number">1</span>; k &lt;= K; k++)</span><br><span class="line">            dp[k][m] = dp[k][m - <span class="number">1</span>] + dp[k - <span class="number">1</span>][m - <span class="number">1</span>] + <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> m;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>如果你还觉得这段代码有点难以理解，其实它就等同于这样写：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="type">int</span> <span class="variable">m</span> <span class="operator">=</span> <span class="number">1</span>; dp[K][m] &lt; N; m++)</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">k</span> <span class="operator">=</span> <span class="number">1</span>; k &lt;= K; k++)</span><br><span class="line">        dp[k][m] = dp[k][m - <span class="number">1</span>] + dp[k - <span class="number">1</span>][m - <span class="number">1</span>] + <span class="number">1</span>;</span><br></pre></td></tr></table></figure>
-
-<p>看到这种代码形式就熟悉多了吧，因为我们要求的不是<code>dp</code>数组里的值，而是某个符合条件的索引<code>m</code>，所以用<code>while</code>循环来找到这个<code>m</code>而已。</p>
-<p>这个算法的时间复杂度是多少？很明显就是两个嵌套循环的复杂度 O(KN)。</p>
-<p>另外注意到<code>dp[m][k]</code>转移只和左边和左上的两个状态有关，所以很容易优化成一维<code>dp</code>数组，这里就不写了。</p>
-<h2 id="三、进一步思考"><a href="#三、进一步思考" class="headerlink" title="三、进一步思考"></a>三、进一步思考</h2><p>再往下就要用一些数学方法了，不具体展开，就简单提一下思路吧。</p>
-<p>在刚才的思路之上，<strong>注意函数<code>dp(m, k)</code>是随着<code>m</code>单增的，因为鸡蛋个数<code>k</code>不变时，允许的测试次数越多，可测试的楼层就越高。</strong></p>
-<p>这里又可以借助二分搜索算法快速逼近<code>dp[K][m] == N</code>这个终止条件，时间复杂度进一步下降为 O(KlogN)，我们可以设<code>g(k,m)</code>等于……</p>
-<p>算了算了，打住吧。我觉得我们能够写出 O(K<em>N</em>logN) 的二分优化算法就行了，后面的这些解法呢，听个响鼓个掌就行了，把欲望限制在能力的范围之内才能拥有快乐！</p>
-<p>不过可以肯定的是，根据二分搜索代替线性扫描 m 的取值，代码的大致框架肯定是修改穷举 m 的 for 循环：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 把线性搜索改成二分搜索</span></span><br><span class="line"><span class="comment">// for (int m = 1; dp[K][m] &lt; N; m++)</span></span><br><span class="line"><span class="type">int</span> <span class="variable">lo</span> <span class="operator">=</span> <span class="number">1</span>, hi = N;</span><br><span class="line"><span class="keyword">while</span> (lo &lt; hi) &#123;</span><br><span class="line">    <span class="type">int</span> <span class="variable">mid</span> <span class="operator">=</span> (lo + hi) / <span class="number">2</span>;</span><br><span class="line">    <span class="keyword">if</span> (... &lt; N) &#123;</span><br><span class="line">        lo = ...</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        hi = ...</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">k</span> <span class="operator">=</span> <span class="number">1</span>; k &lt;= K; k++)</span><br><span class="line">        <span class="comment">// 状态转移方程</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>简单总结一下吧，<strong>第一个二分优化是利用了<code>dp</code>函数的单调性</strong>，用二分查找技巧快速搜索答案；<strong>第二种优化是巧妙地修改了状态转移方程</strong>，简化了求解了流程，但相应的，解题逻辑比较难以想到；后续还可以用一些数学方法和二分搜索进一步优化第二种解法，不过看了看镜子中的发量，算了。</p>
-<p>本文终，希望对你有一点启发。</p>
-
-      
-    </div>
-
-    
-    
-    
-
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>l
-
-
-
-
   <nav class="pagination">
     <a class="extend prev" rel="prev" href="/page/26/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/26/">26</a><span class="page-number current">27</span><a class="page-number" href="/page/28/">28</a><a class="extend next" rel="next" href="/page/28/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
@@ -2069,7 +2052,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">18:03</span>
+    <span title="站点阅读时长">18:04</span>
   </span>
 </div>
 
