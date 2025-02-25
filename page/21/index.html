@@ -718,212 +718,6 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/89b0310a/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/lion.png">
-      <meta itemprop="name" content="swimminghao">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="swimminghao's blog">
-      <meta itemprop="description" content="swimminghao的学习博客">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | swimminghao's blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/89b0310a/" class="post-title-link" itemprop="url">35、【对线面试官】系统需求多变时，如何设计</a>
-        </h2>
-
-        <div class="post-meta-container">
-
-          
-
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2025-02-13 16:20:39" itemprop="dateModified" datetime="2025-02-13T16:20:39+08:00">2025-02-13</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="far fa-comment"></i>
-    </span>
-    <span class="post-meta-item-text">Waline：</span>
-  
-    <a title="waline" href="/posts/89b0310a/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/89b0310a/" data-xid="/posts/89b0310a/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>1.8k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>2 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="35、【对线面试官】系统需求多变时，如何设计"><a href="#35、【对线面试官】系统需求多变时，如何设计" class="headerlink" title="35、【对线面试官】系统需求多变时，如何设计"></a>35、【对线面试官】系统需求多变时，如何设计</h1><h2 id="我现在有个系统会根据请求的入参，做出不同动作。但是，这块不同的动作很有可能是会发生需求变动的，这块系统你会怎么样设计？"><a href="#我现在有个系统会根据请求的入参，做出不同动作。但是，这块不同的动作很有可能是会发生需求变动的，这块系统你会怎么样设计？" class="headerlink" title="我现在有个系统会根据请求的入参，做出不同动作。但是，这块不同的动作很有可能是会发生需求变动的，这块系统你会怎么样设计？"></a>我现在有个系统会根据请求的入参，做出不同动作。但是，这块不同的动作很有可能是会发生需求变动的，这块系统你会怎么样设计？</h2><h2 id="实际的例子：现在有多个第三方渠道，系统需要对各种渠道进行订单归因"><a href="#实际的例子：现在有多个第三方渠道，系统需要对各种渠道进行订单归因" class="headerlink" title="实际的例子：现在有多个第三方渠道，系统需要对各种渠道进行订单归因"></a>实际的例子：现在有多个第三方渠道，系统需要对各种渠道进行订单归因</h2><h2 id="但是归因的逻辑很有可能会发生变化，不同的渠道归因的逻辑也不太一样，此时系统里的逻辑相对比较复杂"><a href="#但是归因的逻辑很有可能会发生变化，不同的渠道归因的逻辑也不太一样，此时系统里的逻辑相对比较复杂" class="headerlink" title="但是归因的逻辑很有可能会发生变化，不同的渠道归因的逻辑也不太一样，此时系统里的逻辑相对比较复杂"></a>但是归因的逻辑很有可能会发生变化，不同的渠道归因的逻辑也不太一样，此时系统里的逻辑相对比较复杂</h2><h2 id="如果让你优化一下，你会怎么设计？"><a href="#如果让你优化一下，你会怎么设计？" class="headerlink" title="如果让你优化一下，你会怎么设计？"></a>如果让你优化一下，你会怎么设计？</h2><ul>
-<li><p>问题转化</p>
-<ul>
-<li>归根到底，就是处理的逻辑相对复杂，if else的判断太多了</li>
-<li>虽然新的需求来了，都可以添加if else进行解决</li>
-<li>但你想要的就是，系统的可扩展性和可维护性更强</li>
-<li>想要我这边出一个方案，来解决类似的问题</li>
-</ul>
-</li>
-<li><p>回答</p>
-<ul>
-<li><p>在这之前，一般上网搜如何解决if else，大多数都说是策略模式</p>
-</li>
-<li><p>但是举的例子我又没感同身受，很多时候看完就过去了</p>
-</li>
-<li><p>实际上，在项目里边，用策略模式还是蛮多的，可能无意间就已经用上了（毕竟面向接口编程嘛）</p>
-</li>
-<li><p>而我认为，策略模式不是解决if else的关键</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/HPysDw_20211230104621.png"></p>
-</li>
-<li><p>这个问题，我的项目里的做法是：责任链模式</p>
-<ul>
-<li><p>把每个流程单独抽取成一个Process（可以理解为一个模块或节点），然后请求都会塞进Context中</p>
-</li>
-<li><p>比如，之前维护过一个项目，也是类似于不同的渠道走不同的逻辑</p>
-</li>
-<li><p>我们这边的做法是：抽取相关的逻辑到Process中，为不同的渠道分配不同的责任链</p>
-</li>
-<li><p>比如渠道A的责任链是：WhiteListProcess-&gt;DataAssembleProcess-&gt;ChannelAProcess-&gt;SendProcess</p>
-</li>
-<li><p>而渠道B的责任链是：WhiteListProcess-&gt;DataAssembleProcess-&gt;ChannelBProcess-&gt;SendProcess</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/3IQouH_20211230104740.png"></p>
-</li>
-<li><p>在责任链基础之上，又可以在代码里内嵌「脚本」</p>
-</li>
-<li><p>比如在SendProcess上，内置发送消息的脚本（脚本可以选择不同的运营商进行发送消息）。有了「脚本」以后，那就可以做到对逻辑的改动不需要重启就可以生效。</p>
-</li>
-<li><p>有人把这一套东西叫做「规则引擎」</p>
-</li>
-<li><p>比如，规则引擎中比较出名的实现框架「Drools」就可以做到类似的事</p>
-</li>
-<li><p>把易改动的逻辑写在「脚本」上（至少我们认为，脚本和我们的应用真实逻辑是分离）</p>
-</li>
-<li><p>（脚本我这里指的是规则集，它可以是Drools的dsl，也可以是Groovy，也可以是aviator等等）</p>
-</li>
-<li><p>在我之前的公司，使用的是Groovyl脚本</p>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h2 id="具体怎么做的"><a href="#具体怎么做的" class="headerlink" title="具体怎么做的"></a>具体怎么做的</h2><ul>
-<li><p>大致的实现逻辑就是：有专门后台对脚本进行管理，然后会把脚本写到「分布式配置中心」（实时刷新），客户端监听「分布式配置中心」所存储的脚本是否有改动</p>
-</li>
-<li><p>如果存在改动，则通过Groovy类加载器重新编译并加载脚本，最后放到Spring容器对外使用</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/Kpog15_20211230104940.png"></p>
-</li>
-<li><p>我目前所负责的系统就是这样处理多变以及需求变更频繁的业务（责任链+规则引擎）</p>
-</li>
-<li><p>不过据我了解，我们的玩法业务在实现上在「责任链」多做了些事情（所谓的可配置化）</p>
-</li>
-<li><p>「责任链」不再从代码里编写，而是下沉到平台去做「服务编排」，就是由程序员去「服务编排后台」上配置信息（配置责任链的每一个节点）</p>
-</li>
-<li><p>在业务系统里使用「服务编排」的客户端，请求时只要传入「服务编排」的ID，就可以按「服务编排」的流程执行代码</p>
-</li>
-<li><p>这样做的好处就是：业务链是在后台配置的，不用在系统业务上维护链，灵活性更高（写好的责任链节点可以随意组合）</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/30jP6P_20211230105053.png"></p>
-</li>
-</ul>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>遇到这道题之后，其实我当时答得不太行（当时只是简单说了下责任链和脚本）</p>
-<p>于是面试题发给前同事A，让他给我出出意见，同事A给我回答的内容是：「<strong>抽象，模块化，配置化</strong>」</p>
-<p>光看这几个词，他说得也没错，但我理解不了。让他具体点，他也不展开了</p>
-<p>于是，我又厚着脸皮去找别的前同事B，得出的回答是：</p>
-<ul>
-<li>「<strong>是否可以做成配置化、动态替换、插件式、不需要人去开发</strong>」</li>
-<li>「<strong>规则引擎</strong>」</li>
-</ul>
-<p>当我问他，什么是「规则引擎」时，反手就被教育了，<strong>问我到底这两年学了什么，这都不懂，这也太菜了</strong>。</p>
-<p>有了”方向”以后，我花了点时间去搜了下「<strong>规则引擎</strong>」的资料，顺便入门了下「Drools」，发现这玩意不就类似于我之前在公司用的Groovy脚本平台</p>
-<p>（当时还在纳闷想为啥那后台的名字叫做规则平台）…</p>
-<p>于是又去简单翻了下我们的Groovy脚本平台是怎么实现这套东西的</p>
-<p>「服务编排」这块之前在公司里因为项目的缘故，自己也没接入过，但一直听有其他的团队在用，顺便也简单看了下代码（：</p>
-<p>后来再去找同事B时，他说现在自己公司用的是「<strong>流程引擎</strong>」，画图就ok了</p>
-<p><strong>其实，搞了半天，还是写if else 舒服!</strong></p>
-
-      
-    </div>
-
-    
-    
-    
-
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>l
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://example.com/posts/f4ff0293/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1130,6 +924,212 @@
 <p><strong>Redis Cluster 为什么使用哈希槽，而非一致性哈希算法</strong>：哈希槽实现相对简单高效，每次扩缩容只需要动对应Solt（槽）的数据，一般不会动整个Redis实例</p>
 <p><strong>Codis数据路由</strong>：默认分配1024个哈希槽，映射相关信息会被保存至Zookeeper集群。Proxy会缓存一份至本地，Redis集群实例发生变化时，DashBoard更新Zookeeper和Proxy的映射信息</p>
 <p><strong>Redis Cluster和Codis数据迁移</strong>：Redis Cluster支持同步迁移，Codis支持同步迁移&amp;&amp;异步迁移</p>
+
+      
+    </div>
+
+    
+    
+    
+
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>l
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/89b0310a/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lion.png">
+      <meta itemprop="name" content="swimminghao">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="swimminghao's blog">
+      <meta itemprop="description" content="swimminghao的学习博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | swimminghao's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/89b0310a/" class="post-title-link" itemprop="url">35、【对线面试官】系统需求多变时，如何设计</a>
+        </h2>
+
+        <div class="post-meta-container">
+
+          
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2025-02-13 16:20:39" itemprop="dateModified" datetime="2025-02-13T16:20:39+08:00">2025-02-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/posts/89b0310a/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/89b0310a/" data-xid="/posts/89b0310a/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>1.8k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>2 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="35、【对线面试官】系统需求多变时，如何设计"><a href="#35、【对线面试官】系统需求多变时，如何设计" class="headerlink" title="35、【对线面试官】系统需求多变时，如何设计"></a>35、【对线面试官】系统需求多变时，如何设计</h1><h2 id="我现在有个系统会根据请求的入参，做出不同动作。但是，这块不同的动作很有可能是会发生需求变动的，这块系统你会怎么样设计？"><a href="#我现在有个系统会根据请求的入参，做出不同动作。但是，这块不同的动作很有可能是会发生需求变动的，这块系统你会怎么样设计？" class="headerlink" title="我现在有个系统会根据请求的入参，做出不同动作。但是，这块不同的动作很有可能是会发生需求变动的，这块系统你会怎么样设计？"></a>我现在有个系统会根据请求的入参，做出不同动作。但是，这块不同的动作很有可能是会发生需求变动的，这块系统你会怎么样设计？</h2><h2 id="实际的例子：现在有多个第三方渠道，系统需要对各种渠道进行订单归因"><a href="#实际的例子：现在有多个第三方渠道，系统需要对各种渠道进行订单归因" class="headerlink" title="实际的例子：现在有多个第三方渠道，系统需要对各种渠道进行订单归因"></a>实际的例子：现在有多个第三方渠道，系统需要对各种渠道进行订单归因</h2><h2 id="但是归因的逻辑很有可能会发生变化，不同的渠道归因的逻辑也不太一样，此时系统里的逻辑相对比较复杂"><a href="#但是归因的逻辑很有可能会发生变化，不同的渠道归因的逻辑也不太一样，此时系统里的逻辑相对比较复杂" class="headerlink" title="但是归因的逻辑很有可能会发生变化，不同的渠道归因的逻辑也不太一样，此时系统里的逻辑相对比较复杂"></a>但是归因的逻辑很有可能会发生变化，不同的渠道归因的逻辑也不太一样，此时系统里的逻辑相对比较复杂</h2><h2 id="如果让你优化一下，你会怎么设计？"><a href="#如果让你优化一下，你会怎么设计？" class="headerlink" title="如果让你优化一下，你会怎么设计？"></a>如果让你优化一下，你会怎么设计？</h2><ul>
+<li><p>问题转化</p>
+<ul>
+<li>归根到底，就是处理的逻辑相对复杂，if else的判断太多了</li>
+<li>虽然新的需求来了，都可以添加if else进行解决</li>
+<li>但你想要的就是，系统的可扩展性和可维护性更强</li>
+<li>想要我这边出一个方案，来解决类似的问题</li>
+</ul>
+</li>
+<li><p>回答</p>
+<ul>
+<li><p>在这之前，一般上网搜如何解决if else，大多数都说是策略模式</p>
+</li>
+<li><p>但是举的例子我又没感同身受，很多时候看完就过去了</p>
+</li>
+<li><p>实际上，在项目里边，用策略模式还是蛮多的，可能无意间就已经用上了（毕竟面向接口编程嘛）</p>
+</li>
+<li><p>而我认为，策略模式不是解决if else的关键</p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/HPysDw_20211230104621.png"></p>
+</li>
+<li><p>这个问题，我的项目里的做法是：责任链模式</p>
+<ul>
+<li><p>把每个流程单独抽取成一个Process（可以理解为一个模块或节点），然后请求都会塞进Context中</p>
+</li>
+<li><p>比如，之前维护过一个项目，也是类似于不同的渠道走不同的逻辑</p>
+</li>
+<li><p>我们这边的做法是：抽取相关的逻辑到Process中，为不同的渠道分配不同的责任链</p>
+</li>
+<li><p>比如渠道A的责任链是：WhiteListProcess-&gt;DataAssembleProcess-&gt;ChannelAProcess-&gt;SendProcess</p>
+</li>
+<li><p>而渠道B的责任链是：WhiteListProcess-&gt;DataAssembleProcess-&gt;ChannelBProcess-&gt;SendProcess</p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/3IQouH_20211230104740.png"></p>
+</li>
+<li><p>在责任链基础之上，又可以在代码里内嵌「脚本」</p>
+</li>
+<li><p>比如在SendProcess上，内置发送消息的脚本（脚本可以选择不同的运营商进行发送消息）。有了「脚本」以后，那就可以做到对逻辑的改动不需要重启就可以生效。</p>
+</li>
+<li><p>有人把这一套东西叫做「规则引擎」</p>
+</li>
+<li><p>比如，规则引擎中比较出名的实现框架「Drools」就可以做到类似的事</p>
+</li>
+<li><p>把易改动的逻辑写在「脚本」上（至少我们认为，脚本和我们的应用真实逻辑是分离）</p>
+</li>
+<li><p>（脚本我这里指的是规则集，它可以是Drools的dsl，也可以是Groovy，也可以是aviator等等）</p>
+</li>
+<li><p>在我之前的公司，使用的是Groovyl脚本</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="具体怎么做的"><a href="#具体怎么做的" class="headerlink" title="具体怎么做的"></a>具体怎么做的</h2><ul>
+<li><p>大致的实现逻辑就是：有专门后台对脚本进行管理，然后会把脚本写到「分布式配置中心」（实时刷新），客户端监听「分布式配置中心」所存储的脚本是否有改动</p>
+</li>
+<li><p>如果存在改动，则通过Groovy类加载器重新编译并加载脚本，最后放到Spring容器对外使用</p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/Kpog15_20211230104940.png"></p>
+</li>
+<li><p>我目前所负责的系统就是这样处理多变以及需求变更频繁的业务（责任链+规则引擎）</p>
+</li>
+<li><p>不过据我了解，我们的玩法业务在实现上在「责任链」多做了些事情（所谓的可配置化）</p>
+</li>
+<li><p>「责任链」不再从代码里编写，而是下沉到平台去做「服务编排」，就是由程序员去「服务编排后台」上配置信息（配置责任链的每一个节点）</p>
+</li>
+<li><p>在业务系统里使用「服务编排」的客户端，请求时只要传入「服务编排」的ID，就可以按「服务编排」的流程执行代码</p>
+</li>
+<li><p>这样做的好处就是：业务链是在后台配置的，不用在系统业务上维护链，灵活性更高（写好的责任链节点可以随意组合）</p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/30jP6P_20211230105053.png"></p>
+</li>
+</ul>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>遇到这道题之后，其实我当时答得不太行（当时只是简单说了下责任链和脚本）</p>
+<p>于是面试题发给前同事A，让他给我出出意见，同事A给我回答的内容是：「<strong>抽象，模块化，配置化</strong>」</p>
+<p>光看这几个词，他说得也没错，但我理解不了。让他具体点，他也不展开了</p>
+<p>于是，我又厚着脸皮去找别的前同事B，得出的回答是：</p>
+<ul>
+<li>「<strong>是否可以做成配置化、动态替换、插件式、不需要人去开发</strong>」</li>
+<li>「<strong>规则引擎</strong>」</li>
+</ul>
+<p>当我问他，什么是「规则引擎」时，反手就被教育了，<strong>问我到底这两年学了什么，这都不懂，这也太菜了</strong>。</p>
+<p>有了”方向”以后，我花了点时间去搜了下「<strong>规则引擎</strong>」的资料，顺便入门了下「Drools」，发现这玩意不就类似于我之前在公司用的Groovy脚本平台</p>
+<p>（当时还在纳闷想为啥那后台的名字叫做规则平台）…</p>
+<p>于是又去简单翻了下我们的Groovy脚本平台是怎么实现这套东西的</p>
+<p>「服务编排」这块之前在公司里因为项目的缘故，自己也没接入过，但一直听有其他的团队在用，顺便也简单看了下代码（：</p>
+<p>后来再去找同事B时，他说现在自己公司用的是「<strong>流程引擎</strong>」，画图就ok了</p>
+<p><strong>其实，搞了半天，还是写if else 舒服!</strong></p>
 
       
     </div>
