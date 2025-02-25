@@ -276,6 +276,170 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/473fac3a/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lion.png">
+      <meta itemprop="name" content="swimminghao">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="swimminghao's blog">
+      <meta itemprop="description" content="swimminghao的学习博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | swimminghao's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/473fac3a/" class="post-title-link" itemprop="url">github 上传大文件100MB姿势</a>
+        </h2>
+
+        <div class="post-meta-container">
+
+          
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2025-02-13 16:20:39" itemprop="dateModified" datetime="2025-02-13T16:20:39+08:00">2025-02-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/posts/473fac3a/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/473fac3a/" data-xid="/posts/473fac3a/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>475</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>1 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="github-上传大文件100MB姿势"><a href="#github-上传大文件100MB姿势" class="headerlink" title="github 上传大文件100MB姿势"></a>github 上传大文件100MB姿势</h1><p>具体就是安装<a target="_blank" rel="noopener" href="https://link.jianshu.com/?t=https://git-lfs.github.com">git-lfs</a>，先下载，然后就是一顿操作：</p>
+<ol>
+<li><p>先在web建立一个空仓库</p>
+</li>
+<li><p>然后建立跟仓库名一样的文件夹，并执行初始化命令：<code>git init</code></p>
+</li>
+<li><p>然后执行<code>git lfs install</code></p>
+</li>
+<li><p>然后添加你要上传的文件名或后缀名：<code>git lfs track &#39;*.zip&#39;</code></p>
+</li>
+<li><p>然后就把生成的  <code>.gitattributes</code>文件，先传到远程仓库</p>
+<ul>
+<li><code>git add .gitattributes</code></li>
+</ul>
+</li>
+</ol>
+<ul>
+<li><code>git commit -m &#39;large - init file&#39;</code><ul>
+<li><code>git push -u origin master:master</code> # 第一次要这样执行，后面再传就<code>git push</code>就行。</li>
+</ul>
+</li>
+</ul>
+<ol start="6">
+<li><p>然后就可以正常添加上传大文件了！</p>
+<ul>
+<li><code>git add bigfile.zip</code></li>
+<li><code>git commit -m &#39;upload Big file.&#39;</code></li>
+<li><code>git push</code> # 第一次要这样执行，后面再传就<code>git push</code>就行。</li>
+</ul>
+</li>
+</ol>
+<hr>
+<ul>
+<li><p>删除远程仓库文件，但本地文件不删除，如</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bigfile.<span class="built_in">zip</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>git rm bigfile.zip</code></li>
+<li><code>git commit -m &#39;rm bigfile.zip&#39;</code></li>
+<li><code>git push</code></li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>l
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://example.com/posts/ba167550/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -642,153 +806,6 @@
 <p>现在，idea下配置.gitignore结束。</p>
 <p>注：<br><strong>.gitignore只能忽略那些原来没有被track的文件，如果某些文件已经被纳入了版本管理中，则修改.gitignore是无效的。那么解决方法就是先把本地缓存删除（改变成未track状态），然后再提交：</strong><br><strong>输入：</strong><br><strong>git rm -r –cached filePath</strong><br><strong>git commit -m “remove xx”</strong><br><strong>或者：</strong><br><strong>git rm -r –cached .</strong><br><strong>git add .</strong><br><strong>git commit -m “update .gitignore”</strong></p>
 <p><strong>来解释下几个参数 -r 是删除文件夹及其子目录 –cached 是删除暂存区里的文件而不删除工作区里的文件，第一种是删除某个文件，第二种方法就把所有暂存区里的文件删了，再加一遍，相当于更新了一遍。</strong></p>
-
-      
-    </div>
-
-    
-    
-    
-
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>l
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/5624fad4/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/lion.png">
-      <meta itemprop="name" content="swimminghao">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="swimminghao's blog">
-      <meta itemprop="description" content="swimminghao的学习博客">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | swimminghao's blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/5624fad4/" class="post-title-link" itemprop="url">Dockerfile</a>
-        </h2>
-
-        <div class="post-meta-container">
-
-          
-
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2025-02-13 16:20:39" itemprop="dateModified" datetime="2025-02-13T16:20:39+08:00">2025-02-13</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="far fa-comment"></i>
-    </span>
-    <span class="post-meta-item-text">Waline：</span>
-  
-    <a title="waline" href="/posts/5624fad4/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/5624fad4/" data-xid="/posts/5624fad4/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>3.4k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>3 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="Docker相关指令"><a href="#Docker相关指令" class="headerlink" title="Docker相关指令"></a>Docker相关指令</h1><h2 id="docker镜像运行以及日志"><a href="#docker镜像运行以及日志" class="headerlink" title="docker镜像运行以及日志"></a>docker镜像运行以及日志</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">❯ docker run --restart=always -d --name holer-client -e PARAMS=<span class="string">&quot;www.swimminghao.top 6060 51c45156bf1c4a82b4e6ffff2150b65e&quot;</span> swimminghao/holer-client:latest</span><br><span class="line">❯ docker run -d --name holer-server --restart=always --network=host -p 600:600 -p 6060:6060 -p 6443:6443 -p 11000-11010:11000-11010 swimminghao/holer-server:latest</span><br><span class="line">❯ docker logs -f 1ed9a5d6f0cc</span><br></pre></td></tr></table></figure>
-
-<h2 id="Dockerfile-打包jar成docker镜像"><a href="#Dockerfile-打包jar成docker镜像" class="headerlink" title="Dockerfile 打包jar成docker镜像"></a>Dockerfile 打包jar成docker镜像</h2><figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">dockerfile1</span><br><span class="line"><span class="keyword">FROM</span> openjdk:<span class="number">8</span>-jdk-alpine</span><br><span class="line"><span class="keyword">VOLUME</span><span class="language-bash"> /tmp</span></span><br><span class="line"><span class="keyword">ADD</span><span class="language-bash"> ./holer-client.jar holer-client.jar</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> <span class="built_in">echo</span> <span class="string">&quot;Asia/Shanghai&quot;</span> &gt; /etc/timezone</span></span><br><span class="line"><span class="keyword">ENV</span> PARAMS=</span><br><span class="line"><span class="keyword">ENTRYPOINT</span><span class="language-bash"> java -Djava.security.egd=file:/dev/./urandom -Duser.timezone=GMT+8 -jar /holer-client.jar <span class="variable">$&#123;PARAMS&#125;</span></span></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">dockerfile2</span><br><span class="line"><span class="keyword">FROM</span> openjdk:<span class="number">8</span>-jdk-alpine</span><br><span class="line"><span class="keyword">VOLUME</span><span class="language-bash"> /tmp</span></span><br><span class="line"><span class="keyword">ADD</span><span class="language-bash"> ./holer-client.jar holer-client.jar</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> <span class="built_in">echo</span> <span class="string">&quot;Asia/Shanghai&quot;</span> &gt; /etc/timezone</span></span><br><span class="line"><span class="keyword">ENV</span> PARAMS=</span><br><span class="line"><span class="keyword">ENV</span> JVM_XMS=<span class="string">&quot;256m&quot;</span></span><br><span class="line"><span class="keyword">ENV</span> JVM_XMX=<span class="string">&quot;256m&quot;</span></span><br><span class="line"><span class="keyword">ENTRYPOINT</span><span class="language-bash"> java -Xms<span class="variable">$&#123;JVM_XMS&#125;</span> -Xmx<span class="variable">$&#123;JVM_XMX&#125;</span> -Djava.security.egd=file:/dev/./urandom -Duser.timezone=GMT+8 -jar /holer-client.jar <span class="variable">$&#123;PARAMS&#125;</span></span></span><br></pre></td></tr></table></figure>
-
-<p>dockerfile和jar包放同一文件夹，再执行下面指令</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">❯ docker build -t swimminghao/holer-client:latest .</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">FROM</span> openjdk:<span class="number">8</span>-jdk-alpine</span><br><span class="line"><span class="keyword">VOLUME</span><span class="language-bash"> /tmp</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">ARG</span> JAR_FILE=./holer-server.jar</span><br><span class="line"><span class="comment">#ARG PORT=8090</span></span><br><span class="line"><span class="keyword">ARG</span> TIME_ZONE=Asia/Shanghai</span><br><span class="line"></span><br><span class="line"><span class="keyword">ENV</span> TZ=$&#123;TIME_ZONE&#125;</span><br><span class="line"><span class="keyword">ENV</span> JVM_XMS=<span class="string">&quot;256m&quot;</span></span><br><span class="line"><span class="keyword">ENV</span> JVM_XMX=<span class="string">&quot;256m&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">COPY</span><span class="language-bash"> <span class="variable">$&#123;JAR_FILE&#125;</span> holer-server.jar</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">EXPOSE</span> <span class="number">600</span></span><br><span class="line"><span class="keyword">EXPOSE</span> <span class="number">6060</span></span><br><span class="line"><span class="keyword">EXPOSE</span> <span class="number">6443</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">ENTRYPOINT</span><span class="language-bash"> java -Xms<span class="variable">$&#123;JVM_XMS&#125;</span> -Xmx<span class="variable">$&#123;JVM_XMX&#125;</span> -Djava.security.egd=file:/dev/./urandom -server -jar holer-server.jar</span></span><br></pre></td></tr></table></figure>
-
-<p>dockerfile和jar包放同一文件夹，再执行下面指令</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">❯ docker build -t swimminghao/holer-server:latest .</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/nuW6sf_20221108211749.png"></p>
-<h2 id="docker容器停止以及镜像删除"><a href="#docker容器停止以及镜像删除" class="headerlink" title="docker容器停止以及镜像删除"></a>docker容器停止以及镜像删除</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">❯ docker ps -a</span><br><span class="line">❯ docker pull seanhongxing/holer-server</span><br><span class="line">❯ docker stop f8ca94969ba0 &amp;&amp; docker <span class="built_in">rm</span> f8ca94969ba0</span><br><span class="line">❯ docker image <span class="built_in">ls</span> -a</span><br><span class="line">❯ docker image <span class="built_in">rm</span> f8ca94969ba0</span><br></pre></td></tr></table></figure>
-
-<h2 id="docker镜像反推Dockerfile："><a href="#docker镜像反推Dockerfile：" class="headerlink" title="docker镜像反推Dockerfile："></a>docker镜像反推Dockerfile：</h2><h3 id="1、指令"><a href="#1、指令" class="headerlink" title="1、指令"></a>1、指令</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">❯ docker <span class="built_in">history</span> &lt;83d576a828a8&gt; --format <span class="string">&quot;&#123;&#123;.CreatedBy&#125;&#125;&quot;</span> --no-trunc |<span class="built_in">tac</span> | awk <span class="string">&#x27;&#123;if($3~/nop/)&#123;for(i=1;i&lt;=3;i++)&#123;$i=&quot;&quot;&#125;;print substr($0,4)&#125;else&#123;print &quot;RUN&quot;,$0&#125;&#125;&#x27;</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="2、bash脚本"><a href="#2、bash脚本" class="headerlink" title="2、bash脚本"></a>2、bash脚本</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">❯ bash decompile.sh seanhongxing/holer-server</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="comment">#########################################################################</span></span><br><span class="line"><span class="comment"># File Name: dockerfile.sh</span></span><br><span class="line"><span class="comment"># Author: www.linuxea.com</span></span><br><span class="line"><span class="comment"># Version: 1</span></span><br><span class="line"><span class="comment"># Created Time: Thu 14 Feb 2019 10:52:01 AM CST</span></span><br><span class="line"><span class="comment">#########################################################################</span></span><br><span class="line"><span class="keyword">case</span> <span class="string">&quot;<span class="variable">$OSTYPE</span>&quot;</span> <span class="keyword">in</span></span><br><span class="line">    linux*)</span><br><span class="line">        docker <span class="built_in">history</span> --no-trunc --format <span class="string">&quot;&#123;&#123;.CreatedBy&#125;&#125;&quot;</span> <span class="variable">$1</span> | <span class="comment"># extract information from layers</span></span><br><span class="line">        <span class="built_in">tac</span>                                                    | <span class="comment"># reverse the file</span></span><br><span class="line">        sed <span class="string">&#x27;s,^\(|3.*\)\?/bin/\(ba\)\?sh -c,RUN,&#x27;</span>             | <span class="comment"># change /bin/(ba)?sh calls to RUN</span></span><br><span class="line">        sed <span class="string">&#x27;s,^RUN #(nop) *,,&#x27;</span>                                | <span class="comment"># remove RUN #(nop) calls for ENV,LABEL...</span></span><br><span class="line">        sed <span class="string">&#x27;s,  *&amp;&amp;  *, \\\n \&amp;\&amp; ,g&#x27;</span>                           <span class="comment"># pretty print multi command lines following Docker best practices</span></span><br><span class="line">    ;;</span><br><span class="line">    darwin*)</span><br><span class="line">        docker <span class="built_in">history</span> --no-trunc --format <span class="string">&quot;&#123;&#123;.CreatedBy&#125;&#125;&quot;</span> <span class="variable">$1</span> | <span class="comment"># extract information from layers</span></span><br><span class="line">        <span class="built_in">tail</span> -r                                                | <span class="comment"># reverse the file</span></span><br><span class="line">        sed -E <span class="string">&#x27;s,^(\|3.*)?/bin/(ba)?sh -c,RUN,&#x27;</span>               | <span class="comment"># change /bin/(ba)?sh calls to RUN</span></span><br><span class="line">        sed <span class="string">&#x27;s,^RUN #(nop) *,,&#x27;</span>                                | <span class="comment"># remove RUN #(nop) calls for ENV,LABEL...</span></span><br><span class="line">        sed $<span class="string">&#x27;s,  *&amp;&amp;  *, \\\ \\\n \&amp;\&amp; ,g&#x27;</span>                      <span class="comment"># pretty print multi command lines following Docker best practices</span></span><br><span class="line">    ;;</span><br><span class="line">    *)</span><br><span class="line">        <span class="built_in">echo</span> <span class="string">&quot;unknown OSTYPE: <span class="variable">$OSTYPE</span>&quot;</span></span><br><span class="line">    ;;</span><br><span class="line"><span class="keyword">esac</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="docker镜像下载jar包"><a href="#docker镜像下载jar包" class="headerlink" title="docker镜像下载jar包"></a>docker镜像下载jar包</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">//镜像导出</span><br><span class="line">❯ docker save -o ./client.tar seanhongxing/holer-client:latest</span><br><span class="line">//容器导出</span><br><span class="line">❯ docker <span class="built_in">export</span> seanhongxing/holer-client &gt; ./client.tar</span><br></pre></td></tr></table></figure>
-
-<p><strong>注：分层，jar包在某一层</strong></p>
 
       
     </div>
@@ -1996,6 +2013,640 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/cec762c6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lion.png">
+      <meta itemprop="name" content="swimminghao">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="swimminghao's blog">
+      <meta itemprop="description" content="swimminghao的学习博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | swimminghao's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/cec762c6/" class="post-title-link" itemprop="url">explain结果每个字段的含义说明</a>
+        </h2>
+
+        <div class="post-meta-container">
+
+          
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2025-02-13 16:20:39" itemprop="dateModified" datetime="2025-02-13T16:20:39+08:00">2025-02-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/posts/cec762c6/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/cec762c6/" data-xid="/posts/cec762c6/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>6.4k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>6 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="explain结果每个字段的含义说明"><a href="#explain结果每个字段的含义说明" class="headerlink" title="explain结果每个字段的含义说明"></a>explain结果每个字段的含义说明</h1><p>我们都知道用<code>explain xxx</code>分析sql语句的性能，但是具体从explain的结果怎么分析性能以及每个字段的含义你清楚吗？这里我做下总结记录，也是供自己以后参考。</p>
+<blockquote>
+<ul>
+<li>首先需要注意：<strong>MYSQL 5.6.3</strong>以前只能<code>EXPLAIN SELECT</code>; MYSQL5.6.3以后就可以<code>EXPLAIN SELECT,UPDATE,DELETE</code></li>
+</ul>
+</blockquote>
+<hr>
+<p>explain结果示例：</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; explain select * from staff;</span><br><span class="line">+----+-------------+-------+------+---------------+------+---------+------+------+-------+</span><br><span class="line"><span class="params">| id |</span> select_type <span class="params">| table |</span> type <span class="params">| possible_keys |</span> key  <span class="params">| key_len |</span> ref  <span class="params">| rows |</span> Extra <span class="params">|</span></span><br><span class="line"><span class="params">+----+-------------+-------+------+---------------+------+---------+------+------+-------+</span></span><br><span class="line"><span class="params">|</span>  <span class="number">1</span> <span class="params">| SIMPLE      |</span> staff <span class="params">| ALL  |</span> NULL          <span class="params">| NULL |</span> NULL    <span class="params">| NULL |</span>    <span class="number">2</span> <span class="params">| NULL  |</span></span><br><span class="line">+----+-------------+-------+------+---------------+------+---------+------+------+-------+</span><br><span class="line"><span class="number">1</span> row <span class="keyword">in</span> set</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p>先上一个官方文档表格的中文版：</p>
+<table>
+<thead>
+<tr>
+<th>Column</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>id</td>
+<td>查询序号</td>
+</tr>
+<tr>
+<td>select_type</td>
+<td>查询类型</td>
+</tr>
+<tr>
+<td>table</td>
+<td>表名</td>
+</tr>
+<tr>
+<td>partitions</td>
+<td>匹配的分区</td>
+</tr>
+<tr>
+<td>type</td>
+<td>join类型</td>
+</tr>
+<tr>
+<td>prossible_keys</td>
+<td>可能会选择的索引</td>
+</tr>
+<tr>
+<td>key</td>
+<td>实际选择的索引</td>
+</tr>
+<tr>
+<td>key_len</td>
+<td>索引的长度</td>
+</tr>
+<tr>
+<td>ref</td>
+<td>与索引作比较的列</td>
+</tr>
+<tr>
+<td>rows</td>
+<td>要检索的行数(估算值)</td>
+</tr>
+<tr>
+<td>filtered</td>
+<td>查询条件过滤的行数的百分比</td>
+</tr>
+<tr>
+<td>Extra</td>
+<td>额外信息</td>
+</tr>
+</tbody></table>
+<p>这是explain结果的各个字段，分别解释下含义：</p>
+<h2 id="1-id"><a href="#1-id" class="headerlink" title="1. id"></a>1. id</h2><p>SQL查询中的序列号。</p>
+<blockquote>
+<p>id列数字越大越先执行，如果说数字一样大，那么就从上往下依次执行。</p>
+</blockquote>
+<h2 id="2-select-type"><a href="#2-select-type" class="headerlink" title="2. select_type"></a>2. select_type</h2><p>查询的类型，可以是下表的任何一种类型：</p>
+<table>
+<thead>
+<tr>
+<th>select_type</th>
+<th>类型说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>SIMPLE</td>
+<td>简单SELECT(不使用UNION或子查询)</td>
+</tr>
+<tr>
+<td>PRIMARY</td>
+<td>最外层的SELECT</td>
+</tr>
+<tr>
+<td>UNION</td>
+<td>UNION中第二个或之后的SELECT语句</td>
+</tr>
+<tr>
+<td>DEPENDENT UNION</td>
+<td>UNION中第二个或之后的SELECT语句取决于外面的查询</td>
+</tr>
+<tr>
+<td>UNION RESULT</td>
+<td>UNION的结果</td>
+</tr>
+<tr>
+<td>SUBQUERY</td>
+<td>子查询中的第一个SELECT</td>
+</tr>
+<tr>
+<td>DEPENDENT SUBQUERY</td>
+<td>子查询中的第一个SELECT, 取决于外面的查询</td>
+</tr>
+<tr>
+<td>DERIVED</td>
+<td>衍生表(FROM子句中的子查询)</td>
+</tr>
+<tr>
+<td>MATERIALIZED</td>
+<td>物化子查询</td>
+</tr>
+<tr>
+<td>UNCACHEABLE SUBQUERY</td>
+<td>结果集无法缓存的子查询，必须重新评估外部查询的每一行</td>
+</tr>
+<tr>
+<td>UNCACHEABLE UNION</td>
+<td>UNION中第二个或之后的SELECT，属于无法缓存的子查询</td>
+</tr>
+</tbody></table>
+<p>DEPENDENT 意味着使用了关联子查询。</p>
+<h2 id="3-table"><a href="#3-table" class="headerlink" title="3. table"></a>3. table</h2><p>查询的表名。不一定是实际存在的表名。<br>可以为如下的值：</p>
+<ul>
+<li>&lt;unionM,N&gt;: 引用id为M和N UNION后的结果。</li>
+<li><derivedN>: 引用id为N的结果派生出的表。派生表可以是一个结果集，例如派生自FROM中子查询的结果。</li>
+<li><subqueryN>: 引用id为N的子查询结果物化得到的表。即生成一个临时表保存子查询的结果。</li>
+</ul>
+<h2 id="4-type（重要）"><a href="#4-type（重要）" class="headerlink" title="4. type（重要）"></a>4. type（重要）</h2><p>这是<strong>最重要的字段之一</strong>，显示查询使用了何种类型。从最好到最差的连接类型依次为：</p>
+<blockquote>
+<p><strong>system，const，eq_ref，ref，fulltext，ref_or_null，index_merge，unique_subquery，index_subquery，range，index，ALL</strong></p>
+</blockquote>
+<p>除了all之外，其他的type都可以使用到索引，除了index_merge之外，其他的type只可以用到一个索引。</p>
+<ul>
+<li><h6 id="1、system"><a href="#1、system" class="headerlink" title="1、system"></a>1、system</h6></li>
+</ul>
+<p>表中只有一行数据或者是空表，这是const类型的一个特例。且只能用于myisam和memory表。如果是Innodb引擎表，type列在这个情况通常都是all或者index</p>
+<ul>
+<li><h6 id="2、const"><a href="#2、const" class="headerlink" title="2、const"></a>2、const</h6></li>
+</ul>
+<p>最多只有一行记录匹配。当联合主键或唯一索引的所有字段跟常量值比较时，join类型为const。其他数据库也叫做唯一索引扫描</p>
+<ul>
+<li><h6 id="3、eq-ref"><a href="#3、eq-ref" class="headerlink" title="3、eq_ref"></a>3、eq_ref</h6></li>
+</ul>
+<p>多表join时，对于来自前面表的每一行，在当前表中只能找到一行。这可能是除了system和const之外最好的类型。当主键或唯一非NULL索引的所有字段都被用作join联接时会使用此类型。</p>
+<p>eq_ref可用于使用’&#x3D;’操作符作比较的索引列。比较的值可以是常量，也可以是使用在此表之前读取的表的列的表达式。</p>
+<blockquote>
+<p><strong>相对于下面的ref区别就是它使用的唯一索引，即主键或唯一索引，而ref使用的是非唯一索引或者普通索引。<br>eq_ref只能找到一行，而ref能找到多行。</strong></p>
+</blockquote>
+<ul>
+<li><h6 id="4、ref"><a href="#4、ref" class="headerlink" title="4、ref"></a>4、ref</h6></li>
+</ul>
+<p>对于来自前面表的每一行，在此表的索引中可以匹配到多行。若联接只用到索引的最左前缀或索引不是主键或唯一索引时，使用ref类型（也就是说，此联接能够匹配多行记录）。</p>
+<p>ref可用于使用’&#x3D;’或’&lt;&#x3D;&gt;’操作符作比较的索引列。</p>
+<ul>
+<li><h6 id="5、-fulltext"><a href="#5、-fulltext" class="headerlink" title="5、 fulltext"></a>5、 fulltext</h6></li>
+</ul>
+<p>使用全文索引的时候是这个类型。要注意，<strong>全文索引的优先级很高</strong>，若全文索引和普通索引同时存在时，mysql不管代价，优先选择使用全文索引</p>
+<ul>
+<li><h6 id="6、ref-or-null"><a href="#6、ref-or-null" class="headerlink" title="6、ref_or_null"></a>6、ref_or_null</h6></li>
+</ul>
+<p>跟ref类型类似，只是增加了null值的比较。实际用的不多。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">eg.</span><br><span class="line">SELECT * FROM ref_table</span><br><span class="line">WHERE key_column=expr OR key_column IS <span class="literal">NULL</span>;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><h6 id="7、index-merge"><a href="#7、index-merge" class="headerlink" title="7、index_merge"></a>7、index_merge</h6></li>
+</ul>
+<p>表示查询使用了两个以上的索引，最后取交集或者并集，常见and ，or的条件使用了不同的索引，官方排序这个在ref_or_null之后，但是实际上由于要读取多个索引，性能可能大部分时间都不如range</p>
+<ul>
+<li><h6 id="8、unique-subquery"><a href="#8、unique-subquery" class="headerlink" title="8、unique_subquery"></a>8、unique_subquery</h6></li>
+</ul>
+<p>用于where中的in形式子查询，子查询返回不重复值唯一值，可以完全替换子查询，效率更高。<br>该类型替换了下面形式的IN子查询的ref：<br><code>value IN (SELECT primary_key FROM single_table WHERE some_expr)</code></p>
+<ul>
+<li><h6 id="9、index-subquery"><a href="#9、index-subquery" class="headerlink" title="9、index_subquery"></a>9、index_subquery</h6></li>
+</ul>
+<p>该联接类型类似于unique_subquery。适用于非唯一索引，可以返回重复值。</p>
+<ul>
+<li><h6 id="10、range"><a href="#10、range" class="headerlink" title="10、range"></a>10、range</h6></li>
+</ul>
+<p>索引范围查询，常见于使用 &#x3D;, &lt;&gt;, &gt;, &gt;&#x3D;, &lt;, &lt;&#x3D;, IS NULL, &lt;&#x3D;&gt;, BETWEEN, IN()或者like等运算符的查询中。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM tbl_name</span><br><span class="line">  WHERE key_column BETWEEN <span class="number">10</span> <span class="keyword">and</span> <span class="number">20</span>;</span><br><span class="line"></span><br><span class="line"><span class="function">SELECT * FROM tbl_name</span></span><br><span class="line"><span class="function">  WHERE key_column <span class="title">IN</span> <span class="params">(<span class="number">10</span>,<span class="number">20</span>,<span class="number">30</span>)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><h6 id="11、index"><a href="#11、index" class="headerlink" title="11、index"></a>11、index</h6></li>
+</ul>
+<p>索引全表扫描，把索引从头到尾扫一遍。这里包含两种情况：<br>一种是查询使用了覆盖索引，那么它只需要扫描索引就可以获得数据，这个效率要比全表扫描要快，因为索引通常比数据表小，而且还能避免二次查询。在extra中显示Using index，反之，如果在索引上进行全表扫描，没有Using index的提示。</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 此表见有一个name列索引。</span></span><br><span class="line"><span class="comment"># 因为查询的列name上建有索引，所以如果这样type走的是index</span></span><br><span class="line">mysql&gt; explain select name from testa;</span><br><span class="line">+----+-------------+-------+-------+---------------+----------+---------+------+------+-------------+</span><br><span class="line"><span class="params">| id |</span> select_type <span class="params">| table |</span> type  <span class="params">| possible_keys |</span> key      <span class="params">| key_len |</span> ref  <span class="params">| rows |</span> Extra       <span class="params">|</span></span><br><span class="line"><span class="params">+----+-------------+-------+-------+---------------+----------+---------+------+------+-------------+</span></span><br><span class="line"><span class="params">|</span>  <span class="number">1</span> <span class="params">| SIMPLE      |</span> testa <span class="params">| index |</span> NULL          <span class="params">| idx_name |</span> <span class="number">33</span>      <span class="params">| NULL |</span>    <span class="number">2</span> <span class="params">| Using index |</span></span><br><span class="line">+----+-------------+-------+-------+---------------+----------+---------+------+------+-------------+</span><br><span class="line"><span class="number">1</span> row <span class="keyword">in</span> set</span><br><span class="line"></span><br><span class="line"><span class="comment"># 因为查询的列cusno没有建索引，或者查询的列包含没有索引的列，这样查询就会走ALL扫描，如下：</span></span><br><span class="line">mysql&gt; explain select cusno from testa;</span><br><span class="line">+----+-------------+-------+------+---------------+------+---------+------+------+-------+</span><br><span class="line"><span class="params">| id |</span> select_type <span class="params">| table |</span> type <span class="params">| possible_keys |</span> key  <span class="params">| key_len |</span> ref  <span class="params">| rows |</span> Extra <span class="params">|</span></span><br><span class="line"><span class="params">+----+-------------+-------+------+---------------+------+---------+------+------+-------+</span></span><br><span class="line"><span class="params">|</span>  <span class="number">1</span> <span class="params">| SIMPLE      |</span> testa <span class="params">| ALL  |</span> NULL          <span class="params">| NULL |</span> NULL    <span class="params">| NULL |</span>    <span class="number">2</span> <span class="params">| NULL  |</span></span><br><span class="line">+----+-------------+-------+------+---------------+------+---------+------+------+-------+</span><br><span class="line"><span class="number">1</span> row <span class="keyword">in</span> set</span><br><span class="line"></span><br><span class="line"><span class="comment"># 包含有未见索引的列</span></span><br><span class="line">mysql&gt; explain select * from testa;</span><br><span class="line">+----+-------------+-------+------+---------------+------+---------+------+------+-------+</span><br><span class="line"><span class="params">| id |</span> select_type <span class="params">| table |</span> type <span class="params">| possible_keys |</span> key  <span class="params">| key_len |</span> ref  <span class="params">| rows |</span> Extra <span class="params">|</span></span><br><span class="line"><span class="params">+----+-------------+-------+------+---------------+------+---------+------+------+-------+</span></span><br><span class="line"><span class="params">|</span>  <span class="number">1</span> <span class="params">| SIMPLE      |</span> testa <span class="params">| ALL  |</span> NULL          <span class="params">| NULL |</span> NULL    <span class="params">| NULL |</span>    <span class="number">2</span> <span class="params">| NULL  |</span></span><br><span class="line">+----+-------------+-------+------+---------------+------+---------+------+------+-------+</span><br><span class="line"><span class="number">1</span> row <span class="keyword">in</span> set</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><h6 id="12、all"><a href="#12、all" class="headerlink" title="12、all"></a>12、all</h6></li>
+</ul>
+<p>全表扫描，性能最差。</p>
+<h2 id="5-partitions"><a href="#5-partitions" class="headerlink" title="5. partitions"></a>5. partitions</h2><p>版本5.7以前，该项是explain partitions显示的选项，5.7以后成为了默认选项。该列显示的为分区表命中的分区情况。非分区表该字段为空（null）。</p>
+<h2 id="6-possible-keys"><a href="#6-possible-keys" class="headerlink" title="6. possible_keys"></a>6. possible_keys</h2><p>查询可能使用到的索引都会在这里列出来</p>
+<h2 id="7-key"><a href="#7-key" class="headerlink" title="7. key"></a>7. key</h2><p>查询真正使用到的索引。<br>select_type为index_merge时，这里可能出现两个以上的索引，其他的select_type这里只会出现一个。</p>
+<h2 id="8-key-len"><a href="#8-key-len" class="headerlink" title="8. key_len"></a>8. key_len</h2><p>查询用到的索引长度（字节数）。<br>如果是单列索引，那就整个索引长度算进去，如果是多列索引，那么查询不一定都能使用到所有的列，用多少算多少。留意下这个列的值，算一下你的多列索引总长度就知道有没有使用到所有的列了。</p>
+<blockquote>
+<p>key_len只计算<strong>where</strong>条件用到的索引长度，而排序和分组就算用到了索引，也不会计算到key_len中。</p>
+</blockquote>
+<h2 id="9-ref"><a href="#9-ref" class="headerlink" title="9. ref"></a>9. ref</h2><p>如果是使用的常数等值查询，这里会显示const，如果是连接查询，被驱动表的执行计划这里会显示驱动表的关联字段，如果是条件使用了表达式或者函数，或者条件列发生了内部隐式转换，这里可能显示为func</p>
+<h2 id="10-rows（重要）"><a href="#10-rows（重要）" class="headerlink" title="10. rows（重要）"></a>10. rows（重要）</h2><p><strong>rows 也是一个重要的字段</strong>。 这是mysql估算的需要扫描的行数（不是精确值）。<br>这个值非常直观显示 SQL 的效率好坏, 原则上 rows 越少越好.</p>
+<h2 id="11-filtered"><a href="#11-filtered" class="headerlink" title="11. filtered"></a>11. filtered</h2><p>这个字段表示存储引擎返回的数据在server层过滤后，剩下多少满足查询的记录数量的比例，注意是百分比，不是具体记录数。这个字段不重要</p>
+<h2 id="12-extra（重要）"><a href="#12-extra（重要）" class="headerlink" title="12. extra（重要）"></a>12. extra（重要）</h2><p>EXplain 中的很多额外的信息会在 Extra 字段显示, 常见的有以下几种内容:</p>
+<ul>
+<li><strong>distinct</strong>：在select部分使用了distinc关键字</li>
+<li><strong>Using filesort</strong>：当 Extra 中有 Using filesort 时, 表示 MySQL 需额外的排序操作, 不能通过索引顺序达到排序效果. 一般有 Using filesort, 都建议优化去掉, 因为这样的查询 CPU 资源消耗大.</li>
+</ul>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"># 例如下面的例子:</span><br><span class="line"></span><br><span class="line">mysql&gt; EXPLAIN SELECT * FROM order_info ORDER BY product_name \G</span><br><span class="line">*************************** <span class="number">1.</span> row ***************************</span><br><span class="line">           <span class="keyword">id</span>: <span class="number">1</span></span><br><span class="line">  select_type: SIMPLE</span><br><span class="line">        table: order_info</span><br><span class="line">   partitions: <span class="literal">NULL</span></span><br><span class="line">         type: index</span><br><span class="line">possible_keys: <span class="literal">NULL</span></span><br><span class="line">          key: user_product_detail_index</span><br><span class="line">      key_len: <span class="number">253</span></span><br><span class="line">          ref: <span class="literal">NULL</span></span><br><span class="line">         rows: <span class="number">9</span></span><br><span class="line">     filtered: <span class="number">100.00</span></span><br><span class="line">        Extra: Using index; Using filesort</span><br><span class="line"><span class="number">1</span> row <span class="keyword">in</span> set, <span class="number">1</span> warning (<span class="number">0.00</span> sec)</span><br><span class="line">我们的索引是</span><br><span class="line"></span><br><span class="line">KEY `user_product_detail_index` (`user_id`, `product_name`, `productor`)</span><br><span class="line">但是上面的查询中根据 product_name 来排序, 因此不能使用索引进行优化, 进而会产生 Using filesort.</span><br><span class="line">如果我们将排序依据改为 ORDER BY user_id, product_name, 那么就不会出现 Using filesort 了. 例如:</span><br><span class="line"></span><br><span class="line">mysql&gt; EXPLAIN SELECT * FROM order_info ORDER BY user_id, product_name \G</span><br><span class="line">*************************** <span class="number">1.</span> row ***************************</span><br><span class="line">           <span class="keyword">id</span>: <span class="number">1</span></span><br><span class="line">  select_type: SIMPLE</span><br><span class="line">        table: order_info</span><br><span class="line">   partitions: <span class="literal">NULL</span></span><br><span class="line">         type: index</span><br><span class="line">possible_keys: <span class="literal">NULL</span></span><br><span class="line">          key: user_product_detail_index</span><br><span class="line">      key_len: <span class="number">253</span></span><br><span class="line">          ref: <span class="literal">NULL</span></span><br><span class="line">         rows: <span class="number">9</span></span><br><span class="line">     filtered: <span class="number">100.00</span></span><br><span class="line">        Extra: Using index</span><br><span class="line"><span class="number">1</span> row <span class="keyword">in</span> set, <span class="number">1</span> warning (<span class="number">0.00</span> sec)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>Using index</strong><br>“覆盖索引扫描”, 表示查询在索引树中就可查找所需数据, 不用扫描表数据文件, 往往说明<strong>性能不错</strong></li>
+<li><strong>Using temporary</strong><br>查询有使用临时表, 一般出现于排序, 分组和多表 join 的情况, 查询效率不高, 建议优化.</li>
+</ul>
+<p>除此之外还有其他值，这里就不一一一列举了。</p>
+<hr>
+<p>通过以上这些总结，以后我们看到explain的结果，就知道该从哪些字段值去分析sql语句的执行效率了。</p>
+
+      
+    </div>
+
+    
+    
+    
+
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>l
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/48353052/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lion.png">
+      <meta itemprop="name" content="swimminghao">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="swimminghao's blog">
+      <meta itemprop="description" content="swimminghao的学习博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | swimminghao's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/48353052/" class="post-title-link" itemprop="url">mysql连表操作后字符集不同导致索引失效问题</a>
+        </h2>
+
+        <div class="post-meta-container">
+
+          
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2025-02-13 16:20:39" itemprop="dateModified" datetime="2025-02-13T16:20:39+08:00">2025-02-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/posts/48353052/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/48353052/" data-xid="/posts/48353052/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>1.2k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>1 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="mysql-连表操作后字符集不同导致索引失效"><a href="#mysql-连表操作后字符集不同导致索引失效" class="headerlink" title="mysql 连表操作后字符集不同导致索引失效"></a>mysql 连表操作后字符集不同导致索引失效</h1><h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>一个表的字符集为utf8mb4<br>一个表的字符集为utf8</p>
+<p>连表查询后可以发现索引失效的情况，查询很慢。</p>
+<p>t1为utf8，t2为utf8mb4。但是为什么表字符集不一样（实际是字段字符集不一样）就会导致t1全表扫描呢？</p>
+<h2 id="分析原因"><a href="#分析原因" class="headerlink" title="分析原因"></a>分析原因</h2><p>（1）首先t2 left join t1决定了t2是驱动表，这一步相当于执行了</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> t2 <span class="keyword">where</span> t2.name <span class="operator">=</span> <span class="string">&#x27;dddd&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p>取出code字段的值，假如为’8a77a32a7e0825f7c8634226105c42e5’;</p>
+<p>（2）然后拿t2查到的code的值根据join条件去t1里面查找，这一步就相当于执行了</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> t1 <span class="keyword">where</span> t1.code <span class="operator">=</span> <span class="string">&#x27;8a77a32a7e0825f7c8634226105c42e5&#x27;</span>;</span><br></pre></td></tr></table></figure>
+
+<p>（3）但是由于第（1）步里面t2表取出的code字段是utf8mb4字符集，而t1表里面的code是utf8字符集，这里需要做字符集转换，字符集转换遵循由小到大的原则，因为utf8mb4是utf8的超集，所以这里把utf8转换成utf8mb4，即把t1.code转换成utf8mb4字符集，转换了之后，由于t1.code上面的索引仍然是utf8字符集，所以这个索引会被执行计划忽略了，然后t1表只能选择全表扫描。如果t2筛选出来的记录不止1条，那么t1就会被多次全表扫描，性能之差可想而知。</p>
+<h2 id="修改字符集"><a href="#修改字符集" class="headerlink" title="修改字符集"></a>修改字符集</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> t1 charset utf8mb4;</span><br></pre></td></tr></table></figure>
+
+<p>这是错的，这只是改了表的默认字符集，即新的字段才会使用utf8mb4，已经存在的字段仍然是utf8。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> t1 <span class="keyword">convert</span> <span class="keyword">to</span> charset utf8mb4;</span><br></pre></td></tr></table></figure>
+
+<p>查看 SHOW FULL COLUMNS FROM t1 ;会发现字段的字符已经改变。</p>
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><p><strong>排序规则概念：</strong>是指对指定字符集下不同字符的比较规则。排序规则有以下特征：</p>
+<ul>
+<li>它和字符集（CHARSET）相关</li>
+<li>每种字符集都有多种它支持的排序规则</li>
+<li>每种字符集都会默认指定一种排序规则为默认值。</li>
+<li>mysql可对相应字符集，单独设置排序规则</li>
+</ul>
+<p><strong>排序规则作用</strong>：排序规则指定后，它会影响我们使用 ORDER BY语句查询的结果顺序，会影响到 WHERE条件中大于小于号的筛选结果，会影响 DISTINCT、GROUP BY、HAVING 语句的查询结果。另外，mysql 建索引的时候，如果索引列是字符类型，也会影响索引创建，只不过这种影响我们感知不到。总之，凡是涉及到字符类型比较或排序的地方，都和排序规则有关。</p>
+<h2 id="注意点"><a href="#注意点" class="headerlink" title="注意点"></a>注意点</h2><ul>
+<li>表字符集不同时，可能导致join的SQL使用不到索引，引起严重的性能问题；</li>
+<li>建表语句一定要设置默认字符集，需要关联的表字符集一定要统一；</li>
+<li>统一dev、fat、test、prod环境mysql对应库的字符集，可以及早发现问题；</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>l
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/6f1ea5f/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lion.png">
+      <meta itemprop="name" content="swimminghao">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="swimminghao's blog">
+      <meta itemprop="description" content="swimminghao的学习博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | swimminghao's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/6f1ea5f/" class="post-title-link" itemprop="url">mysql连表操作后字符集不同导致索引失效问题1</a>
+        </h2>
+
+        <div class="post-meta-container">
+
+          
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2025-02-13 16:20:39" itemprop="dateModified" datetime="2025-02-13T16:20:39+08:00">2025-02-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/posts/6f1ea5f/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/6f1ea5f/" data-xid="/posts/6f1ea5f/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>1k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>1 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="mysql-连表操作后字符集不同导致索引失效"><a href="#mysql-连表操作后字符集不同导致索引失效" class="headerlink" title="mysql 连表操作后字符集不同导致索引失效"></a>mysql 连表操作后字符集不同导致索引失效</h1><h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>一个表的字符集为utf8mb4<br>一个表的字符集为utf8</p>
+<p>连表查询后可以发现索引失效的情况，查询很慢。这时候可以通过show warnings;查询警告信息。发现了convert(testdb.t1.code using utf8mb4)之后，发现2个表的字符集不一样。</p>
+<p>t1为utf8，t2为utf8mb4。但是为什么表字符集不一样（实际是字段字符集不一样）就会导致t1全表扫描呢？下面来做分析。</p>
+<h2 id="分析原因"><a href="#分析原因" class="headerlink" title="分析原因"></a>分析原因</h2><p>（1）首先t2 left join t1决定了t2是驱动表，这一步相当于执行了</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> t2 <span class="keyword">where</span> t2.name <span class="operator">=</span> <span class="string">&#x27;dddd&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p>取出code字段的值，这里为’8a77a32a7e0825f7c8634226105c42e5’;</p>
+<p>（2）然后拿t2查到的code的值根据join条件去t1里面查找，这一步就相当于执行了</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> t1 <span class="keyword">where</span> t1.code <span class="operator">=</span> <span class="string">&#x27;8a77a32a7e0825f7c8634226105c42e5&#x27;</span>;</span><br></pre></td></tr></table></figure>
+
+<p>（3）但是由于第（1）步里面t2表取出的code字段是utf8mb4字符集，而t1表里面的code是utf8字符集，这里需要做字符集转换，字符集转换遵循由小到大的原则，因为utf8mb4是utf8的超集，所以这里把utf8转换成utf8mb4，即把t1.code转换成utf8mb4字符集，转换了之后，由于t1.code上面的索引仍然是utf8字符集，所以这个索引就被执行计划忽略了，然后t1表只能选择全表扫描。如果t2筛选出来的记录不止1条，那么t1就会被多次全表扫描，性能之差可想而知。</p>
+<h2 id="修改字符集"><a href="#修改字符集" class="headerlink" title="修改字符集"></a>修改字符集</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> t1 charset utf8mb4;</span><br></pre></td></tr></table></figure>
+
+<p>但这是错的，这只是改了表的默认字符集，即新的字段才会使用utf8mb4，已经存在的字段仍然是utf8。<br>show create table t1 会发现DEFAULT CHARSET&#x3D;utf8mb4改变了，但是SHOW FULL COLUMNS FROM pay_log_all_from_mq;会发现字段的字符集没有改变。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> t1 <span class="keyword">convert</span> <span class="keyword">to</span> charset utf8mb4;</span><br></pre></td></tr></table></figure>
+
+<p>查看 SHOW FULL COLUMNS FROM t1 ;会发现字段的字符已经改变。</p>
+<h2 id="注意点"><a href="#注意点" class="headerlink" title="注意点"></a>注意点</h2><ul>
+<li>表字符集不同时，可能导致join的SQL使用不到索引，引起严重的性能问题；</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>l
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://example.com/posts/5832e44e/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2322,665 +2973,6 @@
 <li><strong>特殊变量</strong> <strong>$$</strong> <strong>记录当前进程的</strong> <strong>PID</strong>。</li>
 </ul>
 <p>这个功能可能在平时使用时也不怎么用，但是在写 shell 脚本时也非常有 用，比如说你要在 &#x2F;tmp 创建临时文件，给文件起名字一直都是非常让人 费脑子 的，这时候可以使用 $$ 变量扩展出当前进程的 PID 作为临时文件的名字。</p>
-
-      
-    </div>
-
-    
-    
-    
-
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>l
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/969e74c3/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/lion.png">
-      <meta itemprop="name" content="swimminghao">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="swimminghao's blog">
-      <meta itemprop="description" content="swimminghao的学习博客">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | swimminghao's blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/969e74c3/" class="post-title-link" itemprop="url">shell效率0</a>
-        </h2>
-
-        <div class="post-meta-container">
-
-          
-
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2025-02-13 16:20:39" itemprop="dateModified" datetime="2025-02-13T16:20:39+08:00">2025-02-13</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">工具</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="far fa-comment"></i>
-    </span>
-    <span class="post-meta-item-text">Waline：</span>
-  
-    <a title="waline" href="/posts/969e74c3/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/969e74c3/" data-xid="/posts/969e74c3/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>3.3k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>3 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>[toc]</p>
-<h1 id="§1效率"><a href="#§1效率" class="headerlink" title="§1效率"></a>§1效率</h1><h2 id="输入相似文件名太麻烦"><a href="#输入相似文件名太麻烦" class="headerlink" title="输入相似文件名太麻烦"></a><strong>输入相似文件名太麻烦</strong></h2><p>用花括号括起来的字符串用逗号连接，可以自动扩展，非常有用，直接看例子:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">echo</span> &#123;one,two,three&#125;file</span><br><span class="line">onefile twofile threefile</span><br><span class="line">$ <span class="built_in">echo</span> &#123;one,two,three&#125;&#123;1,2,3&#125;</span><br><span class="line">one1 one2 one3 two1 two2 two3 three1 three2 three3</span><br></pre></td></tr></table></figure>
-
-<p>你看，花括号中的每个字符都可以和之后(或之前)的字符串进行组合拼 接，<strong>注意花括号和其中的逗号不可以用空格分隔，否则会被认为是普通的字 符串对待</strong>。</p>
-<p>这个技巧有什么实际用处呢?最简单有用的就是给 cp , mv , rm 等命令扩 展参数:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cp</span> /very/long/path/file&#123;,.bak&#125;</span><br><span class="line">==&gt; <span class="built_in">cp</span> /very/long/path/file /very/long/path/file.bak</span><br><span class="line"><span class="comment"># 给 file 复制一个叫做 file.bak 的副本</span></span><br><span class="line"></span><br><span class="line">$ <span class="built_in">rm</span> file&#123;1,3,5&#125;.txt</span><br><span class="line"><span class="comment"># 删除 file1.txt file3.txt file5.txt</span></span><br><span class="line"></span><br><span class="line">$ <span class="built_in">mv</span> *.&#123;c,cpp&#125; src/</span><br><span class="line"><span class="comment"># 将所有 .c 和 .cpp 为后缀的文件移入 src 文件夹</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="输入路径名称太麻烦"><a href="#输入路径名称太麻烦" class="headerlink" title="输入路径名称太麻烦"></a><strong>输入路径名称太麻烦</strong></h2><ul>
-<li><strong>用</strong> <strong>cd -</strong> <strong>返回刚才呆的目录</strong>，直接看例子吧:</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">pwd</span></span><br><span class="line"> /very/long/path</span><br><span class="line"> $ <span class="built_in">cd</span> <span class="comment"># 回到家目录瞅瞅</span></span><br><span class="line"> $ <span class="built_in">pwd</span></span><br><span class="line"> /home/labuladong</span><br><span class="line"> $ <span class="built_in">cd</span> - <span class="comment"># 再返回刚才那个目录 $ pwd</span></span><br><span class="line"> /very/long/path</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><strong>特殊命令</strong> <strong>!$</strong> <strong>会替换成上一次输入的命令最后的路径</strong>，直接看例子:</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#没有加可执行权限</span></span><br><span class="line">$ /usr/bin/script.sh</span><br><span class="line">zsh: permission denied: /usr/bin/script.sh</span><br><span class="line"></span><br><span class="line">$ <span class="built_in">chmod</span> +x !$</span><br><span class="line"><span class="built_in">chmod</span> +x /usr/bin/script.sh</span><br><span class="line"><span class="built_in">export</span> lessCharset-uft8</span><br></pre></td></tr></table></figure>
-
-<p><strong>特殊命令</strong> <strong>!*</strong> <strong>会替换成上一次命令输入的所有文件路径</strong>，直接看例子:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建了三个脚本文件</span></span><br><span class="line">$ file script1.sh script2.sh script3.sh</span><br><span class="line"></span><br><span class="line"><span class="comment"># 给它们全部加上可执行权限</span></span><br><span class="line">$ <span class="built_in">chmod</span> +x !*</span><br><span class="line"><span class="built_in">chmod</span> +x script1.sh script2.sh script3.sh</span><br></pre></td></tr></table></figure>
-
-<p><strong>可以在环境变量</strong> <strong>CDPATH</strong> <strong>中加入你常用的工作目录</strong>，当 cd 命令在当前目 录中找不到你指定的文件&#x2F;目录时，会自动到 CDPATH 中的目录中寻找。</p>
-<p>比如说我常去 &#x2F;var&#x2F;log 目录找日志，可以执行如下命令:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">export</span> CDPATH=<span class="string">&#x27;~:/var/log&#x27;</span></span><br><span class="line"><span class="comment"># cd 命令将会在 〜 目录和 /var/log 目录扩展搜索$ pwd</span></span><br><span class="line">/home/labuladong/musics</span><br><span class="line">$ <span class="built_in">cd</span> mysql</span><br><span class="line"><span class="built_in">cd</span> /var/log/mysql</span><br><span class="line">$ <span class="built_in">pwd</span></span><br><span class="line">/var/log/mysql</span><br><span class="line">$ <span class="built_in">cd</span> my_pictures</span><br><span class="line"><span class="built_in">cd</span> /home/labuladong/my_pictures</span><br></pre></td></tr></table></figure>
-
-<p>这个技巧是十分好用的，这样就免了经常写完整的路径名称，节约不少时间。</p>
-<p>需要注意的是，以上操作是 bash 支持的，其他主流 shell 解释器当然都支持 扩展 cd 命令的搜索目录，但可能不是修改 CDPATH 这个变量，具体的设 置方法可以自行搜索。</p>
-<h2 id="输入重复命令太麻烦"><a href="#输入重复命令太麻烦" class="headerlink" title="输入重复命令太麻烦"></a>输入重复命令太麻烦</h2><p>** <strong>使用特殊命令</strong> <strong>!!</strong> <strong>，可以自动替换成上一次使用的命令</strong>:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ apt install net-tools</span><br><span class="line"> E: Could not open lock file - open (13: Permission denied)</span><br><span class="line"></span><br><span class="line">$ sudo !!</span><br><span class="line"> sudo apt install net-tools [sudo] password <span class="keyword">for</span> fdl:</span><br></pre></td></tr></table></figure>
-
-<p>有的命令很⻓，一时间想不起来具体参数了怎么办?</p>
-<p><strong>对于</strong> <strong>bash</strong> <strong>终端，可以使用</strong> <strong>Ctrl+R</strong> <strong>快捷键反向搜索历史命令</strong>，之所以说是 反向搜索，就是搜索最近一次输入的命令。</p>
-<p>比如按下 Ctrl+R 之后，输入 sudo ，bash 就会搜索出最近一次包含 sudo 的命令，你回⻋之后就可以运行该命令了:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(reverse-i-search)`sudo<span class="string">&#x27;: sudo apt install git</span></span><br></pre></td></tr></table></figure>
-
-<p>但是这个方法有缺点:首先，该功能似乎只有 bash 支持，我用的 zsh 作为 shell 终端，就用不了;第二，只能查找出一个(最近的)命令，如果我想 找以前的某个命令，就没办法了。</p>
-<p>对于这种情况，<strong>我们最常用的方法是使用</strong> <strong>history</strong> <strong>命令配合管道符和</strong> <strong>grep</strong> <strong>命令来寻找某个历史命令</strong>:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 过滤出所有包含 config 字段的历史命令</span></span><br><span class="line">$ <span class="built_in">history</span> | grep <span class="string">&#x27;config&#x27;</span></span><br><span class="line">	7352 ./configure</span><br><span class="line">	7434 git config --global --<span class="built_in">unset</span> https.proxy 9609 ifconfig</span><br><span class="line">	9985 clip -o | sed -z <span class="string">&#x27;s/\n/,\n/g&#x27;</span> | clip</span><br><span class="line">	10433 <span class="built_in">cd</span> ~/.config</span><br></pre></td></tr></table></figure>
-
-<p>你使用的所有 shell 命令都会被记录，前面的数字就表示这是第几个命令， 找到你想重复使用的命令后，也不需要复制粘贴该命令，<strong>只要使用</strong> <strong>!</strong> <strong>+</strong> <strong>你 想重用的命令编号即可运行该命令</strong>。<br>拿上面的例子，我想重新运行 git config 那条命令，就可以这样:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ !7434</span><br><span class="line">git config --global --<span class="built_in">unset</span> https.proxy <span class="comment"># 运行完成</span></span><br></pre></td></tr></table></figure>
-
-<p>我觉得 history 加管道加 grep 这样打的字还是太多，可以在 你的 shell 配置文件中( .bashrc ， .zshrc 等) 中写这样一个函数:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">his</span></span>() &#123;</span><br><span class="line">	<span class="built_in">history</span> | grep <span class="string">&quot;<span class="variable">$@</span>&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>这样就不需要写那么多，只需要 his ‘some_keyword’ 即可搜索历史命令。</p>
-<p>我一般不使用 bash 作为终端，我给大家推荐一款很好用的 shell 终端叫做 zsh，这也是我自己使用的 shell。这款终端还可以扩展各种插件，非常好 用，具体配置方法可自行搜索。</p>
-<h2 id="其他小技巧"><a href="#其他小技巧" class="headerlink" title="其他小技巧"></a>其他小技巧</h2><ul>
-<li><p>**yes <strong>命令自动输入字符</strong>y **进行确认</p>
-<p>我们安装某些软件的时候，可能有交互式的提问:</p>
-</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt install XXX</span><br><span class="line">...</span><br><span class="line">XXX will use 996 MB disk space, <span class="built_in">continue</span>? [y/n]</span><br></pre></td></tr></table></figure>
-
-<p>一般情况下我们都是一路 y 到底，但如果我们想自动化一些软件的安装就很 烦，遇到这种交互式提问就卡住了，还得手动处理。</p>
-<p>yes 命令可以帮助我们:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">yes</span> | your_cmd</span><br></pre></td></tr></table></figure>
-
-<p>这样就会一路自动 y 下去，不会停下让我们输入了。 如果你读过前文Linux 文件描述符，就知道其原理很简单:</p>
-<p>你单独运行一下 yes 命令，发现它就是打印出一大堆字符 y，通过管道把 输出和 your_cmd 的标准输入相连接，如果 your_cmd 又提出无聊的问题， 就会从标准输入读取数据，也就会读取到一个 y 和换行符，和你手动输入 y 确认是一个效果。</p>
-<ul>
-<li><strong>特殊变量</strong> <strong>$?</strong> <strong>记录上一次命令的返回值</strong>。</li>
-</ul>
-<p>在 Linux shell 中，遵循 C 语言的习惯，返回值为 0 的话就是程序正常退 出，非 0 值就是异常退出出。读取上一次命令的返回值在平时使用命令行时 感觉没什么用，但是如果你想编写一些 shell 脚本，知道返回值非常有用。</p>
-<p><strong>举个实际的例子</strong>，比如我的 Github 仓库 fucking-algorithm ，我需要给其中 所有 markdown 文件最下方添加上一篇、下一篇、目录三个⻚脚链接，有的 文章已经有了⻚脚，大部分都没有。</p>
-<p>为了防止重复添加，我必须知道一个 md 文件下方是否已添加，这时候就可 以使用 $? 变量配合 grep 命令做到:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line">filename=<span class="variable">$1</span></span><br><span class="line"><span class="comment"># 查看文件尾部是否包含关键词</span></span><br><span class="line"><span class="built_in">tail</span> | grep <span class="string">&#x27;下一篇&#x27;</span> <span class="variable">$filename</span></span><br><span class="line"><span class="comment"># grep 查找到匹配会返回 0，找不到则返回非 0 值</span></span><br><span class="line">[ $? -ne 0 ] &amp;&amp; &#123; 添加⻚脚; &#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><strong>特殊变量</strong> <strong>$$</strong> <strong>记录当前进程的</strong> <strong>PID</strong>。</li>
-</ul>
-<p>这个功能可能在平时使用时也不怎么用，但是在写 shell 脚本时也非常有 用，比如说你要在 &#x2F;tmp 创建临时文件，给文件起名字一直都是非常让人 费脑子 的，这时候可以使用 $$ 变量扩展出当前进程的 PID 作为临时文件的名字。</p>
-
-      
-    </div>
-
-    
-    
-    
-
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>l
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/9efd0db9/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/lion.png">
-      <meta itemprop="name" content="swimminghao">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="swimminghao's blog">
-      <meta itemprop="description" content="swimminghao的学习博客">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | swimminghao's blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/9efd0db9/" class="post-title-link" itemprop="url">报告分类bash</a>
-        </h2>
-
-        <div class="post-meta-container">
-
-          
-
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2025-02-13 16:20:39" itemprop="dateModified" datetime="2025-02-13T16:20:39+08:00">2025-02-13</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">工具</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="far fa-comment"></i>
-    </span>
-    <span class="post-meta-item-text">Waline：</span>
-  
-    <a title="waline" href="/posts/9efd0db9/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/9efd0db9/" data-xid="/posts/9efd0db9/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>137</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>1 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="报告分类bash"><a href="#报告分类bash" class="headerlink" title="报告分类bash"></a>报告分类bash</h1><pre><code class="java">for file in *.pdf; do mkdir -p -- &quot;$&#123;file%%-*&#125;&quot; &amp;&amp; \
-    mv -- &quot;$file&quot; &quot;$&#123;file%%-*&#125;&quot;; done
-</code></pre>
-
-      
-    </div>
-
-    
-    
-    
-
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>l
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/cec762c6/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/lion.png">
-      <meta itemprop="name" content="swimminghao">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="swimminghao's blog">
-      <meta itemprop="description" content="swimminghao的学习博客">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | swimminghao's blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/cec762c6/" class="post-title-link" itemprop="url">explain结果每个字段的含义说明</a>
-        </h2>
-
-        <div class="post-meta-container">
-
-          
-
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2025-02-13 16:20:39" itemprop="dateModified" datetime="2025-02-13T16:20:39+08:00">2025-02-13</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="far fa-comment"></i>
-    </span>
-    <span class="post-meta-item-text">Waline：</span>
-  
-    <a title="waline" href="/posts/cec762c6/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/cec762c6/" data-xid="/posts/cec762c6/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>6.4k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>6 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="explain结果每个字段的含义说明"><a href="#explain结果每个字段的含义说明" class="headerlink" title="explain结果每个字段的含义说明"></a>explain结果每个字段的含义说明</h1><p>我们都知道用<code>explain xxx</code>分析sql语句的性能，但是具体从explain的结果怎么分析性能以及每个字段的含义你清楚吗？这里我做下总结记录，也是供自己以后参考。</p>
-<blockquote>
-<ul>
-<li>首先需要注意：<strong>MYSQL 5.6.3</strong>以前只能<code>EXPLAIN SELECT</code>; MYSQL5.6.3以后就可以<code>EXPLAIN SELECT,UPDATE,DELETE</code></li>
-</ul>
-</blockquote>
-<hr>
-<p>explain结果示例：</p>
-<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; explain select * from staff;</span><br><span class="line">+----+-------------+-------+------+---------------+------+---------+------+------+-------+</span><br><span class="line"><span class="params">| id |</span> select_type <span class="params">| table |</span> type <span class="params">| possible_keys |</span> key  <span class="params">| key_len |</span> ref  <span class="params">| rows |</span> Extra <span class="params">|</span></span><br><span class="line"><span class="params">+----+-------------+-------+------+---------------+------+---------+------+------+-------+</span></span><br><span class="line"><span class="params">|</span>  <span class="number">1</span> <span class="params">| SIMPLE      |</span> staff <span class="params">| ALL  |</span> NULL          <span class="params">| NULL |</span> NULL    <span class="params">| NULL |</span>    <span class="number">2</span> <span class="params">| NULL  |</span></span><br><span class="line">+----+-------------+-------+------+---------------+------+---------+------+------+-------+</span><br><span class="line"><span class="number">1</span> row <span class="keyword">in</span> set</span><br></pre></td></tr></table></figure>
-
-<hr>
-<p>先上一个官方文档表格的中文版：</p>
-<table>
-<thead>
-<tr>
-<th>Column</th>
-<th>含义</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>id</td>
-<td>查询序号</td>
-</tr>
-<tr>
-<td>select_type</td>
-<td>查询类型</td>
-</tr>
-<tr>
-<td>table</td>
-<td>表名</td>
-</tr>
-<tr>
-<td>partitions</td>
-<td>匹配的分区</td>
-</tr>
-<tr>
-<td>type</td>
-<td>join类型</td>
-</tr>
-<tr>
-<td>prossible_keys</td>
-<td>可能会选择的索引</td>
-</tr>
-<tr>
-<td>key</td>
-<td>实际选择的索引</td>
-</tr>
-<tr>
-<td>key_len</td>
-<td>索引的长度</td>
-</tr>
-<tr>
-<td>ref</td>
-<td>与索引作比较的列</td>
-</tr>
-<tr>
-<td>rows</td>
-<td>要检索的行数(估算值)</td>
-</tr>
-<tr>
-<td>filtered</td>
-<td>查询条件过滤的行数的百分比</td>
-</tr>
-<tr>
-<td>Extra</td>
-<td>额外信息</td>
-</tr>
-</tbody></table>
-<p>这是explain结果的各个字段，分别解释下含义：</p>
-<h2 id="1-id"><a href="#1-id" class="headerlink" title="1. id"></a>1. id</h2><p>SQL查询中的序列号。</p>
-<blockquote>
-<p>id列数字越大越先执行，如果说数字一样大，那么就从上往下依次执行。</p>
-</blockquote>
-<h2 id="2-select-type"><a href="#2-select-type" class="headerlink" title="2. select_type"></a>2. select_type</h2><p>查询的类型，可以是下表的任何一种类型：</p>
-<table>
-<thead>
-<tr>
-<th>select_type</th>
-<th>类型说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>SIMPLE</td>
-<td>简单SELECT(不使用UNION或子查询)</td>
-</tr>
-<tr>
-<td>PRIMARY</td>
-<td>最外层的SELECT</td>
-</tr>
-<tr>
-<td>UNION</td>
-<td>UNION中第二个或之后的SELECT语句</td>
-</tr>
-<tr>
-<td>DEPENDENT UNION</td>
-<td>UNION中第二个或之后的SELECT语句取决于外面的查询</td>
-</tr>
-<tr>
-<td>UNION RESULT</td>
-<td>UNION的结果</td>
-</tr>
-<tr>
-<td>SUBQUERY</td>
-<td>子查询中的第一个SELECT</td>
-</tr>
-<tr>
-<td>DEPENDENT SUBQUERY</td>
-<td>子查询中的第一个SELECT, 取决于外面的查询</td>
-</tr>
-<tr>
-<td>DERIVED</td>
-<td>衍生表(FROM子句中的子查询)</td>
-</tr>
-<tr>
-<td>MATERIALIZED</td>
-<td>物化子查询</td>
-</tr>
-<tr>
-<td>UNCACHEABLE SUBQUERY</td>
-<td>结果集无法缓存的子查询，必须重新评估外部查询的每一行</td>
-</tr>
-<tr>
-<td>UNCACHEABLE UNION</td>
-<td>UNION中第二个或之后的SELECT，属于无法缓存的子查询</td>
-</tr>
-</tbody></table>
-<p>DEPENDENT 意味着使用了关联子查询。</p>
-<h2 id="3-table"><a href="#3-table" class="headerlink" title="3. table"></a>3. table</h2><p>查询的表名。不一定是实际存在的表名。<br>可以为如下的值：</p>
-<ul>
-<li>&lt;unionM,N&gt;: 引用id为M和N UNION后的结果。</li>
-<li><derivedN>: 引用id为N的结果派生出的表。派生表可以是一个结果集，例如派生自FROM中子查询的结果。</li>
-<li><subqueryN>: 引用id为N的子查询结果物化得到的表。即生成一个临时表保存子查询的结果。</li>
-</ul>
-<h2 id="4-type（重要）"><a href="#4-type（重要）" class="headerlink" title="4. type（重要）"></a>4. type（重要）</h2><p>这是<strong>最重要的字段之一</strong>，显示查询使用了何种类型。从最好到最差的连接类型依次为：</p>
-<blockquote>
-<p><strong>system，const，eq_ref，ref，fulltext，ref_or_null，index_merge，unique_subquery，index_subquery，range，index，ALL</strong></p>
-</blockquote>
-<p>除了all之外，其他的type都可以使用到索引，除了index_merge之外，其他的type只可以用到一个索引。</p>
-<ul>
-<li><h6 id="1、system"><a href="#1、system" class="headerlink" title="1、system"></a>1、system</h6></li>
-</ul>
-<p>表中只有一行数据或者是空表，这是const类型的一个特例。且只能用于myisam和memory表。如果是Innodb引擎表，type列在这个情况通常都是all或者index</p>
-<ul>
-<li><h6 id="2、const"><a href="#2、const" class="headerlink" title="2、const"></a>2、const</h6></li>
-</ul>
-<p>最多只有一行记录匹配。当联合主键或唯一索引的所有字段跟常量值比较时，join类型为const。其他数据库也叫做唯一索引扫描</p>
-<ul>
-<li><h6 id="3、eq-ref"><a href="#3、eq-ref" class="headerlink" title="3、eq_ref"></a>3、eq_ref</h6></li>
-</ul>
-<p>多表join时，对于来自前面表的每一行，在当前表中只能找到一行。这可能是除了system和const之外最好的类型。当主键或唯一非NULL索引的所有字段都被用作join联接时会使用此类型。</p>
-<p>eq_ref可用于使用’&#x3D;’操作符作比较的索引列。比较的值可以是常量，也可以是使用在此表之前读取的表的列的表达式。</p>
-<blockquote>
-<p><strong>相对于下面的ref区别就是它使用的唯一索引，即主键或唯一索引，而ref使用的是非唯一索引或者普通索引。<br>eq_ref只能找到一行，而ref能找到多行。</strong></p>
-</blockquote>
-<ul>
-<li><h6 id="4、ref"><a href="#4、ref" class="headerlink" title="4、ref"></a>4、ref</h6></li>
-</ul>
-<p>对于来自前面表的每一行，在此表的索引中可以匹配到多行。若联接只用到索引的最左前缀或索引不是主键或唯一索引时，使用ref类型（也就是说，此联接能够匹配多行记录）。</p>
-<p>ref可用于使用’&#x3D;’或’&lt;&#x3D;&gt;’操作符作比较的索引列。</p>
-<ul>
-<li><h6 id="5、-fulltext"><a href="#5、-fulltext" class="headerlink" title="5、 fulltext"></a>5、 fulltext</h6></li>
-</ul>
-<p>使用全文索引的时候是这个类型。要注意，<strong>全文索引的优先级很高</strong>，若全文索引和普通索引同时存在时，mysql不管代价，优先选择使用全文索引</p>
-<ul>
-<li><h6 id="6、ref-or-null"><a href="#6、ref-or-null" class="headerlink" title="6、ref_or_null"></a>6、ref_or_null</h6></li>
-</ul>
-<p>跟ref类型类似，只是增加了null值的比较。实际用的不多。</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">eg.</span><br><span class="line">SELECT * FROM ref_table</span><br><span class="line">WHERE key_column=expr OR key_column IS <span class="literal">NULL</span>;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><h6 id="7、index-merge"><a href="#7、index-merge" class="headerlink" title="7、index_merge"></a>7、index_merge</h6></li>
-</ul>
-<p>表示查询使用了两个以上的索引，最后取交集或者并集，常见and ，or的条件使用了不同的索引，官方排序这个在ref_or_null之后，但是实际上由于要读取多个索引，性能可能大部分时间都不如range</p>
-<ul>
-<li><h6 id="8、unique-subquery"><a href="#8、unique-subquery" class="headerlink" title="8、unique_subquery"></a>8、unique_subquery</h6></li>
-</ul>
-<p>用于where中的in形式子查询，子查询返回不重复值唯一值，可以完全替换子查询，效率更高。<br>该类型替换了下面形式的IN子查询的ref：<br><code>value IN (SELECT primary_key FROM single_table WHERE some_expr)</code></p>
-<ul>
-<li><h6 id="9、index-subquery"><a href="#9、index-subquery" class="headerlink" title="9、index_subquery"></a>9、index_subquery</h6></li>
-</ul>
-<p>该联接类型类似于unique_subquery。适用于非唯一索引，可以返回重复值。</p>
-<ul>
-<li><h6 id="10、range"><a href="#10、range" class="headerlink" title="10、range"></a>10、range</h6></li>
-</ul>
-<p>索引范围查询，常见于使用 &#x3D;, &lt;&gt;, &gt;, &gt;&#x3D;, &lt;, &lt;&#x3D;, IS NULL, &lt;&#x3D;&gt;, BETWEEN, IN()或者like等运算符的查询中。</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM tbl_name</span><br><span class="line">  WHERE key_column BETWEEN <span class="number">10</span> <span class="keyword">and</span> <span class="number">20</span>;</span><br><span class="line"></span><br><span class="line"><span class="function">SELECT * FROM tbl_name</span></span><br><span class="line"><span class="function">  WHERE key_column <span class="title">IN</span> <span class="params">(<span class="number">10</span>,<span class="number">20</span>,<span class="number">30</span>)</span></span>;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><h6 id="11、index"><a href="#11、index" class="headerlink" title="11、index"></a>11、index</h6></li>
-</ul>
-<p>索引全表扫描，把索引从头到尾扫一遍。这里包含两种情况：<br>一种是查询使用了覆盖索引，那么它只需要扫描索引就可以获得数据，这个效率要比全表扫描要快，因为索引通常比数据表小，而且还能避免二次查询。在extra中显示Using index，反之，如果在索引上进行全表扫描，没有Using index的提示。</p>
-<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 此表见有一个name列索引。</span></span><br><span class="line"><span class="comment"># 因为查询的列name上建有索引，所以如果这样type走的是index</span></span><br><span class="line">mysql&gt; explain select name from testa;</span><br><span class="line">+----+-------------+-------+-------+---------------+----------+---------+------+------+-------------+</span><br><span class="line"><span class="params">| id |</span> select_type <span class="params">| table |</span> type  <span class="params">| possible_keys |</span> key      <span class="params">| key_len |</span> ref  <span class="params">| rows |</span> Extra       <span class="params">|</span></span><br><span class="line"><span class="params">+----+-------------+-------+-------+---------------+----------+---------+------+------+-------------+</span></span><br><span class="line"><span class="params">|</span>  <span class="number">1</span> <span class="params">| SIMPLE      |</span> testa <span class="params">| index |</span> NULL          <span class="params">| idx_name |</span> <span class="number">33</span>      <span class="params">| NULL |</span>    <span class="number">2</span> <span class="params">| Using index |</span></span><br><span class="line">+----+-------------+-------+-------+---------------+----------+---------+------+------+-------------+</span><br><span class="line"><span class="number">1</span> row <span class="keyword">in</span> set</span><br><span class="line"></span><br><span class="line"><span class="comment"># 因为查询的列cusno没有建索引，或者查询的列包含没有索引的列，这样查询就会走ALL扫描，如下：</span></span><br><span class="line">mysql&gt; explain select cusno from testa;</span><br><span class="line">+----+-------------+-------+------+---------------+------+---------+------+------+-------+</span><br><span class="line"><span class="params">| id |</span> select_type <span class="params">| table |</span> type <span class="params">| possible_keys |</span> key  <span class="params">| key_len |</span> ref  <span class="params">| rows |</span> Extra <span class="params">|</span></span><br><span class="line"><span class="params">+----+-------------+-------+------+---------------+------+---------+------+------+-------+</span></span><br><span class="line"><span class="params">|</span>  <span class="number">1</span> <span class="params">| SIMPLE      |</span> testa <span class="params">| ALL  |</span> NULL          <span class="params">| NULL |</span> NULL    <span class="params">| NULL |</span>    <span class="number">2</span> <span class="params">| NULL  |</span></span><br><span class="line">+----+-------------+-------+------+---------------+------+---------+------+------+-------+</span><br><span class="line"><span class="number">1</span> row <span class="keyword">in</span> set</span><br><span class="line"></span><br><span class="line"><span class="comment"># 包含有未见索引的列</span></span><br><span class="line">mysql&gt; explain select * from testa;</span><br><span class="line">+----+-------------+-------+------+---------------+------+---------+------+------+-------+</span><br><span class="line"><span class="params">| id |</span> select_type <span class="params">| table |</span> type <span class="params">| possible_keys |</span> key  <span class="params">| key_len |</span> ref  <span class="params">| rows |</span> Extra <span class="params">|</span></span><br><span class="line"><span class="params">+----+-------------+-------+------+---------------+------+---------+------+------+-------+</span></span><br><span class="line"><span class="params">|</span>  <span class="number">1</span> <span class="params">| SIMPLE      |</span> testa <span class="params">| ALL  |</span> NULL          <span class="params">| NULL |</span> NULL    <span class="params">| NULL |</span>    <span class="number">2</span> <span class="params">| NULL  |</span></span><br><span class="line">+----+-------------+-------+------+---------------+------+---------+------+------+-------+</span><br><span class="line"><span class="number">1</span> row <span class="keyword">in</span> set</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><h6 id="12、all"><a href="#12、all" class="headerlink" title="12、all"></a>12、all</h6></li>
-</ul>
-<p>全表扫描，性能最差。</p>
-<h2 id="5-partitions"><a href="#5-partitions" class="headerlink" title="5. partitions"></a>5. partitions</h2><p>版本5.7以前，该项是explain partitions显示的选项，5.7以后成为了默认选项。该列显示的为分区表命中的分区情况。非分区表该字段为空（null）。</p>
-<h2 id="6-possible-keys"><a href="#6-possible-keys" class="headerlink" title="6. possible_keys"></a>6. possible_keys</h2><p>查询可能使用到的索引都会在这里列出来</p>
-<h2 id="7-key"><a href="#7-key" class="headerlink" title="7. key"></a>7. key</h2><p>查询真正使用到的索引。<br>select_type为index_merge时，这里可能出现两个以上的索引，其他的select_type这里只会出现一个。</p>
-<h2 id="8-key-len"><a href="#8-key-len" class="headerlink" title="8. key_len"></a>8. key_len</h2><p>查询用到的索引长度（字节数）。<br>如果是单列索引，那就整个索引长度算进去，如果是多列索引，那么查询不一定都能使用到所有的列，用多少算多少。留意下这个列的值，算一下你的多列索引总长度就知道有没有使用到所有的列了。</p>
-<blockquote>
-<p>key_len只计算<strong>where</strong>条件用到的索引长度，而排序和分组就算用到了索引，也不会计算到key_len中。</p>
-</blockquote>
-<h2 id="9-ref"><a href="#9-ref" class="headerlink" title="9. ref"></a>9. ref</h2><p>如果是使用的常数等值查询，这里会显示const，如果是连接查询，被驱动表的执行计划这里会显示驱动表的关联字段，如果是条件使用了表达式或者函数，或者条件列发生了内部隐式转换，这里可能显示为func</p>
-<h2 id="10-rows（重要）"><a href="#10-rows（重要）" class="headerlink" title="10. rows（重要）"></a>10. rows（重要）</h2><p><strong>rows 也是一个重要的字段</strong>。 这是mysql估算的需要扫描的行数（不是精确值）。<br>这个值非常直观显示 SQL 的效率好坏, 原则上 rows 越少越好.</p>
-<h2 id="11-filtered"><a href="#11-filtered" class="headerlink" title="11. filtered"></a>11. filtered</h2><p>这个字段表示存储引擎返回的数据在server层过滤后，剩下多少满足查询的记录数量的比例，注意是百分比，不是具体记录数。这个字段不重要</p>
-<h2 id="12-extra（重要）"><a href="#12-extra（重要）" class="headerlink" title="12. extra（重要）"></a>12. extra（重要）</h2><p>EXplain 中的很多额外的信息会在 Extra 字段显示, 常见的有以下几种内容:</p>
-<ul>
-<li><strong>distinct</strong>：在select部分使用了distinc关键字</li>
-<li><strong>Using filesort</strong>：当 Extra 中有 Using filesort 时, 表示 MySQL 需额外的排序操作, 不能通过索引顺序达到排序效果. 一般有 Using filesort, 都建议优化去掉, 因为这样的查询 CPU 资源消耗大.</li>
-</ul>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"># 例如下面的例子:</span><br><span class="line"></span><br><span class="line">mysql&gt; EXPLAIN SELECT * FROM order_info ORDER BY product_name \G</span><br><span class="line">*************************** <span class="number">1.</span> row ***************************</span><br><span class="line">           <span class="keyword">id</span>: <span class="number">1</span></span><br><span class="line">  select_type: SIMPLE</span><br><span class="line">        table: order_info</span><br><span class="line">   partitions: <span class="literal">NULL</span></span><br><span class="line">         type: index</span><br><span class="line">possible_keys: <span class="literal">NULL</span></span><br><span class="line">          key: user_product_detail_index</span><br><span class="line">      key_len: <span class="number">253</span></span><br><span class="line">          ref: <span class="literal">NULL</span></span><br><span class="line">         rows: <span class="number">9</span></span><br><span class="line">     filtered: <span class="number">100.00</span></span><br><span class="line">        Extra: Using index; Using filesort</span><br><span class="line"><span class="number">1</span> row <span class="keyword">in</span> set, <span class="number">1</span> warning (<span class="number">0.00</span> sec)</span><br><span class="line">我们的索引是</span><br><span class="line"></span><br><span class="line">KEY `user_product_detail_index` (`user_id`, `product_name`, `productor`)</span><br><span class="line">但是上面的查询中根据 product_name 来排序, 因此不能使用索引进行优化, 进而会产生 Using filesort.</span><br><span class="line">如果我们将排序依据改为 ORDER BY user_id, product_name, 那么就不会出现 Using filesort 了. 例如:</span><br><span class="line"></span><br><span class="line">mysql&gt; EXPLAIN SELECT * FROM order_info ORDER BY user_id, product_name \G</span><br><span class="line">*************************** <span class="number">1.</span> row ***************************</span><br><span class="line">           <span class="keyword">id</span>: <span class="number">1</span></span><br><span class="line">  select_type: SIMPLE</span><br><span class="line">        table: order_info</span><br><span class="line">   partitions: <span class="literal">NULL</span></span><br><span class="line">         type: index</span><br><span class="line">possible_keys: <span class="literal">NULL</span></span><br><span class="line">          key: user_product_detail_index</span><br><span class="line">      key_len: <span class="number">253</span></span><br><span class="line">          ref: <span class="literal">NULL</span></span><br><span class="line">         rows: <span class="number">9</span></span><br><span class="line">     filtered: <span class="number">100.00</span></span><br><span class="line">        Extra: Using index</span><br><span class="line"><span class="number">1</span> row <span class="keyword">in</span> set, <span class="number">1</span> warning (<span class="number">0.00</span> sec)</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><strong>Using index</strong><br>“覆盖索引扫描”, 表示查询在索引树中就可查找所需数据, 不用扫描表数据文件, 往往说明<strong>性能不错</strong></li>
-<li><strong>Using temporary</strong><br>查询有使用临时表, 一般出现于排序, 分组和多表 join 的情况, 查询效率不高, 建议优化.</li>
-</ul>
-<p>除此之外还有其他值，这里就不一一一列举了。</p>
-<hr>
-<p>通过以上这些总结，以后我们看到explain的结果，就知道该从哪些字段值去分析sql语句的执行效率了。</p>
 
       
     </div>
