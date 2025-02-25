@@ -1886,7 +1886,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/32e97c2c/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/51360fe0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/lion.png">
@@ -1904,7 +1904,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/32e97c2c/" class="post-title-link" itemprop="url">16、【对线面试官】SpringBean生命周期</a>
+          <a href="/posts/51360fe0/" class="post-title-link" itemprop="url">15、【对线面试官】Spring基础</a>
         </h2>
 
         <div class="post-meta-container">
@@ -1946,8 +1946,8 @@
     </span>
     <span class="post-meta-item-text">Waline：</span>
   
-    <a title="waline" href="/posts/32e97c2c/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/32e97c2c/" data-xid="/posts/32e97c2c/" itemprop="commentCount"></span>
+    <a title="waline" href="/posts/51360fe0/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/51360fe0/" data-xid="/posts/51360fe0/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -1958,14 +1958,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>3.5k</span>
+      <span>2k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>3 分钟</span>
+      <span>2 分钟</span>
     </span>
 </div>
 
@@ -1976,103 +1976,77 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="16、【对线面试官】SpringBean生命周期"><a href="#16、【对线面试官】SpringBean生命周期" class="headerlink" title="16、【对线面试官】SpringBean生命周期"></a>16、【对线面试官】SpringBean生命周期</h1><h2 id="今天要不来聊聊Spring对Bean的生命周期管理？"><a href="#今天要不来聊聊Spring对Bean的生命周期管理？" class="headerlink" title="今天要不来聊聊Spring对Bean的生命周期管理？"></a>今天要不来聊聊Spring对Bean的生命周期管理？</h2><ol>
-<li>嗯，没问题的。</li>
-<li>很早之前我就看过源码，但Spring源码的实现类都太长了</li>
-<li>我也记不得很清楚某些实现类的名字</li>
-<li>要不我大概来说下流程？</li>
-<li>首先要知道的是：普通Java对象和Spring.所管理的Bean实例化的过程是有些区别的<br>在普通Java环境下创建对象简要的步骤可以分为以下几步：<ul>
-<li>java源码被编译为被编译为class文件</li>
-<li>等到类需要被初始化时（比如说new、反射等）</li>
-<li>class文件被虚拟机通过类加载器加载到JVM</li>
-<li>初始化对象供我们使用</li>
+          <h1 id="15、【对线面试官】Spring基础"><a href="#15、【对线面试官】Spring基础" class="headerlink" title="15、【对线面试官】Spring基础"></a>15、【对线面试官】Spring基础</h1><h2 id="要不你来讲讲Spring的IOC和AOP你是怎么理解的呗？"><a href="#要不你来讲讲Spring的IOC和AOP你是怎么理解的呗？" class="headerlink" title="要不你来讲讲Spring的IOC和AOP你是怎么理解的呗？"></a>要不你来讲讲Spring的IOC和AOP你是怎么理解的呗？</h2><ol>
+<li>我个人理解下：SpringIOC解决的是对象管理和对象依赖的问题。</li>
+<li>本来是我们自己手动new出来的对象，现在则把对象交给Spring的IOC容器管理</li>
+<li>IOC容器可以理解为一个对象工厂，我们都把该对象交给工厂，工厂管理这些对象的创建以及依赖关系</li>
+<li>等我们需要用对象的时候，从工厂里边获取就好了</li>
+</ol>
+<h2 id="哦，你说的就是「控制反转」和「注入依赖」吧？"><a href="#哦，你说的就是「控制反转」和「注入依赖」吧？" class="headerlink" title="哦，你说的就是「控制反转」和「注入依赖」吧？"></a>哦，你说的就是「控制反转」和「注入依赖」吧？</h2><ol>
+<li>我认为「控制反转」指的就是：把原有自己掌控的事交给别人去处理</li>
+<li>它更多的是一种思想或者可以理解为设计模式</li>
+<li>比如：本来由我们自己new出来的对象，现在交由IOC容器，把对象的控制权交给它方了.</li>
+<li>而「依赖注入」在我的理解下，它其实是「控制反转」的实现方式</li>
+<li>对象无需自行创建或者管理它的依赖关系，依赖关系将被「自动注入」到需要它们的对象当中去</li>
+</ol>
+<h2 id="嗯，那我想问问，用SpringIOC有什么好处吗？"><a href="#嗯，那我想问问，用SpringIOC有什么好处吗？" class="headerlink" title="嗯，那我想问问，用SpringIOC有什么好处吗？"></a>嗯，那我想问问，用SpringIOC有什么好处吗？</h2><h2 id="或者换个问法：本来我可以new出来的对象，为什么我要交由Spring-IOC容器管理呢？"><a href="#或者换个问法：本来我可以new出来的对象，为什么我要交由Spring-IOC容器管理呢？" class="headerlink" title="或者换个问法：本来我可以new出来的对象，为什么我要交由Spring IOC容器管理呢？"></a>或者换个问法：本来我可以new出来的对象，为什么我要交由Spring IOC容器管理呢？</h2><ol>
+<li>主要的好处在于「将对象集中统一管理」并且「降低耦合度」</li>
+<li>如果面试官理解了「工厂模式」，那就知道为什么我们不直接new对象</li>
+<li>要说理由的话，可以举很多例子，比如说：</li>
+<li>我用SpringIOC可以方便单元测试、对象创建复杂、对象依赖复杂、单例等等的，什么都可以交给Spring IOC</li>
+<li>理论上自己new出来的都可以解决上面的问题，Spring在各种场景组合下有可能不是最优解</li>
+<li>但new出来的你要自己管理，可能你得自己写工厂，得实现一大套的东西才能满足需求</li>
+<li>写着写着有可能还是Spring的那一套</li>
+<li>但现在Spring现在已经帮你实现了啊！</li>
+<li>如果项目里的对象都是就new下就完事了，没有多个实现类，那没事，不用Spring也没啥问题</li>
+<li>并且Spring核心不仅仅IOC啊，除了把对象创建出来，还有一整套的Bean生命周期管理</li>
+<li>比如说你要实现对象增强，AOP不就有了吗？不然你还得自己创建代理</li>
+</ol>
+<h2 id="那你继续来聊下Spring-AOP呗？"><a href="#那你继续来聊下Spring-AOP呗？" class="headerlink" title="那你继续来聊下Spring AOP呗？"></a>那你继续来聊下Spring AOP呗？</h2><ol>
+<li>Spring AOP解决的是非业务代码抽取的问题</li>
+<li>AOP底层的技术是动态代理，在Spring 内实现依赖的是BeanPostProcessor</li>
+<li>比如我们需要在方法上注入些「重复性」的非业务代码，就可以利用Spring AOP</li>
+<li>所谓的「面向切面编程」在我理解下其实就是在方法前后增加非业务代码</li>
+</ol>
+<h2 id="那你在工作中实际用到过AOP去优化你的代码吗？"><a href="#那你在工作中实际用到过AOP去优化你的代码吗？" class="headerlink" title="那你在工作中实际用到过AOP去优化你的代码吗？"></a>那你在工作中实际用到过AOP去优化你的代码吗？</h2><ol>
+<li>·有的。当时我用AOP来对我们公司现有的监控客户端进行封装</li>
+<li>一个系统离不开监控，监控基本的指标有QPS、RT、ERROR等等</li>
+<li>对外暴露的监控客户端只能在代码里写对应的上报信息（灵活，但会与业务代码掺杂在一起）</li>
+<li>于是我利用注解+AOP的方式封装了一把，只要方法&#x2F;类上带有我自定义的注解</li>
+<li>方法被调用时，就会上报AQS、RT等信息实现了非业务代码与业务代码分离的效果</li>
+</ol>
+<h2 id="了解，你们项目一般是怎么把对象交给IOC容器管理的？"><a href="#了解，你们项目一般是怎么把对象交给IOC容器管理的？" class="headerlink" title="了解，你们项目一般是怎么把对象交给IOC容器管理的？"></a>了解，你们项目一般是怎么把对象交给IOC容器管理的？</h2><h2 id="换个问法：一般是怎么定义Bean的？"><a href="#换个问法：一般是怎么定义Bean的？" class="headerlink" title="换个问法：一般是怎么定义Bean的？"></a>换个问法：一般是怎么定义Bean的？</h2><ol>
+<li>Spring提供了4种方式，分别是：<br>1）：注解2）：XML3）：JavaConfig 4）：基于Groovy 的DSL配置</li>
+<li>一般项目我们用注解或XML比较多，少部分用JavaConfig</li>
+<li>日常写业务代码一般用注解来定义各种对象，责任链这种一般配置在XML「注解」解决不了的就用JavaConfig</li>
+<li>总体而言，还是得看项目的代码风格吧</li>
+<li>反正就是定义元数据，能给到Spring解析就好了</li>
+</ol>
+<h2 id="要不来聊聊你使用Spring的感受？"><a href="#要不来聊聊你使用Spring的感受？" class="headerlink" title="要不来聊聊你使用Spring的感受？"></a>要不来聊聊你使用Spring的感受？</h2><ol>
+<li>当我还是初学Spring的时候，我觉得Spring很麻烦，需要有一大堆的配置信息才能跑起来</li>
+<li>光是搭建环境就需要耗费我好长的时间</li>
+<li>毕竟版本冲突，依赖冲突什么的就可能个下午就过去了</li>
+<li>但毕竟一个系统环境只搭一次嘛，所以还好（后来用上了SpringBoot这又更方便了）</li>
+<li>回来，IOC和AOP在工作用的时候还是很爽的</li>
+<li>毕竟搞个注解什么的，配置下就可以把对象交给Spring管理了</li>
+<li>配合Spring的生态，@Transactional注解什么的，都好用得飞起</li>
+<li>不过，Spring给我们封装得太好了</li>
+<li>经常就会有奇奇怪怪的”bug”出现，也踩过很多的坑了</li>
+<li>Bean经常没办法创建成功，导致项目启动失败..</li>
+<li>对象的循环依赖问题.</li>
+<li>同一个接口，多个实现，识别不出我要创建哪个对象.</li>
+<li>为什么catch了异常，Spring事务为什么还会自动回滚..</li>
+<li>等等等</li>
+</ol>
+<h2 id="循环以来"><a href="#循环以来" class="headerlink" title="循环以来"></a>循环以来</h2><ol>
+<li><p>到这里，Spring整个解决循环依赖问题的实现思路已经比较清楚了。对于整体过程，读者朋友只要理解两点：</p>
+<ul>
+<li>Spring是通过递归的方式获取目标bean及其所依赖的bean的；</li>
+<li>Spring实例化一个bean的时候，是分两步进行的，首先实例化目标bean，然后为其注入属性。</li>
 </ul>
-</li>
-<li>简单来说，可以理解为它是用Class对象作为「模板」进而创建出具体的实例</li>
-<li>而Spring所管理的Bean不同的是，除了Class.对象之外，还会使用BeanDefinition的实例来描述对象的信息</li>
-<li>比如说，我们可以在Spring.所管理的Bean有一系列的描述：@Scope、@Lazy、@DependsOn等等</li>
-<li>可以理解为：Class只描述了类的信息，而BeanDefinition：描述了对象的信息</li>
-</ol>
-<h2 id="你就是想告诉我，Spring有BeanDefinition来存储着我们日常给Spring-Bean定义的元数据（-Scope、-Lazy、-DependsOn等等），对吧？"><a href="#你就是想告诉我，Spring有BeanDefinition来存储着我们日常给Spring-Bean定义的元数据（-Scope、-Lazy、-DependsOn等等），对吧？" class="headerlink" title="你就是想告诉我，Spring有BeanDefinition来存储着我们日常给Spring Bean定义的元数据（@Scope、@Lazy、@DependsOn等等），对吧？"></a>你就是想告诉我，Spring有BeanDefinition来存储着我们日常给Spring Bean定义的元数据（@Scope、@Lazy、@DependsOn等等），对吧？</h2><ol>
-<li>Spring在启动的时候需要「扫描」在XML&#x2F;注解&#x2F;JavaConfig中需要被Spring管理的Bean信息</li>
-<li>随后，会将这些信息封装成BeanDefinition，最后会把这些信息放到一个beanDefinitionMap中</li>
-<li>我记得这个Map的key应该是beanName，value则是BeanDefinition.对象</li>
-<li>到这里其实就是把定义的元数据加载起来，目前真实对象还没实例化</li>
-<li>接着会遍历这个beanDefinitionMap，执行BeanFactoryPostProcessor这个Bean工厂后置处理器的逻辑</li>
-<li>比如说，我们平时定义的占位符信息，就是通过BeanFactoryPostProcessor的子类PropertyPlaceholderConfigurer进行注入进去</li>
-<li>当然了，这里我们也可以自定义BeanFactoryPostProcessor来对我们定义好的Bean元数据进行获取或者修改。只是一般我们不会这样干，实际上也很有少的使用场景。</li>
-<li>BeanFactoryPostProcessor&#x2F;后置处理器执行完了以后，就到了实例化对象啦</li>
-<li>在Spring.里边是通过反射来实现的，一般情况下会通过反射选择合适的构造器来把对象实例化</li>
-<li>但这里把对象实例化，只是把对象给创建出来，而对象具体的属性是还没注入的。</li>
-<li>比如我的对象是UserService，而UserService对象依赖着SendService对象，这时候的SendService还是null的</li>
-<li>所以，下一步就是把对象的相关属性给注入</li>
-<li>相关属性注入完之后，往下接着就是初始化的工作了</li>
-<li>首先判断该Bean是否实现了Aware相关的接口，如果存在则填充相关的资源<br>比如我这边在项目用到的：我希望通过代码程序的方式去获取指定的Spring Bean</li>
-<li>我们这边会抽取成一个工具类，去实现ApplicationContextAware接口，来获取ApplicationContexti对象进而获取Spring Bean</li>
-<li>Aware相关的接口处理完之后，就会到BeanPostProcessor后置处理器啦</li>
-<li>BeanPostProcessor后置处理器有两个方法，一个是before，一个是after。<br>（那肯定是before先执行、after）后执行）</li>
-<li>这个BeanPostProcessor）后置处理器是AOP实现的关键<br>关键子类AnnotationAwareAspectJAutoProxyCreator</li>
-<li>所以，执行完Aware相关的接口就会执行，BeanPostProcessor相关子类的before方法。</li>
-<li>BeanPostProcessor相关子类的before方法执行完，则执行init相关的方法，比如说@PostConstruct、实现了InitializingBean接口、定义的init-method方法</li>
-<li>当时我还去官网去看他们的被调用「执行顺序」分别是：@PostConstruct、实现了InitializingBean：接口以及init-nethod方法</li>
-<li>这些都是Spring：给我们的「扩展」，像@PostConstruct我就经常用到</li>
-<li>比如说：对象实例化后，我要做些初始化的相关工作或者就启个线程去Kafka拉取数据</li>
-<li>等到init方法执行完之后，就会执行BeanPostProcessor的after方法</li>
-<li>基本重要的流程已经走完了，我们就可以获取到对象去使用了</li>
-<li>销毁的时候就看有没有配置相关的destroy方法，执行就完事了</li>
-</ol>
-<h2 id="你看过Spring：是怎么解决循环依赖的吗？如果现在有个A对象，它的属性是B对象，而B对象的属性也是A对象说白了就是A依赖B，而B又依赖A，Spring是怎么做的？"><a href="#你看过Spring：是怎么解决循环依赖的吗？如果现在有个A对象，它的属性是B对象，而B对象的属性也是A对象说白了就是A依赖B，而B又依赖A，Spring是怎么做的？" class="headerlink" title="你看过Spring：是怎么解决循环依赖的吗？如果现在有个A对象，它的属性是B对象，而B对象的属性也是A对象说白了就是A依赖B，而B又依赖A，Spring是怎么做的？"></a>你看过Spring：是怎么解决循环依赖的吗？如果现在有个A对象，它的属性是B对象，而B对象的属性也是A对象说白了就是A依赖B，而B又依赖A，Spring是怎么做的？</h2><ol>
-<li>从上面我们可以知道，对象属性的注入在对象实例化之后的嘛。</li>
-<li>它的大致过程是这样的：首先A对象实例化，然后对属性进行注入，发现依赖B对象<br>B对象此时还没创建出来，所以转头去实例化B对象</li>
-<li>B对象实例化之后，发现需要依赖A对象，那A对象已经实例化了嘛，所以B对<br>象最终能完成创建</li>
-<li>B对象返回到A对象的属性注入的方法上，A对象最终完成创建。这就是大致的过程。</li>
-</ol>
-<h2 id="哦？听起来你还会原理哦？"><a href="#哦？听起来你还会原理哦？" class="headerlink" title="哦？听起来你还会原理哦？"></a>哦？听起来你还会原理哦？</h2><ol>
-<li>至于原理，其实就是用到了三级的缓存</li>
-<li>所谓的三级缓存其实就是三个Map.…首先明确一定，我对这里的三级缓存定义是这样的：<br>singletonObjects（一级，日常实际获取Bean的地方）；</li>
-<li>earlySingletonObjects（二级，已实例化，但还没进行属性注入，由三级缓存放进来）；</li>
-<li>singletonFactories（三级，Value：是一个对象工厂）；</li>
-<li>再回到刚才讲述的过程中，A对象实例化之后，属性注入之前，其实会把A对象放入三级缓存中</li>
-<li>key是BeanName，Value：是ObjectFactory</li>
-<li>等到A对象属性注入时，发现依赖B，又去实例化B时</li>
-<li>B属性注入需要去获取A对象，这里就是从三级缓存里拿出ObjectFactory，从ObjectFactory得到对应的Bean（就是对象A)</li>
-<li>把三级缓存的A记录给干掉，然后放到二级缓存中</li>
-<li>显然，二级缓存存储的key是BeanName，value就是Bean（这里的Bean还没做完属性注入相关的工作）</li>
-<li>等到完全初始化之后，就会把二级缓存给remove掉，塞到一级缓存中</li>
-<li>我们自己去getBean的时候，实际上拿到的是一级缓存的</li>
-<li>大致的过程就是这样</li>
-</ol>
-<h2 id="那我想问一下，为什么是三级缓存？"><a href="#那我想问一下，为什么是三级缓存？" class="headerlink" title="那我想问一下，为什么是三级缓存？"></a>那我想问一下，为什么是三级缓存？</h2><ol>
-<li>首先从第三级缓存说起（就是key是BeanName，Value为ObjectFactory）</li>
-<li>我们的对象是单例的，有可能A对象依赖的B对象是有AOP的（B对象需要代理）</li>
-<li>假设没有第三级缓存，只有第二级缓存（Value存对象，而不是工厂对象）</li>
-<li>那如果有AOP的情况下，岂不是在存入第二级缓存之前都需要先去做AOP代理？这不合适嘛</li>
-<li>这里肯定是需要考虑代理的情况的，比如A对象是一个被AOP增量的对象，B依赖A时，得到的A肯定是代理对象的</li>
-<li>所以，三级缓存的Value是ObjectFactory，可以从里边拿到代理对象</li>
-<li>而二级缓存存在的必要就是为了性能，从三级缓存的工厂里创建出对象，再扔到二级缓存（这样就不用每次都要从工厂里拿）</li>
-</ol>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ol>
-<li><p>首先是Spring Bean的生命周期过程，Sprng使用BeanDefinition：来装载着我们给Bean定义的元数据</p>
-</li>
-<li><p>实例化Bean的时候会遍历BeanDefinitionMap</p>
-</li>
-<li><p>Springl的Bean实例化和属性赋值是分开两步来做的</p>
-</li>
-<li><p>在Spring Beanl的生命周期，Spring预留了很多的hook给我们去扩展</p>
-<p>1）：Bean实例化之前有BeanFactoryPostProcessor<br>2）：Bean实例化之后，初始化时，有相关的Aware接口供我们去拿到Context相关信息<br>3）：环绕着初始化阶段，有BeanPostProcessor（AOP的关键）<br>4）：在初始化阶段，有各种的init方法供我们去自定义</p>
-</li>
-<li><p>而循环依赖的解决主要通过三级的缓存</p>
-</li>
-<li><p>在实例化后，会把自己扔到三级缓存（此时的key是BeanName，Value是ObjectFactory)</p>
-</li>
-<li><p>在注入属性时，发现需要依赖B，也会走B的实例化过程，B属性注入依赖A，从三级缓存找到A</p>
-</li>
-<li><p>删掉三级缓存，放到二级缓存</p>
+<p>结合这两点，也就是说，Spring在实例化一个bean的时候，是首先递归的实例化其所依赖的所有bean，直到某个bean没有依赖其他bean，此时就会将该实例返回，然后反递归的将获取到的bean设置为各个上层bean的属性的。</p>
 </li>
 </ol>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/q5B8nQ_20211228115227.png"></p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/ldYlbE_20211228115337.png"></p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/czgjnh_20211228115425.png"></p>
 
       
     </div>

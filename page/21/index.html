@@ -1161,174 +1161,6 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/2b7e87b2/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/lion.png">
-      <meta itemprop="name" content="swimminghao">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="swimminghao's blog">
-      <meta itemprop="description" content="swimminghao的学习博客">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | swimminghao's blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/2b7e87b2/" class="post-title-link" itemprop="url">36、【对线面试官】设计模式</a>
-        </h2>
-
-        <div class="post-meta-container">
-
-          
-
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2025-02-13 16:20:39" itemprop="dateModified" datetime="2025-02-13T16:20:39+08:00">2025-02-13</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="far fa-comment"></i>
-    </span>
-    <span class="post-meta-item-text">Waline：</span>
-  
-    <a title="waline" href="/posts/2b7e87b2/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/2b7e87b2/" data-xid="/posts/2b7e87b2/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>3.3k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>3 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="36、【对线面试官】设计模式"><a href="#36、【对线面试官】设计模式" class="headerlink" title="36、【对线面试官】设计模式"></a>36、【对线面试官】设计模式</h1><h2 id="熟悉哪些常见的设计模式？"><a href="#熟悉哪些常见的设计模式？" class="headerlink" title="熟悉哪些常见的设计模式？"></a>熟悉哪些常见的设计模式？</h2><ul>
-<li>常见的工厂模式、代理模式、模板方法模式、责任链模式、单例模式、包装设计模式、策略模式等都是有所了解的</li>
-<li>项目手写代码用得比较多的，一般就模板方法模式、责任链模式、策略模式、单例模式吧</li>
-<li>像工厂模式、代理模式这种，手写倒是不多，但毕竟Java后端一般环境下都用Spring嘛，所以还是比较熟悉的</li>
-</ul>
-<h2 id="手写单例模式"><a href="#手写单例模式" class="headerlink" title="手写单例模式"></a>手写单例模式</h2><ul>
-<li>单例模式一般会有好几种写法<ul>
-<li>饿汉式、简单懒汉式（在方法声明时加锁）、DCL双重检验加锁（进阶懒汉式）、静态内部类（优雅懒汉式）、枚举</li>
-<li>所谓「饿汉式」指的就是还没被用到，就直接初始化了对象。所谓「懒汉式」指的就是等用到的时候，才进行初始化</li>
-</ul>
-</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//DCL懒汉式</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Singleton1</span> &#123;</span><br><span class="line">    <span class="comment">//第一次减少锁的开销、第二次防止重复、volatile防止重排序导致实例化未完成</span></span><br><span class="line">    <span class="keyword">private</span> <span class="title function_">Singleton1</span><span class="params">()</span>&#123;&#125;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">volatile</span> <span class="keyword">static</span> Singleton1 singleton;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Singleton1 <span class="title function_">getInstance</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(singleton == <span class="literal">null</span>)&#123; <span class="comment">//线程1，2，3到达这里</span></span><br><span class="line">            <span class="keyword">synchronized</span> (Singleton1.class)&#123;<span class="comment">//线程1到这里开始继续往下执行，线程2，3等待</span></span><br><span class="line">                <span class="keyword">if</span>(singleton == <span class="literal">null</span>)&#123;<span class="comment">//线程1到这里发现instance为空，继续执行if代码块</span></span><br><span class="line">                    <span class="comment">//执行晚后退出同步区域，然后线程2进入同步代码块，如果在这里不再加一次判断</span></span><br><span class="line">                    <span class="comment">//就会造成instance再次实例化</span></span><br><span class="line">                    singleton = <span class="keyword">new</span> <span class="title class_">Singleton1</span>();</span><br><span class="line">                    <span class="comment">//new Singleton1();可以分解为3行伪代码</span></span><br><span class="line">                    <span class="comment">//1、memory = allocate() //分配内存</span></span><br><span class="line">                    <span class="comment">//2、ctorInstanc(memory) //初始化对象</span></span><br><span class="line">                    <span class="comment">//3.调用构造函数，</span></span><br><span class="line">                    <span class="comment">//4.返回地址给引用。而cpu为了优化程序，可能会进行指令重排序，打乱这3，4这几个步骤，导致实例内存还没分配，就被使用了。</span></span><br><span class="line">                    <span class="comment">//线程A和线程B举例。线程A执行到new Singleton()，开始初始化实例对象，由于存在指令重排序，这次new操作，先把引用赋值了，还没有执行构造函数。</span></span><br><span class="line">                    <span class="comment">//这时时间片结束了，切换到线程B执行，线程B调用new Singleton()方法，发现引用不等于null，就直接返回引用地址了，然后线程B执行了一些操作，就可能导致线程B使用了还没有被初始化的变量。</span></span><br><span class="line">                    <span class="comment">//volatile防止重排序导致实例化未完成，就将对象赋值使用</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> singleton;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//静态内部类 懒汉式</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Singleton2</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="title function_">Singleton2</span><span class="params">()</span> &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">class</span> <span class="title class_">SingletonHolder</span> &#123;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">static</span> <span class="type">Singleton2</span> <span class="variable">INSTANCE</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Singleton2</span>();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Singleton2 <span class="title function_">getInstance</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> SingletonHolder.INSTANCE;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//枚举</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Singleton3</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="title function_">Singleton3</span><span class="params">()</span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 枚举类型是线程安全的，并且只会装载一次</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">enum</span> <span class="title class_">Singleton</span>&#123;</span><br><span class="line">        INSTANCE;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">final</span> Singleton3 instance;</span><br><span class="line"></span><br><span class="line">        Singleton()&#123;</span><br><span class="line">            instance = <span class="keyword">new</span> <span class="title class_">Singleton3</span>();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">private</span> Singleton3 <span class="title function_">getInstance</span><span class="params">()</span>&#123;</span><br><span class="line">            <span class="keyword">return</span> instance;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Singleton3 <span class="title function_">getInstance</span><span class="params">()</span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> Singleton.INSTANCE.getInstance();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//枚举</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Singleton4</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="title function_">Singleton4</span><span class="params">()</span>&#123;&#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">enum</span> <span class="title class_">SingletonEnum</span> &#123;</span><br><span class="line">        SINGLETON;</span><br><span class="line">        <span class="keyword">private</span> <span class="type">Singleton4</span> <span class="variable">instance</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">        SingletonEnum()&#123;</span><br><span class="line">            instance = <span class="keyword">new</span> <span class="title class_">Singleton4</span>();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">public</span> Singleton4 <span class="title function_">getInstance</span><span class="params">()</span>&#123;</span><br><span class="line">            <span class="keyword">return</span> instance;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Singleton4 <span class="title function_">getInstance</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> SingletonEnum.SINGLETON.getInstance();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="那你们用的哪种比较多？"><a href="#那你们用的哪种比较多？" class="headerlink" title="那你们用的哪种比较多？"></a>那你们用的哪种比较多？</h2><ul>
-<li>一般我们项目里用静态内部类的方式实现单例会比较多（如果没有Springl的环境下），代码简洁易读</li>
-<li>如果有Spring环境，那还是直接交由Spring容器管理会比较方便（Spring默认就是单例的）</li>
-<li>枚举一般我们就用它来做「标识」吧，而DCL这种方式也有同学会在项目里写（在一些源码里也能看到其身影），但总体太不利于阅读和理解</li>
-<li>总的来说，用哪一种都可以的，关键我觉得要看团队的代码风格吧（保持一致就行），即便都用「饿汉式」也没啥大的问题（现在内存也没那么稀缺，我认为可读性比较重要）</li>
-</ul>
-<h2 id="我看你在DCL的单例代码上，写了volatile修饰嘛？为什么呢？"><a href="#我看你在DCL的单例代码上，写了volatile修饰嘛？为什么呢？" class="headerlink" title="我看你在DCL的单例代码上，写了volatile修饰嘛？为什么呢？"></a>我看你在DCL的单例代码上，写了volatile修饰嘛？为什么呢？</h2><ul>
-<li>指令是有可能乱序执行的（编译器优化导致乱序、CPU缓存架构导致乱序、CPU原生重排导致乱序）</li>
-<li>在代码new Object的时候，不是一条原子的指令，它会由几个步骤组成，在这过程中，就可能会发生指令重排的问题，而volatile这个关键字就可以避免指令重排的发生。</li>
-</ul>
-<h2 id="那你说下你在项目里用到的设计模式吧？"><a href="#那你说下你在项目里用到的设计模式吧？" class="headerlink" title="那你说下你在项目里用到的设计模式吧？"></a>那你说下你在项目里用到的设计模式吧？</h2><ul>
-<li><p>嗯，比如说，我这边在处理请求的时候，会用到责任链模式进行处理（减免if else并且让项目结构更加清晰）</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/X77vb4_20211230110546.png"></p>
-<ul>
-<li>在处理公共逻辑时，会使用模板方法模式进行抽象，具体不同的逻辑会由不同的实现类处理（每种消息发送前都需要经过文案校验，所以可以把文案校验的逻辑写在抽象类上）</li>
-</ul>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/wEKBZr_20211230110629.png"></p>
-</li>
-<li><p>代理模式手写的机会比较少（因为项目一般有Spring：环境，直接用Spring的AOP代理就好了）</p>
-<ul>
-<li><p>我之前使用过AOP把「监控客户端」封装以「注解」的方式进行使用（不用以硬编码的方式来进行监控，只要有注解就行）</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/gF5mCF_20211230110735.png"></p>
-</li>
-</ul>
-</li>
-</ul>
-<h2 id="那你能聊聊Spring使用到的常见设计模嘛？"><a href="#那你能聊聊Spring使用到的常见设计模嘛？" class="headerlink" title="那你能聊聊Spring使用到的常见设计模嘛？"></a>那你能聊聊Spring使用到的常见设计模嘛？</h2><ul>
-<li>比如，Spring IOC容器可以理解为应用了「工厂模式」（通过ApplicationContext或者BeanFactory去获取对象）</li>
-<li>Spring的对象默认都是单例的，所以肯定是用了「单例模式」（源码里对单例的实现是用的DCL来实现单例）</li>
-<li>Spring AOP的底层原理就是用了「代理模式」，实现可能是JDK动态代理，也可能是CGLIB动态代理</li>
-<li>Spring有很多地方都用了「模板方法模式」，比如事务管理器（AbstractPlatformTransactionManager),getTransaction定义了框架，其中很多都由子类实现</li>
-<li>Spring的事件驱动模型用了「观察者模式」，具体实现就是ApplicationContextEvent、ApplicationListener</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>l
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://example.com/posts/53284982/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1869,6 +1701,174 @@
 <li>常见的零拷贝技术有mmap（内核缓冲区与用户缓冲区的共享） 、sendfile（系统底层函数支持）。</li>
 <li>零拷贝可以提高数据传输的性能，这块在Kafka等框架也有相关的实践。</li>
 </ol>
+
+      
+    </div>
+
+    
+    
+    
+
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>l
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/2b7e87b2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lion.png">
+      <meta itemprop="name" content="swimminghao">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="swimminghao's blog">
+      <meta itemprop="description" content="swimminghao的学习博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | swimminghao's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/2b7e87b2/" class="post-title-link" itemprop="url">36、【对线面试官】设计模式</a>
+        </h2>
+
+        <div class="post-meta-container">
+
+          
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2025-02-13 16:20:39" itemprop="dateModified" datetime="2025-02-13T16:20:39+08:00">2025-02-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/posts/2b7e87b2/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/2b7e87b2/" data-xid="/posts/2b7e87b2/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>3.3k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>3 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="36、【对线面试官】设计模式"><a href="#36、【对线面试官】设计模式" class="headerlink" title="36、【对线面试官】设计模式"></a>36、【对线面试官】设计模式</h1><h2 id="熟悉哪些常见的设计模式？"><a href="#熟悉哪些常见的设计模式？" class="headerlink" title="熟悉哪些常见的设计模式？"></a>熟悉哪些常见的设计模式？</h2><ul>
+<li>常见的工厂模式、代理模式、模板方法模式、责任链模式、单例模式、包装设计模式、策略模式等都是有所了解的</li>
+<li>项目手写代码用得比较多的，一般就模板方法模式、责任链模式、策略模式、单例模式吧</li>
+<li>像工厂模式、代理模式这种，手写倒是不多，但毕竟Java后端一般环境下都用Spring嘛，所以还是比较熟悉的</li>
+</ul>
+<h2 id="手写单例模式"><a href="#手写单例模式" class="headerlink" title="手写单例模式"></a>手写单例模式</h2><ul>
+<li>单例模式一般会有好几种写法<ul>
+<li>饿汉式、简单懒汉式（在方法声明时加锁）、DCL双重检验加锁（进阶懒汉式）、静态内部类（优雅懒汉式）、枚举</li>
+<li>所谓「饿汉式」指的就是还没被用到，就直接初始化了对象。所谓「懒汉式」指的就是等用到的时候，才进行初始化</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//DCL懒汉式</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Singleton1</span> &#123;</span><br><span class="line">    <span class="comment">//第一次减少锁的开销、第二次防止重复、volatile防止重排序导致实例化未完成</span></span><br><span class="line">    <span class="keyword">private</span> <span class="title function_">Singleton1</span><span class="params">()</span>&#123;&#125;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">volatile</span> <span class="keyword">static</span> Singleton1 singleton;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Singleton1 <span class="title function_">getInstance</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(singleton == <span class="literal">null</span>)&#123; <span class="comment">//线程1，2，3到达这里</span></span><br><span class="line">            <span class="keyword">synchronized</span> (Singleton1.class)&#123;<span class="comment">//线程1到这里开始继续往下执行，线程2，3等待</span></span><br><span class="line">                <span class="keyword">if</span>(singleton == <span class="literal">null</span>)&#123;<span class="comment">//线程1到这里发现instance为空，继续执行if代码块</span></span><br><span class="line">                    <span class="comment">//执行晚后退出同步区域，然后线程2进入同步代码块，如果在这里不再加一次判断</span></span><br><span class="line">                    <span class="comment">//就会造成instance再次实例化</span></span><br><span class="line">                    singleton = <span class="keyword">new</span> <span class="title class_">Singleton1</span>();</span><br><span class="line">                    <span class="comment">//new Singleton1();可以分解为3行伪代码</span></span><br><span class="line">                    <span class="comment">//1、memory = allocate() //分配内存</span></span><br><span class="line">                    <span class="comment">//2、ctorInstanc(memory) //初始化对象</span></span><br><span class="line">                    <span class="comment">//3.调用构造函数，</span></span><br><span class="line">                    <span class="comment">//4.返回地址给引用。而cpu为了优化程序，可能会进行指令重排序，打乱这3，4这几个步骤，导致实例内存还没分配，就被使用了。</span></span><br><span class="line">                    <span class="comment">//线程A和线程B举例。线程A执行到new Singleton()，开始初始化实例对象，由于存在指令重排序，这次new操作，先把引用赋值了，还没有执行构造函数。</span></span><br><span class="line">                    <span class="comment">//这时时间片结束了，切换到线程B执行，线程B调用new Singleton()方法，发现引用不等于null，就直接返回引用地址了，然后线程B执行了一些操作，就可能导致线程B使用了还没有被初始化的变量。</span></span><br><span class="line">                    <span class="comment">//volatile防止重排序导致实例化未完成，就将对象赋值使用</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> singleton;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//静态内部类 懒汉式</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Singleton2</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="title function_">Singleton2</span><span class="params">()</span> &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">class</span> <span class="title class_">SingletonHolder</span> &#123;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">static</span> <span class="type">Singleton2</span> <span class="variable">INSTANCE</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Singleton2</span>();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Singleton2 <span class="title function_">getInstance</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> SingletonHolder.INSTANCE;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//枚举</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Singleton3</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="title function_">Singleton3</span><span class="params">()</span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 枚举类型是线程安全的，并且只会装载一次</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">enum</span> <span class="title class_">Singleton</span>&#123;</span><br><span class="line">        INSTANCE;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">final</span> Singleton3 instance;</span><br><span class="line"></span><br><span class="line">        Singleton()&#123;</span><br><span class="line">            instance = <span class="keyword">new</span> <span class="title class_">Singleton3</span>();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">private</span> Singleton3 <span class="title function_">getInstance</span><span class="params">()</span>&#123;</span><br><span class="line">            <span class="keyword">return</span> instance;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Singleton3 <span class="title function_">getInstance</span><span class="params">()</span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> Singleton.INSTANCE.getInstance();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//枚举</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Singleton4</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="title function_">Singleton4</span><span class="params">()</span>&#123;&#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">enum</span> <span class="title class_">SingletonEnum</span> &#123;</span><br><span class="line">        SINGLETON;</span><br><span class="line">        <span class="keyword">private</span> <span class="type">Singleton4</span> <span class="variable">instance</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">        SingletonEnum()&#123;</span><br><span class="line">            instance = <span class="keyword">new</span> <span class="title class_">Singleton4</span>();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">public</span> Singleton4 <span class="title function_">getInstance</span><span class="params">()</span>&#123;</span><br><span class="line">            <span class="keyword">return</span> instance;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Singleton4 <span class="title function_">getInstance</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> SingletonEnum.SINGLETON.getInstance();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="那你们用的哪种比较多？"><a href="#那你们用的哪种比较多？" class="headerlink" title="那你们用的哪种比较多？"></a>那你们用的哪种比较多？</h2><ul>
+<li>一般我们项目里用静态内部类的方式实现单例会比较多（如果没有Springl的环境下），代码简洁易读</li>
+<li>如果有Spring环境，那还是直接交由Spring容器管理会比较方便（Spring默认就是单例的）</li>
+<li>枚举一般我们就用它来做「标识」吧，而DCL这种方式也有同学会在项目里写（在一些源码里也能看到其身影），但总体太不利于阅读和理解</li>
+<li>总的来说，用哪一种都可以的，关键我觉得要看团队的代码风格吧（保持一致就行），即便都用「饿汉式」也没啥大的问题（现在内存也没那么稀缺，我认为可读性比较重要）</li>
+</ul>
+<h2 id="我看你在DCL的单例代码上，写了volatile修饰嘛？为什么呢？"><a href="#我看你在DCL的单例代码上，写了volatile修饰嘛？为什么呢？" class="headerlink" title="我看你在DCL的单例代码上，写了volatile修饰嘛？为什么呢？"></a>我看你在DCL的单例代码上，写了volatile修饰嘛？为什么呢？</h2><ul>
+<li>指令是有可能乱序执行的（编译器优化导致乱序、CPU缓存架构导致乱序、CPU原生重排导致乱序）</li>
+<li>在代码new Object的时候，不是一条原子的指令，它会由几个步骤组成，在这过程中，就可能会发生指令重排的问题，而volatile这个关键字就可以避免指令重排的发生。</li>
+</ul>
+<h2 id="那你说下你在项目里用到的设计模式吧？"><a href="#那你说下你在项目里用到的设计模式吧？" class="headerlink" title="那你说下你在项目里用到的设计模式吧？"></a>那你说下你在项目里用到的设计模式吧？</h2><ul>
+<li><p>嗯，比如说，我这边在处理请求的时候，会用到责任链模式进行处理（减免if else并且让项目结构更加清晰）</p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/X77vb4_20211230110546.png"></p>
+<ul>
+<li>在处理公共逻辑时，会使用模板方法模式进行抽象，具体不同的逻辑会由不同的实现类处理（每种消息发送前都需要经过文案校验，所以可以把文案校验的逻辑写在抽象类上）</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/wEKBZr_20211230110629.png"></p>
+</li>
+<li><p>代理模式手写的机会比较少（因为项目一般有Spring：环境，直接用Spring的AOP代理就好了）</p>
+<ul>
+<li><p>我之前使用过AOP把「监控客户端」封装以「注解」的方式进行使用（不用以硬编码的方式来进行监控，只要有注解就行）</p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/gF5mCF_20211230110735.png"></p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="那你能聊聊Spring使用到的常见设计模嘛？"><a href="#那你能聊聊Spring使用到的常见设计模嘛？" class="headerlink" title="那你能聊聊Spring使用到的常见设计模嘛？"></a>那你能聊聊Spring使用到的常见设计模嘛？</h2><ul>
+<li>比如，Spring IOC容器可以理解为应用了「工厂模式」（通过ApplicationContext或者BeanFactory去获取对象）</li>
+<li>Spring的对象默认都是单例的，所以肯定是用了「单例模式」（源码里对单例的实现是用的DCL来实现单例）</li>
+<li>Spring AOP的底层原理就是用了「代理模式」，实现可能是JDK动态代理，也可能是CGLIB动态代理</li>
+<li>Spring有很多地方都用了「模板方法模式」，比如事务管理器（AbstractPlatformTransactionManager),getTransaction定义了框架，其中很多都由子类实现</li>
+<li>Spring的事件驱动模型用了「观察者模式」，具体实现就是ApplicationContextEvent、ApplicationListener</li>
+</ul>
 
       
     </div>
