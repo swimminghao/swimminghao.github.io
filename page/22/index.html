@@ -276,688 +276,6 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/759e745e/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/lion.png">
-      <meta itemprop="name" content="swimminghao">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="swimminghao's blog">
-      <meta itemprop="description" content="swimminghao的学习博客">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | swimminghao's blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/759e745e/" class="post-title-link" itemprop="url">6、【对线面试官】CAS</a>
-        </h2>
-
-        <div class="post-meta-container">
-
-          
-
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2025-02-13 16:20:39" itemprop="dateModified" datetime="2025-02-13T16:20:39+08:00">2025-02-13</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="far fa-comment"></i>
-    </span>
-    <span class="post-meta-item-text">Waline：</span>
-  
-    <a title="waline" href="/posts/759e745e/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/759e745e/" data-xid="/posts/759e745e/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>1k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>1 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="6、【对线面试官】CAS"><a href="#6、【对线面试官】CAS" class="headerlink" title="6、【对线面试官】CAS"></a>6、【对线面试官】CAS</h1><h2 id="今天我们来聊聊CAS吧？你对CAS了解多少？"><a href="#今天我们来聊聊CAS吧？你对CAS了解多少？" class="headerlink" title="今天我们来聊聊CAS吧？你对CAS了解多少？"></a>今天我们来聊聊CAS吧？你对CAS了解多少？</h2><ol>
-<li>CAS的全称为compare and swap，比较并交换</li>
-<li>虽然翻译过来是「比较并交换」，但它是一个原子性的操作，对应到CPU指令为cmpxchg</li>
-<li>cpu指令你都知道？-&gt;这没什么，都是背的。</li>
-<li>回到CAS上吧，CAS的操作其实非常简单。</li>
-<li>CAS有三个操作数：当前值A、内存值V、要修改的新值B</li>
-<li>假设当前值A跟内存值V相等，那就将内存值V改成B</li>
-<li>假设当前值A跟内存值V不相等，要么就重试，要么就放弃更新</li>
-<li>将当前值与内存值进行对比，判断是否有被修改过，这就是CAS的核心</li>
-</ol>
-<h2 id="确实，那为什么要用CAS呢？"><a href="#确实，那为什么要用CAS呢？" class="headerlink" title="确实，那为什么要用CAS呢？"></a>确实，那为什么要用CAS呢？</h2><ol>
-<li>嗯，要讲到CAS就不得不说synchronized锁了，它是Java锁..然后..</li>
-<li>ok，其实就是synchronized锁每次只会让一个线程去操作共享资源</li>
-<li>而CAS相当于没有加锁，多个线程都可以直接操作共享资源，在实际去修改的时候才去判断能否修改成功</li>
-<li>在很多的情况下会synchronized锁要高效很多</li>
-<li>比如，对一个值进行累加，就没必要使用synchronized锁，使用juc包下的Atomic类就足以。</li>
-</ol>
-<h2 id="了解，那你知道CAS会有什么缺点吗？"><a href="#了解，那你知道CAS会有什么缺点吗？" class="headerlink" title="了解，那你知道CAS会有什么缺点吗？"></a>了解，那你知道CAS会有什么缺点吗？</h2><ol>
-<li>CAS有个缺点就是会带来ABA的问题</li>
-<li>从CAS更新的时候，我们可以发现它只比对当前值和内存值是否相等，这会带来个问题，下面我举例说明下：</li>
-<li>假设线程A读到当前值是10，可能线程B把值修改为100，然后线程C又把值修改为10。</li>
-<li>等到线程A拿到执行权时，因为当前值和内存值是一致的，线程A是可以修改的！</li>
-<li>站在线程A的角度来说，这个值是从未被修改的（：</li>
-<li>这是不合理的，因为我们从上帝的角度来看，这个变量已经被线程B和线程C修改过了。</li>
-<li>这就是所谓的ABA问题</li>
-<li>要解决ABA的问题，Java也提供了AtomicStampedReference类供我们用，说白了就是加了个版本，比对的就是内存值+版本是否一致</li>
-</ol>
-<h2 id="阿里巴巴开发手册提及到推荐使用LongAdder对象，比AtomicLong性能更好（减少乐观锁的重试次数）"><a href="#阿里巴巴开发手册提及到推荐使用LongAdder对象，比AtomicLong性能更好（减少乐观锁的重试次数）" class="headerlink" title="阿里巴巴开发手册提及到推荐使用LongAdder对象，比AtomicLong性能更好（减少乐观锁的重试次数）"></a>阿里巴巴开发手册提及到推荐使用LongAdder对象，比AtomicLong性能更好（减少乐观锁的重试次数）</h2><ol>
-<li>AtomicLong做累加的时候实际上就是多个线程操作同一个目标资源</li>
-<li>在高并发时，只有一个线程是执行成功的，其他的线程都会失败，不断自旋（重试），自旋会成为瓶颈</li>
-<li>而LongAdder的思想就是把要操作的目标资源「分散」到数组Cell中</li>
-<li>每个线程对自己的Cell变量的value进行原子操作，大大降低了失败的次数</li>
-<li>这就是为什么在高并发场景下，推荐使用LongAdder的原因</li>
-</ol>
-
-      
-    </div>
-
-    
-    
-    
-
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>l
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/844cde9b/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/lion.png">
-      <meta itemprop="name" content="swimminghao">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="swimminghao's blog">
-      <meta itemprop="description" content="swimminghao的学习博客">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | swimminghao's blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/844cde9b/" class="post-title-link" itemprop="url">7、【对线面试官】synchronized</a>
-        </h2>
-
-        <div class="post-meta-container">
-
-          
-
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2025-02-13 16:20:39" itemprop="dateModified" datetime="2025-02-13T16:20:39+08:00">2025-02-13</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="far fa-comment"></i>
-    </span>
-    <span class="post-meta-item-text">Waline：</span>
-  
-    <a title="waline" href="/posts/844cde9b/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/844cde9b/" data-xid="/posts/844cde9b/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>1.5k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>1 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="7、【对线面试官】synchronized"><a href="#7、【对线面试官】synchronized" class="headerlink" title="7、【对线面试官】synchronized"></a>7、【对线面试官】synchronized</h1><h2 id="今天我们来聊聊synchronized吧？"><a href="#今天我们来聊聊synchronized吧？" class="headerlink" title="今天我们来聊聊synchronized吧？"></a>今天我们来聊聊synchronized吧？</h2><ol>
-<li>synchronized是一种互斥锁，一次只能允许一个线程进入被锁住的代码块</li>
-<li>synchronized是Java的一个关键字，它能够将代码块&#x2F;方法锁起来</li>
-<li>如果synchronized修饰的是实例方法，对应的锁则是对象实例</li>
-<li>如果synchronized修饰的是静态方法，对应的锁则是当前类的Class实例</li>
-<li>如果synchronized修饰的是代码块，对应的锁则是传入synchronized的对象实例</li>
-</ol>
-<h2 id="嗯，要不你来讲讲synchronized的原理呗？"><a href="#嗯，要不你来讲讲synchronized的原理呗？" class="headerlink" title="嗯，要不你来讲讲synchronized的原理呗？"></a>嗯，要不你来讲讲synchronized的原理呗？</h2><ol>
-<li>通过反编译可以发现</li>
-<li>当修饰方法时，编译器会生成ACC_SYNCHRONIZED关键字用来标识</li>
-<li>当修饰代码块时，会依赖monitorenter和monitorexit指令</li>
-<li>但前面已经说了，无论synchronized修饰的是方法还是代码块，对应的锁都是一个实例（对象）</li>
-<li>在内存中，对象一般由三部分组成，分别是对象头、对象实际数据和对齐填充</li>
-<li>重点在于对象头，对象头又由几部分组成，但我们重点关注对象头Mark Word的信息就好了</li>
-<li>Mark Word会记录对象关于锁的信息</li>
-<li>又因为每个对象都会有一个与之对应的monitor对象，monitor对象中存储着当前持有锁的线程以及等待锁的线程队列</li>
-<li>了解Mark Word和monitor对象是理解synchronized原理的前提</li>
-</ol>
-<h2 id="嗯，听说synchronized锁在JDK1-6之后做了很多的优化，这块你了解多少呢？"><a href="#嗯，听说synchronized锁在JDK1-6之后做了很多的优化，这块你了解多少呢？" class="headerlink" title="嗯，听说synchronized锁在JDK1.6之后做了很多的优化，这块你了解多少呢？"></a>嗯，听说synchronized锁在JDK1.6之后做了很多的优化，这块你了解多少呢？</h2><ol>
-<li>其实是这样的，在JDK1.6之前是重量级锁，线程进入同步代码块&#x2F;方法时</li>
-<li>monitor对象就会把当前进入线程的Id进行存储，设置Mark Word的monitor对象地址，并把阻塞的线程存储到monitor的等待线程队列中</li>
-<li>它加锁是依赖底层操作系统的mutex相关指令实现，所以会有用户态和内核态之间的切换，性能损耗十分明显</li>
-<li>而JDK1.6以后引入偏向锁和轻量级锁在JVM层面实现加锁的逻辑，不依赖底层操作系统，就没有切换的消耗</li>
-<li>所以，Mark Word对锁的状态记录一共有4种：无锁、偏向锁、轻量级锁和重量级锁</li>
-</ol>
-<h3 id="简单来说说偏向锁、轻量级锁和重量级锁吧"><a href="#简单来说说偏向锁、轻量级锁和重量级锁吧" class="headerlink" title="简单来说说偏向锁、轻量级锁和重量级锁吧"></a>简单来说说偏向锁、轻量级锁和重量级锁吧</h3><ol>
-<li>偏向锁指的就是JVM会认为只有某个线程才会执行同步代码（没有竞争的环境）</li>
-<li>所以在Mark Word会直接记录线程ID，只要线程来执行代码了，会比对线程ID是否相等，相等则当前线程能直接获取得到锁，执行同步代码</li>
-<li>如果不相等，则用CAS来尝试修改当前的线程ID，如果CAS修改成功，那还是能获取得到锁，执行同步代码</li>
-<li>如果CAS失败了，说明有竞争环境，此时会对偏向锁撤销，升级为轻量级锁。</li>
-<li>在轻量级锁状态下，当前线程会在栈帧下创建Lock Record，LockRecord会把 Mark Word的信息拷贝进去，且有个Owner指针指向加锁的对象由由</li>
-<li>线程执行到同步代码时，则用CAS试图将Mark Word的指向到线程栈帧的LockRecord，假设CAS修改成功，则获取得到轻量级锁</li>
-<li>假设修改失败，则自旋（重试），自旋一定次数后，则升级为重量级锁</li>
-<li>简单总结一下<ul>
-<li>synchronized锁原来只有重量级锁，依赖操作系统的mutex指令，需要用户态和内核态切换，性能损耗十分明显</li>
-<li>重量级锁用到monitor对象而偏向锁则在Mark Word记录线程ID进行比对、轻量级锁则是拷贝Mark Word到Lock Record，用CAS+自旋的方式获取。</li>
-</ul>
-</li>
-<li>引入了偏向锁和轻量级锁，就是为了在不同的使用场景使用不同的锁，进而提高效率。<br>锁只有升级，没有降级<ul>
-<li>只有一个线程进入临界区，偏向锁</li>
-<li>多个线程交替进入临界区，轻量级锁</li>
-<li>多线程同时进入临界区，重量级锁</li>
-</ul>
-</li>
-</ol>
-
-      
-    </div>
-
-    
-    
-    
-
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>l
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/3c567306/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/lion.png">
-      <meta itemprop="name" content="swimminghao">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="swimminghao's blog">
-      <meta itemprop="description" content="swimminghao的学习博客">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | swimminghao's blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/3c567306/" class="post-title-link" itemprop="url">8、【对线面试官】AQS & ReentrantLock</a>
-        </h2>
-
-        <div class="post-meta-container">
-
-          
-
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2025-02-13 16:20:39" itemprop="dateModified" datetime="2025-02-13T16:20:39+08:00">2025-02-13</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="far fa-comment"></i>
-    </span>
-    <span class="post-meta-item-text">Waline：</span>
-  
-    <a title="waline" href="/posts/3c567306/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/3c567306/" data-xid="/posts/3c567306/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>2.4k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>2 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="8、【对线面试官】AQS-amp-ReentrantLock"><a href="#8、【对线面试官】AQS-amp-ReentrantLock" class="headerlink" title="8、【对线面试官】AQS &amp; ReentrantLock"></a>8、【对线面试官】AQS &amp; ReentrantLock</h1><h2 id="今天我们来聊聊lock锁吧？"><a href="#今天我们来聊聊lock锁吧？" class="headerlink" title="今天我们来聊聊lock锁吧？"></a>今天我们来聊聊lock锁吧？</h2><h2 id="你知道什么叫做公平和非公平锁吗"><a href="#你知道什么叫做公平和非公平锁吗" class="headerlink" title="你知道什么叫做公平和非公平锁吗"></a>你知道什么叫做公平和非公平锁吗</h2><ol>
-<li>公平锁指的就是：在竞争环境下，先到临界区的线程比后到的线程一定更快地获取得到锁</li>
-<li>那非公平就很好理解了：先到临界区的线程未必比后到的线程更快地获取得到锁</li>
-</ol>
-<h2 id="如果让你实现的话，你怎么实现公平和非公平锁？"><a href="#如果让你实现的话，你怎么实现公平和非公平锁？" class="headerlink" title="如果让你实现的话，你怎么实现公平和非公平锁？"></a>如果让你实现的话，你怎么实现公平和非公平锁？</h2><ol>
-<li>公平锁可以把竞争的线程放在一个先进先出的队列上</li>
-<li>只要持有锁的线程执行完了，唤醒队列的下一个线程去获取锁就好了</li>
-<li>非公平锁的概念上面已经提到了：后到的线程可能比前到临界区的线程获取得到锁</li>
-<li>那实现也很简单，线程先尝试能不能获取得到锁，如果获取得到锁了就执行同步代码了</li>
-<li>如果获取不到锁，那就再把这个线程放到队列呗</li>
-<li>所以公平和非公平的区别就是：线程执行同步代码块时，是否会去尝试获取锁。</li>
-<li>如果会尝试获取锁，那就是非公平的。如果不会尝试获取锁，直接进队列，再等待唤醒，那就是公平的。</li>
-</ol>
-<h2 id="为什么要进队列呢？线程一直尝试获取锁不就行了么？"><a href="#为什么要进队列呢？线程一直尝试获取锁不就行了么？" class="headerlink" title="为什么要进队列呢？线程一直尝试获取锁不就行了么？"></a>为什么要进队列呢？线程一直尝试获取锁不就行了么？</h2><ol>
-<li>一直尝试获取锁，专业点就叫做自旋，需要耗费资源的。</li>
-<li>多个线程一直在自旋，而且大多数都是竞争失败的，哪有人会这样实现的</li>
-<li>不会吧，不会吧，你不会就是这样实现的吧</li>
-</ol>
-<h2 id="那上次面试所问的synchronized锁是公平的还是非公平的？"><a href="#那上次面试所问的synchronized锁是公平的还是非公平的？" class="headerlink" title="那上次面试所问的synchronized锁是公平的还是非公平的？"></a>那上次面试所问的synchronized锁是公平的还是非公平的？</h2><ol>
-<li>非公平的。</li>
-<li>偏向锁很好理解，如果当前线程ID与markword存储的不相等，则CAS尝试更换线程ID，CAS成功就获取得到锁了</li>
-<li>CAS失败则升级为轻量级锁</li>
-<li>轻量级锁实际上也是通过CAS来抢占锁资源（只不过多了拷贝Mark Word到Lock Record的过程）</li>
-<li>抢占成功到锁就归属给该线程了，但自旋失败一定次数后升级重量级锁</li>
-<li>重量级锁通过monitor对象中的队列存储线程，但线程进入队列前，还是会先尝试获取得到锁，如果能获取不到才进入线程等待队列中</li>
-<li>综上所述，synchronized无论处理哪种锁，都是先尝试获取，获取不到才升级||放到队列上的，所以是非公平的</li>
-</ol>
-<h2 id="嗯，讲得挺仔细的。AQS你了解吗？"><a href="#嗯，讲得挺仔细的。AQS你了解吗？" class="headerlink" title="嗯，讲得挺仔细的。AQS你了解吗？"></a>嗯，讲得挺仔细的。AQS你了解吗？</h2><ol>
-<li>嗯嗯，AQS全称叫做AbstractQueuedSynchronizer</li>
-<li>是可以给我们实现锁的一个 「框架」，内部实现的关键就是维护了一个先进先出的队列以及state状态变量</li>
-<li>先进先出队列存储的载体叫做Node节点，该节点标识着当前的状态值、是独占还是共享模式以及它的前驱和后继节点等等信息</li>
-<li>简单理解就是：AQS定义了模板，具体实现由各个子类完成。</li>
-<li>总体的流程可以总结为：会把需要等待的线程以Node的形式放到这个先进先出的队列上，state变量则表示为当前锁的状态。</li>
-<li>像ReentrantLock、 ReentrantReadWrite Lock、 CountDownLatch、 Semaphore 这些常用的实现类都是基于AQS实现的</li>
-<li>AQS支持两种模式：独占（锁只会被一个线程独占）和共享（多个线程可同时执行）</li>
-</ol>
-<h2 id="你以ReentrantLock来讲讲加锁和解锁的过程呗"><a href="#你以ReentrantLock来讲讲加锁和解锁的过程呗" class="headerlink" title="你以ReentrantLock来讲讲加锁和解锁的过程呗"></a>你以ReentrantLock来讲讲加锁和解锁的过程呗</h2><ul>
-<li>以非公平锁为了，我们在外界调用lock方法的时候，源码是这样实现的<ol>
-<li>CAS尝试获取锁，获取成功则可以执行同步代码</li>
-<li>CAS获取失败，则调用acquire方法acquire方法实际上就是AQS的模板方法</li>
-<li>acquire首先会调用子类的tryAcquire 方法（又回到了ReentrantLock中）</li>
-<li>tryAcquire方法实际上会判断当前的state是否等于0，等于0说明没有线程持有锁，则又尝试CAS直接获取锁</li>
-<li>如果CAS获取成功，则可以执行同步代码</li>
-<li>如果CAS获取失败，那判断当前线程是否就持有锁，如果是持有的锁，那更新state的值，获取得到锁（这里其实就是处理可重入的逻辑）</li>
-<li>CAS失败&amp;&amp;非重入的情况，则回到try Acquire方法执行「入队列」的操作</li>
-<li>将节点入队列之后，会判断「前驱节点」是不是头节点，如果是头结点又会用CAS尝试获取锁</li>
-<li>如果是「前驱节点」是头节点并获取得到锁，则把当前节点设置为头结点，并且将前驱节点置空（实际上就是原有的头节点已经释放锁了）</li>
-<li>没获取得到锁，则判断前驱节点的状态是否为SIGNAL，如果不是，则找到合法的前驱节点，并使用CAS将状态设置为SIGNAL</li>
-<li>最后调用park将当前线程挂起</li>
-</ol>
-</li>
-</ul>
-<h2 id="你说了一大堆，麻烦使用压缩算法压缩下加锁的过程。"><a href="#你说了一大堆，麻烦使用压缩算法压缩下加锁的过程。" class="headerlink" title="你说了一大堆，麻烦使用压缩算法压缩下加锁的过程。"></a>你说了一大堆，麻烦使用压缩算法压缩下加锁的过程。</h2><p>压缩后：当线程CAS获取锁失败，将当前线程入队列，把前驱节点状态设置为SIGNAL状态，并将自己挂起。</p>
-<h2 id="为什么要设置前驱节点为-SIGNAL状态，有啥用？"><a href="#为什么要设置前驱节点为-SIGNAL状态，有啥用？" class="headerlink" title="为什么要设置前驱节点为 SIGNAL状态，有啥用？"></a>为什么要设置前驱节点为 SIGNAL状态，有啥用？</h2><ol>
-<li>其实就是表示后继节点需要被唤醒,你咋啥都不知道啊？跟你沟通有点烦.我先把解锁的过程说下吧<ul>
-<li>外界调用unlock方法时，实际上会调用AQS的release方法，而release方法会调用子类tryRelease方法（又回到了ReentrantLock中）</li>
-<li>tryRelease会把state一直减（锁重入可使state&gt;1），直至到0，说明当前线程已经把锁释放了</li>
-<li>随后从队尾往前找节点状态需要&lt;0，并离头节点最近的节点进行唤醒</li>
-</ul>
-</li>
-<li>唤醒之后，被唤醒的线程则尝试使用CAS获取锁，假设获取锁得到则把头节点给干掉，把自己设置为头节点成</li>
-<li>解锁的逻辑非常简单哈</li>
-<li>压缩一下：把state置0，唤醒头结点下一个合法的节点，被唤醒的节点线程自然就会去获取锁</li>
-<li>回到上一个问题，为什么要设置前驱节点为SIGNAL状态</li>
-<li>其实归终结底就是为了判断节点的状态，去做些处理。</li>
-<li>Node中节点的状态有4种，分别是：CA NCELLED(1)、 SIGNAL(-1)、 CONDITI ON（-2）、 PROPAGATE（-3）和0。</li>
-<li>在ReentrantLock解锁的时候，会判断节点的状态是否小于0，小于等于0才说明需要被唤醒</li>
-<li>另外一提的是：公平锁的实现与非公平锁是很像的，只不过在获取锁时不会直接尝试使用CAS来获取锁。</li>
-<li>只有当队列没节点并且state为0时才会去获取锁，不然都会把当前线程放到队列中</li>
-</ol>
-<h2 id="流程图"><a href="#流程图" class="headerlink" title="流程图"></a>流程图</h2><p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/eK7qe3_20211027174549.png"></p>
-
-      
-    </div>
-
-    
-    
-    
-
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>l
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/ac3dc3bf/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/lion.png">
-      <meta itemprop="name" content="swimminghao">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="swimminghao's blog">
-      <meta itemprop="description" content="swimminghao的学习博客">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | swimminghao's blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/ac3dc3bf/" class="post-title-link" itemprop="url">9、【对线面试官】线程池</a>
-        </h2>
-
-        <div class="post-meta-container">
-
-          
-
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2025-02-13 16:20:39" itemprop="dateModified" datetime="2025-02-13T16:20:39+08:00">2025-02-13</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="far fa-comment"></i>
-    </span>
-    <span class="post-meta-item-text">Waline：</span>
-  
-    <a title="waline" href="/posts/ac3dc3bf/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/ac3dc3bf/" data-xid="/posts/ac3dc3bf/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>1.6k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>1 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="9、【对线面试官】线程池"><a href="#9、【对线面试官】线程池" class="headerlink" title="9、【对线面试官】线程池"></a>9、【对线面试官】线程池</h1><h2 id="今天来聊聊线程池呗，你对Java线程池了解多少？"><a href="#今天来聊聊线程池呗，你对Java线程池了解多少？" class="headerlink" title="今天来聊聊线程池呗，你对Java线程池了解多少？"></a>今天来聊聊线程池呗，你对Java线程池了解多少？</h2><h2 id="或者换个问法：为什么需要线程池？"><a href="#或者换个问法：为什么需要线程池？" class="headerlink" title="或者换个问法：为什么需要线程池？"></a>或者换个问法：为什么需要线程池？</h2><ol>
-<li>JVM在HotSpot的线程模型下，Java线程会一对一映射为内核线程</li>
-<li>这意味着，在Java中每次创建以及回收线程都会去内核创建以及回收</li>
-<li>这就有可能导致：创建和销毁线程所花费的时间和资源可能比处理的任务花费的时间和资源要更多</li>
-<li>线程池的出现是为了提高线程的复用性以及固定线程的数量！！！</li>
-</ol>
-<h2 id="你在项目中用到了线程池吗？"><a href="#你在项目中用到了线程池吗？" class="headerlink" title="你在项目中用到了线程池吗？"></a>你在项目中用到了线程池吗？</h2><ol>
-<li>嗯，用到的。我先说下背景吧</li>
-<li>我所负责的项目是消息管理平台，提供其中一个功能就是：运营会圈定人群，然后群发消息</li>
-<li>主要流程大致就是：创建模板-》定时-》群发消息-》用户收到消息</li>
-<li>运营圈定的人群实际上在模板上只是一个ID，我这边要通过ID去获取到HDFS文件</li>
-<li>对HDFS文件进行遍历，然后继续往下发</li>
-<li>「接收到定时任务，再对HDFS进行遍历」这里的处理，我用的就是线程池处理</li>
-</ol>
-<h2 id="为什么选择用线程池呢？"><a href="#为什么选择用线程池呢？" class="headerlink" title="为什么选择用线程池呢？"></a>为什么选择用线程池呢？</h2><ol>
-<li>HDFS遍历其实就是IO的操作，我把这个过程给异步化，为了提高系统的吞吐量，于是我这里用的线程池。</li>
-<li>即便遍历HDFS出现问题，我这边都有完备的监控和告警可以及时发现。</li>
-</ol>
-<h2 id="那你是怎么用线程池的呢？用Executors去创建的吗？"><a href="#那你是怎么用线程池的呢？用Executors去创建的吗？" class="headerlink" title="那你是怎么用线程池的呢？用Executors去创建的吗？"></a>那你是怎么用线程池的呢？用Executors去创建的吗？</h2><ol>
-<li>不是的，我这边用的ThreadPoolExecutor去创建线程池</li>
-<li>其实看阿里巴巴开发手册就有提到，不要使用Executors去创建线程。</li>
-<li>最主要的目的就是：使用ThreadPoolExecutor创建的线程你是更能了解线程池运行的规则，避免资源耗尽的风险</li>
-<li>ThreadPoolExecutor在构造的时候有几个重要的参数，分别是：<br>corePoolSize （核心线程数量） 、maxim umPoolSize（最大线程数量）、keepAli veTime（线程空余时间） 、workQueue（阻塞队列）、handler（任务拒绝策略）</li>
-<li>这几个参数应该很好理解哈，我就说下任务提交的流程，分别对应着几个参数的作用吧。<ul>
-<li>首先会判断运行线程数是否小于corePoolSize，如果小于，则直接创建新的线程执行任务</li>
-<li>如果大于corePoolSize，判断workQueue阻塞队列是否已满，如果还没满，则将任务放到阻塞队列中</li>
-<li>如果workQueue阻塞队列已经满了，则判断当前线程数是否大于maximumPoolSize，如果没大于则创建新的线程执行任务</li>
-<li>如果大于maximumPoolSize，则执行任务拒绝策略（具体就是你自己实现的handler)</li>
-</ul>
-</li>
-<li>这里有个点需要注意下，就是workQueu e阻塞队列满了，但当前线程数小于maximumPoolSize，这时候会创建新的线程执行任务</li>
-<li>源码就是这样实现的</li>
-<li>不过一般我们都是将corePoolSize和maximumPoolSize设置相同数量</li>
-<li>keepAliveTime指的就是，当前运行的线程数大于核心线程数了，只要空闲时间达到了，就会对线程进行回收</li>
-</ol>
-<h2 id="那我再问一个问题，你创建线程池肯定会指定线程数的嘛，你这块是怎么考量的。"><a href="#那我再问一个问题，你创建线程池肯定会指定线程数的嘛，你这块是怎么考量的。" class="headerlink" title="那我再问一个问题，你创建线程池肯定会指定线程数的嘛，你这块是怎么考量的。"></a>那我再问一个问题，你创建线程池肯定会指定线程数的嘛，你这块是怎么考量的。</h2><ol>
-<li>线程池指定线程数这块，首先要考量自己的业务是什么样的</li>
-<li>是cpu密集型的还是io密集型的，假设运行应用的机器CPU核心数是N</li>
-<li>那cpu密集型的可以先给到N+1，io密集型的可以给到2N去试试</li>
-<li>上面这个只是一个常见的经验做法，具体究竟开多少线程，需要压测才能比较准确地定下来</li>
-<li>线程不是说越大越好，在之前的面试我也提到过，多线程是为了充分利用CPU的资源</li>
-<li>如果设置的线程过多，线程大量有上下文切换，这一部分也会带来系统的开销，这就得不偿失了</li>
-</ol>
-<h2 id="ThreadPoolExecutor你看过源码吗？"><a href="#ThreadPoolExecutor你看过源码吗？" class="headerlink" title="ThreadPoolExecutor你看过源码吗？"></a>ThreadPoolExecutor你看过源码吗？</h2><ol>
-<li>看过的，其实上面说的ThreadPoolExecutor几个参数，在源码的顶部注释都有</li>
-<li>在执行的时候，重点就在于它维护了一个ctl参数，这个ctl参数的用高3位表示线程池的状态，低29位来表示线程的数量</li>
-<li>里边用到了大量的位运算符操作，具体细节我就忘了，但是流程还是上面所讲的</li>
-</ol>
-
-      
-    </div>
-
-    
-    
-    
-
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>l
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://example.com/posts/eb551b6f/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1506,6 +824,302 @@
 <p>我回答这个问题仅仅只是因为关注动态里蹦出来了这个问题，而我正好以前在这个领域玩过一段时间，所以顺手答一下。我本人是原神和vtb领域的答主，对金融方面的流量不感兴趣，更何况还是知乎这种公认变现价值低的劣质流量。</p>
 <p>另外本人自前年底去年初住建部全国巡视指导发政策后就不再玩房了，不打广告不为自己引流（当然你可以去b站关注一下嘉然），也不接受网友任何投资与资金往来。答主绝不可能以任何形式问你要钱、拉你进任何形式的群聊、让你注册任何形式的账号等等。</p>
 <p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/oXAOjg_20220218115620.png" alt="img"><img src="https://pic3.zhimg.com/80/v2-dc62303b7e3ec727fb12e80bcb36d58d_1440w.jpg?source=1940ef5c" alt="img"></p>
+
+      
+    </div>
+
+    
+    
+    
+
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>l
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/ca06b5a9/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lion.png">
+      <meta itemprop="name" content="swimminghao">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="swimminghao's blog">
+      <meta itemprop="description" content="swimminghao的学习博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | swimminghao's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/ca06b5a9/" class="post-title-link" itemprop="url">问答系统总结1</a>
+        </h2>
+
+        <div class="post-meta-container">
+
+          
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2025-02-13 16:20:39" itemprop="dateModified" datetime="2025-02-13T16:20:39+08:00">2025-02-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">学习</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/posts/ca06b5a9/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/ca06b5a9/" data-xid="/posts/ca06b5a9/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>1.9k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>2 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="问答系统总结"><a href="#问答系统总结" class="headerlink" title="问答系统总结"></a>问答系统总结</h1><h2 id="1-开发工具GIt，idea"><a href="#1-开发工具GIt，idea" class="headerlink" title="1.开发工具GIt，idea"></a>1.开发工具GIt，idea</h2><ul>
+<li>我是把代码放到github上的，以便于代码版本管理，不能拷贝来拷贝去</li>
+<li>java语言&#x2F;规范最基础，要研究jvm，垃圾回收算法思路，根据什么样的规则，怎么回收申请的一些对象；参数可以配置，怎么配置，对应的后台运行又是怎么样的<h2 id="2-Spring-Boot，Velocity"><a href="#2-Spring-Boot，Velocity" class="headerlink" title="2.Spring Boot，Velocity"></a>2.Spring Boot，Velocity</h2></li>
+</ul>
+<ul>
+<li><p>spring框架：spring是怎么做的，view、controller、service是怎么连在一起的：spring是控制反转、依赖注入，解决了数据数据初始化一些问题，能够吧代码写得很简洁，然后脱颖而出，核心是怎么做的，数据初始化是怎么做的。面向切面的编程可以用在什么地方，spring的一般框架是mvc<br>：层是controller、中间层是service、底层是dao。为什么这么分？他比其他的区别是什么？对一些request包装了<br>   找spring一两点深入研究：我不仅仅是用了spring，我还研究了他某一个组件，他是怎么实现的？讲讲(闪光点）</p>
+</li>
+<li><p>velocity（模板语言）<br> 我用了velocity，我发现了velocity里的很多东西和我学的java、c++都是一样的，他这个框架他把一些公用的都提取出来，前面的spring boot是个java框架，为什么要用velocity，因为我要前后端分离，view和后面的数据要分离，data是怎么传过来的，怎么解析的，他支持什么东西？（不仅仅用了这个东西，还有思想，解耦）</p>
+<h2 id="3-mybatis"><a href="#3-mybatis" class="headerlink" title="3.mybatis"></a>3.mybatis</h2></li>
+<li><p>怎么把数据库的一些前后的读取给做了，怎么把xml里的多重条件，怎么做文法的解析，然后把这些条件给处理掉。</p>
+<h2 id="4-登录-x2F-注册"><a href="#4-登录-x2F-注册" class="headerlink" title="4.登录&#x2F;注册"></a>4.登录&#x2F;注册</h2></li>
+<li><p>网站安全（salt）：密码为什么加了一个salt就变得安全？</p>
+</li>
+<li><p>通过拦截器来实现的：拦截器的思想、框架，留好接口;拦截器实现登录注册：我在cookie里放了一个token，token怎么处理用户登录注册的：在用户登录注册的时候，会下发一个token，把token与用户信息关联起来，关联起来之后我为了优化token信息，把token放到数据库里（redis），设计一个分布式的统一登录系统，现在的互联网产品都是统一登录的，比如，登录qq之后，登录网页就不需要登录了，qq登录过的token直接注入到网页上去。这是个ssension共享问题：、</p>
+</li>
+<li><p>保证数据安全：验证（邮件激活）</p>
+<h2 id="5-前缀树"><a href="#5-前缀树" class="headerlink" title="5.前缀树"></a>5.前缀树</h2></li>
+<li><p>构造一个前缀树，通过一个有限状态机来实现一传文本是不是包含敏感词，繁杂度是多少 很重要：优点有哪些？为什么不用kmp，文本查找算法：<br>可以很快的加一些词汇过来；有扩展性，以及性能更提高</p>
+<h2 id="6-redis"><a href="#6-redis" class="headerlink" title="6.redis"></a>6.redis</h2></li>
+<li><p>数据结构：跳列表，哈希，优先队列，list：我了解redis底层是怎么实现的，为什么他的效率很高，他的字符串是怎么保存的，做这个工程的时候我用在的异步队列上、排序上、异步框架</p>
+<h2 id="7-异步框架"><a href="#7-异步框架" class="headerlink" title="7.异步框架"></a>7.异步框架</h2></li>
+<li><p>思路：我这个网站附带的每一步操作可能附带的操作都非常多，为了更快的吧结果返回给用户，所以采用异步框架，自己写的，数据结构：使用redis的队列，因为redis能够保证线程同步；除了用队列，我还想过用有优先队列，这样我的异步框架能够把紧急的任务线处理掉。我这个异步框架：有消息的发射，消息的处理，事件的模型定义以及具体执行的eventhandle，我定义了一些公共接口把这些实现了。</p>
+<h2 id="8-邮件（smtp协议）"><a href="#8-邮件（smtp协议）" class="headerlink" title="8.邮件（smtp协议）"></a>8.邮件（smtp协议）</h2></li>
+<li><p>做了一个简单邮件，怎么连接上服务器，我当时做这个的时候，ssl问题<br>，ssl理解，服务器需要ssl链接，为了安全服务器是怎么做的；java sdk 1.7 1.8的问题，1.8是需要换一个jar包的</p>
+</li>
+<li><p>豆瓣电影排序：好的问题能挑选出来，互动越多，时间越新，评分越高。</p>
+<h2 id="9-timeline（时间轴）"><a href="#9-timeline（时间轴）" class="headerlink" title="9.timeline（时间轴）"></a>9.timeline（时间轴）</h2></li>
+<li><p>肯定会问：为什么用推拉模式，用推实时性高能让好友快速得到消息，用拉能节省僵尸号、不是活跃用户的存储空间。怎么区分？最后把timeline组合起来‘timeline模板系统，每个新鲜事展向不一样，和velocity结合起来，后台存储的都是核心数据，每个数据对应的是一个模板，我把模板结合起来，我就能快速的把时间轴展示出来。</p>
+<h2 id="10-爬虫"><a href="#10-爬虫" class="headerlink" title="10.爬虫"></a>10.爬虫</h2><h2 id="11-solr搜索"><a href="#11-solr搜索" class="headerlink" title="11.solr搜索"></a>11.solr搜索</h2></li>
+<li><p>搜索去重：对比相似度，敏感哈希算法，哈希算法：两个字符串稍微有一点点不一样，结构就是不一样的。可能头尾是不一样的，内容一样：采用敏感哈希算法把相似度求出来，区别：敏感哈希算法两个文档相似度很高，他生成的哈希值的比例是很相似的。</p>
+<h2 id="12-单元测试-x2F-部署"><a href="#12-单元测试-x2F-部署" class="headerlink" title="12.单元测试&#x2F;部署"></a>12.单元测试&#x2F;部署</h2></li>
+<li><p>部署：运维，llinux nigix反向代理，与正向对比。负载均衡：为什么要负载均衡。</p>
+</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>l
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/530fe413/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lion.png">
+      <meta itemprop="name" content="swimminghao">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="swimminghao's blog">
+      <meta itemprop="description" content="swimminghao的学习博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | swimminghao's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/530fe413/" class="post-title-link" itemprop="url">问答系统总结2</a>
+        </h2>
+
+        <div class="post-meta-container">
+
+          
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2025-02-13 16:20:39" itemprop="dateModified" datetime="2025-02-13T16:20:39+08:00">2025-02-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">学习</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/posts/530fe413/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/530fe413/" data-xid="/posts/530fe413/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>1.9k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>2 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="问答系统总结2"><a href="#问答系统总结2" class="headerlink" title="问答系统总结2"></a>问答系统总结2</h1><h2 id="1-开发工具GIt，idea"><a href="#1-开发工具GIt，idea" class="headerlink" title="1.开发工具GIt，idea"></a>1.开发工具GIt，idea</h2><ul>
+<li>我是把代码放到github上的，以便于代码版本管理，不能拷贝来拷贝去</li>
+<li>java语言&#x2F;规范最基础，要研究jvm，垃圾回收算法思路，根据什么样的规则，怎么回收申请的一些对象；参数可以配置，怎么配置，对应的后台运行又是怎么样的<h2 id="2-Spring-Boot，Velocity"><a href="#2-Spring-Boot，Velocity" class="headerlink" title="2.Spring Boot，Velocity"></a>2.Spring Boot，Velocity</h2></li>
+<li>spring框架：spring是怎么做的，view、controller、service是怎么连在一起的：spring是控制反转、依赖注入，解决了数据数据初始化一些问题，能够吧代码写得很简洁，然后脱颖而出，核心是怎么做的，数据初始化是怎么做的。面向切面的编程可以用在什么地方，spring的一般框架是mvc<br>：层是controller、中间层是service、底层是dao。为什么这么分？他比其他的区别是什么？对一些request包装了<br>   找spring一两点深入研究：我不仅仅是用了spring，我还研究了他某一个组件，他是怎么实现的？讲讲(闪光点）</li>
+<li>velocity（模板语言）<br> 我用了velocity，我发现了velocity里的很多东西和我学的java、c++都是一样的，他这个框架他把一些公用的都提取出来，前面的spring boot是个java框架，为什么要用velocity，因为我要前后端分离，view和后面的数据要分离，data是怎么传过来的，怎么解析的，他支持什么东西？（不仅仅用了这个东西，还有思想，解耦）<h2 id="3-mybatis"><a href="#3-mybatis" class="headerlink" title="3.mybatis"></a>3.mybatis</h2></li>
+<li>怎么把数据库的一些前后的读取给做了，怎么把xml里的多重条件，怎么做文法的解析，然后把这些条件给处理掉。<h2 id="4-登录-x2F-注册"><a href="#4-登录-x2F-注册" class="headerlink" title="4.登录&#x2F;注册"></a>4.登录&#x2F;注册</h2></li>
+<li>网站安全（salt）：密码为什么加了一个salt就变得安全？</li>
+<li>通过拦截器来实现的：拦截器的思想、框架，留好接口;拦截器实现登录注册：我在cookie里放了一个token，token怎么处理用户登录注册的：在用户登录注册的时候，会下发一个token，把token与用户信息关联起来，关联起来之后我为了优化token信息，把token放到数据库里（redis），设计一个分布式的统一登录系统，现在的互联网产品都是统一登录的，比如，登录qq之后，登录网页就不需要登录了，qq登录过的token直接注入到网页上去。这是个ssension共享问题：、</li>
+<li>保证数据安全：验证（邮件激活）<h2 id="5-前缀树"><a href="#5-前缀树" class="headerlink" title="5.前缀树"></a>5.前缀树</h2></li>
+<li>构造一个前缀树，通过一个有限状态机来实现一传文本是不是包含敏感词，繁杂度是多少 很重要：优点有哪些？为什么不用kmp，文本查找算法：<br>可以很快的加一些词汇过来；有扩展性，以及性能更提高<h2 id="6-redis"><a href="#6-redis" class="headerlink" title="6.redis"></a>6.redis</h2></li>
+<li>数据结构：跳列表，哈希，优先队列，list：我了解redis底层是怎么实现的，为什么他的效率很高，他的字符串是怎么保存的，做这个工程的时候我用在的异步队列上、排序上、异步框架<h2 id="7-异步框架"><a href="#7-异步框架" class="headerlink" title="7.异步框架"></a>7.异步框架</h2></li>
+</ul>
+<p>*思路：我这个网站附带的每一步操作可能附带的操作都非常多，为了更快的吧结果返回给用户，所以采用异步框架，自己写的，数据结构：使用redis的队列，因为redis能够保证线程同步；除了用队列，我还想过用有优先队列，这样我的异步框架能够把紧急的任务线处理掉。我这个异步框架：有消息的发射，消息的处理，事件的模型定义以及具体执行的eventhandle，我定义了一些公共接口把这些实现了。</p>
+<h2 id="8-邮件（smtp协议）"><a href="#8-邮件（smtp协议）" class="headerlink" title="8.邮件（smtp协议）"></a>8.邮件（smtp协议）</h2><ul>
+<li>做了一个简单邮件，怎么连接上服务器，我当时做这个的时候，ssl问题<br>，ssl理解，服务器需要ssl链接，为了安全服务器是怎么做的；java sdk 1.7 1.8的问题，1.8是需要换一个jar包的</li>
+<li>豆瓣电影排序：好的问题能挑选出来，互动越多，时间越新，评分越高。<h2 id="9-timeline（时间轴）"><a href="#9-timeline（时间轴）" class="headerlink" title="9.timeline（时间轴）"></a>9.timeline（时间轴）</h2></li>
+<li>肯定会问：为什么用推拉模式，用推实时性高能让好友快速得到消息，用拉能节省僵尸号、不是活跃用户的存储空间。怎么区分？最后把timeline组合起来‘timeline模板系统，每个新鲜事展向不一样，和velocity结合起来，后台存储的都是核心数据，每个数据对应的是一个模板，我把模板结合起来，我就能快速的把时间轴展示出来。<h2 id="10-爬虫"><a href="#10-爬虫" class="headerlink" title="10.爬虫"></a>10.爬虫</h2><h2 id="11-solr搜索"><a href="#11-solr搜索" class="headerlink" title="11.solr搜索"></a>11.solr搜索</h2></li>
+<li>搜索去重：对比相似度，敏感哈希算法，哈希算法：两个字符串稍微有一点点不一样，结构就是不一样的。可能头尾是不一样的，内容一样：采用敏感哈希算法把相似度求出来，区别：敏感哈希算法两个文档相似度很高，他生成的哈希值的比例是很相似的。<h2 id="12-单元测试-x2F-部署"><a href="#12-单元测试-x2F-部署" class="headerlink" title="12.单元测试&#x2F;部署"></a>12.单元测试&#x2F;部署</h2></li>
+<li>部署：运维，llinux nigix反向代理，与正向对比。负载均衡：为什么要负载均衡。</li>
+</ul>
 
       
     </div>
@@ -2165,6 +1779,296 @@
 <p>而 unstash changes会列表我们之前保存过的list</p>
 <p><img src="https://blog.csdn.net/anhenzhufeng/article/details/78052418" alt="img"></p>
 <p>可以很方便的恢复我们之前的保存的内容.</p>
+
+      
+    </div>
+
+    
+    
+    
+
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>l
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/1ed54b1d/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lion.png">
+      <meta itemprop="name" content="swimminghao">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="swimminghao's blog">
+      <meta itemprop="description" content="swimminghao的学习博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | swimminghao's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/1ed54b1d/" class="post-title-link" itemprop="url">git对比两个分支</a>
+        </h2>
+
+        <div class="post-meta-container">
+
+          
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2025-02-13 16:20:39" itemprop="dateModified" datetime="2025-02-13T16:20:39+08:00">2025-02-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/posts/1ed54b1d/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/1ed54b1d/" data-xid="/posts/1ed54b1d/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>477</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>1 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="git-对比两个分支差异"><a href="#git-对比两个分支差异" class="headerlink" title="git 对比两个分支差异"></a>git 对比两个分支差异</h1><h3 id="1-显示出branch1和branch2中差异的部分"><a href="#1-显示出branch1和branch2中差异的部分" class="headerlink" title="1. 显示出branch1和branch2中差异的部分"></a>1. 显示出branch1和branch2中差异的部分</h3>  <figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="keyword">diff </span><span class="keyword">branch1 </span><span class="keyword">branch2 </span>--stat</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-显示指定文件的详细差异"><a href="#2-显示指定文件的详细差异" class="headerlink" title="2. 显示指定文件的详细差异"></a>2. 显示指定文件的详细差异</h3>  <figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="keyword">diff </span><span class="keyword">branch1 </span><span class="keyword">branch2 </span>具体文件路径</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-显示出所有有差异的文件的详细差异"><a href="#3-显示出所有有差异的文件的详细差异" class="headerlink" title="3. 显示出所有有差异的文件的详细差异"></a>3. 显示出所有有差异的文件的详细差异</h3>  <figure class="highlight gcode"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git diff bra<span class="symbol">nch1</span> bra<span class="symbol">nch2</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="4-查看branch1分支有，而branch2中没有的log"><a href="#4-查看branch1分支有，而branch2中没有的log" class="headerlink" title="4. 查看branch1分支有，而branch2中没有的log"></a>4. 查看branch1分支有，而branch2中没有的log</h3>  <figure class="highlight gcode"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git log bra<span class="symbol">nch1</span> ^bra<span class="symbol">nch2</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="5-查看branch2中比branch1中多提交了哪些内容"><a href="#5-查看branch2中比branch1中多提交了哪些内容" class="headerlink" title="5. 查看branch2中比branch1中多提交了哪些内容"></a>5. 查看branch2中比branch1中多提交了哪些内容</h3>  <figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">git</span></span> <span class="built_in">log</span> branch1..branch2`</span><br></pre></td></tr></table></figure>
+<p>  <strong>注意，列出来的是两个点后边（此处即dev）多提交的内容。</strong></p>
+<h3 id="6-不知道谁提交的多谁提交的少，单纯想知道有是吗不一样"><a href="#6-不知道谁提交的多谁提交的少，单纯想知道有是吗不一样" class="headerlink" title="6. 不知道谁提交的多谁提交的少，单纯想知道有是吗不一样"></a>6. 不知道谁提交的多谁提交的少，单纯想知道有是吗不一样</h3>  <figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">git</span></span> <span class="built_in">log</span> branch1...branch2</span><br></pre></td></tr></table></figure>
+
+<h3 id="7-在上述情况下，在显示出没个提交是在哪个分支上"><a href="#7-在上述情况下，在显示出没个提交是在哪个分支上" class="headerlink" title="7. 在上述情况下，在显示出没个提交是在哪个分支上"></a>7. 在上述情况下，在显示出没个提交是在哪个分支上</h3>  <figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">git</span></span> <span class="built_in">log</span> --lefg-right branch1...branch2</span><br></pre></td></tr></table></figure>
+<p>  <strong>注意 commit 后面的箭头，根据我们在 –left-right branch1…branch2 的顺序，左箭头 &lt; 表示是 branch1 的，右箭头 &gt; 表示是branch2的。</strong></p>
+
+      
+    </div>
+
+    
+    
+    
+
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>l
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/e5591b74/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lion.png">
+      <meta itemprop="name" content="swimminghao">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="swimminghao's blog">
+      <meta itemprop="description" content="swimminghao的学习博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | swimminghao's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/e5591b74/" class="post-title-link" itemprop="url">git推送文件夹到github仓库</a>
+        </h2>
+
+        <div class="post-meta-container">
+
+          
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2025-02-13 16:20:39" itemprop="dateModified" datetime="2025-02-13T16:20:39+08:00">2025-02-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/posts/e5591b74/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/e5591b74/" data-xid="/posts/e5591b74/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>865</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>1 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="Git推送文件夹到github仓库"><a href="#Git推送文件夹到github仓库" class="headerlink" title="Git推送文件夹到github仓库"></a>Git推送文件夹到github仓库</h1><p>有时候我们可能会遇到当文件累积到了一定程度的时候，想使用 git 进行版本管理，或者推送到 Github 等远程仓库上。本文介绍如何将一个本地文件夹中已经存在的内容使用 git 进行管理，并推送至远程仓库，以及对其中可能出现的错误进行分析。</p>
+<h2 id="创建-git-仓库"><a href="#创建-git-仓库" class="headerlink" title="创建 git 仓库"></a>创建 git 仓库</h2><p>在该文件夹下初始化仓库：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git init</span><br></pre></td></tr></table></figure>
+
+<p>此时将会在此文件夹下创建一个空的仓库，产生一个 <code>.git</code>文件，会看到以下提示：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Initialized empty Git repository in FOLDERPATH/<span class="selector-class">.git</span>/</span><br></pre></td></tr></table></figure>
+
+<h2 id="将文件添加到暂存区"><a href="#将文件添加到暂存区" class="headerlink" title="将文件添加到暂存区"></a>将文件添加到暂存区</h2><p>使用以下命令：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git add .	</span><br></pre></td></tr></table></figure>
+
+<p>此操作会将当前文件夹中所有文件添加到 git 仓库暂存区。</p>
+<h2 id="将文件提交到仓库"><a href="#将文件提交到仓库" class="headerlink" title="将文件提交到仓库"></a>将文件提交到仓库</h2><p><code>git add</code> 命令仅仅将文件暂存，但实际上还没有提交，实际上仓库中并没有这些文件，使用以下命令：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git commit</span><br></pre></td></tr></table></figure>
+
+<p>此时将会打开一个文件，用于记录提交说明，输入提交说明即可，若说明较为简短，也可以使用以下命令：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git commit -m &quot;YOUR COMMENT&quot;</span><br></pre></td></tr></table></figure>
+
+<h2 id="添加远程仓库"><a href="#添加远程仓库" class="headerlink" title="添加远程仓库"></a>添加远程仓库</h2><p>使用以下命令添加添加一个远程仓库：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote add origin YOUR_REMOTE_REPOSITORY_URL</span><br></pre></td></tr></table></figure>
+
+<p>or</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote set-url origin git<span class="keyword">@github</span>.com:ppreyer/first_app.git</span><br></pre></td></tr></table></figure>
+
+<p>其中 origin 相当于给远程仓库的名称，也就是相当于一个标识符。</p>
+<h2 id="推送至远程仓库"><a href="#推送至远程仓库" class="headerlink" title="推送至远程仓库"></a>推送至远程仓库</h2><p>使用以下命令将会将本地仓库中的内容推送至远程仓库的 master 分支：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push -u origin master</span><br></pre></td></tr></table></figure>
+
+<p>or</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push origin dev:master</span><br></pre></td></tr></table></figure>
+
+<p><strong>注意</strong>：如果之前忘记了<code>git commit</code> 的步骤，这里将会出现一个错误提示：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">error: src refspec master does not match any.</span><br></pre></td></tr></table></figure>
+
+<p>为什么会有这个报错呢？原因其实很简单，在没有使用 <code>git commit</code> 之前，由于这是一个新创建的<code>git</code>仓库，没有<code>master brench</code>，也就是并没有一个工作树可供推送至远程仓库，所以自然也就出错啦。</p>
 
       
     </div>
