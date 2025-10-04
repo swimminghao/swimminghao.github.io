@@ -1061,7 +1061,7 @@
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-abbrlink --save</span><br></pre></td></tr></table></figure>
 
 <blockquote>
-<p>执行此命令可能会不成功，提示你缺少相应的依赖，比如babel-eslint、mini-css-extract-plugin、webpack-cli…<br>使用npm命令安装即可，比如npm install <a href="mailto:&#x65;&#x73;&#108;&#105;&#110;&#116;&#x40;&#52;&#x2e;&#x78;">&#x65;&#x73;&#108;&#105;&#110;&#116;&#x40;&#52;&#x2e;&#x78;</a> babel-eslint@8 –save-dev</p>
+<p>执行此命令可能会不成功，提示你缺少相应的依赖，比如babel-eslint、mini-css-extract-plugin、webpack-cli…<br>使用npm命令安装即可，比如npm install <a href="mailto:&#x65;&#x73;&#108;&#x69;&#x6e;&#x74;&#64;&#52;&#x2e;&#x78;">&#x65;&#x73;&#108;&#x69;&#x6e;&#x74;&#64;&#52;&#x2e;&#x78;</a> babel-eslint@8 –save-dev</p>
 </blockquote>
 <p>修改根目录站点配置文件<code>config.yml</code>，改为：</p>
 <figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">permalink:</span> <span class="string">posts/:abbrlink/</span></span><br><span class="line"><span class="attr">abbrlink:</span></span><br><span class="line">	<span class="attr">alg:</span> <span class="string">crc32</span>   <span class="comment">#算法： crc16(default) and crc32</span></span><br><span class="line">	<span class="attr">rep:</span> <span class="string">hex</span>     <span class="comment">#进制： dec(default) and hex</span></span><br></pre></td></tr></table></figure>
@@ -1954,7 +1954,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/c77b99c1/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/565f63a6/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/lion.png">
@@ -1972,7 +1972,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/c77b99c1/" class="post-title-link" itemprop="url">使用java8实现List中对象属性的去重</a>
+          <a href="/posts/565f63a6/" class="post-title-link" itemprop="url">法拍房</a>
         </h2>
 
         <div class="post-meta-container">
@@ -2001,7 +2001,7 @@
       </span>
       <span class="post-meta-item-text">分类于</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E8%AF%AD%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">语法</span></a>
+          <a href="/categories/%E6%8C%A3%E9%92%B1/" itemprop="url" rel="index"><span itemprop="name">挣钱</span></a>
         </span>
     </span>
 
@@ -2014,8 +2014,8 @@
     </span>
     <span class="post-meta-item-text">Waline：</span>
   
-    <a title="waline" href="/posts/c77b99c1/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/c77b99c1/" data-xid="/posts/c77b99c1/" itemprop="commentCount"></span>
+    <a title="waline" href="/posts/565f63a6/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/565f63a6/" data-xid="/posts/565f63a6/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -2026,14 +2026,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>2.2k</span>
+      <span>997</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>2 分钟</span>
+      <span>1 分钟</span>
     </span>
 </div>
 
@@ -2044,23 +2044,26 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="使用java8实现List中对象属性的去重"><a href="#使用java8实现List中对象属性的去重" class="headerlink" title="使用java8实现List中对象属性的去重"></a>使用java8实现List中对象属性的去重</h1><p>今天在工作的时候遇到了一个问题，就是List的去重，不想用双重for，感觉太low，不想用for+Map，感觉应该有更好的方法，于是，google之。发现java8的stream流能完美解决这个问题。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">List&lt;BookInfoVo&gt; list</span><br></pre></td></tr></table></figure>
-<p>比如在 BookInfoVo 中有一个 recordId 属性,现在需要对此去重.</p>
-<p>怎么办呢?</p>
-<p>有两种方法:</p>
-<ul>
-<li>第一种: 不使用java8 的 Stream<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> List&lt;BookInfoVo&gt; <span class="title function_">removeDupliByRecordId</span><span class="params">(List&lt;BookInfoVo&gt; books)</span> &#123;</span><br><span class="line">	Set&lt;BookInfoVo&gt; bookSet = <span class="keyword">new</span> <span class="title class_">TreeSet</span>&lt;&gt;((o1, o2)-&gt;o1.getRecordId().compareTo(o2.getRecordId()));</span><br><span class="line">          personSet.addAll(books);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;BookInfoVo&gt;(bookSet);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-这也是大多数人第一想到的,借助 TreeSet 去重,其中 TreeSet 的其中一个构造函数接收一个排序的算法,同时这也会用到 TreeSet 的去重策略上.<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Constructs a new, empty tree set, sorted according to the specified</span></span><br><span class="line"><span class="comment">     * comparator.  All elements inserted into the set must be &lt;i&gt;mutually</span></span><br><span class="line"><span class="comment">     * comparable&lt;/i&gt; by the specified comparator: &#123;<span class="doctag">@code</span> comparator.compare(e1,</span></span><br><span class="line"><span class="comment">     * e2)&#125; must not throw a &#123;<span class="doctag">@code</span> ClassCastException&#125; for any elements</span></span><br><span class="line"><span class="comment">     * &#123;<span class="doctag">@code</span> e1&#125; and &#123;<span class="doctag">@code</span> e2&#125; in the set.  If the user attempts to add</span></span><br><span class="line"><span class="comment">     * an element to the set that violates this constraint, the</span></span><br><span class="line"><span class="comment">     * &#123;<span class="doctag">@code</span> add&#125; call will throw a &#123;<span class="doctag">@code</span> ClassCastException&#125;.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> comparator the comparator that will be used to order this set.</span></span><br><span class="line"><span class="comment">     *        If &#123;<span class="doctag">@code</span> null&#125;, the &#123;<span class="doctag">@linkplain</span> Comparable natural</span></span><br><span class="line"><span class="comment">     *        ordering&#125; of the elements will be used.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line"><span class="keyword">public</span> <span class="title function_">TreeSet</span><span class="params">(Comparator&lt;? <span class="built_in">super</span> E&gt; comparator)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>(<span class="keyword">new</span> <span class="title class_">TreeMap</span>&lt;&gt;(comparator));</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></li>
-<li>第二种: 炫酷的java8写法]<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*方法二:炫酷的java8写法*/</span></span><br><span class="line">ArrayList&lt;BookInfoVo&gt; distinctLiost = list.stream()</span><br><span class="line">                  .collect(</span><br><span class="line">                          Collectors.collectingAndThen(</span><br><span class="line">                                  Collectors.toCollection(() -&gt; <span class="keyword">new</span> <span class="title class_">TreeSet</span>&lt;&gt;(Comparator.comparingLong(BookInfoVo::getRecordId))), ArrayList::<span class="keyword">new</span>)</span><br><span class="line">                  );</span><br></pre></td></tr></table></figure>
-当然也可以根据多个属性去重<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ArrayList&lt;BookInfoVo&gt; distinctLiost = list.stream().collect(Collectors.collectingAndThen(</span><br><span class="line">  Collectors.toCollection(() -&gt; <span class="keyword">new</span> <span class="title class_">TreeSet</span>&lt;&gt;(Comparator.comparing(o -&gt; o.getName() + <span class="string">&quot;;&quot;</span> + o.getAuthor()))), ArrayList::<span class="keyword">new</span>)</span><br></pre></td></tr></table></figure>
-如果没有第一种方法做铺垫,我们很可能一脸懵逼.</li>
-</ul>
-<p>其实理解起来也不难:</p>
-<p>关键在于Collectors.collectingAndThen( Collectors.toCollection(() -&gt; new TreeSet&lt;&gt;(Comparator.comparingLong(BookInfoVo::getRecordId))), ArrayList::new)的理解,</p>
-<p>collectingAndThen 这个方法的意思是: 将收集的结果转换为另一种类型: collectingAndThen,</p>
-<p>因此上面的方法可以理解为,把 new TreeSet&lt;&gt;(Comparator.comparingLong(BookInfoVo::getRecordId))这个set转换为 ArrayList,这个结合第一种方法不难理解.</p>
-<p>可以看到java8这种写法真是炫酷又强大!!!</p>
+          <h1 id="法拍房"><a href="#法拍房" class="headerlink" title="法拍房"></a>法拍房</h1><p>以前玩过法拍房。</p>
+<p>答案是：买卖不破租赁，没辙儿。</p>
+<p>而且存在租赁的情况法院必然会在拍卖前告知，可能你冲动之下不看仔细就瞎jb拍了。人家租赁合同估计做得也没啥原则性的漏洞（正常情况下房主计划断供之前就准备好一切了，还能等到拍卖完了才想起来临时抱佛脚？），否则你也不会跑来知乎问问题。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/QYXpiS_20220218115144.png" alt="img"><img src="https://pic1.zhimg.com/80/v2-f9c3fc9a2e3b9fb55e4d44eb4ac8ccfc_1440w.jpg?source=1940ef5c" alt="img">知乎懂哥太多了，民法典上写得清清楚楚的东西还要来杠</p>
+<p>给想玩法拍房的人一个建议。</p>
+<p>以前我玩法拍房，都是先找银行的熟人把银行的不良贷款列一份名单给我。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/in9h58_20220218115220.png" alt="img"></p>
+<p>看上哪套房子，就联系银行把该房的债权买下来，（银行-〉有资质的第三方机构-〉个人，具体步骤结尾有补充）（即房主欠银行的钱变成房主欠我的钱）。银行本来就不是拍卖机构，拍卖周期又可能比较长，银行一般急着回笼资金节约流程巴不得有人把债权买走，还会打折卖。之后自己成了债权人，就可以在拍卖信息上把联系电话留成自己的。</p>
+<p>有买家想了解这套房，就会打我的电话，这时我会告诉买家这套房有一些问题，比如就存在题主说的“有超长租赁合同”之类的。买家一听这房子藏雷，就不打算买了。</p>
+<p>最后想买的买家全都被我劝退，没有任何人和我竞争，这时我再让合伙人出手竞拍（债权人不能买，所以需要一个合伙人），于是这套房子就被我以起拍价买下来了。</p>
+<p>你们要买<a target="_blank" rel="noopener" href="https://www.zhihu.com/search?q=%E6%B3%95%E6%8B%8D%E6%88%BF&search_source=Entity&hybrid_search_source=Entity&hybrid_search_extra=%7B%22sourceType%22:%22answer%22,%22sourceId%22:2336153412%7D">法拍房</a>的可以参考这个方法。</p>
+<hr>
+<h3 id="没想到这里还有杠精，是因为我把这路子免费分享出来，知道的人多了会挡你财路？"><a href="#没想到这里还有杠精，是因为我把这路子免费分享出来，知道的人多了会挡你财路？" class="headerlink" title="没想到这里还有杠精，是因为我把这路子免费分享出来，知道的人多了会挡你财路？"></a>没想到这里还有杠精，是因为我把这路子免费分享出来，知道的人多了会挡你财路？</h3><h3 id="补充细节："><a href="#补充细节：" class="headerlink" title="补充细节："></a>补充细节：</h3><p>1，债权不能直接从银行到个人，需要经手有资质的第三方机构，比如拍卖行。具体步骤：挑好房子谈好折扣——打款到拍卖行——和银行签债转协议——银行债转公示——<a target="_blank" rel="noopener" href="https://www.zhihu.com/search?q=%E5%85%AC%E8%AF%81%E5%A4%84&search_source=Entity&hybrid_search_source=Entity&hybrid_search_extra=%7B%22sourceType%22:%22answer%22,%22sourceId%22:2336153412%7D">公证处</a>债权公证——法院出债转文书——诉讼主体变更——接手债权。</p>
+<p>2，法拍房如果出现意外情况，处理较繁琐。我以前只出资投债权赚差价，不沾房子本身。不认识熟人的散户建议联系专门的拍卖中介机构，不会多收你几个钱。中介也是按上面说的这些流程走的。</p>
+<hr>
+<p>最后声明：</p>
+<p>知乎杠精太多了。</p>
+<p>我回答这个问题仅仅只是因为关注动态里蹦出来了这个问题，而我正好以前在这个领域玩过一段时间，所以顺手答一下。我本人是原神和vtb领域的答主，对金融方面的流量不感兴趣，更何况还是知乎这种公认变现价值低的劣质流量。</p>
+<p>另外本人自前年底去年初住建部全国巡视指导发政策后就不再玩房了，不打广告不为自己引流（当然你可以去b站关注一下嘉然），也不接受网友任何投资与资金往来。答主绝不可能以任何形式问你要钱、拉你进任何形式的群聊、让你注册任何形式的账号等等。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/oXAOjg_20220218115620.png" alt="img"><img src="https://pic3.zhimg.com/80/v2-dc62303b7e3ec727fb12e80bcb36d58d_1440w.jpg?source=1940ef5c" alt="img"></p>
 
       
     </div>
