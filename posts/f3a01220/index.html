@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-loading-bar.css">
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.10.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="hqplayer和roon二合一第1步：安装并配置宿主机（Debian）1.安装Debian：从Debian官网下载网络安装镜像，进行最小化安装。在软件选择时，只勾选“SSH server”和“Standard system utilities”。 2.更新系统： 1sudo apt update &amp;&amp; sudo apt upgrade -y  3.安装必要工具： 1sudo ap">
+<meta property="og:type" content="article">
+<meta property="og:title" content="hqplayer和roon二合一">
+<meta property="og:url" content="http://example.com/posts/f3a01220/index.html">
+<meta property="og:site_name" content="swimminghao&#39;s blog">
+<meta property="og:description" content="hqplayer和roon二合一第1步：安装并配置宿主机（Debian）1.安装Debian：从Debian官网下载网络安装镜像，进行最小化安装。在软件选择时，只勾选“SSH server”和“Standard system utilities”。 2.更新系统： 1sudo apt update &amp;&amp; sudo apt upgrade -y  3.安装必要工具： 1sudo ap">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-11-02T09:16:23.000Z">
+<meta property="article:modified_time" content="2025-11-02T09:16:54.438Z">
+<meta property="article:author" content="swimminghao">
+<meta property="article:tag" content="hqplayer">
+<meta property="article:tag" content="roon">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/posts/f3a01220/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/posts/f3a01220/","path":"posts/f3a01220/","title":"hqplayer和roon二合一"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>hqplayer和roon二合一 | swimminghao's blog</title>
+  
+
+
+
+
+<link rel="dns-prefetch" href="waline-server-nu.vercel.app"><link rel="stylesheet" href="//cdn.jsdelivr.net/gh/theme-next/theme-next-needmoreshare2@1/needsharebutton.min.css"><style>
+#needsharebutton-postbottom {
+  cursor: pointer;
+  height: 26px;
+  margin-top: 10px;
+  position: relative;
+}
+#needsharebutton-postbottom .btn {
+  border: 1px solid $btn-default-border-color;
+  border-radius: 3px;
+  display: initial;
+  padding: 1px 4px;
+}
+</style>
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">swimminghao's blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">学习博客</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">54</span></a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">17</span></a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">278</span></a></li>
+        <li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#hqplayer%E5%92%8Croon%E4%BA%8C%E5%90%88%E4%B8%80"><span class="nav-number">1.</span> <span class="nav-text">hqplayer和roon二合一</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC1%E6%AD%A5%EF%BC%9A%E5%AE%89%E8%A3%85%E5%B9%B6%E9%85%8D%E7%BD%AE%E5%AE%BF%E4%B8%BB%E6%9C%BA%EF%BC%88Debian%EF%BC%89"><span class="nav-number">1.1.</span> <span class="nav-text">第1步：安装并配置宿主机（Debian）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC2%E6%AD%A5%EF%BC%9A%E5%87%86%E5%A4%87HQPlayer-OS%E7%9A%84chroot%E7%8E%AF%E5%A2%83"><span class="nav-number">1.2.</span> <span class="nav-text">第2步：准备HQPlayer OS的chroot环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC3%E6%AD%A5%EF%BC%9A%E9%85%8D%E7%BD%AEchroot%E7%8E%AF%E5%A2%83"><span class="nav-number">1.3.</span> <span class="nav-text">第3步：配置chroot环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E6%8C%82%E8%BD%BD%E5%92%8C%E8%BF%9B%E5%85%A5chroot%E7%9A%84%E8%84%9A%E6%9C%AC%EF%BC%9A"><span class="nav-number">1.4.</span> <span class="nav-text">创建挂载和进入chroot的脚本：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%81%9C%E6%AD%A2%E8%84%9A%E6%9C%AC"><span class="nav-number">1.5.</span> <span class="nav-text">停止脚本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9systemd%E6%9C%8D%E5%8A%A1%E6%96%87%E4%BB%B6%E4%BB%A5%E5%85%BC%E5%AE%B9cgroup2"><span class="nav-number">1.6.</span> <span class="nav-text">修改systemd服务文件以兼容cgroup2</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1%E5%B9%B6%E6%A3%80%E6%9F%A5"><span class="nav-number">1.7.</span> <span class="nav-text">启动服务并检查</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC4%E6%AD%A5%EF%BC%9A%E6%89%A7%E8%A1%8C%E7%B2%BE%E7%AE%80"><span class="nav-number">1.8.</span> <span class="nav-text">第4步：执行精简</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="swimminghao"
+      src="/images/lion.png">
+  <p class="site-author-name" itemprop="name">swimminghao</p>
+  <div class="site-description" itemprop="description">swimminghao的学习博客</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">278</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">54</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/swimminghao" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;swimminghao" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:swimminghao0@gmail.com" title="E-Mail → mailto:swimminghao0@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/swimminghao" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;swimminghao" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://plus.google.com/yourname" title="Google → https:&#x2F;&#x2F;plus.google.com&#x2F;yourname" rel="noopener" target="_blank"><i class="fab fa-google fa-fw"></i>Google</a>
+      </span>
+  </div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdn.jsdelivr.net/npm/@creativecommons/vocabulary@2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+<!-- recent posts -->
+    <div class="links-of-blogroll motion-element links-of-blogroll-block">
+        <div class="links-of-blogroll-title recent-posts-title">
+	    <i class="fa fa-history " aria-hidden="true"></i>
+            近期文章
+	</div>
+	<ul class="links-of-blogroll-list recent-posts-list">
+	        <li class="my-links-of-blogroll-item">
+		    <a href="/posts/f3a01220/" title="hqplayer和roon二合一" target="">
+		    hqplayer和roon二合一
+		    </a>
+		</li>
+	        <li class="my-links-of-blogroll-item">
+		    <a href="/posts/a0ae5a65/" title="CentOS7 源码安装redis4" target="">
+		    CentOS7 源码安装redis4
+		    </a>
+		</li>
+	        <li class="my-links-of-blogroll-item">
+		    <a href="/posts/701fa192/" title="mac10.15 下 git2.33 安装 git-gui" target="">
+		    mac10.15 下 git2.33 安装 git-gui
+		    </a>
+		</li>
+	        <li class="my-links-of-blogroll-item">
+		    <a href="/posts/42c28135/" title="parallels Desktop共享本机目录给虚拟机" target="">
+		    parallels Desktop共享本机目录给虚拟机
+		    </a>
+		</li>
+	        <li class="my-links-of-blogroll-item">
+		    <a href="/posts/67da8aa2/" title="使用 SSH config 简化 SSH 连接" target="">
+		    使用 SSH config 简化 SSH 连接
+		    </a>
+		</li>
+	</ul>
+    </div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/f3a01220/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lion.png">
+      <meta itemprop="name" content="swimminghao">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="swimminghao's blog">
+      <meta itemprop="description" content="swimminghao的学习博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="hqplayer和roon二合一 | swimminghao's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          hqplayer和roon二合一
+        </h1>
+
+        <div class="post-meta-container">
+
+          
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2025-11-02 17:16:23 / 修改时间：17:16:54" itemprop="dateCreated datePublished" datetime="2025-11-02T17:16:23+08:00">2025-11-02</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/linux/" itemprop="url" rel="index"><span itemprop="name">linux</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/posts/f3a01220/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/f3a01220/" data-xid="/posts/f3a01220/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>5.3k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>5 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="hqplayer和roon二合一"><a href="#hqplayer和roon二合一" class="headerlink" title="hqplayer和roon二合一"></a>hqplayer和roon二合一</h1><h2 id="第1步：安装并配置宿主机（Debian）"><a href="#第1步：安装并配置宿主机（Debian）" class="headerlink" title="第1步：安装并配置宿主机（Debian）"></a>第1步：安装并配置宿主机（Debian）</h2><p>1.安装Debian：从Debian官网下载网络安装镜像，进行最小化安装。在软件选择时，只勾选“SSH server”和“Standard system utilities”。</p>
+<p>2.更新系统：</p>
+<figure class="highlight sas"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt <span class="keyword">update</span> <span class="variable">&amp;&amp;</span> sudo apt upgrade -y</span><br></pre></td></tr></table></figure>
+
+<p>3.安装必要工具：</p>
+<figure class="highlight smali"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install -y p7zip-full squashfs-tools<span class="keyword"> system</span>d-container</span><br></pre></td></tr></table></figure>
+
+<p>p7zip-full用于解压7z文件，systemd-container提供了更现代的容器化管理工具（但我们仍会使用传统chroot）</p>
+<h2 id="第2步：准备HQPlayer-OS的chroot环境"><a href="#第2步：准备HQPlayer-OS的chroot环境" class="headerlink" title="第2步：准备HQPlayer OS的chroot环境"></a>第2步：准备HQPlayer OS的chroot环境</h2><p>1.创建工作目录：</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo mkdir -p <span class="regexp">/opt/</span>hqplayer-chroot</span><br></pre></td></tr></table></figure>
+<p>2.解压HQPlayer Embedded：</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">sudo</span> <span class="number">7</span>z x hqplayer-embedded-<span class="number">5</span>.<span class="number">8</span>.<span class="number">1</span>-x64sse42.<span class="number">7</span>z -o/opt/hqplayer-chroot</span><br></pre></td></tr></table></figure>
+<p>这会在&#x2F;opt&#x2F;hqplayer-chroot下得到hqplayer-embedded-5.8.1&#x2F;文件夹，里面包含bin, lib, usr等目录。这就是我们chroot的基础。<br>我们需要把它挂载到一个临时目录，然后复制其中的所有文件。</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建挂载点</span></span><br><span class="line">sudo mkdir -p <span class="regexp">/mnt/</span>hqplayer-image</span><br></pre></td></tr></table></figure>
+<p>3.挂载镜像中的分区<br>您需要先找到镜像中的分区偏移量，然后挂载正确的分区。<br>第1步：查看镜像的分区信息</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">sudo</span> fdisk -l hqplayer-embedded-<span class="number">5</span>.<span class="number">8</span>.<span class="number">1</span>-x64sse42.img</span><br></pre></td></tr></table></figure>
+<p>fdisk 输出显示镜像中有两个分区：<br>分区1：Start&#x3D;2048, Size&#x3D;27.8M, Type&#x3D;”Microsoft basic data” (这很可能是EFI系统分区)<br>分区2：Start&#x3D;59392, Size&#x3D;3G, Type&#x3D;”Linux filesystem” (这是我们要的根文件系统分区)<br>挂载分区（分区2）</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 计算分区2的偏移量 (59392 sectors * 512 bytes/sector)</span></span><br><span class="line"><span class="attribute">OFFSET</span>=$((<span class="number">59392</span> * <span class="number">512</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 挂载分区2到挂载点</span></span><br><span class="line"><span class="attribute">sudo</span> mount -o loop,offset=$OFFSET hqplayer-embedded-<span class="number">5</span>.<span class="number">8</span>.<span class="number">1</span>-x64sse42.img /mnt/hqplayer-image</span><br></pre></td></tr></table></figure>
+
+<p>复制文件到chroot目录</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看挂载的内容</span></span><br><span class="line">ls -la <span class="regexp">/mnt/</span>hqplayer-image/</span><br><span class="line"></span><br><span class="line"><span class="comment"># 复制所有文件到chroot目录（保留权限和属性）</span></span><br><span class="line">sudo cp -a <span class="regexp">/mnt/</span>hqplayer-image<span class="regexp">/* /</span>opt<span class="regexp">/hqplayer-chroot/</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 卸载镜像</span></span><br><span class="line">sudo umount <span class="regexp">/mnt/</span>hqplayer-image</span><br></pre></td></tr></table></figure>
+
+<p>4.创建必要的系统目录：</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo mkdir -p <span class="regexp">/opt/</span>hqplayer-chroot<span class="regexp">/&#123;proc,sys,dev,run,var/</span>lib,etc,tmp&#125;</span><br><span class="line">sudo chmod <span class="number">1777</span> <span class="regexp">/opt/</span>hqplayer-chroot/tmp</span><br></pre></td></tr></table></figure>
+
+<p>5.复制DNS解析配置：</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo cp <span class="regexp">/etc/</span>resolv.conf <span class="regexp">/opt/</span>hqplayer-chroot<span class="regexp">/etc/</span></span><br></pre></td></tr></table></figure>
+
+<p>6.让 chroot 环境访问主机音频设备<br>首先识别音频设备</p>
+<figure class="highlight tcl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在宿主机上查看所有音频设备</span></span><br><span class="line">aplay -l</span><br><span class="line"></span><br><span class="line"><span class="comment"># 或者使用更详细的方式</span></span><br><span class="line">cat /<span class="keyword">proc</span>/asound/cards</span><br><span class="line"></span><br><span class="line"># 查看<span class="title"> USB</span> 音频设备详情<span class="title"></span></span><br><span class="line"><span class="title">lsusb</span> |<span class="title"> grep</span> -i<span class="title"> audio</span></span><br></pre></td></tr></table></figure>
+
+<p>可以看到您的音频设备配置：</p>
+<p>card 0: AB13X USB Audio (USB DAC) - 这是您的外部USB音频设备</p>
+<p>card 1: Ensoniq AudioPCI - 这是主板内置声卡</p>
+<p>现在让我们确保chroot环境中的HQPlayer能够访问这些设备。</p>
+<p>配置chroot环境访问USB DAC, 修改启动脚本确保正确映射</p>
+<h2 id="第3步：配置chroot环境"><a href="#第3步：配置chroot环境" class="headerlink" title="第3步：配置chroot环境"></a>第3步：配置chroot环境</h2><p>我们需要一个脚本来自动挂载必要的文件系统并进入chroot。</p>
+<h2 id="创建挂载和进入chroot的脚本："><a href="#创建挂载和进入chroot的脚本：" class="headerlink" title="创建挂载和进入chroot的脚本："></a>创建挂载和进入chroot的脚本：</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">sudo nano /usr/local/bin/start-hqplayer-chroot.sh</span><br><span class="line"><span class="comment">#!/bin/bash</span></span><br><span class="line">HQPLAYER_ROOT=<span class="string">&quot;/opt/hqplayer-chroot&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 挂载必要的文件系统</span></span><br><span class="line">mount --<span class="built_in">bind</span> /proc <span class="string">&quot;<span class="variable">$HQPLAYER_ROOT</span>/proc&quot;</span></span><br><span class="line">mount --<span class="built_in">bind</span> /sys <span class="string">&quot;<span class="variable">$HQPLAYER_ROOT</span>/sys&quot;</span></span><br><span class="line">mount --<span class="built_in">bind</span> /dev <span class="string">&quot;<span class="variable">$HQPLAYER_ROOT</span>/dev&quot;</span></span><br><span class="line">mount --<span class="built_in">bind</span> /dev/pts <span class="string">&quot;<span class="variable">$HQPLAYER_ROOT</span>/dev/pts&quot;</span></span><br><span class="line">mount --<span class="built_in">bind</span> /dev/snd <span class="string">&quot;<span class="variable">$HQPLAYER_ROOT</span>/dev/snd&quot;</span></span><br><span class="line">mount --<span class="built_in">bind</span> /run <span class="string">&quot;<span class="variable">$HQPLAYER_ROOT</span>/run&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 确保USB设备可访问（重要！）</span></span><br><span class="line">mount --<span class="built_in">bind</span> /dev/bus/usb <span class="string">&quot;<span class="variable">$HQPLAYER_ROOT</span>/dev/bus/usb&quot;</span> 2&gt;/dev/null || <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 确保使用最新的DNS配置</span></span><br><span class="line"><span class="built_in">cp</span> /etc/resolv.conf <span class="string">&quot;<span class="variable">$HQPLAYER_ROOT</span>/etc/resolv.conf&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 运行HQPlayer</span></span><br><span class="line"><span class="built_in">exec</span> <span class="built_in">chroot</span> <span class="string">&quot;<span class="variable">$HQPLAYER_ROOT</span>&quot;</span> /usr/bin/hqplayerd</span><br></pre></td></tr></table></figure>
+
+<h2 id="停止脚本"><a href="#停止脚本" class="headerlink" title="停止脚本"></a>停止脚本</h2><figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">sudo nano <span class="regexp">/usr/</span>local<span class="regexp">/bin/</span>stop-hqplayer-chroot.sh</span><br><span class="line">#!<span class="regexp">/bin/</span>bash</span><br><span class="line">HQPLAYER_ROOT=<span class="string">&quot;/opt/hqplayer-chroot&quot;</span></span><br><span class="line"></span><br><span class="line"># 杀死所有hqplayerd进程</span><br><span class="line">pkill -<span class="number">9</span> -f <span class="string">&quot;hqplayerd&quot;</span> <span class="number">2</span>&gt;<span class="regexp">/dev/</span><span class="keyword">null</span></span><br><span class="line"></span><br><span class="line"># 卸载文件系统（确保正确的顺序）</span><br><span class="line">umount -f <span class="string">&quot;$HQPLAYER_ROOT/dev/bus/usb&quot;</span> <span class="number">2</span>&gt;<span class="regexp">/dev/</span><span class="keyword">null</span></span><br><span class="line">umount -f <span class="string">&quot;$HQPLAYER_ROOT/dev/snd&quot;</span> <span class="number">2</span>&gt;<span class="regexp">/dev/</span><span class="keyword">null</span></span><br><span class="line">umount -f <span class="string">&quot;$HQPLAYER_ROOT/dev/pts&quot;</span> <span class="number">2</span>&gt;<span class="regexp">/dev/</span><span class="keyword">null</span></span><br><span class="line">umount -f <span class="string">&quot;$HQPLAYER_ROOT/dev&quot;</span> <span class="number">2</span>&gt;<span class="regexp">/dev/</span><span class="keyword">null</span></span><br><span class="line">umount -f <span class="string">&quot;$HQPLAYER_ROOT/sys&quot;</span> <span class="number">2</span>&gt;<span class="regexp">/dev/</span><span class="keyword">null</span></span><br><span class="line">umount -f <span class="string">&quot;$HQPLAYER_ROOT/proc&quot;</span> <span class="number">2</span>&gt;<span class="regexp">/dev/</span><span class="keyword">null</span></span><br><span class="line">umount -f <span class="string">&quot;$HQPLAYER_ROOT/run&quot;</span> <span class="number">2</span>&gt;<span class="regexp">/dev/</span><span class="keyword">null</span></span><br><span class="line"></span><br><span class="line">sleep <span class="number">2</span></span><br></pre></td></tr></table></figure>
+
+<p>设置正确的权限</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo chmod +x <span class="regexp">/usr/</span>local<span class="regexp">/bin/</span>start-hqplayer-chroot.sh</span><br><span class="line">sudo chmod +x <span class="regexp">/usr/</span>local<span class="regexp">/bin/</span>stop-hqplayer-chroot.sh</span><br><span class="line"></span><br><span class="line">sudo systemctl daemon-reload</span><br></pre></td></tr></table></figure>
+
+<p>重新加载并测试服务</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 重新加载systemd配置</span></span><br><span class="line">sudo systemctl daemon-reload</span><br><span class="line"></span><br><span class="line"><span class="comment"># 手动测试启动脚本</span></span><br><span class="line">sudo <span class="regexp">/usr/</span>local<span class="regexp">/bin/</span>start-hqplayer-chroot.sh</span><br><span class="line"></span><br><span class="line"><span class="comment"># 检查hqplayerd是否运行</span></span><br><span class="line">ps aux | grep hqplayerd</span><br><span class="line"></span><br><span class="line"><span class="comment"># 检查端口监听</span></span><br><span class="line">sudo ss -tlnp | grep :<span class="number">8088</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 如果运行正常，停止它</span></span><br><span class="line">sudo <span class="regexp">/usr/</span>local<span class="regexp">/bin/</span>stop-hqplayer-chroot.sh</span><br></pre></td></tr></table></figure>
+
+<p>系统使用的是 cgroup2（统一层次结构），而不是传统的cgroup1。这可能是导致服务启动失败的原因，因为一些旧的应用或脚本可能不完全兼容cgroup2。<br>第1步：检查系统是否支持cgroup1</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 检查是否启用了cgroup1兼容性</span></span><br><span class="line">cat <span class="regexp">/proc/</span>filesystems | grep cgroup</span><br><span class="line"></span><br><span class="line"><span class="comment"># 检查内核启动参数</span></span><br><span class="line">cat <span class="regexp">/proc/</span>cmdline</span><br></pre></td></tr></table></figure>
+
+<h2 id="修改systemd服务文件以兼容cgroup2"><a href="#修改systemd服务文件以兼容cgroup2" class="headerlink" title="修改systemd服务文件以兼容cgroup2"></a>修改systemd服务文件以兼容cgroup2</h2><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo nano <span class="regexp">/etc/</span>systemd<span class="regexp">/system/</span>hqplayer-chroot.service</span><br></pre></td></tr></table></figure>
+
+<p>使用以下配置：</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[Unit]</span></span><br><span class="line"><span class="attr">Description</span>=HQPlayer Embedded Daemon in Chroot</span><br><span class="line"><span class="attr">After</span>=network.target</span><br><span class="line"><span class="attr">Requires</span>=network.target</span><br><span class="line"></span><br><span class="line"><span class="section">[Service]</span></span><br><span class="line"><span class="attr">Type</span>=simple</span><br><span class="line"><span class="attr">ExecStart</span>=/usr/local/bin/start-hqplayer-chroot.sh</span><br><span class="line"><span class="attr">ExecStop</span>=/usr/local/bin/stop-hqplayer-chroot.sh</span><br><span class="line"><span class="attr">Restart</span>=<span class="literal">on</span>-failure</span><br><span class="line"><span class="attr">RestartSec</span>=<span class="number">5</span></span><br><span class="line"><span class="attr">TimeoutStartSec</span>=<span class="number">300</span></span><br><span class="line"><span class="attr">TimeoutStopSec</span>=<span class="number">30</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 关键配置：禁用所有cgroup相关功能</span></span><br><span class="line"><span class="attr">Delegate</span>=<span class="literal">no</span></span><br><span class="line"><span class="attr">CPUAccounting</span>=<span class="literal">no</span></span><br><span class="line"><span class="attr">MemoryAccounting</span>=<span class="literal">no</span></span><br><span class="line"><span class="attr">IOAccounting</span>=<span class="literal">no</span></span><br><span class="line"><span class="attr">TasksAccounting</span>=<span class="literal">no</span></span><br><span class="line"><span class="attr">IPAccounting</span>=<span class="literal">no</span></span><br><span class="line"><span class="attr">BlockIOAccounting</span>=<span class="literal">no</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 避免cgroup2相关问题</span></span><br><span class="line"><span class="comment">#Slice=</span></span><br><span class="line"><span class="comment">#ControlGroup=</span></span><br><span class="line"><span class="section">[Install]</span></span><br><span class="line"><span class="attr">WantedBy</span>=multi-user.target</span><br></pre></td></tr></table></figure>
+
+<h2 id="启动服务并检查"><a href="#启动服务并检查" class="headerlink" title="启动服务并检查"></a>启动服务并检查</h2><figure class="highlight nsis"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo <span class="params">system</span>ctl start hqplayer-chroot.service</span><br><span class="line"><span class="params">system</span>ctl status hqplayer-chroot.service</span><br></pre></td></tr></table></figure>
+
+<p>dns或者删除符号链接并创建实际文件</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 删除符号链接</span></span><br><span class="line">sudo rm <span class="regexp">/opt/</span>hqplayer-chroot<span class="regexp">/etc/</span>resolv.conf</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建实际的 resolv.conf 文件</span></span><br><span class="line">sudo cp <span class="regexp">/etc/</span>resolv.conf <span class="regexp">/opt/</span>hqplayer-chroot<span class="regexp">/etc/</span>resolv.conf</span><br><span class="line"></span><br><span class="line"><span class="comment"># 确认现在是普通文件</span></span><br><span class="line">ls -la <span class="regexp">/opt/</span>hqplayer-chroot<span class="regexp">/etc/</span>resolv.conf</span><br></pre></td></tr></table></figure>
+
+<h2 id="第4步：执行精简"><a href="#第4步：执行精简" class="headerlink" title="第4步：执行精简"></a>第4步：执行精简</h2><p>首先查看当前大小</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo du -sh /opt/hqplayer-chroot/ <span class="attribute">--exclude</span>=proc <span class="attribute">--exclude</span>=sys <span class="attribute">--exclude</span>=dev <span class="attribute">--exclude</span>=run</span><br></pre></td></tr></table></figure>
+
+<p>删除最大的文件（镜像文件）</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 删除原始镜像文件（节省最多空间）</span></span><br><span class="line"><span class="attribute">sudo</span> rm /opt/hqplayer-chroot/hqplayer-embedded-<span class="number">5</span>.<span class="number">8</span>.<span class="number">1</span>-x64sse42.img</span><br><span class="line"><span class="attribute">sudo</span> rm /opt/hqplayer-chroot/hqplayer-embedded-<span class="number">5</span>.<span class="number">8</span>.<span class="number">1</span>-x64sse42.<span class="number">7</span>z</span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除备份文件（如果有）</span></span><br><span class="line"><span class="attribute">sudo</span> rm -rf /opt/hqplayer-chroot-backup <span class="number">2</span>&gt;/dev/null || true</span><br></pre></td></tr></table></figure>
+
+<p>删除firmware文件</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 删除firmware（通常不需要）</span></span><br><span class="line">sudo rm -rf <span class="regexp">/opt/</span>hqplayer-chroot<span class="regexp">/lib/</span>firmware</span><br></pre></td></tr></table></figure>
+
+<p>查看精简效果</p>
+<figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看当前大小</span></span><br><span class="line">sudo du -sh <span class="string">/opt/hqplayer-chroot/</span> <span class="params">--exclude=proc</span> <span class="params">--exclude=sys</span> <span class="params">--exclude=dev</span> <span class="params">--exclude=run</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看各目录大小</span></span><br><span class="line">sudo du -sh <span class="string">/opt/hqplayer-chroot/</span>* <span class="params">--exclude=proc</span> <span class="params">--exclude=sys</span> <span class="params">--exclude=dev</span> <span class="params">--exclude=run</span> | sort -hr</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看usr目录大小</span></span><br><span class="line">sudo du -sh <span class="string">/opt/hqplayer-chroot/usr/</span>*</span><br></pre></td></tr></table></figure>
+
+<p>验证功能正常</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 重启HQPlayer服务测试</span></span><br><span class="line">sudo systemctl restart hqplayer-chroot.service</span><br><span class="line"></span><br><span class="line"><span class="comment"># 检查服务状态</span></span><br><span class="line">systemctl status hqplayer-chroot.service</span><br><span class="line"></span><br><span class="line"><span class="comment"># 测试音频功能</span></span><br><span class="line">sudo chroot <span class="regexp">/opt/</span>hqplayer-chroot aplay -l</span><br><span class="line"></span><br><span class="line"><span class="comment"># 测试网络功能</span></span><br><span class="line">sudo chroot <span class="regexp">/opt/</span>hqplayer-chroot <span class="regexp">/bin/</span>bash -c <span class="string">&quot;ping -c 2 8.8.8.8&quot;</span></span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+
+
+    <div>
+      
+        <div>
+    
+      <div style="text-align:center;color: #ccc;font-size:20px;">------------- 本 文 结 束&nbsp&nbsp&nbsp&nbsp&nbsp感 谢 您 的 阅 读 -------------</div>
+    
+</div>
+
+      
+    </div>
+
+    <footer class="post-footer"><div class="post-widgets">
+      <div id="needsharebutton-postbottom">
+        <span class="btn">
+          <i class="fa fa-share-alt" aria-hidden="true"></i>
+        </span>
+      </div>
+    </div>
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>swimminghao
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://example.com/posts/f3a01220/" title="hqplayer和roon二合一">http://example.com/posts/f3a01220/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/hqplayer/" rel="tag"><i class="fa fa-tag"></i> hqplayer</a>
+              <a href="/tags/roon/" rel="tag"><i class="fa fa-tag"></i> roon</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/posts/a0ae5a65/" rel="prev" title="CentOS7 源码安装redis4">
+                  <i class="fa fa-chevron-left"></i> CentOS7 源码安装redis4
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>l
+
+
+
+
+
+
+    <div class="comments" id="waline-comments"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">swimminghao</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">1.2m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">18:17</span>
+  </span>
+</div>
+
+<span id="sitetime"></span>
+<script language=javascript>
+    function siteTime(){
+        window.setTimeout("siteTime()", 1000);
+        var seconds = 1000;
+        var minutes = seconds * 60;
+        var hours = minutes * 60;
+        var days = hours * 24;
+        var years = days * 365;
+        var today = new Date();
+        var todayYear = today.getFullYear();
+        var todayMonth = today.getMonth()+1;
+        var todayDate = today.getDate();
+        var todayHour = today.getHours();
+        var todayMinute = today.getMinutes();
+        var todaySecond = today.getSeconds();
+        /* Date.UTC() -- 返回date对象距世界标准时间(UTC)1970年1月1日午夜之间的毫秒数(时间戳)
+        year - 作为date对象的年份，为4位年份值
+        month - 0-11之间的整数，做为date对象的月份
+        day - 1-31之间的整数，做为date对象的天数
+        hours - 0(午夜24点)-23之间的整数，做为date对象的小时数
+        minutes - 0-59之间的整数，做为date对象的分钟数
+        seconds - 0-59之间的整数，做为date对象的秒数
+        microseconds - 0-999之间的整数，做为date对象的毫秒数 */
+        var t1 = Date.UTC(2022,02,28,00,00,00); //你的建站时间
+        var t2 = Date.UTC(todayYear,todayMonth,todayDate,todayHour,todayMinute,todaySecond);
+        var diff = t2-t1;
+        var diffYears = Math.floor(diff/years);
+        var diffDays = Math.floor((diff/days)-diffYears*365);
+        var diffHours = Math.floor((diff-(diffYears*365+diffDays)*days)/hours);
+        var diffMinutes = Math.floor((diff-(diffYears*365+diffDays)*days-diffHours*hours)/minutes);
+        var diffSeconds = Math.floor((diff-(diffYears*365+diffDays)*days-diffHours*hours-diffMinutes*minutes)/seconds);
+        document.getElementById("sitetime").innerHTML=" 本站已安全运行 "+diffYears+" Year "+diffDays+" Days "+diffHours+" Hours "+diffMinutes+" m "+diffSeconds+" s";
+    }
+    siteTime();
+</script>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        访问人数：<span id="busuanzi_value_site_uv"></span>
+      </span>人
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+       访问总量：<span id="busuanzi_value_site_pv"></span>
+      </span>次
+    </span>
+
+
+<!--
+  本文总阅读量：<span id="busuanzi_value_page_pv"></span>次
+-->
+
+</div>
+
+
+<!--
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+--><script color="0,0,255" opacity="0.5" zIndex="-1" count="99" src="https://cdn.jsdelivr.net/npm/canvas-nest.js@1/dist/canvas-nest.js"></script>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<script class="next-config" data-name="waline" type="application/json">{"lang":"zh-cn","enable":true,"serverURL":"waline-server-nu.vercel.app","placeholder":"请文明评论呀","avatar":"mm","pageSize":10,"visitor":false,"comment_count":true,"requiredFields":[],"meta":["nick","mail","link"],"libUrl":"https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js","el":"#waline-comments","path":"/posts/f3a01220/"}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.waline.el).then(() => 
+    NexT.utils.getScript(CONFIG.waline.libUrl, { condition: window.Waline })
+  ).then(() => {
+    new Waline(CONFIG.waline);
+  });
+});
+</script>
+  <script src="//cdn.jsdelivr.net/gh/theme-next/theme-next-needmoreshare2@1/needsharebutton.min.js"></script>
+  <script>
+      pbOptions = {};
+        pbOptions.iconStyle = "default";
+        pbOptions.boxForm = "horizontal";
+        pbOptions.position = "middleCenter";
+        pbOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+  </script>
+</body>
+</html>
