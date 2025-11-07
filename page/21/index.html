@@ -102,9 +102,9 @@
   <ul class="main-menu menu">
         <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
         <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
-        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">56</span></a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">57</span></a></li>
         <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">18</span></a></li>
-        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">280</span></a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">281</span></a></li>
         <li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
@@ -176,7 +176,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">280</span>
+          <span class="site-state-item-count">281</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -187,7 +187,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">56</span>
+        <span class="site-state-item-count">57</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -219,6 +219,11 @@
 	</div>
 	<ul class="links-of-blogroll-list recent-posts-list">
 	        <li class="my-links-of-blogroll-item">
+		    <a href="/posts/3b65ab0a/" title="安装OpenVpn的Ubuntu22.04服务端，并配置服务端和客户端" target="">
+		    安装OpenVpn的Ubuntu22.04服务端，并配置服务端和客户端
+		    </a>
+		</li>
+	        <li class="my-links-of-blogroll-item">
 		    <a href="/posts/7ac8a987/" title="HIFI日记：HQPlayer embedded （HQPlayer OS）嵌入版使用教程" target="">
 		    HIFI日记：HQPlayer embedded （HQPlayer OS）嵌入版使用教程
 		    </a>
@@ -236,11 +241,6 @@
 	        <li class="my-links-of-blogroll-item">
 		    <a href="/posts/a0ae5a65/" title="CentOS7 源码安装redis4" target="">
 		    CentOS7 源码安装redis4
-		    </a>
-		</li>
-	        <li class="my-links-of-blogroll-item">
-		    <a href="/posts/701fa192/" title="mac10.15 下 git2.33 安装 git-gui" target="">
-		    mac10.15 下 git2.33 安装 git-gui
 		    </a>
 		</li>
 	</ul>
@@ -267,6 +267,614 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/b4eb9a6c/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lion.png">
+      <meta itemprop="name" content="swimminghao">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="swimminghao's blog">
+      <meta itemprop="description" content="swimminghao的学习博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | swimminghao's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/b4eb9a6c/" class="post-title-link" itemprop="url">23、【对线面试官】InnoDB引擎中的事务</a>
+        </h2>
+
+        <div class="post-meta-container">
+
+          
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2025-02-13 16:20:39" itemprop="dateModified" datetime="2025-02-13T16:20:39+08:00">2025-02-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/posts/b4eb9a6c/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/b4eb9a6c/" data-xid="/posts/b4eb9a6c/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>4k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>4 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="这次我想问下，你是怎么理解InnoDB引擎中的事务的？"><a href="#这次我想问下，你是怎么理解InnoDB引擎中的事务的？" class="headerlink" title="这次我想问下，你是怎么理解InnoDB引擎中的事务的？"></a>这次我想问下，你是怎么理解InnoDB引擎中的事务的？</h1><ol>
+<li>在我的理解下，事务可以使「一组操作」要么全部成功，要么全部失败</li>
+<li>事务其目的是为了「保证数据最终的一致性」。</li>
+<li>举个例子，我给你发支付宝转了888块红包。那自然我的支付宝余额会扣减888块，你的支付宝余额会增加888块。</li>
+<li>而事务就是保证我的余额扣减跟你的余额增添是同时成功或者同时失败的，这样这次转账就正常了</li>
+</ol>
+<h2 id="嗯，那你了解事务的几大特性吗？"><a href="#嗯，那你了解事务的几大特性吗？" class="headerlink" title="嗯，那你了解事务的几大特性吗？"></a>嗯，那你了解事务的几大特性吗？</h2><p>嗯，就是ACID嘛，分别是原子性（Atomicity）、一致性（Consistency）、隔离性（Isolation）、持久性（Durability）。</p>
+<ol>
+<li><p>原子性指的是：当前事务的操作要么同时成功，要么同时失败。原子性由undo Iog日志来保证，因为undo log记载着数据修改前的信息。</p>
+<p>1）比如我们要insert一条数据了，那undo Iog会记录的一条对应的delete日志。我们要update一条记录时，那undo log会记录之前的「旧值」的update记录。</p>
+<p>2）如果执行事务过程中出现异常的情况，那执行「回滚」。InnoDB引擎就是利用undo log记录下的数据，来将数据「恢复」到事务开始之前</p>
+</li>
+<li><p>隔离性指的是：在事务「并发」执行时，他们内部的操作不能互相干扰。</p>
+<p>1）如果多个事务可以在同一时刻操作同一份数据，那么就会可能会产生脏读、重复读、幻读的问题。</p>
+<p>2）于是，事务与事务之间需要存在「一定」的隔离。在nnoDB引擎中，定义了四种隔离级别供我们使用：分别是：read uncommit（读未提交）、read commit（读已提交）、repeatable read（可重复复读）、serializable（串行）</p>
+<p>3）不同的隔离级别对事务之间的隔离性是不一样的（级别越高事务隔离性越好，但性能就越低），而隔离性是由MySQL的各种锁来实现的，只是它屏蔽了加锁的细节。</p>
+</li>
+<li><p>持久性指的就是：一旦提交了事务，它对数据库的改变就应该是永久性的。说白了就是，会将数据持久化在硬盘上。</p>
+<p>1）而持久性由redo log日志来保证，当我们要修改数据时，MySQL是先把这条记录所在的「页」找到，然后把该页加载到内存中，将对应记录进行修改。</p>
+<p>2）为了防止内存修改完了，MySQL就挂掉了（如果内存改完，直接挂掉，那这次的修改相当于就丢失了）。</p>
+<p>3）MySQL引入了redo log，内存写完了，然后会写一份redo log，这份redo log记载着这次在某个页上做了什么修改。</p>
+<p>4）即便MySQL在中途挂了，我们还可以根据redo log：来对数据进行恢复。</p>
+<p>5）redo log是顺序写的，写入速度很快。并且它记录的是物理修改（xxxx页做了xxx修改），文件的体积很小，恢复速度也很快。</p>
+</li>
+<li><p>「一致性」可以理解为我们使用事务的「目的」，而「隔离性」「原子性」「持久性」均是为了保障「一致性」的手段，保证一致性需要由应用程序代码来保证</p>
+<p>1）比如，如果事务在发生的过程中，出现了异常情况，此时你就得回滚事务，而不是强行提交事务来导致数据不一致。</p>
+</li>
+</ol>
+<h2 id="刚才你也提到了隔离性嘛，然后你说在MySQL中有四种隔离级别，能分别来介绍下吗？"><a href="#刚才你也提到了隔离性嘛，然后你说在MySQL中有四种隔离级别，能分别来介绍下吗？" class="headerlink" title="刚才你也提到了隔离性嘛，然后你说在MySQL中有四种隔离级别，能分别来介绍下吗？"></a>刚才你也提到了隔离性嘛，然后你说在MySQL中有四种隔离级别，能分别来介绍下吗？</h2><ol>
+<li><p>嗯，为了讲清楚隔离级别，我顺带来说下MySQL锁相关的知识吧。</p>
+<p>1）在InnoDB引擎下，按锁的粒度分类，可以简单分为行锁和表锁。</p>
+<p>2）行锁实际上是作用在索引之上的（索引上次已经说过了，这里就不赘述了）</p>
+<p>3）当我们的SQL命中了索引，那锁住的就是命中条件内的索引节点（这种就是行锁），如果没有命中索引，那我们锁的就是整个索引树（表锁）。</p>
+<p>4）简单来说就是：锁住的是整棵树还是某几个节点，完全取决于SQL条件是否有命中到对应的索引节点。</p>
+<p>5）而行锁又可以简单分为读锁（共享锁、S锁）和写锁（排它锁、X锁）。</p>
+<p>6）读锁是共享的，多个事务可以同时读取同一个资源，但不允许其他事务修改。写锁是排他的，写锁会阻塞其他的写锁和读锁。</p>
+</li>
+<li><p>我现在就再回到隔离级别上吧，就直接以例子来说明啦。</p>
+<p>1）首先来说下read uncommit（读未提交）。比如说：A向B转账，A执行了转账语句，但A还没有提交事务，B读取数据，发现自己账户钱变多了！B跟A说，我已经收到钱了。A回滚事务【rollback】，等B再查看账户的钱时，发现钱并没有多。</p>
+<p>​    （1）简单的定义就是：事务B读取到了事务A还没提交的数据，这种用专业术语来说叫做「脏读」。</p>
+<p>​    （2）对于锁的维度而言，其实就是在read uncommit隔离级别下，读不会加任何锁，而写会加排他锁。读什么锁都不加，这就让排他锁无法排它了。</p>
+<p>​    （3）我们又知道，对于更新操作而言，lnnODB是肯定会加写锁的（数据库是不可能允许在同一时间，更新同一条记录的）。而读操作，如果不加任何锁，那就会造成上面的脏读。</p>
+<p>​    （4）脏读在生产环境下肯定是无法接受的，那如果读加锁的话，那意味着：当更新数据的时，就没办法读取了，这会极大地降低数据库性能。</p>
+<ul>
+<li><p>在MySQL InnoDB引擎层面，又有新的解决方案（解决加锁后读写性能问题），叫做MVCC（Multi-Version Concurrency Control）多版本并发控制</p>
+</li>
+<li><p>在MVCC下，就可以做到读写不阻塞，且避免了类似脏读这样的问题。那MVCC是怎么做的呢？</p>
+</li>
+<li><p>MVCC通过生成数据快照（Snapshot），并用这个快照来提供一定级别（语句级或事务级）的一致性读取</p>
+</li>
+</ul>
+<p>  （5）回到事务隔离级别下，针对于read commit（读已提交）隔离级别，它生成的就是语句级快照，而针对于repeatable read（可重复读），它生成的就是事务级的快照。</p>
+<p>2）前面提到过read uncommit隔离级别下会产生脏读，而read commit（读已提交）隔离级别解决了脏读</p>
+<p>​    （1）思想其实很简单：在读取的时候生成一个”版本号”，等到其他事务commit了之后，才会读取最新已commit的”版本号”数据。</p>
+<p>​    （2）比如说：事务A读取了记录（生成版本号），事务B修改了记录（此时加了写锁），事务A再读取的时候，是依据最新的版本号来读取的（当事务B执行commit了之后，会生成一个新的版本号），如果事务B还没有commit.那事务A读取的还是之前版本号的数据。</p>
+<p>​    （3）通过「版本」的概念，这样就解决了脏读的问题，而通过「版本」又可以对应快照的数据。read commit（读已提交）解决了脏读。</p>
+<p>3）read commit（读已提交）解决了脏读，但也会有其他并发的问题。「不可重复读」：一个事务读取到另外一个事务已经提交的数据，也就是说一个事务可以看到其他事务所做的修改。</p>
+<p>​    （1）不可重复读的例子：A查询数据库得到数据，B去修改数据库的数据，导致A多次查询数据库的结果都不一样【危害：A每次查询的结果都是受B的影响的】</p>
+<p>​    （2）了解MVCC基础之后，就很容易想到repeatable read（可重复复读）隔离级别是怎么避免不可重复读的问题了（前面也提到了）。</p>
+<p>​    （3）repeatable read（可重复复读）隔离级别是「事务级别」的快照！每次读取的都是「当前事务的版本」，即使当前数据被其他事务修改了（commit），也只会读取当前事务版本的数据。</p>
+<p>​    （4）在InnoDB引擎下的的repeatable read（可重复复读）隔离级别下，在MVCC下，快照读，已经解决了幻读的问题（因为它是读历史版本的数据）</p>
+<p>​    （5）而如果是当前读（比如select*from table for update），则需要配合间隙锁来解决幻读的问题。</p>
+<p>4）剩下的就是serializable（串行）隔离级别了，它的最高的隔离级别，相当于不允许事务的并发，事务与事务之间执行是串行的，它的效率最低，但同时也是最安全的。</p>
+</li>
+</ol>
+<h2 id="我看你提到了MVCC了，不妨来说下他的原理？"><a href="#我看你提到了MVCC了，不妨来说下他的原理？" class="headerlink" title="我看你提到了MVCC了，不妨来说下他的原理？"></a>我看你提到了MVCC了，不妨来说下他的原理？</h2><ol>
+<li>MVCC的主要是通过read view和undo log来实现的</li>
+<li>undo log前面也提到了，它会记录修改数据之前的信息，事务中的原子性就是通过undo log：来实现的。所以，有undo log可以帮我们找到「版本」的数据</li>
+<li>而read view实际上就是在查询时，lnnoDB会生成一个read view，read view有几个重要的字段，看下去就懂了</li>
+<li>分别是：trx ids（尚未提交commit的事务版本号集合），low limit id（下一次要生成的事务D值），low limit id（尚未提交版本号的事务D最小值）以及creator trx id（当前的事务版本号）</li>
+<li>在每行数据有两列隐藏的字段，分别是DB_TRX_ID（记录着当前ID）以及DB_ROLL _PTR（指向上一个版本数据在undolog里的位置指针）</li>
+<li>垫到这了，很容易就发现，MVCC其实就是靠「比对版本」来实现读写不阻塞，而版本的数据存在于undo log中。</li>
+<li>而针对于不同的隔离级别（read commit和repeatable read），无非就是read commit隔离级别下，每次都获取一个新的read view，repeatable read隔离级别则每次事务只获取一个read view</li>
+</ol>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ul>
+<li><p>事务为了保证数据的最终一致性</p>
+</li>
+<li><p>事务有四大特性，分别是原子性、一致性、隔离性、持久性</p>
+</li>
+<li><ul>
+<li>原子性由undo log保证</li>
+<li>持久性由redo log 保证</li>
+<li>隔离性由数据库隔离级别供我们选择，分别有read uncommit,read commit,repeatable read,serializable</li>
+<li>一致性是事务的目的，一致性由应用程序来保证</li>
+</ul>
+</li>
+<li><p>事务并发会存在各种问题，分别有脏读、重复读、幻读问题。上面的不同隔离级别可以解决掉由于并发事务所造成的问题，而隔离级别实际上就是由MySQL锁来实现的</p>
+</li>
+<li><p>频繁加锁会导致数据库性能低下，引入了MVCC多版本控制来实现读写不阻塞，提高数据库性能</p>
+</li>
+<li><p>MVCC原理即通过read view 以及undo log来实现</p>
+</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>l
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/b7f54c91/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lion.png">
+      <meta itemprop="name" content="swimminghao">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="swimminghao's blog">
+      <meta itemprop="description" content="swimminghao的学习博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | swimminghao's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/b7f54c91/" class="post-title-link" itemprop="url">25、【对线面试官】java从编译到执行，发生了什么</a>
+        </h2>
+
+        <div class="post-meta-container">
+
+          
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2025-02-13 16:20:39" itemprop="dateModified" datetime="2025-02-13T16:20:39+08:00">2025-02-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/posts/b7f54c91/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/b7f54c91/" data-xid="/posts/b7f54c91/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>1.9k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>2 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="25、【对线面试官】java从编译到执行，发生了什么"><a href="#25、【对线面试官】java从编译到执行，发生了什么" class="headerlink" title="25、【对线面试官】java从编译到执行，发生了什么"></a>25、【对线面试官】java从编译到执行，发生了什么</h1><h2 id="从基础先问起吧，你是怎么理解Java是一门「跨平台」的语言，也就是「一次编译，到处运行的」？"><a href="#从基础先问起吧，你是怎么理解Java是一门「跨平台」的语言，也就是「一次编译，到处运行的」？" class="headerlink" title="从基础先问起吧，你是怎么理解Java是一门「跨平台」的语言，也就是「一次编译，到处运行的」？"></a>从基础先问起吧，你是怎么理解Java是一门「跨平台」的语言，也就是「一次编译，到处运行的」？</h2><ul>
+<li>因为有JVM</li>
+<li>Java源代码会被编译为class文件，class文件是运行在JVM之上的。</li>
+<li>当我们日常开发安装JDK的时候，可以发现JDK是分「不同的操作系统」，JDK里是包含JVM的，所以Java依赖着JVM实现了『跨平台』</li>
+<li>通俗点来讲，JVM是面向操作系统的，它负责把Class字节码解释成系统所能识别的指令并执行，同时也负责程序运行时内存的管理。</li>
+</ul>
+<h2 id="那要不你来聊聊从源码文件（java）到代码执行的过程呗？"><a href="#那要不你来聊聊从源码文件（java）到代码执行的过程呗？" class="headerlink" title="那要不你来聊聊从源码文件（java）到代码执行的过程呗？"></a>那要不你来聊聊从源码文件（java）到代码执行的过程呗？</h2><ul>
+<li><p>简单总结的话，我认为就4个步骤：编译-&gt;加载-&gt;解释-&gt;执行</p>
+<ul>
+<li><p>编译：将源码文件编译成JVM可以解释的class文件。</p>
+<ul>
+<li>编译过程会对源代码程序做「语法分析」「语义分析」「注解处理」等等处理，最后才生成字节码文件。</li>
+<li>比如对泛型的擦除和我们经常用的Lombok就是在编译阶段干的。</li>
+</ul>
+</li>
+<li><p>加载：将编译后的class文件加载到JVM中。</p>
+<ul>
+<li><p>在加载阶段又可以细化几个步骤：装载-&gt;连接-&gt;初始化</p>
+<ul>
+<li>【装载时机】为了节省内存的开销，并不会一次性把所有的类都装载至JVM，而是等到「有需要」的时候才进行装载（比如new和反射等等）</li>
+<li>【装载发生】class文件是通过「类加载器」装载到jvm中的，为了防止内存中出现多份同样的字节码，使用了双亲委派机制（它不会自己去尝试加载这个类，而是把请求委托给父加载器去完成，依次向上）</li>
+<li>【装载规则】JDK中的本地方法类一般由根加载器（Bootstrp loader）装载，JDK中内部实现的扩展类一般由扩展加载器（ExtClassLoader）实现装载，而程序中的类文件则由系统加载器（AppClassLoader）实现装载。</li>
+</ul>
+</li>
+<li><p>装载这个阶段它做的事情总结：查找并加载类的二进制数据，在JVM「堆」中创建一个java.lang.Class类的对象，并将类相关的信息存储在JVM「方法区」中</p>
+<ul>
+<li>通过「装载」这个步骤后，现在已经把class文件装载到JVM中了，并创建出对应的Class.对象以及类信息存储至方法区了。</li>
+</ul>
+</li>
+<li><p>「连接」这个阶段它做的事情总结：对class的信息进行验证、为「类变量」分配内存空间并对其赋默认值。</p>
+<ul>
+<li><p>连接又可以细化为几个步骤：验证-》准备-》解析</p>
+<p>1.验证：验证类是否符合Java规范和JVM规范</p>
+<p>2.准备：为类的静态变量分配内存，初始化为系统的初始值</p>
+<p>3.解析：将符号引用转为直接引用的过程</p>
+</li>
+<li><p>通过「连接」这个步骤后，现在已经对class信息做校验并分配了内存空间和默认值了。</p>
+</li>
+</ul>
+</li>
+<li><p>「初始化」阶段总结：为类的静态变量赋予正确的初始值。</p>
+<ul>
+<li>过程大概就是收集class的静态变量、静态代码块、静态方法至clinit（）方法，随后从上往下开始执行。</li>
+<li>如果「实例化对象」则会调用方法对实例变量进行初始化，并执行对应的构造方法内的代码。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>解释：把字节码转换为操作系统识别的指令</p>
+<ul>
+<li>在解释阶段会有两种方式把字节码信息解释成机器指令码，一个是字节码解释器、一个是即时编译器（JIT）</li>
+<li>JVM会对「热点代码」做编译，非热点代码直接进行解释。当JVM发现某个方法或代码块的运行特别频繁的时候，就有可能把这部分代码认定为「热点代码」</li>
+<li>使用「热点探测」来检测是否为热点代码。「热点探测」一般有两种方式，计数器和抽样。HotSpot使用的是「计数器」的方式进行探测，为每个方法准备了两类计数器：方法调用计数器和回边计数器</li>
+<li>这两个计数器都有一个确定的阈值，当计数器超过阈值溢出了，就会触发JIT编译。</li>
+<li>即时编译器把热点方法的指令码保存起来，下次执行的时候就无需重复的进行解释，直接执行缓存的机器语言</li>
+</ul>
+</li>
+<li><p>执行：操作系统把解释器解析出来的指令码，调用系统的硬件执行最终的程序指令。</p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ul>
+<li><p>Java跨平台因为有JVM屏蔽了底层操作系统</p>
+</li>
+<li><p>Java源码到执行的过程，从JVM的角度看可以总结为四个步骤：编译-&gt;加载-&gt;解释-&gt;执行</p>
+</li>
+<li><ul>
+<li>「编译」经过 语法分析、语义分析、注解处理 最后才生成会class文件</li>
+<li>「加载」又可以细分步骤为：装载-&gt;连接-&gt;初始化。装载则把class文件装载至JVM，连接则校验class信息、分配内存空间及赋默认值，初始化则为变量赋值为正确的初始值。连接里又可以细化为：验证、准备、解析</li>
+<li>「解释」则是把字节码转换成操作系统可识别的执行指令，在JVM中会有字节码解释器和即时编译器。在解释时会对代码进行分析，查看是否为「热点代码」，如果为「热点代码」则触发JIT编译，下次执行时就无需重复进行解释，提高解释速度</li>
+<li>「执行」调用系统的硬件执行最终的程序指令</li>
+<li></li>
+</ul>
+</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/36XlDf_20211229115158.png"></p>
+
+      
+    </div>
+
+    
+    
+    
+
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>l
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/e1774332/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lion.png">
+      <meta itemprop="name" content="swimminghao">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="swimminghao's blog">
+      <meta itemprop="description" content="swimminghao的学习博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | swimminghao's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/e1774332/" class="post-title-link" itemprop="url">27、【对线面试官】深入浅出Java内存模型</a>
+        </h2>
+
+        <div class="post-meta-container">
+
+          
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2025-02-13 16:20:39" itemprop="dateModified" datetime="2025-02-13T16:20:39+08:00">2025-02-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/posts/e1774332/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/e1774332/" data-xid="/posts/e1774332/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>2k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>2 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="27、【对线面试官】深入浅出Java内存模型"><a href="#27、【对线面试官】深入浅出Java内存模型" class="headerlink" title="27、【对线面试官】深入浅出Java内存模型"></a>27、【对线面试官】深入浅出Java内存模型</h1><h2 id="上一次已经问过了为什么要有Java内存模型"><a href="#上一次已经问过了为什么要有Java内存模型" class="headerlink" title="上一次已经问过了为什么要有Java内存模型"></a>上一次已经问过了为什么要有Java内存模型</h2><ul>
+<li>答案是：Java为了屏蔽硬件和操作系统访问内存的各种差异，提出了「Java内存模型」的规范，保证了Java程序在各种平台下对内存的访问都能得到一致效果</li>
+<li>强调下：Java内存模型它是一种「规范」，Java虚拟机会实现这个规范。</li>
+</ul>
+<h2 id="先聊下Java内存模型的抽象结构？"><a href="#先聊下Java内存模型的抽象结构？" class="headerlink" title="先聊下Java内存模型的抽象结构？"></a>先聊下Java内存模型的抽象结构？</h2><ul>
+<li>Java内存模型定义了：Java线程对内存数据进行交互的规范。<ul>
+<li>线程之间的「共享变量」存储在「主内存」中，每个线程都有自己私有的「本地内存」，「本地内存」存储了该线程以读&#x2F;写共享变量的副本。</li>
+<li>本地内存是Java内存模型的抽象概念，并不是真实存在的。</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/xjTbHO_20211229144348.png"></p>
+<ul>
+<li>Java内存模型规定了：线程对变量的所有操作都必须在「本地内存」进行，「不能直接读写主内存」的变量<ul>
+<li>Java内存模型定义了8种操作来完成「变量如何从主内存到本地内存，以及变量如何从本地内存到主内存」</li>
+<li>分别是read&#x2F;load&#x2F;use&#x2F;assign&#x2F;store&#x2F;write&#x2F;lock&#x2F;unlock操作</li>
+<li>对变量一个读写操作就涵盖这些操作</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/IIGEvs_20211229144725.png"></p>
+<h2 id="happen-before规则"><a href="#happen-before规则" class="headerlink" title="happen-before规则"></a>happen-before规则</h2><ul>
+<li><p>按我的理解下，happen-before实际上也是一套「规则」。Java内存模型定义了这套规则，目的是为了阐述「操作之间」的内存「可见性」</p>
+<ul>
+<li>从上次讲述「指令重排」就提到了，在CPU和编译器层面上都有指令重排的问题。</li>
+</ul>
+</li>
+<li><p>但：在某些重要的场景下，这一组操作都不能进行重排序，「前面一个操作的结果对后续操作必须是可见的」。</p>
+<ul>
+<li><p>Java内存模型就提出了happen-before这套规则，规则总共有8条</p>
+<ul>
+<li>比如传递性、volatile变量规则、程序顺序规则、监视器锁的规则…</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>有了happen-before这些规则。我们写的代码只要在这些规则下，前一个操作的结果对后续操作是可见的，是不会发生重排序的。</p>
+</li>
+</ul>
+<h2 id="volatile内存语义"><a href="#volatile内存语义" class="headerlink" title="volatile内存语义"></a>volatile内存语义</h2><ul>
+<li><p>volatile是java的一个关键字</p>
+</li>
+<li><p>特性：可见性和有序性（禁止重排序）</p>
+</li>
+<li><p>java内存模型这个规范，很大程度下就为了解决可见性和有序性的问题。</p>
+</li>
+</ul>
+<h2 id="volatile是怎么做到可见性和有序性的"><a href="#volatile是怎么做到可见性和有序性的" class="headerlink" title="volatile是怎么做到可见性和有序性的"></a>volatile是怎么做到可见性和有序性的</h2><ul>
+<li><p>为了实现volatile有序性和可见性，定义了4种内存屏障的「规范」，</p>
+</li>
+<li><p>分别是LoadLoad&#x2F;LoadStore&#x2F;StroreLoad&#x2F;StoreStrore</p>
+</li>
+<li><p>本质上，就是在volatile前后加上了内存屏障，使得编译器和CPU无法进行重排序，致使有序，并且对volatile变量对其他线程可见</p>
+</li>
+<li><p>Hotspot虚拟机实现</p>
+<ul>
+<li>在「汇编」层面上实际是通过Lock前缀指令来实现的（lock支持大部分平台，而fence指令是x86平台的）</li>
+<li>locK指令能保证：禁止CPU和编译器的重排序（保证了有序性）、保证CPU写核<br>  心的指令可以立即生效且其他核心的缓存数据失效（保证了可见性）。</li>
+</ul>
+</li>
+</ul>
+<h2 id="volatile和MESl协议是啥关系？"><a href="#volatile和MESl协议是啥关系？" class="headerlink" title="volatile和MESl协议是啥关系？"></a>volatile和MESl协议是啥关系？</h2><ul>
+<li>没有直接关联</li>
+<li>Java内存模型关注的是编程语言层面上，它是高维度的抽象。</li>
+<li>MESI是CPU缓存一致性协议，不同的CPU架构都不一样，可能有的CPU压根就没用MESI协议.</li>
+<li>只不过MESI名声大，大家就都拿他来举例子了。</li>
+<li>MESI可能只是在「特定的场景下」为实现volatile的可见性&#x2F;有序性而使用到的一部分罢了</li>
+<li>为了让Java程序员屏蔽上面这些底层知识，快速地入门使用volatile变量</li>
+<li>Java内存模型的happen-before规则中就有对volatile变量规则的定义：对一个volatile变量的写操作相对于后续对这个volatile变量的读操作可见</li>
+<li>只要变量声明了volatile关键字，写后再读，读必须可见写的值。（可见性、有序性）</li>
+</ul>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p><strong>为什么存在Java内存模型</strong>：Java为了屏蔽硬件和操作系统访问内存的各种差异，提出了「Java内存模型」的规范，保证了Java程序在各种平台下对内存的访问都能得到一致效果</p>
+<p><strong>Java内存模型抽象结构</strong>：线程之间的「共享变量」存储在「主内存」中，每个线程都有自己私有的「本地内存」，「本地内存」存储了该线程以读&#x2F;写共享变量的副本。线程对变量的所有操作都必须在「本地内存」进行，而「不能直接读写主内存」的变量</p>
+<p><strong>happen-before规则</strong>：Java内存模型规定在某些场景下（一共8条），前面一个操作的结果对后续操作必须是可见的。这8条规则成为happen-before规则</p>
+<p><strong>volatile</strong>：volatile是Java的关键字，修饰的变量是可见性且有序的（不会被重排序）。可见性&amp;&amp;有序性，由Java内存模型定义的「内存屏障」完成，实际HotSpot虚拟机实现Java内存模型规范，汇编底层是通过Lock指令来实现。</p>
+
+      
+    </div>
+
+    
+    
+    
+
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>l
+
+
+
 
     
 
@@ -654,359 +1262,6 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/e1774332/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/lion.png">
-      <meta itemprop="name" content="swimminghao">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="swimminghao's blog">
-      <meta itemprop="description" content="swimminghao的学习博客">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | swimminghao's blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/e1774332/" class="post-title-link" itemprop="url">27、【对线面试官】深入浅出Java内存模型</a>
-        </h2>
-
-        <div class="post-meta-container">
-
-          
-
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2025-02-13 16:20:39" itemprop="dateModified" datetime="2025-02-13T16:20:39+08:00">2025-02-13</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="far fa-comment"></i>
-    </span>
-    <span class="post-meta-item-text">Waline：</span>
-  
-    <a title="waline" href="/posts/e1774332/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/e1774332/" data-xid="/posts/e1774332/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>2k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>2 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="27、【对线面试官】深入浅出Java内存模型"><a href="#27、【对线面试官】深入浅出Java内存模型" class="headerlink" title="27、【对线面试官】深入浅出Java内存模型"></a>27、【对线面试官】深入浅出Java内存模型</h1><h2 id="上一次已经问过了为什么要有Java内存模型"><a href="#上一次已经问过了为什么要有Java内存模型" class="headerlink" title="上一次已经问过了为什么要有Java内存模型"></a>上一次已经问过了为什么要有Java内存模型</h2><ul>
-<li>答案是：Java为了屏蔽硬件和操作系统访问内存的各种差异，提出了「Java内存模型」的规范，保证了Java程序在各种平台下对内存的访问都能得到一致效果</li>
-<li>强调下：Java内存模型它是一种「规范」，Java虚拟机会实现这个规范。</li>
-</ul>
-<h2 id="先聊下Java内存模型的抽象结构？"><a href="#先聊下Java内存模型的抽象结构？" class="headerlink" title="先聊下Java内存模型的抽象结构？"></a>先聊下Java内存模型的抽象结构？</h2><ul>
-<li>Java内存模型定义了：Java线程对内存数据进行交互的规范。<ul>
-<li>线程之间的「共享变量」存储在「主内存」中，每个线程都有自己私有的「本地内存」，「本地内存」存储了该线程以读&#x2F;写共享变量的副本。</li>
-<li>本地内存是Java内存模型的抽象概念，并不是真实存在的。</li>
-</ul>
-</li>
-</ul>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/xjTbHO_20211229144348.png"></p>
-<ul>
-<li>Java内存模型规定了：线程对变量的所有操作都必须在「本地内存」进行，「不能直接读写主内存」的变量<ul>
-<li>Java内存模型定义了8种操作来完成「变量如何从主内存到本地内存，以及变量如何从本地内存到主内存」</li>
-<li>分别是read&#x2F;load&#x2F;use&#x2F;assign&#x2F;store&#x2F;write&#x2F;lock&#x2F;unlock操作</li>
-<li>对变量一个读写操作就涵盖这些操作</li>
-</ul>
-</li>
-</ul>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/IIGEvs_20211229144725.png"></p>
-<h2 id="happen-before规则"><a href="#happen-before规则" class="headerlink" title="happen-before规则"></a>happen-before规则</h2><ul>
-<li><p>按我的理解下，happen-before实际上也是一套「规则」。Java内存模型定义了这套规则，目的是为了阐述「操作之间」的内存「可见性」</p>
-<ul>
-<li>从上次讲述「指令重排」就提到了，在CPU和编译器层面上都有指令重排的问题。</li>
-</ul>
-</li>
-<li><p>但：在某些重要的场景下，这一组操作都不能进行重排序，「前面一个操作的结果对后续操作必须是可见的」。</p>
-<ul>
-<li><p>Java内存模型就提出了happen-before这套规则，规则总共有8条</p>
-<ul>
-<li>比如传递性、volatile变量规则、程序顺序规则、监视器锁的规则…</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>有了happen-before这些规则。我们写的代码只要在这些规则下，前一个操作的结果对后续操作是可见的，是不会发生重排序的。</p>
-</li>
-</ul>
-<h2 id="volatile内存语义"><a href="#volatile内存语义" class="headerlink" title="volatile内存语义"></a>volatile内存语义</h2><ul>
-<li><p>volatile是java的一个关键字</p>
-</li>
-<li><p>特性：可见性和有序性（禁止重排序）</p>
-</li>
-<li><p>java内存模型这个规范，很大程度下就为了解决可见性和有序性的问题。</p>
-</li>
-</ul>
-<h2 id="volatile是怎么做到可见性和有序性的"><a href="#volatile是怎么做到可见性和有序性的" class="headerlink" title="volatile是怎么做到可见性和有序性的"></a>volatile是怎么做到可见性和有序性的</h2><ul>
-<li><p>为了实现volatile有序性和可见性，定义了4种内存屏障的「规范」，</p>
-</li>
-<li><p>分别是LoadLoad&#x2F;LoadStore&#x2F;StroreLoad&#x2F;StoreStrore</p>
-</li>
-<li><p>本质上，就是在volatile前后加上了内存屏障，使得编译器和CPU无法进行重排序，致使有序，并且对volatile变量对其他线程可见</p>
-</li>
-<li><p>Hotspot虚拟机实现</p>
-<ul>
-<li>在「汇编」层面上实际是通过Lock前缀指令来实现的（lock支持大部分平台，而fence指令是x86平台的）</li>
-<li>locK指令能保证：禁止CPU和编译器的重排序（保证了有序性）、保证CPU写核<br>  心的指令可以立即生效且其他核心的缓存数据失效（保证了可见性）。</li>
-</ul>
-</li>
-</ul>
-<h2 id="volatile和MESl协议是啥关系？"><a href="#volatile和MESl协议是啥关系？" class="headerlink" title="volatile和MESl协议是啥关系？"></a>volatile和MESl协议是啥关系？</h2><ul>
-<li>没有直接关联</li>
-<li>Java内存模型关注的是编程语言层面上，它是高维度的抽象。</li>
-<li>MESI是CPU缓存一致性协议，不同的CPU架构都不一样，可能有的CPU压根就没用MESI协议.</li>
-<li>只不过MESI名声大，大家就都拿他来举例子了。</li>
-<li>MESI可能只是在「特定的场景下」为实现volatile的可见性&#x2F;有序性而使用到的一部分罢了</li>
-<li>为了让Java程序员屏蔽上面这些底层知识，快速地入门使用volatile变量</li>
-<li>Java内存模型的happen-before规则中就有对volatile变量规则的定义：对一个volatile变量的写操作相对于后续对这个volatile变量的读操作可见</li>
-<li>只要变量声明了volatile关键字，写后再读，读必须可见写的值。（可见性、有序性）</li>
-</ul>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p><strong>为什么存在Java内存模型</strong>：Java为了屏蔽硬件和操作系统访问内存的各种差异，提出了「Java内存模型」的规范，保证了Java程序在各种平台下对内存的访问都能得到一致效果</p>
-<p><strong>Java内存模型抽象结构</strong>：线程之间的「共享变量」存储在「主内存」中，每个线程都有自己私有的「本地内存」，「本地内存」存储了该线程以读&#x2F;写共享变量的副本。线程对变量的所有操作都必须在「本地内存」进行，而「不能直接读写主内存」的变量</p>
-<p><strong>happen-before规则</strong>：Java内存模型规定在某些场景下（一共8条），前面一个操作的结果对后续操作必须是可见的。这8条规则成为happen-before规则</p>
-<p><strong>volatile</strong>：volatile是Java的关键字，修饰的变量是可见性且有序的（不会被重排序）。可见性&amp;&amp;有序性，由Java内存模型定义的「内存屏障」完成，实际HotSpot虚拟机实现Java内存模型规范，汇编底层是通过Lock指令来实现。</p>
-
-      
-    </div>
-
-    
-    
-    
-
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>l
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/5a56f011/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/lion.png">
-      <meta itemprop="name" content="swimminghao">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="swimminghao's blog">
-      <meta itemprop="description" content="swimminghao的学习博客">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | swimminghao's blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/5a56f011/" class="post-title-link" itemprop="url">2、【对线面试官】今天来聊聊Java泛型</a>
-        </h2>
-
-        <div class="post-meta-container">
-
-          
-
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2025-02-13 16:20:39" itemprop="dateModified" datetime="2025-02-13T16:20:39+08:00">2025-02-13</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="far fa-comment"></i>
-    </span>
-    <span class="post-meta-item-text">Waline：</span>
-  
-    <a title="waline" href="/posts/5a56f011/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/5a56f011/" data-xid="/posts/5a56f011/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>2.5k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>2 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>#2、【对线面试官】今天来聊聊Java泛型</p>
-<h2 id="泛型了解"><a href="#泛型了解" class="headerlink" title="泛型了解"></a>泛型了解</h2><ol>
-<li>在Java中的泛型简单来说就是：在创建对象或调用方法的时候才明确下具体的类型</li>
-<li>使用泛型的好处就是代码更加简洁（不再需要强制转换），程序更加健壮（在编译期间没有警告，在运行期就不会出现ClassCastException异常）</li>
-</ol>
-<h2 id="工作中用得多吗"><a href="#工作中用得多吗" class="headerlink" title="工作中用得多吗"></a>工作中用得多吗</h2><ol>
-<li>在操作集合的时候，还是很多的，毕竟方便啊。List lists &#x3D; new ArrayList&lt;&gt;();lists.add （”面试造火箭”）；</li>
-<li>如果是其他场景的话，那就是在写「基础组件」的时候了。</li>
-</ol>
-<h2 id="你是怎么写的"><a href="#你是怎么写的" class="headerlink" title="你是怎么写的"></a>你是怎么写的</h2><ol>
-<li><p>再明确一下泛型就是「在创建对象或调用方法的时候才明确下具体的类型」</p>
-</li>
-<li><p>而组件为了做到足够的通用性，是不知道「用户」传入什么类型参数进来的所以在这种情况下用泛型就是很好的实践。</p>
-</li>
-<li><p>这块可以参考SpringData JPA的JpaRepository写法。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">JpaRepository</span>&lt;T, ID&gt; <span class="keyword">extends</span> <span class="title class_">PagingAndSortingRepository</span>&lt;T, ID&gt;, QueryByExampleExecutor&lt;T&gt; &#123;</span><br><span class="line"></span><br><span class="line"> List&lt;T&gt; <span class="title function_">findAll</span><span class="params">()</span>;</span><br><span class="line"></span><br><span class="line"> List&lt;T&gt; <span class="title function_">findAll</span><span class="params">(Sort sort)</span>;</span><br><span class="line"></span><br><span class="line"> List&lt;T&gt; <span class="title function_">findAllById</span><span class="params">(Iterable&lt;ID&gt; ids)</span>;</span><br><span class="line"></span><br><span class="line"> &lt;S <span class="keyword">extends</span> <span class="title class_">T</span>&gt; List&lt;S&gt; <span class="title function_">saveAll</span><span class="params">(Iterable&lt;S&gt; entities)</span>;</span><br><span class="line"></span><br><span class="line"> <span class="keyword">void</span> <span class="title function_">flush</span><span class="params">()</span>;</span><br><span class="line"></span><br><span class="line"> &lt;S <span class="keyword">extends</span> <span class="title class_">T</span>&gt; S <span class="title function_">saveAndFlush</span><span class="params">(S entity)</span>;</span><br><span class="line"></span><br><span class="line"> <span class="keyword">void</span> <span class="title function_">deleteInBatch</span><span class="params">(Iterable&lt;T&gt; entities)</span>;</span><br><span class="line"></span><br><span class="line"> <span class="keyword">void</span> <span class="title function_">deleteAllInBatch</span><span class="params">()</span>;</span><br><span class="line"></span><br><span class="line"> T <span class="title function_">getOne</span><span class="params">(ID id)</span>;</span><br><span class="line"></span><br><span class="line"> <span class="meta">@Override</span></span><br><span class="line"> &lt;S <span class="keyword">extends</span> <span class="title class_">T</span>&gt; List&lt;S&gt; <span class="title function_">findAll</span><span class="params">(Example&lt;S&gt; example)</span>;</span><br><span class="line"></span><br><span class="line"> <span class="meta">@Override</span></span><br><span class="line"> &lt;S <span class="keyword">extends</span> <span class="title class_">T</span>&gt; List&lt;S&gt; <span class="title function_">findAll</span><span class="params">(Example&lt;S&gt; example, Sort sort)</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>要写组件，还是离不开Java反射机制（能够从运行时获取信息），所以一般组件是泛型+反射来实现的。</p>
-</li>
-<li><p>回到我所讲的组件吧，背景是这样的：我这边有个需求，需要根据某些字段进行聚合。</p>
-</li>
-<li><p>换到SQL其实就是select sum（column 1),sum(column2) from table group by fie ld1,field2</p>
-</li>
-<li><p>需要sum和group by的列肯定是由业务方自己传入，而SQL的表其实就是我们的POJO（传入的字段也肯定是POJO的属性）</p>
-</li>
-<li><p>单个业务实际可以在参数上写死POJO，但为了做得更加通用，我把入参设置为泛型</p>
-</li>
-<li><p>拿到参数后，通过反射获取其字段具体的值，做累加就好了。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 传入 需要group by 和 sum 的字段名</span></span><br><span class="line"><span class="keyword">public</span> <span class="title function_">cacheMap</span><span class="params">(List&lt;String&gt; groupByKeys, List&lt;String&gt; sumValues)</span> &#123;</span><br><span class="line">  <span class="built_in">this</span>.groupByKeys = groupByKeys;</span><br><span class="line">  <span class="built_in">this</span>.sumValues = sumValues;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">excute</span><span class="params">(T e)</span> &#123;</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// 从pojo 取出需要group by 的字段 list</span></span><br><span class="line">  List&lt;Object&gt; key = buildPrimaryKey(e);</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// primaryMap 是存储结果的Map</span></span><br><span class="line">  <span class="type">T</span> <span class="variable">value</span> <span class="operator">=</span> primaryMap.get(key);</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// 如果从存储结果找到有相应记录</span></span><br><span class="line">  <span class="keyword">if</span> (value != <span class="literal">null</span>) &#123;</span><br><span class="line">    <span class="keyword">for</span> (String elem : sumValues) &#123;</span><br><span class="line">      <span class="comment">// 反射获取对应的字段，做累加处理</span></span><br><span class="line">      <span class="type">Field</span> <span class="variable">field</span> <span class="operator">=</span> getDeclaredField(elem, e);</span><br><span class="line">      <span class="keyword">if</span> (field.get(e) <span class="keyword">instanceof</span> Integer) &#123;</span><br><span class="line">        field.set(value, (Integer) field.get(e) + (Integer) field.get(value));</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span> (field.get(e) <span class="keyword">instanceof</span> Long) &#123;</span><br><span class="line">        field.set(value, (Long) field.get(e) + (Long) field.get(value));</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">RuntimeException</span>(<span class="string">&quot;类型异常,请处理异常&quot;</span>);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 处理时间记录</span></span><br><span class="line">    <span class="type">Field</span> <span class="variable">field</span> <span class="operator">=</span> getDeclaredField(<span class="string">&quot;updated&quot;</span>, value);</span><br><span class="line">    <span class="keyword">if</span> (<span class="literal">null</span> != field) &#123;</span><br><span class="line">      field.set(value, DateTimeUtils.getCurrentTime());</span><br><span class="line">    &#125;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="comment">// group by 字段 第一次进来</span></span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      primaryMap.put(key, Tclone(e));</span><br><span class="line">      createdMap.put(key, DateTimeUtils.getCurrentTime());</span><br><span class="line">    &#125;<span class="keyword">catch</span> (Exception ex) &#123;</span><br><span class="line">      log.info(<span class="string">&quot;first put value error &#123;&#125;&quot;</span> , e);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>理解了泛型的作用之后，再去审视自己代码时，就可以判断是否需要用到泛型了。</p>
-</li>
-</ol>
-<h2 id="价值体现"><a href="#价值体现" class="headerlink" title="价值体现"></a>价值体现</h2><ol>
-<li>主要是在平时工作中，写代码的时候会多想想，遇到能用到的地方会优化下代码</li>
-</ol>
-
-      
-    </div>
-
-    
-    
-    
-
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>l
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://example.com/posts/9544a93a/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1215,6 +1470,163 @@
 <p><strong>Minor GC</strong>：当Eden区满了则触发，从GC Roots往下遍历，年轻代GC不关心老年代对象</p>
 <p><strong>什么是card table</strong>【卡表】：空间换时间（类似bitmap），能够避免扫描老年代的所有对象，进而顺利进行Minor GC （案例：老年代对象持有年轻代对象引用）</p>
 <p><strong>堆内存占比</strong>：年轻代占堆内存1&#x2F;3，老年代占堆内存2&#x2F;3。Eden区占年轻代8&#x2F;10，Survivor区占年轻代2&#x2F;10（其中From 和To 各站1&#x2F;10)</p>
+
+      
+    </div>
+
+    
+    
+    
+
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>l
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/5a56f011/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lion.png">
+      <meta itemprop="name" content="swimminghao">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="swimminghao's blog">
+      <meta itemprop="description" content="swimminghao的学习博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | swimminghao's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/5a56f011/" class="post-title-link" itemprop="url">2、【对线面试官】今天来聊聊Java泛型</a>
+        </h2>
+
+        <div class="post-meta-container">
+
+          
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2025-02-13 16:20:39" itemprop="dateModified" datetime="2025-02-13T16:20:39+08:00">2025-02-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/posts/5a56f011/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/5a56f011/" data-xid="/posts/5a56f011/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>2.5k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>2 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>#2、【对线面试官】今天来聊聊Java泛型</p>
+<h2 id="泛型了解"><a href="#泛型了解" class="headerlink" title="泛型了解"></a>泛型了解</h2><ol>
+<li>在Java中的泛型简单来说就是：在创建对象或调用方法的时候才明确下具体的类型</li>
+<li>使用泛型的好处就是代码更加简洁（不再需要强制转换），程序更加健壮（在编译期间没有警告，在运行期就不会出现ClassCastException异常）</li>
+</ol>
+<h2 id="工作中用得多吗"><a href="#工作中用得多吗" class="headerlink" title="工作中用得多吗"></a>工作中用得多吗</h2><ol>
+<li>在操作集合的时候，还是很多的，毕竟方便啊。List lists &#x3D; new ArrayList&lt;&gt;();lists.add （”面试造火箭”）；</li>
+<li>如果是其他场景的话，那就是在写「基础组件」的时候了。</li>
+</ol>
+<h2 id="你是怎么写的"><a href="#你是怎么写的" class="headerlink" title="你是怎么写的"></a>你是怎么写的</h2><ol>
+<li><p>再明确一下泛型就是「在创建对象或调用方法的时候才明确下具体的类型」</p>
+</li>
+<li><p>而组件为了做到足够的通用性，是不知道「用户」传入什么类型参数进来的所以在这种情况下用泛型就是很好的实践。</p>
+</li>
+<li><p>这块可以参考SpringData JPA的JpaRepository写法。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">JpaRepository</span>&lt;T, ID&gt; <span class="keyword">extends</span> <span class="title class_">PagingAndSortingRepository</span>&lt;T, ID&gt;, QueryByExampleExecutor&lt;T&gt; &#123;</span><br><span class="line"></span><br><span class="line"> List&lt;T&gt; <span class="title function_">findAll</span><span class="params">()</span>;</span><br><span class="line"></span><br><span class="line"> List&lt;T&gt; <span class="title function_">findAll</span><span class="params">(Sort sort)</span>;</span><br><span class="line"></span><br><span class="line"> List&lt;T&gt; <span class="title function_">findAllById</span><span class="params">(Iterable&lt;ID&gt; ids)</span>;</span><br><span class="line"></span><br><span class="line"> &lt;S <span class="keyword">extends</span> <span class="title class_">T</span>&gt; List&lt;S&gt; <span class="title function_">saveAll</span><span class="params">(Iterable&lt;S&gt; entities)</span>;</span><br><span class="line"></span><br><span class="line"> <span class="keyword">void</span> <span class="title function_">flush</span><span class="params">()</span>;</span><br><span class="line"></span><br><span class="line"> &lt;S <span class="keyword">extends</span> <span class="title class_">T</span>&gt; S <span class="title function_">saveAndFlush</span><span class="params">(S entity)</span>;</span><br><span class="line"></span><br><span class="line"> <span class="keyword">void</span> <span class="title function_">deleteInBatch</span><span class="params">(Iterable&lt;T&gt; entities)</span>;</span><br><span class="line"></span><br><span class="line"> <span class="keyword">void</span> <span class="title function_">deleteAllInBatch</span><span class="params">()</span>;</span><br><span class="line"></span><br><span class="line"> T <span class="title function_">getOne</span><span class="params">(ID id)</span>;</span><br><span class="line"></span><br><span class="line"> <span class="meta">@Override</span></span><br><span class="line"> &lt;S <span class="keyword">extends</span> <span class="title class_">T</span>&gt; List&lt;S&gt; <span class="title function_">findAll</span><span class="params">(Example&lt;S&gt; example)</span>;</span><br><span class="line"></span><br><span class="line"> <span class="meta">@Override</span></span><br><span class="line"> &lt;S <span class="keyword">extends</span> <span class="title class_">T</span>&gt; List&lt;S&gt; <span class="title function_">findAll</span><span class="params">(Example&lt;S&gt; example, Sort sort)</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>要写组件，还是离不开Java反射机制（能够从运行时获取信息），所以一般组件是泛型+反射来实现的。</p>
+</li>
+<li><p>回到我所讲的组件吧，背景是这样的：我这边有个需求，需要根据某些字段进行聚合。</p>
+</li>
+<li><p>换到SQL其实就是select sum（column 1),sum(column2) from table group by fie ld1,field2</p>
+</li>
+<li><p>需要sum和group by的列肯定是由业务方自己传入，而SQL的表其实就是我们的POJO（传入的字段也肯定是POJO的属性）</p>
+</li>
+<li><p>单个业务实际可以在参数上写死POJO，但为了做得更加通用，我把入参设置为泛型</p>
+</li>
+<li><p>拿到参数后，通过反射获取其字段具体的值，做累加就好了。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 传入 需要group by 和 sum 的字段名</span></span><br><span class="line"><span class="keyword">public</span> <span class="title function_">cacheMap</span><span class="params">(List&lt;String&gt; groupByKeys, List&lt;String&gt; sumValues)</span> &#123;</span><br><span class="line">  <span class="built_in">this</span>.groupByKeys = groupByKeys;</span><br><span class="line">  <span class="built_in">this</span>.sumValues = sumValues;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">excute</span><span class="params">(T e)</span> &#123;</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// 从pojo 取出需要group by 的字段 list</span></span><br><span class="line">  List&lt;Object&gt; key = buildPrimaryKey(e);</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// primaryMap 是存储结果的Map</span></span><br><span class="line">  <span class="type">T</span> <span class="variable">value</span> <span class="operator">=</span> primaryMap.get(key);</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// 如果从存储结果找到有相应记录</span></span><br><span class="line">  <span class="keyword">if</span> (value != <span class="literal">null</span>) &#123;</span><br><span class="line">    <span class="keyword">for</span> (String elem : sumValues) &#123;</span><br><span class="line">      <span class="comment">// 反射获取对应的字段，做累加处理</span></span><br><span class="line">      <span class="type">Field</span> <span class="variable">field</span> <span class="operator">=</span> getDeclaredField(elem, e);</span><br><span class="line">      <span class="keyword">if</span> (field.get(e) <span class="keyword">instanceof</span> Integer) &#123;</span><br><span class="line">        field.set(value, (Integer) field.get(e) + (Integer) field.get(value));</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span> (field.get(e) <span class="keyword">instanceof</span> Long) &#123;</span><br><span class="line">        field.set(value, (Long) field.get(e) + (Long) field.get(value));</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">RuntimeException</span>(<span class="string">&quot;类型异常,请处理异常&quot;</span>);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 处理时间记录</span></span><br><span class="line">    <span class="type">Field</span> <span class="variable">field</span> <span class="operator">=</span> getDeclaredField(<span class="string">&quot;updated&quot;</span>, value);</span><br><span class="line">    <span class="keyword">if</span> (<span class="literal">null</span> != field) &#123;</span><br><span class="line">      field.set(value, DateTimeUtils.getCurrentTime());</span><br><span class="line">    &#125;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="comment">// group by 字段 第一次进来</span></span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      primaryMap.put(key, Tclone(e));</span><br><span class="line">      createdMap.put(key, DateTimeUtils.getCurrentTime());</span><br><span class="line">    &#125;<span class="keyword">catch</span> (Exception ex) &#123;</span><br><span class="line">      log.info(<span class="string">&quot;first put value error &#123;&#125;&quot;</span> , e);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>理解了泛型的作用之后，再去审视自己代码时，就可以判断是否需要用到泛型了。</p>
+</li>
+</ol>
+<h2 id="价值体现"><a href="#价值体现" class="headerlink" title="价值体现"></a>价值体现</h2><ol>
+<li>主要是在平时工作中，写代码的时候会多想想，遇到能用到的地方会优化下代码</li>
+</ol>
 
       
     </div>
@@ -1721,448 +2133,6 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/b8eb8241/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/lion.png">
-      <meta itemprop="name" content="swimminghao">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="swimminghao's blog">
-      <meta itemprop="description" content="swimminghao的学习博客">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | swimminghao's blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/b8eb8241/" class="post-title-link" itemprop="url">32、【对线面试官】如何实现幂等和去重？</a>
-        </h2>
-
-        <div class="post-meta-container">
-
-          
-
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2025-02-13 16:20:39" itemprop="dateModified" datetime="2025-02-13T16:20:39+08:00">2025-02-13</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="far fa-comment"></i>
-    </span>
-    <span class="post-meta-item-text">Waline：</span>
-  
-    <a title="waline" href="/posts/b8eb8241/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/b8eb8241/" data-xid="/posts/b8eb8241/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>1.6k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>1 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="如何实现去重和幂等"><a href="#如何实现去重和幂等" class="headerlink" title="如何实现去重和幂等"></a>如何实现去重和幂等</h1><h2 id="去重与幂等"><a href="#去重与幂等" class="headerlink" title="去重与幂等"></a>去重与幂等</h2><ul>
-<li>区别<ul>
-<li>「去重」是对请求或者消息在「一定时间内」进行去重「N次」</li>
-<li>「幂等」则是保证请求或消息在「任意时间内」进行处理，都需要保证它的结果是一致</li>
-</ul>
-</li>
-<li>以项目举例，我维护的「消息管理平台」是有「去重」的功能的：「5分钟相同内容消息去重」「1小时内模板去重」「一天内渠道达到N次阈值去重」.</li>
-<li>再次强调下「幂等」和「去重」的本质：「唯一Key」+「存储」</li>
-</ul>
-<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><ul>
-<li>不同的业务场景，唯一Key是不一样的，由业务決定</li>
-<li>存储选择挺多的，比如「本地缓存」&#x2F;「 Redis」&#x2F;「 MYSQL」&#x2F;「 Hbase」等等，具体选取什么，也跟业务有关</li>
-<li>比如说，在「消息管理平台」这个场景下，我存储选择的「 Redis」（读写性能优越）， Redis也有「过期时间」方便解决「一定时间内」的问题</li>
-<li>而唯一Key，自然就是根据不同的业务构建不同的。</li>
-<li>比如说「5分钟相同内容消息去重」，我直接MD5请求参数作为唯一Key。「1小时模板去重」则是「模板ID+ userid」作为唯一Key，「ー天内渠道去重」则是「渠道ID+ userid」作为唯一Key.</li>
-</ul>
-<h2 id="提到了「去重」了，你听过布隆过滤器吗？"><a href="#提到了「去重」了，你听过布隆过滤器吗？" class="headerlink" title="提到了「去重」了，你听过布隆过滤器吗？"></a>提到了「去重」了，你听过布隆过滤器吗？</h2><ul>
-<li>布隆过滤器的底层数据结构可以理解为bitmap， bitmap也可以简单理解为是一个数组，元素只存储0和1，所以它占用的空间相对较小</li>
-<li>当一个元素要存入 bitmap时，其实是要去看存储到 bitmap的哪个位置，这时一般用的就是「哈希算法」，存进去的位置标记为1</li>
-<li>标记为1的位置表示存在，标记为0的位置标示不存在</li>
-<li>布隆过滤器是可以以较低的空间占用来判断元素是否存在进而用于去重，但是它也有对应的缺点</li>
-<li>只要使用哈希算法离不开「哈希冲突」，导致有存在「误判」的情况</li>
-<li>在布隆过滤器中，如果元素判定为存在，那该元素「未必」真实存在。如果元素判定为不存在，那就肯定是不存在</li>
-<li>这应该不用我多解释了吧？（结合「哈希算法」和「标记为1的位置表示存在，标记为0的位置表示不存在」这两者就能得出上面结论）</li>
-<li>布隆过滤器也不能「删除」元素（也是哈希算法的局限性，在布隆过滤器中是不能准确定位一个元素的）</li>
-<li>如果要用的话，布隆过滤器的实现可以直接上 guava已经实现好的，不过这个是单机的</li>
-<li>而分布式下的布隆过滤器，一般现在会用 Redis，但也不是每个公司都会部暑布隆过潓器的 Redis版（还是有局限，像我以前公司就没有）</li>
-<li>所以，目前我负责的项目都是没有用布隆过滤器的</li>
-</ul>
-<h2 id="去重开销大"><a href="#去重开销大" class="headerlink" title="去重开销大"></a>去重开销大</h2><ul>
-<li>如果「去重」开销比较大，可以考虑建立「多层过滤」的逻辑</li>
-<li>比如，先看看『本地缓存』能不能过滤一部分，剩下「强校验」交由『远程存储』（常见的 Redis或者DB）进行二次过滤</li>
-</ul>
-<h2 id="kafka场景"><a href="#kafka场景" class="headerlink" title="kafka场景"></a>kafka场景</h2><ul>
-<li>当时你说在处理订单时实现了 at least one+幂等</li>
-<li>幂等处理时：前置过滤使用的是 Redis，强一致校验时使用的是DB唯一索引，也是为了提高性能，唯一Key好像就是「订单编号+订单状态」</li>
-</ul>
-<h2 id="方案的场景适用"><a href="#方案的场景适用" class="headerlink" title="方案的场景适用"></a>方案的场景适用</h2><ol>
-<li>一般我们需要对数据强一致性校验，就直接上 MYSQL（DB），毕竟有事务的支持</li>
-<li>「本地缓存」如果业务适合，那可以作为一个「前置」判断</li>
-<li>Redis高性能读写，前置判断和后置均可</li>
-<li>而 Hbasel则一般用于庞大数据量的场景下（ Redis内存太贵，DB不够灵活也不适合单表存大量数据）</li>
-</ol>
-<h2 id="幂等"><a href="#幂等" class="headerlink" title="幂等"></a>幂等</h2><ul>
-<li>至于幂等，一般的方案下存储还是「Redis」和「数据库」</li>
-<li>最最最最常见的就是数据库「唯一索」来实现幂等（我所负责的好几个项目都是用这个）</li>
-<li>构建「唯一Key」是业务相关的事了（一般是用自己的业务ID进行拼接，生成一个有意义”的唯一Key</li>
-<li>当然，也有用「 Redis」和「 MYSQL」实现分布式锁来实现幂等的（：）</li>
-<li>但 Redis’分布式锁是不能完全保证安全的，而MNSL实现分布式锁（乐观锁和悲观锁），不过还是看业务吧，我是没用到过的</li>
-<li>网上有很多实现「幂等」的方案，本质上都是围绕着「存储」和「唯一Key」做了些变种，然后取了个名字</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>l
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/63b182f/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/lion.png">
-      <meta itemprop="name" content="swimminghao">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="swimminghao's blog">
-      <meta itemprop="description" content="swimminghao的学习博客">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | swimminghao's blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/63b182f/" class="post-title-link" itemprop="url">33、【对线面试官】Redis主从架构</a>
-        </h2>
-
-        <div class="post-meta-container">
-
-          
-
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2025-02-13 16:20:39" itemprop="dateModified" datetime="2025-02-13T16:20:39+08:00">2025-02-13</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="far fa-comment"></i>
-    </span>
-    <span class="post-meta-item-text">Waline：</span>
-  
-    <a title="waline" href="/posts/63b182f/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/63b182f/" data-xid="/posts/63b182f/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>3.1k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>3 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="33、【对线面试官】Redis主从架构"><a href="#33、【对线面试官】Redis主从架构" class="headerlink" title="33、【对线面试官】Redis主从架构"></a>33、【对线面试官】Redis主从架构</h1><h2 id="要不你来讲讲你公司的Redis是什么架构的咯？"><a href="#要不你来讲讲你公司的Redis是什么架构的咯？" class="headerlink" title="要不你来讲讲你公司的Redis是什么架构的咯？"></a>要不你来讲讲你公司的Redis是什么架构的咯？</h2><ul>
-<li>我前公司的Redis架构是「分片集群」，使用的是「Proxy」层来对Key进行分流到不同的Redis服务器上</li>
-<li>支持动态扩容、故障恢复等等…</li>
-</ul>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/exJQS5_20211229222731.png"></p>
-<h2 id="那你来聊下Proxy-层的架构和基本实现原理？"><a href="#那你来聊下Proxy-层的架构和基本实现原理？" class="headerlink" title="那你来聊下Proxy.层的架构和基本实现原理？"></a>那你来聊下Proxy.层的架构和基本实现原理？</h2><ul>
-<li><p>抱歉，这块由中间件团队负责，具体我也没仔细看过</p>
-</li>
-<li><p>不过，我可以给你讲讲现有常见开源的Redis架构</p>
-<ul>
-<li><p>在之前提到了Redis有持久化机制，即便Redis重启了，可以依靠RDB或者AOF文件对数据进行重新加载</p>
-</li>
-<li><p>但在这时，只有一台Redis服务器存储着所有的数据，此时如果Redis服务器「暂时」没办法修复了，那依赖Redis的服务就没了</p>
-</li>
-<li><p>所以，为了Redis「高可用」，现在基本都会给Redis做「备份」：多启一台Redis服务器，形成「主从架构」</p>
-</li>
-<li><p>「从服务器」的数据由「主服务器」复制过去，主从服务器的数据是一致的</p>
-</li>
-<li><p>如果主服务器挂了，那可以「手动」把「从服务器」升级为「主服务器」，缩短不可用时间</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/jCY34w_20211229225726.png"></p>
-</li>
-</ul>
-</li>
-</ul>
-<h2 id="那「主服务器」是如何把自身的数据「复制」给「从服务器」的呢？"><a href="#那「主服务器」是如何把自身的数据「复制」给「从服务器」的呢？" class="headerlink" title="那「主服务器」是如何把自身的数据「复制」给「从服务器」的呢？"></a>那「主服务器」是如何把自身的数据「复制」给「从服务器」的呢？</h2><ul>
-<li>「复制」也叫「同步」，在Redis使用的是「PSYNC」命令进行同步，该命令有两种模型：完全重同步和部分重同步</li>
-<li>可以简单理解为：如果是第一次「同步」，从服务器没有复制过任何的主服务器，或者从服务器要复制的主服务器跟上次复制的主服务器不一样，那就会采用「完全重同步」模式进行复制</li>
-<li>如果只是由于网络中断，只是「短时间」断连，那就会采用「部分重同步」模式进行复制</li>
-<li>（假如主从服务器的数据差距实在是过大了，还是会采用「完全重同步」模式进行复制）</li>
-</ul>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/8nL2eT_20211229225855.png"></p>
-<h2 id="同步原理"><a href="#同步原理" class="headerlink" title="同步原理"></a>同步原理</h2><ul>
-<li><p>主服务器要复制数据到从服务器，首先是建立Socket「连接」，这个过程会干一些信息校验啊、身份校验啊等事情</p>
-</li>
-<li><p>然后从服务器就会发「PSYNC」命令给主服务器，要求同步（这时会带「服务器ID」RUNID和「复制进度」offset参数。如果从服务器是新的，那就没有）</p>
-</li>
-<li><p>主服务器发现这是一个新的从服务器（因为参数没带上来），就会采用「完全重同步」模式，并把「服务器ID」（runld）和「复制进度」（offset）发给从服务器，从服务器就会记下这些信息。</p>
-</li>
-<li><p>随后，主服务器会在后台生成RDB文件，通过前面建立好的连接发给从服务器从服务器收到RDB文件后，首先把自己的数据清空，然后对RDB文件进行加载恢复</p>
-</li>
-<li><p>这个过程中，主服务器也没闲着（继续接收着客户端的请求）</p>
-</li>
-<li><p>主服务器把生成RDB文件「之后修改的命令」会用「ouffer.」记录下来，等到从服务器加载完RDB之后，主服务器会把「buffer.」记录下的命令都发给从服务器</p>
-</li>
-<li><p>这样一来，主从服务器就达到了数据一致性了（复制过程是异步的，所以数据是『最终一致性』）</p>
-</li>
-</ul>
-<h2 id="那「部分重同步」的过程呢？"><a href="#那「部分重同步」的过程呢？" class="headerlink" title="那「部分重同步」的过程呢？"></a>那「部分重同步」的过程呢？</h2><ul>
-<li><p>嗯，其实就是靠「offset」来进行部分重同步。每次主服务器传播命令的时候，都会把「offset」给到从服务器</p>
-</li>
-<li><p>主服务器和从服务器都会将「offset」保存起来（如果两边的offset存在差异，那么说明主从服务器数据未完全同步）</p>
-</li>
-<li><p>从服务器断连之后进行重连，就会发「PSYNC」命令给主服务器，同样也会带着RUNID和offset（重连之后，这些信息还是存在的）</p>
-</li>
-<li><p>主服务器收到命令之后，看RUNID是否能对得上，对得上，说明这可能以前就同步过一部分了</p>
-</li>
-<li><p>接着检查该「offset在主服务器里还是否存在（主服务器记录主从服务器offset的信息用的是环形buffer，如果该ouffer）满了，会覆盖以前的记录。而记录客户端的修改命令用的是另一个buffer）</p>
-</li>
-<li><p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/4mdp0i_20211229230139.png"></p>
-</li>
-<li><p>如果从backlog_buffer找到了，那就把从缺失的一部分offer开始，把对应的修改命令发给从服务器</p>
-</li>
-<li><p>如果从环形ouffer（backlog._buffer）没找到，那只能使用「完全重同步」模式再次进行主从复制了</p>
-<ul>
-<li><p>懂了，无非就是有个关联关系记录下来，只不过存储是环形（可能会造成覆盖）</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/oGR8JD_20211229230354.png"></p>
-</li>
-</ul>
-</li>
-</ul>
-<h2 id="Redis主库如果挂了，你还是得「手动」将从库升级为主库啊？你知道有什么办法能做到「自动」进行故障恢复吗？"><a href="#Redis主库如果挂了，你还是得「手动」将从库升级为主库啊？你知道有什么办法能做到「自动」进行故障恢复吗？" class="headerlink" title="Redis主库如果挂了，你还是得「手动」将从库升级为主库啊？你知道有什么办法能做到「自动」进行故障恢复吗？"></a>Redis主库如果挂了，你还是得「手动」将从库升级为主库啊？你知道有什么办法能做到「自动」进行故障恢复吗？</h2><ul>
-<li><p>哨兵</p>
-<ul>
-<li><p>「哨兵」干的事情主要就是：监控（监控主服务器的状态）、选主（主服务器挂了，在从服务器选出一个作为主服务器）、通知（故障发送消息给管理员）和配置（作为配置中心，提供当前主服务器的信息）</p>
-</li>
-<li><p>可以把「哨兵」当做是运行在「特殊」模式下的Redis服务器，为了「高可用」，哨兵也是集群架构的。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/iPv3vB_20211229230508.png"></p>
-</li>
-<li><p>首先它需要跟Redis主从服务器创建对应的连接（获取它们的信息）</p>
-</li>
-<li><p>每个哨兵不断地用ping命令看主服务器有没有下线，如果主服务器在「配置时间」内没有正常响应，那当前哨兵就「主观」认为该主服务器下线了</p>
-</li>
-<li><p>其他「哨兵」同样也会ping该主服务器，如果「足够多」（还是看配置）的哨兵认为该主服务器已经下线，那就认为「客观下线」，这时就要对主服务器执行故障转移操作。</p>
-</li>
-<li><p>「哨兵」之间会选出一个「领头」，选出领头的规则也比较多，总的来说就是先到先得（哪个快，就选哪个）</p>
-</li>
-<li><p>由「领头哨兵」对已下线的主服务器进行故障转移</p>
-<ul>
-<li>过程<ul>
-<li>首先要在「从服务器」上挑选出一个，来作为主服务器</li>
-<li>（这里也挑选讲究，比如：从库的配置优先级、要判断哪个从服务器的复制offset最大、RunID大小、跟master断开连接的时长…）</li>
-<li>然后，以前的从服务器都需要跟新的主服务器进行「主从复制」</li>
-<li>已经下线的主服务器，再次重连的时候，需要让他成为新的主服务器的从服务器</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h2 id="了解，我想问问，Redis在主从复制和故障转移的过程中会导致数据丢失吗"><a href="#了解，我想问问，Redis在主从复制和故障转移的过程中会导致数据丢失吗" class="headerlink" title="了解，我想问问，Redis在主从复制和故障转移的过程中会导致数据丢失吗"></a>了解，我想问问，Redis在主从复制和故障转移的过程中会导致数据丢失吗</h2><ul>
-<li><p>会的</p>
-<ul>
-<li><p>1）从上面的「主从复制」流程来看，这个过程是异步的（在复制的过程中：主服务器会一直接收请求，然后把修改命令发给从服务器）</p>
-</li>
-<li><p>假如主服务器的命令还没发完给从服务器，自己就挂掉了。这时候想要让从服务器顶上主服务器，但从服务器的数据是不全的</p>
-</li>
-<li><p>2）还有另一种情况就是：有可能哨兵认为主服务器挂了，但真实是主服务器并没有挂（网络抖动），而哨兵已经选举了一台从服务器当做是主服务器了，此时「客户端」还没反应过来，还继续写向旧主服务器写数据</p>
-</li>
-<li><p>等到旧主服务器重连的时候，已经被纳入到新主服务器的从服务器了…所以，那段时间里，客户端写进旧主服务器的数据就丢了</p>
-</li>
-</ul>
-</li>
-<li><p>上面这两种情况（主从复制延迟&amp;&amp;脑裂），都可以通过配置来「尽可能」避免数据的丢失</p>
-</li>
-<li><p>（达到一定的阈值，直接禁止主服务器接收写请求，企图减少数据丢失的风险）</p>
-</li>
-</ul>
-<h2 id="要不再来聊聊Redis分片集群？"><a href="#要不再来聊聊Redis分片集群？" class="headerlink" title="要不再来聊聊Redis分片集群？"></a>要不再来聊聊Redis分片集群？</h2><ul>
-<li>分片集群就是往每个Redis服务器存储一部分数据，所有的Redis服务器数据加起来，才组成完整的数据（分布式）</li>
-<li>要想组成分片集群，那就需要对key进行「路由」（分片）<ul>
-<li>现在一般的路由方案有两种：「客户端路由」（SDK）和「服务端路由」（Proxy）</li>
-<li>客户端路由的代表（Redis Cluster），服务端路由的代表（Codis）</li>
-<li>区别？</li>
-</ul>
-</li>
-</ul>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p><strong>Redis实现高可用</strong>：</p>
-<ul>
-<li>AOF&#x2F;RDB持久化机制</li>
-<li>主从架构（主服务器挂了，手动由从服务器顶上）</li>
-<li>引入哨兵机制自动故障转义</li>
-</ul>
-<p><strong>主从复制原理</strong>：</p>
-<ul>
-<li>PSYNC命令两种模式：完全重同步、部分重同步</li>
-<li>完全重同步：主从服务器建立连接、主服务器生成RDB文件发给从服务器、主服务器不阻塞（相关修改命令记录至buffer）、将修改命令发给从服务器</li>
-<li>部分重同步：从服务器断线重连，发送RunId和offset给主服务器，主服务器判断offset和runId，将还未同步给从服务器的offset相关指令进行发送</li>
-</ul>
-<p><strong>哨兵机制</strong>：</p>
-<ul>
-<li>哨兵可以理解为特殊的Redis服务器，一般会组成哨兵集群</li>
-<li>哨兵主要工作是监控、告警、配置以及选主</li>
-<li>当主服务器发生故障时，会「选出」一台从服务器来顶上「客观下线」的服务器，由「领头哨兵」进行切换</li>
-</ul>
-<p><strong>数据丢失</strong>：</p>
-<ul>
-<li>Redis的主从复制和故障转移阶段都有可能发生数据丢失问题（通过配置尽可能避免）</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>l
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://example.com/posts/89b0310a/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2362,7 +2332,7 @@
 
 
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/20/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/20/">20</a><span class="page-number current">21</span><a class="page-number" href="/page/22/">22</a><span class="space">&hellip;</span><a class="page-number" href="/page/28/">28</a><a class="extend next" rel="next" href="/page/22/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/20/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/20/">20</a><span class="page-number current">21</span><a class="page-number" href="/page/22/">22</a><span class="space">&hellip;</span><a class="page-number" href="/page/29/">29</a><a class="extend next" rel="next" href="/page/22/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 </div>
@@ -2391,7 +2361,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">18:22</span>
+    <span title="站点阅读时长">18:26</span>
   </span>
 </div>
 

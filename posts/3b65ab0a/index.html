@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-loading-bar.css">
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.10.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="安装OpenVpn的Ubuntu22.04服务端和Windows10客户端®本文将在Ubuntu22.04服务器安装OpenVpn服务端，并在配置OpenVpn客户端ovpn文件。 安装OpenVpn和Easy-RSAEasy-RSA主要用来生成CA证书，服务端证书和key，客户端证书和key。先登录Ubuntu服务器，然后用root身份执行下文的命令。 123456sudo apt update">
+<meta property="og:type" content="article">
+<meta property="og:title" content="安装OpenVpn的Ubuntu22.04服务端，并配置服务端和客户端">
+<meta property="og:url" content="http://example.com/posts/3b65ab0a/index.html">
+<meta property="og:site_name" content="swimminghao&#39;s blog">
+<meta property="og:description" content="安装OpenVpn的Ubuntu22.04服务端和Windows10客户端®本文将在Ubuntu22.04服务器安装OpenVpn服务端，并在配置OpenVpn客户端ovpn文件。 安装OpenVpn和Easy-RSAEasy-RSA主要用来生成CA证书，服务端证书和key，客户端证书和key。先登录Ubuntu服务器，然后用root身份执行下文的命令。 123456sudo apt update">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/jasonz666/imgHost/blogPic/11.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/jasonz666/imgHost/blogPic/22.png">
+<meta property="article:published_time" content="2025-11-07T04:12:38.000Z">
+<meta property="article:modified_time" content="2025-11-07T04:12:41.499Z">
+<meta property="article:author" content="swimminghao">
+<meta property="article:tag" content="roon">
+<meta property="article:tag" content="openvpn">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/jasonz666/imgHost/blogPic/11.png">
+
+
+<link rel="canonical" href="http://example.com/posts/3b65ab0a/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/posts/3b65ab0a/","path":"posts/3b65ab0a/","title":"安装OpenVpn的Ubuntu22.04服务端，并配置服务端和客户端"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>安装OpenVpn的Ubuntu22.04服务端，并配置服务端和客户端 | swimminghao's blog</title>
+  
+
+
+
+
+<link rel="dns-prefetch" href="waline-server-nu.vercel.app"><link rel="stylesheet" href="//cdn.jsdelivr.net/gh/theme-next/theme-next-needmoreshare2@1/needsharebutton.min.css"><style>
+#needsharebutton-postbottom {
+  cursor: pointer;
+  height: 26px;
+  margin-top: 10px;
+  position: relative;
+}
+#needsharebutton-postbottom .btn {
+  border: 1px solid $btn-default-border-color;
+  border-radius: 3px;
+  display: initial;
+  padding: 1px 4px;
+}
+</style>
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">swimminghao's blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">学习博客</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">57</span></a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">18</span></a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">281</span></a></li>
+        <li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%89%E8%A3%85OpenVpn%E7%9A%84Ubuntu22-04%E6%9C%8D%E5%8A%A1%E7%AB%AF%E5%92%8CWindows10%E5%AE%A2%E6%88%B7%E7%AB%AF"><span class="nav-number">1.</span> <span class="nav-text">安装OpenVpn的Ubuntu22.04服务端和Windows10客户端</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85OpenVpn%E5%92%8CEasy-RSA"><span class="nav-number">1.1.</span> <span class="nav-text">安装OpenVpn和Easy-RSA</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%B6%E4%BD%9C%E6%89%80%E9%9C%80%E7%9A%84%E8%AF%81%E4%B9%A6"><span class="nav-number">1.2.</span> <span class="nav-text">制作所需的证书</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%85%8D%E7%BD%AEOpenVpn%E6%9C%8D%E5%8A%A1%E7%AB%AF"><span class="nav-number">1.3.</span> <span class="nav-text">配置OpenVpn服务端</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AEIP%E8%BD%AC%E5%8F%91"><span class="nav-number">1.4.</span> <span class="nav-text">设置IP转发</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E5%AE%A2%E6%88%B7%E7%AB%AFovpn%E6%96%87%E4%BB%B6"><span class="nav-number">1.5.</span> <span class="nav-text">配置客户端ovpn文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E5%AE%A2%E6%88%B7%E7%AB%AF%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="nav-number">1.6.</span> <span class="nav-text">创建客户端配置文件</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="swimminghao"
+      src="/images/lion.png">
+  <p class="site-author-name" itemprop="name">swimminghao</p>
+  <div class="site-description" itemprop="description">swimminghao的学习博客</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">281</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">57</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/swimminghao" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;swimminghao" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:swimminghao0@gmail.com" title="E-Mail → mailto:swimminghao0@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/swimminghao" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;swimminghao" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://plus.google.com/yourname" title="Google → https:&#x2F;&#x2F;plus.google.com&#x2F;yourname" rel="noopener" target="_blank"><i class="fab fa-google fa-fw"></i>Google</a>
+      </span>
+  </div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdn.jsdelivr.net/npm/@creativecommons/vocabulary@2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+<!-- recent posts -->
+    <div class="links-of-blogroll motion-element links-of-blogroll-block">
+        <div class="links-of-blogroll-title recent-posts-title">
+	    <i class="fa fa-history " aria-hidden="true"></i>
+            近期文章
+	</div>
+	<ul class="links-of-blogroll-list recent-posts-list">
+	        <li class="my-links-of-blogroll-item">
+		    <a href="/posts/3b65ab0a/" title="安装OpenVpn的Ubuntu22.04服务端，并配置服务端和客户端" target="">
+		    安装OpenVpn的Ubuntu22.04服务端，并配置服务端和客户端
+		    </a>
+		</li>
+	        <li class="my-links-of-blogroll-item">
+		    <a href="/posts/7ac8a987/" title="HIFI日记：HQPlayer embedded （HQPlayer OS）嵌入版使用教程" target="">
+		    HIFI日记：HQPlayer embedded （HQPlayer OS）嵌入版使用教程
+		    </a>
+		</li>
+	        <li class="my-links-of-blogroll-item">
+		    <a href="/posts/eb18152/" title="OpenCore添加ubuntu引导，引导双系统" target="">
+		    OpenCore添加ubuntu引导，引导双系统
+		    </a>
+		</li>
+	        <li class="my-links-of-blogroll-item">
+		    <a href="/posts/f3a01220/" title="hqplayer和roon二合一" target="">
+		    hqplayer和roon二合一
+		    </a>
+		</li>
+	        <li class="my-links-of-blogroll-item">
+		    <a href="/posts/a0ae5a65/" title="CentOS7 源码安装redis4" target="">
+		    CentOS7 源码安装redis4
+		    </a>
+		</li>
+	</ul>
+    </div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/3b65ab0a/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lion.png">
+      <meta itemprop="name" content="swimminghao">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="swimminghao's blog">
+      <meta itemprop="description" content="swimminghao的学习博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="安装OpenVpn的Ubuntu22.04服务端，并配置服务端和客户端 | swimminghao's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          安装OpenVpn的Ubuntu22.04服务端，并配置服务端和客户端
+        </h1>
+
+        <div class="post-meta-container">
+
+          
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2025-11-07 12:12:38 / 修改时间：12:12:41" itemprop="dateCreated datePublished" datetime="2025-11-07T12:12:38+08:00">2025-11-07</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/linux/" itemprop="url" rel="index"><span itemprop="name">linux</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/posts/3b65ab0a/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/3b65ab0a/" data-xid="/posts/3b65ab0a/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>4.7k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>4 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="安装OpenVpn的Ubuntu22-04服务端和Windows10客户端"><a href="#安装OpenVpn的Ubuntu22-04服务端和Windows10客户端" class="headerlink" title="安装OpenVpn的Ubuntu22.04服务端和Windows10客户端"></a>安装OpenVpn的Ubuntu22.04服务端和Windows10客户端</h1><p>®<br>本文将在Ubuntu22.04服务器安装OpenVpn服务端，并在配置OpenVpn客户端ovpn文件。</p>
+<h2 id="安装OpenVpn和Easy-RSA"><a href="#安装OpenVpn和Easy-RSA" class="headerlink" title="安装OpenVpn和Easy-RSA"></a>安装OpenVpn和Easy-RSA</h2><p>Easy-RSA主要用来生成CA证书，服务端证书和key，客户端证书和key。先登录Ubuntu服务器，然后用root身份执行下文的命令。</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">sudo apt update</span><br><span class="line">sudo apt install openvpn easy-rsa</span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装完可以查看下openvpn版本</span></span><br><span class="line">openvpn <span class="comment">--version</span></span><br><span class="line"><span class="comment"># 我的是OpenVPN 2.4.12版本</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="制作所需的证书"><a href="#制作所需的证书" class="headerlink" title="制作所需的证书"></a>制作所需的证书</h2><p>执行如下命令</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /usr/share/easy-rsa</span><br><span class="line"></span><br><span class="line"><span class="comment"># 拷贝一份vars文件</span></span><br><span class="line"><span class="built_in">cp</span> vars.example vars</span><br><span class="line"></span><br><span class="line"><span class="comment"># 编辑vars文件</span></span><br><span class="line">vim vars</span><br><span class="line"></span><br><span class="line"><span class="comment"># 在最后一行添加如下内容，这个 KEY_NAME 下文会用到，请记住</span></span><br><span class="line"><span class="built_in">export</span> KEY_NAME=<span class="string">&quot;myserver&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>开始制作证书</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 执行完这个命令，会在/usr/share/easy-rsa下多出个pki目录</span></span><br><span class="line">./easyrsa init-pki</span><br><span class="line"><span class="built_in">chmod</span> 777 pki</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建ca证书，此时在pki目录下会多出 ca.crt</span></span><br><span class="line">./easyrsa build-ca nopass</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建服务端证书，命令中的myserver要换成前面vars文件中设置的KEY_NAME</span></span><br><span class="line"><span class="comment"># 此时，pki下的issued和private目录会多出myserver.crt、myserver.key 等文件</span></span><br><span class="line">./easyrsa build-server-full myserver nopass</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建客户端证书</span></span><br><span class="line"><span class="comment"># 再次查看，pki下的issued和private目录会多出myclient.crt、myclient.key 等文件</span></span><br><span class="line">./easyrsa build-client-full myclient nopass</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建DH密钥</span></span><br><span class="line">./easyrsa gen-dh</span><br></pre></td></tr></table></figure>
+
+<h2 id="配置OpenVpn服务端"><a href="#配置OpenVpn服务端" class="headerlink" title="配置OpenVpn服务端"></a>配置OpenVpn服务端</h2><p>拷贝配置文件</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp <span class="regexp">/usr/</span>share<span class="regexp">/doc/</span>openvpn<span class="regexp">/examples/</span>sample-config-files<span class="regexp">/server.conf /</span>etc<span class="regexp">/openvpn/</span></span><br></pre></td></tr></table></figure>
+
+<p>拷贝刚才创建的CA证书，服务端证书和key(私钥)，客户端证书和key，以及创建tls的key</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">cd <span class="regexp">/etc/</span>openvpn/</span><br><span class="line">cp <span class="regexp">/usr/</span>share<span class="regexp">/easy-rsa/</span>pki/ca.crt .</span><br><span class="line">cp <span class="regexp">/usr/</span>share<span class="regexp">/easy-rsa/</span>pki/dh.pem .</span><br><span class="line">cp <span class="regexp">/usr/</span>share<span class="regexp">/easy-rsa/</span>pki<span class="regexp">/issued/my</span>server.crt server/</span><br><span class="line">cp <span class="regexp">/usr/</span>share<span class="regexp">/easy-rsa/</span>pki<span class="regexp">/private/my</span>server.key server/</span><br><span class="line">cp <span class="regexp">/usr/</span>share<span class="regexp">/easy-rsa/</span>pki<span class="regexp">/issued/my</span>client.crt client/</span><br><span class="line">cp <span class="regexp">/usr/</span>share<span class="regexp">/easy-rsa/</span>pki<span class="regexp">/private/my</span>client.key client/</span><br><span class="line"></span><br><span class="line"><span class="comment"># 生成tls需要的key</span></span><br><span class="line">openvpn --genkey tls-auth ta.key</span><br></pre></td></tr></table></figure>
+
+<p>编辑服务端配置文件server.conf，改成如下内容，安全起见我把默认端口1194，改成了11000：</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># vpn服务端口</span></span><br><span class="line">port <span class="number">11000</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用tcp协议</span></span><br><span class="line">proto tcp</span><br><span class="line"></span><br><span class="line"><span class="comment"># vpn使用的虚拟网卡设备</span></span><br><span class="line">dev tun</span><br><span class="line"></span><br><span class="line"><span class="comment"># CA以及证书和私钥</span></span><br><span class="line">ca <span class="regexp">/etc/</span>openvpn/ca.crt</span><br><span class="line">cert <span class="regexp">/etc/</span>openvpn<span class="regexp">/server/my</span>server.crt</span><br><span class="line">key <span class="regexp">/etc/</span>openvpn<span class="regexp">/server/my</span>server.key  <span class="comment"># This file should be kept secret</span></span><br><span class="line">dh <span class="regexp">/etc/</span>openvpn/dh.pem</span><br><span class="line"></span><br><span class="line"><span class="comment"># vpn服务端要给客户端分配的IP地址（以及网段）</span></span><br><span class="line">server <span class="number">10.8</span>.<span class="number">100.0</span> <span class="number">255.255</span>.<span class="number">255.0</span></span><br><span class="line"></span><br><span class="line">ifconfig-pool-persist <span class="regexp">/var/</span>log<span class="regexp">/openvpn/i</span>pp.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># vpn服务端要帮客户端转发的网段（即192.168.50.0/255.255.255.254这些地址，才会经过vpn）</span></span><br><span class="line"><span class="comment"># 代表 vpn 转发 192.168.50.1 - 192.168.50.254的请求</span></span><br><span class="line">push <span class="string">&quot;route 192.168.50.0 255.255.255.0&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 让客户端使用下面的dns服务器</span></span><br><span class="line">push <span class="string">&quot;dhcp-option DNS 114.114.114.114&quot;</span></span><br><span class="line">push <span class="string">&quot;dhcp-option DNS 8.8.8.8&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 客户端之间可以互相访问</span></span><br><span class="line">client-to-client</span><br><span class="line"></span><br><span class="line"><span class="comment"># 支持多个客户端连接服务端</span></span><br><span class="line">duplicate-cn</span><br><span class="line">keepalive <span class="number">10</span> <span class="number">120</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 开启tls安全，上文的ta.key就用在这里</span></span><br><span class="line">tls-auth ta.key <span class="number">0</span> <span class="comment"># This file is secret</span></span><br><span class="line">cipher AES-<span class="number">256</span>-CBC</span><br><span class="line"></span><br><span class="line"><span class="comment"># 启用lzo压缩</span></span><br><span class="line">comp-lzo</span><br><span class="line"></span><br><span class="line"><span class="comment"># 运行最多30个客户端连接</span></span><br><span class="line">max-clients <span class="number">30</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 持久key和tun设备</span></span><br><span class="line">persist-key</span><br><span class="line">persist-tun</span><br><span class="line"></span><br><span class="line">status <span class="regexp">/var/</span>log<span class="regexp">/openvpn/</span>openvpn-status.log</span><br><span class="line">log    <span class="regexp">/var/</span>log<span class="regexp">/openvpn/</span>openvpn.log</span><br><span class="line"></span><br><span class="line"><span class="comment"># 记录的日期等级为3</span></span><br><span class="line">verb <span class="number">3</span></span><br></pre></td></tr></table></figure>
+
+<p>启动vpn服务端</p>
+<figure class="highlight autoit"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">systemctl start openvpn<span class="symbol">@server</span></span><br><span class="line">systemctl status openvpn<span class="symbol">@server</span></span><br><span class="line"></span><br><span class="line"><span class="meta"># 感兴趣的话，可以查看日志</span></span><br><span class="line">tail -f /var/<span class="built_in">log</span>/openvpn/openvpn.<span class="built_in">log</span></span><br></pre></td></tr></table></figure>
+
+<p>如果你的Ubuntu系统是云服务器，通常管理后台可以设置防火墙，建议在Ubuntu关闭ufw：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 停止ufw</span></span><br><span class="line">sudo ufw <span class="built_in">disable</span></span><br><span class="line"><span class="comment"># 禁用ufw</span></span><br><span class="line">sudo systemctl stop ufw</span><br><span class="line">sudo systemctl <span class="built_in">disable</span> ufw</span><br></pre></td></tr></table></figure>
+
+<h2 id="设置IP转发"><a href="#设置IP转发" class="headerlink" title="设置IP转发"></a>设置IP转发</h2><p>如果你搭建的VPN服务器所在的内网还有其他云服务器，你想访问其他云服务器就应该设置ip转发。就如上文描述的，我们在VPN服务端配置文件server.conf中配置了 <code>push &quot;route 192.168.0.0 255.255.255.224&quot;</code>。</p>
+<p>打开内核ip转发：</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 编辑文件/etc/sysctl.conf</span></span><br><span class="line">vim <span class="regexp">/etc/</span>sysctl.conf</span><br><span class="line"></span><br><span class="line"><span class="comment"># 打开如下一行，改为：</span></span><br><span class="line">net.ipv4.ip_forward = <span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 然修改永久生效</span></span><br><span class="line">sysctl -p</span><br></pre></td></tr></table></figure>
+
+<p>设置防火墙（iptables ）转发规则：</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 设置源地址翻译SNAT：把来自10.8.100.0/24的流量在离开网络接口ens3前，修改源ip为192.168.50.14</span></span><br><span class="line"><span class="comment"># enp0s31f6为你自己的网卡名称，可使用`ip addr show`查看。</span></span><br><span class="line"><span class="comment"># 192.168.50.14为安装openvpn 服务端的主机ip</span></span><br><span class="line"><span class="attribute">iptables</span> -t nat -A POSTROUTING -s <span class="number">10.8.100.0</span>/<span class="number">24</span> -o enp0s31f6 -j SNAT --to-source <span class="number">192.168.50.14</span></span><br></pre></td></tr></table></figure>
+
+<p>重启下vpn服务端：<code>systemctl start openvpn@server</code>。到这里，服务端安装完成。</p>
+<h2 id="配置客户端ovpn文件"><a href="#配置客户端ovpn文件" class="headerlink" title="配置客户端ovpn文件"></a>配置客户端ovpn文件</h2><p>在openvpn官网下载客户端：<a target="_blank" rel="noopener" href="https://openvpn.net/client/client-connect-vpn-for-windows/">这里</a>。下载好以后点击运行，进行安装。</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 准备好Ubuntu上的这4个文件</span></span><br><span class="line"><span class="regexp">/etc/</span>openvpn/ca.crt</span><br><span class="line"><span class="regexp">/etc/</span>openvpn/ta.key</span><br><span class="line"><span class="regexp">/etc/</span>openvpn<span class="regexp">/client/my</span>client.crt</span><br><span class="line"><span class="regexp">/etc/</span>openvpn<span class="regexp">/client/my</span>client.key</span><br></pre></td></tr></table></figure>
+
+<h2 id="创建客户端配置文件"><a href="#创建客户端配置文件" class="headerlink" title="创建客户端配置文件"></a>创建客户端配置文件</h2><p>打开终端，复制粘贴以下脚本指令，脚本会在~&#x2F;openvpn-clients&#x2F;目录下，创建一个client1.ovpn客户端配置文件，内容如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建客户端的配置</span></span><br><span class="line"><span class="built_in">cat</span> &gt; ~/openvpn-clients/client1.ovpn &lt;&lt; <span class="string">&#x27;EOF&#x27;</span></span><br><span class="line">client</span><br><span class="line">dev tun</span><br><span class="line">proto tcp</span><br><span class="line">remote 你的公网IP地址 11000</span><br><span class="line">resolv-retry infinite</span><br><span class="line">nobind</span><br><span class="line">persist-key</span><br><span class="line">persist-tun</span><br><span class="line">remote-cert-tls server</span><br><span class="line">verb 3</span><br><span class="line">ca ca.crt</span><br><span class="line">cert myclient.crt</span><br><span class="line">key myclient.key</span><br><span class="line">tls-auth ta.key 1</span><br><span class="line">comp-lzo</span><br><span class="line">route 192.168.50.0 255.255.255.0</span><br><span class="line"></span><br><span class="line">&lt;ca&gt;</span><br><span class="line">EOF</span><br><span class="line"></span><br><span class="line">sudo <span class="built_in">cat</span> /etc/openvpn/ca.crt &gt;&gt; ~/openvpn-clients/client.ovpn</span><br><span class="line"><span class="built_in">cat</span> &gt;&gt; ~/openvpn-clients/client1.ovpn &lt;&lt; <span class="string">&#x27;EOF&#x27;</span></span><br><span class="line">&lt;/ca&gt;</span><br><span class="line"></span><br><span class="line">&lt;cert&gt;</span><br><span class="line">EOF</span><br><span class="line"></span><br><span class="line">sudo <span class="built_in">cat</span> /etc/openvpn/client/myclient.crt &gt;&gt; ~/openvpn-clients/client1.ovpn</span><br><span class="line"><span class="built_in">cat</span> &gt;&gt; ~/openvpn-clients/client1.ovpn &lt;&lt; <span class="string">&#x27;EOF&#x27;</span></span><br><span class="line">&lt;/cert&gt;</span><br><span class="line"></span><br><span class="line">&lt;key&gt;</span><br><span class="line">EOF</span><br><span class="line"></span><br><span class="line">sudo <span class="built_in">cat</span> /etc/openvpn/client/myclient.key &gt;&gt; ~/openvpn-clients/client1.ovpn</span><br><span class="line"><span class="built_in">cat</span> &gt;&gt; ~/openvpn-clients/client1.ovpn &lt;&lt; <span class="string">&#x27;EOF&#x27;</span></span><br><span class="line">&lt;/key&gt;</span><br><span class="line"></span><br><span class="line">&lt;tls-auth&gt;</span><br><span class="line">EOF</span><br><span class="line"></span><br><span class="line">sudo <span class="built_in">cat</span> /etc/openvpn/ta.key &gt;&gt; ~/openvpn-clients/client1.ovpn</span><br><span class="line"><span class="built_in">cat</span> &gt;&gt; ~/openvpn-clients/client1.ovpn &lt;&lt; <span class="string">&#x27;EOF&#x27;</span></span><br><span class="line">&lt;/tls-auth&gt;</span><br><span class="line">EOF</span><br></pre></td></tr></table></figure>
+
+<p><strong>注意替换，你的公网IP地址和修改路由转发参数</strong></p>
+<p>上面的 <code>route 192.168.50.0 255.255.255.0</code> 也是告诉服务端，客户端访问这些 192.168.50.0&#x2F;255.255.255.0 地址时，才经过VPN。</p>
+<p>保存配置文件，然后启动 openvpn gui 客户端。通常，客户端会有opvn文件导入功能，导入客户端，点连接即可。连接成功显示如下：</p>
+<p><a target="_blank" rel="noopener" href="https://cdn.jsdelivr.net/gh/jasonz666/imgHost/blogPic/11.png"><img src="https://cdn.jsdelivr.net/gh/jasonz666/imgHost/blogPic/11.png" alt="img"></a></p>
+<p>然后，在CMD中ping VPN服务端的地址（下面10.8.100.1是vpn分配的网关地址，vpn客户端分配到的是10.8.100.6，192.168.50.28是vpn服务器内网ip，192.168.50.4是vpn服务所在内网的另一条机器的内网ip）：<br><a target="_blank" rel="noopener" href="https://cdn.jsdelivr.net/gh/jasonz666/imgHost/blogPic/22.png"><img src="https://cdn.jsdelivr.net/gh/jasonz666/imgHost/blogPic/22.png" alt="img"></a><br>至此，vpn客户端和服务端全部安装完成。</p>
+
+    </div>
+
+    
+    
+    
+
+
+    <div>
+      
+        <div>
+    
+      <div style="text-align:center;color: #ccc;font-size:20px;">------------- 本 文 结 束&nbsp&nbsp&nbsp&nbsp&nbsp感 谢 您 的 阅 读 -------------</div>
+    
+</div>
+
+      
+    </div>
+
+    <footer class="post-footer"><div class="post-widgets">
+      <div id="needsharebutton-postbottom">
+        <span class="btn">
+          <i class="fa fa-share-alt" aria-hidden="true"></i>
+        </span>
+      </div>
+    </div>
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>swimminghao
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://example.com/posts/3b65ab0a/" title="安装OpenVpn的Ubuntu22.04服务端，并配置服务端和客户端">http://example.com/posts/3b65ab0a/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/roon/" rel="tag"><i class="fa fa-tag"></i> roon</a>
+              <a href="/tags/openvpn/" rel="tag"><i class="fa fa-tag"></i> openvpn</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/posts/7ac8a987/" rel="prev" title="HIFI日记：HQPlayer embedded （HQPlayer OS）嵌入版使用教程">
+                  <i class="fa fa-chevron-left"></i> HIFI日记：HQPlayer embedded （HQPlayer OS）嵌入版使用教程
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>l
+
+
+
+
+
+
+    <div class="comments" id="waline-comments"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">swimminghao</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">1.2m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">18:26</span>
+  </span>
+</div>
+
+<span id="sitetime"></span>
+<script language=javascript>
+    function siteTime(){
+        window.setTimeout("siteTime()", 1000);
+        var seconds = 1000;
+        var minutes = seconds * 60;
+        var hours = minutes * 60;
+        var days = hours * 24;
+        var years = days * 365;
+        var today = new Date();
+        var todayYear = today.getFullYear();
+        var todayMonth = today.getMonth()+1;
+        var todayDate = today.getDate();
+        var todayHour = today.getHours();
+        var todayMinute = today.getMinutes();
+        var todaySecond = today.getSeconds();
+        /* Date.UTC() -- 返回date对象距世界标准时间(UTC)1970年1月1日午夜之间的毫秒数(时间戳)
+        year - 作为date对象的年份，为4位年份值
+        month - 0-11之间的整数，做为date对象的月份
+        day - 1-31之间的整数，做为date对象的天数
+        hours - 0(午夜24点)-23之间的整数，做为date对象的小时数
+        minutes - 0-59之间的整数，做为date对象的分钟数
+        seconds - 0-59之间的整数，做为date对象的秒数
+        microseconds - 0-999之间的整数，做为date对象的毫秒数 */
+        var t1 = Date.UTC(2022,02,28,00,00,00); //你的建站时间
+        var t2 = Date.UTC(todayYear,todayMonth,todayDate,todayHour,todayMinute,todaySecond);
+        var diff = t2-t1;
+        var diffYears = Math.floor(diff/years);
+        var diffDays = Math.floor((diff/days)-diffYears*365);
+        var diffHours = Math.floor((diff-(diffYears*365+diffDays)*days)/hours);
+        var diffMinutes = Math.floor((diff-(diffYears*365+diffDays)*days-diffHours*hours)/minutes);
+        var diffSeconds = Math.floor((diff-(diffYears*365+diffDays)*days-diffHours*hours-diffMinutes*minutes)/seconds);
+        document.getElementById("sitetime").innerHTML=" 本站已安全运行 "+diffYears+" Year "+diffDays+" Days "+diffHours+" Hours "+diffMinutes+" m "+diffSeconds+" s";
+    }
+    siteTime();
+</script>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        访问人数：<span id="busuanzi_value_site_uv"></span>
+      </span>人
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+       访问总量：<span id="busuanzi_value_site_pv"></span>
+      </span>次
+    </span>
+
+
+<!--
+  本文总阅读量：<span id="busuanzi_value_page_pv"></span>次
+-->
+
+</div>
+
+
+<!--
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+--><script color="0,0,255" opacity="0.5" zIndex="-1" count="99" src="https://cdn.jsdelivr.net/npm/canvas-nest.js@1/dist/canvas-nest.js"></script>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<script class="next-config" data-name="waline" type="application/json">{"lang":"zh-cn","enable":true,"serverURL":"waline-server-nu.vercel.app","placeholder":"请文明评论呀","avatar":"mm","pageSize":10,"visitor":false,"comment_count":true,"requiredFields":[],"meta":["nick","mail","link"],"libUrl":"https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js","el":"#waline-comments","path":"/posts/3b65ab0a/"}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.waline.el).then(() => 
+    NexT.utils.getScript(CONFIG.waline.libUrl, { condition: window.Waline })
+  ).then(() => {
+    new Waline(CONFIG.waline);
+  });
+});
+</script>
+  <script src="//cdn.jsdelivr.net/gh/theme-next/theme-next-needmoreshare2@1/needsharebutton.min.js"></script>
+  <script>
+      pbOptions = {};
+        pbOptions.iconStyle = "default";
+        pbOptions.boxForm = "horizontal";
+        pbOptions.position = "middleCenter";
+        pbOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+  </script>
+</body>
+</html>
