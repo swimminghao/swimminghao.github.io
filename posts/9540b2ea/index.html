@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-loading-bar.css">
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.10.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="将威联通NAS的目录通过NFS共享，并挂载到内网Docker宿主机，作为容器目录使用核心思路先将远程内网主机的共享目录挂载到 Docker 宿主机的一个本地目录上，然后再将这个本地目录作为数据卷（Volume）或绑定挂载（Bind Mount）提供给 Docker 容器使用。 12345678910[ 内网共享主机 (NAS&#x2F;Samba Server) ]              |">
+<meta property="og:type" content="article">
+<meta property="og:title" content="将威联通NAS的目录通过NFS共享，并挂载到内网Docker宿主机，作为容器目录使用">
+<meta property="og:url" content="http://example.com/posts/9540b2ea/index.html">
+<meta property="og:site_name" content="swimminghao&#39;s blog">
+<meta property="og:description" content="将威联通NAS的目录通过NFS共享，并挂载到内网Docker宿主机，作为容器目录使用核心思路先将远程内网主机的共享目录挂载到 Docker 宿主机的一个本地目录上，然后再将这个本地目录作为数据卷（Volume）或绑定挂载（Bind Mount）提供给 Docker 容器使用。 12345678910[ 内网共享主机 (NAS&#x2F;Samba Server) ]              |">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2025/11/09/veh7NI.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2025/11/09/YqFN0x.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2025/11/09/jV1oWk.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2025/11/09/Heirw8.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2025/11/09/hHvrzU.png">
+<meta property="article:published_time" content="2025-11-09T04:08:02.000Z">
+<meta property="article:modified_time" content="2025-11-09T04:08:50.268Z">
+<meta property="article:author" content="swimminghao">
+<meta property="article:tag" content="docker">
+<meta property="article:tag" content="NFS">
+<meta property="article:tag" content="qnap">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2025/11/09/veh7NI.png">
+
+
+<link rel="canonical" href="http://example.com/posts/9540b2ea/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/posts/9540b2ea/","path":"posts/9540b2ea/","title":"将威联通NAS的目录通过NFS共享，并挂载到内网Docker宿主机，作为容器目录使用"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>将威联通NAS的目录通过NFS共享，并挂载到内网Docker宿主机，作为容器目录使用 | swimminghao's blog</title>
+  
+
+
+
+
+<link rel="dns-prefetch" href="waline-server-nu.vercel.app"><link rel="stylesheet" href="//cdn.jsdelivr.net/gh/theme-next/theme-next-needmoreshare2@1/needsharebutton.min.css"><style>
+#needsharebutton-postbottom {
+  cursor: pointer;
+  height: 26px;
+  margin-top: 10px;
+  position: relative;
+}
+#needsharebutton-postbottom .btn {
+  border: 1px solid $btn-default-border-color;
+  border-radius: 3px;
+  display: initial;
+  padding: 1px 4px;
+}
+</style>
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">swimminghao's blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">学习博客</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">59</span></a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">18</span></a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">282</span></a></li>
+        <li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B0%86%E5%A8%81%E8%81%94%E9%80%9ANAS%E7%9A%84%E7%9B%AE%E5%BD%95%E9%80%9A%E8%BF%87NFS%E5%85%B1%E4%BA%AB%EF%BC%8C%E5%B9%B6%E6%8C%82%E8%BD%BD%E5%88%B0%E5%86%85%E7%BD%91Docker%E5%AE%BF%E4%B8%BB%E6%9C%BA%EF%BC%8C%E4%BD%9C%E4%B8%BA%E5%AE%B9%E5%99%A8%E7%9B%AE%E5%BD%95%E4%BD%BF%E7%94%A8"><span class="nav-number">1.</span> <span class="nav-text">将威联通NAS的目录通过NFS共享，并挂载到内网Docker宿主机，作为容器目录使用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E6%80%9D%E8%B7%AF"><span class="nav-number">1.1.</span> <span class="nav-text">核心思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A8%81%E8%81%94%E9%80%9Anas%E5%BC%80%E5%90%AFNFS%E5%85%B1%E4%BA%AB"><span class="nav-number">1.2.</span> <span class="nav-text">威联通nas开启NFS共享</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E5%85%B1%E4%BA%AB%E7%9B%AE%E5%BD%95"><span class="nav-number">1.2.1.</span> <span class="nav-text">创建共享目录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%BF%80%E6%B4%BB%E5%A8%81%E8%81%94%E9%80%9Anas%E7%9A%84nfs%E5%8A%9F%E8%83%BD"><span class="nav-number">1.2.2.</span> <span class="nav-text">激活威联通nas的nfs功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE%E5%85%B1%E4%BA%AB%E6%96%87%E4%BB%B6%E5%A4%B9%E6%9D%83%E9%99%90"><span class="nav-number">1.2.3.</span> <span class="nav-text">设置共享文件夹权限</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%85%E7%BD%91docker%E5%AE%BF%E4%B8%BB%E6%9C%BA%E8%AE%BE%E7%BD%AE"><span class="nav-number">1.3.</span> <span class="nav-text">内网docker宿主机设置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E6%8C%82%E8%BD%BD%E7%9B%AE%E5%BD%95-mnt-nas-downloads"><span class="nav-number">1.3.1.</span> <span class="nav-text">创建挂载目录&#x2F;mnt&#x2F;nas&#x2F;downloads</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8C%82%E8%BD%BD%E5%9C%A8%E7%9B%AE%E5%BD%95%EF%BC%8C192-168-50-218-x2F-pt"><span class="nav-number">1.3.2.</span> <span class="nav-text">挂载在目录，192.168.50.218:&#x2F;pt</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%80%E6%9C%BA%E8%87%AA%E5%8A%A8%E6%8C%82%E8%BD%BD"><span class="nav-number">1.3.3.</span> <span class="nav-text">开机自动挂载</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#docker%E5%AE%BF%E4%B8%BB%E6%9C%BA%E8%BF%90%E8%A1%8Cqbittorrent%E5%AE%B9%E5%99%A8%EF%BC%8C%E5%B9%B6%E6%8C%82%E8%BD%BD%E5%85%B1%E4%BA%AB%E7%9B%AE%E5%BD%95"><span class="nav-number">1.4.</span> <span class="nav-text">docker宿主机运行qbittorrent容器，并挂载共享目录</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="swimminghao"
+      src="/images/lion.png">
+  <p class="site-author-name" itemprop="name">swimminghao</p>
+  <div class="site-description" itemprop="description">swimminghao的学习博客</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">282</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">59</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/swimminghao" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;swimminghao" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:swimminghao0@gmail.com" title="E-Mail → mailto:swimminghao0@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/swimminghao" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;swimminghao" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://plus.google.com/yourname" title="Google → https:&#x2F;&#x2F;plus.google.com&#x2F;yourname" rel="noopener" target="_blank"><i class="fab fa-google fa-fw"></i>Google</a>
+      </span>
+  </div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdn.jsdelivr.net/npm/@creativecommons/vocabulary@2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+<!-- recent posts -->
+    <div class="links-of-blogroll motion-element links-of-blogroll-block">
+        <div class="links-of-blogroll-title recent-posts-title">
+	    <i class="fa fa-history " aria-hidden="true"></i>
+            近期文章
+	</div>
+	<ul class="links-of-blogroll-list recent-posts-list">
+	        <li class="my-links-of-blogroll-item">
+		    <a href="/posts/9540b2ea/" title="将威联通NAS的目录通过NFS共享，并挂载到内网Docker宿主机，作为容器目录使用" target="">
+		    将威联通NAS的目录通过NFS共享，并挂载到内网Docker宿主机，作为容器目录使用
+		    </a>
+		</li>
+	        <li class="my-links-of-blogroll-item">
+		    <a href="/posts/3b65ab0a/" title="安装OpenVpn的Ubuntu22.04服务端，并配置服务端和客户端" target="">
+		    安装OpenVpn的Ubuntu22.04服务端，并配置服务端和客户端
+		    </a>
+		</li>
+	        <li class="my-links-of-blogroll-item">
+		    <a href="/posts/7ac8a987/" title="HIFI日记：HQPlayer embedded （HQPlayer OS）嵌入版使用教程" target="">
+		    HIFI日记：HQPlayer embedded （HQPlayer OS）嵌入版使用教程
+		    </a>
+		</li>
+	        <li class="my-links-of-blogroll-item">
+		    <a href="/posts/eb18152/" title="OpenCore添加ubuntu引导，引导双系统" target="">
+		    OpenCore添加ubuntu引导，引导双系统
+		    </a>
+		</li>
+	        <li class="my-links-of-blogroll-item">
+		    <a href="/posts/f3a01220/" title="hqplayer和roon二合一" target="">
+		    hqplayer和roon二合一
+		    </a>
+		</li>
+	</ul>
+    </div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/9540b2ea/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lion.png">
+      <meta itemprop="name" content="swimminghao">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="swimminghao's blog">
+      <meta itemprop="description" content="swimminghao的学习博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="将威联通NAS的目录通过NFS共享，并挂载到内网Docker宿主机，作为容器目录使用 | swimminghao's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          将威联通NAS的目录通过NFS共享，并挂载到内网Docker宿主机，作为容器目录使用
+        </h1>
+
+        <div class="post-meta-container">
+
+          
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2025-11-09 12:08:02 / 修改时间：12:08:50" itemprop="dateCreated datePublished" datetime="2025-11-09T12:08:02+08:00">2025-11-09</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/linux/" itemprop="url" rel="index"><span itemprop="name">linux</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/posts/9540b2ea/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/9540b2ea/" data-xid="/posts/9540b2ea/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>2.7k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>2 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="将威联通NAS的目录通过NFS共享，并挂载到内网Docker宿主机，作为容器目录使用"><a href="#将威联通NAS的目录通过NFS共享，并挂载到内网Docker宿主机，作为容器目录使用" class="headerlink" title="将威联通NAS的目录通过NFS共享，并挂载到内网Docker宿主机，作为容器目录使用"></a>将威联通NAS的目录通过NFS共享，并挂载到内网Docker宿主机，作为容器目录使用</h1><h2 id="核心思路"><a href="#核心思路" class="headerlink" title="核心思路"></a>核心思路</h2><p>先将远程内网主机的共享目录挂载到 Docker 宿主机的一个本地目录上，然后再将这个本地目录作为数据卷（Volume）或绑定挂载（Bind Mount）提供给 Docker 容器使用。</p>
+<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[ 内网共享主机 (NAS/Samba Server) ]</span><br><span class="line">              <span class="string">|</span></span><br><span class="line">              <span class="string">| (网络共享协议，如 NFS/SMB)</span></span><br><span class="line">              <span class="string">|</span></span><br><span class="line">[Docker 宿主机 ]</span><br><span class="line">    <span class="string">| (本地文件系统挂载点，如 /mnt/nas/downloads)</span></span><br><span class="line">    <span class="string">|</span></span><br><span class="line">    <span class="string">| (Docker 卷或绑定挂载)</span></span><br><span class="line">    <span class="string">|</span></span><br><span class="line">[ Docker 容器 (如 Transmission, qBittorrent) ]</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="威联通nas开启NFS共享"><a href="#威联通nas开启NFS共享" class="headerlink" title="威联通nas开启NFS共享"></a>威联通nas开启NFS共享</h2><p>因为我的内网装有qBittorrent 的docker宿主机是基于ubuntu的服务器，所以推荐使用NFS。NFS 在 Linux 环境下性能好，开销低，是首选方案。如果docker宿主机是 Windows ，或启用了NAS的 Samba服务，这种方法更合适。</p>
+<h3 id="创建共享目录"><a href="#创建共享目录" class="headerlink" title="创建共享目录"></a>创建共享目录</h3><p>威联通依次打开控制台⇨权限⇨共享目录⇨创建⇨共享文件夹</p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2025/11/09/veh7NI.png"></p>
+<p>填写共享目录名称pt，记住文件夹名称，之后会用到。然后手动输入共享文件夹的路径，点击创建。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2025/11/09/YqFN0x.png"></p>
+<h3 id="激活威联通nas的nfs功能"><a href="#激活威联通nas的nfs功能" class="headerlink" title="激活威联通nas的nfs功能"></a>激活威联通nas的nfs功能</h3><p>威联通依次打开控制台⇨网络和文件服务⇨Win&#x2F;Mac&#x2F;NFS⇨NFS服务</p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2025/11/09/jV1oWk.png"></p>
+<p>激活NFS v4服务和启用manage-gids，关闭写入高速缓存。</p>
+<ul>
+<li>启用最新的 NFS 主要版本v4：v4 在安全性（强认证）、性能（复合操作）和跨防火墙友好性（固定端口）方面有显著改进。</li>
+<li>启用manage-gids：对于 Docker 挂载场景，这可以极大地简化容器内用户（如 <code>PUID=1000</code>, <code>PGID=1000</code>）对挂载目录的读写权限管理，避免出现 “Permission denied” 错误。</li>
+<li>关闭写入高速缓存：对于 Docker 挂载，如果共享目录中存储的是重要的、不可再生的数据（如文档、数据库、个人文件），为了数据安全，<strong>建议停用</strong>。如果存储的是可以重新下载的缓存、临时文件或可丢弃的数据，可以启用以获得更好性能。</li>
+</ul>
+<h3 id="设置共享文件夹权限"><a href="#设置共享文件夹权限" class="headerlink" title="设置共享文件夹权限"></a>设置共享文件夹权限</h3><p>创建完的共享文件夹，会在这里显示。点击图中按钮，编辑共享文件夹权限。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2025/11/09/Heirw8.png"></p>
+<p>依次选择⇨选择权限类别：NFS主机访问⇨勾选访问权限⇨设置访问的IP地址或域名。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2025/11/09/hHvrzU.png"></p>
+<p>主机ip：<code>192.168.60.0/24</code> 是 <strong>CIDR（无类别域间路由）</strong> 的表示方法，它表示了一个包含256个IP地址的网络段，范围从192.168.60.0 到 192.168.60.255。。</p>
+<p>Squash：选择读写。需要docker宿主机能够读写共享目录。</p>
+<p>Squash选项：选择不Squash所有用户。</p>
+<h2 id="内网docker宿主机设置"><a href="#内网docker宿主机设置" class="headerlink" title="内网docker宿主机设置"></a>内网docker宿主机设置</h2><h3 id="创建挂载目录-mnt-nas-downloads"><a href="#创建挂载目录-mnt-nas-downloads" class="headerlink" title="创建挂载目录/mnt/nas/downloads"></a>创建挂载目录<code>/mnt/nas/downloads</code></h3><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo mkdir <span class="regexp">/mnt/</span>nas/downloads</span><br></pre></td></tr></table></figure>
+
+<h3 id="挂载在目录，192-168-50-218-x2F-pt"><a href="#挂载在目录，192-168-50-218-x2F-pt" class="headerlink" title="挂载在目录，192.168.50.218:&#x2F;pt"></a>挂载在目录，192.168.50.218:&#x2F;pt</h3><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo mount -t nfs4 -o rw,hard,intr,timeo=<span class="number">300</span>,retrans=<span class="number">3</span> <span class="number">192.168</span>.<span class="number">50.218</span>:<span class="regexp">/pt /m</span>nt<span class="regexp">/nas/</span>downloads</span><br></pre></td></tr></table></figure>
+
+<p><strong>参数解释</strong>：</p>
+<ul>
+<li><code>hard</code>：在 NFS 服务器故障时，程序会一直等待直到服务器恢复，保证数据一致性。</li>
+<li><code>intr</code>：允许用户中断正在等待的 NFS 操作。</li>
+<li><code>timeo=300</code>：设置超时时间为十分之300秒（即30秒）。</li>
+<li><code>retrans=3</code>：设置重传次数为3次。</li>
+</ul>
+<h3 id="开机自动挂载"><a href="#开机自动挂载" class="headerlink" title="开机自动挂载"></a>开机自动挂载</h3><p>编辑 <code>/etc/fstab</code>文件，<code>sudo vim /etc/fstab</code>。</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在 /etc/fstab 末尾添加</span></span><br><span class="line"><span class="attribute">192</span>.<span class="number">168</span>.<span class="number">50</span>.<span class="number">218</span>:/pt   /mnt/nas/downloads   nfs4 rw,hard,intr,timeo=<span class="number">300</span>,retrans=<span class="number">3</span>,_netdev,auto   <span class="number">0</span>   <span class="number">0</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>注意</strong>：<code>_netdev</code> 选项非常重要，它告诉系统在网络就绪后再挂载。</p>
+<p><strong>整体含义</strong></p>
+<p>将位于 IP 地址为 <code>192.168.50.218</code> 的服务器上的共享目录 <code>/pt</code>，通过网络文件系统版本 4 挂载到本地目录 <code>/mnt/nas/downloads</code>。</p>
+<hr>
+<p><strong>参数解释</strong>：</p>
+<p>该配置行由 6 个字段组成，字段间用空格或制表符分隔：</p>
+<ol>
+<li><strong><code>192.168.50.218:/pt</code></strong><ul>
+<li><strong>含义</strong>：NFS 服务器和它提供的共享路径。</li>
+<li><code>192.168.50.218</code>：NFS 服务器的 IP 地址。</li>
+<li><code>:/pt</code>：服务器上被共享出来的目录路径。</li>
+</ul>
+</li>
+<li><strong><code>/mnt/nas/downloads</code></strong><ul>
+<li><strong>含义</strong>：<strong>挂载点</strong>。这是本地的一个<strong>空目录</strong>，远程共享的内容将出现在这个目录里。</li>
+</ul>
+</li>
+<li><strong><code>nfs4</code></strong><ul>
+<li><strong>含义</strong>：文件系统类型。这里指定使用 <strong>NFS 版本 4</strong>。</li>
+</ul>
+</li>
+<li><strong><code>rw,hard,intr,timeo=300,retrans=3,_netdev,auto</code></strong><ul>
+<li><strong>含义</strong>：挂载选项，多个选项用逗号分隔。</li>
+<li><code>rw</code>：以<strong>读写</strong>模式挂载（而非只读 <code>ro</code>）。</li>
+<li><code>hard</code>：<strong>硬挂载</strong>。如果服务器无响应，客户端会持续重试。这对于保证数据一致性非常重要，但可能导致进程在访问挂载点时卡住。</li>
+<li><code>intr</code>：允许<strong>中断</strong>正在等待服务器响应的 I&#x2F;O 操作。当使用 <code>hard</code> 挂载时，如果服务器宕机，可以用这个选项来终止被挂起的进程。</li>
+<li><code>timeo=300</code>：设置超时时间为 <strong>300 十分之一秒（即 30 秒）</strong>。这是客户端等待服务器响应的时间。</li>
+<li><code>retrans=3</code>：在放弃并返回错误之前，进行 <strong>3 次</strong> 重传。</li>
+<li><code>_netdev</code>：这是一个非常重要的选项，它告诉系统这是一个<strong>网络设备</strong>。系统会等待网络就绪后再尝试挂载，避免系统启动时因网络未准备好而挂载失败。</li>
+<li><code>auto</code>：使用 <code>mount -a</code> 命令（通常在系统启动时执行）时会<strong>自动挂载</strong>此文件系统。</li>
+</ul>
+</li>
+<li><strong><code>0</code></strong><ul>
+<li><strong>含义</strong>：供 <code>dump</code> 备份工具使用。<code>0</code> 表示不需要被 <code>dump</code> 备份。</li>
+</ul>
+</li>
+<li><strong><code>0</code></strong><ul>
+<li><strong>含义</strong>：供 <code>fsck</code> 磁盘检查工具使用。<code>0</code> 表示在启动时不需要检查此文件系统（因为它是网络文件系统，不在本地磁盘上）。</li>
+</ul>
+</li>
+</ol>
+<h2 id="docker宿主机运行qbittorrent容器，并挂载共享目录"><a href="#docker宿主机运行qbittorrent容器，并挂载共享目录" class="headerlink" title="docker宿主机运行qbittorrent容器，并挂载共享目录"></a>docker宿主机运行qbittorrent容器，并挂载共享目录</h2><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="built_in">run</span> -d \</span><br><span class="line">  <span class="attribute">--name</span>=qbittorrent \</span><br><span class="line">  -e <span class="attribute">PUID</span>=$(id -u) \</span><br><span class="line">  -e <span class="attribute">PGID</span>=$(id -g) \</span><br><span class="line">  -e <span class="attribute">TZ</span>=Asia/Shanghai \</span><br><span class="line">  <span class="attribute">--net</span>=host \</span><br><span class="line">  -v ~/software/docker/qbittorrent/config:<span class="built_in">/config </span>\</span><br><span class="line">  -v /mnt/nas/downloads/qbittorrent/downloads:/downloads \</span><br><span class="line">  --restart unless-stopped \</span><br><span class="line">  lscr.io/linuxserver/qbittorrent:latest</span><br></pre></td></tr></table></figure>
+
+<p>qbittorrent默认端口8080，可在config目录里的qbittorrent.conf配置文件修改。</p>
+
+    </div>
+
+    
+    
+    
+
+
+    <div>
+      
+        <div>
+    
+      <div style="text-align:center;color: #ccc;font-size:20px;">------------- 本 文 结 束&nbsp&nbsp&nbsp&nbsp&nbsp感 谢 您 的 阅 读 -------------</div>
+    
+</div>
+
+      
+    </div>
+
+    <footer class="post-footer"><div class="post-widgets">
+      <div id="needsharebutton-postbottom">
+        <span class="btn">
+          <i class="fa fa-share-alt" aria-hidden="true"></i>
+        </span>
+      </div>
+    </div>
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>swimminghao
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://example.com/posts/9540b2ea/" title="将威联通NAS的目录通过NFS共享，并挂载到内网Docker宿主机，作为容器目录使用">http://example.com/posts/9540b2ea/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/docker/" rel="tag"><i class="fa fa-tag"></i> docker</a>
+              <a href="/tags/NFS/" rel="tag"><i class="fa fa-tag"></i> NFS</a>
+              <a href="/tags/qnap/" rel="tag"><i class="fa fa-tag"></i> qnap</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/posts/3b65ab0a/" rel="prev" title="安装OpenVpn的Ubuntu22.04服务端，并配置服务端和客户端">
+                  <i class="fa fa-chevron-left"></i> 安装OpenVpn的Ubuntu22.04服务端，并配置服务端和客户端
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>l
+
+
+
+
+
+
+    <div class="comments" id="waline-comments"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">swimminghao</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">1.2m</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">18:29</span>
+  </span>
+</div>
+
+<span id="sitetime"></span>
+<script language=javascript>
+    function siteTime(){
+        window.setTimeout("siteTime()", 1000);
+        var seconds = 1000;
+        var minutes = seconds * 60;
+        var hours = minutes * 60;
+        var days = hours * 24;
+        var years = days * 365;
+        var today = new Date();
+        var todayYear = today.getFullYear();
+        var todayMonth = today.getMonth()+1;
+        var todayDate = today.getDate();
+        var todayHour = today.getHours();
+        var todayMinute = today.getMinutes();
+        var todaySecond = today.getSeconds();
+        /* Date.UTC() -- 返回date对象距世界标准时间(UTC)1970年1月1日午夜之间的毫秒数(时间戳)
+        year - 作为date对象的年份，为4位年份值
+        month - 0-11之间的整数，做为date对象的月份
+        day - 1-31之间的整数，做为date对象的天数
+        hours - 0(午夜24点)-23之间的整数，做为date对象的小时数
+        minutes - 0-59之间的整数，做为date对象的分钟数
+        seconds - 0-59之间的整数，做为date对象的秒数
+        microseconds - 0-999之间的整数，做为date对象的毫秒数 */
+        var t1 = Date.UTC(2022,02,28,00,00,00); //你的建站时间
+        var t2 = Date.UTC(todayYear,todayMonth,todayDate,todayHour,todayMinute,todaySecond);
+        var diff = t2-t1;
+        var diffYears = Math.floor(diff/years);
+        var diffDays = Math.floor((diff/days)-diffYears*365);
+        var diffHours = Math.floor((diff-(diffYears*365+diffDays)*days)/hours);
+        var diffMinutes = Math.floor((diff-(diffYears*365+diffDays)*days-diffHours*hours)/minutes);
+        var diffSeconds = Math.floor((diff-(diffYears*365+diffDays)*days-diffHours*hours-diffMinutes*minutes)/seconds);
+        document.getElementById("sitetime").innerHTML=" 本站已安全运行 "+diffYears+" Year "+diffDays+" Days "+diffHours+" Hours "+diffMinutes+" m "+diffSeconds+" s";
+    }
+    siteTime();
+</script>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        访问人数：<span id="busuanzi_value_site_uv"></span>
+      </span>人
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+       访问总量：<span id="busuanzi_value_site_pv"></span>
+      </span>次
+    </span>
+
+
+<!--
+  本文总阅读量：<span id="busuanzi_value_page_pv"></span>次
+-->
+
+</div>
+
+
+<!--
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+--><script color="0,0,255" opacity="0.5" zIndex="-1" count="99" src="https://cdn.jsdelivr.net/npm/canvas-nest.js@1/dist/canvas-nest.js"></script>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<script class="next-config" data-name="waline" type="application/json">{"lang":"zh-cn","enable":true,"serverURL":"waline-server-nu.vercel.app","placeholder":"请文明评论呀","avatar":"mm","pageSize":10,"visitor":false,"comment_count":true,"requiredFields":[],"meta":["nick","mail","link"],"libUrl":"https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js","el":"#waline-comments","path":"/posts/9540b2ea/"}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.waline.el).then(() => 
+    NexT.utils.getScript(CONFIG.waline.libUrl, { condition: window.Waline })
+  ).then(() => {
+    new Waline(CONFIG.waline);
+  });
+});
+</script>
+  <script src="//cdn.jsdelivr.net/gh/theme-next/theme-next-needmoreshare2@1/needsharebutton.min.js"></script>
+  <script>
+      pbOptions = {};
+        pbOptions.iconStyle = "default";
+        pbOptions.boxForm = "horizontal";
+        pbOptions.position = "middleCenter";
+        pbOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+  </script>
+</body>
+</html>

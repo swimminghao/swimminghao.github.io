@@ -22,43 +22,29 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.10.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="Hexo博客进阶：为 Next 主题添加 Waline 评论系统 发表于 2022-01-20 分类于 Hexo博客 阅读次数： 44 Waline： 本文字数： 2.2k 阅读时长 ≈ 4 分钟 文章发出之后，往往我们想要得到读者更多地反馈，那么拥有一个评论系统是至关重要的。 本篇带大家通过一些简单的配置，在 Hexo Next 主题下添加 Waline 评论系统。 前言在之前的 Hexo博客进">
+    <meta name="description" content="hexo同步以下操作在你的第二个平台上进行，并确定已安装 node.js &amp; npm。 在你想要同步博客的文件夹下执行 12345678910git clone &lt;远端博客仓库地址&gt;cd # 进入到主题文件夹git clone &lt;远端主题仓库地址&gt;cd # 进入到第三方主题文件夹git checkout customize #切换到customize分支# 回到 h">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hexo博客进阶：为 Next 主题添加 Waline 评论系统">
+<meta property="og:title" content="hexo同步">
 <meta property="og:url" content="http://example.com/posts/a07389a8/index.html">
 <meta property="og:site_name" content="swimminghao&#39;s blog">
-<meta property="og:description" content="Hexo博客进阶：为 Next 主题添加 Waline 评论系统 发表于 2022-01-20 分类于 Hexo博客 阅读次数： 44 Waline： 本文字数： 2.2k 阅读时长 ≈ 4 分钟 文章发出之后，往往我们想要得到读者更多地反馈，那么拥有一个评论系统是至关重要的。 本篇带大家通过一些简单的配置，在 Hexo Next 主题下添加 Waline 评论系统。 前言在之前的 Hexo博客进">
+<meta property="og:description" content="hexo同步以下操作在你的第二个平台上进行，并确定已安装 node.js &amp; npm。 在你想要同步博客的文件夹下执行 12345678910git clone &lt;远端博客仓库地址&gt;cd # 进入到主题文件夹git clone &lt;远端主题仓库地址&gt;cd # 进入到第三方主题文件夹git checkout customize #切换到customize分支# 回到 h">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/qianfanguojin/ImageHosting_1/hexo/202201202316763.png">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/qianfanguojin/ImageHosting_1/others/20210815161252.png">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/qianfanguojin/ImageHosting_1/others/202108151614201.png">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/qianfanguojin/ImageHosting_1/hexo/202201211139993.png">
-<meta property="og:image" content="https://vercel.com/button">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/qianfanguojin/ImageHosting_1/hexo/202201211306146.png">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/qianfanguojin/ImageHosting_1/hexo/202201211309809.png">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/qianfanguojin/ImageHosting_1/hexo/202201211313406.png">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/qianfanguojin/ImageHosting_1/hexo/202201211314501.png">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/qianfanguojin/ImageHosting_1/hexo/202201211330222.png">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/qianfanguojin/ImageHosting_1/hexo/202201211333672.png">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/qianfanguojin/ImageHosting_1/hexo/202201211413737.png">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/qianfanguojin/ImageHosting_1/hexo/202201211432511.png">
 <meta property="article:published_time" content="2022-03-02T07:10:00.000Z">
 <meta property="article:modified_time" content="2025-02-13T08:20:39.949Z">
 <meta property="article:author" content="swimminghao">
 <meta property="article:tag" content="记录">
 <meta property="article:tag" content="博客">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/qianfanguojin/ImageHosting_1/hexo/202201202316763.png">
 
 
 <link rel="canonical" href="http://example.com/posts/a07389a8/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/posts/a07389a8/","path":"posts/a07389a8/","title":"Hexo博客进阶：为 Next 主题添加 Waline 评论系统"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/posts/a07389a8/","path":"posts/a07389a8/","title":"hexo同步"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>Hexo博客进阶：为 Next 主题添加 Waline 评论系统 | swimminghao's blog</title>
+<title>hexo同步 | swimminghao's blog</title>
   
 
 
@@ -120,9 +106,9 @@
   <ul class="main-menu menu">
         <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
         <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
-        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">57</span></a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">59</span></a></li>
         <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">18</span></a></li>
-        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">281</span></a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">282</span></a></li>
         <li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
@@ -180,7 +166,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Hexo%E5%8D%9A%E5%AE%A2%E8%BF%9B%E9%98%B6%EF%BC%9A%E4%B8%BA-Next-%E4%B8%BB%E9%A2%98%E6%B7%BB%E5%8A%A0-Waline-%E8%AF%84%E8%AE%BA%E7%B3%BB%E7%BB%9F"><span class="nav-number">1.</span> <span class="nav-text">Hexo博客进阶：为 Next 主题添加 Waline 评论系统</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E7%AC%AC%E4%B8%80%E6%AD%A5%EF%BC%8C%E9%85%8D%E7%BD%AE%E8%AF%84%E8%AE%BA%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="nav-number">1.2.</span> <span class="nav-text">1. 第一步，配置评论数据库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E5%AE%89%E8%A3%85%E6%9C%8D%E5%8A%A1%E7%AB%AF"><span class="nav-number">1.3.</span> <span class="nav-text">2. 安装服务端</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E5%9C%A8Hexo-Next%E4%B8%BB%E9%A2%98%E4%B8%AD%E9%85%8D%E7%BD%AE"><span class="nav-number">1.4.</span> <span class="nav-text">3. 在Hexo Next主题中配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%E7%99%BB%E5%BD%95%E6%9C%8D%E5%8A%A1%E7%AB%AF"><span class="nav-number">1.5.</span> <span class="nav-text">4. 登录服务端</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#hexo%E5%90%8C%E6%AD%A5"><span class="nav-number">1.</span> <span class="nav-text">hexo同步</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -195,7 +181,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">281</span>
+          <span class="site-state-item-count">282</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -206,7 +192,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">57</span>
+        <span class="site-state-item-count">59</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -238,6 +224,11 @@
 	</div>
 	<ul class="links-of-blogroll-list recent-posts-list">
 	        <li class="my-links-of-blogroll-item">
+		    <a href="/posts/9540b2ea/" title="将威联通NAS的目录通过NFS共享，并挂载到内网Docker宿主机，作为容器目录使用" target="">
+		    将威联通NAS的目录通过NFS共享，并挂载到内网Docker宿主机，作为容器目录使用
+		    </a>
+		</li>
+	        <li class="my-links-of-blogroll-item">
 		    <a href="/posts/3b65ab0a/" title="安装OpenVpn的Ubuntu22.04服务端，并配置服务端和客户端" target="">
 		    安装OpenVpn的Ubuntu22.04服务端，并配置服务端和客户端
 		    </a>
@@ -255,11 +246,6 @@
 	        <li class="my-links-of-blogroll-item">
 		    <a href="/posts/f3a01220/" title="hqplayer和roon二合一" target="">
 		    hqplayer和roon二合一
-		    </a>
-		</li>
-	        <li class="my-links-of-blogroll-item">
-		    <a href="/posts/a0ae5a65/" title="CentOS7 源码安装redis4" target="">
-		    CentOS7 源码安装redis4
 		    </a>
 		</li>
 	</ul>
@@ -309,12 +295,12 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="Hexo博客进阶：为 Next 主题添加 Waline 评论系统 | swimminghao's blog">
+      <meta itemprop="name" content="hexo同步 | swimminghao's blog">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Hexo博客进阶：为 Next 主题添加 Waline 评论系统
+          hexo同步
         </h1>
 
         <div class="post-meta-container">
@@ -375,14 +361,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>2.2k</span>
+      <span>305</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>2 分钟</span>
+      <span>1 分钟</span>
     </span>
 </div>
 
@@ -393,137 +379,13 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h1 id="Hexo博客进阶：为-Next-主题添加-Waline-评论系统"><a href="#Hexo博客进阶：为-Next-主题添加-Waline-评论系统" class="headerlink" title="Hexo博客进阶：为 Next 主题添加 Waline 评论系统"></a>Hexo博客进阶：为 Next 主题添加 Waline 评论系统</h1><p> 发表于 2022-01-20 分类于 <a target="_blank" rel="noopener" href="https://qianfanguojin.top/categories/Hexo%E5%8D%9A%E5%AE%A2/">Hexo博客</a> 阅读次数： 44 Waline： 本文字数： 2.2k 阅读时长 ≈ 4 分钟</p>
-<p>文章发出之后，往往我们想要得到读者更多地反馈，那么拥有一个评论系统是至关重要的。</p>
-<p>本篇带大家通过一些简单的配置，在 Hexo Next 主题下添加 Waline 评论系统。</p>
-<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在之前的 <a target="_blank" rel="noopener" href="https://qianfanguojin.top/2019/07/23/Hexo%E5%8D%9A%E5%AE%A2%E8%BF%9B%E9%98%B6%EF%BC%9A%E4%B8%BANext%E4%B8%BB%E9%A2%98%E6%B7%BB%E5%8A%A0Valine%E8%AF%84%E8%AE%BA%E7%B3%BB%E7%BB%9F/?highlight=valine">Hexo博客进阶：为Next主题添加Valine评论系统 | 谢同学的博客 (qianfanguojin.top)</a> 文章中，我叙述了如何 在 Next主题下配置 Valine 评论系统。</p>
-<p>但是，根据读者反馈，Valine 评论系统在 Next 主题高版本 (7.+) 以上已没有支持，且 Valine 已经很久没有更新维护了。不过，有大佬在 Valine 的基础之上开发了 <a target="_blank" rel="noopener" href="https://waline.js.org/">Waline</a> 。<br>这次，我们就来描述如何快速上手安装配置更加人性化且带后端的 <a target="_blank" rel="noopener" href="https://waline.js.org/">Waline</a> 评论系统。</p>
-<h2 id="1-第一步，配置评论数据库"><a href="#1-第一步，配置评论数据库" class="headerlink" title="1. 第一步，配置评论数据库"></a>1. 第一步，配置评论数据库</h2><p><code>Waline</code> 和 Valine 一样，也是支持基于 <a target="_blank" rel="noopener" href="https://leancloud.app/">LeanCloud</a> 作为数据存储的，但是 <code>Waline</code> 支持的部署方式更多：</p>
-<table>
-<thead>
-<tr>
-<th></th>
-<th>Waline</th>
-<th></th>
-</tr>
-</thead>
-<tbody><tr>
-<td><strong>Client</strong></td>
-<td><strong>Server</strong></td>
-<td><strong>Storage</strong></td>
-</tr>
-<tr>
-<td><a target="_blank" rel="noopener" href="https://waline.js.org/">@waline&#x2F;client</a></td>
-<td><a target="_blank" rel="noopener" href="https://vercel.com/">Vercel</a></td>
-<td><a target="_blank" rel="noopener" href="https://leancloud.app/">LeanCloud</a></td>
-</tr>
-<tr>
-<td><a target="_blank" rel="noopener" href="https://minivaline.js.org/">MiniValine</a></td>
-<td><a target="_blank" rel="noopener" href="https://deta.sh/">Deta</a></td>
-<td><a target="_blank" rel="noopener" href="https://clodbase.net/">CloudBase</a></td>
-</tr>
-<tr>
-<td><a target="_blank" rel="noopener" href="https://github.com/asforest/AprilComment">AprilComment</a></td>
-<td><a target="_blank" rel="noopener" href="https://cloudbase.net/">CloudBase</a></td>
-<td><a target="_blank" rel="noopener" href="https://mongodb.com/">MongoDB</a></td>
-</tr>
-<tr>
-<td></td>
-<td><a target="_blank" rel="noopener" href="https://inspirecloud.com/">InspireCloud</a></td>
-<td>MySQL</td>
-</tr>
-<tr>
-<td></td>
-<td><a target="_blank" rel="noopener" href="https://railway.app/">Railway</a></td>
-<td>SQLite</td>
-</tr>
-<tr>
-<td></td>
-<td><a target="_blank" rel="noopener" href="https://render.com/">Render</a></td>
-<td>PostgreSQL</td>
-</tr>
-<tr>
-<td></td>
-<td>Docker</td>
-<td><a target="_blank" rel="noopener" href="https://github.com/">GitHub</a></td>
-</tr>
-<tr>
-<td></td>
-<td>Virtual Host</td>
-<td><a target="_blank" rel="noopener" href="https://docs.deta.sh/docs/base/about">Deta Base</a></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td><a target="_blank" rel="noopener" href="https://inspirecloud.com/docs/nodejs/database/quickstart.html">InspireCloud</a></td>
-</tr>
-</tbody></table>
-<p>为了方便，这里我只讲述最简单，零成本的数据库建立方法。</p>
-<p>我们需要注册一个 <a target="_blank" rel="noopener" href="https://console.leancloud.app/register">Leancloud 国际版 </a>的账号，注意，一定要是 <strong>国际版</strong>，国内版需要绑定备案的域名，比较麻烦。具体可以在注册时的左上角看到：</p>
-<p><a target="_blank" rel="noopener" href="https://cdn.jsdelivr.net/gh/qianfanguojin/ImageHosting_1/hexo/202201202316763.png"><img src="https://cdn.jsdelivr.net/gh/qianfanguojin/ImageHosting_1/hexo/202201202316763.png" alt="img"></a></p>
-<p>注册完成后，登录，然后我们找到<code>创建应用</code></p>
-<p><a target="_blank" rel="noopener" href="https://cdn.jsdelivr.net/gh/qianfanguojin/ImageHosting_1/others/20210815161252.png"><img src="https://cdn.jsdelivr.net/gh/qianfanguojin/ImageHosting_1/others/20210815161252.png" alt="img"></a></p>
-<p>在这里填写你的应用名称,名称可以自己定义，然后，下面选择<code>开发版</code> 点击<code>创建</code>。</p>
-<p>然后点击应用进入设置。</p>
-<p><a target="_blank" rel="noopener" href="https://cdn.jsdelivr.net/gh/qianfanguojin/ImageHosting_1/others/202108151614201.png"><img src="https://cdn.jsdelivr.net/gh/qianfanguojin/ImageHosting_1/others/202108151614201.png" alt="img"></a></p>
-<p>点击应用凭证，取得我们 <code>AppKey</code> 、<code>App id</code> 、以及 <code>MasterKey</code> ：</p>
-<p><a target="_blank" rel="noopener" href="https://cdn.jsdelivr.net/gh/qianfanguojin/ImageHosting_1/hexo/202201211139993.png"><img src="https://cdn.jsdelivr.net/gh/qianfanguojin/ImageHosting_1/hexo/202201211139993.png" alt="img"></a></p>
-<p>数据库配置完毕，接下来安装服务端。</p>
-<h2 id="2-安装服务端"><a href="#2-安装服务端" class="headerlink" title="2. 安装服务端"></a>2. 安装服务端</h2><p>由上面的表格可以看到，<code>Waline</code> 支持多种服务端，为了最简便上手，我们使用第一种方式，即在 <code>Vercl</code> 上安装服务端。首先，点击下面的按钮，一键部署：</p>
-<p><a target="_blank" rel="noopener" href="https://vercel.com/import/project?template=https://github.com/walinejs/waline/tree/main/example"><img src="https://vercel.com/button" alt="Vercel"></a></p>
-<p>应该需要注册一个账号，支持使用 <code>Github</code> 账号直接登录：</p>
-<p><a target="_blank" rel="noopener" href="https://cdn.jsdelivr.net/gh/qianfanguojin/ImageHosting_1/hexo/202201211306146.png"><img src="https://cdn.jsdelivr.net/gh/qianfanguojin/ImageHosting_1/hexo/202201211306146.png" alt="img"></a></p>
-<p>登录后重新点进来，点击 <code>Create</code>：</p>
-<p><a target="_blank" rel="noopener" href="https://cdn.jsdelivr.net/gh/qianfanguojin/ImageHosting_1/hexo/202201211309809.png"><img src="https://cdn.jsdelivr.net/gh/qianfanguojin/ImageHosting_1/hexo/202201211309809.png" alt="img"></a></p>
-<p>然后等待下面 <code>Deploy</code> 构建完成，点击 <code>Go to Dashboard</code></p>
-<p><a target="_blank" rel="noopener" href="https://cdn.jsdelivr.net/gh/qianfanguojin/ImageHosting_1/hexo/202201211313406.png"><img src="https://cdn.jsdelivr.net/gh/qianfanguojin/ImageHosting_1/hexo/202201211313406.png" alt="img"></a></p>
-<p>找到 Settings &#x3D;&gt; Environment Variables，配置环境变量：</p>
-<p><a target="_blank" rel="noopener" href="https://cdn.jsdelivr.net/gh/qianfanguojin/ImageHosting_1/hexo/202201211314501.png"><img src="https://cdn.jsdelivr.net/gh/qianfanguojin/ImageHosting_1/hexo/202201211314501.png" alt="img"></a></p>
-<p>我们需要配置三个环境变量，对应如下表：</p>
-<table>
-<thead>
-<tr>
-<th>Lean Cloud</th>
-<th>Vercel Environment</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>AppID</td>
-<td>LEAN_ID</td>
-</tr>
-<tr>
-<td>AppKey</td>
-<td>LEAN_KEY</td>
-</tr>
-<tr>
-<td>MasterKey</td>
-<td>LEAN_MASTER_KEY</td>
-</tr>
-</tbody></table>
-<p><a target="_blank" rel="noopener" href="https://cdn.jsdelivr.net/gh/qianfanguojin/ImageHosting_1/hexo/202201211330222.png"><img src="https://cdn.jsdelivr.net/gh/qianfanguojin/ImageHosting_1/hexo/202201211330222.png" alt="img"></a></p>
-<blockquote>
-<p>提示</p>
-<p>如果你使用 LeanCloud 国内版，请额外配置 <code>LEAN_SERVER</code> 环境变量，值为你绑定好的域名。</p>
-</blockquote>
-<p>为了使环境变量生效，我们需要重新构建一次。在上方找到 Deployments ，选择第一个右边的三个点，点击 Redeploy 。</p>
-<p><a target="_blank" rel="noopener" href="https://cdn.jsdelivr.net/gh/qianfanguojin/ImageHosting_1/hexo/202201211333672.png"><img src="https://cdn.jsdelivr.net/gh/qianfanguojin/ImageHosting_1/hexo/202201211333672.png" alt="img"></a></p>
-<p>等待其构建结束，然后记住 <code>DOMAINS</code> 中的域名地址：</p>
-<p><a target="_blank" rel="noopener" href="https://cdn.jsdelivr.net/gh/qianfanguojin/ImageHosting_1/hexo/202201211413737.png"><img src="https://cdn.jsdelivr.net/gh/qianfanguojin/ImageHosting_1/hexo/202201211413737.png" alt="img"></a></p>
-<p>好了，服务端部署到此结束，下面我们开始在 <code>Hexo Next</code> 主题中配置客户端。</p>
-<h2 id="3-在Hexo-Next主题中配置"><a href="#3-在Hexo-Next主题中配置" class="headerlink" title="3. 在Hexo Next主题中配置"></a>3. 在Hexo Next主题中配置</h2><p>由于 Next 主题中并不自带 <code>Waline</code> 的评论配置，我们需要安装官方提供的插件。在 <code>Hexo</code> 根目录执行：</p>
-<figure class="highlight autoit"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install <span class="symbol">@waline</span>/hexo-<span class="keyword">next</span></span><br></pre></td></tr></table></figure>
+        <h1 id="hexo同步"><a href="#hexo同步" class="headerlink" title="hexo同步"></a>hexo同步</h1><p><strong>以下操作在你的第二个平台上进行，并确定已安装 node.js &amp; npm。</strong></p>
+<p>在你想要同步博客的文件夹下执行</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">git clone &lt;远端博客仓库地址&gt;</span><br><span class="line">cd # 进入到主题文件夹</span><br><span class="line">git clone &lt;远端主题仓库地址&gt;</span><br><span class="line">cd # 进入到第三方主题文件夹</span><br><span class="line">git checkout customize #切换到customize分支</span><br><span class="line"># 回到 hexo 根目录，安装依赖</span><br><span class="line">npm install hexo</span><br><span class="line">npm install hexo-deployer-git</span><br><span class="line">npm install hexo-cli -g</span><br><span class="line">npm install</span><br></pre></td></tr></table></figure>
 
-<p>找到 Next 的主题配置文件，在最后加上</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Waline</span></span><br><span class="line"><span class="comment"># For more information: https://waline.js.org, https://github.com/walinejs/waline</span></span><br><span class="line"><span class="attr">waline:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span> <span class="comment">#是否开启</span></span><br><span class="line">  <span class="attr">serverURL:</span> <span class="string">waline-server-pearl.vercel.app</span> <span class="comment"># Waline #服务端地址，我们这里就是上面部署的 Vercel 地址</span></span><br><span class="line">  <span class="attr">placeholder:</span> <span class="string">请文明评论呀</span> <span class="comment"># #评论框的默认文字</span></span><br><span class="line">  <span class="attr">avatar:</span> <span class="string">mm</span> <span class="comment"># 头像风格</span></span><br><span class="line">  <span class="attr">meta:</span> [<span class="string">nick</span>, <span class="string">mail</span>, <span class="string">link</span>] <span class="comment"># 自定义评论框上面的三个输入框的内容</span></span><br><span class="line">  <span class="attr">pageSize:</span> <span class="number">10</span> <span class="comment"># 评论数量多少时显示分页</span></span><br><span class="line">  <span class="attr">lang:</span> <span class="string">zh-cn</span> <span class="comment"># 语言, 可选值: en, zh-cn</span></span><br><span class="line">  <span class="comment"># Warning: 不要同时启用 `waline.visitor` 以及 `leancloud_visitors`.</span></span><br><span class="line">  <span class="attr">visitor:</span> <span class="literal">false</span> <span class="comment"># 文章阅读统计</span></span><br><span class="line">  <span class="attr">comment_count:</span> <span class="literal">true</span> <span class="comment"># 如果为 false , 评论数量只会在当前评论页面显示, 主页则不显示</span></span><br><span class="line">  <span class="attr">requiredFields:</span> [] <span class="comment"># 设置用户评论时必填的信息，[nick,mail]: [nick] | [nick, mail]</span></span><br><span class="line">  <span class="attr">libUrl:</span> <span class="comment"># Set custom library cdn url</span></span><br></pre></td></tr></table></figure>
+<p>执行hexo指令</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo clean &amp;&amp; proxy4 hexo d -g</span><br></pre></td></tr></table></figure>
 
-<p>重新部署 <code>Hexo</code> ，就可以看到结果了。</p>
-<blockquote>
-<p>据反馈，Hexo 似乎在 8.x 的版本使用 waline 比较稳定，如果出现 <code>hexo g</code> 出错，可尝试升级 hexo 版本。</p>
-</blockquote>
-<h2 id="4-登录服务端"><a href="#4-登录服务端" class="headerlink" title="4. 登录服务端"></a>4. 登录服务端</h2><p>由于 <code>Waline</code> 有服务端，支持评论管理。我们需要注册一个账号作为管理员。</p>
-<p>找到评论框，点击 <code>登录</code> 按钮，会弹出一个窗口，找到用户注册，默认第一个注册的用户为管理员，所以部署好一定要记得及时注册。</p>
-<p><a target="_blank" rel="noopener" href="https://cdn.jsdelivr.net/gh/qianfanguojin/ImageHosting_1/hexo/202201211432511.png"><img src="https://cdn.jsdelivr.net/gh/qianfanguojin/ImageHosting_1/hexo/202201211432511.png" alt="img"></a></p>
-<p>注册好，登录之后即可进入评论管理的后台，可以对评论进行管理。</p>
 
     </div>
 
@@ -559,7 +421,7 @@
   </li>
   <li class="post-copyright-link">
       <strong>本文链接：</strong>
-      <a href="http://example.com/posts/a07389a8/" title="Hexo博客进阶：为 Next 主题添加 Waline 评论系统">http://example.com/posts/a07389a8/</a>
+      <a href="http://example.com/posts/a07389a8/" title="hexo同步">http://example.com/posts/a07389a8/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -581,8 +443,8 @@
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/posts/a07389a8/" rel="next" title="hexo同步">
-                  hexo同步 <i class="fa fa-chevron-right"></i>
+                <a href="/posts/a07389a8/" rel="next" title="Hexo博客进阶：为 Next 主题添加 Waline 评论系统">
+                  Hexo博客进阶：为 Next 主题添加 Waline 评论系统 <i class="fa fa-chevron-right"></i>
                 </a>
             </div>
           </div>
@@ -622,7 +484,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">18:26</span>
+    <span title="站点阅读时长">18:29</span>
   </span>
 </div>
 

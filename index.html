@@ -102,9 +102,9 @@
   <ul class="main-menu menu">
         <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
         <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
-        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">57</span></a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">59</span></a></li>
         <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">18</span></a></li>
-        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">281</span></a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">282</span></a></li>
         <li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
@@ -176,7 +176,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">281</span>
+          <span class="site-state-item-count">282</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -187,7 +187,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">57</span>
+        <span class="site-state-item-count">59</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -219,6 +219,11 @@
 	</div>
 	<ul class="links-of-blogroll-list recent-posts-list">
 	        <li class="my-links-of-blogroll-item">
+		    <a href="/posts/9540b2ea/" title="将威联通NAS的目录通过NFS共享，并挂载到内网Docker宿主机，作为容器目录使用" target="">
+		    将威联通NAS的目录通过NFS共享，并挂载到内网Docker宿主机，作为容器目录使用
+		    </a>
+		</li>
+	        <li class="my-links-of-blogroll-item">
 		    <a href="/posts/3b65ab0a/" title="安装OpenVpn的Ubuntu22.04服务端，并配置服务端和客户端" target="">
 		    安装OpenVpn的Ubuntu22.04服务端，并配置服务端和客户端
 		    </a>
@@ -236,11 +241,6 @@
 	        <li class="my-links-of-blogroll-item">
 		    <a href="/posts/f3a01220/" title="hqplayer和roon二合一" target="">
 		    hqplayer和roon二合一
-		    </a>
-		</li>
-	        <li class="my-links-of-blogroll-item">
-		    <a href="/posts/a0ae5a65/" title="CentOS7 源码安装redis4" target="">
-		    CentOS7 源码安装redis4
 		    </a>
 		</li>
 	</ul>
@@ -603,6 +603,204 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/9540b2ea/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lion.png">
+      <meta itemprop="name" content="swimminghao">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="swimminghao's blog">
+      <meta itemprop="description" content="swimminghao的学习博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | swimminghao's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/9540b2ea/" class="post-title-link" itemprop="url">将威联通NAS的目录通过NFS共享，并挂载到内网Docker宿主机，作为容器目录使用</a>
+        </h2>
+
+        <div class="post-meta-container">
+
+          
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2025-11-09 12:08:02 / 修改时间：12:08:50" itemprop="dateCreated datePublished" datetime="2025-11-09T12:08:02+08:00">2025-11-09</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/linux/" itemprop="url" rel="index"><span itemprop="name">linux</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/posts/9540b2ea/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/9540b2ea/" data-xid="/posts/9540b2ea/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>2.7k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>2 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="将威联通NAS的目录通过NFS共享，并挂载到内网Docker宿主机，作为容器目录使用"><a href="#将威联通NAS的目录通过NFS共享，并挂载到内网Docker宿主机，作为容器目录使用" class="headerlink" title="将威联通NAS的目录通过NFS共享，并挂载到内网Docker宿主机，作为容器目录使用"></a>将威联通NAS的目录通过NFS共享，并挂载到内网Docker宿主机，作为容器目录使用</h1><h2 id="核心思路"><a href="#核心思路" class="headerlink" title="核心思路"></a>核心思路</h2><p>先将远程内网主机的共享目录挂载到 Docker 宿主机的一个本地目录上，然后再将这个本地目录作为数据卷（Volume）或绑定挂载（Bind Mount）提供给 Docker 容器使用。</p>
+<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[ 内网共享主机 (NAS/Samba Server) ]</span><br><span class="line">              <span class="string">|</span></span><br><span class="line">              <span class="string">| (网络共享协议，如 NFS/SMB)</span></span><br><span class="line">              <span class="string">|</span></span><br><span class="line">[Docker 宿主机 ]</span><br><span class="line">    <span class="string">| (本地文件系统挂载点，如 /mnt/nas/downloads)</span></span><br><span class="line">    <span class="string">|</span></span><br><span class="line">    <span class="string">| (Docker 卷或绑定挂载)</span></span><br><span class="line">    <span class="string">|</span></span><br><span class="line">[ Docker 容器 (如 Transmission, qBittorrent) ]</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="威联通nas开启NFS共享"><a href="#威联通nas开启NFS共享" class="headerlink" title="威联通nas开启NFS共享"></a>威联通nas开启NFS共享</h2><p>因为我的内网装有qBittorrent 的docker宿主机是基于ubuntu的服务器，所以推荐使用NFS。NFS 在 Linux 环境下性能好，开销低，是首选方案。如果docker宿主机是 Windows ，或启用了NAS的 Samba服务，这种方法更合适。</p>
+<h3 id="创建共享目录"><a href="#创建共享目录" class="headerlink" title="创建共享目录"></a>创建共享目录</h3><p>威联通依次打开控制台⇨权限⇨共享目录⇨创建⇨共享文件夹</p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2025/11/09/veh7NI.png"></p>
+<p>填写共享目录名称pt，记住文件夹名称，之后会用到。然后手动输入共享文件夹的路径，点击创建。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2025/11/09/YqFN0x.png"></p>
+<h3 id="激活威联通nas的nfs功能"><a href="#激活威联通nas的nfs功能" class="headerlink" title="激活威联通nas的nfs功能"></a>激活威联通nas的nfs功能</h3><p>威联通依次打开控制台⇨网络和文件服务⇨Win&#x2F;Mac&#x2F;NFS⇨NFS服务</p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2025/11/09/jV1oWk.png"></p>
+<p>激活NFS v4服务和启用manage-gids，关闭写入高速缓存。</p>
+<ul>
+<li>启用最新的 NFS 主要版本v4：v4 在安全性（强认证）、性能（复合操作）和跨防火墙友好性（固定端口）方面有显著改进。</li>
+<li>启用manage-gids：对于 Docker 挂载场景，这可以极大地简化容器内用户（如 <code>PUID=1000</code>, <code>PGID=1000</code>）对挂载目录的读写权限管理，避免出现 “Permission denied” 错误。</li>
+<li>关闭写入高速缓存：对于 Docker 挂载，如果共享目录中存储的是重要的、不可再生的数据（如文档、数据库、个人文件），为了数据安全，<strong>建议停用</strong>。如果存储的是可以重新下载的缓存、临时文件或可丢弃的数据，可以启用以获得更好性能。</li>
+</ul>
+<h3 id="设置共享文件夹权限"><a href="#设置共享文件夹权限" class="headerlink" title="设置共享文件夹权限"></a>设置共享文件夹权限</h3><p>创建完的共享文件夹，会在这里显示。点击图中按钮，编辑共享文件夹权限。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2025/11/09/Heirw8.png"></p>
+<p>依次选择⇨选择权限类别：NFS主机访问⇨勾选访问权限⇨设置访问的IP地址或域名。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2025/11/09/hHvrzU.png"></p>
+<p>主机ip：<code>192.168.60.0/24</code> 是 <strong>CIDR（无类别域间路由）</strong> 的表示方法，它表示了一个包含256个IP地址的网络段，范围从192.168.60.0 到 192.168.60.255。。</p>
+<p>Squash：选择读写。需要docker宿主机能够读写共享目录。</p>
+<p>Squash选项：选择不Squash所有用户。</p>
+<h2 id="内网docker宿主机设置"><a href="#内网docker宿主机设置" class="headerlink" title="内网docker宿主机设置"></a>内网docker宿主机设置</h2><h3 id="创建挂载目录-mnt-nas-downloads"><a href="#创建挂载目录-mnt-nas-downloads" class="headerlink" title="创建挂载目录/mnt/nas/downloads"></a>创建挂载目录<code>/mnt/nas/downloads</code></h3><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo mkdir <span class="regexp">/mnt/</span>nas/downloads</span><br></pre></td></tr></table></figure>
+
+<h3 id="挂载在目录，192-168-50-218-x2F-pt"><a href="#挂载在目录，192-168-50-218-x2F-pt" class="headerlink" title="挂载在目录，192.168.50.218:&#x2F;pt"></a>挂载在目录，192.168.50.218:&#x2F;pt</h3><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo mount -t nfs4 -o rw,hard,intr,timeo=<span class="number">300</span>,retrans=<span class="number">3</span> <span class="number">192.168</span>.<span class="number">50.218</span>:<span class="regexp">/pt /m</span>nt<span class="regexp">/nas/</span>downloads</span><br></pre></td></tr></table></figure>
+
+<p><strong>参数解释</strong>：</p>
+<ul>
+<li><code>hard</code>：在 NFS 服务器故障时，程序会一直等待直到服务器恢复，保证数据一致性。</li>
+<li><code>intr</code>：允许用户中断正在等待的 NFS 操作。</li>
+<li><code>timeo=300</code>：设置超时时间为十分之300秒（即30秒）。</li>
+<li><code>retrans=3</code>：设置重传次数为3次。</li>
+</ul>
+<h3 id="开机自动挂载"><a href="#开机自动挂载" class="headerlink" title="开机自动挂载"></a>开机自动挂载</h3><p>编辑 <code>/etc/fstab</code>文件，<code>sudo vim /etc/fstab</code>。</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在 /etc/fstab 末尾添加</span></span><br><span class="line"><span class="attribute">192</span>.<span class="number">168</span>.<span class="number">50</span>.<span class="number">218</span>:/pt   /mnt/nas/downloads   nfs4 rw,hard,intr,timeo=<span class="number">300</span>,retrans=<span class="number">3</span>,_netdev,auto   <span class="number">0</span>   <span class="number">0</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>注意</strong>：<code>_netdev</code> 选项非常重要，它告诉系统在网络就绪后再挂载。</p>
+<p><strong>整体含义</strong></p>
+<p>将位于 IP 地址为 <code>192.168.50.218</code> 的服务器上的共享目录 <code>/pt</code>，通过网络文件系统版本 4 挂载到本地目录 <code>/mnt/nas/downloads</code>。</p>
+<hr>
+<p><strong>参数解释</strong>：</p>
+<p>该配置行由 6 个字段组成，字段间用空格或制表符分隔：</p>
+<ol>
+<li><strong><code>192.168.50.218:/pt</code></strong><ul>
+<li><strong>含义</strong>：NFS 服务器和它提供的共享路径。</li>
+<li><code>192.168.50.218</code>：NFS 服务器的 IP 地址。</li>
+<li><code>:/pt</code>：服务器上被共享出来的目录路径。</li>
+</ul>
+</li>
+<li><strong><code>/mnt/nas/downloads</code></strong><ul>
+<li><strong>含义</strong>：<strong>挂载点</strong>。这是本地的一个<strong>空目录</strong>，远程共享的内容将出现在这个目录里。</li>
+</ul>
+</li>
+<li><strong><code>nfs4</code></strong><ul>
+<li><strong>含义</strong>：文件系统类型。这里指定使用 <strong>NFS 版本 4</strong>。</li>
+</ul>
+</li>
+<li><strong><code>rw,hard,intr,timeo=300,retrans=3,_netdev,auto</code></strong><ul>
+<li><strong>含义</strong>：挂载选项，多个选项用逗号分隔。</li>
+<li><code>rw</code>：以<strong>读写</strong>模式挂载（而非只读 <code>ro</code>）。</li>
+<li><code>hard</code>：<strong>硬挂载</strong>。如果服务器无响应，客户端会持续重试。这对于保证数据一致性非常重要，但可能导致进程在访问挂载点时卡住。</li>
+<li><code>intr</code>：允许<strong>中断</strong>正在等待服务器响应的 I&#x2F;O 操作。当使用 <code>hard</code> 挂载时，如果服务器宕机，可以用这个选项来终止被挂起的进程。</li>
+<li><code>timeo=300</code>：设置超时时间为 <strong>300 十分之一秒（即 30 秒）</strong>。这是客户端等待服务器响应的时间。</li>
+<li><code>retrans=3</code>：在放弃并返回错误之前，进行 <strong>3 次</strong> 重传。</li>
+<li><code>_netdev</code>：这是一个非常重要的选项，它告诉系统这是一个<strong>网络设备</strong>。系统会等待网络就绪后再尝试挂载，避免系统启动时因网络未准备好而挂载失败。</li>
+<li><code>auto</code>：使用 <code>mount -a</code> 命令（通常在系统启动时执行）时会<strong>自动挂载</strong>此文件系统。</li>
+</ul>
+</li>
+<li><strong><code>0</code></strong><ul>
+<li><strong>含义</strong>：供 <code>dump</code> 备份工具使用。<code>0</code> 表示不需要被 <code>dump</code> 备份。</li>
+</ul>
+</li>
+<li><strong><code>0</code></strong><ul>
+<li><strong>含义</strong>：供 <code>fsck</code> 磁盘检查工具使用。<code>0</code> 表示在启动时不需要检查此文件系统（因为它是网络文件系统，不在本地磁盘上）。</li>
+</ul>
+</li>
+</ol>
+<h2 id="docker宿主机运行qbittorrent容器，并挂载共享目录"><a href="#docker宿主机运行qbittorrent容器，并挂载共享目录" class="headerlink" title="docker宿主机运行qbittorrent容器，并挂载共享目录"></a>docker宿主机运行qbittorrent容器，并挂载共享目录</h2><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="built_in">run</span> -d \</span><br><span class="line">  <span class="attribute">--name</span>=qbittorrent \</span><br><span class="line">  -e <span class="attribute">PUID</span>=$(id -u) \</span><br><span class="line">  -e <span class="attribute">PGID</span>=$(id -g) \</span><br><span class="line">  -e <span class="attribute">TZ</span>=Asia/Shanghai \</span><br><span class="line">  <span class="attribute">--net</span>=host \</span><br><span class="line">  -v ~/software/docker/qbittorrent/config:<span class="built_in">/config </span>\</span><br><span class="line">  -v /mnt/nas/downloads/qbittorrent/downloads:/downloads \</span><br><span class="line">  --restart unless-stopped \</span><br><span class="line">  lscr.io/linuxserver/qbittorrent:latest</span><br></pre></td></tr></table></figure>
+
+<p>qbittorrent默认端口8080，可在config目录里的qbittorrent.conf配置文件修改。</p>
+
+      
+    </div>
+
+    
+    
+    
+
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>l
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://example.com/posts/3b65ab0a/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -636,7 +834,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2025-11-07 12:12:38 / 修改时间：12:12:41" itemprop="dateCreated datePublished" datetime="2025-11-07T12:12:38+08:00">2025-11-07</time>
+      <time title="创建时间：2025-11-07 12:12:38 / 修改时间：12:12:49" itemprop="dateCreated datePublished" datetime="2025-11-07T12:12:38+08:00">2025-11-07</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -1789,193 +1987,6 @@
 
 
 
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/67da8aa2/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/lion.png">
-      <meta itemprop="name" content="swimminghao">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="swimminghao's blog">
-      <meta itemprop="description" content="swimminghao的学习博客">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | swimminghao's blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/67da8aa2/" class="post-title-link" itemprop="url">使用 SSH config 简化 SSH 连接</a>
-        </h2>
-
-        <div class="post-meta-container">
-
-          
-
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-      
-
-      <time title="创建时间：2025-09-15 06:06:00 / 修改时间：18:29:42" itemprop="dateCreated datePublished" datetime="2025-09-15T06:06:00+08:00">2025-09-15</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">工具</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="far fa-comment"></i>
-    </span>
-    <span class="post-meta-item-text">Waline：</span>
-  
-    <a title="waline" href="/posts/67da8aa2/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/67da8aa2/" data-xid="/posts/67da8aa2/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>3.5k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>3 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="使用-SSH-config-简化-SSH-连接"><a href="#使用-SSH-config-简化-SSH-连接" class="headerlink" title="使用 SSH config 简化 SSH 连接"></a>使用 SSH config 简化 SSH 连接</h1><p>如果你有很多的服务器要连接，如果对你来说记住那些服务器的地址、端口实在是一种痛苦，如果你一直在寻找一种能够简化在命令行下连接 SSH 服务器的办法，那么，本文将给你提供一种解决问题的思路，那就是，使用 SSH 的 config 文件。</p>
-<h2 id="SSH-config-文件是什么"><a href="#SSH-config-文件是什么" class="headerlink" title="SSH config 文件是什么"></a>SSH config 文件是什么</h2><p>Open SSH 客户端配置文件，允许你以配置项的形式，记录各个服务器的连接信息，并允许你使用一个定义好的别名来代替其对应的 ssh 命令参数。</p>
-<h2 id="SSH-config-文件该怎么用"><a href="#SSH-config-文件该怎么用" class="headerlink" title="SSH config 文件该怎么用"></a>SSH config 文件该怎么用</h2><h3 id="创建-SSH-config-文件"><a href="#创建-SSH-config-文件" class="headerlink" title="创建 SSH config 文件"></a>创建 SSH config 文件</h3><p>通常来说，该文件会出现在两个地方，一个是<code>/etc/ssh/ssh_config</code>，一个是<code>~/.ssh/config</code>。</p>
-<p><code>/etc/ssh/ssh_config</code>文件通常用来定义全局范围上的 SSH 客户端参数，而<code>~/.ssh/config</code>则被用来定义每个用户自己的 SSH 客户端的配置。我们将要修改的，就是位于用户目录下的 config 文件。</p>
-<p>如果<code>~/.ssh/config</code>文件不存在，那么也不用着急，这是正常的，只需要执行如下命令，即可新建一个空白的 config 文件</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建 .ssh 目录（如果已存在，会提示没关系）</span></span><br><span class="line"><span class="built_in">mkdir</span> -p ~/.ssh</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置正确的权限，SSH 对文件权限非常严格</span></span><br><span class="line"><span class="built_in">chmod</span> 700 ~/.ssh</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建 config 文件（或编辑已存在的）</span></span><br><span class="line"><span class="built_in">touch</span> ~/.ssh/config</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置 config 文件的权限</span></span><br><span class="line"><span class="built_in">chmod</span> 600 ~/.ssh/config</span><br></pre></td></tr></table></figure>
-
-<h3 id="在本地电脑上生成一个-RSA-类型的密钥对"><a href="#在本地电脑上生成一个-RSA-类型的密钥对" class="headerlink" title="在本地电脑上生成一个 RSA 类型的密钥对"></a>在本地电脑上生成一个 <strong>RSA</strong> 类型的密钥对</h3><p>生成一个 <strong>RSA</strong> 类型的密钥对，包含一个私钥（<code>id_rsa</code>.centos）和一个公钥（<code>id_rsa.centos.pub</code>）</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -b 2048 -C <span class="string">&quot;centos&quot;</span> -f ~/.ssh/id_rsa.centos</span><br></pre></td></tr></table></figure>
-
-<p>执行后会询问你三个问题：</p>
-<ol>
-<li><strong>密钥保存路径</strong>（默认为 <code>~/.ssh/</code>）</li>
-<li><strong>密钥的密码（Passphrase）</strong>（推荐设置，可为空直接回车）</li>
-<li><strong>确认密码</strong></li>
-</ol>
-<p><strong>生成成功</strong>后，你会看到类似下面的输出：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">Your identification has been saved <span class="keyword">in</span> /home/your_user/.ssh/id_ed25519_github</span><br><span class="line">Your public key has been saved <span class="keyword">in</span> /home/your_user/.ssh/id_ed25519_github.pub</span><br><span class="line">The key fingerprint is:</span><br><span class="line">SHA256:2fLsxGsdHPrqF1qC0Wkj2sSfKkLwHnTZ1pVXyMzA1Bc user@host</span><br><span class="line">The key<span class="string">&#x27;s randomart image is:</span></span><br><span class="line"><span class="string">+--[ED25519 256]--+</span></span><br><span class="line"><span class="string">|         .o      |</span></span><br><span class="line"><span class="string">|        . o .    |</span></span><br><span class="line"><span class="string">|       . o o .   |</span></span><br><span class="line"><span class="string">|        o o o . .|</span></span><br><span class="line"><span class="string">|       .S o o o.o|</span></span><br><span class="line"><span class="string">|      . .+ . .+*+|</span></span><br><span class="line"><span class="string">|       .+.o.+o=*+|</span></span><br><span class="line"><span class="string">|      .o+o+.o+o+E|</span></span><br><span class="line"><span class="string">|      .oo++...oo.|</span></span><br><span class="line"><span class="string">+----[SHA256]-----+</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="生成后的文件与管理"><a href="#生成后的文件与管理" class="headerlink" title="生成后的文件与管理"></a>生成后的文件与管理</h3><p>执行上述命令后，在你的 <code>~/.ssh/</code> 目录下会生成两个文件：</p>
-<ul>
-<li><code>id_rsa.centos</code>：这是<strong>私钥</strong>。<ul>
-<li><strong>必须像保护密码一样保护它！</strong></li>
-<li>权限必须是 <code>600</code>（<code>-rw-------</code>）。SSH 客户端会拒绝权限过宽的私钥。</li>
-</ul>
-</li>
-<li><code>id_rsa.centos.pub</code>：这是<strong>公钥</strong>。<ul>
-<li>这个文件<strong>可以随便分发</strong>，它的内容需要上传到你需要连接的远程服务器上。</li>
-</ul>
-</li>
-</ul>
-<p><strong>确保私钥的权限正确：</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">chmod</span> 600 ~/.ssh/id_rsa.centos</span><br></pre></td></tr></table></figure>
-
-<h3 id="分发公钥"><a href="#分发公钥" class="headerlink" title="分发公钥"></a>分发公钥</h3><p>将公钥文件（<code>.pub</code> 后缀）的内容复制粘贴添加到远程服务器的 <code>~/.ssh/authorized_keys</code> 文件的末尾。</p>
-<p><strong>确保远程服务器上的文件权限正确：</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在远程服务器上执行：</span></span><br><span class="line"><span class="built_in">chmod</span> 700 ~/.ssh</span><br><span class="line"><span class="built_in">chmod</span> 600 ~/.ssh/authorized_keys</span><br></pre></td></tr></table></figure>
-
-<h2 id="编写-config-条目"><a href="#编写-config-条目" class="headerlink" title="编写 config 条目"></a>编写 config 条目</h2><p>假如说，我们想连接到一台服务器，它的地址是 example.server.com，端口号是 2222，以用户 root 登陆，并使用~&#x2F;.ssh&#x2F;id_rsa_myserver 这个私钥验证身份。那么，我们需要在命令行里输入：</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh root@example<span class="selector-class">.server</span><span class="selector-class">.com</span> -<span class="selector-tag">p</span> <span class="number">2222</span> -<span class="selector-tag">i</span> ~/.ssh/id_rsa_myserver</span><br></pre></td></tr></table></figure>
-
-<p>嗯好吧，-i 参数可以省略，但即使这样，命令还是很长，对吧？</p>
-<p>那么我们把这个服务器的连接参数写到 config 文件里，就变成了这个样子：</p>
-<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 此处我为了美观起见，给每个子条目都缩进了一层，实际使用时缩进不影响文件的效果。</span></span><br><span class="line"></span><br><span class="line">Host example <span class="regexp">//</span>起别名</span><br><span class="line">    Hostname        example.server.com</span><br><span class="line">    Port            <span class="number">2222</span></span><br><span class="line">    User            admin</span><br><span class="line">    Identityfile    ~<span class="regexp">/.ssh/i</span>d_rsa</span><br></pre></td></tr></table></figure>
-
-<p>嗯，在这里，它还有了一个新名字，叫<code>example</code>。</p>
-<p>然后，我们只需要：</p>
-<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">ssh example</span></span><br></pre></td></tr></table></figure>
-
-<p>就可以连接到这台主机了。</p>
-<hr>
-<p>看到这里就能实现使用 SSH config连接主机了，以下内容为扩展内容。</p>
-<h2 id="创建通配符规则"><a href="#创建通配符规则" class="headerlink" title="创建通配符规则"></a>创建通配符规则</h2><p>有的时候，我们需要连接多台不同的主机，那难道我们需要针对每个主机都写一遍规则吗？</p>
-<p>答案是不一定。如果你要连接的主机，它们的域名有一定规律可循，那么我们可以用通配符来匹配这一系列的主机。</p>
-<p>比如，公司里针对开发和测试环境，各创建了一系列集群，同时各个集群中又根据负责的业务不同，有多台负载均衡的主机，那么我们可以这样写：</p>
-<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 首先匹配所有主机，在这里配置好我们的用户名、私钥等参数</span></span><br><span class="line">Host *</span><br><span class="line">    <span class="keyword">User</span>            <span class="title">boris1993</span></span><br><span class="line">    IdentityFile    ~/.ssh/id_rsa</span><br><span class="line"></span><br><span class="line"><span class="comment"># 开发环境</span></span><br><span class="line">Host dev-*</span><br><span class="line">    HostName    %h.dev.mycompany.com</span><br><span class="line"></span><br><span class="line"><span class="comment"># 测试环境</span></span><br><span class="line">Host staging-*</span><br><span class="line">    HostName    %h.staging.mycompany.com</span><br></pre></td></tr></table></figure>
-
-<p>接下来，我们只需要执行类似<code>ssh dev-user</code>，就可以连接到开发环境的负责用户管理的服务器上了。</p>
-<p>而实现这个操作的重点，我想你已经注意到了，一个是<code>Host</code>配置中的<code>*</code>，另一个就是配置文件里面的<code>%h</code>。星号我们都知道，是个通配符，放在这里就意味着它会匹配所有以<code>dev-*</code>开头的主机名；而<code>%h</code>是一个占位符，它会把你在<code>SSH</code>命令中<code>destination</code>部分的输入取出来放在这里，所以当我们执行<code>ssh dev-user</code>的时候，实际上命令会被展开成<code>ssh dev-user.dev.mycompany.com</code>。</p>
-<h2 id="配置通过跳板机连接"><a href="#配置通过跳板机连接" class="headerlink" title="配置通过跳板机连接"></a>配置通过跳板机连接</h2><p>如果公司规定所有服务器都需要先<code>SSH</code>到跳板机，然后才能连接到具体的服务器，那该怎么办？把<code>ssh_config</code>文件放在跳板机上吗？</p>
-<p>确实这是一个解决方案，但不是唯一解。因为我们还有一个配置参数叫<code>ProxyJump</code>。它，就是用来指定，在连接这个服务器之前，需要通过哪个跳板机。</p>
-<p>写起来，是这样的：</p>
-<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 其他部分略</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 跳板机</span></span><br><span class="line">Host <span class="keyword">bastion</span></span><br><span class="line"><span class="keyword"></span>    HostName    <span class="keyword">bastion.mycompany.com</span></span><br><span class="line"><span class="keyword"></span></span><br><span class="line"><span class="comment"># 服务器</span></span><br><span class="line">Host dev-*</span><br><span class="line">    HostName    %h.dev.mycompany.com </span><br><span class="line">    ProxyJump   <span class="keyword">bastion</span></span><br></pre></td></tr></table></figure>
-
-<p>如果你的<code>SSH</code>版本早于 7.3，那么很可惜它是不支持<code>ProxyJump</code>这条配置的。但是不要灰心，它支持另一条配置，<code>ProxyCommand</code>。</p>
-<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 其他部分略</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 跳板机</span></span><br><span class="line">Host <span class="keyword">bastion</span></span><br><span class="line"><span class="keyword"></span>    HostName    <span class="keyword">bastion.mycompany.com</span></span><br><span class="line"><span class="keyword"></span></span><br><span class="line"><span class="comment"># 服务器</span></span><br><span class="line">Host dev-*</span><br><span class="line">    HostName        %h.dev.mycompany.com </span><br><span class="line">    ProxyCommand    ssh -W %h:%p <span class="keyword">bastion </span></span><br></pre></td></tr></table></figure>
-
-<p>然后，我们继续执行<code>ssh dev-user</code>就可以了，<code>SSH</code>会自动先连接到跳板机，然后在跳板机中再连接到我们要去的服务器。</p>
-<p>如果你们公司安全做的非常好，需要通过数个跳板机来连接服务器，那么只需要给每个跳板机都配置上更外层的跳板就好了，像这样：</p>
-<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 其他部分略</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 最外层跳板机</span></span><br><span class="line">Host <span class="keyword">bastion-outer</span></span><br><span class="line"><span class="keyword"></span>    HostName    <span class="keyword">bastion-outer.mycompany.com</span></span><br><span class="line"><span class="keyword"></span></span><br><span class="line"><span class="comment"># 下一层跳板机</span></span><br><span class="line">Host <span class="keyword">bastion-inner</span></span><br><span class="line"><span class="keyword"></span>    HostName    <span class="keyword">bastion-inner.mycompany.com</span></span><br><span class="line"><span class="keyword"></span>    ProxyJump   <span class="keyword">bastion-outer</span></span><br><span class="line"><span class="keyword"></span></span><br><span class="line"><span class="comment"># 服务器</span></span><br><span class="line">Host dev-*</span><br><span class="line">    HostName    %h.dev.mycompany.com </span><br><span class="line">    ProxyJump   <span class="keyword">bastion-inner</span></span><br></pre></td></tr></table></figure>
-
-<p>这样，<code>SSH</code>就会先连接到<code>bastion-outer</code>，然后连到<code>bastion-inner</code>，然后连到<code>dev-user</code>。理论上，你可以在这里无限套娃。</p>
-
-      
-    </div>
-
-    
-    
-    
-
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>l
-
-
-
-
   <nav class="pagination">
     <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/29/">29</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
@@ -2006,7 +2017,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">18:26</span>
+    <span title="站点阅读时长">18:29</span>
   </span>
 </div>
 
