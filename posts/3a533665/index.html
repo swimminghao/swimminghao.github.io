@@ -105,9 +105,9 @@
   <ul class="main-menu menu">
         <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
         <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
-        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">61</span></a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">62</span></a></li>
         <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">18</span></a></li>
-        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">283</span></a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">284</span></a></li>
         <li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
@@ -180,7 +180,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">283</span>
+          <span class="site-state-item-count">284</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -191,7 +191,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">61</span>
+        <span class="site-state-item-count">62</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -223,6 +223,11 @@
 	</div>
 	<ul class="links-of-blogroll-list recent-posts-list">
 	        <li class="my-links-of-blogroll-item">
+		    <a href="/posts/25a7b671/" title="Navidrome、Audiobookshelf 客户端推荐【自测】" target="">
+		    Navidrome、Audiobookshelf 客户端推荐【自测】
+		    </a>
+		</li>
+	        <li class="my-links-of-blogroll-item">
 		    <a href="/posts/4b8ad329/" title="WindowsPE和MacOS安装盘二合一制作方法" target="">
 		    WindowsPE和MacOS安装盘二合一制作方法
 		    </a>
@@ -240,11 +245,6 @@
 	        <li class="my-links-of-blogroll-item">
 		    <a href="/posts/7ac8a987/" title="HIFI日记：HQPlayer embedded （HQPlayer OS）嵌入版使用教程" target="">
 		    HIFI日记：HQPlayer embedded （HQPlayer OS）嵌入版使用教程
-		    </a>
-		</li>
-	        <li class="my-links-of-blogroll-item">
-		    <a href="/posts/eb18152/" title="OpenCore添加ubuntu引导，引导双系统" target="">
-		    OpenCore添加ubuntu引导，引导双系统
 		    </a>
 		</li>
 	</ul>
@@ -427,7 +427,7 @@
 <figure class="highlight abnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ArrayList list <span class="operator">=</span> new ArrayList()<span class="comment">;</span></span><br></pre></td></tr></table></figure>
 
 <p>现在的写法:</p>
-<figure class="highlight haxe"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ArrayList&lt;<span class="keyword">String</span>&gt; list = <span class="keyword">new</span> <span class="type">ArrayList</span>&lt;<span class="keyword">String</span>&gt;();</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">ArrayList</span>&lt;<span class="built_in">String</span>&gt; list = <span class="keyword">new </span><span class="class title_">ArrayList</span>&lt;<span class="built_in">String</span>&gt;();</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 <p>如果是与以前的代码兼容，各种引用传值之间，必然会出现如下的情况：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ArrayList&lt;String&gt; list1 = <span class="keyword">new</span> <span class="title class_">ArrayList</span>(); <span class="comment">//第一种情况</span></span><br><span class="line"><span class="type">ArrayList</span> <span class="variable">list2</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;String&gt;(); <span class="comment">//第二种情况</span></span><br></pre></td></tr></table></figure>
@@ -468,23 +468,23 @@
 <figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">DateInter</span> <span class="keyword">extends</span> <span class="title">Pair&lt;Date&gt;</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    public void setValue(<span class="type">Date</span> value) &#123;</span><br><span class="line">        <span class="keyword">super</span>.setValue(value);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    public <span class="type">Date</span> getValue() &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">super</span>.getValue();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>在这个子类中，我们设定父类的泛型类型为 <code>Pair&lt;Date&gt;</code>，在子类中，我们覆盖了父类的两个方法，我们的原意是这样的：将父类的泛型类型限定为 <code>Date</code>，那么父类里面的两个方法的参数都为 <code>Date</code>类型。</p>
-<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="title class_">Date</span> <span class="title function_">getValue</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> value;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="built_in">void</span> <span class="title function_">setValue</span>(<span class="params"><span class="built_in">Date</span> value</span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">value</span> = value;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="title class_">Date</span> <span class="title function_">getValue</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> value;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="built_in">void</span> <span class="title function_">setValue</span>(<span class="params"><span class="title class_">Date</span> value</span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">value</span> = value;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>所以，我们在子类中重写这两个方法一点问题也没有，实际上，从他们的 <code>@Override</code>标签中也可以看到，一点问题也没有，实际上是这样的吗？</p>
 <p>分析：实际上，类型擦除后，父类的的泛型类型全部变为了原始类型 <code>Object</code>，所以父类编译之后会变成下面的样子：</p>
-<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Pair</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="title class_">Object</span> value;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title class_">Object</span> <span class="title function_">getValue</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> value;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">void</span> <span class="title function_">setValue</span>(<span class="params"><span class="built_in">Object</span>  value</span>) &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">value</span> = value;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Pair</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="title class_">Object</span> value;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title class_">Object</span> <span class="title function_">getValue</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> value;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">void</span> <span class="title function_">setValue</span>(<span class="params"><span class="title class_">Object</span>  value</span>) &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">value</span> = value;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>再看子类的两个重写的方法的类型：</p>
-<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="keyword">public</span> <span class="built_in">void</span> <span class="title function_">setValue</span>(<span class="params"><span class="built_in">Date</span> value</span>) &#123;</span><br><span class="line">    <span class="variable language_">super</span>.<span class="title function_">setValue</span>(value);</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="keyword">public</span> <span class="title class_">Date</span> <span class="title function_">getValue</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="variable language_">super</span>.<span class="title function_">getValue</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="keyword">public</span> <span class="built_in">void</span> <span class="title function_">setValue</span>(<span class="params"><span class="title class_">Date</span> value</span>) &#123;</span><br><span class="line">    <span class="variable language_">super</span>.<span class="title function_">setValue</span>(value);</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="keyword">public</span> <span class="title class_">Date</span> <span class="title function_">getValue</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="variable language_">super</span>.<span class="title function_">getValue</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>先来分析 <code>setValue</code>方法，父类的类型是 <code>Object</code>，而子类的类型是 <code>Date</code>，参数类型不一样，这如果是在普通的继承关系中，根本就不会是<strong>重写</strong>，而是<strong>重载</strong>。</p>
 <p>我们在一个main方法测试一下：</p>
-<figure class="highlight haxe"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> void main(<span class="keyword">String</span>[] args) throws ClassNotFoundException &#123;</span><br><span class="line">        DateInter DateInter = <span class="keyword">new</span> <span class="type">DateInter</span>();</span><br><span class="line">        DateInter.setValue(<span class="keyword">new</span> <span class="type">Date</span>());</span><br><span class="line">        DateInter.setValue(<span class="keyword">new</span> <span class="type">Object</span>()); <span class="comment">//编译出错</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> ClassNotFoundException &#123;</span><br><span class="line">        <span class="type">DateInter</span> <span class="variable">DateInter</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">DateInter</span>();</span><br><span class="line">        DateInter.setValue(<span class="keyword">new</span> <span class="title class_">Date</span>());</span><br><span class="line">        DateInter.setValue(<span class="keyword">new</span> <span class="title class_">Object</span>()); <span class="comment">//编译出错</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>如果是重载，那么子类中两个 <code>setValue</code>方法，一个是参数 <code>Object</code>类型，一个是 <code>Date</code>类型，可是我们发现，根本就没有这样的一个子类继承自父类的Object类型参数的方法。所以说，确实是<strong>重写</strong>了，而不是<strong>重载</strong>了。</p>
 <p>为什么会这样呢？</p>
 <p>原因是这样的，我们传入父类的泛型类型是 <code>Date， Pair&lt;Date&gt;</code>，我们的本意是将泛型类变为如下：</p>
-<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Pair</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="title class_">Date</span> value;</span><br><span class="line">    <span class="keyword">public</span> <span class="title class_">Date</span> <span class="title function_">getValue</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> value;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">void</span> <span class="title function_">setValue</span>(<span class="params"><span class="built_in">Date</span> value</span>) &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">value</span> = value;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Pair</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="title class_">Date</span> value;</span><br><span class="line">    <span class="keyword">public</span> <span class="title class_">Date</span> <span class="title function_">getValue</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> value;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">void</span> <span class="title function_">setValue</span>(<span class="params"><span class="title class_">Date</span> value</span>) &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">value</span> = value;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>然后在子类中重写参数类型为Date的那两个方法，实现继承中的多态。</p>
 <p>可是由于种种原因，虚拟机并不能将泛型类型变为 <code>Date</code>，只能将类型擦除掉，变为原始类型 <code>Object</code>。这样，我们的本意是进行重写，实现多态。可是类型擦除后，只能变为了重载。这样，类型擦除就和多态有了冲突。JVM知道你的本意吗？<strong>知道</strong>！！！可是它能<strong>直接实现</strong>吗，<strong>不能</strong>！！！如果真的不能的话，那我们怎么去重写我们想要的 <code>Date</code>类型参数的方法啊。</p>
@@ -573,8 +573,8 @@
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/posts/37dbe3a4/" rel="prev" title="Spring SchedulingConfigurer实现动态定时任务(修改)">
-                  <i class="fa fa-chevron-left"></i> Spring SchedulingConfigurer实现动态定时任务(修改)
+                <a href="/posts/211da837/" rel="prev" title="Java线程池实现原理及其在美团业务中的实践">
+                  <i class="fa fa-chevron-left"></i> Java线程池实现原理及其在美团业务中的实践
                 </a>
             </div>
             <div class="post-nav-item">
@@ -602,7 +602,7 @@
 
 <div class="copyright">
   &copy; 
-  <span itemprop="copyrightYear">2025</span>
+  <span itemprop="copyrightYear">2026</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -619,7 +619,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">18:30</span>
+    <span title="站点阅读时长">18:33</span>
   </span>
 </div>
 

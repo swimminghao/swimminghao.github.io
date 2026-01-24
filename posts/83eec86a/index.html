@@ -140,9 +140,9 @@
   <ul class="main-menu menu">
         <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
         <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
-        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">61</span></a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">62</span></a></li>
         <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">18</span></a></li>
-        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">283</span></a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">284</span></a></li>
         <li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
@@ -215,7 +215,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">283</span>
+          <span class="site-state-item-count">284</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -226,7 +226,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">61</span>
+        <span class="site-state-item-count">62</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -258,6 +258,11 @@
 	</div>
 	<ul class="links-of-blogroll-list recent-posts-list">
 	        <li class="my-links-of-blogroll-item">
+		    <a href="/posts/25a7b671/" title="Navidrome、Audiobookshelf 客户端推荐【自测】" target="">
+		    Navidrome、Audiobookshelf 客户端推荐【自测】
+		    </a>
+		</li>
+	        <li class="my-links-of-blogroll-item">
 		    <a href="/posts/4b8ad329/" title="WindowsPE和MacOS安装盘二合一制作方法" target="">
 		    WindowsPE和MacOS安装盘二合一制作方法
 		    </a>
@@ -275,11 +280,6 @@
 	        <li class="my-links-of-blogroll-item">
 		    <a href="/posts/7ac8a987/" title="HIFI日记：HQPlayer embedded （HQPlayer OS）嵌入版使用教程" target="">
 		    HIFI日记：HQPlayer embedded （HQPlayer OS）嵌入版使用教程
-		    </a>
-		</li>
-	        <li class="my-links-of-blogroll-item">
-		    <a href="/posts/eb18152/" title="OpenCore添加ubuntu引导，引导双系统" target="">
-		    OpenCore添加ubuntu引导，引导双系统
 		    </a>
 		</li>
 	</ul>
@@ -566,10 +566,10 @@
 <p>因为我的树莓派还需要跑其他的软件，所以我是预装了系统再手工安装Roon Bridge。也比较简单</p>
 <p>官方有Linux安装指导：<a href="https://link.zhihu.com/?target=https://help.roonlabs.com/portal/en/kb/articles/linux-install">https://help.roonlabs.com/portal/en/kb/articles/linux-install</a></p>
 <p>要选对架构，对于树莓派4，如果是32位系统，用armv7hf， 我用的系统是64位的，所以使用armv8，安装只有下面三个指令</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ curl -O http://download.roonlabs.com/builds/roonbridge-installer-linuxarmv8.sh</span><br><span class="line">$ <span class="built_in">chmod</span> +x roonbridge-installer-linuxarmv8.sh</span><br><span class="line">$ sudo ./roonbridge-installer-linuxarmv8.sh</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ curl -O http://download.roonlabs.com/builds/roonbridge-installer-linuxarmv8.sh</span><br><span class="line">$ <span class="built_in">chmod</span> +x roonbridge-installer-linuxarmv8.sh</span><br><span class="line">$ <span class="built_in">sudo</span> ./roonbridge-installer-linuxarmv8.sh</span><br></pre></td></tr></table></figure>
 
 <p>取消安装在执行脚本加上参数uninstall，如：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo ./roonbridge-installer-linuxarmv8.sh uninstall</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> ./roonbridge-installer-linuxarmv8.sh uninstall</span><br></pre></td></tr></table></figure>
 
 <p>安装完成后会有安装结果提示，看是否安装成功。</p>
 <p><strong>重要提示:</strong> 安装完成后，可能会出现在Roon的关于里面可以看到桥，但是在音频里面看不到输出设备，应该是树莓派没有启动音频设备，需要修改config.txt文件，将dtparam&#x3D;audio&#x3D;on这一行的注释弃掉（删除前面的#号）</p>
@@ -700,7 +700,7 @@
 
 <div class="copyright">
   &copy; 
-  <span itemprop="copyrightYear">2025</span>
+  <span itemprop="copyrightYear">2026</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -717,7 +717,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">18:30</span>
+    <span title="站点阅读时长">18:33</span>
   </span>
 </div>
 

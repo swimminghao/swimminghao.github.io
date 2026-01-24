@@ -107,9 +107,9 @@
   <ul class="main-menu menu">
         <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
         <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
-        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">61</span></a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">62</span></a></li>
         <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">18</span></a></li>
-        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">283</span></a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">284</span></a></li>
         <li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
@@ -182,7 +182,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">283</span>
+          <span class="site-state-item-count">284</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -193,7 +193,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">61</span>
+        <span class="site-state-item-count">62</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -225,6 +225,11 @@
 	</div>
 	<ul class="links-of-blogroll-list recent-posts-list">
 	        <li class="my-links-of-blogroll-item">
+		    <a href="/posts/25a7b671/" title="Navidrome、Audiobookshelf 客户端推荐【自测】" target="">
+		    Navidrome、Audiobookshelf 客户端推荐【自测】
+		    </a>
+		</li>
+	        <li class="my-links-of-blogroll-item">
 		    <a href="/posts/4b8ad329/" title="WindowsPE和MacOS安装盘二合一制作方法" target="">
 		    WindowsPE和MacOS安装盘二合一制作方法
 		    </a>
@@ -242,11 +247,6 @@
 	        <li class="my-links-of-blogroll-item">
 		    <a href="/posts/7ac8a987/" title="HIFI日记：HQPlayer embedded （HQPlayer OS）嵌入版使用教程" target="">
 		    HIFI日记：HQPlayer embedded （HQPlayer OS）嵌入版使用教程
-		    </a>
-		</li>
-	        <li class="my-links-of-blogroll-item">
-		    <a href="/posts/eb18152/" title="OpenCore添加ubuntu引导，引导双系统" target="">
-		    OpenCore添加ubuntu引导，引导双系统
 		    </a>
 		</li>
 	</ul>
@@ -393,7 +393,7 @@
 <figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 首先更新opkg</span></span><br><span class="line">opkg update</span><br><span class="line"><span class="comment"># 安装zsh</span></span><br><span class="line">opkg <span class="keyword">install </span>zsh</span><br><span class="line"><span class="comment"># 安装git</span></span><br><span class="line">opkg <span class="keyword">install </span>git-http</span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装oh-my-zsh</span></span><br><span class="line"><span class="keyword">sh </span>-c <span class="string">&quot;$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)&quot;</span></span><br></pre></td></tr></table></figure>
 
 <p>到这里我们就完成了一半了！为什么是一半呢？因为每次重启时，文件系统就会被还原，所以我们需要在系统加载的时候HACK一下，通过观察挂载的规则，老高发现<code>/etc/init.d/Entware.sh</code>这个脚本可以为我所用，所以后面我们就改一下这个脚本！</p>
-<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">l <span class="regexp">/etc/i</span>nit.d/Entware.sh</span><br><span class="line"><span class="regexp">/etc/i</span>nit.d<span class="regexp">/Entware.sh -&gt; /</span>share<span class="regexp">/CACHEDEV1_DATA/</span>.qpkg<span class="regexp">/Entware/</span>Entware.sh</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 首先，我们需要把oh-my-zsh的配置放在硬盘中，否则重启就会被删除</span></span><br><span class="line"><span class="comment"># 这里假设硬盘路径为/share/CACHEDEV1_DATA/</span></span><br><span class="line">mkdir -p <span class="regexp">/share/</span>CACHEDEV1_DATA/.zsh</span><br><span class="line">cd ~</span><br><span class="line">mv .zsh_history .zshrc .oh-my-zsh <span class="regexp">/share/</span>CACHEDEV1_DATA/.zsh</span><br><span class="line"></span><br><span class="line"><span class="comment">## 最重要的一步！</span></span><br><span class="line">vi <span class="regexp">/share/</span>CACHEDEV1_DATA<span class="regexp">/.qpkg/</span>Entware/Entware.sh</span><br><span class="line"></span><br><span class="line"><span class="comment">## 找到start位置，在创建link的时候加入以下代码</span></span><br><span class="line"></span><br><span class="line"><span class="regexp">/bin/</span>ln -sf <span class="regexp">/share/</span>CACHEDEV1_DATA<span class="regexp">/.zsh/</span>.zshrc <span class="regexp">/root/</span>.zshrc</span><br><span class="line"><span class="regexp">/bin/</span>ln -sf <span class="regexp">/share/</span>CACHEDEV1_DATA<span class="regexp">/.zsh/</span>.oh-my-zsh <span class="regexp">/root/</span>.oh-my-zsh</span><br><span class="line"><span class="regexp">/bin/</span>ln -sf <span class="regexp">/share/</span>CACHEDEV1_DATA<span class="regexp">/.zsh/</span>.zsh_history <span class="regexp">/root/</span>.zsh_history</span><br></pre></td></tr></table></figure>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">l <span class="regexp">/etc/</span><span class="keyword">init</span>.d<span class="operator">/</span><span class="type">Entware</span>.sh</span><br><span class="line"><span class="regexp">/etc/</span><span class="keyword">init</span>.d<span class="regexp">/Entware.sh -&gt; /</span>share<span class="regexp">/CACHEDEV1_DATA/</span>.qpkg<span class="regexp">/Entware/</span><span class="type">Entware</span>.sh</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># 首先，我们需要把oh<span class="operator">-</span>my<span class="operator">-</span>zsh的配置放在硬盘中，否则重启就会被删除</span><br><span class="line"># 这里假设硬盘路径为<span class="regexp">/share/</span><span class="type">CACHEDEV1_DATA</span><span class="operator">/</span></span><br><span class="line">mkdir <span class="operator">-</span>p <span class="regexp">/share/</span><span class="type">CACHEDEV1_DATA</span><span class="operator">/</span>.zsh</span><br><span class="line">cd <span class="operator">~</span></span><br><span class="line">mv .zsh_history .zshrc .oh<span class="operator">-</span>my<span class="operator">-</span>zsh <span class="regexp">/share/</span><span class="type">CACHEDEV1_DATA</span><span class="operator">/</span>.zsh</span><br><span class="line"></span><br><span class="line">## 最重要的一步！</span><br><span class="line">vi <span class="regexp">/share/</span><span class="type">CACHEDEV1_DATA</span><span class="regexp">/.qpkg/</span><span class="type">Entware</span><span class="operator">/</span><span class="type">Entware</span>.sh</span><br><span class="line"></span><br><span class="line">## 找到start位置，在创建link的时候加入以下代码</span><br><span class="line"></span><br><span class="line"><span class="regexp">/bin/</span>ln <span class="operator">-</span>sf <span class="regexp">/share/</span><span class="type">CACHEDEV1_DATA</span><span class="regexp">/.zsh/</span>.zshrc <span class="regexp">/root/</span>.zshrc</span><br><span class="line"><span class="regexp">/bin/</span>ln <span class="operator">-</span>sf <span class="regexp">/share/</span><span class="type">CACHEDEV1_DATA</span><span class="regexp">/.zsh/</span>.oh<span class="operator">-</span>my<span class="operator">-</span>zsh <span class="regexp">/root/</span>.oh<span class="operator">-</span>my<span class="operator">-</span>zsh</span><br><span class="line"><span class="regexp">/bin/</span>ln <span class="operator">-</span>sf <span class="regexp">/share/</span><span class="type">CACHEDEV1_DATA</span><span class="regexp">/.zsh/</span>.zsh_history <span class="regexp">/root/</span>.zsh_history</span><br></pre></td></tr></table></figure>
 
 <p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/1OTfcx_20221019230016.png" alt="hack启动脚本"></p>
 
@@ -476,7 +476,7 @@
 
 <div class="copyright">
   &copy; 
-  <span itemprop="copyrightYear">2025</span>
+  <span itemprop="copyrightYear">2026</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -493,7 +493,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">18:30</span>
+    <span title="站点阅读时长">18:33</span>
   </span>
 </div>
 

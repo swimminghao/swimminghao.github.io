@@ -34,8 +34,8 @@
 <meta property="article:published_time" content="2025-11-07T04:12:38.000Z">
 <meta property="article:modified_time" content="2025-11-07T04:12:49.954Z">
 <meta property="article:author" content="swimminghao">
-<meta property="article:tag" content="roon">
 <meta property="article:tag" content="openvpn">
+<meta property="article:tag" content="roon">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/jasonz666/imgHost/blogPic/11.png">
 
@@ -109,9 +109,9 @@
   <ul class="main-menu menu">
         <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
         <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
-        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">61</span></a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">62</span></a></li>
         <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">18</span></a></li>
-        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">283</span></a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">284</span></a></li>
         <li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
@@ -184,7 +184,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">283</span>
+          <span class="site-state-item-count">284</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -195,7 +195,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">61</span>
+        <span class="site-state-item-count">62</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -227,6 +227,11 @@
 	</div>
 	<ul class="links-of-blogroll-list recent-posts-list">
 	        <li class="my-links-of-blogroll-item">
+		    <a href="/posts/25a7b671/" title="Navidrome、Audiobookshelf 客户端推荐【自测】" target="">
+		    Navidrome、Audiobookshelf 客户端推荐【自测】
+		    </a>
+		</li>
+	        <li class="my-links-of-blogroll-item">
 		    <a href="/posts/4b8ad329/" title="WindowsPE和MacOS安装盘二合一制作方法" target="">
 		    WindowsPE和MacOS安装盘二合一制作方法
 		    </a>
@@ -244,11 +249,6 @@
 	        <li class="my-links-of-blogroll-item">
 		    <a href="/posts/7ac8a987/" title="HIFI日记：HQPlayer embedded （HQPlayer OS）嵌入版使用教程" target="">
 		    HIFI日记：HQPlayer embedded （HQPlayer OS）嵌入版使用教程
-		    </a>
-		</li>
-	        <li class="my-links-of-blogroll-item">
-		    <a href="/posts/eb18152/" title="OpenCore添加ubuntu引导，引导双系统" target="">
-		    OpenCore添加ubuntu引导，引导双系统
 		    </a>
 		</li>
 	</ul>
@@ -378,7 +378,7 @@
     <div class="post-body" itemprop="articleBody">
         <h1 id="安装OpenVpn的Ubuntu22-04服务端和Windows10客户端"><a href="#安装OpenVpn的Ubuntu22-04服务端和Windows10客户端" class="headerlink" title="安装OpenVpn的Ubuntu22.04服务端和Windows10客户端"></a>安装OpenVpn的Ubuntu22.04服务端和Windows10客户端</h1><p>®<br>本文将在Ubuntu22.04服务器安装OpenVpn服务端，并在配置OpenVpn客户端ovpn文件。</p>
 <h2 id="安装OpenVpn和Easy-RSA"><a href="#安装OpenVpn和Easy-RSA" class="headerlink" title="安装OpenVpn和Easy-RSA"></a>安装OpenVpn和Easy-RSA</h2><p>Easy-RSA主要用来生成CA证书，服务端证书和key，客户端证书和key。先登录Ubuntu服务器，然后用root身份执行下文的命令。</p>
-<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">sudo apt update</span><br><span class="line">sudo apt install openvpn easy-rsa</span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装完可以查看下openvpn版本</span></span><br><span class="line">openvpn <span class="comment">--version</span></span><br><span class="line"><span class="comment"># 我的是OpenVPN 2.4.12版本</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt update</span><br><span class="line"><span class="built_in">sudo</span> apt install openvpn easy-rsa</span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装完可以查看下openvpn版本</span></span><br><span class="line">openvpn --version</span><br><span class="line"><span class="comment"># 我的是OpenVPN 2.4.12版本</span></span><br></pre></td></tr></table></figure>
 
 <h2 id="制作所需的证书"><a href="#制作所需的证书" class="headerlink" title="制作所需的证书"></a>制作所需的证书</h2><p>执行如下命令</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /usr/share/easy-rsa</span><br><span class="line"></span><br><span class="line"><span class="comment"># 拷贝一份vars文件</span></span><br><span class="line"><span class="built_in">cp</span> vars.example vars</span><br><span class="line"></span><br><span class="line"><span class="comment"># 编辑vars文件</span></span><br><span class="line">vim vars</span><br><span class="line"></span><br><span class="line"><span class="comment"># 在最后一行添加如下内容，这个 KEY_NAME 下文会用到，请记住</span></span><br><span class="line"><span class="built_in">export</span> KEY_NAME=<span class="string">&quot;myserver&quot;</span></span><br></pre></td></tr></table></figure>
@@ -399,21 +399,21 @@
 <figure class="highlight autoit"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">systemctl start openvpn<span class="symbol">@server</span></span><br><span class="line">systemctl status openvpn<span class="symbol">@server</span></span><br><span class="line"></span><br><span class="line"><span class="meta"># 感兴趣的话，可以查看日志</span></span><br><span class="line">tail -f /var/<span class="built_in">log</span>/openvpn/openvpn.<span class="built_in">log</span></span><br></pre></td></tr></table></figure>
 
 <p>如果你的Ubuntu系统是云服务器，通常管理后台可以设置防火墙，建议在Ubuntu关闭ufw：</p>
-<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 停止ufw</span></span><br><span class="line">sudo ufw <span class="built_in">disable</span></span><br><span class="line"><span class="comment"># 禁用ufw</span></span><br><span class="line">sudo systemctl stop ufw</span><br><span class="line">sudo systemctl <span class="built_in">disable</span> ufw</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 停止ufw</span></span><br><span class="line"><span class="built_in">sudo</span> ufw <span class="built_in">disable</span></span><br><span class="line"><span class="comment"># 禁用ufw</span></span><br><span class="line"><span class="built_in">sudo</span> systemctl stop ufw</span><br><span class="line"><span class="built_in">sudo</span> systemctl <span class="built_in">disable</span> ufw</span><br></pre></td></tr></table></figure>
 
 <h2 id="设置IP转发"><a href="#设置IP转发" class="headerlink" title="设置IP转发"></a>设置IP转发</h2><p>如果你搭建的VPN服务器所在的内网还有其他云服务器，你想访问其他云服务器就应该设置ip转发。就如上文描述的，我们在VPN服务端配置文件server.conf中配置了 <code>push &quot;route 192.168.0.0 255.255.255.224&quot;</code>。</p>
 <p>打开内核ip转发：</p>
-<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 编辑文件/etc/sysctl.conf</span></span><br><span class="line">vim <span class="regexp">/etc/</span>sysctl.conf</span><br><span class="line"></span><br><span class="line"><span class="comment"># 打开如下一行，改为：</span></span><br><span class="line">net.ipv4.ip_forward = <span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 然修改永久生效</span></span><br><span class="line">sysctl -p</span><br></pre></td></tr></table></figure>
+<figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 编辑文件/etc/sysctl.conf</span></span><br><span class="line">vim <span class="symbol">/etc/sysctl.conf</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 打开如下一行，改为：</span></span><br><span class="line">n<span class="attr">et.ipv4.ip_forward</span> <span class="operator">=</span> <span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 然修改永久生效</span></span><br><span class="line">sysctl <span class="operator">-</span>p</span><br></pre></td></tr></table></figure>
 
 <p>设置防火墙（iptables ）转发规则：</p>
 <figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 设置源地址翻译SNAT：把来自10.8.100.0/24的流量在离开网络接口ens3前，修改源ip为192.168.50.14</span></span><br><span class="line"><span class="comment"># enp0s31f6为你自己的网卡名称，可使用`ip addr show`查看。</span></span><br><span class="line"><span class="comment"># 192.168.50.14为安装openvpn 服务端的主机ip</span></span><br><span class="line"><span class="attribute">iptables</span> -t nat -A POSTROUTING -s <span class="number">10.8.100.0</span>/<span class="number">24</span> -o enp0s31f6 -j SNAT --to-source <span class="number">192.168.50.14</span></span><br></pre></td></tr></table></figure>
 
 <p>重启下vpn服务端：<code>systemctl start openvpn@server</code>。到这里，服务端安装完成。</p>
 <h2 id="配置客户端ovpn文件"><a href="#配置客户端ovpn文件" class="headerlink" title="配置客户端ovpn文件"></a>配置客户端ovpn文件</h2><p>在openvpn官网下载客户端：<a target="_blank" rel="noopener" href="https://openvpn.net/client/client-connect-vpn-for-windows/">这里</a>。下载好以后点击运行，进行安装。</p>
-<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 准备好Ubuntu上的这4个文件</span></span><br><span class="line"><span class="regexp">/etc/</span>openvpn/ca.crt</span><br><span class="line"><span class="regexp">/etc/</span>openvpn/ta.key</span><br><span class="line"><span class="regexp">/etc/</span>openvpn<span class="regexp">/client/my</span>client.crt</span><br><span class="line"><span class="regexp">/etc/</span>openvpn<span class="regexp">/client/my</span>client.key</span><br></pre></td></tr></table></figure>
+<figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 准备好Ubuntu上的这4个文件</span></span><br><span class="line"><span class="regexp">/etc/openvpn</span><span class="regexp">/ca.crt</span></span><br><span class="line"><span class="regexp">/etc</span><span class="regexp">/openvpn/ta</span>.key</span><br><span class="line"><span class="regexp">/etc/openvpn</span><span class="regexp">/client/myclient</span>.crt</span><br><span class="line"><span class="regexp">/etc/openvpn</span><span class="regexp">/client/myclient</span>.key</span><br></pre></td></tr></table></figure>
 
 <h2 id="创建客户端配置文件"><a href="#创建客户端配置文件" class="headerlink" title="创建客户端配置文件"></a>创建客户端配置文件</h2><p>打开终端，复制粘贴以下脚本指令，脚本会在~&#x2F;openvpn-clients&#x2F;目录下，创建一个client1.ovpn客户端配置文件，内容如下：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建客户端的配置</span></span><br><span class="line"><span class="built_in">cat</span> &gt; ~/openvpn-clients/client1.ovpn &lt;&lt; <span class="string">&#x27;EOF&#x27;</span></span><br><span class="line">client</span><br><span class="line">dev tun</span><br><span class="line">proto tcp</span><br><span class="line">remote 你的公网IP地址 11000</span><br><span class="line">resolv-retry infinite</span><br><span class="line">nobind</span><br><span class="line">persist-key</span><br><span class="line">persist-tun</span><br><span class="line">remote-cert-tls server</span><br><span class="line">verb 3</span><br><span class="line">ca ca.crt</span><br><span class="line">cert myclient.crt</span><br><span class="line">key myclient.key</span><br><span class="line">tls-auth ta.key 1</span><br><span class="line">comp-lzo</span><br><span class="line">route 192.168.50.0 255.255.255.0</span><br><span class="line"></span><br><span class="line">&lt;ca&gt;</span><br><span class="line">EOF</span><br><span class="line"></span><br><span class="line">sudo <span class="built_in">cat</span> /etc/openvpn/ca.crt &gt;&gt; ~/openvpn-clients/client.ovpn</span><br><span class="line"><span class="built_in">cat</span> &gt;&gt; ~/openvpn-clients/client1.ovpn &lt;&lt; <span class="string">&#x27;EOF&#x27;</span></span><br><span class="line">&lt;/ca&gt;</span><br><span class="line"></span><br><span class="line">&lt;cert&gt;</span><br><span class="line">EOF</span><br><span class="line"></span><br><span class="line">sudo <span class="built_in">cat</span> /etc/openvpn/client/myclient.crt &gt;&gt; ~/openvpn-clients/client1.ovpn</span><br><span class="line"><span class="built_in">cat</span> &gt;&gt; ~/openvpn-clients/client1.ovpn &lt;&lt; <span class="string">&#x27;EOF&#x27;</span></span><br><span class="line">&lt;/cert&gt;</span><br><span class="line"></span><br><span class="line">&lt;key&gt;</span><br><span class="line">EOF</span><br><span class="line"></span><br><span class="line">sudo <span class="built_in">cat</span> /etc/openvpn/client/myclient.key &gt;&gt; ~/openvpn-clients/client1.ovpn</span><br><span class="line"><span class="built_in">cat</span> &gt;&gt; ~/openvpn-clients/client1.ovpn &lt;&lt; <span class="string">&#x27;EOF&#x27;</span></span><br><span class="line">&lt;/key&gt;</span><br><span class="line"></span><br><span class="line">&lt;tls-auth&gt;</span><br><span class="line">EOF</span><br><span class="line"></span><br><span class="line">sudo <span class="built_in">cat</span> /etc/openvpn/ta.key &gt;&gt; ~/openvpn-clients/client1.ovpn</span><br><span class="line"><span class="built_in">cat</span> &gt;&gt; ~/openvpn-clients/client1.ovpn &lt;&lt; <span class="string">&#x27;EOF&#x27;</span></span><br><span class="line">&lt;/tls-auth&gt;</span><br><span class="line">EOF</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建客户端的配置</span></span><br><span class="line"><span class="built_in">cat</span> &gt; ~/openvpn-clients/client1.ovpn &lt;&lt; <span class="string">&#x27;EOF&#x27;</span></span><br><span class="line">client</span><br><span class="line">dev tun</span><br><span class="line">proto tcp</span><br><span class="line">remote 你的公网IP地址 11000</span><br><span class="line">resolv-retry infinite</span><br><span class="line">nobind</span><br><span class="line">persist-key</span><br><span class="line">persist-tun</span><br><span class="line">remote-cert-tls server</span><br><span class="line">verb 3</span><br><span class="line">ca ca.crt</span><br><span class="line">cert myclient.crt</span><br><span class="line">key myclient.key</span><br><span class="line">tls-auth ta.key 1</span><br><span class="line">comp-lzo</span><br><span class="line">route 192.168.50.0 255.255.255.0</span><br><span class="line"></span><br><span class="line">&lt;ca&gt;</span><br><span class="line">EOF</span><br><span class="line"></span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">cat</span> /etc/openvpn/ca.crt &gt;&gt; ~/openvpn-clients/client.ovpn</span><br><span class="line"><span class="built_in">cat</span> &gt;&gt; ~/openvpn-clients/client1.ovpn &lt;&lt; <span class="string">&#x27;EOF&#x27;</span></span><br><span class="line">&lt;/ca&gt;</span><br><span class="line"></span><br><span class="line">&lt;cert&gt;</span><br><span class="line">EOF</span><br><span class="line"></span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">cat</span> /etc/openvpn/client/myclient.crt &gt;&gt; ~/openvpn-clients/client1.ovpn</span><br><span class="line"><span class="built_in">cat</span> &gt;&gt; ~/openvpn-clients/client1.ovpn &lt;&lt; <span class="string">&#x27;EOF&#x27;</span></span><br><span class="line">&lt;/cert&gt;</span><br><span class="line"></span><br><span class="line">&lt;key&gt;</span><br><span class="line">EOF</span><br><span class="line"></span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">cat</span> /etc/openvpn/client/myclient.key &gt;&gt; ~/openvpn-clients/client1.ovpn</span><br><span class="line"><span class="built_in">cat</span> &gt;&gt; ~/openvpn-clients/client1.ovpn &lt;&lt; <span class="string">&#x27;EOF&#x27;</span></span><br><span class="line">&lt;/key&gt;</span><br><span class="line"></span><br><span class="line">&lt;tls-auth&gt;</span><br><span class="line">EOF</span><br><span class="line"></span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">cat</span> /etc/openvpn/ta.key &gt;&gt; ~/openvpn-clients/client1.ovpn</span><br><span class="line"><span class="built_in">cat</span> &gt;&gt; ~/openvpn-clients/client1.ovpn &lt;&lt; <span class="string">&#x27;EOF&#x27;</span></span><br><span class="line">&lt;/tls-auth&gt;</span><br><span class="line">EOF</span><br></pre></td></tr></table></figure>
 
 <p><strong>注意替换，你的公网IP地址和修改路由转发参数</strong></p>
 <p>上面的 <code>route 192.168.50.0 255.255.255.0</code> 也是告诉服务端，客户端访问这些 192.168.50.0&#x2F;255.255.255.0 地址时，才经过VPN。</p>
@@ -464,8 +464,8 @@
 </div>
 
           <div class="post-tags">
-              <a href="/tags/roon/" rel="tag"><i class="fa fa-tag"></i> roon</a>
               <a href="/tags/openvpn/" rel="tag"><i class="fa fa-tag"></i> openvpn</a>
+              <a href="/tags/roon/" rel="tag"><i class="fa fa-tag"></i> roon</a>
           </div>
 
         
@@ -501,7 +501,7 @@
 
 <div class="copyright">
   &copy; 
-  <span itemprop="copyrightYear">2025</span>
+  <span itemprop="copyrightYear">2026</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -518,7 +518,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">18:30</span>
+    <span title="站点阅读时长">18:33</span>
   </span>
 </div>
 

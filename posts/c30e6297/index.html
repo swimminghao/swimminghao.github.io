@@ -110,9 +110,9 @@
   <ul class="main-menu menu">
         <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
         <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
-        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">61</span></a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">62</span></a></li>
         <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">18</span></a></li>
-        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">283</span></a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">284</span></a></li>
         <li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
@@ -185,7 +185,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">283</span>
+          <span class="site-state-item-count">284</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -196,7 +196,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">61</span>
+        <span class="site-state-item-count">62</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -228,6 +228,11 @@
 	</div>
 	<ul class="links-of-blogroll-list recent-posts-list">
 	        <li class="my-links-of-blogroll-item">
+		    <a href="/posts/25a7b671/" title="Navidrome、Audiobookshelf 客户端推荐【自测】" target="">
+		    Navidrome、Audiobookshelf 客户端推荐【自测】
+		    </a>
+		</li>
+	        <li class="my-links-of-blogroll-item">
 		    <a href="/posts/4b8ad329/" title="WindowsPE和MacOS安装盘二合一制作方法" target="">
 		    WindowsPE和MacOS安装盘二合一制作方法
 		    </a>
@@ -245,11 +250,6 @@
 	        <li class="my-links-of-blogroll-item">
 		    <a href="/posts/7ac8a987/" title="HIFI日记：HQPlayer embedded （HQPlayer OS）嵌入版使用教程" target="">
 		    HIFI日记：HQPlayer embedded （HQPlayer OS）嵌入版使用教程
-		    </a>
-		</li>
-	        <li class="my-links-of-blogroll-item">
-		    <a href="/posts/eb18152/" title="OpenCore添加ubuntu引导，引导双系统" target="">
-		    OpenCore添加ubuntu引导，引导双系统
 		    </a>
 		</li>
 	</ul>
@@ -385,7 +385,7 @@
 <h4 id="全局加密配置"><a href="#全局加密配置" class="headerlink" title="全局加密配置"></a>全局加密配置</h4><p>分别为每篇文章设置密码，虽然很灵活，但是配置或者修改起来非常麻烦。为此，可以通过设置统一配置来实现全局加密。</p>
 <p>通过添加指定 <code>tag</code> 的方式，可以为所有需要加密的文章添加统一加密操作。只需要在需要加密的文章中，添加设置的 <code>tag值</code> 即可。</p>
 <p>在Hexo主配置文件 <code>_config.yml</code> 中添加如下配置：</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Security</span></span><br><span class="line"><span class="attr">encrypt:</span> <span class="comment"># hexo-blog-encrypt</span></span><br><span class="line">  <span class="attr">silent:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">abstract:</span> <span class="string">这是一篇加密文章，需要密码才能继续阅读。</span></span><br><span class="line">  <span class="attr">message:</span> <span class="string">当前文章暂不对外可见，请输入密码后查看！</span></span><br><span class="line">  <span class="attr">tags:</span></span><br><span class="line">  <span class="bullet">-</span> &#123;<span class="attr">name:</span> <span class="string">private</span>, <span class="attr">password:</span> <span class="string">hello</span>&#125;</span><br><span class="line">  <span class="attr">wrong_pass_message:</span> <span class="string">抱歉，您输入的密码错误，请检查后重新输入。</span></span><br><span class="line">  <span class="attr">wrong_hash_message:</span> <span class="string">抱歉,</span> <span class="string">当前文章不能被校验,</span> <span class="string">不过您还是可以看看解密后的内容。</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Security</span></span><br><span class="line"><span class="params">encrypt:</span> <span class="comment"># hexo-blog-encrypt</span></span><br><span class="line">  <span class="params">silent:</span> <span class="literal">true</span></span><br><span class="line">  <span class="params">abstract:</span> 这是一篇加密文章，需要密码才能继续阅读。</span><br><span class="line">  <span class="params">message:</span> 当前文章暂不对外可见，请输入密码后查看！</span><br><span class="line">  <span class="params">tags:</span></span><br><span class="line">  <span class="operator">-</span> &#123;<span class="params">name:</span> private, <span class="params">password:</span> hello&#125;</span><br><span class="line">  <span class="params">wrong_pass_message:</span> 抱歉，您输入的密码错误，请检查后重新输入。</span><br><span class="line">  <span class="params">wrong_hash_message:</span> 抱歉, 当前文章不能被校验, 不过您还是可以看看解密后的内容。</span><br></pre></td></tr></table></figure>
 
 <p>之后，需要清除缓存后重新生成 <code>hexo clean &amp;&amp; hexo s -g</code>。</p>
 <p>其中的 <code>tag</code> 部分：</p>
@@ -586,7 +586,7 @@
 
 <div class="copyright">
   &copy; 
-  <span itemprop="copyrightYear">2025</span>
+  <span itemprop="copyrightYear">2026</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -603,7 +603,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">18:30</span>
+    <span title="站点阅读时长">18:33</span>
   </span>
 </div>
 

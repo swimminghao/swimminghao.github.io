@@ -109,9 +109,9 @@
   <ul class="main-menu menu">
         <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
         <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
-        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">61</span></a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">62</span></a></li>
         <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">18</span></a></li>
-        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">283</span></a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">284</span></a></li>
         <li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
@@ -184,7 +184,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">283</span>
+          <span class="site-state-item-count">284</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -195,7 +195,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">61</span>
+        <span class="site-state-item-count">62</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -227,6 +227,11 @@
 	</div>
 	<ul class="links-of-blogroll-list recent-posts-list">
 	        <li class="my-links-of-blogroll-item">
+		    <a href="/posts/25a7b671/" title="Navidrome、Audiobookshelf 客户端推荐【自测】" target="">
+		    Navidrome、Audiobookshelf 客户端推荐【自测】
+		    </a>
+		</li>
+	        <li class="my-links-of-blogroll-item">
 		    <a href="/posts/4b8ad329/" title="WindowsPE和MacOS安装盘二合一制作方法" target="">
 		    WindowsPE和MacOS安装盘二合一制作方法
 		    </a>
@@ -244,11 +249,6 @@
 	        <li class="my-links-of-blogroll-item">
 		    <a href="/posts/7ac8a987/" title="HIFI日记：HQPlayer embedded （HQPlayer OS）嵌入版使用教程" target="">
 		    HIFI日记：HQPlayer embedded （HQPlayer OS）嵌入版使用教程
-		    </a>
-		</li>
-	        <li class="my-links-of-blogroll-item">
-		    <a href="/posts/eb18152/" title="OpenCore添加ubuntu引导，引导双系统" target="">
-		    OpenCore添加ubuntu引导，引导双系统
 		    </a>
 		</li>
 	</ul>
@@ -439,7 +439,7 @@
 
 
 <p><strong>libcufft</strong>是cuda的库，这里只是文件名没找到而已，而库文件其实是在 <code>$CUDA_HOME/lib</code>下的，所以手动链接一下就行，下面是对同类错误的库进行统一处理：</p>
-<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">sudo ln -s <span class="variable">$CUDA_HOME</span><span class="regexp">/lib/</span>libcufft.<span class="number">10</span>.dylib <span class="variable">$CUDA_HOME</span><span class="regexp">/lib/</span>libcufft.<span class="number">10.0</span>.dylib</span><br><span class="line">sudo ln -s <span class="variable">$CUDA_HOME</span><span class="regexp">/lib/</span>libcurand.<span class="number">10</span>.dylib <span class="variable">$CUDA_HOME</span><span class="regexp">/lib/</span>libcurand.<span class="number">10.0</span>.dylib</span><br><span class="line">sudo ln -s <span class="variable">$CUDA_HOME</span><span class="regexp">/lib/</span>libcublas.<span class="number">10</span>.dylib <span class="variable">$CUDA_HOME</span><span class="regexp">/lib/</span>libcublas.<span class="number">10.0</span>.dylib</span><br><span class="line">sudo ln -s <span class="variable">$CUDA_HOME</span><span class="regexp">/lib/</span>libcudart.dylib <span class="variable">$CUDA_HOME</span><span class="regexp">/lib/</span>libcudart.<span class="number">10.0</span>.dylib</span><br><span class="line">sudo ln -s <span class="variable">$CUDA_HOME</span><span class="regexp">/lib/</span>libnvrtc.dylib <span class="variable">$CUDA_HOME</span><span class="regexp">/lib/</span>libnvrtc.<span class="number">10.0</span>.dylib</span><br><span class="line">sudo ln -s <span class="variable">$CUDA_HOME</span><span class="regexp">/lib/</span>libcusparse.<span class="number">10</span>.dylib <span class="variable">$CUDA_HOME</span><span class="regexp">/lib/</span>libcusparse.<span class="number">10.0</span>.dylib</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> <span class="built_in">ln</span> -s <span class="variable">$CUDA_HOME</span>/lib/libcufft.10.dylib <span class="variable">$CUDA_HOME</span>/lib/libcufft.10.0.dylib</span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">ln</span> -s <span class="variable">$CUDA_HOME</span>/lib/libcurand.10.dylib <span class="variable">$CUDA_HOME</span>/lib/libcurand.10.0.dylib</span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">ln</span> -s <span class="variable">$CUDA_HOME</span>/lib/libcublas.10.dylib <span class="variable">$CUDA_HOME</span>/lib/libcublas.10.0.dylib</span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">ln</span> -s <span class="variable">$CUDA_HOME</span>/lib/libcudart.dylib <span class="variable">$CUDA_HOME</span>/lib/libcudart.10.0.dylib</span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">ln</span> -s <span class="variable">$CUDA_HOME</span>/lib/libnvrtc.dylib <span class="variable">$CUDA_HOME</span>/lib/libnvrtc.10.0.dylib</span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">ln</span> -s <span class="variable">$CUDA_HOME</span>/lib/libcusparse.10.dylib <span class="variable">$CUDA_HOME</span>/lib/libcusparse.10.0.dylib</span><br></pre></td></tr></table></figure>
 
 <h3 id="在import-torch的时候报错"><a href="#在import-torch的时候报错" class="headerlink" title="在import torch的时候报错"></a>在import torch的时候报错</h3><figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Traceback (most recent <span class="keyword">call</span> last):</span><br><span class="line"><span class="keyword">File</span> <span class="string">&quot;&lt;stdin&gt;&quot;</span>, line <span class="number">1</span>, in &lt;module&gt;</span><br><span class="line">   <span class="keyword">File</span> <span class="string">&quot;/usr/local/lib/python3.7/site-packages/torch/__init__.py&quot;</span>, line <span class="number">84</span>, in &lt;module&gt;</span><br><span class="line">    <span class="keyword">from</span> torch._C <span class="keyword">import</span> *</span><br><span class="line">ImportError: dlopen(<span class="regexp">/usr/</span>local<span class="regexp">/lib/</span>python3.<span class="number">7</span><span class="regexp">/site-packages/</span>torch<span class="regexp">/_C.cpython-37m-darwin.so, 9): Library not loaded: @rpath/</span>libcufft.<span class="number">10.0</span>.dylib</span><br><span class="line">Referenced <span class="keyword">from</span>: <span class="regexp">/usr/</span>local<span class="regexp">/lib/</span>python3.<span class="number">7</span><span class="regexp">/site-packages/</span>torch<span class="regexp">/lib/</span>libtorch_python.dylib</span><br><span class="line">Reason: image not found</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
@@ -533,7 +533,7 @@
 
 <div class="copyright">
   &copy; 
-  <span itemprop="copyrightYear">2025</span>
+  <span itemprop="copyrightYear">2026</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -550,7 +550,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">18:30</span>
+    <span title="站点阅读时长">18:33</span>
   </span>
 </div>
 

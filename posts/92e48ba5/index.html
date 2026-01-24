@@ -112,9 +112,9 @@
   <ul class="main-menu menu">
         <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
         <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
-        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">61</span></a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">62</span></a></li>
         <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">18</span></a></li>
-        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">283</span></a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">284</span></a></li>
         <li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
@@ -187,7 +187,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">283</span>
+          <span class="site-state-item-count">284</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -198,7 +198,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">61</span>
+        <span class="site-state-item-count">62</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -230,6 +230,11 @@
 	</div>
 	<ul class="links-of-blogroll-list recent-posts-list">
 	        <li class="my-links-of-blogroll-item">
+		    <a href="/posts/25a7b671/" title="Navidrome、Audiobookshelf 客户端推荐【自测】" target="">
+		    Navidrome、Audiobookshelf 客户端推荐【自测】
+		    </a>
+		</li>
+	        <li class="my-links-of-blogroll-item">
 		    <a href="/posts/4b8ad329/" title="WindowsPE和MacOS安装盘二合一制作方法" target="">
 		    WindowsPE和MacOS安装盘二合一制作方法
 		    </a>
@@ -247,11 +252,6 @@
 	        <li class="my-links-of-blogroll-item">
 		    <a href="/posts/7ac8a987/" title="HIFI日记：HQPlayer embedded （HQPlayer OS）嵌入版使用教程" target="">
 		    HIFI日记：HQPlayer embedded （HQPlayer OS）嵌入版使用教程
-		    </a>
-		</li>
-	        <li class="my-links-of-blogroll-item">
-		    <a href="/posts/eb18152/" title="OpenCore添加ubuntu引导，引导双系统" target="">
-		    OpenCore添加ubuntu引导，引导双系统
 		    </a>
 		</li>
 	</ul>
@@ -437,7 +437,7 @@
 <p>好了，现在我们的算法已经可以按照正确的法则计算加减乘除，并且自动忽略空格符，剩下的就是如何让算法正确识别括号了。</p>
 <h2 id="四、处理括号"><a href="#四、处理括号" class="headerlink" title="四、处理括号"></a>四、处理括号</h2><p>处理算式中的括号看起来应该是最难的，但真没有看起来那么难。</p>
 <p>为了规避编程语言的繁琐细节，我把前面解法的代码翻译成 Python 版本：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">def <span class="title function_">calculate</span><span class="params">(s: str)</span> -&gt; <span class="type">int</span>:</span><br><span class="line"></span><br><span class="line">    def <span class="title function_">helper</span><span class="params">(s: List)</span> -&gt; <span class="type">int</span>:</span><br><span class="line">        stack = []</span><br><span class="line">        sign = <span class="string">&#x27;+&#x27;</span></span><br><span class="line">        num = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> <span class="title function_">len</span><span class="params">(s)</span> &gt; <span class="number">0</span>:</span><br><span class="line">            c = s.pop(<span class="number">0</span>)</span><br><span class="line">            <span class="keyword">if</span> c.isdigit():</span><br><span class="line">                num = <span class="number">10</span> * num + <span class="type">int</span>(c)</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (not c.isdigit() and c != <span class="string">&#x27; &#x27;</span>) or <span class="title function_">len</span><span class="params">(s)</span> == <span class="number">0</span>:</span><br><span class="line">                <span class="type">if</span> <span class="variable">sign</span> <span class="operator">=</span>= <span class="string">&#x27;+&#x27;</span>:</span><br><span class="line">                    stack.append(num)</span><br><span class="line">                <span class="type">elif</span> <span class="variable">sign</span> <span class="operator">=</span>= <span class="string">&#x27;-&#x27;</span>:</span><br><span class="line">                    stack.append(-num)</span><br><span class="line">                <span class="type">elif</span> <span class="variable">sign</span> <span class="operator">=</span>= <span class="string">&#x27;*&#x27;</span>:</span><br><span class="line">                    stack[-<span class="number">1</span>] = stack[-<span class="number">1</span>] * num</span><br><span class="line">                <span class="type">elif</span> <span class="variable">sign</span> <span class="operator">=</span>= <span class="string">&#x27;/&#x27;</span>:</span><br><span class="line">                    # python 除法向 <span class="number">0</span> 取整的写法</span><br><span class="line">                    stack[-<span class="number">1</span>] = <span class="type">int</span>(stack[-<span class="number">1</span>] / <span class="type">float</span>(num))                    </span><br><span class="line">                num = <span class="number">0</span></span><br><span class="line">                sign = c</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> sum(stack)</span><br><span class="line">    # 需要把字符串转成列表方便操作</span><br><span class="line">    <span class="keyword">return</span> helper(list(s))</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">def <span class="title function_">calculate</span><span class="params">(s: str)</span> -&gt; <span class="type">int</span>:</span><br><span class="line"></span><br><span class="line">    def <span class="title function_">helper</span><span class="params">(s: List)</span> -&gt; <span class="type">int</span>:</span><br><span class="line">        stack = []</span><br><span class="line">        sign = <span class="string">&#x27;+&#x27;</span></span><br><span class="line">        num = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> <span class="title function_">len</span><span class="params">(s)</span> &gt; <span class="number">0</span>:</span><br><span class="line">            c = s.pop(<span class="number">0</span>)</span><br><span class="line">            <span class="keyword">if</span> c.isdigit():</span><br><span class="line">                num = <span class="number">10</span> * num + <span class="type">int</span>(c)</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (not c.isdigit() and c != <span class="string">&#x27; &#x27;</span>) or <span class="title function_">len</span><span class="params">(s)</span> == <span class="number">0</span>:</span><br><span class="line">                <span class="keyword">if</span> sign == <span class="string">&#x27;+&#x27;</span>:</span><br><span class="line">                    stack.append(num)</span><br><span class="line">                elif sign == <span class="string">&#x27;-&#x27;</span>:</span><br><span class="line">                    stack.append(-num)</span><br><span class="line">                elif sign == <span class="string">&#x27;*&#x27;</span>:</span><br><span class="line">                    stack[-<span class="number">1</span>] = stack[-<span class="number">1</span>] * num</span><br><span class="line">                elif sign == <span class="string">&#x27;/&#x27;</span>:</span><br><span class="line">                    # python 除法向 <span class="number">0</span> 取整的写法</span><br><span class="line">                    stack[-<span class="number">1</span>] = <span class="type">int</span>(stack[-<span class="number">1</span>] / <span class="type">float</span>(num))                    </span><br><span class="line">                num = <span class="number">0</span></span><br><span class="line">                sign = c</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> sum(stack)</span><br><span class="line">    # 需要把字符串转成列表方便操作</span><br><span class="line">    <span class="keyword">return</span> helper(list(s))</span><br></pre></td></tr></table></figure>
 
 <p>这段代码跟刚才 C++ 代码完全相同，唯一的区别是，不是从左到右遍历字符串，而是不断从左边<code>pop</code>出字符，本质还是一样的。</p>
 <p>那么，为什么说处理括号没有看起来那么难呢，<strong>因为括号具有递归性质</strong>。我们拿字符串<code>3*(4-5/2)-6</code>举例：</p>
@@ -445,7 +445,7 @@
 
 <p>可以脑补一下，无论多少层括号嵌套，通过 calculate 函数递归调用自己，都可以将括号中的算式化简成一个数字。<strong>换句话说，括号包含的算式，我们直接视为一个数字就行了</strong>。</p>
 <p>现在的问题是，递归的开始条件和结束条件是什么？<strong>遇到<code>(</code>开始递归，遇到<code>)</code>结束递归</strong>：</p>
-<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">def calculate(s: str) -&gt; <span class="keyword">int</span>:</span><br><span class="line"></span><br><span class="line">    def helper(s: List) -&gt; <span class="keyword">int</span>:</span><br><span class="line">        stack = []</span><br><span class="line">        <span class="keyword">sign</span> = <span class="string">&#x27;+&#x27;</span></span><br><span class="line">        num = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> <span class="built_in">len</span>(s) &gt; <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">c</span> = s.<span class="keyword">pop</span>(<span class="number">0</span>)</span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">c</span>.isdigit():</span><br><span class="line">                num = <span class="number">10</span> * num + <span class="keyword">int</span>(<span class="keyword">c</span>)</span><br><span class="line">            # 遇到左括号开始递归计算 num</span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">c</span> == <span class="string">&#x27;(&#x27;</span>:</span><br><span class="line">                num = helper(s)</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (not <span class="keyword">c</span>.isdigit() <span class="built_in">and</span> <span class="keyword">c</span> != <span class="string">&#x27; &#x27;</span>) <span class="built_in">or</span> <span class="built_in">len</span>(s) == <span class="number">0</span>:</span><br><span class="line">                <span class="keyword">if</span> <span class="keyword">sign</span> == <span class="string">&#x27;+&#x27;</span>: ...</span><br><span class="line">                elif <span class="keyword">sign</span> == <span class="string">&#x27;-&#x27;</span>: ... </span><br><span class="line">                elif <span class="keyword">sign</span> == <span class="string">&#x27;*&#x27;</span>: ...</span><br><span class="line">                elif <span class="keyword">sign</span> == <span class="string">&#x27;/&#x27;</span>: ...</span><br><span class="line">                num = <span class="number">0</span></span><br><span class="line">                <span class="keyword">sign</span> = <span class="keyword">c</span></span><br><span class="line">            # 遇到右括号返回递归结果</span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">c</span> == <span class="string">&#x27;)&#x27;</span>: <span class="keyword">break</span></span><br><span class="line">        <span class="keyword">return</span> sum(stack)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> helper(<span class="keyword">list</span>(s))</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">calculate</span>(<span class="params">s: <span class="built_in">str</span></span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">helper</span>(<span class="params">s: <span class="type">List</span></span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">        stack = []</span><br><span class="line">        sign = <span class="string">&#x27;+&#x27;</span></span><br><span class="line">        num = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> <span class="built_in">len</span>(s) &gt; <span class="number">0</span>:</span><br><span class="line">            c = s.pop(<span class="number">0</span>)</span><br><span class="line">            <span class="keyword">if</span> c.isdigit():</span><br><span class="line">                num = <span class="number">10</span> * num + <span class="built_in">int</span>(c)</span><br><span class="line">            <span class="comment"># 遇到左括号开始递归计算 num</span></span><br><span class="line">            <span class="keyword">if</span> c == <span class="string">&#x27;(&#x27;</span>:</span><br><span class="line">                num = helper(s)</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (<span class="keyword">not</span> c.isdigit() <span class="keyword">and</span> c != <span class="string">&#x27; &#x27;</span>) <span class="keyword">or</span> <span class="built_in">len</span>(s) == <span class="number">0</span>:</span><br><span class="line">                <span class="keyword">if</span> sign == <span class="string">&#x27;+&#x27;</span>: ...</span><br><span class="line">                <span class="keyword">elif</span> sign == <span class="string">&#x27;-&#x27;</span>: ... </span><br><span class="line">                <span class="keyword">elif</span> sign == <span class="string">&#x27;*&#x27;</span>: ...</span><br><span class="line">                <span class="keyword">elif</span> sign == <span class="string">&#x27;/&#x27;</span>: ...</span><br><span class="line">                num = <span class="number">0</span></span><br><span class="line">                sign = c</span><br><span class="line">            <span class="comment"># 遇到右括号返回递归结果</span></span><br><span class="line">            <span class="keyword">if</span> c == <span class="string">&#x27;)&#x27;</span>: <span class="keyword">break</span></span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">sum</span>(stack)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> helper(<span class="built_in">list</span>(s))</span><br></pre></td></tr></table></figure>
 
 
 
@@ -508,8 +508,8 @@
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/posts/7f30ba70/" rel="prev" title="子序列解题模板：最长回文子序列">
-                  <i class="fa fa-chevron-left"></i> 子序列解题模板：最长回文子序列
+                <a href="/posts/dbdb8baa/" rel="prev" title="完全二叉树的节点数，你真的会算吗？">
+                  <i class="fa fa-chevron-left"></i> 完全二叉树的节点数，你真的会算吗？
                 </a>
             </div>
             <div class="post-nav-item">
@@ -537,7 +537,7 @@
 
 <div class="copyright">
   &copy; 
-  <span itemprop="copyrightYear">2025</span>
+  <span itemprop="copyrightYear">2026</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -554,7 +554,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">18:30</span>
+    <span title="站点阅读时长">18:33</span>
   </span>
 </div>
 

@@ -108,9 +108,9 @@
   <ul class="main-menu menu">
         <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
         <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
-        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">61</span></a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">62</span></a></li>
         <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">18</span></a></li>
-        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">283</span></a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">284</span></a></li>
         <li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
@@ -183,7 +183,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">283</span>
+          <span class="site-state-item-count">284</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -194,7 +194,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">61</span>
+        <span class="site-state-item-count">62</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -226,6 +226,11 @@
 	</div>
 	<ul class="links-of-blogroll-list recent-posts-list">
 	        <li class="my-links-of-blogroll-item">
+		    <a href="/posts/25a7b671/" title="Navidrome、Audiobookshelf 客户端推荐【自测】" target="">
+		    Navidrome、Audiobookshelf 客户端推荐【自测】
+		    </a>
+		</li>
+	        <li class="my-links-of-blogroll-item">
 		    <a href="/posts/4b8ad329/" title="WindowsPE和MacOS安装盘二合一制作方法" target="">
 		    WindowsPE和MacOS安装盘二合一制作方法
 		    </a>
@@ -243,11 +248,6 @@
 	        <li class="my-links-of-blogroll-item">
 		    <a href="/posts/7ac8a987/" title="HIFI日记：HQPlayer embedded （HQPlayer OS）嵌入版使用教程" target="">
 		    HIFI日记：HQPlayer embedded （HQPlayer OS）嵌入版使用教程
-		    </a>
-		</li>
-	        <li class="my-links-of-blogroll-item">
-		    <a href="/posts/eb18152/" title="OpenCore添加ubuntu引导，引导双系统" target="">
-		    OpenCore添加ubuntu引导，引导双系统
 		    </a>
 		</li>
 	</ul>
@@ -421,10 +421,10 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">def <span class="title function_">dp</span><span class="params">(K, N)</span>:</span><br><span class="line">    <span class="keyword">for</span> <span class="number">1</span> &lt;= i &lt;= N:</span><br><span class="line">        # 最坏情况下的最少扔鸡蛋次数</span><br><span class="line">        res = min(res, </span><br><span class="line">                  max( </span><br><span class="line">                        dp(K - <span class="number">1</span>, i - <span class="number">1</span>), # 碎</span><br><span class="line">                        dp(K, N - i)      # 没碎</span><br><span class="line">                     ) + <span class="number">1</span> # 在第 i 楼扔了一次</span><br><span class="line">                 )</span><br><span class="line">    <span class="keyword">return</span> res</span><br></pre></td></tr></table></figure>
 
 <p>递归的 base case 很容易理解：当楼层数<code>N</code>等于 0 时，显然不需要扔鸡蛋；当鸡蛋数<code>K</code>为 1 时，显然只能线性扫描所有楼层：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">def <span class="title function_">dp</span><span class="params">(K, N)</span>:</span><br><span class="line">    <span class="type">if</span> <span class="variable">K</span> <span class="operator">=</span>= <span class="number">1</span>: <span class="keyword">return</span> N</span><br><span class="line">    <span class="type">if</span> <span class="variable">N</span> <span class="operator">=</span>= <span class="number">0</span>: <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">    ...</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">def <span class="title function_">dp</span><span class="params">(K, N)</span>:</span><br><span class="line">    <span class="keyword">if</span> K == <span class="number">1</span>: <span class="keyword">return</span> N</span><br><span class="line">    <span class="keyword">if</span> N == <span class="number">0</span>: <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">    ...</span><br></pre></td></tr></table></figure>
 
 <p>至此，其实这道题就解决了！只要添加一个备忘录消除重叠子问题即可：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">def <span class="title function_">superEggDrop</span><span class="params">(K: <span class="type">int</span>, N: <span class="type">int</span>)</span>:</span><br><span class="line"></span><br><span class="line">    memo = dict()</span><br><span class="line">    def <span class="title function_">dp</span><span class="params">(K, N)</span> -&gt; <span class="type">int</span>:</span><br><span class="line">        # base <span class="keyword">case</span></span><br><span class="line">        <span class="type">if</span> <span class="variable">K</span> <span class="operator">=</span>= <span class="number">1</span>: <span class="keyword">return</span> N</span><br><span class="line">        <span class="type">if</span> <span class="variable">N</span> <span class="operator">=</span>= <span class="number">0</span>: <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">        # 避免重复计算</span><br><span class="line">        <span class="keyword">if</span> (K, N) in memo:</span><br><span class="line">            <span class="keyword">return</span> memo[(K, N)]</span><br><span class="line"></span><br><span class="line">        res = <span class="type">float</span>(<span class="string">&#x27;INF&#x27;</span>)</span><br><span class="line">        # 穷举所有可能的选择</span><br><span class="line">        <span class="keyword">for</span> i in <span class="title function_">range</span><span class="params">(<span class="number">1</span>, N + <span class="number">1</span>)</span>:</span><br><span class="line">            res = min(res, </span><br><span class="line">                      max(</span><br><span class="line">                            dp(K, N - i), </span><br><span class="line">                            dp(K - <span class="number">1</span>, i - <span class="number">1</span>)</span><br><span class="line">                         ) + <span class="number">1</span></span><br><span class="line">                  )</span><br><span class="line">        # 记入备忘录</span><br><span class="line">        memo[(K, N)] = res</span><br><span class="line">        <span class="keyword">return</span> res</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> dp(K, N)</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">def <span class="title function_">superEggDrop</span><span class="params">(K: <span class="type">int</span>, N: <span class="type">int</span>)</span>:</span><br><span class="line"></span><br><span class="line">    memo = dict()</span><br><span class="line">    def <span class="title function_">dp</span><span class="params">(K, N)</span> -&gt; <span class="type">int</span>:</span><br><span class="line">        # base <span class="keyword">case</span></span><br><span class="line">        <span class="keyword">if</span> K == <span class="number">1</span>: <span class="keyword">return</span> N</span><br><span class="line">        <span class="keyword">if</span> N == <span class="number">0</span>: <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">        # 避免重复计算</span><br><span class="line">        <span class="keyword">if</span> (K, N) in memo:</span><br><span class="line">            <span class="keyword">return</span> memo[(K, N)]</span><br><span class="line"></span><br><span class="line">        res = <span class="type">float</span>(<span class="string">&#x27;INF&#x27;</span>)</span><br><span class="line">        # 穷举所有可能的选择</span><br><span class="line">        <span class="keyword">for</span> i in <span class="title function_">range</span><span class="params">(<span class="number">1</span>, N + <span class="number">1</span>)</span>:</span><br><span class="line">            res = min(res, </span><br><span class="line">                      max(</span><br><span class="line">                            dp(K, N - i), </span><br><span class="line">                            dp(K - <span class="number">1</span>, i - <span class="number">1</span>)</span><br><span class="line">                         ) + <span class="number">1</span></span><br><span class="line">                  )</span><br><span class="line">        # 记入备忘录</span><br><span class="line">        memo[(K, N)] = res</span><br><span class="line">        <span class="keyword">return</span> res</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> dp(K, N)</span><br></pre></td></tr></table></figure>
 
 <p>这个算法的时间复杂度是多少呢？<strong>动态规划算法的时间复杂度就是子问题个数 × 函数本身的复杂度</strong>。</p>
 <p>函数本身的复杂度就是忽略递归部分的复杂度，这里<code>dp</code>函数中有一个 for 循环，所以函数本身的复杂度是 O(N)。</p>
@@ -494,8 +494,8 @@
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/posts/87975f1/" rel="next" title="经典动态规划：0-1 背包问题">
-                  经典动态规划：0-1 背包问题 <i class="fa fa-chevron-right"></i>
+                <a href="/posts/93bfdc7a/" rel="next" title="经典动态规划：戳气球问题">
+                  经典动态规划：戳气球问题 <i class="fa fa-chevron-right"></i>
                 </a>
             </div>
           </div>
@@ -518,7 +518,7 @@
 
 <div class="copyright">
   &copy; 
-  <span itemprop="copyrightYear">2025</span>
+  <span itemprop="copyrightYear">2026</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -535,7 +535,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">18:30</span>
+    <span title="站点阅读时长">18:33</span>
   </span>
 </div>
 

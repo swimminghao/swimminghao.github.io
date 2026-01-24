@@ -110,9 +110,9 @@
   <ul class="main-menu menu">
         <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
         <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
-        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">61</span></a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">62</span></a></li>
         <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">18</span></a></li>
-        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">283</span></a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">284</span></a></li>
         <li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
@@ -185,7 +185,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">283</span>
+          <span class="site-state-item-count">284</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -196,7 +196,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">61</span>
+        <span class="site-state-item-count">62</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -228,6 +228,11 @@
 	</div>
 	<ul class="links-of-blogroll-list recent-posts-list">
 	        <li class="my-links-of-blogroll-item">
+		    <a href="/posts/25a7b671/" title="Navidrome、Audiobookshelf 客户端推荐【自测】" target="">
+		    Navidrome、Audiobookshelf 客户端推荐【自测】
+		    </a>
+		</li>
+	        <li class="my-links-of-blogroll-item">
 		    <a href="/posts/4b8ad329/" title="WindowsPE和MacOS安装盘二合一制作方法" target="">
 		    WindowsPE和MacOS安装盘二合一制作方法
 		    </a>
@@ -245,11 +250,6 @@
 	        <li class="my-links-of-blogroll-item">
 		    <a href="/posts/7ac8a987/" title="HIFI日记：HQPlayer embedded （HQPlayer OS）嵌入版使用教程" target="">
 		    HIFI日记：HQPlayer embedded （HQPlayer OS）嵌入版使用教程
-		    </a>
-		</li>
-	        <li class="my-links-of-blogroll-item">
-		    <a href="/posts/eb18152/" title="OpenCore添加ubuntu引导，引导双系统" target="">
-		    OpenCore添加ubuntu引导，引导双系统
 		    </a>
 		</li>
 	</ul>
@@ -407,10 +407,10 @@
 
 <p>安装好以后，<strong>千万不要立即执行 OneDrive</strong>！因为 OneDrive 自身也内嵌了更新机制， 一旦启动了 OneDrive，它就会自作聪明地自作主张， 把我们好不容易装上去的旧版更新为无法启动的最新版。</p>
 <h2 id="关闭自动更新"><a href="#关闭自动更新" class="headerlink" title="关闭自动更新"></a>关闭自动更新</h2><p>一个 OneDrive，三个更新进程，我们索性把它们全关掉：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">launchctl remove com.microsoft.OneDriveStandaloneUpdater</span><br><span class="line">sudo launchctl remove com.microsoft.OneDriveStandaloneUpdaterDaemon</span><br><span class="line">sudo launchctl remove com.microsoft.OneDriveUpdaterDaemon</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">launchctl remove com.microsoft.OneDriveStandaloneUpdater</span><br><span class="line"><span class="built_in">sudo</span> launchctl remove com.microsoft.OneDriveStandaloneUpdaterDaemon</span><br><span class="line"><span class="built_in">sudo</span> launchctl remove com.microsoft.OneDriveUpdaterDaemon</span><br></pre></td></tr></table></figure>
 
 <p>一不做二不休，配置文件也删了好了：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo <span class="built_in">rm</span> /Library/LaunchAgents/com.microsoft.OneDriveStandaloneUpdater.plist</span><br><span class="line">sudo <span class="built_in">rm</span> /Library/LaunchDaemons/com.microsoft.OneDriveStandaloneUpdaterDaemon.plist</span><br><span class="line">sudo <span class="built_in">rm</span> /Library/LaunchDaemons/com.microsoft.OneDriveUpdaterDaemon.plist</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> <span class="built_in">rm</span> /Library/LaunchAgents/com.microsoft.OneDriveStandaloneUpdater.plist</span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">rm</span> /Library/LaunchDaemons/com.microsoft.OneDriveStandaloneUpdaterDaemon.plist</span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">rm</span> /Library/LaunchDaemons/com.microsoft.OneDriveUpdaterDaemon.plist</span><br></pre></td></tr></table></figure>
 
 <p>这时我们再启动 OneDrive，整个世界清净了。</p>
 <h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>如果你还在使用 catalina，并且也在使用 OneDrive 时，那么大概率会遇到这个问题， 其实我理解微软的做法，淘汰某个古老系统是正常的，更新也是按正常逻辑运行的， 但是两个加在一起，老系统就不正常了，这不能作为让用户承担问题的理由， 起码应该下发一个版本，停止旧版本的自动更新，再接下来向新系统下发更新。 不过我的牢骚微软应该是听不到的，如果你也有这个问题，那么请按以下步骤尝试：</p>
@@ -498,7 +498,7 @@
 
 <div class="copyright">
   &copy; 
-  <span itemprop="copyrightYear">2025</span>
+  <span itemprop="copyrightYear">2026</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -515,7 +515,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">18:30</span>
+    <span title="站点阅读时长">18:33</span>
   </span>
 </div>
 

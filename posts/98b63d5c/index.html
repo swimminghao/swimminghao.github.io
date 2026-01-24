@@ -105,9 +105,9 @@
   <ul class="main-menu menu">
         <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
         <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
-        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">61</span></a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">62</span></a></li>
         <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">18</span></a></li>
-        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">283</span></a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">284</span></a></li>
         <li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
@@ -180,7 +180,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">283</span>
+          <span class="site-state-item-count">284</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -191,7 +191,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">61</span>
+        <span class="site-state-item-count">62</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -223,6 +223,11 @@
 	</div>
 	<ul class="links-of-blogroll-list recent-posts-list">
 	        <li class="my-links-of-blogroll-item">
+		    <a href="/posts/25a7b671/" title="Navidrome、Audiobookshelf 客户端推荐【自测】" target="">
+		    Navidrome、Audiobookshelf 客户端推荐【自测】
+		    </a>
+		</li>
+	        <li class="my-links-of-blogroll-item">
 		    <a href="/posts/4b8ad329/" title="WindowsPE和MacOS安装盘二合一制作方法" target="">
 		    WindowsPE和MacOS安装盘二合一制作方法
 		    </a>
@@ -240,11 +245,6 @@
 	        <li class="my-links-of-blogroll-item">
 		    <a href="/posts/7ac8a987/" title="HIFI日记：HQPlayer embedded （HQPlayer OS）嵌入版使用教程" target="">
 		    HIFI日记：HQPlayer embedded （HQPlayer OS）嵌入版使用教程
-		    </a>
-		</li>
-	        <li class="my-links-of-blogroll-item">
-		    <a href="/posts/eb18152/" title="OpenCore添加ubuntu引导，引导双系统" target="">
-		    OpenCore添加ubuntu引导，引导双系统
 		    </a>
 		</li>
 	</ul>
@@ -405,12 +405,12 @@
 <p>这个技巧是十分好用的，这样就免了经常写完整的路径名称，节约不少时间。</p>
 <p>需要注意的是，以上操作是 bash 支持的，其他主流 shell 解释器当然都支持 扩展 cd 命令的搜索目录，但可能不是修改 CDPATH 这个变量，具体的设 置方法可以自行搜索。</p>
 <h2 id="输入重复命令太麻烦"><a href="#输入重复命令太麻烦" class="headerlink" title="输入重复命令太麻烦"></a>输入重复命令太麻烦</h2><p>** <strong>使用特殊命令</strong> <strong>!!</strong> <strong>，可以自动替换成上一次使用的命令</strong>:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ apt install net-tools</span><br><span class="line"> E: Could not open lock file - open (13: Permission denied)</span><br><span class="line"></span><br><span class="line">$ sudo !!</span><br><span class="line"> sudo apt install net-tools [sudo] password <span class="keyword">for</span> fdl:</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ apt install net-tools</span><br><span class="line"> E: Could not open lock file - open (13: Permission denied)</span><br><span class="line"></span><br><span class="line">$ <span class="built_in">sudo</span> !!</span><br><span class="line"> <span class="built_in">sudo</span> apt install net-tools [<span class="built_in">sudo</span>] password <span class="keyword">for</span> fdl:</span><br></pre></td></tr></table></figure>
 
 <p>有的命令很⻓，一时间想不起来具体参数了怎么办?</p>
 <p><strong>对于</strong> <strong>bash</strong> <strong>终端，可以使用</strong> <strong>Ctrl+R</strong> <strong>快捷键反向搜索历史命令</strong>，之所以说是 反向搜索，就是搜索最近一次输入的命令。</p>
 <p>比如按下 Ctrl+R 之后，输入 sudo ，bash 就会搜索出最近一次包含 sudo 的命令，你回⻋之后就可以运行该命令了:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(reverse-i-search)`sudo<span class="string">&#x27;: sudo apt install git</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(reverse-i-search)`<span class="built_in">sudo</span><span class="string">&#x27;: sudo apt install git</span></span><br></pre></td></tr></table></figure>
 
 <p>但是这个方法有缺点:首先，该功能似乎只有 bash 支持，我用的 zsh 作为 shell 终端，就用不了;第二，只能查找出一个(最近的)命令，如果我想 找以前的某个命令，就没办法了。</p>
 <p>对于这种情况，<strong>我们最常用的方法是使用</strong> <strong>history</strong> <strong>命令配合管道符和</strong> <strong>grep</strong> <strong>命令来寻找某个历史命令</strong>:</p>
@@ -429,7 +429,7 @@
 <p>我们安装某些软件的时候，可能有交互式的提问:</p>
 </li>
 </ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt install XXX</span><br><span class="line">...</span><br><span class="line">XXX will use 996 MB disk space, <span class="built_in">continue</span>? [y/n]</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">sudo</span> apt install XXX</span><br><span class="line">...</span><br><span class="line">XXX will use 996 MB disk space, <span class="built_in">continue</span>? [y/n]</span><br></pre></td></tr></table></figure>
 
 <p>一般情况下我们都是一路 y 到底，但如果我们想自动化一些软件的安装就很 烦，遇到这种交互式提问就卡住了，还得手动处理。</p>
 <p>yes 命令可以帮助我们:</p>
@@ -529,7 +529,7 @@
 
 <div class="copyright">
   &copy; 
-  <span itemprop="copyrightYear">2025</span>
+  <span itemprop="copyrightYear">2026</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -546,7 +546,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">18:30</span>
+    <span title="站点阅读时长">18:33</span>
   </span>
 </div>
 

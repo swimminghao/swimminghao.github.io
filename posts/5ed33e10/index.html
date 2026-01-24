@@ -121,9 +121,9 @@
   <ul class="main-menu menu">
         <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
         <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
-        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">61</span></a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">62</span></a></li>
         <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">18</span></a></li>
-        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">283</span></a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">284</span></a></li>
         <li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
@@ -196,7 +196,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">283</span>
+          <span class="site-state-item-count">284</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -207,7 +207,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">61</span>
+        <span class="site-state-item-count">62</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -239,6 +239,11 @@
 	</div>
 	<ul class="links-of-blogroll-list recent-posts-list">
 	        <li class="my-links-of-blogroll-item">
+		    <a href="/posts/25a7b671/" title="Navidrome、Audiobookshelf 客户端推荐【自测】" target="">
+		    Navidrome、Audiobookshelf 客户端推荐【自测】
+		    </a>
+		</li>
+	        <li class="my-links-of-blogroll-item">
 		    <a href="/posts/4b8ad329/" title="WindowsPE和MacOS安装盘二合一制作方法" target="">
 		    WindowsPE和MacOS安装盘二合一制作方法
 		    </a>
@@ -256,11 +261,6 @@
 	        <li class="my-links-of-blogroll-item">
 		    <a href="/posts/7ac8a987/" title="HIFI日记：HQPlayer embedded （HQPlayer OS）嵌入版使用教程" target="">
 		    HIFI日记：HQPlayer embedded （HQPlayer OS）嵌入版使用教程
-		    </a>
-		</li>
-	        <li class="my-links-of-blogroll-item">
-		    <a href="/posts/eb18152/" title="OpenCore添加ubuntu引导，引导双系统" target="">
-		    OpenCore添加ubuntu引导，引导双系统
 		    </a>
 		</li>
 	</ul>
@@ -425,7 +425,7 @@
 
 <p>在<code>docker-compose.yml</code>当前目录下，创建<code>prometheus.yml</code>文件，它将<code>prometheus</code>与<code>exporter</code>服务关联起来。</p>
 <p>prometheus.yml</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Prometheus全局配置项</span></span><br><span class="line"><span class="attr">global:</span></span><br><span class="line">  <span class="attr">scrape_interval:</span> <span class="string">15s</span> <span class="comment"># 设定抓取数据的周期，默认为1min</span></span><br><span class="line">  <span class="attr">evaluation_interval:</span> <span class="string">15s</span> <span class="comment"># 设定更新rules文件的周期，默认为1min</span></span><br><span class="line">  <span class="attr">scrape_timeout:</span> <span class="string">15s</span> <span class="comment"># 设定抓取数据的超时时间，默认为10s</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># scape配置</span></span><br><span class="line"><span class="attr">scrape_configs:</span></span><br><span class="line">  <span class="comment"># job_name默认写入timeseries的labels中，可以用于查询使用</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">job_name:</span> <span class="string">&#x27;prometheus&#x27;</span></span><br><span class="line">    <span class="attr">scrape_interval:</span> <span class="string">15s</span> <span class="comment"># 抓取周期，默认采用global配置</span></span><br><span class="line">    <span class="attr">static_configs:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">targets:</span> [<span class="string">&#x27;192.168.50.218:9090&#x27;</span>] <span class="comment"># prometheus所要抓取数据的地址，即instance实例项</span></span><br><span class="line"></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">job_name:</span> <span class="string">&#x27;node&#x27;</span></span><br><span class="line">    <span class="attr">scrape_interval:</span> <span class="string">8s</span></span><br><span class="line">    <span class="attr">static_configs:</span></span><br><span class="line">     <span class="bullet">-</span> <span class="attr">targets:</span> [<span class="string">&#x27;192.168.50.218:9100&#x27;</span>]</span><br><span class="line">       <span class="attr">labels:</span></span><br><span class="line">         <span class="attr">instance:</span> <span class="string">node</span></span><br><span class="line"></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">job_name:</span> <span class="string">&#x27;cadvisor&#x27;</span></span><br><span class="line">    <span class="attr">static_configs:</span></span><br><span class="line">     <span class="bullet">-</span> <span class="attr">targets:</span> [<span class="string">&#x27;192.168.50.218:8899&#x27;</span>]</span><br><span class="line">     <span class="attr">labels:</span></span><br><span class="line">         <span class="attr">instance:</span> <span class="string">cadvisor</span></span><br><span class="line"></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">job_name:</span> <span class="string">&#x27;redis_exporter&#x27;</span></span><br><span class="line">    <span class="attr">static_configs:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">targets:</span> [ <span class="string">&#x27;192.168.50.218:9121&#x27;</span> ]</span><br><span class="line">        <span class="attr">labels:</span></span><br><span class="line">          <span class="attr">instance:</span> <span class="string">redis</span></span><br><span class="line"></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">job_name:</span> <span class="string">&#x27;mysql_exporter&#x27;</span></span><br><span class="line">    <span class="attr">static_configs:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">targets:</span> [ <span class="string">&#x27;192.168.50.218:9104&#x27;</span> ]</span><br><span class="line">        <span class="attr">labels:</span></span><br><span class="line">          <span class="attr">instance:</span> <span class="string">mysql</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Prometheus全局配置项</span></span><br><span class="line"><span class="params">global:</span></span><br><span class="line">  <span class="params">scrape_interval:</span> <span class="number">15</span>s <span class="comment"># 设定抓取数据的周期，默认为1min</span></span><br><span class="line">  <span class="params">evaluation_interval:</span> <span class="number">15</span>s <span class="comment"># 设定更新rules文件的周期，默认为1min</span></span><br><span class="line">  <span class="params">scrape_timeout:</span> <span class="number">15</span>s <span class="comment"># 设定抓取数据的超时时间，默认为10s</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># scape配置</span></span><br><span class="line"><span class="params">scrape_configs:</span></span><br><span class="line">  <span class="comment"># job_name默认写入timeseries的labels中，可以用于查询使用</span></span><br><span class="line">  <span class="operator">-</span> <span class="params">job_name:</span> &#x27;prometheus&#x27;</span><br><span class="line">    <span class="params">scrape_interval:</span> <span class="number">15</span>s <span class="comment"># 抓取周期，默认采用global配置</span></span><br><span class="line">    <span class="params">static_configs:</span></span><br><span class="line">    <span class="operator">-</span> <span class="params">targets:</span> [&#x27;<span class="number">192.168</span>.<span class="number">50.218</span>:<span class="number">9090</span>&#x27;] <span class="comment"># prometheus所要抓取数据的地址，即instance实例项</span></span><br><span class="line"></span><br><span class="line">  <span class="operator">-</span> <span class="params">job_name:</span> &#x27;node&#x27;</span><br><span class="line">    <span class="params">scrape_interval:</span> <span class="number">8</span>s</span><br><span class="line">    <span class="params">static_configs:</span></span><br><span class="line">     <span class="operator">-</span> <span class="params">targets:</span> [&#x27;<span class="number">192.168</span>.<span class="number">50.218</span>:<span class="number">9100</span>&#x27;]</span><br><span class="line">       <span class="params">labels:</span></span><br><span class="line">         <span class="params">instance:</span> node</span><br><span class="line"></span><br><span class="line">  <span class="operator">-</span> <span class="params">job_name:</span> &#x27;cadvisor&#x27;</span><br><span class="line">    <span class="params">static_configs:</span></span><br><span class="line">     <span class="operator">-</span> <span class="params">targets:</span> [&#x27;<span class="number">192.168</span>.<span class="number">50.218</span>:<span class="number">8899</span>&#x27;]</span><br><span class="line">     <span class="params">labels:</span></span><br><span class="line">         <span class="params">instance:</span> cadvisor</span><br><span class="line"></span><br><span class="line">  <span class="operator">-</span> <span class="params">job_name:</span> &#x27;redis_exporter&#x27;</span><br><span class="line">    <span class="params">static_configs:</span></span><br><span class="line">      <span class="operator">-</span> <span class="params">targets:</span> [ &#x27;<span class="number">192.168</span>.<span class="number">50.218</span>:<span class="number">9121</span>&#x27; ]</span><br><span class="line">        <span class="params">labels:</span></span><br><span class="line">          <span class="params">instance:</span> redis</span><br><span class="line"></span><br><span class="line">  <span class="operator">-</span> <span class="params">job_name:</span> &#x27;mysql_exporter&#x27;</span><br><span class="line">    <span class="params">static_configs:</span></span><br><span class="line">      <span class="operator">-</span> <span class="params">targets:</span> [ &#x27;<span class="number">192.168</span>.<span class="number">50.218</span>:<span class="number">9104</span>&#x27; ]</span><br><span class="line">        <span class="params">labels:</span></span><br><span class="line">          <span class="params">instance:</span> mysql</span><br></pre></td></tr></table></figure>
 
 <p>在<code>docker-compose.yml</code>以及<code>prometheus.yml</code>文件都准备好后，在当前目录下创建一个<code>run.sh</code>的脚本，方便快速启动服务，不用这个脚本，用脚本中的命令也可以。</p>
 <p>run.sh</p>
@@ -556,7 +556,7 @@
 
 <div class="copyright">
   &copy; 
-  <span itemprop="copyrightYear">2025</span>
+  <span itemprop="copyrightYear">2026</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -573,7 +573,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">18:30</span>
+    <span title="站点阅读时长">18:33</span>
   </span>
 </div>
 

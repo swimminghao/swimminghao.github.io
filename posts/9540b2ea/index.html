@@ -113,9 +113,9 @@
   <ul class="main-menu menu">
         <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
         <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
-        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">61</span></a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">62</span></a></li>
         <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">18</span></a></li>
-        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">283</span></a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">284</span></a></li>
         <li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
@@ -188,7 +188,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">283</span>
+          <span class="site-state-item-count">284</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -199,7 +199,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">61</span>
+        <span class="site-state-item-count">62</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -231,6 +231,11 @@
 	</div>
 	<ul class="links-of-blogroll-list recent-posts-list">
 	        <li class="my-links-of-blogroll-item">
+		    <a href="/posts/25a7b671/" title="Navidrome、Audiobookshelf 客户端推荐【自测】" target="">
+		    Navidrome、Audiobookshelf 客户端推荐【自测】
+		    </a>
+		</li>
+	        <li class="my-links-of-blogroll-item">
 		    <a href="/posts/4b8ad329/" title="WindowsPE和MacOS安装盘二合一制作方法" target="">
 		    WindowsPE和MacOS安装盘二合一制作方法
 		    </a>
@@ -248,11 +253,6 @@
 	        <li class="my-links-of-blogroll-item">
 		    <a href="/posts/7ac8a987/" title="HIFI日记：HQPlayer embedded （HQPlayer OS）嵌入版使用教程" target="">
 		    HIFI日记：HQPlayer embedded （HQPlayer OS）嵌入版使用教程
-		    </a>
-		</li>
-	        <li class="my-links-of-blogroll-item">
-		    <a href="/posts/eb18152/" title="OpenCore添加ubuntu引导，引导双系统" target="">
-		    OpenCore添加ubuntu引导，引导双系统
 		    </a>
 		</li>
 	</ul>
@@ -381,7 +381,7 @@
     
     <div class="post-body" itemprop="articleBody">
         <h1 id="将威联通NAS的目录通过NFS共享，并挂载到内网Docker宿主机，作为容器目录使用"><a href="#将威联通NAS的目录通过NFS共享，并挂载到内网Docker宿主机，作为容器目录使用" class="headerlink" title="将威联通NAS的目录通过NFS共享，并挂载到内网Docker宿主机，作为容器目录使用"></a>将威联通NAS的目录通过NFS共享，并挂载到内网Docker宿主机，作为容器目录使用</h1><h2 id="核心思路"><a href="#核心思路" class="headerlink" title="核心思路"></a>核心思路</h2><p>先将远程内网主机的共享目录挂载到 Docker 宿主机的一个本地目录上，然后再将这个本地目录作为数据卷（Volume）或绑定挂载（Bind Mount）提供给 Docker 容器使用。</p>
-<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[ 内网共享主机 (NAS/Samba Server) ]</span><br><span class="line">              <span class="string">|</span></span><br><span class="line">              <span class="string">| (网络共享协议，如 NFS/SMB)</span></span><br><span class="line">              <span class="string">|</span></span><br><span class="line">[Docker 宿主机 ]</span><br><span class="line">    <span class="string">| (本地文件系统挂载点，如 /mnt/nas/downloads)</span></span><br><span class="line">    <span class="string">|</span></span><br><span class="line">    <span class="string">| (Docker 卷或绑定挂载)</span></span><br><span class="line">    <span class="string">|</span></span><br><span class="line">[ Docker 容器 (如 Transmission, qBittorrent) ]</span><br></pre></td></tr></table></figure>
+<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[ 内网共享主机 <span class="punctuation">(</span>NAS/Samba Server<span class="punctuation">)</span> ]</span><br><span class="line">              <span class="string">|</span></span><br><span class="line">              <span class="string">| (网络共享协议，如 NFS/SMB)</span></span><br><span class="line">              <span class="string">|</span></span><br><span class="line">[Docker 宿主机 ]</span><br><span class="line">    <span class="string">| (本地文件系统挂载点，如 /mnt/nas/downloads)</span></span><br><span class="line">    <span class="string">|</span></span><br><span class="line">    <span class="string">| (Docker 卷或绑定挂载)</span></span><br><span class="line">    <span class="string">|</span></span><br><span class="line">[ Docker 容器 <span class="punctuation">(</span>如 Transmission<span class="punctuation">,</span> qBittorrent<span class="punctuation">)</span> ]</span><br></pre></td></tr></table></figure>
 
 
 
@@ -405,9 +405,9 @@
 <p>主机ip：<code>192.168.60.0/24</code> 是 <strong>CIDR（无类别域间路由）</strong> 的表示方法，它表示了一个包含256个IP地址的网络段，范围从192.168.60.0 到 192.168.60.255。。</p>
 <p>Squash：选择读写。需要docker宿主机能够读写共享目录。</p>
 <p>Squash选项：选择不Squash所有用户。</p>
-<h2 id="内网docker宿主机设置"><a href="#内网docker宿主机设置" class="headerlink" title="内网docker宿主机设置"></a>内网docker宿主机设置</h2><h3 id="创建挂载目录-mnt-nas-downloads"><a href="#创建挂载目录-mnt-nas-downloads" class="headerlink" title="创建挂载目录/mnt/nas/downloads"></a>创建挂载目录<code>/mnt/nas/downloads</code></h3><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo mkdir <span class="regexp">/mnt/</span>nas/downloads</span><br></pre></td></tr></table></figure>
+<h2 id="内网docker宿主机设置"><a href="#内网docker宿主机设置" class="headerlink" title="内网docker宿主机设置"></a>内网docker宿主机设置</h2><h3 id="创建挂载目录-mnt-nas-downloads"><a href="#创建挂载目录-mnt-nas-downloads" class="headerlink" title="创建挂载目录/mnt/nas/downloads"></a>创建挂载目录<code>/mnt/nas/downloads</code></h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> <span class="built_in">mkdir</span> /mnt/nas/downloads</span><br></pre></td></tr></table></figure>
 
-<h3 id="挂载在目录，192-168-50-218-x2F-pt"><a href="#挂载在目录，192-168-50-218-x2F-pt" class="headerlink" title="挂载在目录，192.168.50.218:&#x2F;pt"></a>挂载在目录，192.168.50.218:&#x2F;pt</h3><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo mount -t nfs4 -o rw,hard,intr,timeo=<span class="number">300</span>,retrans=<span class="number">3</span> <span class="number">192.168</span>.<span class="number">50.218</span>:<span class="regexp">/pt /m</span>nt<span class="regexp">/nas/</span>downloads</span><br></pre></td></tr></table></figure>
+<h3 id="挂载在目录，192-168-50-218-x2F-pt"><a href="#挂载在目录，192-168-50-218-x2F-pt" class="headerlink" title="挂载在目录，192.168.50.218:&#x2F;pt"></a>挂载在目录，192.168.50.218:&#x2F;pt</h3><figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">sudo</span> mount -t nfs4 -o rw,hard,intr,timeo=<span class="number">300</span>,retrans=<span class="number">3</span> <span class="number">192.168.50.218</span>:/pt /mnt/nas/downloads</span><br></pre></td></tr></table></figure>
 
 <p><strong>参数解释</strong>：</p>
 <ul>
@@ -545,7 +545,7 @@
 
 <div class="copyright">
   &copy; 
-  <span itemprop="copyrightYear">2025</span>
+  <span itemprop="copyrightYear">2026</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -562,7 +562,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">18:30</span>
+    <span title="站点阅读时长">18:33</span>
   </span>
 </div>
 
