@@ -411,6 +411,141 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/53bfd3b2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lion.png">
+      <meta itemprop="name" content="swimminghao">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="swimminghao's blog">
+      <meta itemprop="description" content="swimminghao的学习博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | swimminghao's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/53bfd3b2/" class="post-title-link" itemprop="url">git远程分支</a>
+        </h2>
+
+        <div class="post-meta-container">
+
+          
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-03-11 11:12:36" itemprop="dateModified" datetime="2022-03-11T11:12:36+08:00">2022-03-11</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/posts/53bfd3b2/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/53bfd3b2/" data-xid="/posts/53bfd3b2/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>1.3k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>1 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="从远程仓库获取最新代码合并到本地分支"><a href="#从远程仓库获取最新代码合并到本地分支" class="headerlink" title="从远程仓库获取最新代码合并到本地分支"></a>从远程仓库获取最新代码合并到本地分支</h1><p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/ApJp5Nk24a0_20201209094424.jpg" alt="ApJp5Nk24a0"></p>
+<p>这里共展示两类三种方式。</p>
+<h2 id="1-git-pull：获取最新代码到本地，并自动合并到当前分支"><a href="#1-git-pull：获取最新代码到本地，并自动合并到当前分支" class="headerlink" title="1.git pull：获取最新代码到本地，并自动合并到当前分支"></a>1.git pull：获取最新代码到本地，并自动合并到当前分支</h2><p>命令展示</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">//查询当前远程的版本</span><br><span class="line"><span class="meta">$ </span><span class="language-bash">git remote -v</span></span><br><span class="line">//直接拉取并合并最新代码</span><br><span class="line"><span class="meta">$ </span><span class="language-bash">git pull origin master [示例1：拉取远端origin/master分支并合并到当前分支]</span></span><br><span class="line"><span class="meta">$ </span><span class="language-bash">git pull origin dev [示例2：拉取远端origin/dev分支并合并到当前分支]12345</span></span><br></pre></td></tr></table></figure>
+
+<p>分析：不推荐这种方式，因为是直接合并，无法提前处理冲突。</p>
+<h2 id="2-git-fetch-merge-获取最新代码到本地，然后手动合并分支"><a href="#2-git-fetch-merge-获取最新代码到本地，然后手动合并分支" class="headerlink" title="2.git fetch + merge: 获取最新代码到本地，然后手动合并分支"></a>2.git fetch + merge: 获取最新代码到本地，然后手动合并分支</h2><h3 id="2-1-额外建立本地分支"><a href="#2-1-额外建立本地分支" class="headerlink" title="2.1.额外建立本地分支"></a>2.1.额外建立本地分支</h3><p>代码展示</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">//查看当前远程的版本</span><br><span class="line"><span class="meta">$ </span><span class="language-bash">git remote -v</span> </span><br><span class="line">//获取最新代码到本地临时分支(本地当前分支为[branch]，获取的远端的分支为[origin/branch])</span><br><span class="line"><span class="meta">$ </span><span class="language-bash">git fetch origin master:master1  [示例1：在本地建立master1分支，并下载远端的origin/master分支到master1分支中]</span></span><br><span class="line"><span class="meta">$ </span><span class="language-bash">git fetch origin dev:dev1[示例1：在本地建立dev1分支，并下载远端的origin/dev分支到dev1分支中]</span></span><br><span class="line">//查看版本差异</span><br><span class="line"><span class="meta">$ </span><span class="language-bash">git diff master1 [示例1：查看本地master1分支与当前分支的版本差异]</span></span><br><span class="line"><span class="meta">$ </span><span class="language-bash">git diff dev1    [示例2：查看本地dev1分支与当前分支的版本差异]</span></span><br><span class="line">//合并最新分支到本地分支</span><br><span class="line"><span class="meta">$ </span><span class="language-bash">git merge master1    [示例1：合并本地分支master1到当前分支]</span></span><br><span class="line"><span class="meta">$ </span><span class="language-bash">git merge dev1   [示例2：合并本地分支dev1到当前分支]</span></span><br><span class="line">//删除本地临时分支</span><br><span class="line"><span class="meta">$ </span><span class="language-bash">git branch -D master1    [示例1：删除本地分支master1]</span></span><br><span class="line"><span class="meta">$ </span><span class="language-bash">git branch -D dev1 [示例1：删除本地分支dev1]1234567891011121314</span></span><br></pre></td></tr></table></figure>
+
+<p>备注：不推荐这种方式，还需要额外对临时分支进行处理。</p>
+<h3 id="2-2-不额外建立本地分支"><a href="#2-2-不额外建立本地分支" class="headerlink" title="2.2.不额外建立本地分支"></a>2.2.不额外建立本地分支</h3><p>代码展示</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">//查询当前远程的版本</span><br><span class="line"><span class="meta">$ </span><span class="language-bash">git remote -v</span></span><br><span class="line">//获取最新代码到本地(本地当前分支为[branch]，获取的远端的分支为[origin/branch])</span><br><span class="line"><span class="meta">$ </span><span class="language-bash">git fetch origin master  [示例1：获取远端的origin/master分支]</span></span><br><span class="line"><span class="meta">$ </span><span class="language-bash">git fetch origin dev [示例2：获取远端的origin/dev分支]</span></span><br><span class="line">//查看版本差异</span><br><span class="line"><span class="meta">$ </span><span class="language-bash">git <span class="built_in">log</span> -p master..origin/master [示例1：查看本地master与远端origin/master的版本差异]</span></span><br><span class="line"><span class="meta">$ </span><span class="language-bash">git <span class="built_in">log</span> -p dev..origin/dev   [示例2：查看本地dev与远端origin/dev的版本差异]</span></span><br><span class="line">//合并最新代码到本地分支</span><br><span class="line"><span class="meta">$ </span><span class="language-bash">git merge origin/master  [示例1：合并远端分支origin/master到当前分支]</span></span><br><span class="line"><span class="meta">$ </span><span class="language-bash">git merge origin/dev [示例2：合并远端分支origin/dev到当前分支]1234567891011</span></span><br></pre></td></tr></table></figure>
+
+<p>备注：推荐这种方</p>
+
+      
+    </div>
+
+    
+    
+    
+
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>l
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://example.com/posts/e5591b74/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -535,141 +670,6 @@
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">error: src refspec master does not match any.</span><br></pre></td></tr></table></figure>
 
 <p>为什么会有这个报错呢？原因其实很简单，在没有使用 <code>git commit</code> 之前，由于这是一个新创建的<code>git</code>仓库，没有<code>master brench</code>，也就是并没有一个工作树可供推送至远程仓库，所以自然也就出错啦。</p>
-
-      
-    </div>
-
-    
-    
-    
-
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>l
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/53bfd3b2/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/lion.png">
-      <meta itemprop="name" content="swimminghao">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="swimminghao's blog">
-      <meta itemprop="description" content="swimminghao的学习博客">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | swimminghao's blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/53bfd3b2/" class="post-title-link" itemprop="url">git远程分支</a>
-        </h2>
-
-        <div class="post-meta-container">
-
-          
-
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-11 11:12:36" itemprop="dateModified" datetime="2022-03-11T11:12:36+08:00">2022-03-11</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="far fa-comment"></i>
-    </span>
-    <span class="post-meta-item-text">Waline：</span>
-  
-    <a title="waline" href="/posts/53bfd3b2/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/53bfd3b2/" data-xid="/posts/53bfd3b2/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>1.3k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>1 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="从远程仓库获取最新代码合并到本地分支"><a href="#从远程仓库获取最新代码合并到本地分支" class="headerlink" title="从远程仓库获取最新代码合并到本地分支"></a>从远程仓库获取最新代码合并到本地分支</h1><p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/ApJp5Nk24a0_20201209094424.jpg" alt="ApJp5Nk24a0"></p>
-<p>这里共展示两类三种方式。</p>
-<h2 id="1-git-pull：获取最新代码到本地，并自动合并到当前分支"><a href="#1-git-pull：获取最新代码到本地，并自动合并到当前分支" class="headerlink" title="1.git pull：获取最新代码到本地，并自动合并到当前分支"></a>1.git pull：获取最新代码到本地，并自动合并到当前分支</h2><p>命令展示</p>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">//查询当前远程的版本</span><br><span class="line"><span class="meta">$ </span><span class="language-bash">git remote -v</span></span><br><span class="line">//直接拉取并合并最新代码</span><br><span class="line"><span class="meta">$ </span><span class="language-bash">git pull origin master [示例1：拉取远端origin/master分支并合并到当前分支]</span></span><br><span class="line"><span class="meta">$ </span><span class="language-bash">git pull origin dev [示例2：拉取远端origin/dev分支并合并到当前分支]12345</span></span><br></pre></td></tr></table></figure>
-
-<p>分析：不推荐这种方式，因为是直接合并，无法提前处理冲突。</p>
-<h2 id="2-git-fetch-merge-获取最新代码到本地，然后手动合并分支"><a href="#2-git-fetch-merge-获取最新代码到本地，然后手动合并分支" class="headerlink" title="2.git fetch + merge: 获取最新代码到本地，然后手动合并分支"></a>2.git fetch + merge: 获取最新代码到本地，然后手动合并分支</h2><h3 id="2-1-额外建立本地分支"><a href="#2-1-额外建立本地分支" class="headerlink" title="2.1.额外建立本地分支"></a>2.1.额外建立本地分支</h3><p>代码展示</p>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">//查看当前远程的版本</span><br><span class="line"><span class="meta">$ </span><span class="language-bash">git remote -v</span> </span><br><span class="line">//获取最新代码到本地临时分支(本地当前分支为[branch]，获取的远端的分支为[origin/branch])</span><br><span class="line"><span class="meta">$ </span><span class="language-bash">git fetch origin master:master1  [示例1：在本地建立master1分支，并下载远端的origin/master分支到master1分支中]</span></span><br><span class="line"><span class="meta">$ </span><span class="language-bash">git fetch origin dev:dev1[示例1：在本地建立dev1分支，并下载远端的origin/dev分支到dev1分支中]</span></span><br><span class="line">//查看版本差异</span><br><span class="line"><span class="meta">$ </span><span class="language-bash">git diff master1 [示例1：查看本地master1分支与当前分支的版本差异]</span></span><br><span class="line"><span class="meta">$ </span><span class="language-bash">git diff dev1    [示例2：查看本地dev1分支与当前分支的版本差异]</span></span><br><span class="line">//合并最新分支到本地分支</span><br><span class="line"><span class="meta">$ </span><span class="language-bash">git merge master1    [示例1：合并本地分支master1到当前分支]</span></span><br><span class="line"><span class="meta">$ </span><span class="language-bash">git merge dev1   [示例2：合并本地分支dev1到当前分支]</span></span><br><span class="line">//删除本地临时分支</span><br><span class="line"><span class="meta">$ </span><span class="language-bash">git branch -D master1    [示例1：删除本地分支master1]</span></span><br><span class="line"><span class="meta">$ </span><span class="language-bash">git branch -D dev1 [示例1：删除本地分支dev1]1234567891011121314</span></span><br></pre></td></tr></table></figure>
-
-<p>备注：不推荐这种方式，还需要额外对临时分支进行处理。</p>
-<h3 id="2-2-不额外建立本地分支"><a href="#2-2-不额外建立本地分支" class="headerlink" title="2.2.不额外建立本地分支"></a>2.2.不额外建立本地分支</h3><p>代码展示</p>
-<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">//查询当前远程的版本</span><br><span class="line"><span class="meta">$ </span><span class="language-bash">git remote -v</span></span><br><span class="line">//获取最新代码到本地(本地当前分支为[branch]，获取的远端的分支为[origin/branch])</span><br><span class="line"><span class="meta">$ </span><span class="language-bash">git fetch origin master  [示例1：获取远端的origin/master分支]</span></span><br><span class="line"><span class="meta">$ </span><span class="language-bash">git fetch origin dev [示例2：获取远端的origin/dev分支]</span></span><br><span class="line">//查看版本差异</span><br><span class="line"><span class="meta">$ </span><span class="language-bash">git <span class="built_in">log</span> -p master..origin/master [示例1：查看本地master与远端origin/master的版本差异]</span></span><br><span class="line"><span class="meta">$ </span><span class="language-bash">git <span class="built_in">log</span> -p dev..origin/dev   [示例2：查看本地dev与远端origin/dev的版本差异]</span></span><br><span class="line">//合并最新代码到本地分支</span><br><span class="line"><span class="meta">$ </span><span class="language-bash">git merge origin/master  [示例1：合并远端分支origin/master到当前分支]</span></span><br><span class="line"><span class="meta">$ </span><span class="language-bash">git merge origin/dev [示例2：合并远端分支origin/dev到当前分支]1234567891011</span></span><br></pre></td></tr></table></figure>
-
-<p>备注：推荐这种方</p>
 
       
     </div>
