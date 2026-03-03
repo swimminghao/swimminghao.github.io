@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-loading-bar.css">
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.10.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="互联网是如何运作的：图解步骤详解当你阅读这篇文章时，你正在见证历史。过去五十年间，科技和互联网的功能发生了翻天覆地的变化，如今已成为我们日常生活中便捷的系统。 但正如你可能已经猜到的那样，互联网并非一直都是现在这个样子，也并非一直如此流行。事实上，在2000年，只有52%的美国成年人表示他们使用互联网；但到了2018年，这个数字跃升至82%[1]。 从最初让你来到这里的问题：“互联网是如何运作的？">
+<meta property="og:type" content="article">
+<meta property="og:title" content="互联网是如何运作的：图解步骤详解">
+<meta property="og:url" content="http://example.com/posts/be4b413c/index.html">
+<meta property="og:site_name" content="swimminghao&#39;s blog">
+<meta property="og:description" content="互联网是如何运作的：图解步骤详解当你阅读这篇文章时，你正在见证历史。过去五十年间，科技和互联网的功能发生了翻天覆地的变化，如今已成为我们日常生活中便捷的系统。 但正如你可能已经猜到的那样，互联网并非一直都是现在这个样子，也并非一直如此流行。事实上，在2000年，只有52%的美国成年人表示他们使用互联网；但到了2018年，这个数字跃升至82%[1]。 从最初让你来到这里的问题：“互联网是如何运作的？">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2026/03/03/5cbINW.png">
+<meta property="article:published_time" content="2026-03-03T15:18:28.000Z">
+<meta property="article:modified_time" content="2026-03-03T15:19:30.879Z">
+<meta property="article:author" content="swimminghao">
+<meta property="article:tag" content="网络">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2026/03/03/5cbINW.png">
+
+
+<link rel="canonical" href="http://example.com/posts/be4b413c/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/posts/be4b413c/","path":"posts/be4b413c/","title":"互联网是如何运作的：图解步骤详解"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>互联网是如何运作的：图解步骤详解 | swimminghao's blog</title>
+  
+
+
+
+
+<link rel="dns-prefetch" href="waline-server-nu.vercel.app"><link rel="stylesheet" href="//cdn.jsdelivr.net/gh/theme-next/theme-next-needmoreshare2@1/needsharebutton.min.css"><style>
+#needsharebutton-postbottom {
+  cursor: pointer;
+  height: 26px;
+  margin-top: 10px;
+  position: relative;
+}
+#needsharebutton-postbottom .btn {
+  border: 1px solid $btn-default-border-color;
+  border-radius: 3px;
+  display: initial;
+  padding: 1px 4px;
+}
+</style>
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">swimminghao's blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">学习博客</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">64</span></a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">20</span></a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">285</span></a></li>
+        <li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%92%E8%81%94%E7%BD%91%E6%98%AF%E5%A6%82%E4%BD%95%E8%BF%90%E4%BD%9C%E7%9A%84%EF%BC%9A%E5%9B%BE%E8%A7%A3%E6%AD%A5%E9%AA%A4%E8%AF%A6%E8%A7%A3"><span class="nav-number">1.</span> <span class="nav-text">互联网是如何运作的：图解步骤详解</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%92%E8%81%94%E7%BD%91%E5%9C%A8%E6%88%91%E4%BB%AC%E7%9A%84%E6%97%A5%E5%B8%B8%E7%94%9F%E6%B4%BB%E4%B8%AD%E6%89%AE%E6%BC%94%E7%9D%80%E9%87%8D%E8%A6%81%E7%9A%84%E8%A7%92%E8%89%B2%E3%80%82"><span class="nav-number">1.0.1.</span> <span class="nav-text">互联网在我们的日常生活中扮演着重要的角色。</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%92%E8%81%94%E7%BD%91%E7%AE%80%E5%8F%B2"><span class="nav-number">1.1.</span> <span class="nav-text">互联网简史</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%A8%E8%BF%99%E4%B8%AA%E9%98%B6%E6%AE%B5%EF%BC%8C%E8%B0%81%E4%BD%BF%E7%94%A8%E4%BA%86%E4%BA%92%E8%81%94%E7%BD%91%EF%BC%9F"><span class="nav-number">1.1.1.</span> <span class="nav-text">在这个阶段，谁使用了互联网？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%92%E8%81%94%E7%BD%91%E7%9A%84%E5%8A%9F%E8%83%BD%E6%98%AF%E5%A6%82%E4%BD%95%E4%BB%A5%E5%8F%8A%E4%BD%95%E6%97%B6%E5%8F%91%E7%94%9F%E5%8F%98%E5%8C%96%E7%9A%84%EF%BC%9F"><span class="nav-number">1.1.2.</span> <span class="nav-text">互联网的功能是如何以及何时发生变化的？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%92%E8%81%94%E7%BD%91%E4%BD%95%E6%97%B6%E5%8F%98%E5%BE%97%E7%94%A8%E6%88%B7%E5%8F%8B%E5%A5%BD%EF%BC%9F"><span class="nav-number">1.1.3.</span> <span class="nav-text">互联网何时变得用户友好？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B6%88%E8%B4%B9%E8%80%85%E6%98%AF%E4%BB%80%E4%B9%88%E6%97%B6%E5%80%99%E5%BC%80%E5%A7%8B%E4%BD%BF%E7%94%A8%E4%BA%92%E8%81%94%E7%BD%91%E7%9A%84%EF%BC%9F"><span class="nav-number">1.1.4.</span> <span class="nav-text">消费者是什么时候开始使用互联网的？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E4%BB%8A%E4%BA%92%E8%81%94%E7%BD%91%E7%9A%84%E4%BD%BF%E7%94%A8%E6%83%85%E5%86%B5%E5%A6%82%E4%BD%95%EF%BC%9F"><span class="nav-number">1.1.5.</span> <span class="nav-text">如今互联网的使用情况如何？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%92%E8%81%94%E7%BD%91%E6%98%AF%E5%A6%82%E4%BD%95%E8%BF%90%E4%BD%9C%E7%9A%84%EF%BC%9F"><span class="nav-number">1.2.</span> <span class="nav-text">互联网是如何运作的？</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BD%93%E4%BD%A0%E5%9C%A8%E6%B5%8F%E8%A7%88%E5%99%A8%E4%B8%AD%E8%BE%93%E5%85%A5%E7%BD%91%E5%9D%80%E6%97%B6%E2%80%A6%E2%80%A6"><span class="nav-number">1.2.1.</span> <span class="nav-text">当你在浏览器中输入网址时……</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%92%E8%81%94%E7%BD%91%E7%9A%84%E6%9C%AA%E6%9D%A5"><span class="nav-number">1.3.</span> <span class="nav-text">互联网的未来</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%92%E8%81%94%E7%BD%91%E7%AE%80%E5%8F%B2-1"><span class="nav-number">1.4.</span> <span class="nav-text">互联网简史</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%87%8D%E5%A4%A7%E7%AA%81%E7%A0%B4-2"><span class="nav-number">1.4.1.</span> <span class="nav-text">重大突破[2]</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%92%E8%81%94%E7%BD%91%E6%98%AF%E5%A6%82%E4%BD%95%E8%BF%90%E4%BD%9C%E7%9A%84%EF%BC%9F-1"><span class="nav-number">1.4.2.</span> <span class="nav-text">互联网是如何运作的？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B6%88%E6%81%AF-%E6%95%B0%E6%8D%AE%E5%8C%85"><span class="nav-number">1.4.3.</span> <span class="nav-text">消息 + 数据包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%92%E8%81%94%E7%BD%91%E5%8D%8F%E8%AE%AE%EF%BC%88IP%EF%BC%89"><span class="nav-number">1.4.4.</span> <span class="nav-text">互联网协议（IP）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%A0%E8%BE%93%E6%8E%A7%E5%88%B6%E5%8D%8F%E8%AE%AE%EF%BC%88TCP%EF%BC%89"><span class="nav-number">1.4.5.</span> <span class="nav-text">传输控制协议（TCP）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%8A%E7%BD%91%E6%97%B6%E4%BC%9A%E5%8F%91%E7%94%9F%E4%BB%80%E4%B9%88%E2%80%A6%E2%80%A6"><span class="nav-number">1.4.5.1.</span> <span class="nav-text">上网时会发生什么……</span></a></li></ol></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="swimminghao"
+      src="/images/lion.png">
+  <p class="site-author-name" itemprop="name">swimminghao</p>
+  <div class="site-description" itemprop="description">swimminghao的学习博客</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">285</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">20</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">64</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/swimminghao" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;swimminghao" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:swimminghao0@gmail.com" title="E-Mail → mailto:swimminghao0@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/swimminghao" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;swimminghao" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://plus.google.com/yourname" title="Google → https:&#x2F;&#x2F;plus.google.com&#x2F;yourname" rel="noopener" target="_blank"><i class="fab fa-google fa-fw"></i>Google</a>
+      </span>
+  </div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdn.jsdelivr.net/npm/@creativecommons/vocabulary@2020.11.3/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+<!-- recent posts -->
+    <div class="links-of-blogroll motion-element links-of-blogroll-block">
+        <div class="links-of-blogroll-title recent-posts-title">
+	    <i class="fa fa-history " aria-hidden="true"></i>
+            近期文章
+	</div>
+	<ul class="links-of-blogroll-list recent-posts-list">
+	        <li class="my-links-of-blogroll-item">
+		    <a href="/posts/be4b413c/" title="互联网是如何运作的：图解步骤详解" target="">
+		    互联网是如何运作的：图解步骤详解
+		    </a>
+		</li>
+	        <li class="my-links-of-blogroll-item">
+		    <a href="/posts/f76f7f5/" title="从数据包的角度详细解析：网络运转" target="">
+		    从数据包的角度详细解析：网络运转
+		    </a>
+		</li>
+	        <li class="my-links-of-blogroll-item">
+		    <a href="/posts/5a628c55/" title="小一文搞懂网络知识，IP、子网掩码、网关、DNS、端口" target="">
+		    小一文搞懂网络知识，IP、子网掩码、网关、DNS、端口
+		    </a>
+		</li>
+	        <li class="my-links-of-blogroll-item">
+		    <a href="/posts/cade8c22/" title="VIM多光标插件——vim-visual-multi" target="">
+		    VIM多光标插件——vim-visual-multi
+		    </a>
+		</li>
+	        <li class="my-links-of-blogroll-item">
+		    <a href="/posts/42f323cf/" title="GT系列蓝牙双模键盘使用手册" target="">
+		    GT系列蓝牙双模键盘使用手册
+		    </a>
+		</li>
+	</ul>
+    </div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/be4b413c/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lion.png">
+      <meta itemprop="name" content="swimminghao">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="swimminghao's blog">
+      <meta itemprop="description" content="swimminghao的学习博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="互联网是如何运作的：图解步骤详解 | swimminghao's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          互联网是如何运作的：图解步骤详解
+        </h1>
+
+        <div class="post-meta-container">
+
+          
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2026-03-03 23:18:28 / 修改时间：23:19:30" itemprop="dateCreated datePublished" datetime="2026-03-03T23:18:28+08:00">2026-03-03</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E7%BD%91%E7%BB%9C/" itemprop="url" rel="index"><span itemprop="name">网络</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/posts/be4b413c/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/be4b413c/" data-xid="/posts/be4b413c/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>4.4k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>4 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="互联网是如何运作的：图解步骤详解"><a href="#互联网是如何运作的：图解步骤详解" class="headerlink" title="互联网是如何运作的：图解步骤详解"></a>互联网是如何运作的：图解步骤详解</h1><p>当你阅读这篇文章时，你正在见证历史。过去五十年间，科技和互联网的功能发生了翻天覆地的变化，如今已成为我们日常生活中便捷的系统。</p>
+<p>但正如你可能已经猜到的那样，互联网并非一直都是现在这个样子，也并非一直如此流行。事实上，在2000年，只有52%的美国成年人表示他们使用互联网；但到了2018年，这个数字跃升至82%[1]。</p>
+<p>从最初让你来到这里的问题：“互联网是如何运作的？”到网上购物、与家人朋友交流，互联网彻底改变了我们的生活、协作和学习方式。但这一切是如何开始的？互联网又是如何演变成我们今天所熟知的无处不在的系统呢？</p>
+<h3 id="互联网在我们的日常生活中扮演着重要的角色。"><a href="#互联网在我们的日常生活中扮演着重要的角色。" class="headerlink" title="互联网在我们的日常生活中扮演着重要的角色。"></a>互联网在我们的日常生活中扮演着重要的角色。</h3><ul>
+<li>2000 年，只有 52% 的美国成年人使用互联网 [1]</li>
+<li>2018年，这一数字跃升至89%。</li>
+<li>2013年，美国成年人中，只有8%的人在家不使用宽带互联网，但拥有智能手机。</li>
+<li>2018年，这一数字上升至20%。</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2026/03/03/5cbINW.png" alt="互联网如何运作信息图"></p>
+<p>要充分了解互联网的运作方式以及我们是如何走到今天的，我们需要从头开始。</p>
+<h2 id="互联网简史"><a href="#互联网简史" class="headerlink" title="互联网简史"></a>互联网简史</h2><p>1969 年 10 月 29 日，一个名为 ARPANET（高级研究计划署）的组织启动了互联网的第一个版本（也称为 ARPANET），连接了犹他大学、加州大学圣巴巴拉分校、加州大学洛杉矶分校和斯坦福研究所的四台主要计算机 [2]。</p>
+<p>当这个计算机网络连接起来后，大学就可以从一个组织到另一个组织以及在内部访问文件和传输信息。</p>
+<p>随着研究人员不断完善系统，他们持续连接其他大学的计算机，包括麻省理工学院、哈佛大学和卡内基梅隆大学。最终，ARPANET 更名为“互联网”。</p>
+<h3 id="在这个阶段，谁使用了互联网？"><a href="#在这个阶段，谁使用了互联网？" class="headerlink" title="在这个阶段，谁使用了互联网？"></a>在这个阶段，谁使用了互联网？</h3><p>互联网早期只有计算机专家、科学家、工程师和图书管理员使用，他们必须学习复杂的系统才能使用它，但随着技术的进步和消费者的适应，它成为了世界各地人们必不可少的工具。</p>
+<h3 id="互联网的功能是如何以及何时发生变化的？"><a href="#互联网的功能是如何以及何时发生变化的？" class="headerlink" title="互联网的功能是如何以及何时发生变化的？"></a>互联网的功能是如何以及何时发生变化的？</h3><p>20世纪70年代是互联网发展的重要转型时期。电子邮件于1972年问世，全国各地的图书馆实现了互联互通，最重要的是，由于传输控制协议和互联网协议（TCP&#x2F;IP）架构的出现，信息交换变得更加顺畅。</p>
+<p>这些协议的发明有助于规范通过网络发送和接收信息的方式，使信息传输更加一致，无论你在哪里或以何种方式访问互联网。</p>
+<h3 id="互联网何时变得用户友好？"><a href="#互联网何时变得用户友好？" class="headerlink" title="互联网何时变得用户友好？"></a>互联网何时变得用户友好？</h3><p>1986年，美国国家科学基金会通过资助NSFNET（一个遍布全国的超级计算机网络），将互联网的发展推向了新的高度。</p>
+<p>这些超级计算机为个人计算奠定了基础，弥合了仅用于学术目的的计算机和用于执行日常任务的计算机之间的差距。</p>
+<p>1991年，明尼苏达大学开发了第一个用户友好的互联网界面，使用户能够更便捷地访问校园文件和信息。内华达大学里诺分校在此基础上继续完善这一易用界面，并引入了搜索功能和索引功能。</p>
+<h3 id="消费者是什么时候开始使用互联网的？"><a href="#消费者是什么时候开始使用互联网的？" class="headerlink" title="消费者是什么时候开始使用互联网的？"></a>消费者是什么时候开始使用互联网的？</h3><p>随着互联网的发展不断演变和重点转移，美国国家科学基金会于 1995 年 5 月停止了对互联网骨干网 (NSFNET) 的赞助。</p>
+<p>这一变革取消了互联网商业用途的所有限制，并最终促成了互联网的多元化发展和快速增长。此后不久，AOL、CompuServe 和 Prodigy 也加入了 Delphi 的行列，开始向消费者提供商业互联网服务。</p>
+<p><a target="_blank" rel="noopener" href="https://www.hp.com/us-en/shop/tech-takes/how-to-boost-wifi-signal">上世纪九十年代末， WiFi</a>和 Windows 98的问世标志着科技行业致力于发展互联网的商业化。这一举措使微软等公司得以接触到新的受众群体——消费者（比如您）。</p>
+<h3 id="如今互联网的使用情况如何？"><a href="#如今互联网的使用情况如何？" class="headerlink" title="如今互联网的使用情况如何？"></a>如今互联网的使用情况如何？</h3><p>快进到今天。据估计，现在有 30 亿人使用互联网，其中许多人每天都使用互联网来帮助他们从 A 点到达 B 点、与亲人联系、在工作中协作，或者了解更多重要问题，例如互联网是如何运作的？[3]</p>
+<p>随着科技的进步和互联网渗透到我们生活的方方面面，预计会有更多人使用互联网。研究人员预测，到 2030 年，互联网用户将达到 75 亿，连接到互联网的设备将达到 5000 亿台 [4]。</p>
+<h2 id="互联网是如何运作的？"><a href="#互联网是如何运作的？" class="headerlink" title="互联网是如何运作的？"></a>互联网是如何运作的？</h2><p>现在你已经对互联网的发展历程有了一些了解，让我们来探讨一下当前的问题：“互联网是如何运作的？”</p>
+<p>互联网是一个全球性的计算机网络，它通过互连的设备传输各种数据和媒体。它的工作原理是使用数据包路由网络，该网络遵循互联网协议 (IP) 和传输控制协议 (TCP) [5]。</p>
+<p>TCP 和 IP 协同工作，确保无论你使用什么设备或在哪里使用，互联网上的数据传输都是一致且可靠的。</p>
+<p>数据通过互联网传输时，是以消息和数据包的形式进行的。通过互联网发送的数据称为消息，但在发送消息之前，消息会被分解成更小的部分，称为数据包。</p>
+<p>这些消息和数据包使用互联网协议 (IP) 和传输控制协议 (TCP) 从一台计算机传输到另一台计算机。IP 是一套规则系统，用于管理信息如何通过互联网连接从一台计算机发送到另一台计算机。</p>
+<p>通过数字地址（IP 地址），IP 系统接收有关如何传输数据的进一步指令。</p>
+<p>传输控制协议 (TCP) 与 IP 协同工作，确保数据传输的可靠性和稳定性。这有助于防止数据包丢失，确保数据包按正确顺序重组，并避免因延迟而对数据质量产生负面影响。</p>
+<p>想知道从浏览器启动到搜索结果，互联网是如何运作的吗？让我们一步一步地了解这个过程[7][8][9]。</p>
+<h3 id="当你在浏览器中输入网址时……"><a href="#当你在浏览器中输入网址时……" class="headerlink" title="当你在浏览器中输入网址时……"></a>当你在浏览器中输入网址时……</h3><p><strong>步骤 1：您的电脑或设备通过</strong><a target="_blank" rel="noopener" href="https://www.hp.com/us-en/shop/tech-takes/modem-vs-router">调制解调器或路由器</a>连接到互联网。这些设备共同使您能够连接到全球其他网络 [6]。</p>
+<p>您的路由器使多台计算机能够加入同一网络，而调制解调器则连接到您的 ISP（互联网服务提供商），ISP 为您提供有线或 DSL 互联网服务。</p>
+<p><strong>步骤二：</strong>输入网址，也称为URL（统一资源定位符）。每个网站都有其唯一的URL，它会告诉你的网络服务提供商（ISP）你想访问哪个网站。</p>
+<p><strong>步骤 3：</strong>您的查询被推送至您的 ISP，ISP 连接到多个服务器，这些服务器存储和发送数据，例如 NAP 服务器（网络访问保护）和 DNS（域名服务器）。</p>
+<p>接下来，你的浏览器会通过 DNS 查找你在搜索引擎中输入的域名对应的 IP 地址。DNS 会将你在浏览器中输入的文本域名转换成数字 IP 地址。</p>
+<ul>
+<li>例如：Google.com 变为 64.233.191.255</li>
+</ul>
+<p><strong>步骤 4：</strong>您的浏览器向目标服务器发送超文本传输协议 (HTTP) 请求，以使用 TCP&#x2F;IP 将网站的副本发送到客户端。</p>
+<p><strong>第五步：</strong>服务器批准请求后，会向您的计算机发送“200 OK”消息。然后，服务器以数据包的形式将网站文件发送到浏览器。</p>
+<p><strong>步骤 6：</strong>当浏览器重新组装数据包时，网站加载完毕，您可以学习、购物、浏览和互动。</p>
+<p><strong>第七步：</strong>尽情享受搜索结果吧！</p>
+<h2 id="互联网的未来"><a href="#互联网的未来" class="headerlink" title="互联网的未来"></a>互联网的未来</h2><p>无论您是在查找有关互联网如何运作的信息、在线观看您最喜欢的电影，还是在网上浏览旅游优惠，不可否认的是，互联网<em>带我们去了很多地方</em>，而且它还将继续这样做！</p>
+<p><em>虽然现在</em>互联网似乎没有发生什么变化，但很有可能，当我们回顾过去，看到我们走了多远，我们使用这项技术的方式发生了多大的变化，最终，我们会发现，我们自己也是互联网历史的一部分。</p>
+<p>[1] 皮尤互联网研究中心；<a target="_blank" rel="noopener" href="https://www.pewinternet.org/fact-sheet/internet-broadband/">互联网&#x2F;宽带概况介绍</a></p>
+<p>[2] 沃尔特·豪；<a target="_blank" rel="noopener" href="http://www.walthowe.com/navnet/history.html">《互联网简史》</a></p>
+<p>[3] 资金；<a target="_blank" rel="noopener" href="http://money.com/money/3896219/internet-users-worldwide/">以下是互联网用户数量</a></p>
+<p>[4] 思科；<a target="_blank" rel="noopener" href="https://www.cisco.com/c/dam/en/us/products/collateral/se/internet-of-things/at-a-glance-c45-731471.pdf">物联网</a></p>
+<p>[5] Lifewire；<a target="_blank" rel="noopener" href="https://www.lifewire.com/tcp-transmission-control-protocol-3426736">TCP（传输控制协议）详解</a></p>
+<p>[6] Mozilla；<a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web/How_the_Web_works">网络如何运作</a></p>
+<p>[7] 事物是如何运作的；<a target="_blank" rel="noopener" href="https://www.howtogeek.com/341866/how-does-the-internet-work/">互联网是如何运作的？</a></p>
+<p>[8] 如何成为极客；<a target="_blank" rel="noopener" href="https://www.howtogeek.com/341866/how-does-the-internet-work/">互联网是如何运作的？</a></p>
+<p>[9] Medium，<a target="_blank" rel="noopener" href="https://medium.com/@User3141592/how-does-the-internet-work-edc2e22e7eb8">《互联网是如何运作的》</a></p>
+<h2 id="互联网简史-1"><a href="#互联网简史-1" class="headerlink" title="互联网简史"></a>互联网简史</h2><p>几个世纪以来，哲学家和作家们一直在构想一个共享的世界知识库。我们今天所知的互联网是如何形成的？</p>
+<h3 id="重大突破-2"><a href="#重大突破-2" class="headerlink" title="重大突破[2]"></a>重大突破[2]</h3><ul>
+<li><strong>1969 年 10 月 29 日：</strong> ARPANET（后来更名为互联网）成功建立了加州大学洛杉矶分校和斯坦福研究所之间的连接。</li>
+<li><strong>20 世纪 60 年代末：</strong>图书馆实现了目录的自动化和联网，不再依赖于 ARPANET。</li>
+<li><strong>20世纪70年代：</strong>传输控制协议和互联网协议（TCP&#x2F;IP）的建立，推动了互联网技术的成熟。这些协议的发明有助于规范信息在网络上的发送和接收方式。</li>
+<li><strong>1986年：</strong>美国国家科学基金会资助了NSFNET，它是互联网56Kbps的主干网。当时由于联邦资金用于运营和维护，因此存在一些商业限制。</li>
+<li><strong>1991年：</strong>创建了用户友好的互联网界面。</li>
+<li><strong>1992 年 7 月：</strong> Delphi 成为第一家提供互联网接入的全国性商业在线服务商。</li>
+<li><strong>1995年5月：</strong>互联网上所有商业用途的限制都被取消。这使得互联网得以多元化发展并迅速壮大。</li>
+<li><strong>1997年：</strong> WiFi发明。</li>
+<li><strong>1998年：</strong> Windows 98上市。</li>
+<li><strong>2007年：</strong>智能手机广泛普及。</li>
+<li><strong>2009年：</strong> 4G网络推出。</li>
+<li><strong>如今：全球</strong>有30亿人使用互联网。[3]</li>
+<li><strong>到 2030 年：</strong>预计互联网用户将达到 75 亿，连接到互联网的设备将达到 5000 亿台。[4]</li>
+</ul>
+<h3 id="互联网是如何运作的？-1"><a href="#互联网是如何运作的？-1" class="headerlink" title="互联网是如何运作的？"></a>互联网是如何运作的？</h3><p>互联网是一个全球性的计算机网络，它通过互联设备传输各种数据和媒体。它的工作原理是利用数据包路由网络，该网络遵循互联网协议（IP）和传输控制协议（TCP）。[5]</p>
+<h3 id="消息-数据包"><a href="#消息-数据包" class="headerlink" title="消息 + 数据包"></a>消息 + 数据包</h3><ul>
+<li>通过互联网发送的数据称为消息。</li>
+<li>信息在发送之前会被分割成称为数据包的小部分。</li>
+</ul>
+<h3 id="互联网协议（IP）"><a href="#互联网协议（IP）" class="headerlink" title="互联网协议（IP）"></a>互联网协议（IP）</h3><ul>
+<li>管理信息如何通过互联网连接从一台计算机发送到另一台计算机的规则</li>
+<li>规定了计算机应如何通过发送附带数字地址（IP 地址）的数据来向其他计算机发送信息。<ul>
+<li><strong>公共 IP 地址：</strong>可通过互联网访问</li>
+<li><strong>私有IP地址：</strong>分配给封闭网络（例如家庭网络或企业网络）中的设备，该网络无法通过互联网访问。</li>
+</ul>
+</li>
+</ul>
+<h3 id="传输控制协议（TCP）"><a href="#传输控制协议（TCP）" class="headerlink" title="传输控制协议（TCP）"></a>传输控制协议（TCP）</h3><ul>
+<li>与 IP 协同工作，确保数据传输的可靠性和稳定性。</li>
+<li>无丢包，无延迟影响数据质量，数据包按正确顺序重新组装。</li>
+</ul>
+<h4 id="上网时会发生什么……"><a href="#上网时会发生什么……" class="headerlink" title="上网时会发生什么……"></a>上网时会发生什么……</h4><p><strong>步骤 1：</strong>您的电脑或设备通过调制解调器或路由器连接到互联网，从而可以连接到全球其他网络。[6]</p>
+<p>路由器允许多台计算机加入同一网络，而调制解调器连接到您的互联网服务提供商 (ISP)，ISP 提供有线或 DSL 互联网。</p>
+<p>你的个人电脑被称为客户端，而不是服务器。</p>
+<ul>
+<li>客户端计算机通过互联网服务提供商 (ISP) 连接到互联网。<ul>
+<li><strong>例如：</strong>您的手机连接到移动网络或您的笔记本电脑连接到 WiFi。</li>
+</ul>
+</li>
+<li>服务器是直接连接到互联网的计算机。<ul>
+<li><strong>例如：</strong>存储网页、网站或应用程序的计算机。</li>
+</ul>
+</li>
+</ul>
+<p><strong>步骤二：</strong>输入网址，也称为URL。URL是统一资源定位符的缩写。</p>
+<p><strong>步骤 3：</strong>您的查询将被处理并推送至您的 ISP。您的 ISP 拥有多个服务器，用于存储和发送数据，例如 NAP 服务器（网络访问保护）和 DNS（域名服务器）。</p>
+<p>您的浏览器会通过 DNS 查找您在浏览器中输入的域名对应的 IP 地址。</p>
+<ul>
+<li>DNS 将您在浏览器中输入的基于文本的域名转换为基于数字的 IP 地址。<ul>
+<li><strong>例如：</strong> Google.com 变为 64.233.191.255</li>
+</ul>
+</li>
+</ul>
+<p><strong>步骤 4：</strong>浏览器向目标服务器发送超文本传输协议 (HTTP) 请求，以使用 TCP&#x2F;IP 将网站的副本发送给客户端。</p>
+<ul>
+<li><strong>HTTP：</strong>用于互联网通信的语言。</li>
+<li><strong>HTTPS：</strong> HTTP 的安全版本，您的浏览器和网站之间的所有通信都经过加密。</li>
+</ul>
+<p><strong>步骤五：</strong>服务器批准请求并向客户端计算机发送“200 OK”消息。然后，服务器以数据包的形式将网页文件发送到浏览器。</p>
+<p><strong>步骤 6：</strong>浏览器重新组装数据包，网页加载。</p>
+<p><strong>第七步：</strong>尽情上网吧！[7][8][9]</p>
+
+    </div>
+
+    
+    
+    
+
+
+    <div>
+      
+        <div>
+    
+      <div style="text-align:center;color: #ccc;font-size:20px;">------------- 本 文 结 束&nbsp&nbsp&nbsp&nbsp&nbsp感 谢 您 的 阅 读 -------------</div>
+    
+</div>
+
+      
+    </div>
+
+    <footer class="post-footer"><div class="post-widgets">
+      <div id="needsharebutton-postbottom">
+        <span class="btn">
+          <i class="fa fa-share-alt" aria-hidden="true"></i>
+        </span>
+      </div>
+    </div>
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>swimminghao
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://example.com/posts/be4b413c/" title="互联网是如何运作的：图解步骤详解">http://example.com/posts/be4b413c/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/%E7%BD%91%E7%BB%9C/" rel="tag"><i class="fa fa-tag"></i> 网络</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/posts/f76f7f5/" rel="prev" title="从数据包的角度详细解析：网络运转">
+                  <i class="fa fa-chevron-left"></i> 从数据包的角度详细解析：网络运转
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>l
+
+
+
+
+
+
+    <div class="comments" id="waline-comments"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2026</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">swimminghao</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">777k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">11:46</span>
+  </span>
+</div>
+
+<span id="sitetime"></span>
+<script language=javascript>
+    function siteTime(){
+        window.setTimeout("siteTime()", 1000);
+        var seconds = 1000;
+        var minutes = seconds * 60;
+        var hours = minutes * 60;
+        var days = hours * 24;
+        var years = days * 365;
+        var today = new Date();
+        var todayYear = today.getFullYear();
+        var todayMonth = today.getMonth()+1;
+        var todayDate = today.getDate();
+        var todayHour = today.getHours();
+        var todayMinute = today.getMinutes();
+        var todaySecond = today.getSeconds();
+        /* Date.UTC() -- 返回date对象距世界标准时间(UTC)1970年1月1日午夜之间的毫秒数(时间戳)
+        year - 作为date对象的年份，为4位年份值
+        month - 0-11之间的整数，做为date对象的月份
+        day - 1-31之间的整数，做为date对象的天数
+        hours - 0(午夜24点)-23之间的整数，做为date对象的小时数
+        minutes - 0-59之间的整数，做为date对象的分钟数
+        seconds - 0-59之间的整数，做为date对象的秒数
+        microseconds - 0-999之间的整数，做为date对象的毫秒数 */
+        var t1 = Date.UTC(2022,02,28,00,00,00); //你的建站时间
+        var t2 = Date.UTC(todayYear,todayMonth,todayDate,todayHour,todayMinute,todaySecond);
+        var diff = t2-t1;
+        var diffYears = Math.floor(diff/years);
+        var diffDays = Math.floor((diff/days)-diffYears*365);
+        var diffHours = Math.floor((diff-(diffYears*365+diffDays)*days)/hours);
+        var diffMinutes = Math.floor((diff-(diffYears*365+diffDays)*days-diffHours*hours)/minutes);
+        var diffSeconds = Math.floor((diff-(diffYears*365+diffDays)*days-diffHours*hours-diffMinutes*minutes)/seconds);
+        document.getElementById("sitetime").innerHTML=" 本站已安全运行 "+diffYears+" Year "+diffDays+" Days "+diffHours+" Hours "+diffMinutes+" m "+diffSeconds+" s";
+    }
+    siteTime();
+</script>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        访问人数：<span id="busuanzi_value_site_uv"></span>
+      </span>人
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+       访问总量：<span id="busuanzi_value_site_pv"></span>
+      </span>次
+    </span>
+
+
+<!--
+  本文总阅读量：<span id="busuanzi_value_page_pv"></span>次
+-->
+
+</div>
+
+
+<!--
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+--><script color="0,0,255" opacity="0.5" zIndex="-1" count="99" src="https://cdn.jsdelivr.net/npm/canvas-nest.js@1/dist/canvas-nest.js"></script>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<script class="next-config" data-name="waline" type="application/json">{"lang":"zh-cn","enable":true,"serverURL":"waline-server-nu.vercel.app","placeholder":"请文明评论呀","avatar":"mm","pageSize":10,"visitor":false,"comment_count":true,"requiredFields":[],"meta":["nick","mail","link"],"libUrl":"https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js","el":"#waline-comments","path":"/posts/be4b413c/"}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.waline.el).then(() => 
+    NexT.utils.getScript(CONFIG.waline.libUrl, { condition: window.Waline })
+  ).then(() => {
+    new Waline(CONFIG.waline);
+  });
+});
+</script>
+  <script src="//cdn.jsdelivr.net/gh/theme-next/theme-next-needmoreshare2@1/needsharebutton.min.js"></script>
+  <script>
+      pbOptions = {};
+        pbOptions.iconStyle = "default";
+        pbOptions.boxForm = "horizontal";
+        pbOptions.position = "middleCenter";
+        pbOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+  </script>
+</body>
+</html>
