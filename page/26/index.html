@@ -276,153 +276,6 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/5624fad4/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/lion.png">
-      <meta itemprop="name" content="swimminghao">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="swimminghao's blog">
-      <meta itemprop="description" content="swimminghao的学习博客">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | swimminghao's blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/5624fad4/" class="post-title-link" itemprop="url">Dockerfile</a>
-        </h2>
-
-        <div class="post-meta-container">
-
-          
-
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-11-09 14:20:45" itemprop="dateModified" datetime="2022-11-09T14:20:45+08:00">2022-11-09</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="far fa-comment"></i>
-    </span>
-    <span class="post-meta-item-text">Waline：</span>
-  
-    <a title="waline" href="/posts/5624fad4/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/5624fad4/" data-xid="/posts/5624fad4/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>3.4k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>3 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="Docker相关指令"><a href="#Docker相关指令" class="headerlink" title="Docker相关指令"></a>Docker相关指令</h1><h2 id="docker镜像运行以及日志"><a href="#docker镜像运行以及日志" class="headerlink" title="docker镜像运行以及日志"></a>docker镜像运行以及日志</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">❯ docker run --restart=always -d --name holer-client -e PARAMS=<span class="string">&quot;www.swimminghao.top 6060 51c45156bf1c4a82b4e6ffff2150b65e&quot;</span> swimminghao/holer-client:latest</span><br><span class="line">❯ docker run -d --name holer-server --restart=always --network=host -p 600:600 -p 6060:6060 -p 6443:6443 -p 11000-11010:11000-11010 swimminghao/holer-server:latest</span><br><span class="line">❯ docker logs -f 1ed9a5d6f0cc</span><br></pre></td></tr></table></figure>
-
-<h2 id="Dockerfile-打包jar成docker镜像"><a href="#Dockerfile-打包jar成docker镜像" class="headerlink" title="Dockerfile 打包jar成docker镜像"></a>Dockerfile 打包jar成docker镜像</h2><figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">dockerfile1</span><br><span class="line"><span class="keyword">FROM</span> openjdk:<span class="number">8</span>-jdk-alpine</span><br><span class="line"><span class="keyword">VOLUME</span><span class="language-bash"> /tmp</span></span><br><span class="line"><span class="keyword">ADD</span><span class="language-bash"> ./holer-client.jar holer-client.jar</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> <span class="built_in">echo</span> <span class="string">&quot;Asia/Shanghai&quot;</span> &gt; /etc/timezone</span></span><br><span class="line"><span class="keyword">ENV</span> PARAMS=</span><br><span class="line"><span class="keyword">ENTRYPOINT</span><span class="language-bash"> java -Djava.security.egd=file:/dev/./urandom -Duser.timezone=GMT+8 -jar /holer-client.jar <span class="variable">$&#123;PARAMS&#125;</span></span></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">dockerfile2</span><br><span class="line"><span class="keyword">FROM</span> openjdk:<span class="number">8</span>-jdk-alpine</span><br><span class="line"><span class="keyword">VOLUME</span><span class="language-bash"> /tmp</span></span><br><span class="line"><span class="keyword">ADD</span><span class="language-bash"> ./holer-client.jar holer-client.jar</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> <span class="built_in">echo</span> <span class="string">&quot;Asia/Shanghai&quot;</span> &gt; /etc/timezone</span></span><br><span class="line"><span class="keyword">ENV</span> PARAMS=</span><br><span class="line"><span class="keyword">ENV</span> JVM_XMS=<span class="string">&quot;256m&quot;</span></span><br><span class="line"><span class="keyword">ENV</span> JVM_XMX=<span class="string">&quot;256m&quot;</span></span><br><span class="line"><span class="keyword">ENTRYPOINT</span><span class="language-bash"> java -Xms<span class="variable">$&#123;JVM_XMS&#125;</span> -Xmx<span class="variable">$&#123;JVM_XMX&#125;</span> -Djava.security.egd=file:/dev/./urandom -Duser.timezone=GMT+8 -jar /holer-client.jar <span class="variable">$&#123;PARAMS&#125;</span></span></span><br></pre></td></tr></table></figure>
-
-<p>dockerfile和jar包放同一文件夹，再执行下面指令</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">❯ docker build -t swimminghao/holer-client:latest .</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">FROM</span> openjdk:<span class="number">8</span>-jdk-alpine</span><br><span class="line"><span class="keyword">VOLUME</span><span class="language-bash"> /tmp</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">ARG</span> JAR_FILE=./holer-server.jar</span><br><span class="line"><span class="comment">#ARG PORT=8090</span></span><br><span class="line"><span class="keyword">ARG</span> TIME_ZONE=Asia/Shanghai</span><br><span class="line"></span><br><span class="line"><span class="keyword">ENV</span> TZ=$&#123;TIME_ZONE&#125;</span><br><span class="line"><span class="keyword">ENV</span> JVM_XMS=<span class="string">&quot;256m&quot;</span></span><br><span class="line"><span class="keyword">ENV</span> JVM_XMX=<span class="string">&quot;256m&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">COPY</span><span class="language-bash"> <span class="variable">$&#123;JAR_FILE&#125;</span> holer-server.jar</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">EXPOSE</span> <span class="number">600</span></span><br><span class="line"><span class="keyword">EXPOSE</span> <span class="number">6060</span></span><br><span class="line"><span class="keyword">EXPOSE</span> <span class="number">6443</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">ENTRYPOINT</span><span class="language-bash"> java -Xms<span class="variable">$&#123;JVM_XMS&#125;</span> -Xmx<span class="variable">$&#123;JVM_XMX&#125;</span> -Djava.security.egd=file:/dev/./urandom -server -jar holer-server.jar</span></span><br></pre></td></tr></table></figure>
-
-<p>dockerfile和jar包放同一文件夹，再执行下面指令</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">❯ docker build -t swimminghao/holer-server:latest .</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/nuW6sf_20221108211749.png"></p>
-<h2 id="docker容器停止以及镜像删除"><a href="#docker容器停止以及镜像删除" class="headerlink" title="docker容器停止以及镜像删除"></a>docker容器停止以及镜像删除</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">❯ docker ps -a</span><br><span class="line">❯ docker pull seanhongxing/holer-server</span><br><span class="line">❯ docker stop f8ca94969ba0 &amp;&amp; docker <span class="built_in">rm</span> f8ca94969ba0</span><br><span class="line">❯ docker image <span class="built_in">ls</span> -a</span><br><span class="line">❯ docker image <span class="built_in">rm</span> f8ca94969ba0</span><br></pre></td></tr></table></figure>
-
-<h2 id="docker镜像反推Dockerfile："><a href="#docker镜像反推Dockerfile：" class="headerlink" title="docker镜像反推Dockerfile："></a>docker镜像反推Dockerfile：</h2><h3 id="1、指令"><a href="#1、指令" class="headerlink" title="1、指令"></a>1、指令</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">❯ docker <span class="built_in">history</span> &lt;83d576a828a8&gt; --format <span class="string">&quot;&#123;&#123;.CreatedBy&#125;&#125;&quot;</span> --no-trunc |<span class="built_in">tac</span> | awk <span class="string">&#x27;&#123;if($3~/nop/)&#123;for(i=1;i&lt;=3;i++)&#123;$i=&quot;&quot;&#125;;print substr($0,4)&#125;else&#123;print &quot;RUN&quot;,$0&#125;&#125;&#x27;</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="2、bash脚本"><a href="#2、bash脚本" class="headerlink" title="2、bash脚本"></a>2、bash脚本</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">❯ bash decompile.sh seanhongxing/holer-server</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="comment">#########################################################################</span></span><br><span class="line"><span class="comment"># File Name: dockerfile.sh</span></span><br><span class="line"><span class="comment"># Author: www.linuxea.com</span></span><br><span class="line"><span class="comment"># Version: 1</span></span><br><span class="line"><span class="comment"># Created Time: Thu 14 Feb 2019 10:52:01 AM CST</span></span><br><span class="line"><span class="comment">#########################################################################</span></span><br><span class="line"><span class="keyword">case</span> <span class="string">&quot;<span class="variable">$OSTYPE</span>&quot;</span> <span class="keyword">in</span></span><br><span class="line">    linux*)</span><br><span class="line">        docker <span class="built_in">history</span> --no-trunc --format <span class="string">&quot;&#123;&#123;.CreatedBy&#125;&#125;&quot;</span> <span class="variable">$1</span> | <span class="comment"># extract information from layers</span></span><br><span class="line">        <span class="built_in">tac</span>                                                    | <span class="comment"># reverse the file</span></span><br><span class="line">        sed <span class="string">&#x27;s,^\(|3.*\)\?/bin/\(ba\)\?sh -c,RUN,&#x27;</span>             | <span class="comment"># change /bin/(ba)?sh calls to RUN</span></span><br><span class="line">        sed <span class="string">&#x27;s,^RUN #(nop) *,,&#x27;</span>                                | <span class="comment"># remove RUN #(nop) calls for ENV,LABEL...</span></span><br><span class="line">        sed <span class="string">&#x27;s,  *&amp;&amp;  *, \\\n \&amp;\&amp; ,g&#x27;</span>                           <span class="comment"># pretty print multi command lines following Docker best practices</span></span><br><span class="line">    ;;</span><br><span class="line">    darwin*)</span><br><span class="line">        docker <span class="built_in">history</span> --no-trunc --format <span class="string">&quot;&#123;&#123;.CreatedBy&#125;&#125;&quot;</span> <span class="variable">$1</span> | <span class="comment"># extract information from layers</span></span><br><span class="line">        <span class="built_in">tail</span> -r                                                | <span class="comment"># reverse the file</span></span><br><span class="line">        sed -E <span class="string">&#x27;s,^(\|3.*)?/bin/(ba)?sh -c,RUN,&#x27;</span>               | <span class="comment"># change /bin/(ba)?sh calls to RUN</span></span><br><span class="line">        sed <span class="string">&#x27;s,^RUN #(nop) *,,&#x27;</span>                                | <span class="comment"># remove RUN #(nop) calls for ENV,LABEL...</span></span><br><span class="line">        sed $<span class="string">&#x27;s,  *&amp;&amp;  *, \\\ \\\n \&amp;\&amp; ,g&#x27;</span>                      <span class="comment"># pretty print multi command lines following Docker best practices</span></span><br><span class="line">    ;;</span><br><span class="line">    *)</span><br><span class="line">        <span class="built_in">echo</span> <span class="string">&quot;unknown OSTYPE: <span class="variable">$OSTYPE</span>&quot;</span></span><br><span class="line">    ;;</span><br><span class="line"><span class="keyword">esac</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="docker镜像下载jar包"><a href="#docker镜像下载jar包" class="headerlink" title="docker镜像下载jar包"></a>docker镜像下载jar包</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">//镜像导出</span><br><span class="line">❯ docker save -o ./client.tar seanhongxing/holer-client:latest</span><br><span class="line">//容器导出</span><br><span class="line">❯ docker <span class="built_in">export</span> seanhongxing/holer-client &gt; ./client.tar</span><br></pre></td></tr></table></figure>
-
-<p><strong>注：分层，jar包在某一层</strong></p>
-
-      
-    </div>
-
-    
-    
-    
-
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>l
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://example.com/posts/d664f3f3/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -540,356 +393,6 @@
 
 <p>这个id是你想要回到的那个节点，可以通过git log查看，可以只选前6位<br><strong>&#x2F;&#x2F; 撤销之后，你所做的已经commit的修改将会清除，仍在工作区&#x2F;暂存区的代码不会清除！</strong></p>
 
-      
-    </div>
-
-    
-    
-    
-
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>l
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/765d86b6/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/lion.png">
-      <meta itemprop="name" content="swimminghao">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="swimminghao's blog">
-      <meta itemprop="description" content="swimminghao的学习博客">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | swimminghao's blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/765d86b6/" class="post-title-link" itemprop="url">git.html</a>
-        </h2>
-
-        <div class="post-meta-container">
-
-          
-
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-13 12:56:04" itemprop="dateModified" datetime="2022-03-13T12:56:04+08:00">2022-03-13</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="far fa-comment"></i>
-    </span>
-    <span class="post-meta-item-text">Waline：</span>
-  
-    <a title="waline" href="/posts/765d86b6/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/765d86b6/" data-xid="/posts/765d86b6/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>15k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>13 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <!doctype html>
-<html>
-<head>
-<meta charset='UTF-8'><meta name='viewport' content='width=device-width initial-scale=1'>
-<title>git</title><style type='text/css'>html {overflow-x: initial !important;}:root { --bg-color:#ffffff; --text-color:#333333; --select-text-bg-color:#B5D6FC; --select-text-font-color:auto; --monospace:"Lucida Console",Consolas,"Courier",monospace; }
-html { font-size: 14px; background-color: var(--bg-color); color: var(--text-color); font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased; }
-body { margin: 0px; padding: 0px; height: auto; bottom: 0px; top: 0px; left: 0px; right: 0px; font-size: 1rem; line-height: 1.42857; overflow-x: hidden; background: inherit; tab-size: 4; }
-iframe { margin: auto; }
-a.url { word-break: break-all; }
-a:active, a:hover { outline: 0px; }
-.in-text-selection, ::selection { text-shadow: none; background: var(--select-text-bg-color); color: var(--select-text-font-color); }
-#write { margin: 0px auto; height: auto; width: inherit; word-break: normal; overflow-wrap: break-word; position: relative; white-space: normal; overflow-x: visible; padding-top: 40px; }
-#write.first-line-indent p { text-indent: 2em; }
-#write.first-line-indent li p, #write.first-line-indent p * { text-indent: 0px; }
-#write.first-line-indent li { margin-left: 2em; }
-.for-image #write { padding-left: 8px; padding-right: 8px; }
-body.typora-export { padding-left: 30px; padding-right: 30px; }
-.typora-export .footnote-line, .typora-export li, .typora-export p { white-space: pre-wrap; }
-@media screen and (max-width: 500px) {
-  body.typora-export { padding-left: 0px; padding-right: 0px; }
-  #write { padding-left: 20px; padding-right: 20px; }
-  .CodeMirror-sizer { margin-left: 0px !important; }
-  .CodeMirror-gutters { display: none !important; }
-}
-#write li > figure:last-child { margin-bottom: 0.5rem; }
-#write ol, #write ul { position: relative; }
-img { max-width: 100%; vertical-align: middle; }
-button, input, select, textarea { color: inherit; font: inherit; }
-input[type="checkbox"], input[type="radio"] { line-height: normal; padding: 0px; }
-*, ::after, ::before { box-sizing: border-box; }
-#write h1, #write h2, #write h3, #write h4, #write h5, #write h6, #write p, #write pre { width: inherit; }
-#write h1, #write h2, #write h3, #write h4, #write h5, #write h6, #write p { position: relative; }
-p { line-height: inherit; }
-h1, h2, h3, h4, h5, h6 { break-after: avoid-page; break-inside: avoid; orphans: 2; }
-p { orphans: 4; }
-h1 { font-size: 2rem; }
-h2 { font-size: 1.8rem; }
-h3 { font-size: 1.6rem; }
-h4 { font-size: 1.4rem; }
-h5 { font-size: 1.2rem; }
-h6 { font-size: 1rem; }
-.md-math-block, .md-rawblock, h1, h2, h3, h4, h5, h6, p { margin-top: 1rem; margin-bottom: 1rem; }
-.hidden { display: none; }
-.md-blockmeta { color: rgb(204, 204, 204); font-weight: 700; font-style: italic; }
-a { cursor: pointer; }
-sup.md-footnote { padding: 2px 4px; background-color: rgba(238, 238, 238, 0.7); color: rgb(85, 85, 85); border-radius: 4px; cursor: pointer; }
-sup.md-footnote a, sup.md-footnote a:hover { color: inherit; text-transform: inherit; text-decoration: inherit; }
-#write input[type="checkbox"] { cursor: pointer; width: inherit; height: inherit; }
-figure { overflow-x: auto; margin: 1.2em 0px; max-width: calc(100% + 16px); padding: 0px; }
-figure > table { margin: 0px !important; }
-tr { break-inside: avoid; break-after: auto; }
-thead { display: table-header-group; }
-table { border-collapse: collapse; border-spacing: 0px; width: 100%; overflow: auto; break-inside: auto; text-align: left; }
-table.md-table td { min-width: 32px; }
-.CodeMirror-gutters { border-right: 0px; background-color: inherit; }
-.CodeMirror-linenumber { user-select: none; }
-.CodeMirror { text-align: left; }
-.CodeMirror-placeholder { opacity: 0.3; }
-.CodeMirror pre { padding: 0px 4px; }
-.CodeMirror-lines { padding: 0px; }
-div.hr:focus { cursor: none; }
-#write pre { white-space: pre-wrap; }
-#write.fences-no-line-wrapping pre { white-space: pre; }
-#write pre.ty-contain-cm { white-space: normal; }
-.CodeMirror-gutters { margin-right: 4px; }
-.md-fences { font-size: 0.9rem; display: block; break-inside: avoid; text-align: left; overflow: visible; white-space: pre; background: inherit; position: relative !important; }
-.md-diagram-panel { width: 100%; margin-top: 10px; text-align: center; padding-top: 0px; padding-bottom: 8px; overflow-x: auto; }
-#write .md-fences.mock-cm { white-space: pre-wrap; }
-.md-fences.md-fences-with-lineno { padding-left: 0px; }
-#write.fences-no-line-wrapping .md-fences.mock-cm { white-space: pre; overflow-x: auto; }
-.md-fences.mock-cm.md-fences-with-lineno { padding-left: 8px; }
-.CodeMirror-line, twitterwidget { break-inside: avoid; }
-.footnotes { opacity: 0.8; font-size: 0.9rem; margin-top: 1em; margin-bottom: 1em; }
-.footnotes + .footnotes { margin-top: 0px; }
-.md-reset { margin: 0px; padding: 0px; border: 0px; outline: 0px; vertical-align: top; background: 0px 0px; text-decoration: none; text-shadow: none; float: none; position: static; width: auto; height: auto; white-space: nowrap; cursor: inherit; -webkit-tap-highlight-color: transparent; line-height: normal; font-weight: 400; text-align: left; box-sizing: content-box; direction: ltr; }
-li div { padding-top: 0px; }
-blockquote { margin: 1rem 0px; }
-li .mathjax-block, li p { margin: 0.5rem 0px; }
-li { margin: 0px; position: relative; }
-blockquote > :last-child { margin-bottom: 0px; }
-blockquote > :first-child, li > :first-child { margin-top: 0px; }
-.footnotes-area { color: rgb(136, 136, 136); margin-top: 0.714rem; padding-bottom: 0.143rem; white-space: normal; }
-#write .footnote-line { white-space: pre-wrap; }
-@media print {
-  body, html { border: 1px solid transparent; height: 99%; break-after: avoid; break-before: avoid; }
-  #write { margin-top: 0px; padding-top: 0px; border-color: transparent !important; }
-  .typora-export * { -webkit-print-color-adjust: exact; }
-  html.blink-to-pdf { font-size: 13px; }
-  .typora-export #write { padding-left: 32px; padding-right: 32px; padding-bottom: 0px; break-after: avoid; }
-  .typora-export #write::after { height: 0px; }
-}
-.footnote-line { margin-top: 0.714em; font-size: 0.7em; }
-a img, img a { cursor: pointer; }
-pre.md-meta-block { font-size: 0.8rem; min-height: 0.8rem; white-space: pre-wrap; background: rgb(204, 204, 204); display: block; overflow-x: hidden; }
-p > .md-image:only-child:not(.md-img-error) img, p > img:only-child { display: block; margin: auto; }
-p > .md-image:only-child { display: inline-block; width: 100%; }
-#write .MathJax_Display { margin: 0.8em 0px 0px; }
-.md-math-block { width: 100%; }
-.md-math-block:not(:empty)::after { display: none; }
-[contenteditable="true"]:active, [contenteditable="true"]:focus { outline: 0px; box-shadow: none; }
-.md-task-list-item { position: relative; list-style-type: none; }
-.task-list-item.md-task-list-item { padding-left: 0px; }
-.md-task-list-item > input { position: absolute; top: 0px; left: 0px; margin-left: -1.2em; margin-top: calc(1em - 10px); border: none; }
-.math { font-size: 1rem; }
-.md-toc { min-height: 3.58rem; position: relative; font-size: 0.9rem; border-radius: 10px; }
-.md-toc-content { position: relative; margin-left: 0px; }
-.md-toc-content::after, .md-toc::after { display: none; }
-.md-toc-item { display: block; color: rgb(65, 131, 196); }
-.md-toc-item a { text-decoration: none; }
-.md-toc-inner:hover { text-decoration: underline; }
-.md-toc-inner { display: inline-block; cursor: pointer; }
-.md-toc-h1 .md-toc-inner { margin-left: 0px; font-weight: 700; }
-.md-toc-h2 .md-toc-inner { margin-left: 2em; }
-.md-toc-h3 .md-toc-inner { margin-left: 4em; }
-.md-toc-h4 .md-toc-inner { margin-left: 6em; }
-.md-toc-h5 .md-toc-inner { margin-left: 8em; }
-.md-toc-h6 .md-toc-inner { margin-left: 10em; }
-@media screen and (max-width: 48em) {
-  .md-toc-h3 .md-toc-inner { margin-left: 3.5em; }
-  .md-toc-h4 .md-toc-inner { margin-left: 5em; }
-  .md-toc-h5 .md-toc-inner { margin-left: 6.5em; }
-  .md-toc-h6 .md-toc-inner { margin-left: 8em; }
-}
-a.md-toc-inner { font-size: inherit; font-style: inherit; font-weight: inherit; line-height: inherit; }
-.footnote-line a:not(.reversefootnote) { color: inherit; }
-.md-attr { display: none; }
-.md-fn-count::after { content: "."; }
-code, pre, samp, tt { font-family: var(--monospace); }
-kbd { margin: 0px 0.1em; padding: 0.1em 0.6em; font-size: 0.8em; color: rgb(36, 39, 41); background: rgb(255, 255, 255); border: 1px solid rgb(173, 179, 185); border-radius: 3px; box-shadow: rgba(12, 13, 14, 0.2) 0px 1px 0px, rgb(255, 255, 255) 0px 0px 0px 2px inset; white-space: nowrap; vertical-align: middle; }
-.md-comment { color: rgb(162, 127, 3); opacity: 0.8; font-family: var(--monospace); }
-code { text-align: left; vertical-align: initial; }
-a.md-print-anchor { white-space: pre !important; border-width: initial !important; border-style: none !important; border-color: initial !important; display: inline-block !important; position: absolute !important; width: 1px !important; right: 0px !important; outline: 0px !important; background: 0px 0px !important; text-decoration: initial !important; text-shadow: initial !important; }
-.md-inline-math .MathJax_SVG .noError { display: none !important; }
-.html-for-mac .inline-math-svg .MathJax_SVG { vertical-align: 0.2px; }
-.md-math-block .MathJax_SVG_Display { text-align: center; margin: 0px; position: relative; text-indent: 0px; max-width: none; max-height: none; min-height: 0px; min-width: 100%; width: auto; overflow-y: hidden; display: block !important; }
-.MathJax_SVG_Display, .md-inline-math .MathJax_SVG_Display { width: auto; margin: inherit; display: inline-block !important; }
-.MathJax_SVG .MJX-monospace { font-family: var(--monospace); }
-.MathJax_SVG .MJX-sans-serif { font-family: sans-serif; }
-.MathJax_SVG { display: inline; font-style: normal; font-weight: 400; line-height: normal; zoom: 90%; text-indent: 0px; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: normal; overflow-wrap: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0px; min-height: 0px; border: 0px; padding: 0px; margin: 0px; }
-.MathJax_SVG * { transition: none 0s ease 0s; }
-.MathJax_SVG_Display svg { vertical-align: middle !important; margin-bottom: 0px !important; margin-top: 0px !important; }
-.os-windows.monocolor-emoji .md-emoji { font-family: "Segoe UI Symbol", sans-serif; }
-.md-diagram-panel > svg { max-width: 100%; }
-[lang="mermaid"] svg, [lang="flow"] svg { max-width: 100%; height: auto; }
-[lang="mermaid"] .node text { font-size: 1rem; }
-table tr th { border-bottom: 0px; }
-video { max-width: 100%; display: block; margin: 0px auto; }
-iframe { max-width: 100%; width: 100%; border: none; }
-.highlight td, .highlight tr { border: 0px; }
-
-
-:root { --side-bar-bg-color: #fafafa; --control-text-color: #777; }
-html { font-size: 16px; }
-body { font-family: "Open Sans", "Clear Sans", "Helvetica Neue", Helvetica, Arial, sans-serif; color: rgb(51, 51, 51); line-height: 1.6; }
-#write { max-width: 860px; margin: 0px auto; padding: 30px 30px 100px; }
-#write > ul:first-child, #write > ol:first-child { margin-top: 30px; }
-a { color: rgb(65, 131, 196); }
-h1, h2, h3, h4, h5, h6 { position: relative; margin-top: 1rem; margin-bottom: 1rem; font-weight: bold; line-height: 1.4; cursor: text; }
-h1:hover a.anchor, h2:hover a.anchor, h3:hover a.anchor, h4:hover a.anchor, h5:hover a.anchor, h6:hover a.anchor { text-decoration: none; }
-h1 tt, h1 code { font-size: inherit; }
-h2 tt, h2 code { font-size: inherit; }
-h3 tt, h3 code { font-size: inherit; }
-h4 tt, h4 code { font-size: inherit; }
-h5 tt, h5 code { font-size: inherit; }
-h6 tt, h6 code { font-size: inherit; }
-h1 { padding-bottom: 0.3em; font-size: 2.25em; line-height: 1.2; border-bottom: 1px solid rgb(238, 238, 238); }
-h2 { padding-bottom: 0.3em; font-size: 1.75em; line-height: 1.225; border-bottom: 1px solid rgb(238, 238, 238); }
-h3 { font-size: 1.5em; line-height: 1.43; }
-h4 { font-size: 1.25em; }
-h5 { font-size: 1em; }
-h6 { font-size: 1em; color: rgb(119, 119, 119); }
-p, blockquote, ul, ol, dl, table { margin: 0.8em 0px; }
-li > ol, li > ul { margin: 0px; }
-hr { height: 2px; padding: 0px; margin: 16px 0px; background-color: rgb(231, 231, 231); border: 0px none; overflow: hidden; box-sizing: content-box; }
-li p.first { display: inline-block; }
-ul, ol { padding-left: 30px; }
-ul:first-child, ol:first-child { margin-top: 0px; }
-ul:last-child, ol:last-child { margin-bottom: 0px; }
-blockquote { border-left: 4px solid rgb(223, 226, 229); padding: 0px 15px; color: rgb(119, 119, 119); }
-blockquote blockquote { padding-right: 0px; }
-table { padding: 0px; word-break: initial; }
-table tr { border-top: 1px solid rgb(223, 226, 229); margin: 0px; padding: 0px; }
-table tr:nth-child(2n), thead { background-color: rgb(248, 248, 248); }
-table tr th { font-weight: bold; border-width: 1px 1px 0px; border-top-style: solid; border-right-style: solid; border-left-style: solid; border-top-color: rgb(223, 226, 229); border-right-color: rgb(223, 226, 229); border-left-color: rgb(223, 226, 229); border-image: initial; border-bottom-style: initial; border-bottom-color: initial; margin: 0px; padding: 6px 13px; }
-table tr td { border: 1px solid rgb(223, 226, 229); margin: 0px; padding: 6px 13px; }
-table tr th:first-child, table tr td:first-child { margin-top: 0px; }
-table tr th:last-child, table tr td:last-child { margin-bottom: 0px; }
-.CodeMirror-lines { padding-left: 4px; }
-.code-tooltip { box-shadow: rgba(0, 28, 36, 0.3) 0px 1px 1px 0px; border-top: 1px solid rgb(238, 242, 242); }
-.md-fences, code, tt { border: 1px solid rgb(231, 234, 237); background-color: rgb(248, 248, 248); border-radius: 3px; padding: 2px 4px 0px; font-size: 0.9em; }
-code { background-color: rgb(243, 244, 244); padding: 0px 2px; }
-.md-fences { margin-bottom: 15px; margin-top: 15px; padding-top: 8px; padding-bottom: 6px; }
-.md-task-list-item > input { margin-left: -1.3em; }
-@media print {
-  html { font-size: 13px; }
-  table, pre { break-inside: avoid; }
-  pre { overflow-wrap: break-word; }
-}
-.md-fences { background-color: rgb(248, 248, 248); }
-#write pre.md-meta-block { padding: 1rem; font-size: 85%; line-height: 1.45; background-color: rgb(247, 247, 247); border: 0px; border-radius: 3px; color: rgb(119, 119, 119); margin-top: 0px !important; }
-.mathjax-block > .code-tooltip { bottom: 0.375rem; }
-.md-mathjax-midline { background: rgb(250, 250, 250); }
-#write > h3.md-focus::before { left: -1.5625rem; top: 0.375rem; }
-#write > h4.md-focus::before { left: -1.5625rem; top: 0.285714rem; }
-#write > h5.md-focus::before { left: -1.5625rem; top: 0.285714rem; }
-#write > h6.md-focus::before { left: -1.5625rem; top: 0.285714rem; }
-.md-image > .md-meta { border-radius: 3px; padding: 2px 0px 0px 4px; font-size: 0.9em; color: inherit; }
-.md-tag { color: rgb(167, 167, 167); opacity: 1; }
-.md-toc { margin-top: 20px; padding-bottom: 20px; }
-.sidebar-tabs { border-bottom: none; }
-#typora-quick-open { border: 1px solid rgb(221, 221, 221); background-color: rgb(248, 248, 248); }
-#typora-quick-open-item { background-color: rgb(250, 250, 250); border-color: rgb(254, 254, 254) rgb(229, 229, 229) rgb(229, 229, 229) rgb(238, 238, 238); border-style: solid; border-width: 1px; }
-.on-focus-mode blockquote { border-left-color: rgba(85, 85, 85, 0.12); }
-header, .context-menu, .megamenu-content, footer { font-family: "Segoe UI", Arial, sans-serif; }
-.file-node-content:hover .file-node-icon, .file-node-content:hover .file-node-open-state { visibility: visible; }
-.mac-seamless-mode #typora-sidebar { background-color: var(--side-bar-bg-color); }
-.md-lang { color: rgb(180, 101, 77); }
-.html-for-mac .context-menu { --item-hover-bg-color: #E6F0FE; }
-#md-notification .btn { border: 0px; }
-.dropdown-menu .divider { border-color: rgb(229, 229, 229); }
-.ty-preferences .window-content { background-color: rgb(250, 250, 250); }
-.ty-preferences .nav-group-item.active { color: white; background: rgb(153, 153, 153); }
-
-
-</style>
-</head>
-<body class='typora-export' >
-<div  id='write'  class = 'is-node'><h1><a name="git指令" class="md-header-anchor"></a><span>git指令</span></h1><h2><a name="一般来说日常使用只要记住下图6个命令就可以了但是熟练使用恐怕要记住60～100个命令" class="md-header-anchor"></a><span>一般来说，日常使用只要记住下图6个命令，就可以了。但是熟练使用，恐怕要记住60～100个命令。</span></h2><p><img src='/home/xh/OneDrive/learning/bg2015120901.png' alt='' referrerPolicy='no-referrer' /></p><p><code>workspace：工作区</code></p><p><code>Index/Stage：暂存区</code></p><p><code>Repository：仓库区（或本地仓库）</code></p><p><code>Remote：远程仓库</code></p><ul><li><span>述任务及修改内容，填写要发布的前后端应用和提测、上线时间，以及研发负责人、研发人员、测试负责人。</span></li></ul><ol><li><h2><a name="将测试报告已解密）通过ftp上传" class="md-header-anchor"></a><span>将测试报告（已解密）通过ftp上传</span></h2><ul><li><span>将上传报告名加到app-sz-artemis中的ReportRecognitionServiceTest类</span></li><li><strong><span>（注）报告提前解密，保证准时完成上线。上传报告名必须以模板名开头：例，xikang1.田淑梅.pdf</span></strong></li></ul></li><li><h2><a name="提交项目到dev与release分支" class="md-header-anchor"></a><span>提交项目到dev与release分支</span></h2><ul><li><span>首先commit&amp;push sz-artemis-common 项目（因为sz-artemis-report-parser、sz-artemis-report-api、app-sz-artemis均依赖于它），然后c&amp;p sz-artimis-report-parser，最后c&amp;p app-sz-artemis。</span></li><li><strong><span>（注）先push到dev分支，再push到release分支，release分支严格遵守格式：例，release-2019-09-05</span></strong></li></ul></li><li><h2><a name="通过rocketchat编译" class="md-header-anchor"></a><span>通过Rocket.chat编译</span></h2><ul><li><span>使用Rocket.chat编译，严格按照步骤3里的顺序，并注意指令正确。每编译完一个项目到</span><a href='http://118.178.137.55:8089/job' target='_blank' class='url'>http://118.178.137.55:8089/job</a><span>下查看console output，是否编译成功。</span></li><li><strong><span>（注）指令格式：@Gerty b sz-artemis-common；@Gerty b sz-artemis-report-parser；@Gerty b sz-artemis-api；@Gerty b test_sz-artemis</span></strong></li></ul></li><li><h2><a name="自测" class="md-header-anchor"></a><span>自测</span></h2><ul><li><span>通过识别回归测试工具，进行自测,查看测试通过的状况以及与以往测试用例集相异的excel结果</span></li><li><span>若excel结果无差异，或差异在可接受范围以内，则测试通过，并将本次测试产生的测试用例覆盖历史测试用例。</span></li><li><span>测试通过则可上线。</span></li></ul></li><li><h2><a name="发jira链接" class="md-header-anchor"></a><span>发jira链接</span></h2><ul><li><span>链接发顾璟琛审核，之后发方雷部署。</span></li></ul></li></ol><p>&nbsp;</p></div>
-</body>
-</html>
       
     </div>
 
@@ -1660,6 +1163,312 @@ header, .context-menu, .megamenu-content, footer { font-family: "Segoe UI", Aria
 <p>现在，idea下配置.gitignore结束。</p>
 <p>注：<br><strong>.gitignore只能忽略那些原来没有被track的文件，如果某些文件已经被纳入了版本管理中，则修改.gitignore是无效的。那么解决方法就是先把本地缓存删除（改变成未track状态），然后再提交：</strong><br><strong>输入：</strong><br><strong>git rm -r –cached filePath</strong><br><strong>git commit -m “remove xx”</strong><br><strong>或者：</strong><br><strong>git rm -r –cached .</strong><br><strong>git add .</strong><br><strong>git commit -m “update .gitignore”</strong></p>
 <p><strong>来解释下几个参数 -r 是删除文件夹及其子目录 –cached 是删除暂存区里的文件而不删除工作区里的文件，第一种是删除某个文件，第二种方法就把所有暂存区里的文件删了，再加一遍，相当于更新了一遍。</strong></p>
+
+      
+    </div>
+
+    
+    
+    
+
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>l
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/986aa405/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lion.png">
+      <meta itemprop="name" content="swimminghao">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="swimminghao's blog">
+      <meta itemprop="description" content="swimminghao的学习博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | swimminghao's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/986aa405/" class="post-title-link" itemprop="url">4、【对线面试官】Java反射 & 动态代理.md</a>
+        </h2>
+
+        <div class="post-meta-container">
+
+          
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-03-14 11:30:20" itemprop="dateModified" datetime="2022-03-14T11:30:20+08:00">2022-03-14</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/posts/986aa405/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/986aa405/" data-xid="/posts/986aa405/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>1.9k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>2 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="4、【对线面试官】Java反射-amp-动态代理-md"><a href="#4、【对线面试官】Java反射-amp-动态代理-md" class="headerlink" title="4、【对线面试官】Java反射 &amp; 动态代理.md"></a>4、【对线面试官】Java反射 &amp; 动态代理.md</h1><h2 id="今天要不来聊聊Java反射？你对Java反射了解多少？"><a href="#今天要不来聊聊Java反射？你对Java反射了解多少？" class="headerlink" title="今天要不来聊聊Java反射？你对Java反射了解多少？"></a>今天要不来聊聊Java反射？你对Java反射了解多少？</h2><ol>
+<li>嗯，Java反射在JavaSE基础中还是很重要的。</li>
+<li>简单来说，反射就是Java可以给我们在运行时获取类的信息<br>在初学的时候可能看不懂、又或是学不太会反射，因为初学的时候往往给的例子都是用反射创建对象，用反射去获取对象上的方法&#x2F;属性什么的，感觉没多大用</li>
+<li>但毕竟我已经不是以前的我了，跟以前的看法就不一样了。</li>
+<li>理解反射重点就在于理解什么是「运行时」，为什么我们要在「运行时」获取类的信息</li>
+<li>在当时学注解的时候，我们可以发现注解的生命周期有三个枚举值（当时我还告诉过面试官你呢~）</li>
+<li>分别是SOURCE、CLASS和RUNTIME，其实一样的，RUNTIME就是对标着运行时</li>
+<li>我们都知道：我们在编译器写的代码是j ava文件，经过javac编译会变成.class文件，class文件会被JVM装载运行（这里就是真正运行着我们所写的代码（虽然是被编译过的），也就所谓的运行时。</li>
+</ol>
+<h2 id="嗯，你说了那么多，就讲述了什么是运行时，还是快点进入重点吧"><a href="#嗯，你说了那么多，就讲述了什么是运行时，还是快点进入重点吧" class="headerlink" title="嗯，你说了那么多，就讲述了什么是运行时，还是快点进入重点吧"></a>嗯，你说了那么多，就讲述了什么是运行时，还是快点进入重点吧</h2><ol>
+<li>在运行时获取类的信息，其实就是为了让我们所写的代码更具有「通用性」和「灵活性」</li>
+<li>要理解反射，需要抛开我们日常写的业务代码。以更高的维度或者说是抽象的思维去看待我们所写的“工具”</li>
+<li>所谓的“工具”：在单个系统使用叫做“Utils”、被多个系统使用打成jar包叫做“组件”、组件继续发展壮大就叫做“框架”</li>
+<li>一个好用的“工具”是需要兼容各种情况的。</li>
+<li>你肯定是不知道用该“工具“的用户传入的是什么对象，但你需要帮他们得到需要的结果。</li>
+<li>例如SpringMVC你在方法上写上对象，传入的参数就会帮你封装到对象上</li>
+<li>Mybatis可以让我们只写接口，不写实现类，就可以执行SQL</li>
+<li>你在类上加上@Component注解，Sprin g就帮你创建对象</li>
+<li>这些统统都有反射的身影：约定大于配置，配置大于硬编码。</li>
+<li>通过”约定“使用姿势，使用反射在运行时获取相应的信息（毕竟作为一个”工具“是真的不知道你是怎么用的），实现代码功能的「通用性」和「灵活性」</li>
+</ol>
+<h2 id="结合之前说的泛型，想问下：你应该知道泛型是会擦除的，那为什么反射能获取到泛型的信息呢？"><a href="#结合之前说的泛型，想问下：你应该知道泛型是会擦除的，那为什么反射能获取到泛型的信息呢？" class="headerlink" title="结合之前说的泛型，想问下：你应该知道泛型是会擦除的，那为什么反射能获取到泛型的信息呢？"></a>结合之前说的泛型，想问下：你应该知道泛型是会擦除的，那为什么反射能获取到泛型的信息呢？</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 抽象类，定义泛型&lt;T&gt;</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title class_">BaseDao</span>&lt;T&gt; &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">BaseDao</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="type">Class</span> <span class="variable">clazz</span> <span class="operator">=</span> <span class="built_in">this</span>.getClass();</span><br><span class="line">        <span class="type">ParameterizedType</span>  <span class="variable">pt</span> <span class="operator">=</span> (ParameterizedType) clazz.getGenericSuperclass(); </span><br><span class="line">        clazz = (Class) pt.getActualTypeArguments()[<span class="number">0</span>];</span><br><span class="line">        System.out.println(clazz);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 实现类</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">UserDao</span> <span class="keyword">extends</span> <span class="title class_">BaseDao</span>&lt;User&gt; &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        BaseDao&lt;User&gt; userDao = <span class="keyword">new</span> <span class="title class_">UserDao</span>();</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 执行结果输出</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">com</span>.entity.User</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>嗯，这个问题我在学习的时候也想过</li>
+<li>其实是这样的，可以理解为泛型擦除是有范围的，定义在类上的泛型信息是不会被擦除的。</li>
+<li>Java编译器仍在class文件以Signature 属性的方式保留了泛型信息</li>
+<li>Type作为顶级接口，Type下还有几种类型，比如TypeVariable、 ParameterizedT ype、 WildCardType、 GenericArrayType、以及Class。通过这些接口我们就可以在运行时获取泛型相关的信息。</li>
+</ol>
+<h2 id="你了解动态代理吗？"><a href="#你了解动态代理吗？" class="headerlink" title="你了解动态代理吗？"></a>你了解动态代理吗？</h2><ol>
+<li>嗯，了解的。动态代理其实就是代理模式的一种，代理模式是设计模式之一。</li>
+<li>代理模型有静态代理和动态代理。静态代理需要自己写代理类，实现对应的接口，比较麻烦。</li>
+<li>在Java中，动态代理常见的又有两种实现方式：JDK动态代理和CGLIB代理</li>
+<li>JDK动态代理其实就是运用了反射的机制，而CGLIB代理则用的是利用ASM框架，通过修改其字节码生成子类来处理。</li>
+<li>JDK动态代理会帮我们实现接口的方法，通过invokeHandler对所需要的方法进行增强。</li>
+<li>动态代理这一技术在实际或者框架原理中是非常常见的</li>
+<li>像上面所讲的Mybatis不用写实现类，只写接口就可以执行SQL，又或是SpringAOP等等好用的技术，实际上用的就是动态代理。</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>l
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/5624fad4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lion.png">
+      <meta itemprop="name" content="swimminghao">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="swimminghao's blog">
+      <meta itemprop="description" content="swimminghao的学习博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | swimminghao's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/5624fad4/" class="post-title-link" itemprop="url">Dockerfile</a>
+        </h2>
+
+        <div class="post-meta-container">
+
+          
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-11-09 14:20:45" itemprop="dateModified" datetime="2022-11-09T14:20:45+08:00">2022-11-09</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/posts/5624fad4/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/5624fad4/" data-xid="/posts/5624fad4/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>3.4k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>3 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="Docker相关指令"><a href="#Docker相关指令" class="headerlink" title="Docker相关指令"></a>Docker相关指令</h1><h2 id="docker镜像运行以及日志"><a href="#docker镜像运行以及日志" class="headerlink" title="docker镜像运行以及日志"></a>docker镜像运行以及日志</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">❯ docker run --restart=always -d --name holer-client -e PARAMS=<span class="string">&quot;www.swimminghao.top 6060 51c45156bf1c4a82b4e6ffff2150b65e&quot;</span> swimminghao/holer-client:latest</span><br><span class="line">❯ docker run -d --name holer-server --restart=always --network=host -p 600:600 -p 6060:6060 -p 6443:6443 -p 11000-11010:11000-11010 swimminghao/holer-server:latest</span><br><span class="line">❯ docker logs -f 1ed9a5d6f0cc</span><br></pre></td></tr></table></figure>
+
+<h2 id="Dockerfile-打包jar成docker镜像"><a href="#Dockerfile-打包jar成docker镜像" class="headerlink" title="Dockerfile 打包jar成docker镜像"></a>Dockerfile 打包jar成docker镜像</h2><figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">dockerfile1</span><br><span class="line"><span class="keyword">FROM</span> openjdk:<span class="number">8</span>-jdk-alpine</span><br><span class="line"><span class="keyword">VOLUME</span><span class="language-bash"> /tmp</span></span><br><span class="line"><span class="keyword">ADD</span><span class="language-bash"> ./holer-client.jar holer-client.jar</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> <span class="built_in">echo</span> <span class="string">&quot;Asia/Shanghai&quot;</span> &gt; /etc/timezone</span></span><br><span class="line"><span class="keyword">ENV</span> PARAMS=</span><br><span class="line"><span class="keyword">ENTRYPOINT</span><span class="language-bash"> java -Djava.security.egd=file:/dev/./urandom -Duser.timezone=GMT+8 -jar /holer-client.jar <span class="variable">$&#123;PARAMS&#125;</span></span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">dockerfile2</span><br><span class="line"><span class="keyword">FROM</span> openjdk:<span class="number">8</span>-jdk-alpine</span><br><span class="line"><span class="keyword">VOLUME</span><span class="language-bash"> /tmp</span></span><br><span class="line"><span class="keyword">ADD</span><span class="language-bash"> ./holer-client.jar holer-client.jar</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> <span class="built_in">echo</span> <span class="string">&quot;Asia/Shanghai&quot;</span> &gt; /etc/timezone</span></span><br><span class="line"><span class="keyword">ENV</span> PARAMS=</span><br><span class="line"><span class="keyword">ENV</span> JVM_XMS=<span class="string">&quot;256m&quot;</span></span><br><span class="line"><span class="keyword">ENV</span> JVM_XMX=<span class="string">&quot;256m&quot;</span></span><br><span class="line"><span class="keyword">ENTRYPOINT</span><span class="language-bash"> java -Xms<span class="variable">$&#123;JVM_XMS&#125;</span> -Xmx<span class="variable">$&#123;JVM_XMX&#125;</span> -Djava.security.egd=file:/dev/./urandom -Duser.timezone=GMT+8 -jar /holer-client.jar <span class="variable">$&#123;PARAMS&#125;</span></span></span><br></pre></td></tr></table></figure>
+
+<p>dockerfile和jar包放同一文件夹，再执行下面指令</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">❯ docker build -t swimminghao/holer-client:latest .</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">FROM</span> openjdk:<span class="number">8</span>-jdk-alpine</span><br><span class="line"><span class="keyword">VOLUME</span><span class="language-bash"> /tmp</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">ARG</span> JAR_FILE=./holer-server.jar</span><br><span class="line"><span class="comment">#ARG PORT=8090</span></span><br><span class="line"><span class="keyword">ARG</span> TIME_ZONE=Asia/Shanghai</span><br><span class="line"></span><br><span class="line"><span class="keyword">ENV</span> TZ=$&#123;TIME_ZONE&#125;</span><br><span class="line"><span class="keyword">ENV</span> JVM_XMS=<span class="string">&quot;256m&quot;</span></span><br><span class="line"><span class="keyword">ENV</span> JVM_XMX=<span class="string">&quot;256m&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">COPY</span><span class="language-bash"> <span class="variable">$&#123;JAR_FILE&#125;</span> holer-server.jar</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">EXPOSE</span> <span class="number">600</span></span><br><span class="line"><span class="keyword">EXPOSE</span> <span class="number">6060</span></span><br><span class="line"><span class="keyword">EXPOSE</span> <span class="number">6443</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">ENTRYPOINT</span><span class="language-bash"> java -Xms<span class="variable">$&#123;JVM_XMS&#125;</span> -Xmx<span class="variable">$&#123;JVM_XMX&#125;</span> -Djava.security.egd=file:/dev/./urandom -server -jar holer-server.jar</span></span><br></pre></td></tr></table></figure>
+
+<p>dockerfile和jar包放同一文件夹，再执行下面指令</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">❯ docker build -t swimminghao/holer-server:latest .</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/nuW6sf_20221108211749.png"></p>
+<h2 id="docker容器停止以及镜像删除"><a href="#docker容器停止以及镜像删除" class="headerlink" title="docker容器停止以及镜像删除"></a>docker容器停止以及镜像删除</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">❯ docker ps -a</span><br><span class="line">❯ docker pull seanhongxing/holer-server</span><br><span class="line">❯ docker stop f8ca94969ba0 &amp;&amp; docker <span class="built_in">rm</span> f8ca94969ba0</span><br><span class="line">❯ docker image <span class="built_in">ls</span> -a</span><br><span class="line">❯ docker image <span class="built_in">rm</span> f8ca94969ba0</span><br></pre></td></tr></table></figure>
+
+<h2 id="docker镜像反推Dockerfile："><a href="#docker镜像反推Dockerfile：" class="headerlink" title="docker镜像反推Dockerfile："></a>docker镜像反推Dockerfile：</h2><h3 id="1、指令"><a href="#1、指令" class="headerlink" title="1、指令"></a>1、指令</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">❯ docker <span class="built_in">history</span> &lt;83d576a828a8&gt; --format <span class="string">&quot;&#123;&#123;.CreatedBy&#125;&#125;&quot;</span> --no-trunc |<span class="built_in">tac</span> | awk <span class="string">&#x27;&#123;if($3~/nop/)&#123;for(i=1;i&lt;=3;i++)&#123;$i=&quot;&quot;&#125;;print substr($0,4)&#125;else&#123;print &quot;RUN&quot;,$0&#125;&#125;&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="2、bash脚本"><a href="#2、bash脚本" class="headerlink" title="2、bash脚本"></a>2、bash脚本</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">❯ bash decompile.sh seanhongxing/holer-server</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="comment">#########################################################################</span></span><br><span class="line"><span class="comment"># File Name: dockerfile.sh</span></span><br><span class="line"><span class="comment"># Author: www.linuxea.com</span></span><br><span class="line"><span class="comment"># Version: 1</span></span><br><span class="line"><span class="comment"># Created Time: Thu 14 Feb 2019 10:52:01 AM CST</span></span><br><span class="line"><span class="comment">#########################################################################</span></span><br><span class="line"><span class="keyword">case</span> <span class="string">&quot;<span class="variable">$OSTYPE</span>&quot;</span> <span class="keyword">in</span></span><br><span class="line">    linux*)</span><br><span class="line">        docker <span class="built_in">history</span> --no-trunc --format <span class="string">&quot;&#123;&#123;.CreatedBy&#125;&#125;&quot;</span> <span class="variable">$1</span> | <span class="comment"># extract information from layers</span></span><br><span class="line">        <span class="built_in">tac</span>                                                    | <span class="comment"># reverse the file</span></span><br><span class="line">        sed <span class="string">&#x27;s,^\(|3.*\)\?/bin/\(ba\)\?sh -c,RUN,&#x27;</span>             | <span class="comment"># change /bin/(ba)?sh calls to RUN</span></span><br><span class="line">        sed <span class="string">&#x27;s,^RUN #(nop) *,,&#x27;</span>                                | <span class="comment"># remove RUN #(nop) calls for ENV,LABEL...</span></span><br><span class="line">        sed <span class="string">&#x27;s,  *&amp;&amp;  *, \\\n \&amp;\&amp; ,g&#x27;</span>                           <span class="comment"># pretty print multi command lines following Docker best practices</span></span><br><span class="line">    ;;</span><br><span class="line">    darwin*)</span><br><span class="line">        docker <span class="built_in">history</span> --no-trunc --format <span class="string">&quot;&#123;&#123;.CreatedBy&#125;&#125;&quot;</span> <span class="variable">$1</span> | <span class="comment"># extract information from layers</span></span><br><span class="line">        <span class="built_in">tail</span> -r                                                | <span class="comment"># reverse the file</span></span><br><span class="line">        sed -E <span class="string">&#x27;s,^(\|3.*)?/bin/(ba)?sh -c,RUN,&#x27;</span>               | <span class="comment"># change /bin/(ba)?sh calls to RUN</span></span><br><span class="line">        sed <span class="string">&#x27;s,^RUN #(nop) *,,&#x27;</span>                                | <span class="comment"># remove RUN #(nop) calls for ENV,LABEL...</span></span><br><span class="line">        sed $<span class="string">&#x27;s,  *&amp;&amp;  *, \\\ \\\n \&amp;\&amp; ,g&#x27;</span>                      <span class="comment"># pretty print multi command lines following Docker best practices</span></span><br><span class="line">    ;;</span><br><span class="line">    *)</span><br><span class="line">        <span class="built_in">echo</span> <span class="string">&quot;unknown OSTYPE: <span class="variable">$OSTYPE</span>&quot;</span></span><br><span class="line">    ;;</span><br><span class="line"><span class="keyword">esac</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="docker镜像下载jar包"><a href="#docker镜像下载jar包" class="headerlink" title="docker镜像下载jar包"></a>docker镜像下载jar包</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">//镜像导出</span><br><span class="line">❯ docker save -o ./client.tar seanhongxing/holer-client:latest</span><br><span class="line">//容器导出</span><br><span class="line">❯ docker <span class="built_in">export</span> seanhongxing/holer-client &gt; ./client.tar</span><br></pre></td></tr></table></figure>
+
+<p><strong>注：分层，jar包在某一层</strong></p>
 
       
     </div>
@@ -2867,7 +2676,7 @@ header, .context-menu, .megamenu-content, footer { font-family: "Segoe UI", Aria
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/5832e44e/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/cec762c6/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/lion.png">
@@ -2885,7 +2694,7 @@ header, .context-menu, .megamenu-content, footer { font-family: "Segoe UI", Aria
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/5832e44e/" class="post-title-link" itemprop="url">shell知识点</a>
+          <a href="/posts/cec762c6/" class="post-title-link" itemprop="url">explain结果每个字段的含义说明</a>
         </h2>
 
         <div class="post-meta-container">
@@ -2914,7 +2723,7 @@ header, .context-menu, .megamenu-content, footer { font-family: "Segoe UI", Aria
       </span>
       <span class="post-meta-item-text">分类于</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">工具</span></a>
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
         </span>
     </span>
 
@@ -2927,8 +2736,8 @@ header, .context-menu, .megamenu-content, footer { font-family: "Segoe UI", Aria
     </span>
     <span class="post-meta-item-text">Waline：</span>
   
-    <a title="waline" href="/posts/5832e44e/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/5832e44e/" data-xid="/posts/5832e44e/" itemprop="commentCount"></span>
+    <a title="waline" href="/posts/cec762c6/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/cec762c6/" data-xid="/posts/cec762c6/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -2939,14 +2748,14 @@ header, .context-menu, .megamenu-content, footer { font-family: "Segoe UI", Aria
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>2k</span>
+      <span>6.4k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>2 分钟</span>
+      <span>6 分钟</span>
     </span>
 </div>
 
@@ -2957,50 +2766,227 @@ header, .context-menu, .megamenu-content, footer { font-family: "Segoe UI", Aria
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="1易混淆点"><a href="#1易混淆点" class="headerlink" title="$1易混淆点"></a>$1易混淆点</h1><h2 id="一、标准输入和参数的区别"><a href="#一、标准输入和参数的区别" class="headerlink" title="一、标准输入和参数的区别"></a>一、标准输入和参数的区别</h2><p>这个问题一定是最容易让人迷惑的，具体来说，就是搞不清什么时候用管道 符| 和文件重定向&gt; ，&lt; ，什么时候用变量$ 。</p>
-<p>比如说，我现在有个自动连接宽带的 shell 脚本 connect.sh ，存在我的家目录:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">where</span> connect.sh </span><br><span class="line">/home/fdl/bin/connect.sh</span><br></pre></td></tr></table></figure>
+          <h1 id="explain结果每个字段的含义说明"><a href="#explain结果每个字段的含义说明" class="headerlink" title="explain结果每个字段的含义说明"></a>explain结果每个字段的含义说明</h1><p>我们都知道用<code>explain xxx</code>分析sql语句的性能，但是具体从explain的结果怎么分析性能以及每个字段的含义你清楚吗？这里我做下总结记录，也是供自己以后参考。</p>
+<blockquote>
+<ul>
+<li>首先需要注意：<strong>MYSQL 5.6.3</strong>以前只能<code>EXPLAIN SELECT</code>; MYSQL5.6.3以后就可以<code>EXPLAIN SELECT,UPDATE,DELETE</code></li>
+</ul>
+</blockquote>
+<hr>
+<p>explain结果示例：</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; explain select * from staff;</span><br><span class="line">+----+-------------+-------+------+---------------+------+---------+------+------+-------+</span><br><span class="line"><span class="params">| id |</span> select_type <span class="params">| table |</span> type <span class="params">| possible_keys |</span> key  <span class="params">| key_len |</span> ref  <span class="params">| rows |</span> Extra <span class="params">|</span></span><br><span class="line"><span class="params">+----+-------------+-------+------+---------------+------+---------+------+------+-------+</span></span><br><span class="line"><span class="params">|</span>  <span class="number">1</span> <span class="params">| SIMPLE      |</span> staff <span class="params">| ALL  |</span> NULL          <span class="params">| NULL |</span> NULL    <span class="params">| NULL |</span>    <span class="number">2</span> <span class="params">| NULL  |</span></span><br><span class="line">+----+-------------+-------+------+---------------+------+---------+------+------+-------+</span><br><span class="line"><span class="number">1</span> row <span class="keyword">in</span> set</span><br></pre></td></tr></table></figure>
 
-<p>如果我想删除这个脚本，而且想少敲几次键盘，应该怎么操作呢?我曾经这<br>样尝试过:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">where</span> connect.sh | <span class="built_in">rm</span></span><br></pre></td></tr></table></figure>
+<hr>
+<p>先上一个官方文档表格的中文版：</p>
+<table>
+<thead>
+<tr>
+<th>Column</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>id</td>
+<td>查询序号</td>
+</tr>
+<tr>
+<td>select_type</td>
+<td>查询类型</td>
+</tr>
+<tr>
+<td>table</td>
+<td>表名</td>
+</tr>
+<tr>
+<td>partitions</td>
+<td>匹配的分区</td>
+</tr>
+<tr>
+<td>type</td>
+<td>join类型</td>
+</tr>
+<tr>
+<td>prossible_keys</td>
+<td>可能会选择的索引</td>
+</tr>
+<tr>
+<td>key</td>
+<td>实际选择的索引</td>
+</tr>
+<tr>
+<td>key_len</td>
+<td>索引的长度</td>
+</tr>
+<tr>
+<td>ref</td>
+<td>与索引作比较的列</td>
+</tr>
+<tr>
+<td>rows</td>
+<td>要检索的行数(估算值)</td>
+</tr>
+<tr>
+<td>filtered</td>
+<td>查询条件过滤的行数的百分比</td>
+</tr>
+<tr>
+<td>Extra</td>
+<td>额外信息</td>
+</tr>
+</tbody></table>
+<p>这是explain结果的各个字段，分别解释下含义：</p>
+<h2 id="1-id"><a href="#1-id" class="headerlink" title="1. id"></a>1. id</h2><p>SQL查询中的序列号。</p>
+<blockquote>
+<p>id列数字越大越先执行，如果说数字一样大，那么就从上往下依次执行。</p>
+</blockquote>
+<h2 id="2-select-type"><a href="#2-select-type" class="headerlink" title="2. select_type"></a>2. select_type</h2><p>查询的类型，可以是下表的任何一种类型：</p>
+<table>
+<thead>
+<tr>
+<th>select_type</th>
+<th>类型说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>SIMPLE</td>
+<td>简单SELECT(不使用UNION或子查询)</td>
+</tr>
+<tr>
+<td>PRIMARY</td>
+<td>最外层的SELECT</td>
+</tr>
+<tr>
+<td>UNION</td>
+<td>UNION中第二个或之后的SELECT语句</td>
+</tr>
+<tr>
+<td>DEPENDENT UNION</td>
+<td>UNION中第二个或之后的SELECT语句取决于外面的查询</td>
+</tr>
+<tr>
+<td>UNION RESULT</td>
+<td>UNION的结果</td>
+</tr>
+<tr>
+<td>SUBQUERY</td>
+<td>子查询中的第一个SELECT</td>
+</tr>
+<tr>
+<td>DEPENDENT SUBQUERY</td>
+<td>子查询中的第一个SELECT, 取决于外面的查询</td>
+</tr>
+<tr>
+<td>DERIVED</td>
+<td>衍生表(FROM子句中的子查询)</td>
+</tr>
+<tr>
+<td>MATERIALIZED</td>
+<td>物化子查询</td>
+</tr>
+<tr>
+<td>UNCACHEABLE SUBQUERY</td>
+<td>结果集无法缓存的子查询，必须重新评估外部查询的每一行</td>
+</tr>
+<tr>
+<td>UNCACHEABLE UNION</td>
+<td>UNION中第二个或之后的SELECT，属于无法缓存的子查询</td>
+</tr>
+</tbody></table>
+<p>DEPENDENT 意味着使用了关联子查询。</p>
+<h2 id="3-table"><a href="#3-table" class="headerlink" title="3. table"></a>3. table</h2><p>查询的表名。不一定是实际存在的表名。<br>可以为如下的值：</p>
+<ul>
+<li>&lt;unionM,N&gt;: 引用id为M和N UNION后的结果。</li>
+<li><derivedN>: 引用id为N的结果派生出的表。派生表可以是一个结果集，例如派生自FROM中子查询的结果。</li>
+<li><subqueryN>: 引用id为N的子查询结果物化得到的表。即生成一个临时表保存子查询的结果。</li>
+</ul>
+<h2 id="4-type（重要）"><a href="#4-type（重要）" class="headerlink" title="4. type（重要）"></a>4. type（重要）</h2><p>这是<strong>最重要的字段之一</strong>，显示查询使用了何种类型。从最好到最差的连接类型依次为：</p>
+<blockquote>
+<p><strong>system，const，eq_ref，ref，fulltext，ref_or_null，index_merge，unique_subquery，index_subquery，range，index，ALL</strong></p>
+</blockquote>
+<p>除了all之外，其他的type都可以使用到索引，除了index_merge之外，其他的type只可以用到一个索引。</p>
+<ul>
+<li><h6 id="1、system"><a href="#1、system" class="headerlink" title="1、system"></a>1、system</h6></li>
+</ul>
+<p>表中只有一行数据或者是空表，这是const类型的一个特例。且只能用于myisam和memory表。如果是Innodb引擎表，type列在这个情况通常都是all或者index</p>
+<ul>
+<li><h6 id="2、const"><a href="#2、const" class="headerlink" title="2、const"></a>2、const</h6></li>
+</ul>
+<p>最多只有一行记录匹配。当联合主键或唯一索引的所有字段跟常量值比较时，join类型为const。其他数据库也叫做唯一索引扫描</p>
+<ul>
+<li><h6 id="3、eq-ref"><a href="#3、eq-ref" class="headerlink" title="3、eq_ref"></a>3、eq_ref</h6></li>
+</ul>
+<p>多表join时，对于来自前面表的每一行，在当前表中只能找到一行。这可能是除了system和const之外最好的类型。当主键或唯一非NULL索引的所有字段都被用作join联接时会使用此类型。</p>
+<p>eq_ref可用于使用’&#x3D;’操作符作比较的索引列。比较的值可以是常量，也可以是使用在此表之前读取的表的列的表达式。</p>
+<blockquote>
+<p><strong>相对于下面的ref区别就是它使用的唯一索引，即主键或唯一索引，而ref使用的是非唯一索引或者普通索引。<br>eq_ref只能找到一行，而ref能找到多行。</strong></p>
+</blockquote>
+<ul>
+<li><h6 id="4、ref"><a href="#4、ref" class="headerlink" title="4、ref"></a>4、ref</h6></li>
+</ul>
+<p>对于来自前面表的每一行，在此表的索引中可以匹配到多行。若联接只用到索引的最左前缀或索引不是主键或唯一索引时，使用ref类型（也就是说，此联接能够匹配多行记录）。</p>
+<p>ref可用于使用’&#x3D;’或’&lt;&#x3D;&gt;’操作符作比较的索引列。</p>
+<ul>
+<li><h6 id="5、-fulltext"><a href="#5、-fulltext" class="headerlink" title="5、 fulltext"></a>5、 fulltext</h6></li>
+</ul>
+<p>使用全文索引的时候是这个类型。要注意，<strong>全文索引的优先级很高</strong>，若全文索引和普通索引同时存在时，mysql不管代价，优先选择使用全文索引</p>
+<ul>
+<li><h6 id="6、ref-or-null"><a href="#6、ref-or-null" class="headerlink" title="6、ref_or_null"></a>6、ref_or_null</h6></li>
+</ul>
+<p>跟ref类型类似，只是增加了null值的比较。实际用的不多。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">eg.</span><br><span class="line">SELECT * FROM ref_table</span><br><span class="line">WHERE key_column=expr OR key_column IS <span class="literal">NULL</span>;</span><br></pre></td></tr></table></figure>
 
-<p>实际上，这样操作是错误的，正确的做法应该是这样的:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">rm</span> $(<span class="built_in">where</span> connect.sh)</span><br></pre></td></tr></table></figure>
+<ul>
+<li><h6 id="7、index-merge"><a href="#7、index-merge" class="headerlink" title="7、index_merge"></a>7、index_merge</h6></li>
+</ul>
+<p>表示查询使用了两个以上的索引，最后取交集或者并集，常见and ，or的条件使用了不同的索引，官方排序这个在ref_or_null之后，但是实际上由于要读取多个索引，性能可能大部分时间都不如range</p>
+<ul>
+<li><h6 id="8、unique-subquery"><a href="#8、unique-subquery" class="headerlink" title="8、unique_subquery"></a>8、unique_subquery</h6></li>
+</ul>
+<p>用于where中的in形式子查询，子查询返回不重复值唯一值，可以完全替换子查询，效率更高。<br>该类型替换了下面形式的IN子查询的ref：<br><code>value IN (SELECT primary_key FROM single_table WHERE some_expr)</code></p>
+<ul>
+<li><h6 id="9、index-subquery"><a href="#9、index-subquery" class="headerlink" title="9、index_subquery"></a>9、index_subquery</h6></li>
+</ul>
+<p>该联接类型类似于unique_subquery。适用于非唯一索引，可以返回重复值。</p>
+<ul>
+<li><h6 id="10、range"><a href="#10、range" class="headerlink" title="10、range"></a>10、range</h6></li>
+</ul>
+<p>索引范围查询，常见于使用 &#x3D;, &lt;&gt;, &gt;, &gt;&#x3D;, &lt;, &lt;&#x3D;, IS NULL, &lt;&#x3D;&gt;, BETWEEN, IN()或者like等运算符的查询中。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM tbl_name</span><br><span class="line">  WHERE key_column BETWEEN <span class="number">10</span> <span class="keyword">and</span> <span class="number">20</span>;</span><br><span class="line"></span><br><span class="line"><span class="function">SELECT * FROM tbl_name</span></span><br><span class="line"><span class="function">  WHERE key_column <span class="title">IN</span> <span class="params">(<span class="number">10</span>,<span class="number">20</span>,<span class="number">30</span>)</span></span>;</span><br></pre></td></tr></table></figure>
 
-<p>前者试图将 where 的结果连接到 rm 的标准输入，后者试图将结果作为命令行参数传入。</p>
-<p><strong>标准输入就是编程语言中诸如</strong> <strong>scanf</strong> <strong>或者</strong> <strong>readline</strong> <strong>这种命令;而参数是指 程序的</strong> <strong>main</strong> <strong>函数传入的</strong> <strong>args</strong> <strong>字符数组</strong>。</p>
-<p>前文「Linux文件描述符」说过，管道符和重定向符是将数据作为程序的标 准输入，而 $(cmd) 是读取 cmd 命令输出的数据作为参数。</p>
-<p>用刚才的例子说， rm 命令源代码中肯定不接受标准输入，而是接收命令行 参数，删除相应的文件。作为对比， cat 命令是既接受标准输入，又接受 命令行参数:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cat</span> filename </span><br><span class="line">...file text...</span><br><span class="line">$ <span class="built_in">cat</span> &lt; filename</span><br><span class="line">...file text...</span><br><span class="line">$ <span class="built_in">echo</span> <span class="string">&#x27;hello world&#x27;</span> | <span class="built_in">cat</span></span><br><span class="line">hello world</span><br></pre></td></tr></table></figure>
+<ul>
+<li><h6 id="11、index"><a href="#11、index" class="headerlink" title="11、index"></a>11、index</h6></li>
+</ul>
+<p>索引全表扫描，把索引从头到尾扫一遍。这里包含两种情况：<br>一种是查询使用了覆盖索引，那么它只需要扫描索引就可以获得数据，这个效率要比全表扫描要快，因为索引通常比数据表小，而且还能避免二次查询。在extra中显示Using index，反之，如果在索引上进行全表扫描，没有Using index的提示。</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 此表见有一个name列索引。</span></span><br><span class="line"><span class="comment"># 因为查询的列name上建有索引，所以如果这样type走的是index</span></span><br><span class="line">mysql&gt; explain select name from testa;</span><br><span class="line">+----+-------------+-------+-------+---------------+----------+---------+------+------+-------------+</span><br><span class="line"><span class="params">| id |</span> select_type <span class="params">| table |</span> type  <span class="params">| possible_keys |</span> key      <span class="params">| key_len |</span> ref  <span class="params">| rows |</span> Extra       <span class="params">|</span></span><br><span class="line"><span class="params">+----+-------------+-------+-------+---------------+----------+---------+------+------+-------------+</span></span><br><span class="line"><span class="params">|</span>  <span class="number">1</span> <span class="params">| SIMPLE      |</span> testa <span class="params">| index |</span> NULL          <span class="params">| idx_name |</span> <span class="number">33</span>      <span class="params">| NULL |</span>    <span class="number">2</span> <span class="params">| Using index |</span></span><br><span class="line">+----+-------------+-------+-------+---------------+----------+---------+------+------+-------------+</span><br><span class="line"><span class="number">1</span> row <span class="keyword">in</span> set</span><br><span class="line"></span><br><span class="line"><span class="comment"># 因为查询的列cusno没有建索引，或者查询的列包含没有索引的列，这样查询就会走ALL扫描，如下：</span></span><br><span class="line">mysql&gt; explain select cusno from testa;</span><br><span class="line">+----+-------------+-------+------+---------------+------+---------+------+------+-------+</span><br><span class="line"><span class="params">| id |</span> select_type <span class="params">| table |</span> type <span class="params">| possible_keys |</span> key  <span class="params">| key_len |</span> ref  <span class="params">| rows |</span> Extra <span class="params">|</span></span><br><span class="line"><span class="params">+----+-------------+-------+------+---------------+------+---------+------+------+-------+</span></span><br><span class="line"><span class="params">|</span>  <span class="number">1</span> <span class="params">| SIMPLE      |</span> testa <span class="params">| ALL  |</span> NULL          <span class="params">| NULL |</span> NULL    <span class="params">| NULL |</span>    <span class="number">2</span> <span class="params">| NULL  |</span></span><br><span class="line">+----+-------------+-------+------+---------------+------+---------+------+------+-------+</span><br><span class="line"><span class="number">1</span> row <span class="keyword">in</span> set</span><br><span class="line"></span><br><span class="line"><span class="comment"># 包含有未见索引的列</span></span><br><span class="line">mysql&gt; explain select * from testa;</span><br><span class="line">+----+-------------+-------+------+---------------+------+---------+------+------+-------+</span><br><span class="line"><span class="params">| id |</span> select_type <span class="params">| table |</span> type <span class="params">| possible_keys |</span> key  <span class="params">| key_len |</span> ref  <span class="params">| rows |</span> Extra <span class="params">|</span></span><br><span class="line"><span class="params">+----+-------------+-------+------+---------------+------+---------+------+------+-------+</span></span><br><span class="line"><span class="params">|</span>  <span class="number">1</span> <span class="params">| SIMPLE      |</span> testa <span class="params">| ALL  |</span> NULL          <span class="params">| NULL |</span> NULL    <span class="params">| NULL |</span>    <span class="number">2</span> <span class="params">| NULL  |</span></span><br><span class="line">+----+-------------+-------+------+---------------+------+---------+------+------+-------+</span><br><span class="line"><span class="number">1</span> row <span class="keyword">in</span> set</span><br></pre></td></tr></table></figure>
 
-<p><strong>如果命令能够让终端阻塞，说明该命令接收标准输入，反之就是不接受</strong>，比 如你只运行 cat 命令不加任何参数，终端就会阻塞，等待你输入字符串并 回显相同的字符串。</p>
-<h2 id="二、后台运行程序"><a href="#二、后台运行程序" class="headerlink" title="二、后台运行程序"></a><strong>二、后台运行程序</strong></h2><p>比如说你远程登录到服务器上，运行一个 Django web 程序:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ python manager.py runserver 0.0.0.0 Listening on 0.0.0.0:8080...</span><br></pre></td></tr></table></figure>
+<ul>
+<li><h6 id="12、all"><a href="#12、all" class="headerlink" title="12、all"></a>12、all</h6></li>
+</ul>
+<p>全表扫描，性能最差。</p>
+<h2 id="5-partitions"><a href="#5-partitions" class="headerlink" title="5. partitions"></a>5. partitions</h2><p>版本5.7以前，该项是explain partitions显示的选项，5.7以后成为了默认选项。该列显示的为分区表命中的分区情况。非分区表该字段为空（null）。</p>
+<h2 id="6-possible-keys"><a href="#6-possible-keys" class="headerlink" title="6. possible_keys"></a>6. possible_keys</h2><p>查询可能使用到的索引都会在这里列出来</p>
+<h2 id="7-key"><a href="#7-key" class="headerlink" title="7. key"></a>7. key</h2><p>查询真正使用到的索引。<br>select_type为index_merge时，这里可能出现两个以上的索引，其他的select_type这里只会出现一个。</p>
+<h2 id="8-key-len"><a href="#8-key-len" class="headerlink" title="8. key_len"></a>8. key_len</h2><p>查询用到的索引长度（字节数）。<br>如果是单列索引，那就整个索引长度算进去，如果是多列索引，那么查询不一定都能使用到所有的列，用多少算多少。留意下这个列的值，算一下你的多列索引总长度就知道有没有使用到所有的列了。</p>
+<blockquote>
+<p>key_len只计算<strong>where</strong>条件用到的索引长度，而排序和分组就算用到了索引，也不会计算到key_len中。</p>
+</blockquote>
+<h2 id="9-ref"><a href="#9-ref" class="headerlink" title="9. ref"></a>9. ref</h2><p>如果是使用的常数等值查询，这里会显示const，如果是连接查询，被驱动表的执行计划这里会显示驱动表的关联字段，如果是条件使用了表达式或者函数，或者条件列发生了内部隐式转换，这里可能显示为func</p>
+<h2 id="10-rows（重要）"><a href="#10-rows（重要）" class="headerlink" title="10. rows（重要）"></a>10. rows（重要）</h2><p><strong>rows 也是一个重要的字段</strong>。 这是mysql估算的需要扫描的行数（不是精确值）。<br>这个值非常直观显示 SQL 的效率好坏, 原则上 rows 越少越好.</p>
+<h2 id="11-filtered"><a href="#11-filtered" class="headerlink" title="11. filtered"></a>11. filtered</h2><p>这个字段表示存储引擎返回的数据在server层过滤后，剩下多少满足查询的记录数量的比例，注意是百分比，不是具体记录数。这个字段不重要</p>
+<h2 id="12-extra（重要）"><a href="#12-extra（重要）" class="headerlink" title="12. extra（重要）"></a>12. extra（重要）</h2><p>EXplain 中的很多额外的信息会在 Extra 字段显示, 常见的有以下几种内容:</p>
+<ul>
+<li><strong>distinct</strong>：在select部分使用了distinc关键字</li>
+<li><strong>Using filesort</strong>：当 Extra 中有 Using filesort 时, 表示 MySQL 需额外的排序操作, 不能通过索引顺序达到排序效果. 一般有 Using filesort, 都建议优化去掉, 因为这样的查询 CPU 资源消耗大.</li>
+</ul>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"># 例如下面的例子:</span><br><span class="line"></span><br><span class="line">mysql&gt; EXPLAIN SELECT * FROM order_info ORDER BY product_name \G</span><br><span class="line">*************************** <span class="number">1.</span> row ***************************</span><br><span class="line">           <span class="keyword">id</span>: <span class="number">1</span></span><br><span class="line">  select_type: SIMPLE</span><br><span class="line">        table: order_info</span><br><span class="line">   partitions: <span class="literal">NULL</span></span><br><span class="line">         type: index</span><br><span class="line">possible_keys: <span class="literal">NULL</span></span><br><span class="line">          key: user_product_detail_index</span><br><span class="line">      key_len: <span class="number">253</span></span><br><span class="line">          ref: <span class="literal">NULL</span></span><br><span class="line">         rows: <span class="number">9</span></span><br><span class="line">     filtered: <span class="number">100.00</span></span><br><span class="line">        Extra: Using index; Using filesort</span><br><span class="line"><span class="number">1</span> row <span class="keyword">in</span> set, <span class="number">1</span> warning (<span class="number">0.00</span> sec)</span><br><span class="line">我们的索引是</span><br><span class="line"></span><br><span class="line">KEY `user_product_detail_index` (`user_id`, `product_name`, `productor`)</span><br><span class="line">但是上面的查询中根据 product_name 来排序, 因此不能使用索引进行优化, 进而会产生 Using filesort.</span><br><span class="line">如果我们将排序依据改为 ORDER BY user_id, product_name, 那么就不会出现 Using filesort 了. 例如:</span><br><span class="line"></span><br><span class="line">mysql&gt; EXPLAIN SELECT * FROM order_info ORDER BY user_id, product_name \G</span><br><span class="line">*************************** <span class="number">1.</span> row ***************************</span><br><span class="line">           <span class="keyword">id</span>: <span class="number">1</span></span><br><span class="line">  select_type: SIMPLE</span><br><span class="line">        table: order_info</span><br><span class="line">   partitions: <span class="literal">NULL</span></span><br><span class="line">         type: index</span><br><span class="line">possible_keys: <span class="literal">NULL</span></span><br><span class="line">          key: user_product_detail_index</span><br><span class="line">      key_len: <span class="number">253</span></span><br><span class="line">          ref: <span class="literal">NULL</span></span><br><span class="line">         rows: <span class="number">9</span></span><br><span class="line">     filtered: <span class="number">100.00</span></span><br><span class="line">        Extra: Using index</span><br><span class="line"><span class="number">1</span> row <span class="keyword">in</span> set, <span class="number">1</span> warning (<span class="number">0.00</span> sec)</span><br></pre></td></tr></table></figure>
 
-<p>现在你可以通过服务器的 IP 地址测试 Django 服务，但是终端此时就阻塞 了，你输入什么都不响应，除非输入 Ctrl-C 或者 Ctrl-&#x2F; 终止 python 进程。</p>
-<p>可以在命令之后加一个 &amp; 符号，这样命令行不会阻塞，可以响应你后续输 入的命令，但是如果你退出服务器的登录，就不能访问该网⻚了。</p>
-<p>如果你想在退出服务器之后仍然能够访问web服务，应该这样写命令 (cmd &amp;) :</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ (python manager.py runserver 0.0.0.0 &amp;) Listening on 0.0.0.0:8080...</span><br><span class="line"></span><br><span class="line">$ <span class="built_in">logout</span></span><br></pre></td></tr></table></figure>
-
-<p><strong>底层原理是这样的</strong>:</p>
-<p>每一个命令行终端都是一个 shell 进程，你在这个终端里执行的程序实际上 都是这个 shell 进程分出来的子进程。正常情况下，shell 进程会阻塞，等待 子进程退出才重新接收你输入的新的命令。加上 &amp; 号，只是让 shell 进程不 再阻塞，可以继续响应你的新命令。但是无论如何，你如果关掉了这个 shell 命令行端口，依附于它的所有子进程都会退出。</p>
-<p><strong>而 (cmd &amp;) 这样运行命令，则是将 cmd 命令挂到一个 systemd 系统守护进程名下，认 systemd 做爸爸，这样当你退出当前终端时，对于刚才的 cmd 命令就完全没有影响了。</strong></p>
-<p>类似的，还有一种后台运行常用的做法是这样:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ nohub some_cmd &amp;</span><br></pre></td></tr></table></figure>
-
-<p>nohub 命令也是类似的原理，不过通过我的测试，<strong>还是 (cmd &amp;) 这种形式 更加稳定</strong>。</p>
-<h2 id="三、单引号和双引号的区别"><a href="#三、单引号和双引号的区别" class="headerlink" title="三、单引号和双引号的区别"></a>三、单引号和双引号的区别</h2><p>不同的 shell 行为会有细微区别，但有一点是确定的，<strong>对于</strong> <strong>$</strong> <strong>，</strong> <strong>(</strong> <strong>，</strong> <strong>)</strong> <strong>这 几个符号，单引号包围的字符串不会做任何转义，双引号包围的字符串会转 义</strong>。</p>
-<p>shell 的行为可以测试，使用 set -x 命令，会开启 shell 的命令回显，你可 以通过回显观察 shell 到底在执行什么命令:</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/acjc30_20210910112344.png"></p>
-<p>可⻅ echo $(cmd) 和 echo “$(cmd)” ，结果差不多，但是仍然有区别。注 意观察，双引号转义完成的结果会自动增加单引号，而前者不会。</p>
-<p><strong>也就是说，如果</strong> <strong>$</strong> <strong>读取出的参数字符串包含空格，应该用双引号括起来， 否则就会出错</strong>。</p>
-<h2 id="四、-sudo-找不到命令"><a href="#四、-sudo-找不到命令" class="headerlink" title="四、****sudo 找不到命令"></a><strong>四、****sudo</strong> <strong>找不到命令</strong></h2><p>有时候我们普通用户可以用的命令，用 sudo 加权限之后却报错 command not found:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ connect.sh</span><br><span class="line"> network-manager: Permission denied</span><br><span class="line"></span><br><span class="line">$ sudo connect.sh</span><br><span class="line"> sudo: <span class="built_in">command</span> not found</span><br></pre></td></tr></table></figure>
-
-<p>原因在于， connect.sh 这个脚本仅存在于该用户的环境变量中:</p>
-<p><strong>当使用</strong> <strong>sudo</strong> <strong>时，系统会使用</strong> <strong>&#x2F;etc&#x2F;sudoers</strong> <strong>这个文件中规定的该用户的权 限和环境变量</strong>，而这个脚本在 &#x2F;etc&#x2F;sudoers 环境变量目录中当然是找不到 的。</p>
-<p>解决方法是使用脚本文件的路径，而不是仅仅通过脚本名称:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo /home/fdl/bin/connect.sh</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>Using index</strong><br>“覆盖索引扫描”, 表示查询在索引树中就可查找所需数据, 不用扫描表数据文件, 往往说明<strong>性能不错</strong></li>
+<li><strong>Using temporary</strong><br>查询有使用临时表, 一般出现于排序, 分组和多表 join 的情况, 查询效率不高, 建议优化.</li>
+</ul>
+<p>除此之外还有其他值，这里就不一一一列举了。</p>
+<hr>
+<p>通过以上这些总结，以后我们看到explain的结果，就知道该从哪些字段值去分析sql语句的执行效率了。</p>
 
       
     </div>
