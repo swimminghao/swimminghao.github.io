@@ -1229,6 +1229,313 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/c77b99c1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lion.png">
+      <meta itemprop="name" content="swimminghao">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="swimminghao's blog">
+      <meta itemprop="description" content="swimminghao的学习博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | swimminghao's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/c77b99c1/" class="post-title-link" itemprop="url">使用java8实现List中对象属性的去重</a>
+        </h2>
+
+        <div class="post-meta-container">
+
+          
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-03-13 12:56:04" itemprop="dateModified" datetime="2022-03-13T12:56:04+08:00">2022-03-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E8%AF%AD%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">语法</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/posts/c77b99c1/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/c77b99c1/" data-xid="/posts/c77b99c1/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>2.2k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>2 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="使用java8实现List中对象属性的去重"><a href="#使用java8实现List中对象属性的去重" class="headerlink" title="使用java8实现List中对象属性的去重"></a>使用java8实现List中对象属性的去重</h1><p>今天在工作的时候遇到了一个问题，就是List的去重，不想用双重for，感觉太low，不想用for+Map，感觉应该有更好的方法，于是，google之。发现java8的stream流能完美解决这个问题。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">List&lt;BookInfoVo&gt; list</span><br></pre></td></tr></table></figure>
+<p>比如在 BookInfoVo 中有一个 recordId 属性,现在需要对此去重.</p>
+<p>怎么办呢?</p>
+<p>有两种方法:</p>
+<ul>
+<li>第一种: 不使用java8 的 Stream<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> List&lt;BookInfoVo&gt; <span class="title function_">removeDupliByRecordId</span><span class="params">(List&lt;BookInfoVo&gt; books)</span> &#123;</span><br><span class="line">	Set&lt;BookInfoVo&gt; bookSet = <span class="keyword">new</span> <span class="title class_">TreeSet</span>&lt;&gt;((o1, o2)-&gt;o1.getRecordId().compareTo(o2.getRecordId()));</span><br><span class="line">          personSet.addAll(books);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;BookInfoVo&gt;(bookSet);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+这也是大多数人第一想到的,借助 TreeSet 去重,其中 TreeSet 的其中一个构造函数接收一个排序的算法,同时这也会用到 TreeSet 的去重策略上.<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Constructs a new, empty tree set, sorted according to the specified</span></span><br><span class="line"><span class="comment">     * comparator.  All elements inserted into the set must be &lt;i&gt;mutually</span></span><br><span class="line"><span class="comment">     * comparable&lt;/i&gt; by the specified comparator: &#123;<span class="doctag">@code</span> comparator.compare(e1,</span></span><br><span class="line"><span class="comment">     * e2)&#125; must not throw a &#123;<span class="doctag">@code</span> ClassCastException&#125; for any elements</span></span><br><span class="line"><span class="comment">     * &#123;<span class="doctag">@code</span> e1&#125; and &#123;<span class="doctag">@code</span> e2&#125; in the set.  If the user attempts to add</span></span><br><span class="line"><span class="comment">     * an element to the set that violates this constraint, the</span></span><br><span class="line"><span class="comment">     * &#123;<span class="doctag">@code</span> add&#125; call will throw a &#123;<span class="doctag">@code</span> ClassCastException&#125;.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> comparator the comparator that will be used to order this set.</span></span><br><span class="line"><span class="comment">     *        If &#123;<span class="doctag">@code</span> null&#125;, the &#123;<span class="doctag">@linkplain</span> Comparable natural</span></span><br><span class="line"><span class="comment">     *        ordering&#125; of the elements will be used.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line"><span class="keyword">public</span> <span class="title function_">TreeSet</span><span class="params">(Comparator&lt;? <span class="built_in">super</span> E&gt; comparator)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>(<span class="keyword">new</span> <span class="title class_">TreeMap</span>&lt;&gt;(comparator));</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></li>
+<li>第二种: 炫酷的java8写法]<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*方法二:炫酷的java8写法*/</span></span><br><span class="line">ArrayList&lt;BookInfoVo&gt; distinctLiost = list.stream()</span><br><span class="line">                  .collect(</span><br><span class="line">                          Collectors.collectingAndThen(</span><br><span class="line">                                  Collectors.toCollection(() -&gt; <span class="keyword">new</span> <span class="title class_">TreeSet</span>&lt;&gt;(Comparator.comparingLong(BookInfoVo::getRecordId))), ArrayList::<span class="keyword">new</span>)</span><br><span class="line">                  );</span><br></pre></td></tr></table></figure>
+当然也可以根据多个属性去重<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ArrayList&lt;BookInfoVo&gt; distinctLiost = list.stream().collect(Collectors.collectingAndThen(</span><br><span class="line">  Collectors.toCollection(() -&gt; <span class="keyword">new</span> <span class="title class_">TreeSet</span>&lt;&gt;(Comparator.comparing(o -&gt; o.getName() + <span class="string">&quot;;&quot;</span> + o.getAuthor()))), ArrayList::<span class="keyword">new</span>)</span><br></pre></td></tr></table></figure>
+如果没有第一种方法做铺垫,我们很可能一脸懵逼.</li>
+</ul>
+<p>其实理解起来也不难:</p>
+<p>关键在于Collectors.collectingAndThen( Collectors.toCollection(() -&gt; new TreeSet&lt;&gt;(Comparator.comparingLong(BookInfoVo::getRecordId))), ArrayList::new)的理解,</p>
+<p>collectingAndThen 这个方法的意思是: 将收集的结果转换为另一种类型: collectingAndThen,</p>
+<p>因此上面的方法可以理解为,把 new TreeSet&lt;&gt;(Comparator.comparingLong(BookInfoVo::getRecordId))这个set转换为 ArrayList,这个结合第一种方法不难理解.</p>
+<p>可以看到java8这种写法真是炫酷又强大!!!</p>
+
+      
+    </div>
+
+    
+    
+    
+
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>l
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/8537f75f/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lion.png">
+      <meta itemprop="name" content="swimminghao">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="swimminghao's blog">
+      <meta itemprop="description" content="swimminghao的学习博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | swimminghao's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/8537f75f/" class="post-title-link" itemprop="url">双亲委派机制</a>
+        </h2>
+
+        <div class="post-meta-container">
+
+          
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-03-13 12:56:04" itemprop="dateModified" datetime="2022-03-13T12:56:04+08:00">2022-03-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/posts/8537f75f/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/8537f75f/" data-xid="/posts/8537f75f/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>1.8k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>2 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="双亲委派机制"><a href="#双亲委派机制" class="headerlink" title="双亲委派机制"></a>双亲委派机制</h1><h2 id="一、双亲委派机制"><a href="#一、双亲委派机制" class="headerlink" title="一、双亲委派机制"></a>一、双亲委派机制</h2><ol>
+<li><p>class文件是通过类加载器加载到jvm中的</p>
+</li>
+<li><p>为了防止内存中存在多份同样的字节码，使用了双亲委派机制（不会自己加载类，而是把请求委托给父加载器去完成，依次向上）</p>
+</li>
+<li><p>jdk本地方法类一般有根加载器（BootStrap Loader） 装载，jdk内部实现的扩展类一般由扩展加载器（ExtClassLoader），程序中的类文件则有系统加载器（AppClassLoader）装载</p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/W7CetM_20210922105555.png"></p>
+</li>
+</ol>
+<h2 id="二、如何打破双亲委派机制"><a href="#二、如何打破双亲委派机制" class="headerlink" title="二、如何打破双亲委派机制"></a>二、如何打破双亲委派机制</h2><ol>
+<li>只要我加载类的时候，不是从AppClassLoader→ExtClassLoader→BootStrap Loader这个顺序找，那就是打破了。</li>
+<li>因为加载class核心的方法在LoaderClass类的loadClass()方法上（双亲委派机制的核心实现上）</li>
+<li>只要我自定义个ClassLoader，重写loadClass方法（不依照往上开始寻找类加载器），那就算是打破双亲委派机制了。</li>
+</ol>
+<h2 id="三、破坏双亲委派机制的场景"><a href="#三、破坏双亲委派机制的场景" class="headerlink" title="三、破坏双亲委派机制的场景"></a>三、破坏双亲委派机制的场景</h2><ol>
+<li>tomcat：初学部署项目时，我们是把war包放到tomcat的webapp下，意味着tomcat可以运行多个web应用程序</li>
+<li>那假设我现在有2个web应用程序，都有一个类，叫做User，并且它们的类全限定名都一样，比如：都是com.xxxxx.User。但是它们的具体实现是不一样的</li>
+<li>那么tomcat是如何保证它们不会冲突的呢？</li>
+<li>答案就是：tomcat给每个web应用创建了一个类加载器实例（WebAppClassLoader），该加载器重写了loadClass方法，优先加载当前应用目录下的类，如果当前找不到，才一层一层往上找。这样就做到了web应用层级的隔离。</li>
+</ol>
+<h2 id="四、tomcat还有别的类加载器吗"><a href="#四、tomcat还有别的类加载器吗" class="headerlink" title="四、tomcat还有别的类加载器吗"></a>四、tomcat还有别的类加载器吗</h2><ol>
+<li><p>并不是web应用下的所有依赖都是需要隔离的，比如redis就是可以web应用之间共享的</p>
+</li>
+<li><p>因为如果版本相同，没必要每个web应用都独自加载一份</p>
+</li>
+<li><p>做法很简单，tomcat就在WebAppClassLoader上加了个父类加载器（SharedClassLoader），如果WebAppClassLoader自身没有加载到某个类，那就委托ShaerClassLoader去加载。（无非就是把需要应用程序之间需要共享的类放到一个共享目录下,SharedClassLoader）读共享目录的类就好了</p>
+</li>
+<li><p>为了隔离web应用与tomcat本身的类，又有类加载器（CatalinaClassLoader）来装载tomcat本身的依赖</p>
+</li>
+<li><p>如果tomcat本身的类的依赖和web应用还需要共享，那么还有类加载器（CommonClassLoader）来装载进而达到共享</p>
+</li>
+<li><p>各个类加载器的加载目录可以到tomcat的catalina.properties配置文件上查看</p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/5TeCHY_20210922111755.png"></p>
+</li>
+</ol>
+<h2 id="五、jdbc"><a href="#五、jdbc" class="headerlink" title="五、jdbc"></a>五、jdbc</h2><ol>
+<li>有没有破坏双亲委派机制，见仁见智</li>
+<li>jdbc定义类接口，具体实现类由各个厂商进行实现（比如Mysql）</li>
+<li>类加载有个规则：如果一个类由类加载器A加载，那么这个类的依赖类也是有相同的类加载器加载</li>
+<li>我们用jdbc的时候，是使用DriverManager进而获取Connection，DriverManager在java.sql包下，显然是有BootStrap类加载器进行装载</li>
+<li>当我们使用DriverManager.getConnection()时，得到的是一定是厂商实现的类</li>
+<li>但BootStrap 加载器显然不可以加载各个厂商实现的类，这些实现类又没在java包中，怎么可能加载到呢</li>
+<li>DriverManager的解决方案是：在DriverManager初始化时，得到上下文加载器，去获取Connection时，是使用上下文加载器去加载Connection的，而这里的线程上下文加载器实际上还是（AppClassLoader）</li>
+<li>在获取Connection的时候，还是先找到ExtClassLoader和B o o t S t ra p C la s sLoader，只不过这两加载器肯定是加载不到的，最终会有AppClassLoader进行加载</li>
+<li>那这种情况，有的人觉得破坏了双亲委派机制，因为本来明明应该是有BootStrapClassLoader进行加载的，结果你来了一手线程上下文加载器，改掉了类加载器</li>
+<li>有的人觉得没破坏双亲委派机制，只是改成了由线程上下文加载器进行类加载，但是还是遵守依次往上找父类加载，都找不到时才由自身加载。认为原则上没有改变。</li>
+<li>我觉得这不重要，重要的是弄懂底层原理</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>l
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://example.com/posts/cad299ae/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1707,7 +2014,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/c77b99c1/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/f0b74f41/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/lion.png">
@@ -1725,7 +2032,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/c77b99c1/" class="post-title-link" itemprop="url">使用java8实现List中对象属性的去重</a>
+          <a href="/posts/f0b74f41/" class="post-title-link" itemprop="url">注释书写</a>
         </h2>
 
         <div class="post-meta-container">
@@ -1767,8 +2074,8 @@
     </span>
     <span class="post-meta-item-text">Waline：</span>
   
-    <a title="waline" href="/posts/c77b99c1/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/c77b99c1/" data-xid="/posts/c77b99c1/" itemprop="commentCount"></span>
+    <a title="waline" href="/posts/f0b74f41/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/f0b74f41/" data-xid="/posts/f0b74f41/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -1779,7 +2086,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>2.2k</span>
+      <span>2.4k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -1797,23 +2104,111 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="使用java8实现List中对象属性的去重"><a href="#使用java8实现List中对象属性的去重" class="headerlink" title="使用java8实现List中对象属性的去重"></a>使用java8实现List中对象属性的去重</h1><p>今天在工作的时候遇到了一个问题，就是List的去重，不想用双重for，感觉太low，不想用for+Map，感觉应该有更好的方法，于是，google之。发现java8的stream流能完美解决这个问题。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">List&lt;BookInfoVo&gt; list</span><br></pre></td></tr></table></figure>
-<p>比如在 BookInfoVo 中有一个 recordId 属性,现在需要对此去重.</p>
-<p>怎么办呢?</p>
-<p>有两种方法:</p>
-<ul>
-<li>第一种: 不使用java8 的 Stream<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> List&lt;BookInfoVo&gt; <span class="title function_">removeDupliByRecordId</span><span class="params">(List&lt;BookInfoVo&gt; books)</span> &#123;</span><br><span class="line">	Set&lt;BookInfoVo&gt; bookSet = <span class="keyword">new</span> <span class="title class_">TreeSet</span>&lt;&gt;((o1, o2)-&gt;o1.getRecordId().compareTo(o2.getRecordId()));</span><br><span class="line">          personSet.addAll(books);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;BookInfoVo&gt;(bookSet);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-这也是大多数人第一想到的,借助 TreeSet 去重,其中 TreeSet 的其中一个构造函数接收一个排序的算法,同时这也会用到 TreeSet 的去重策略上.<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Constructs a new, empty tree set, sorted according to the specified</span></span><br><span class="line"><span class="comment">     * comparator.  All elements inserted into the set must be &lt;i&gt;mutually</span></span><br><span class="line"><span class="comment">     * comparable&lt;/i&gt; by the specified comparator: &#123;<span class="doctag">@code</span> comparator.compare(e1,</span></span><br><span class="line"><span class="comment">     * e2)&#125; must not throw a &#123;<span class="doctag">@code</span> ClassCastException&#125; for any elements</span></span><br><span class="line"><span class="comment">     * &#123;<span class="doctag">@code</span> e1&#125; and &#123;<span class="doctag">@code</span> e2&#125; in the set.  If the user attempts to add</span></span><br><span class="line"><span class="comment">     * an element to the set that violates this constraint, the</span></span><br><span class="line"><span class="comment">     * &#123;<span class="doctag">@code</span> add&#125; call will throw a &#123;<span class="doctag">@code</span> ClassCastException&#125;.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> comparator the comparator that will be used to order this set.</span></span><br><span class="line"><span class="comment">     *        If &#123;<span class="doctag">@code</span> null&#125;, the &#123;<span class="doctag">@linkplain</span> Comparable natural</span></span><br><span class="line"><span class="comment">     *        ordering&#125; of the elements will be used.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line"><span class="keyword">public</span> <span class="title function_">TreeSet</span><span class="params">(Comparator&lt;? <span class="built_in">super</span> E&gt; comparator)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>(<span class="keyword">new</span> <span class="title class_">TreeMap</span>&lt;&gt;(comparator));</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></li>
-<li>第二种: 炫酷的java8写法]<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*方法二:炫酷的java8写法*/</span></span><br><span class="line">ArrayList&lt;BookInfoVo&gt; distinctLiost = list.stream()</span><br><span class="line">                  .collect(</span><br><span class="line">                          Collectors.collectingAndThen(</span><br><span class="line">                                  Collectors.toCollection(() -&gt; <span class="keyword">new</span> <span class="title class_">TreeSet</span>&lt;&gt;(Comparator.comparingLong(BookInfoVo::getRecordId))), ArrayList::<span class="keyword">new</span>)</span><br><span class="line">                  );</span><br></pre></td></tr></table></figure>
-当然也可以根据多个属性去重<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ArrayList&lt;BookInfoVo&gt; distinctLiost = list.stream().collect(Collectors.collectingAndThen(</span><br><span class="line">  Collectors.toCollection(() -&gt; <span class="keyword">new</span> <span class="title class_">TreeSet</span>&lt;&gt;(Comparator.comparing(o -&gt; o.getName() + <span class="string">&quot;;&quot;</span> + o.getAuthor()))), ArrayList::<span class="keyword">new</span>)</span><br></pre></td></tr></table></figure>
-如果没有第一种方法做铺垫,我们很可能一脸懵逼.</li>
+          <h1 id="注释书写规范"><a href="#注释书写规范" class="headerlink" title="注释书写规范"></a>注释书写规范</h1><ul>
+<li>一般情况下，源程序有效注释量必须在30％以上。注释的原则是有助于对程序的阅读理解，在该加的地方都加了，注释不宜太多也不能太少，注释语言必须准确、易懂、简洁。可以用注释统计工具来统计。<h2 id="一、类和接口的注释"><a href="#一、类和接口的注释" class="headerlink" title="一、类和接口的注释"></a>一、类和接口的注释</h2></li>
 </ul>
-<p>其实理解起来也不难:</p>
-<p>关键在于Collectors.collectingAndThen( Collectors.toCollection(() -&gt; new TreeSet&lt;&gt;(Comparator.comparingLong(BookInfoVo::getRecordId))), ArrayList::new)的理解,</p>
-<p>collectingAndThen 这个方法的意思是: 将收集的结果转换为另一种类型: collectingAndThen,</p>
-<p>因此上面的方法可以理解为,把 new TreeSet&lt;&gt;(Comparator.comparingLong(BookInfoVo::getRecordId))这个set转换为 ArrayList,这个结合第一种方法不难理解.</p>
-<p>可以看到java8这种写法真是炫酷又强大!!!</p>
+<p><strong>1. 类外注释</strong></p>
+<blockquote>
+<p>该注释放在 package 关键字之后，class 或者 interface 关键字之前。</p>
+</blockquote>
+<ul>
+<li>说明：方便JavaDoc收集。<br>示例：</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.huawei.msg.relay.comm;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 注释内容</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">CommManager</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>类和接口的注释内容：类的注释主要是一句话功能简述、功能详细描述。<br>格式：<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 〈一句话功能简述〉</span></span><br><span class="line"><span class="comment"> * 〈功能详细描述〉</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure></li>
+<li>描述部分说明该类或者接口的功能、作用、使用方法和注意事项。<br>示例：<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * LogManager 类集中控制对日志读写的操作。</span></span><br><span class="line"><span class="comment"> * 全部为静态变量和静态方法，对外提供统一接口。分配对应日志类型的读写器，</span></span><br><span class="line"><span class="comment"> * 读取或写入符合条件的日志纪录。</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<p><strong>2. 类内注释</strong></p>
+<blockquote>
+<p>类属性、公有和保护方法必须写注释。geter、seter方法不用写注释</p>
+</blockquote>
+<p>  示例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 注释内容</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">private</span> String logType;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 注释内容</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">write</span><span class="params">()</span></span><br></pre></td></tr></table></figure>
+<p>1).成员变量注释内容：成员变量的意义、目的、功能，可能被用到的地方。<br>2).公有和保护方法注释内容：列出方法的一句话功能    简述、功能详细描述、输入参数、输出参数、返回值、违例等。<br>格式：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 〈一句话功能简述〉</span></span><br><span class="line"><span class="comment"> * 〈功能详细描述〉</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span>  [参数1] [in或out]  [参数1说明]</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span>  [参数2] [in或out]  [参数2说明]</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span> [返回类型说明]</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@exception</span>/throws [违例类型] [违例说明]</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+<p>说明： @exception或throws 列出可能仍出的异常。<br>示例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 用MD5算法计算输入字符串的32位摘要</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> sIn [in] 待处理的字符串</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> sOut [out] sIn的32为摘要，调用函数负责new sOut对象</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span> boolean</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="type">boolean</span> <span class="title function_">getMd5</span><span class="params">(String sIn, StringBuffer sOut)</span> </span><br></pre></td></tr></table></figure>
+<p>说明：<br>1）.注释应与其描述的代码相近，对代码的注释应放在其上方或右方（对单条语句的注释）相邻位置，不可放在下面，如放于上方则需与其上面的代码用空行隔开。<br>2）.注释与所描述内容进行同样的缩排。<br>3）.将注释与其上面的代码用空行隔开。<br>示例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//注释</span></span><br><span class="line">program code <span class="title function_">one</span></span><br><span class="line"><span class="params">(空一格)</span>   </span><br><span class="line"><span class="comment">//注释</span></span><br><span class="line">program code two</span><br></pre></td></tr></table></figure>
+<h2 id="二、方法与复杂逻辑的注释"><a href="#二、方法与复杂逻辑的注释" class="headerlink" title="二、方法与复杂逻辑的注释"></a>二、方法与复杂逻辑的注释</h2><blockquote>
+<p>对变量的定义和分支语句（条件分支、循环语句等）对复杂的分支必须编写注释，如果时间允许，建议对所有分支语句写注释。</p>
+</blockquote>
+<p>说明：这些语句往往是程序实现某一特定功能的关键，对于维护人员来说，良好的注释帮助更好的理解程序，有时甚至优于看设计文档。</p>
+<ol>
+<li>switch语句</li>
+</ol>
+<ul>
+<li>switch语句下的case语句，如果因为特殊情况需要处理完一个case后进入下一个case处理，必须在该case语句处理完、下一个case语句前加上明确的注释。</li>
+<li>说明：这样比较清楚程序编写者的意图，有效防止无故遗漏break语句。</li>
+</ul>
+<ol start="2">
+<li>边写代码边注释</li>
+</ol>
+<ul>
+<li>修改代码同时修改相应的注释，以保证注释与代码的一致性。不再有用的注释要删除。</li>
+</ul>
+<ol start="3">
+<li>避免在注释中使用缩写</li>
+</ol>
+<ul>
+<li>在使用缩写时或之前，应对缩写进行必要的说明，特别是不常用缩写。</li>
+</ul>
+<ol start="4">
+<li>用中文注释，禁止用英文写注释。<h2 id="建议"><a href="#建议" class="headerlink" title="建议"></a>建议</h2></li>
+<li>避免在一行代码或表达式的中间插入注释。</li>
+</ol>
+<ul>
+<li>说明：除非必要，不应在代码或表达中间插入注释，否则容易使代码可理解性变差。</li>
+</ul>
+<ol start="2">
+<li>通过对函数或过程、变量、结构等正确的命名以及合理地组织代码的结构，使代码成为自注释的。</li>
+</ol>
+<ul>
+<li>说明：清晰准确的函数、变量等的命名，可增加代码可读性，并减少不必要的注释。</li>
+</ul>
+<ol start="3">
+<li>在代码的功能、意图层次上进行注释，提供有用、额外的信息。</li>
+</ol>
+<ul>
+<li>说明：注释的目的是解释代码的目的、功能和采用的方法，提供代码以外的信息，帮助读者理解代码，防止没必要的重复注释信息。</li>
+<li>示例：如下注释意义不大。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 如果 receiveFlag 为真</span></span><br><span class="line"><span class="keyword">if</span> (receiveFlag)</span><br></pre></td></tr></table></figure></li>
+<li>而如下的注释则给出了额外有用的信息。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 如果从连结收到消息 </span></span><br><span class="line"><span class="keyword">if</span> (receiveFlag)</span><br></pre></td></tr></table></figure></li>
+</ul>
+<ol start="4">
+<li>在程序块的结束行右方加注释标记，以表明某程序块的结束。</li>
+</ol>
+<ul>
+<li>说明：当代码段较长，特别是多重嵌套时，这样做可以使代码更清晰，更便于阅读。</li>
+<li>示例：参见如下例子。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (...)</span><br><span class="line">&#123;</span><br><span class="line">    program code1</span><br><span class="line">    <span class="title function_">while</span> <span class="params">(index &lt; MAX_INDEX)</span></span><br><span class="line">    &#123;</span><br><span class="line">        program code2</span><br><span class="line">    &#125; <span class="comment">// end of while (index &lt; MAX_INDEX) // 指明该条while语句结束</span></span><br><span class="line">&#125; <span class="comment">// end of  if (...) // 指明是哪条if语句结束</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<ol start="5">
+<li>方法内的单行注释使用 &#x2F;&#x2F;。</li>
+</ol>
+<ul>
+<li>说明：调试程序的时候可以方便的使用 &#x2F;* 。。。*&#x2F; 注释掉一长段程序。</li>
+</ul>
+<ol start="6">
+<li>注释使用中文注释和中文标点，不得用英文写注释。方法和类描述的第一句话尽量使用简洁明了的话概括一下功能，然后加以句号。接下来的部分可以详细描述。</li>
+</ol>
+<ul>
+<li>说明：JavaDoc工具收集简介的时候使用选取第一句话。</li>
+</ul>
+<ol start="7">
+<li>顺序实现流程的说明使用1、2、3、4在每个实现步骤部分的代码前面进行注释。</li>
+</ol>
+<ul>
+<li>示例：如下是对设置属性的流程注释<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//1、 判断输入参数是否有效。</span></span><br><span class="line">...</span><br><span class="line"><span class="comment">// 2、设置本地变量。</span></span><br><span class="line">...</span><br></pre></td></tr></table></figure></li>
+</ul>
+<ol start="8">
+<li>一些复杂的算法代码需要说明。</li>
+</ol>
+<ul>
+<li>示例：这里主要是对闰年算法的说明。<br><code>java //1. 如果能被4整除，是闰年； //2. 如果能被100整除，不是闰年.； //3. 如果能被400整除，是闰年.。 </code>星期五, 23. 八月 2019 07:42下午</li>
+</ul>
+<p>**</p>
+<hr>
+<p>**</p>
 
       
     </div>
@@ -2068,175 +2463,6 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/8537f75f/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/lion.png">
-      <meta itemprop="name" content="swimminghao">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="swimminghao's blog">
-      <meta itemprop="description" content="swimminghao的学习博客">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | swimminghao's blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/8537f75f/" class="post-title-link" itemprop="url">双亲委派机制</a>
-        </h2>
-
-        <div class="post-meta-container">
-
-          
-
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-13 12:56:04" itemprop="dateModified" datetime="2022-03-13T12:56:04+08:00">2022-03-13</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="far fa-comment"></i>
-    </span>
-    <span class="post-meta-item-text">Waline：</span>
-  
-    <a title="waline" href="/posts/8537f75f/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/8537f75f/" data-xid="/posts/8537f75f/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>1.8k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>2 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="双亲委派机制"><a href="#双亲委派机制" class="headerlink" title="双亲委派机制"></a>双亲委派机制</h1><h2 id="一、双亲委派机制"><a href="#一、双亲委派机制" class="headerlink" title="一、双亲委派机制"></a>一、双亲委派机制</h2><ol>
-<li><p>class文件是通过类加载器加载到jvm中的</p>
-</li>
-<li><p>为了防止内存中存在多份同样的字节码，使用了双亲委派机制（不会自己加载类，而是把请求委托给父加载器去完成，依次向上）</p>
-</li>
-<li><p>jdk本地方法类一般有根加载器（BootStrap Loader） 装载，jdk内部实现的扩展类一般由扩展加载器（ExtClassLoader），程序中的类文件则有系统加载器（AppClassLoader）装载</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/W7CetM_20210922105555.png"></p>
-</li>
-</ol>
-<h2 id="二、如何打破双亲委派机制"><a href="#二、如何打破双亲委派机制" class="headerlink" title="二、如何打破双亲委派机制"></a>二、如何打破双亲委派机制</h2><ol>
-<li>只要我加载类的时候，不是从AppClassLoader→ExtClassLoader→BootStrap Loader这个顺序找，那就是打破了。</li>
-<li>因为加载class核心的方法在LoaderClass类的loadClass()方法上（双亲委派机制的核心实现上）</li>
-<li>只要我自定义个ClassLoader，重写loadClass方法（不依照往上开始寻找类加载器），那就算是打破双亲委派机制了。</li>
-</ol>
-<h2 id="三、破坏双亲委派机制的场景"><a href="#三、破坏双亲委派机制的场景" class="headerlink" title="三、破坏双亲委派机制的场景"></a>三、破坏双亲委派机制的场景</h2><ol>
-<li>tomcat：初学部署项目时，我们是把war包放到tomcat的webapp下，意味着tomcat可以运行多个web应用程序</li>
-<li>那假设我现在有2个web应用程序，都有一个类，叫做User，并且它们的类全限定名都一样，比如：都是com.xxxxx.User。但是它们的具体实现是不一样的</li>
-<li>那么tomcat是如何保证它们不会冲突的呢？</li>
-<li>答案就是：tomcat给每个web应用创建了一个类加载器实例（WebAppClassLoader），该加载器重写了loadClass方法，优先加载当前应用目录下的类，如果当前找不到，才一层一层往上找。这样就做到了web应用层级的隔离。</li>
-</ol>
-<h2 id="四、tomcat还有别的类加载器吗"><a href="#四、tomcat还有别的类加载器吗" class="headerlink" title="四、tomcat还有别的类加载器吗"></a>四、tomcat还有别的类加载器吗</h2><ol>
-<li><p>并不是web应用下的所有依赖都是需要隔离的，比如redis就是可以web应用之间共享的</p>
-</li>
-<li><p>因为如果版本相同，没必要每个web应用都独自加载一份</p>
-</li>
-<li><p>做法很简单，tomcat就在WebAppClassLoader上加了个父类加载器（SharedClassLoader），如果WebAppClassLoader自身没有加载到某个类，那就委托ShaerClassLoader去加载。（无非就是把需要应用程序之间需要共享的类放到一个共享目录下,SharedClassLoader）读共享目录的类就好了</p>
-</li>
-<li><p>为了隔离web应用与tomcat本身的类，又有类加载器（CatalinaClassLoader）来装载tomcat本身的依赖</p>
-</li>
-<li><p>如果tomcat本身的类的依赖和web应用还需要共享，那么还有类加载器（CommonClassLoader）来装载进而达到共享</p>
-</li>
-<li><p>各个类加载器的加载目录可以到tomcat的catalina.properties配置文件上查看</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/5TeCHY_20210922111755.png"></p>
-</li>
-</ol>
-<h2 id="五、jdbc"><a href="#五、jdbc" class="headerlink" title="五、jdbc"></a>五、jdbc</h2><ol>
-<li>有没有破坏双亲委派机制，见仁见智</li>
-<li>jdbc定义类接口，具体实现类由各个厂商进行实现（比如Mysql）</li>
-<li>类加载有个规则：如果一个类由类加载器A加载，那么这个类的依赖类也是有相同的类加载器加载</li>
-<li>我们用jdbc的时候，是使用DriverManager进而获取Connection，DriverManager在java.sql包下，显然是有BootStrap类加载器进行装载</li>
-<li>当我们使用DriverManager.getConnection()时，得到的是一定是厂商实现的类</li>
-<li>但BootStrap 加载器显然不可以加载各个厂商实现的类，这些实现类又没在java包中，怎么可能加载到呢</li>
-<li>DriverManager的解决方案是：在DriverManager初始化时，得到上下文加载器，去获取Connection时，是使用上下文加载器去加载Connection的，而这里的线程上下文加载器实际上还是（AppClassLoader）</li>
-<li>在获取Connection的时候，还是先找到ExtClassLoader和B o o t S t ra p C la s sLoader，只不过这两加载器肯定是加载不到的，最终会有AppClassLoader进行加载</li>
-<li>那这种情况，有的人觉得破坏了双亲委派机制，因为本来明明应该是有BootStrapClassLoader进行加载的，结果你来了一手线程上下文加载器，改掉了类加载器</li>
-<li>有的人觉得没破坏双亲委派机制，只是改成了由线程上下文加载器进行类加载，但是还是遵守依次往上找父类加载，都找不到时才由自身加载。认为原则上没有改变。</li>
-<li>我觉得这不重要，重要的是弄懂底层原理</li>
-</ol>
-
-      
-    </div>
-
-    
-    
-    
-
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>l
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://example.com/posts/5bf4d040/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2354,232 +2580,6 @@
 <p>​        换句话说，线程看起来跟进程没有区别，只是线程的某些数据区域和其父进 程是共享的，而子进程是拷⻉副本，而不是共享。就比如说， mm 结构 和 files 结构在线程中都是共享的，我画两张图你就明白了:</p>
 <p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/X1GvhJ_20210909230142.png"></p>
 <p><strong>注意：</strong>对于新建进程时内存区域拷 ⻉的问题，Linux 采用了 copy-on-write 的策略优化，也就是并不真正复制父 进程的内存空间，而是等到需要写操作时才去复制。<strong>所以</strong> <strong>Linux</strong> <strong>中新建进 程和新建线程都是很迅速的</strong>。</p>
-
-      
-    </div>
-
-    
-    
-    
-
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>l
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/f0b74f41/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/lion.png">
-      <meta itemprop="name" content="swimminghao">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="swimminghao's blog">
-      <meta itemprop="description" content="swimminghao的学习博客">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | swimminghao's blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/f0b74f41/" class="post-title-link" itemprop="url">注释书写</a>
-        </h2>
-
-        <div class="post-meta-container">
-
-          
-
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-13 12:56:04" itemprop="dateModified" datetime="2022-03-13T12:56:04+08:00">2022-03-13</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E8%AF%AD%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">语法</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="far fa-comment"></i>
-    </span>
-    <span class="post-meta-item-text">Waline：</span>
-  
-    <a title="waline" href="/posts/f0b74f41/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/f0b74f41/" data-xid="/posts/f0b74f41/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>2.4k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>2 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="注释书写规范"><a href="#注释书写规范" class="headerlink" title="注释书写规范"></a>注释书写规范</h1><ul>
-<li>一般情况下，源程序有效注释量必须在30％以上。注释的原则是有助于对程序的阅读理解，在该加的地方都加了，注释不宜太多也不能太少，注释语言必须准确、易懂、简洁。可以用注释统计工具来统计。<h2 id="一、类和接口的注释"><a href="#一、类和接口的注释" class="headerlink" title="一、类和接口的注释"></a>一、类和接口的注释</h2></li>
-</ul>
-<p><strong>1. 类外注释</strong></p>
-<blockquote>
-<p>该注释放在 package 关键字之后，class 或者 interface 关键字之前。</p>
-</blockquote>
-<ul>
-<li>说明：方便JavaDoc收集。<br>示例：</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.huawei.msg.relay.comm;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 注释内容</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">CommManager</span></span><br></pre></td></tr></table></figure>
-<ul>
-<li>类和接口的注释内容：类的注释主要是一句话功能简述、功能详细描述。<br>格式：<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 〈一句话功能简述〉</span></span><br><span class="line"><span class="comment"> * 〈功能详细描述〉</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure></li>
-<li>描述部分说明该类或者接口的功能、作用、使用方法和注意事项。<br>示例：<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * LogManager 类集中控制对日志读写的操作。</span></span><br><span class="line"><span class="comment"> * 全部为静态变量和静态方法，对外提供统一接口。分配对应日志类型的读写器，</span></span><br><span class="line"><span class="comment"> * 读取或写入符合条件的日志纪录。</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure></li>
-</ul>
-<p><strong>2. 类内注释</strong></p>
-<blockquote>
-<p>类属性、公有和保护方法必须写注释。geter、seter方法不用写注释</p>
-</blockquote>
-<p>  示例：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 注释内容</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">private</span> String logType;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 注释内容</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">write</span><span class="params">()</span></span><br></pre></td></tr></table></figure>
-<p>1).成员变量注释内容：成员变量的意义、目的、功能，可能被用到的地方。<br>2).公有和保护方法注释内容：列出方法的一句话功能    简述、功能详细描述、输入参数、输出参数、返回值、违例等。<br>格式：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 〈一句话功能简述〉</span></span><br><span class="line"><span class="comment"> * 〈功能详细描述〉</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span>  [参数1] [in或out]  [参数1说明]</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span>  [参数2] [in或out]  [参数2说明]</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span> [返回类型说明]</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@exception</span>/throws [违例类型] [违例说明]</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
-<p>说明： @exception或throws 列出可能仍出的异常。<br>示例：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 用MD5算法计算输入字符串的32位摘要</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> sIn [in] 待处理的字符串</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> sOut [out] sIn的32为摘要，调用函数负责new sOut对象</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span> boolean</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="type">boolean</span> <span class="title function_">getMd5</span><span class="params">(String sIn, StringBuffer sOut)</span> </span><br></pre></td></tr></table></figure>
-<p>说明：<br>1）.注释应与其描述的代码相近，对代码的注释应放在其上方或右方（对单条语句的注释）相邻位置，不可放在下面，如放于上方则需与其上面的代码用空行隔开。<br>2）.注释与所描述内容进行同样的缩排。<br>3）.将注释与其上面的代码用空行隔开。<br>示例：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//注释</span></span><br><span class="line">program code <span class="title function_">one</span></span><br><span class="line"><span class="params">(空一格)</span>   </span><br><span class="line"><span class="comment">//注释</span></span><br><span class="line">program code two</span><br></pre></td></tr></table></figure>
-<h2 id="二、方法与复杂逻辑的注释"><a href="#二、方法与复杂逻辑的注释" class="headerlink" title="二、方法与复杂逻辑的注释"></a>二、方法与复杂逻辑的注释</h2><blockquote>
-<p>对变量的定义和分支语句（条件分支、循环语句等）对复杂的分支必须编写注释，如果时间允许，建议对所有分支语句写注释。</p>
-</blockquote>
-<p>说明：这些语句往往是程序实现某一特定功能的关键，对于维护人员来说，良好的注释帮助更好的理解程序，有时甚至优于看设计文档。</p>
-<ol>
-<li>switch语句</li>
-</ol>
-<ul>
-<li>switch语句下的case语句，如果因为特殊情况需要处理完一个case后进入下一个case处理，必须在该case语句处理完、下一个case语句前加上明确的注释。</li>
-<li>说明：这样比较清楚程序编写者的意图，有效防止无故遗漏break语句。</li>
-</ul>
-<ol start="2">
-<li>边写代码边注释</li>
-</ol>
-<ul>
-<li>修改代码同时修改相应的注释，以保证注释与代码的一致性。不再有用的注释要删除。</li>
-</ul>
-<ol start="3">
-<li>避免在注释中使用缩写</li>
-</ol>
-<ul>
-<li>在使用缩写时或之前，应对缩写进行必要的说明，特别是不常用缩写。</li>
-</ul>
-<ol start="4">
-<li>用中文注释，禁止用英文写注释。<h2 id="建议"><a href="#建议" class="headerlink" title="建议"></a>建议</h2></li>
-<li>避免在一行代码或表达式的中间插入注释。</li>
-</ol>
-<ul>
-<li>说明：除非必要，不应在代码或表达中间插入注释，否则容易使代码可理解性变差。</li>
-</ul>
-<ol start="2">
-<li>通过对函数或过程、变量、结构等正确的命名以及合理地组织代码的结构，使代码成为自注释的。</li>
-</ol>
-<ul>
-<li>说明：清晰准确的函数、变量等的命名，可增加代码可读性，并减少不必要的注释。</li>
-</ul>
-<ol start="3">
-<li>在代码的功能、意图层次上进行注释，提供有用、额外的信息。</li>
-</ol>
-<ul>
-<li>说明：注释的目的是解释代码的目的、功能和采用的方法，提供代码以外的信息，帮助读者理解代码，防止没必要的重复注释信息。</li>
-<li>示例：如下注释意义不大。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 如果 receiveFlag 为真</span></span><br><span class="line"><span class="keyword">if</span> (receiveFlag)</span><br></pre></td></tr></table></figure></li>
-<li>而如下的注释则给出了额外有用的信息。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 如果从连结收到消息 </span></span><br><span class="line"><span class="keyword">if</span> (receiveFlag)</span><br></pre></td></tr></table></figure></li>
-</ul>
-<ol start="4">
-<li>在程序块的结束行右方加注释标记，以表明某程序块的结束。</li>
-</ol>
-<ul>
-<li>说明：当代码段较长，特别是多重嵌套时，这样做可以使代码更清晰，更便于阅读。</li>
-<li>示例：参见如下例子。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (...)</span><br><span class="line">&#123;</span><br><span class="line">    program code1</span><br><span class="line">    <span class="title function_">while</span> <span class="params">(index &lt; MAX_INDEX)</span></span><br><span class="line">    &#123;</span><br><span class="line">        program code2</span><br><span class="line">    &#125; <span class="comment">// end of while (index &lt; MAX_INDEX) // 指明该条while语句结束</span></span><br><span class="line">&#125; <span class="comment">// end of  if (...) // 指明是哪条if语句结束</span></span><br></pre></td></tr></table></figure></li>
-</ul>
-<ol start="5">
-<li>方法内的单行注释使用 &#x2F;&#x2F;。</li>
-</ol>
-<ul>
-<li>说明：调试程序的时候可以方便的使用 &#x2F;* 。。。*&#x2F; 注释掉一长段程序。</li>
-</ul>
-<ol start="6">
-<li>注释使用中文注释和中文标点，不得用英文写注释。方法和类描述的第一句话尽量使用简洁明了的话概括一下功能，然后加以句号。接下来的部分可以详细描述。</li>
-</ol>
-<ul>
-<li>说明：JavaDoc工具收集简介的时候使用选取第一句话。</li>
-</ul>
-<ol start="7">
-<li>顺序实现流程的说明使用1、2、3、4在每个实现步骤部分的代码前面进行注释。</li>
-</ol>
-<ul>
-<li>示例：如下是对设置属性的流程注释<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//1、 判断输入参数是否有效。</span></span><br><span class="line">...</span><br><span class="line"><span class="comment">// 2、设置本地变量。</span></span><br><span class="line">...</span><br></pre></td></tr></table></figure></li>
-</ul>
-<ol start="8">
-<li>一些复杂的算法代码需要说明。</li>
-</ol>
-<ul>
-<li>示例：这里主要是对闰年算法的说明。<br><code>java //1. 如果能被4整除，是闰年； //2. 如果能被100整除，不是闰年.； //3. 如果能被400整除，是闰年.。 </code>星期五, 23. 八月 2019 07:42下午</li>
-</ul>
-<p>**</p>
-<hr>
-<p>**</p>
 
       
     </div>
