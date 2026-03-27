@@ -276,7 +276,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/4d79f088/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/f0b74f41/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/lion.png">
@@ -294,7 +294,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/4d79f088/" class="post-title-link" itemprop="url">面试官：说说你了解class文件吗？</a>
+          <a href="/posts/f0b74f41/" class="post-title-link" itemprop="url">注释书写</a>
         </h2>
 
         <div class="post-meta-container">
@@ -323,7 +323,7 @@
       </span>
       <span class="post-meta-item-text">分类于</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+          <a href="/categories/%E8%AF%AD%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">语法</span></a>
         </span>
     </span>
 
@@ -336,8 +336,8 @@
     </span>
     <span class="post-meta-item-text">Waline：</span>
   
-    <a title="waline" href="/posts/4d79f088/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/4d79f088/" data-xid="/posts/4d79f088/" itemprop="commentCount"></span>
+    <a title="waline" href="/posts/f0b74f41/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/f0b74f41/" data-xid="/posts/f0b74f41/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -348,14 +348,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>2.8k</span>
+      <span>2.4k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>3 分钟</span>
+      <span>2 分钟</span>
     </span>
 </div>
 
@@ -366,34 +366,111 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="面试官：说说你了解class文件吗？"><a href="#面试官：说说你了解class文件吗？" class="headerlink" title="面试官：说说你了解class文件吗？"></a>面试官：说说你了解class文件吗？</h1><p><strong>本文思维导图：</strong></p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2rLXEs_20210507091957.png" alt="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2rLXEs_20210507091957.png"></p>
-<h2 id="Class类文件结构"><a href="#Class类文件结构" class="headerlink" title="Class类文件结构"></a>Class类文件结构</h2><h2 id="为什么Java可以一次编译到处运行？JVM无关性"><a href="#为什么Java可以一次编译到处运行？JVM无关性" class="headerlink" title="为什么Java可以一次编译到处运行？JVM无关性"></a>为什么Java可以一次编译到处运行？JVM无关性</h2><p>与平台无关性是建立在操作系统上，虚拟机厂商提供了许多可以运行在各种不同平台的虚拟机，它们都可以载入和执行字节码，从而实现程序的“一次编写，到处运行”。</p>
-<p>各种不同平台的虚拟机与所有平台都统一使用的程序存储格式——字节码（Byte Code）是构成平台无关性的基石，也是语言无关性的基础。Java 虚拟机不和包括 Java 在内的任何语言绑定，它只与“Class 文件”这种特定的二进制文件格式所关联，Class 文件中包含了 Java 虚拟机指令集和符号表以及若干其他辅助信息。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/ZGOAdI_20210507092208.png" alt="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/ZGOAdI_20210507092208.png"></p>
-<h2 id="Class-类文件"><a href="#Class-类文件" class="headerlink" title="Class  类文件"></a>Class  类文件</h2><p>Java 技术能够一直保持非常好的向后兼容性，这点 Class 文件结构的稳定性功不可没。Java 已经发展到 14 版本，但是 class 文件结构的内容，绝大部分在JDK1.2 时代就已经定义好了。虽然 JDK1.2 的内容比较古老，但是 java 发展经历了十余个大版本，但是每次基本上知识在原有结构基础上新增内容、扩充功能，并未对定义的内容做修改。</p>
-<p>任何一个 Class 文件都对应着唯一一个类或接口的定义信息，但反过来说，Class 文件实际上它并不一定以磁盘文件的形式存在（比如可以动态生成、或者直接送入类加载器中）。</p>
-<p>Class 文件是一组以 8 位字节为基础单位的二进制流。</p>
-<h2 id="工具介绍"><a href="#工具介绍" class="headerlink" title="工具介绍"></a>工具介绍</h2><p>Sublime：查看 16 进制的编辑器<br>javap：javap 是 JDK 自带的反解析工具。它的作用是将 .class 字节码文件解析成可读的文件格式。<br>在使用 javap 时我一般会添加 -v 参数，尽量多打印一些信息。同时，我也会使用 -p 参数，打印一些私有的字段和方法。<br>jclasslib：如果你不太习惯使用命令行的操作，还可以使用 jclasslib，jclasslib 是一个图形化的工具，能够更加直观的查看字节码中的内容。它还分门别类的对类中的各个部分进行了整理，非常的人性化。同时，它还提供了 Idea 的插件，你可以从 plugins 中搜索到它。</p>
-<h2 id="Class-文件格式"><a href="#Class-文件格式" class="headerlink" title="Class  文件格式"></a>Class  文件格式</h2><p>从一个 Class 文件开始，整个 Class 文件的格式就是一个二进制的字节流。各个数据项目严格按照顺序紧凑地排列在 Class 文件之中，中间没有添加任何分隔符，这使得整个 Class 文件中存储的内容几乎全部是程序运行的必要数据，没有空隙存在。</p>
-<p>Class 文件格式采用一种类似于 C 语言结构体的伪结构来存储数据，这种伪结构中只有两种数据类型：无符号数和表。</p>
-<p>无符号数属于基本的数据类型，以 u1、u2、u4、u8 来分别代表 1 个字节（一个字节是由两位 16 进制数组成 （<strong>1个16进制数&#x3D;4个二进制数 8个二进制数&#x3D;一个字节</strong>））、2 个字节、4 个字节和 8 个字节的无符号数，无符号数可以用来描述数字、索引引用、数量值或者按照 UTF-8 编码构成字符串值。</p>
-<p>表是由多个无符号数或者其他表作为数据项构成的复合数据类型，所有表都习惯性地以“_info”结尾。表用于描述有层次关系的复合结构的数据，整个Class 文件本质上就是一张表。</p>
-<h2 id="Class-文件格式详解"><a href="#Class-文件格式详解" class="headerlink" title="Class  文件格式详解"></a>Class  文件格式详解</h2><p>Class 的结构不像 XML 等描述语言，由于它没有任何分隔符号，所以在其中的数据项，无论是顺序还是数量，都是被严格限定的，哪个字节代表什么含义，长度是多少，先后顺序如何，都不允许改变。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/mwHImZ_20210507115741.png" alt="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/mwHImZ_20210507115741.png"></p>
-<p>按顺序包括：</p>
-<h3 id="魔数与-Class-文件的版本"><a href="#魔数与-Class-文件的版本" class="headerlink" title="魔数与 Class  文件的版本"></a>魔数与 Class  文件的版本</h3><p>每个 Class 文件的头 4 个字节称为魔数（Magic Number），它的唯一作用是确定这个文件是否为一个能被虚拟机接受的 Class 文件。使用魔数而不是扩展名来进行识别主要是基于安全方面的考虑，因为文件扩展名可以随意地改动。文件格式的制定者可以自由地选择魔数值，只要这个魔数值还没有被广泛采用过同时又不会引起混淆即可。</p>
-<p>紧接着魔数的 4 个字节存储的是 Class 文件  的版本号：第 5 和第 6 个字节是次版本号（MinorVersion），第 7 和第 8 个字节是主版本号（Major Version）。</p>
-<p>Java 的版本号是从 45 开始的，JDK 1.1 之后的每个 JDK 大版本发布主版本号向上加 1 高版本的 JDK 能向下兼容以前版本的 Class 文件，但不能运行以后版本的 Class 文件，即使文件格式并未发生任何变化，虚拟机也必须拒绝执行超过其版本号的 Class 文件。<img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/1xvCIr_20210507115713.png" style = "width:20px height:1px" />代表 JDK1.8（16 进制的 34，换成 10 进制就是 52）</p>
-<h2 id="常量池"><a href="#常量池" class="headerlink" title="常量池"></a>常量池</h2><p>常量池中常量的数量是不固定的，所以在常量池的入口需要放置一项 u2 类型的数据，代表常量池容量计数值（constant_pool_count）。与 Java 中语言习惯不一样的是，这个容量计数是从 1 而不是 0 开始的</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/L7NUe4_20210507115859.png"></p>
-<p>常量池中主要存放两大类常量：字面量（Literal）和符号引用（Symbolic References）。<br>字面量比较接近于 Java 语言层面的常量概念，如文本字符串、声明为 final 的常量值等。<br>符号引用则属于编译原理方面的概念，包括了下面三类常量：类和接口的全限定名（Fully Qualified Name）、字段的名称和描述符（Descriptor）、方法的名称和描述符</p>
-<h3 id="访问标志"><a href="#访问标志" class="headerlink" title="访问标志"></a>访问标志</h3><p>用于识别一些类或者接口层次的访问信息，包括：这个 Class 是类还是接口；是否定义为 public 类型；是否定义为 abstract 类型；如果是类的话，是否被声明为 final 等</p>
-<h3 id="类索引、父类索引与接口索引集合"><a href="#类索引、父类索引与接口索引集合" class="headerlink" title="类索引、父类索引与接口索引集合"></a>类索引、父类索引与接口索引集合</h3><p>这三项数据来确定类的继承关系。类索引用于确定这个类的全限定名，父类索引用于确定这个类的父类的全限定名。由于 Java 语言不允许多重继承，所以父类索引只有一个，除了 java.lang.Object 之外，所有的 Java 类都有父类，因此除了java.lang.Object 外，所有 Java 类的父类索引都不为 0。接口索引集合就用来描述这个类实现了哪些接口，这些被实现的接口将按 implements 语句（如果这个类本身是一个接口，则应当是 extends 语句）后的接口顺序从左到右排列在接口索引集合中</p>
-<h3 id="字段表集合"><a href="#字段表集合" class="headerlink" title="字段表集合"></a>字段表集合</h3><p>描述接口或者类中声明的变量。字段（field）包括类级变量以及实例级变量。<br>而字段叫什么名字、字段被定义为什么数据类型，这些都是无法固定的，只能引用常量池中的常量来描述。字段表集合中不会列出从超类或者父接口中继承而来的字段，但有可能列出原本 Java 代码之中不存在的字段，譬如在内部类中为了保持对外部类的访问性，会自动添加指向外部类实例的字段。</p>
-<h3 id="方法表集合"><a href="#方法表集合" class="headerlink" title="方法表集合"></a>方法表集合</h3><p>描述了方法的定义，但是方法里的 Java 代码，经过编译器编译成字节码指令后，存放在属性表集合中的方法属性表集合中一个名为“Code”的属性里面。</p>
-<p>与字段表集合相类似的，如果父类方法在子类中没有被重写（Override），方法表集合中就不会出现来自父类的方法信息。但同样的，有可能会出现由编译器自动添加的方法，最典型的便是类构造器“＜clinit＞”方法和实例构造器“＜init＞”</p>
-<h3 id="属性表集合"><a href="#属性表集合" class="headerlink" title="属性表集合"></a>属性表集合</h3><p>存储 Class 文件、字段表、方法表都自己的属性表集合，以用于描述某些场景专有的信息。如方法的代码就存储在 Code 属性表中。</p>
+          <h1 id="注释书写规范"><a href="#注释书写规范" class="headerlink" title="注释书写规范"></a>注释书写规范</h1><ul>
+<li>一般情况下，源程序有效注释量必须在30％以上。注释的原则是有助于对程序的阅读理解，在该加的地方都加了，注释不宜太多也不能太少，注释语言必须准确、易懂、简洁。可以用注释统计工具来统计。<h2 id="一、类和接口的注释"><a href="#一、类和接口的注释" class="headerlink" title="一、类和接口的注释"></a>一、类和接口的注释</h2></li>
+</ul>
+<p><strong>1. 类外注释</strong></p>
+<blockquote>
+<p>该注释放在 package 关键字之后，class 或者 interface 关键字之前。</p>
+</blockquote>
+<ul>
+<li>说明：方便JavaDoc收集。<br>示例：</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.huawei.msg.relay.comm;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 注释内容</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">CommManager</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>类和接口的注释内容：类的注释主要是一句话功能简述、功能详细描述。<br>格式：<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 〈一句话功能简述〉</span></span><br><span class="line"><span class="comment"> * 〈功能详细描述〉</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure></li>
+<li>描述部分说明该类或者接口的功能、作用、使用方法和注意事项。<br>示例：<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * LogManager 类集中控制对日志读写的操作。</span></span><br><span class="line"><span class="comment"> * 全部为静态变量和静态方法，对外提供统一接口。分配对应日志类型的读写器，</span></span><br><span class="line"><span class="comment"> * 读取或写入符合条件的日志纪录。</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<p><strong>2. 类内注释</strong></p>
+<blockquote>
+<p>类属性、公有和保护方法必须写注释。geter、seter方法不用写注释</p>
+</blockquote>
+<p>  示例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 注释内容</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">private</span> String logType;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 注释内容</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">write</span><span class="params">()</span></span><br></pre></td></tr></table></figure>
+<p>1).成员变量注释内容：成员变量的意义、目的、功能，可能被用到的地方。<br>2).公有和保护方法注释内容：列出方法的一句话功能    简述、功能详细描述、输入参数、输出参数、返回值、违例等。<br>格式：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 〈一句话功能简述〉</span></span><br><span class="line"><span class="comment"> * 〈功能详细描述〉</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span>  [参数1] [in或out]  [参数1说明]</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span>  [参数2] [in或out]  [参数2说明]</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span> [返回类型说明]</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@exception</span>/throws [违例类型] [违例说明]</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+<p>说明： @exception或throws 列出可能仍出的异常。<br>示例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 用MD5算法计算输入字符串的32位摘要</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> sIn [in] 待处理的字符串</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> sOut [out] sIn的32为摘要，调用函数负责new sOut对象</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span> boolean</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="type">boolean</span> <span class="title function_">getMd5</span><span class="params">(String sIn, StringBuffer sOut)</span> </span><br></pre></td></tr></table></figure>
+<p>说明：<br>1）.注释应与其描述的代码相近，对代码的注释应放在其上方或右方（对单条语句的注释）相邻位置，不可放在下面，如放于上方则需与其上面的代码用空行隔开。<br>2）.注释与所描述内容进行同样的缩排。<br>3）.将注释与其上面的代码用空行隔开。<br>示例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//注释</span></span><br><span class="line">program code <span class="title function_">one</span></span><br><span class="line"><span class="params">(空一格)</span>   </span><br><span class="line"><span class="comment">//注释</span></span><br><span class="line">program code two</span><br></pre></td></tr></table></figure>
+<h2 id="二、方法与复杂逻辑的注释"><a href="#二、方法与复杂逻辑的注释" class="headerlink" title="二、方法与复杂逻辑的注释"></a>二、方法与复杂逻辑的注释</h2><blockquote>
+<p>对变量的定义和分支语句（条件分支、循环语句等）对复杂的分支必须编写注释，如果时间允许，建议对所有分支语句写注释。</p>
+</blockquote>
+<p>说明：这些语句往往是程序实现某一特定功能的关键，对于维护人员来说，良好的注释帮助更好的理解程序，有时甚至优于看设计文档。</p>
+<ol>
+<li>switch语句</li>
+</ol>
+<ul>
+<li>switch语句下的case语句，如果因为特殊情况需要处理完一个case后进入下一个case处理，必须在该case语句处理完、下一个case语句前加上明确的注释。</li>
+<li>说明：这样比较清楚程序编写者的意图，有效防止无故遗漏break语句。</li>
+</ul>
+<ol start="2">
+<li>边写代码边注释</li>
+</ol>
+<ul>
+<li>修改代码同时修改相应的注释，以保证注释与代码的一致性。不再有用的注释要删除。</li>
+</ul>
+<ol start="3">
+<li>避免在注释中使用缩写</li>
+</ol>
+<ul>
+<li>在使用缩写时或之前，应对缩写进行必要的说明，特别是不常用缩写。</li>
+</ul>
+<ol start="4">
+<li>用中文注释，禁止用英文写注释。<h2 id="建议"><a href="#建议" class="headerlink" title="建议"></a>建议</h2></li>
+<li>避免在一行代码或表达式的中间插入注释。</li>
+</ol>
+<ul>
+<li>说明：除非必要，不应在代码或表达中间插入注释，否则容易使代码可理解性变差。</li>
+</ul>
+<ol start="2">
+<li>通过对函数或过程、变量、结构等正确的命名以及合理地组织代码的结构，使代码成为自注释的。</li>
+</ol>
+<ul>
+<li>说明：清晰准确的函数、变量等的命名，可增加代码可读性，并减少不必要的注释。</li>
+</ul>
+<ol start="3">
+<li>在代码的功能、意图层次上进行注释，提供有用、额外的信息。</li>
+</ol>
+<ul>
+<li>说明：注释的目的是解释代码的目的、功能和采用的方法，提供代码以外的信息，帮助读者理解代码，防止没必要的重复注释信息。</li>
+<li>示例：如下注释意义不大。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 如果 receiveFlag 为真</span></span><br><span class="line"><span class="keyword">if</span> (receiveFlag)</span><br></pre></td></tr></table></figure></li>
+<li>而如下的注释则给出了额外有用的信息。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 如果从连结收到消息 </span></span><br><span class="line"><span class="keyword">if</span> (receiveFlag)</span><br></pre></td></tr></table></figure></li>
+</ul>
+<ol start="4">
+<li>在程序块的结束行右方加注释标记，以表明某程序块的结束。</li>
+</ol>
+<ul>
+<li>说明：当代码段较长，特别是多重嵌套时，这样做可以使代码更清晰，更便于阅读。</li>
+<li>示例：参见如下例子。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (...)</span><br><span class="line">&#123;</span><br><span class="line">    program code1</span><br><span class="line">    <span class="title function_">while</span> <span class="params">(index &lt; MAX_INDEX)</span></span><br><span class="line">    &#123;</span><br><span class="line">        program code2</span><br><span class="line">    &#125; <span class="comment">// end of while (index &lt; MAX_INDEX) // 指明该条while语句结束</span></span><br><span class="line">&#125; <span class="comment">// end of  if (...) // 指明是哪条if语句结束</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<ol start="5">
+<li>方法内的单行注释使用 &#x2F;&#x2F;。</li>
+</ol>
+<ul>
+<li>说明：调试程序的时候可以方便的使用 &#x2F;* 。。。*&#x2F; 注释掉一长段程序。</li>
+</ul>
+<ol start="6">
+<li>注释使用中文注释和中文标点，不得用英文写注释。方法和类描述的第一句话尽量使用简洁明了的话概括一下功能，然后加以句号。接下来的部分可以详细描述。</li>
+</ol>
+<ul>
+<li>说明：JavaDoc工具收集简介的时候使用选取第一句话。</li>
+</ul>
+<ol start="7">
+<li>顺序实现流程的说明使用1、2、3、4在每个实现步骤部分的代码前面进行注释。</li>
+</ol>
+<ul>
+<li>示例：如下是对设置属性的流程注释<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//1、 判断输入参数是否有效。</span></span><br><span class="line">...</span><br><span class="line"><span class="comment">// 2、设置本地变量。</span></span><br><span class="line">...</span><br></pre></td></tr></table></figure></li>
+</ul>
+<ol start="8">
+<li>一些复杂的算法代码需要说明。</li>
+</ol>
+<ul>
+<li>示例：这里主要是对闰年算法的说明。<br><code>java //1. 如果能被4整除，是闰年； //2. 如果能被100整除，不是闰年.； //3. 如果能被400整除，是闰年.。 </code>星期五, 23. 八月 2019 07:42下午</li>
+</ul>
+<p>**</p>
+<hr>
+<p>**</p>
 
       
     </div>
