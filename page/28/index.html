@@ -594,6 +594,184 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/117b65dd/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lion.png">
+      <meta itemprop="name" content="swimminghao">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="swimminghao's blog">
+      <meta itemprop="description" content="swimminghao的学习博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | swimminghao's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/117b65dd/" class="post-title-link" itemprop="url">动态规划设计之最长递增子序列</a>
+        </h2>
+
+        <div class="post-meta-container">
+
+          
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-03-10 11:51:52" itemprop="dateModified" datetime="2022-03-10T11:51:52+08:00">2022-03-10</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/posts/117b65dd/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/117b65dd/" data-xid="/posts/117b65dd/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>2.5k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>2 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="动态规划设计之最长递增子序列"><a href="#动态规划设计之最长递增子序列" class="headerlink" title="动态规划设计之最长递增子序列"></a>动态规划设计之最长递增子序列</h1><h2 id="预计阅读时间：-9-分钟"><a href="#预计阅读时间：-9-分钟" class="headerlink" title="预计阅读时间： 9 分钟"></a>预计阅读时间： 9 分钟</h2><p>很多读者反应，就算看了前文 <a target="_blank" rel="noopener" href="http://mp.weixin.qq.com/s?__biz=MzU0MDg5OTYyOQ==&mid=2247483818&idx=1&sn=6035f861d1b2bfd0178e842f26ac4836&chksm=fb3361e8cc44e8fe331154bfd32bd7b3b4f159bfad5d38d4a6b0b9f0d7e3485b93b828ee72cc&scene=21#wechat_redirect">动态规划详解</a>，了解了动态规划的套路，也不会写状态转移方程，没有思路，怎么办？本文就借助「最长递增子序列」来讲一种设计动态规划的通用技巧：数学归纳思想。</p>
+<p>最长递增子序列（Longest Increasing Subsequence，简写 LIS）是比较经典的一个问题，比较容易想到的是动态规划解法，时间复杂度 O(N^2)，我们借这个问题来由浅入深讲解如何写动态规划。</p>
+<p>比较难想到的是利用二分查找，时间复杂度是 O(NlogN)，我们通过一种简单的纸牌游戏来辅助理解这种巧妙的解法。</p>
+<p>先看一下题目，很容易理解：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/MEAMGr_20210715222744.png" alt="图片"></p>
+<p>注意「子序列」和「子串」这两个名词的区别，子串一定是连续的，而子序列不一定是连续的。下面先来一步一步设计动态规划算法解决这个问题。</p>
+<h2 id="一、动态规划解法"><a href="#一、动态规划解法" class="headerlink" title="一、动态规划解法"></a>一、动态规划解法</h2><p><strong>动态规划的核心设计思想是数学归纳法。</strong></p>
+<p>相信大家对数学归纳法都不陌生，高中就学过，而且思路很简单。比如我们想证明一个数学结论，那么我们先假设这个结论在 k&lt;n 时成立，然后想办法证明 k&#x3D;<em>n</em> 的时候此结论也成立。如果能够证明出来，那么就说明这个结论对于 k 等于任何数都成立。</p>
+<p>类似的，我们设计动态规划算法，不是需要一个 dp 数组吗？我们可以假设 <em>dp</em>[0…<em>i</em>−1] 都已经被算出来了，然后问自己：怎么通过这些结果算出<em>dp[i] ?</em></p>
+<p>直接拿最长递增子序列这个问题举例你就明白了。不过，首先要定义清楚 dp 数组的含义，即 dp[i] 的值到底代表着什么？</p>
+<p><strong>我们的定义是这样的：****dp[i] 表示以 nums[i] 这个数结尾的最长递增子序列的长度。</strong></p>
+<p>举个例子：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/S9DvIE_20210715222829.png" alt="图片"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/vrYoH4_20210715222841.png" alt="图片"></p>
+<p>算法演进的过程是这样的：<img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/640_20210715222950.gif" alt="图片"></p>
+<p>根据这个定义，我们的最终结果（子序列的最大长度）应该是 dp 数组中的最大值。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="variable">res</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; dp.length; i++) &#123;</span><br><span class="line">    res = Math.max(res, dp[i]);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> res;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>读者也许会问，刚才这个过程中每个 dp[i] 的结果是我们肉眼看出来的，我们应该怎么设计算法逻辑来正确计算每个 dp[i] 呢？</p>
+<p>这就是动态规划的重头戏了，要思考如何进行状态转移，这里就可以使用数学归纳的思想：</p>
+<p>我们已经知道了 <em>d**p</em>[0…4] 的所有结果，我们如何通过这些已知结果推出 <em>d**p</em>[5] 呢？</p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/xpC5LY_20210715223016.png" alt="图片"></p>
+<p>根据刚才我们对 dp 数组的定义，现在想求 dp[5] 的值，也就是想求以 nums[5] 为结尾的最长递增子序列。</p>
+<p>nums[5] &#x3D; 3，既然是递增子序列，我们只要找到前面那些结尾比 3 小的子序列，然后把 3 接到最后，就可以形成一个新的递增子序列，而且这个新的子序列长度加一。</p>
+<p>当然，可能形成很多种新的子序列，但是我们只要最长的，把最长子序列的长度作为 dp[5] 的值即可。</p>
+<p>![图片](<a target="_blank" rel="noopener" href="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/640">https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/640</a> (1)_20210715223303.gif)</p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/QksgN5_20210715223039.png" alt="图片"></p>
+<p>这段代码的逻辑就可以算出 dp[5]。到这里，这道算法题我们就基本做完了。读者也许会问，我们刚才只是算了 dp[5] 呀，dp[4], dp[3] 这些怎么算呢？</p>
+<p>类似数学归纳法，你已经可以通过 dp[0…4] 算出 dp[5] 了，那么任意 dp[i] 你肯定都可以算出来：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/9CYook_20210715223056.png" alt="图片"></p>
+<p>还有一个细节问题，就是 base case。dp 数组应该全部初始化为 1，因为子序列最少也要包含自己，所以长度最小为 1。下面我们看一下完整代码：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/image-20210715223113307_20210715223113.png" alt="图片"></p>
+<p>至此，这道题就解决了，时间复杂度 O(N^2)。总结一下动态规划的设计流程：</p>
+<p>首先明确 dp 数组所存数据的含义。这步很重要，如果不得当或者不够清晰，会阻碍之后的步骤。</p>
+<p>然后根据 dp 数组的定义，运用数学归纳法的思想，假设 <em>d**p</em>[0…<em>i</em>−1] 都已知，想办法求出 <em>d**p</em>[<em>i</em>]，一旦这一步完成，整个题目基本就解决了。</p>
+<p>但如果无法完成这一步，很可能就是 dp 数组的定义不够恰当，需要重新定义 dp 数组的含义；或者可能是 dp 数组存储的信息还不够，不足以推出下一步的答案，需要把 dp 数组扩大成二维数组甚至三维数组。</p>
+<h2 id="二、二分查找解法"><a href="#二、二分查找解法" class="headerlink" title="二、二分查找解法"></a>二、二分查找解法</h2><p>这个解法的时间复杂度会将为 O(NlogN)，但是说实话，正常人基本想不到这种解法（也许玩过某些纸牌游戏的人可以想出来）。所以如果大家了解一下就好，正常情况下能够给出动态规划解法就已经很不错了。</p>
+<p>根据题目的意思，我都很难想象这个问题竟然能和二分查找扯上关系。其实最长递增子序列和一种叫做 patience game 的纸牌游戏有关，甚至有一种排序方法就叫做 patience sorting（耐心排序）。</p>
+<p>为了简单起见，后文跳过所有数学证明，通过一个简化的例子来理解一下思路。</p>
+<p>首先，给你一排扑克牌，我们像遍历数组那样从左到右一张一张处理这些扑克牌，最终要把这些牌分成若干堆。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/DFBLV6_20210715223123.png" alt="图片"></p>
+<p>处理这些扑克牌要遵循以下规则：</p>
+<p>只能把点数小的牌压到点数比它大的牌上。如果当前牌点数较大没有可以放置的堆，则新建一个堆，把这张牌放进去。如果当前牌有多个堆可供选择，则选择最左边的堆放置。</p>
+<p>比如说上述的扑克牌最终会被分成这样 5 堆（我们认为 A 的值是最大的，而不是 1）。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/image-20210715223138612_20210715223138.png" alt="图片"></p>
+<p>为什么遇到多个可选择堆的时候要放到最左边的堆上呢？因为这样可以保证牌堆顶的牌有序（2, 4, 7, 8, Q），证明略。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/Cnd9HF_20210715223145.png" alt="图片"></p>
+<p>按照上述规则执行，可以算出最长递增子序列，牌的堆数就是我们想求的最长递增子序列的长度，证明略。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/8SHDGY_20210715223158.png" alt="图片"></p>
+<p>我们只要把处理扑克牌的过程编程写出来即可。每次处理一张扑克牌不是要找一个合适的牌堆顶来放吗，牌堆顶的牌不是有序吗，这就能用到二分查找了：用二分查找来搜索当前牌应放置的位置。</p>
+<p>PS：旧文 <a target="_blank" rel="noopener" href="http://mp.weixin.qq.com/s?__biz=MzU0MDg5OTYyOQ==&mid=2247484090&idx=1&sn=5635cf1c4fd8a8570b63c7ae9b4304c2&chksm=fb3362f8cc44ebee0a19a4cfba7f2e13923e05f47e15f2e99a1f42b01aeee83b946aceac3d4c&scene=21#wechat_redirect">二分查找算法详解</a> 详细介绍了二分查找的细节及变体，这里就完美应用上了。如果没读过强烈建议阅读。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/f6Golz_20210715223219.png" alt="图片"></p>
+<p>至此，二分查找的解法也讲解完毕。</p>
+<p>这个解法确实很难想到。首先涉及数学证明，谁能想到按照这些规则执行，就能得到最长递增子序列呢？其次还有二分查找的运用，要是对二分查找的细节不清楚，给了思路也很难写对。</p>
+<p>所以，这个方法作为思维拓展好了。但动态规划的设计方法应该完全理解：假设之前的答案已知，利用数学归纳的思想正确进行状态的推演转移，最终得到答案。</p>
+
+      
+    </div>
+
+    
+    
+    
+
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>l
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://example.com/posts/e775a8f2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -957,184 +1135,6 @@
 <p>组合问题利用的是回溯思想，结果可以表示成树结构，我们只要套用回溯算法模板即可，关键点在于要用一个 <code>start</code> 排除已经选择过的数字。</p>
 <p>排列问题是回溯思想，也可以表示成树结构套用算法模板，不同之处在于使用 <code>contains</code> 方法排除已经选择的数字，前文有详细分析，这里主要是和组合问题作对比。</p>
 <p>对于这三个问题，关键区别在于回溯树的结构，不妨多观察递归树的结构，很自然就可以理解代码的含义了。</p>
-
-      
-    </div>
-
-    
-    
-    
-
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>l
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/117b65dd/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/lion.png">
-      <meta itemprop="name" content="swimminghao">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="swimminghao's blog">
-      <meta itemprop="description" content="swimminghao的学习博客">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | swimminghao's blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/117b65dd/" class="post-title-link" itemprop="url">动态规划设计之最长递增子序列</a>
-        </h2>
-
-        <div class="post-meta-container">
-
-          
-
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-10 11:51:52" itemprop="dateModified" datetime="2022-03-10T11:51:52+08:00">2022-03-10</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="far fa-comment"></i>
-    </span>
-    <span class="post-meta-item-text">Waline：</span>
-  
-    <a title="waline" href="/posts/117b65dd/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/117b65dd/" data-xid="/posts/117b65dd/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>2.5k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>2 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="动态规划设计之最长递增子序列"><a href="#动态规划设计之最长递增子序列" class="headerlink" title="动态规划设计之最长递增子序列"></a>动态规划设计之最长递增子序列</h1><h2 id="预计阅读时间：-9-分钟"><a href="#预计阅读时间：-9-分钟" class="headerlink" title="预计阅读时间： 9 分钟"></a>预计阅读时间： 9 分钟</h2><p>很多读者反应，就算看了前文 <a target="_blank" rel="noopener" href="http://mp.weixin.qq.com/s?__biz=MzU0MDg5OTYyOQ==&mid=2247483818&idx=1&sn=6035f861d1b2bfd0178e842f26ac4836&chksm=fb3361e8cc44e8fe331154bfd32bd7b3b4f159bfad5d38d4a6b0b9f0d7e3485b93b828ee72cc&scene=21#wechat_redirect">动态规划详解</a>，了解了动态规划的套路，也不会写状态转移方程，没有思路，怎么办？本文就借助「最长递增子序列」来讲一种设计动态规划的通用技巧：数学归纳思想。</p>
-<p>最长递增子序列（Longest Increasing Subsequence，简写 LIS）是比较经典的一个问题，比较容易想到的是动态规划解法，时间复杂度 O(N^2)，我们借这个问题来由浅入深讲解如何写动态规划。</p>
-<p>比较难想到的是利用二分查找，时间复杂度是 O(NlogN)，我们通过一种简单的纸牌游戏来辅助理解这种巧妙的解法。</p>
-<p>先看一下题目，很容易理解：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/MEAMGr_20210715222744.png" alt="图片"></p>
-<p>注意「子序列」和「子串」这两个名词的区别，子串一定是连续的，而子序列不一定是连续的。下面先来一步一步设计动态规划算法解决这个问题。</p>
-<h2 id="一、动态规划解法"><a href="#一、动态规划解法" class="headerlink" title="一、动态规划解法"></a>一、动态规划解法</h2><p><strong>动态规划的核心设计思想是数学归纳法。</strong></p>
-<p>相信大家对数学归纳法都不陌生，高中就学过，而且思路很简单。比如我们想证明一个数学结论，那么我们先假设这个结论在 k&lt;n 时成立，然后想办法证明 k&#x3D;<em>n</em> 的时候此结论也成立。如果能够证明出来，那么就说明这个结论对于 k 等于任何数都成立。</p>
-<p>类似的，我们设计动态规划算法，不是需要一个 dp 数组吗？我们可以假设 <em>dp</em>[0…<em>i</em>−1] 都已经被算出来了，然后问自己：怎么通过这些结果算出<em>dp[i] ?</em></p>
-<p>直接拿最长递增子序列这个问题举例你就明白了。不过，首先要定义清楚 dp 数组的含义，即 dp[i] 的值到底代表着什么？</p>
-<p><strong>我们的定义是这样的：****dp[i] 表示以 nums[i] 这个数结尾的最长递增子序列的长度。</strong></p>
-<p>举个例子：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/S9DvIE_20210715222829.png" alt="图片"></p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/vrYoH4_20210715222841.png" alt="图片"></p>
-<p>算法演进的过程是这样的：<img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/640_20210715222950.gif" alt="图片"></p>
-<p>根据这个定义，我们的最终结果（子序列的最大长度）应该是 dp 数组中的最大值。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="variable">res</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; dp.length; i++) &#123;</span><br><span class="line">    res = Math.max(res, dp[i]);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> res;</span><br></pre></td></tr></table></figure>
-
-
-
-<p>读者也许会问，刚才这个过程中每个 dp[i] 的结果是我们肉眼看出来的，我们应该怎么设计算法逻辑来正确计算每个 dp[i] 呢？</p>
-<p>这就是动态规划的重头戏了，要思考如何进行状态转移，这里就可以使用数学归纳的思想：</p>
-<p>我们已经知道了 <em>d**p</em>[0…4] 的所有结果，我们如何通过这些已知结果推出 <em>d**p</em>[5] 呢？</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/xpC5LY_20210715223016.png" alt="图片"></p>
-<p>根据刚才我们对 dp 数组的定义，现在想求 dp[5] 的值，也就是想求以 nums[5] 为结尾的最长递增子序列。</p>
-<p>nums[5] &#x3D; 3，既然是递增子序列，我们只要找到前面那些结尾比 3 小的子序列，然后把 3 接到最后，就可以形成一个新的递增子序列，而且这个新的子序列长度加一。</p>
-<p>当然，可能形成很多种新的子序列，但是我们只要最长的，把最长子序列的长度作为 dp[5] 的值即可。</p>
-<p>![图片](<a target="_blank" rel="noopener" href="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/640">https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/640</a> (1)_20210715223303.gif)</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/QksgN5_20210715223039.png" alt="图片"></p>
-<p>这段代码的逻辑就可以算出 dp[5]。到这里，这道算法题我们就基本做完了。读者也许会问，我们刚才只是算了 dp[5] 呀，dp[4], dp[3] 这些怎么算呢？</p>
-<p>类似数学归纳法，你已经可以通过 dp[0…4] 算出 dp[5] 了，那么任意 dp[i] 你肯定都可以算出来：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/9CYook_20210715223056.png" alt="图片"></p>
-<p>还有一个细节问题，就是 base case。dp 数组应该全部初始化为 1，因为子序列最少也要包含自己，所以长度最小为 1。下面我们看一下完整代码：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/image-20210715223113307_20210715223113.png" alt="图片"></p>
-<p>至此，这道题就解决了，时间复杂度 O(N^2)。总结一下动态规划的设计流程：</p>
-<p>首先明确 dp 数组所存数据的含义。这步很重要，如果不得当或者不够清晰，会阻碍之后的步骤。</p>
-<p>然后根据 dp 数组的定义，运用数学归纳法的思想，假设 <em>d**p</em>[0…<em>i</em>−1] 都已知，想办法求出 <em>d**p</em>[<em>i</em>]，一旦这一步完成，整个题目基本就解决了。</p>
-<p>但如果无法完成这一步，很可能就是 dp 数组的定义不够恰当，需要重新定义 dp 数组的含义；或者可能是 dp 数组存储的信息还不够，不足以推出下一步的答案，需要把 dp 数组扩大成二维数组甚至三维数组。</p>
-<h2 id="二、二分查找解法"><a href="#二、二分查找解法" class="headerlink" title="二、二分查找解法"></a>二、二分查找解法</h2><p>这个解法的时间复杂度会将为 O(NlogN)，但是说实话，正常人基本想不到这种解法（也许玩过某些纸牌游戏的人可以想出来）。所以如果大家了解一下就好，正常情况下能够给出动态规划解法就已经很不错了。</p>
-<p>根据题目的意思，我都很难想象这个问题竟然能和二分查找扯上关系。其实最长递增子序列和一种叫做 patience game 的纸牌游戏有关，甚至有一种排序方法就叫做 patience sorting（耐心排序）。</p>
-<p>为了简单起见，后文跳过所有数学证明，通过一个简化的例子来理解一下思路。</p>
-<p>首先，给你一排扑克牌，我们像遍历数组那样从左到右一张一张处理这些扑克牌，最终要把这些牌分成若干堆。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/DFBLV6_20210715223123.png" alt="图片"></p>
-<p>处理这些扑克牌要遵循以下规则：</p>
-<p>只能把点数小的牌压到点数比它大的牌上。如果当前牌点数较大没有可以放置的堆，则新建一个堆，把这张牌放进去。如果当前牌有多个堆可供选择，则选择最左边的堆放置。</p>
-<p>比如说上述的扑克牌最终会被分成这样 5 堆（我们认为 A 的值是最大的，而不是 1）。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/image-20210715223138612_20210715223138.png" alt="图片"></p>
-<p>为什么遇到多个可选择堆的时候要放到最左边的堆上呢？因为这样可以保证牌堆顶的牌有序（2, 4, 7, 8, Q），证明略。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/Cnd9HF_20210715223145.png" alt="图片"></p>
-<p>按照上述规则执行，可以算出最长递增子序列，牌的堆数就是我们想求的最长递增子序列的长度，证明略。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/8SHDGY_20210715223158.png" alt="图片"></p>
-<p>我们只要把处理扑克牌的过程编程写出来即可。每次处理一张扑克牌不是要找一个合适的牌堆顶来放吗，牌堆顶的牌不是有序吗，这就能用到二分查找了：用二分查找来搜索当前牌应放置的位置。</p>
-<p>PS：旧文 <a target="_blank" rel="noopener" href="http://mp.weixin.qq.com/s?__biz=MzU0MDg5OTYyOQ==&mid=2247484090&idx=1&sn=5635cf1c4fd8a8570b63c7ae9b4304c2&chksm=fb3362f8cc44ebee0a19a4cfba7f2e13923e05f47e15f2e99a1f42b01aeee83b946aceac3d4c&scene=21#wechat_redirect">二分查找算法详解</a> 详细介绍了二分查找的细节及变体，这里就完美应用上了。如果没读过强烈建议阅读。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/f6Golz_20210715223219.png" alt="图片"></p>
-<p>至此，二分查找的解法也讲解完毕。</p>
-<p>这个解法确实很难想到。首先涉及数学证明，谁能想到按照这些规则执行，就能得到最长递增子序列呢？其次还有二分查找的运用，要是对二分查找的细节不清楚，给了思路也很难写对。</p>
-<p>所以，这个方法作为思维拓展好了。但动态规划的设计方法应该完全理解：假设之前的答案已知，利用数学归纳的思想正确进行状态的推演转移，最终得到答案。</p>
 
       
     </div>
@@ -1686,6 +1686,161 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/196710be/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lion.png">
+      <meta itemprop="name" content="swimminghao">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="swimminghao's blog">
+      <meta itemprop="description" content="swimminghao的学习博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | swimminghao's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/196710be/" class="post-title-link" itemprop="url">快慢指针的一些证明</a>
+        </h2>
+
+        <div class="post-meta-container">
+
+          
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-03-10 11:51:52" itemprop="dateModified" datetime="2022-03-10T11:51:52+08:00">2022-03-10</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/posts/196710be/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/196710be/" data-xid="/posts/196710be/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>1.3k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>1 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="快慢指针在链表中的一些证明"><a href="#快慢指针在链表中的一些证明" class="headerlink" title="快慢指针在链表中的一些证明"></a>快慢指针在链表中的一些证明</h1><p>目录</p>
+<h3 id="一、一定会相遇的证明"><a href="#一、一定会相遇的证明" class="headerlink" title="一、一定会相遇的证明"></a>一、一定会相遇的证明</h3><h3 id="二、环长度"><a href="#二、环长度" class="headerlink" title="二、环长度"></a>二、环长度</h3><h3 id="三、连接点"><a href="#三、连接点" class="headerlink" title="三、连接点"></a>三、连接点</h3><h3 id="四、带环链表总长度"><a href="#四、带环链表总长度" class="headerlink" title="四、带环链表总长度"></a>四、带环链表总长度</h3><h3 id="五、例题"><a href="#五、例题" class="headerlink" title="五、例题"></a>五、例题</h3><h2 id="一、一定会相遇的证明-1"><a href="#一、一定会相遇的证明-1" class="headerlink" title="一、一定会相遇的证明"></a>一、一定会相遇的证明</h2><h4 id="证明1"><a href="#证明1" class="headerlink" title="证明1"></a>证明1</h4><p>1、如果链表没有环，那么快指针比慢指针先到达尾部（null)。</p>
+<p>2、如果链表有环的话，因为快指针走的比慢指针快，所以在环中相遇的过程可以看作是快指针从环后边追赶慢指针的过程。</p>
+<p>用递归法证明，快慢指针一定会相遇：</p>
+<p>（1)快指针与慢指针之间差一步。此时继续往后走，慢指针前进一步，快指针前进两步，两者相遇。<br>（2)快指针与慢指针之间差两步。此时继续往后走，慢指针前进一步，快指针前进两步，两者之间相差一步，转化为第一种情况。<br>（3)快指针与慢指针之间差N步。此时继续往后走，慢指针前进一步，快指针前进两步，两者之间相差(N+1-2)即N-1步。重复这个过程，直到快指针和慢指针相遇。</p>
+<p>因此，此题得证。所以快指针必然与慢指针相遇。</p>
+<h4 id="证明2"><a href="#证明2" class="headerlink" title="证明2"></a>证明2</h4><p>如果链表存在环，快慢指针就一定能相遇。设快指针每次移动q步，慢指针每次移动s步，环的长度为n，环之前的链表长度为m，如下图所示</p>
+<p><img src="https://pic2.zhimg.com/50/da087f6034204e3713f69f94542c99e1_hd.jpg?source=1940ef5c" alt="img"><img src="https://pic2.zhimg.com/80/da087f6034204e3713f69f94542c99e1_720w.jpg?source=1940ef5c" alt="img"></p>
+<p>假设慢指针第一次到达环时移动了x次，位置为a，此时快指针也移动了x次，位置为b，</p>
+<p>则此时快慢指针相遇的等式为<img src="https://www.zhihu.com/equation?tex=(b+q*y)mod(n)+=+(a+s*y)mod(n)" alt="[公式]">，</p>
+<p>也即<img src="https://www.zhihu.com/equation?tex=((b-a)++(q-s)*y)mod(n)+=+0+" alt="[公式]">（1）成立，</p>
+<p>又：</p>
+<p><img src="https://www.zhihu.com/equation?tex=b=(q*x+-+m)mod(n)" alt="[公式]">（2），</p>
+<p><img src="https://www.zhihu.com/equation?tex=a=(s*x-m)mod(n)" alt="[公式]">（3），</p>
+<p>由（1）（2）（3）可得出<img src="https://www.zhihu.com/equation?tex=(q-s)(x+y)mod(n)=0" alt="[公式]">成立，显而易见（q(x+y)-s(x+y) &#x3D;&#x3D; n *k(k&#x3D;1,2,3,…)），x+y是n的整数倍的时候，该式一定成立。</p>
+<p>————————————————找环的起点分割线——————————————<br>假设快指针每次移动2步，慢指针每次移动1步，则根据上述证明可知，<img src="https://www.zhihu.com/equation?tex=x=m" alt="[公式]">，<img src="https://www.zhihu.com/equation?tex=a=0" alt="[公式]">，相遇的位置在y处；求环的起点，就是求m的大小，此时令一指针p1从头结点出发，每次移动1步，令一指针q1从相遇处出发，每次移动1步，则p1与q1再次相遇的地方就是环的起点处，因为此时两个指针均移动m步，由<img src="https://www.zhihu.com/equation?tex=(y+m)mod(n)=0" alt="[公式]">可知，相遇</p>
+<p><strong>推导：慢指针进入环后，快指针最多多绕一个圈。</strong></p>
+<p><strong>快指针F先进环，慢指针S后进。</strong></p>
+<p><strong>假设慢指针进环那一刻快指针差m步能追上（0&lt;&#x3D; m &lt; Length环），根据上边结论，两个指针走m次就会相遇了。</strong></p>
+<p><strong>因为m &lt; Length环，所以快指针在慢指针进环那一刻最多比慢指针多绕一个圈</strong>。</p>
+<h2 id="二、环长度-1"><a href="#二、环长度-1" class="headerlink" title="二、环长度"></a>二、环长度</h2><p>快指针和慢指针第一次相遇时的节点pq（碰撞点），快指针和慢指针从该点开始继续往前走，再次碰撞时所用的操作数就是环的长度Length环。</p>
+<p>证明:由上边的推导可得，这里的m为Lengh环。</p>
+<h2 id="三、连接点-1"><a href="#三、连接点-1" class="headerlink" title="三、连接点"></a>三、连接点</h2><p><img src="https://images2015.cnblogs.com/blog/833392/201704/833392-20170409211030332-1528137014.png" alt="img"></p>
+<p>假设慢指针进入环中时，即连接点p，快指针（q）需要m步才能追上慢指针。</p>
+<p>p和q第一次相遇时，碰撞点在pq处。此时，p走到pq时用了m步。</p>
+<p> 假设head到p的距离为a，环长度为Length环，慢指针走了s步，则快指针走了2s步。</p>
+<p>从上图可知:</p>
+<p>s &#x3D; a + m</p>
+<p>2s &#x3D; a + m + n * Length环（n为快指针绕环的圈数）</p>
+<p>可得</p>
+<p>a &#x3D; n * Length环 - m</p>
+<p>也就是：若在头结点和相遇结点分别设一指针，同步(单步)前进，则最后一定相遇在环入口结点p。</p>
+<p>可根据这个结论来找到入口节点。</p>
+<h2 id="四、带环链表总长度-1"><a href="#四、带环链表总长度-1" class="headerlink" title="四、带环链表总长度"></a>四、带环链表总长度</h2><p>找到连接点p后，求head到p的长度，再加上环的长度，即为链表的总长。</p>
+
+      
+    </div>
+
+    
+    
+    
+
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>l
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://example.com/posts/50cab45/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1872,159 +2027,6 @@
 <p>这里和之前不一样，**要在收缩窗口完成后更新<code>res</code>**，因为窗口收缩的 while 条件是存在重复元素，换句话说收缩完成后一定保证窗口中没有重复嘛。</p>
 <h3 id="五、最后总结"><a href="#五、最后总结" class="headerlink" title="五、最后总结"></a>五、最后总结</h3><p><strong>建议背诵并默写这套框架，顺便背诵一下文章开头的那首诗。以后就再也不怕子串、子数组问题了。</strong></p>
 <p>我觉得吧，能够看到这的都是高手，要么就是在成为高手的路上。有了框架，任他窗口怎么滑，东哥这波车开得依然稳如老狗。</p>
-
-      
-    </div>
-
-    
-    
-    
-
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>l
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/20eb9dff/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/lion.png">
-      <meta itemprop="name" content="swimminghao">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="swimminghao's blog">
-      <meta itemprop="description" content="swimminghao的学习博客">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | swimminghao's blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/20eb9dff/" class="post-title-link" itemprop="url">益智游戏克星：BFS暴力搜索算法</a>
-        </h2>
-
-        <div class="post-meta-container">
-
-          
-
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-10 11:51:52" itemprop="dateModified" datetime="2022-03-10T11:51:52+08:00">2022-03-10</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="far fa-comment"></i>
-    </span>
-    <span class="post-meta-item-text">Waline：</span>
-  
-    <a title="waline" href="/posts/20eb9dff/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/20eb9dff/" data-xid="/posts/20eb9dff/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>2.6k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>2 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="益智游戏克星：BFS暴力搜索算法"><a href="#益智游戏克星：BFS暴力搜索算法" class="headerlink" title="益智游戏克星：BFS暴力搜索算法"></a>益智游戏克星：BFS暴力搜索算法</h1><h2 id="益智游戏克星：BFS暴力搜索算法-1"><a href="#益智游戏克星：BFS暴力搜索算法-1" class="headerlink" title="益智游戏克星：BFS暴力搜索算法"></a>益智游戏克星：BFS暴力搜索算法</h2><p>滑动拼图游戏大家应该都玩过，下图是一个 4x4 的滑动拼图：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/5zWwfF_20210507183108.png" alt="图片"></p>
-<p>拼图中有一个格子是空的，可以利用这个空着的格子移动其他数字。你需要通过移动这些数字，得到某个特定排列顺序，这样就算赢了。</p>
-<p>我小时候还玩过一款叫做「华容道」的益智游戏，也和滑动拼图比较类似：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/ueMqO0_20210507183151.png" alt="图片"></p>
-<p>那么这种游戏怎么玩呢？我记得是有一些套路的，类似于魔方还原公式。但是我们今天不来研究让人头秃的技巧，<strong>这些益智游戏通通可以用暴力搜索算法解决，所以今天我们就学以致用，用 BFS 算法框架来秒杀这些游戏</strong>。</p>
-<h3 id="一、题目解析"><a href="#一、题目解析" class="headerlink" title="一、题目解析"></a>一、题目解析</h3><p>LeetCode 第 773 题就是滑动拼图问题，题目的意思如下：</p>
-<p>给你一个 2x3 的滑动拼图，用一个 2x3 的数组<code>board</code>表示。拼图中有数字 0~5 六个数，其中数字 0 就表示那个空着的格子，你可以移动其中的数字，当<code>board</code>变为<code>[[1,2,3],[4,5,0]]</code>时，赢得游戏。</p>
-<p>请你写一个算法，计算赢得游戏需要的最少移动次数，如果不能赢得游戏，返回 -1。</p>
-<p>比如说输入的二维数组<code>board = [[4,1,2],[5,0,3]]</code>，算法应该返回 5：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/DnxfJo_20210507183245.png" alt="图片"></p>
-<p>如果输入的是<code>board = [[1,2,3],[4,0,5]]</code>，则算法返回 -1，因为这种局面下无论如何都不能赢得游戏。</p>
-<h3 id="二、思路分析"><a href="#二、思路分析" class="headerlink" title="二、思路分析"></a>二、思路分析</h3><p>对于这种计算最小步数的问题，我们就要敏感地想到 BFS 算法。</p>
-<p>这个题目转化成 BFS 问题是有一些技巧的，我们面临如下问题：</p>
-<p>1、一般的 BFS 算法，是从一个起点<code>start</code>开始，向终点<code>target</code>进行寻路，但是拼图问题不是在寻路，而是在不断交换数字，这应该怎么转化成 BFS 算法问题呢？</p>
-<p>2、即便这个问题能够转化成 BFS 问题，如何处理起点<code>start</code>和终点<code>target</code>？它们都是数组哎，把数组放进队列，套 BFS 框架，想想就比较麻烦且低效。</p>
-<p>首先回答第一个问题，<strong>BFS 算法并不只是一个寻路算法，而是一种暴力搜索算法</strong>，只要涉及暴力穷举的问题，BFS 就可以用，而且可以最快地找到答案。</p>
-<p>你想想计算机怎么解决问题的？哪有那么多奇技淫巧，本质上就是把所有可行解暴力穷举出来，然后从中找到一个最优解罢了。</p>
-<p>明白了这个道理，我们的问题就转化成了：<strong>如何穷举出<code>board</code>当前局面下可能衍生出的所有局面</strong>？这就简单了，看数字 0 的位置呗，和上下左右的数字进行交换就行了：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/KoSRd4_20210507183301.png" alt="图片"></p>
-<p>这样其实就是一个 BFS 问题，每次先找到数字 0，然后和周围的数字进行交换，形成新的局面加入队列…… 当第一次到达<code>target</code>时，就得到了赢得游戏的最少步数。</p>
-<p>对于第二个问题，我们这里的<code>board</code>仅仅是 2x3 的二维数组，所以可以压缩成一个一维字符串。<strong>其中比较有技巧性的点在于，二维数组有「上下左右」的概念，压缩成一维后，如何得到某一个索引上下左右的索引</strong>？</p>
-<p>很简单，我们只要手动写出来这个映射就行了：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; neighbor = &#123;</span><br><span class="line">    &#123; <span class="number">1</span>, <span class="number">3</span> &#125;,</span><br><span class="line">    &#123; <span class="number">0</span>, <span class="number">4</span>, <span class="number">2</span> &#125;,</span><br><span class="line">    &#123; <span class="number">1</span>, <span class="number">5</span> &#125;,</span><br><span class="line">    &#123; <span class="number">0</span>, <span class="number">4</span> &#125;,</span><br><span class="line">    &#123; <span class="number">3</span>, <span class="number">1</span>, <span class="number">5</span> &#125;,</span><br><span class="line">    &#123; <span class="number">4</span>, <span class="number">2</span> &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<p>**这个含义就是，在一维字符串中，索引<code>i</code>在二维数组中的的相邻索引为<code>neighbor[i]</code>**，：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/CkiHlV_20210507183314.png" alt="图片"></p>
-<p>至此，我们就把这个问题完全转化成标准的 BFS 问题了，借助前文 <a target="_blank" rel="noopener" href="http://mp.weixin.qq.com/s?__biz=MzAxODQxMDM0Mw==&mid=2247485134&idx=1&sn=fd345f8a93dc4444bcc65c57bb46fc35&chksm=9bd7f8c6aca071d04c4d383f96f2b567ad44dc3e67d1c3926ec92d6a3bcc3273de138b36a0d9&scene=21#wechat_redirect">BFS 算法框架套路详解</a> 的代码框架，直接就可以套出解法代码了：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">slidingPuzzle</span><span class="params">(vector&lt;vector&lt;<span class="type">int</span>&gt;&gt;&amp; board)</span> &#123;</span><br><span class="line">    <span class="type">int</span> <span class="variable">m</span> <span class="operator">=</span> <span class="number">2</span>, n = <span class="number">3</span>;</span><br><span class="line">    <span class="type">string</span> <span class="variable">start</span> <span class="operator">=</span> <span class="string">&quot;&quot;</span>;</span><br><span class="line">    <span class="type">string</span> <span class="variable">target</span> <span class="operator">=</span> <span class="string">&quot;123450&quot;</span>;</span><br><span class="line">    <span class="comment">// 将 2x3 的数组转化成字符串</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; m; i++) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">0</span>; j &lt; n; j++) &#123;</span><br><span class="line">            start.push_back(board[i][j] + <span class="string">&#x27;0&#x27;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 记录一维字符串的相邻索引</span></span><br><span class="line">    vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; neighbor = &#123;</span><br><span class="line">        &#123; <span class="number">1</span>, <span class="number">3</span> &#125;,</span><br><span class="line">        &#123; <span class="number">0</span>, <span class="number">4</span>, <span class="number">2</span> &#125;,</span><br><span class="line">        &#123; <span class="number">1</span>, <span class="number">5</span> &#125;,</span><br><span class="line">        &#123; <span class="number">0</span>, <span class="number">4</span> &#125;,</span><br><span class="line">        &#123; <span class="number">3</span>, <span class="number">1</span>, <span class="number">5</span> &#125;,</span><br><span class="line">        &#123; <span class="number">4</span>, <span class="number">2</span> &#125;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/******* BFS 算法框架开始 *******/</span></span><br><span class="line">    queue&lt;string&gt; q;</span><br><span class="line">    unordered_set&lt;string&gt; visited;</span><br><span class="line">    q.push(start);</span><br><span class="line">    visited.insert(start);</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> <span class="variable">step</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (!q.empty()) &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">sz</span> <span class="operator">=</span> q.size();</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; sz; i++) &#123;</span><br><span class="line">            <span class="type">string</span> <span class="variable">cur</span> <span class="operator">=</span> q.front(); q.pop();</span><br><span class="line">            <span class="comment">// 判断是否达到目标局面</span></span><br><span class="line">            <span class="keyword">if</span> (target == cur) &#123;</span><br><span class="line">                <span class="keyword">return</span> step;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// 找到数字 0 的索引</span></span><br><span class="line">            <span class="type">int</span> <span class="variable">idx</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">for</span> (; cur[idx] != <span class="string">&#x27;0&#x27;</span>; idx++);</span><br><span class="line">            <span class="comment">// 将数字 0 和相邻的数字交换位置</span></span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> adj : neighbor[idx]) &#123;</span><br><span class="line">                <span class="type">string</span> <span class="variable">new_board</span> <span class="operator">=</span> cur;</span><br><span class="line">                swap(new_board[adj], new_board[idx]);</span><br><span class="line">                <span class="comment">// 防止走回头路</span></span><br><span class="line">                <span class="keyword">if</span> (!visited.count(new_board)) &#123;</span><br><span class="line">                    q.push(new_board);</span><br><span class="line">                    visited.insert(new_board);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        step++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">    <span class="comment">/******* BFS 算法框架结束 *******/</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>至此，这道题目就解决了，其实框架完全没有变，套路都是一样的，我们只是花了比较多的时间将滑动拼图游戏转化成 BFS 算法。</p>
-<p><strong>很多益智游戏都是这样，虽然看起来特别巧妙，但都架不住暴力穷举</strong>，常用的算法就是回溯算法或者 BFS 算法，感兴趣的话我们以后再聊。</p>
 
       
     </div>
