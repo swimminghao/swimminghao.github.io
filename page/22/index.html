@@ -276,877 +276,6 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/9544a93a/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/lion.png">
-      <meta itemprop="name" content="swimminghao">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="swimminghao's blog">
-      <meta itemprop="description" content="swimminghao的学习博客">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | swimminghao's blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/9544a93a/" class="post-title-link" itemprop="url">29、【对线面试官】垃圾回收机制</a>
-        </h2>
-
-        <div class="post-meta-container">
-
-          
-
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-10 09:48:07" itemprop="dateModified" datetime="2022-03-10T09:48:07+08:00">2022-03-10</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="far fa-comment"></i>
-    </span>
-    <span class="post-meta-item-text">Waline：</span>
-  
-    <a title="waline" href="/posts/9544a93a/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/9544a93a/" data-xid="/posts/9544a93a/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>2.8k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>3 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="29、【对线面试官】垃圾回收机制"><a href="#29、【对线面试官】垃圾回收机制" class="headerlink" title="29、【对线面试官】垃圾回收机制"></a>29、【对线面试官】垃圾回收机制</h1><h2 id="聊聊Java的垃圾回收机制"><a href="#聊聊Java的垃圾回收机制" class="headerlink" title="聊聊Java的垃圾回收机制?"></a>聊聊Java的垃圾回收机制?</h2><p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/Xm317A_20211229152833.png"></p>
-<ul>
-<li>我们使用Java的时候，会创建很多对象，但我们未曾「手动」将这些对象进行清除,而如果用C++语言的时候，用完是需要自己free（释放）掉的</li>
-<li>写Java的时候不用自己手动释放”垃圾”呢？原因很简单，JVM帮我们做了（自动回收垃圾）</li>
-<li>垃圾的定义：只要对象不再被使用了，那我们就认为该对象就是垃圾，对象所占用的空间就可以被回收·</li>
-</ul>
-<h2 id="是怎么判断对象不再被使用的呢？"><a href="#是怎么判断对象不再被使用的呢？" class="headerlink" title="是怎么判断对象不再被使用的呢？"></a>是怎么判断对象不再被使用的呢？</h2><ul>
-<li><p>常用的算法有两个「引用计数法」和「可达性分析法」</p>
-<ul>
-<li><p>引用计数法思路很简单：当对象被引用则+1，但对象引用失败则-1。当计数器为0时，说明对象不再被引用，可以被可回收</p>
-</li>
-<li><p>缺点就是：如果对象存在循环依赖，那就无法定位该对象，是否应该被回收（A依赖B，B依赖A）</p>
-</li>
-<li><p>是可达性分析法：它从「GC Roots」开始向下搜索，当对象到「GC Roots」都没有任何引用相连时，说明对象是不可用的，可以被回收</p>
-<ul>
-<li><p>「 GC Roots」是一组必须「活跃」的引用</p>
-</li>
-<li><p>从「 GC Root」出发，程序通过直接引用或者间接引用，能够找到可能正在被使用的对象</p>
-<ul>
-<li>比如：JVM内存结构中的虚拟机栈，虚拟机栈里的栈帧，栈帧中的局部变量，局部变量就存储着引用。</li>
-<li>那如果栈帧位于虚拟机栈的栈顶，是不是说明这个栈帧是活跃的（换言之，是线程正在被调用的）</li>
-<li>既然是线程正在调用的，那栈帧里的指向「堆」的对象引用，就一定是「活跃」的引用</li>
-<li>所以，当前活跃的栈帧指向堆里的对象引用就可以是「 GC Roots」</li>
-</ul>
-</li>
-<li><p>当然了，能作为「 GC Roots」也不单单只有上面那一块</p>
-<ul>
-<li>比如类的静态变量引用是「 GC Roots」，被「Java本地方法」所引用的对象也是「 GC Roots」等等</li>
-</ul>
-</li>
-<li><p>「 GC Roots」是一组必须「活跃」的「引用」，只要跟「GC Roots」没有直接或者间接引用相连，那就是垃圾。JVM用的就是「可达性分析算法」来判断对象是否为垃圾</p>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h2 id="标记完，怎么删除的（垃圾回收算法）"><a href="#标记完，怎么删除的（垃圾回收算法）" class="headerlink" title="标记完，怎么删除的（垃圾回收算法）"></a>标记完，怎么删除的（垃圾回收算法）</h2><ul>
-<li>标记清除<ul>
-<li>缺点：直接清除会有「内存碎片」的问题：可能我有10M的空余内存，但程序申请9M内存空间却申请不下来（10M的内存空间是垃圾清除后的，不连续的）</li>
-</ul>
-</li>
-<li>标记复制<ul>
-<li>「标记」存活的对象「复制」到另一块空间，复制完了之后，直接把原有的整块空间给干掉！这样就没有内存碎片的问题了</li>
-<li>缺点：内存利用率低，得有一块新的区域给我复制（移动）过去</li>
-</ul>
-</li>
-<li>标记整理<ul>
-<li>当前区域内进行移动，存活对象一到一边，垃圾移到一边，再统一删除，就不会有内存碎片了</li>
-</ul>
-</li>
-</ul>
-<h2 id="老年代、年轻代"><a href="#老年代、年轻代" class="headerlink" title="老年代、年轻代"></a>老年代、年轻代</h2><ul>
-<li>大部分对象的生命周期都很短，而只有少部分对象可能会存活很长时间</li>
-<li>回收垃圾的时候，程序是有短暂的时间不能正常继续运作啊。（JVM在回收的时候，用户线程不能继续分配修改引用），为了使「 stop the word」持续的时间尽可能短以及提高并发式GC所能应付的内存分配速率</li>
-<li>所以很多的垃圾收集器上都会在「物理」或者「逻辑」上，把这两类对象进行区分<ul>
-<li>死得快的对象所占的区域叫做「年轻代」，活得久的对象所占的区域叫做「老年代」</li>
-<li>但也不是所有的「垃圾收集器」都会有，只不过我们现在线上用的可能都是JDK8，JDK8及以下所使用到的垃圾收集器都是有「分代」概念的</li>
-</ul>
-</li>
-</ul>
-<h2 id="垃圾收集器"><a href="#垃圾收集器" class="headerlink" title="垃圾收集器"></a>垃圾收集器</h2><ul>
-<li><p>垃圾回收的过程，其实就对应着几种「垃圾回收算法」分别是</p>
-<ul>
-<li>标记清除算法、标记复制算法和标记整理算法【「标记」「复制」「整理」】</li>
-</ul>
-</li>
-<li><p>「年轻代」的垃圾收集器有： Seria、Parallel Scavenge、 Pardew</p>
-<ul>
-<li>年轻代的垃圾回收器使用的都是「标记复制算法」</li>
-<li>所以在「堆内存」划分中，将年轻代划分出 Survivor区（ Survivor From和 ourvor To），目的就是为了有一块完整的内存空间供垃圾回收器进行拷贝（移动）</li>
-<li>新对象则放入Eden区</li>
-<li>堆内存大小默认比例：</li>
-</ul>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/6qtuUz_20211229160130.png"></p>
-</li>
-<li><p>「老年代」的垃圾收集器有： Serial Old、 Parallel Old、CMS</p>
-</li>
-<li><p>Serial是单线程的， Parallel是多线程。这些垃圾收集器实际上就是「实现了」垃圾回收算法（标记复制、标记整理以及标记清除算法）</p>
-</li>
-<li><p>CMS是「JDK8之前」是比较新的垃圾收集器，它的特点是能够尽可能减少「stop the word」时间。在垃圾回收时让用户线程和GC线程能够并发执行」</p>
-</li>
-</ul>
-<h2 id="新创建的对象一般是在「新生代」嘛，那在什么时候会到「老年代」中呢？"><a href="#新创建的对象一般是在「新生代」嘛，那在什么时候会到「老年代」中呢？" class="headerlink" title="新创建的对象一般是在「新生代」嘛，那在什么时候会到「老年代」中呢？"></a>新创建的对象一般是在「新生代」嘛，那在什么时候会到「老年代」中呢？</h2><ul>
-<li>两种情况<ul>
-<li>如果对象太大了，就会直接进入老年代（对象创建时就很大 或者 Survivor区没办法存下该对象）</li>
-<li>如果对象太老了，那就会晋升至老年代（每发生一次 Monor GC，存活的对象年龄+1，达到默认值15则晋升老年代）或者（动态对象年龄判定可以进入老年代）</li>
-</ul>
-</li>
-</ul>
-<h2 id="那-Monor-GC什么时候会触发呢？"><a href="#那-Monor-GC什么时候会触发呢？" class="headerlink" title="那 Monor GC什么时候会触发呢？"></a>那 Monor GC什么时候会触发呢？</h2><ul>
-<li>当Eden区空间不足时，就会触发 Monor GC</li>
-</ul>
-<h2 id="那在「年轻代」GC的时候，从-GC-Roots出发，那不也会扫描到「老年代」的对象吗？那那那-不就相当于全堆扫描吗？那这分代还有意义吗？"><a href="#那在「年轻代」GC的时候，从-GC-Roots出发，那不也会扫描到「老年代」的对象吗？那那那-不就相当于全堆扫描吗？那这分代还有意义吗？" class="headerlink" title="那在「年轻代」GC的时候，从 GC Roots出发，那不也会扫描到「老年代」的对象吗？那那那.不就相当于全堆扫描吗？那这分代还有意义吗？"></a>那在「年轻代」GC的时候，从 GC Roots出发，那不也会扫描到「老年代」的对象吗？那那那.不就相当于全堆扫描吗？那这分代还有意义吗？</h2><ul>
-<li><p>JVM解决方案</p>
-<ul>
-<li>Hotspot虚拟机「老的GC」（G1以下）是要求整个GC堆在连续的地址空间上</li>
-<li>所以会有一条分界线（一侧是老年代，另一侧是年轻代），所以可以通过「地址」就可以判断对象在哪个分代上、</li>
-<li>当做 Monor GCI的时候，从 GC Roots出发，如果发现「老年代」的对象，那就不往下走了（ Monor GC对老年代的区域毫无兴趣）</li>
-</ul>
-</li>
-</ul>
-<h2 id="但又有个问题，那如果「年轻代」的对象被「老年代」引用了呢？（老年代对象持有年轻代对象的引用），那时候肯定是不能回收掉「年轻代」的对象的？"><a href="#但又有个问题，那如果「年轻代」的对象被「老年代」引用了呢？（老年代对象持有年轻代对象的引用），那时候肯定是不能回收掉「年轻代」的对象的？" class="headerlink" title="但又有个问题，那如果「年轻代」的对象被「老年代」引用了呢？（老年代对象持有年轻代对象的引用），那时候肯定是不能回收掉「年轻代」的对象的？"></a>但又有个问题，那如果「年轻代」的对象被「老年代」引用了呢？（老年代对象持有年轻代对象的引用），那时候肯定是不能回收掉「年轻代」的对象的？</h2><ul>
-<li>解决方案<ul>
-<li>Hotspot虚拟机下有「 card table」（卡表）来避免全局扫描「老年代」对象</li>
-<li>「堆内存」的每一小块区域形成「卡页」，卡表实际上就是卡页的集合。当判断一个卡页中有存在对象的跨代引用时，将这个页标记为「脏页」</li>
-<li>那知道了「卡表」之后，就很好办了。每次 Monor GC的时候只需要去「卡表找到「脏页」，找到后加入至 GC Root，而不用去遍历整个「老年代」的对象了。</li>
-</ul>
-</li>
-</ul>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p><strong>什么是垃圾</strong>：只要对象不再被使用，那即是垃圾</p>
-<p><strong>如何判断为垃圾</strong>：可达性分析算法和引用计算算法，JVM使用的是可达性分析算法</p>
-<p><strong>什么是GC Roots</strong>：GC Roots是一组必须活跃的引用，跟GC Roots无关联的引用即是垃圾，可被回收</p>
-<p><strong>常见的垃圾回收算法</strong>：标记清除、标记复制、标记整理</p>
-<p><strong>为什么需要分代</strong>：大部分对象都死得早，只有少部分对象会存活很长时间。在堆内存上都会在物理或逻辑上进行分代，为了使「stop the word」持续的时间尽可能短以及提高并发式GC所能应付的内存分配速率。</p>
-<p><strong>Minor GC</strong>：当Eden区满了则触发，从GC Roots往下遍历，年轻代GC不关心老年代对象</p>
-<p><strong>什么是card table</strong>【卡表】：空间换时间（类似bitmap），能够避免扫描老年代的所有对象，进而顺利进行Minor GC （案例：老年代对象持有年轻代对象引用）</p>
-<p><strong>堆内存占比</strong>：年轻代占堆内存1&#x2F;3，老年代占堆内存2&#x2F;3。Eden区占年轻代8&#x2F;10，Survivor区占年轻代2&#x2F;10（其中From 和To 各站1&#x2F;10)</p>
-
-      
-    </div>
-
-    
-    
-    
-
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>l
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/5a56f011/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/lion.png">
-      <meta itemprop="name" content="swimminghao">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="swimminghao's blog">
-      <meta itemprop="description" content="swimminghao的学习博客">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | swimminghao's blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/5a56f011/" class="post-title-link" itemprop="url">2、【对线面试官】今天来聊聊Java泛型</a>
-        </h2>
-
-        <div class="post-meta-container">
-
-          
-
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-10 09:48:07" itemprop="dateModified" datetime="2022-03-10T09:48:07+08:00">2022-03-10</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="far fa-comment"></i>
-    </span>
-    <span class="post-meta-item-text">Waline：</span>
-  
-    <a title="waline" href="/posts/5a56f011/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/5a56f011/" data-xid="/posts/5a56f011/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>2.5k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>2 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>#2、【对线面试官】今天来聊聊Java泛型</p>
-<h2 id="泛型了解"><a href="#泛型了解" class="headerlink" title="泛型了解"></a>泛型了解</h2><ol>
-<li>在Java中的泛型简单来说就是：在创建对象或调用方法的时候才明确下具体的类型</li>
-<li>使用泛型的好处就是代码更加简洁（不再需要强制转换），程序更加健壮（在编译期间没有警告，在运行期就不会出现ClassCastException异常）</li>
-</ol>
-<h2 id="工作中用得多吗"><a href="#工作中用得多吗" class="headerlink" title="工作中用得多吗"></a>工作中用得多吗</h2><ol>
-<li>在操作集合的时候，还是很多的，毕竟方便啊。List lists &#x3D; new ArrayList&lt;&gt;();lists.add （”面试造火箭”）；</li>
-<li>如果是其他场景的话，那就是在写「基础组件」的时候了。</li>
-</ol>
-<h2 id="你是怎么写的"><a href="#你是怎么写的" class="headerlink" title="你是怎么写的"></a>你是怎么写的</h2><ol>
-<li><p>再明确一下泛型就是「在创建对象或调用方法的时候才明确下具体的类型」</p>
-</li>
-<li><p>而组件为了做到足够的通用性，是不知道「用户」传入什么类型参数进来的所以在这种情况下用泛型就是很好的实践。</p>
-</li>
-<li><p>这块可以参考SpringData JPA的JpaRepository写法。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">JpaRepository</span>&lt;T, ID&gt; <span class="keyword">extends</span> <span class="title class_">PagingAndSortingRepository</span>&lt;T, ID&gt;, QueryByExampleExecutor&lt;T&gt; &#123;</span><br><span class="line"></span><br><span class="line"> List&lt;T&gt; <span class="title function_">findAll</span><span class="params">()</span>;</span><br><span class="line"></span><br><span class="line"> List&lt;T&gt; <span class="title function_">findAll</span><span class="params">(Sort sort)</span>;</span><br><span class="line"></span><br><span class="line"> List&lt;T&gt; <span class="title function_">findAllById</span><span class="params">(Iterable&lt;ID&gt; ids)</span>;</span><br><span class="line"></span><br><span class="line"> &lt;S <span class="keyword">extends</span> <span class="title class_">T</span>&gt; List&lt;S&gt; <span class="title function_">saveAll</span><span class="params">(Iterable&lt;S&gt; entities)</span>;</span><br><span class="line"></span><br><span class="line"> <span class="keyword">void</span> <span class="title function_">flush</span><span class="params">()</span>;</span><br><span class="line"></span><br><span class="line"> &lt;S <span class="keyword">extends</span> <span class="title class_">T</span>&gt; S <span class="title function_">saveAndFlush</span><span class="params">(S entity)</span>;</span><br><span class="line"></span><br><span class="line"> <span class="keyword">void</span> <span class="title function_">deleteInBatch</span><span class="params">(Iterable&lt;T&gt; entities)</span>;</span><br><span class="line"></span><br><span class="line"> <span class="keyword">void</span> <span class="title function_">deleteAllInBatch</span><span class="params">()</span>;</span><br><span class="line"></span><br><span class="line"> T <span class="title function_">getOne</span><span class="params">(ID id)</span>;</span><br><span class="line"></span><br><span class="line"> <span class="meta">@Override</span></span><br><span class="line"> &lt;S <span class="keyword">extends</span> <span class="title class_">T</span>&gt; List&lt;S&gt; <span class="title function_">findAll</span><span class="params">(Example&lt;S&gt; example)</span>;</span><br><span class="line"></span><br><span class="line"> <span class="meta">@Override</span></span><br><span class="line"> &lt;S <span class="keyword">extends</span> <span class="title class_">T</span>&gt; List&lt;S&gt; <span class="title function_">findAll</span><span class="params">(Example&lt;S&gt; example, Sort sort)</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>要写组件，还是离不开Java反射机制（能够从运行时获取信息），所以一般组件是泛型+反射来实现的。</p>
-</li>
-<li><p>回到我所讲的组件吧，背景是这样的：我这边有个需求，需要根据某些字段进行聚合。</p>
-</li>
-<li><p>换到SQL其实就是select sum（column 1),sum(column2) from table group by fie ld1,field2</p>
-</li>
-<li><p>需要sum和group by的列肯定是由业务方自己传入，而SQL的表其实就是我们的POJO（传入的字段也肯定是POJO的属性）</p>
-</li>
-<li><p>单个业务实际可以在参数上写死POJO，但为了做得更加通用，我把入参设置为泛型</p>
-</li>
-<li><p>拿到参数后，通过反射获取其字段具体的值，做累加就好了。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 传入 需要group by 和 sum 的字段名</span></span><br><span class="line"><span class="keyword">public</span> <span class="title function_">cacheMap</span><span class="params">(List&lt;String&gt; groupByKeys, List&lt;String&gt; sumValues)</span> &#123;</span><br><span class="line">  <span class="built_in">this</span>.groupByKeys = groupByKeys;</span><br><span class="line">  <span class="built_in">this</span>.sumValues = sumValues;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">excute</span><span class="params">(T e)</span> &#123;</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// 从pojo 取出需要group by 的字段 list</span></span><br><span class="line">  List&lt;Object&gt; key = buildPrimaryKey(e);</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// primaryMap 是存储结果的Map</span></span><br><span class="line">  <span class="type">T</span> <span class="variable">value</span> <span class="operator">=</span> primaryMap.get(key);</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// 如果从存储结果找到有相应记录</span></span><br><span class="line">  <span class="keyword">if</span> (value != <span class="literal">null</span>) &#123;</span><br><span class="line">    <span class="keyword">for</span> (String elem : sumValues) &#123;</span><br><span class="line">      <span class="comment">// 反射获取对应的字段，做累加处理</span></span><br><span class="line">      <span class="type">Field</span> <span class="variable">field</span> <span class="operator">=</span> getDeclaredField(elem, e);</span><br><span class="line">      <span class="keyword">if</span> (field.get(e) <span class="keyword">instanceof</span> Integer) &#123;</span><br><span class="line">        field.set(value, (Integer) field.get(e) + (Integer) field.get(value));</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span> (field.get(e) <span class="keyword">instanceof</span> Long) &#123;</span><br><span class="line">        field.set(value, (Long) field.get(e) + (Long) field.get(value));</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">RuntimeException</span>(<span class="string">&quot;类型异常,请处理异常&quot;</span>);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 处理时间记录</span></span><br><span class="line">    <span class="type">Field</span> <span class="variable">field</span> <span class="operator">=</span> getDeclaredField(<span class="string">&quot;updated&quot;</span>, value);</span><br><span class="line">    <span class="keyword">if</span> (<span class="literal">null</span> != field) &#123;</span><br><span class="line">      field.set(value, DateTimeUtils.getCurrentTime());</span><br><span class="line">    &#125;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="comment">// group by 字段 第一次进来</span></span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      primaryMap.put(key, Tclone(e));</span><br><span class="line">      createdMap.put(key, DateTimeUtils.getCurrentTime());</span><br><span class="line">    &#125;<span class="keyword">catch</span> (Exception ex) &#123;</span><br><span class="line">      log.info(<span class="string">&quot;first put value error &#123;&#125;&quot;</span> , e);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>理解了泛型的作用之后，再去审视自己代码时，就可以判断是否需要用到泛型了。</p>
-</li>
-</ol>
-<h2 id="价值体现"><a href="#价值体现" class="headerlink" title="价值体现"></a>价值体现</h2><ol>
-<li>主要是在平时工作中，写代码的时候会多想想，遇到能用到的地方会优化下代码</li>
-</ol>
-
-      
-    </div>
-
-    
-    
-    
-
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>l
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/6f559dce/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/lion.png">
-      <meta itemprop="name" content="swimminghao">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="swimminghao's blog">
-      <meta itemprop="description" content="swimminghao的学习博客">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | swimminghao's blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/6f559dce/" class="post-title-link" itemprop="url">30、【对线面试官】CMS垃圾回收器</a>
-        </h2>
-
-        <div class="post-meta-container">
-
-          
-
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-10 09:48:07" itemprop="dateModified" datetime="2022-03-10T09:48:07+08:00">2022-03-10</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="far fa-comment"></i>
-    </span>
-    <span class="post-meta-item-text">Waline：</span>
-  
-    <a title="waline" href="/posts/6f559dce/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/6f559dce/" data-xid="/posts/6f559dce/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>2.1k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>2 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="30、【对线面试官】CMS垃圾回收器"><a href="#30、【对线面试官】CMS垃圾回收器" class="headerlink" title="30、【对线面试官】CMS垃圾回收器"></a>30、【对线面试官】CMS垃圾回收器</h1><h2 id="今天还是来聊聊CMS垃圾收集器呗？"><a href="#今天还是来聊聊CMS垃圾收集器呗？" class="headerlink" title="今天还是来聊聊CMS垃圾收集器呗？"></a>今天还是来聊聊CMS垃圾收集器呗？</h2><ul>
-<li>如果用Seria和 Parallel系列的垃圾收集器：在垃圾回收的时，用户线程都会完全停止，直至垃圾回收结束！</li>
-<li>CMS的全称： Concurrent Mark Sweep，翻译过来是「并发标记清除」</li>
-</ul>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/1u2iZp_20211229164510.png"></p>
-<ul>
-<li>用CMS对比上面的垃圾收集器（ Seria和Parllel和 parNew）：它最大的不同点就是「并发」：在GC线程工作的时候，用户线程「不会完全停止」，用户线程在「部分场景下」与GC线程一起并发执行</li>
-<li>无论是什么垃圾收集器， Stop The Word&#x2F;是一定无法避免的！</li>
-<li>CMS只是在「部分」的GC场景下可以让GC线程与用户线程并发执行</li>
-<li>目的：为了避免「老年代GC」出现「长时间」的卡顿（ Stop The Word )</li>
-</ul>
-<h2 id="CMS工作流程"><a href="#CMS工作流程" class="headerlink" title="CMS工作流程"></a>CMS工作流程</h2><ul>
-<li><p>CMS可以简单分为5个步骤：初始标记、并发标记、并发预清理、重新标记以及并发清除</p>
-<ul>
-<li><p>从步骤可看出，CMS主要是实现了「标记清除」垃圾回收算法</p>
-</li>
-<li><p>「初始标记」</p>
-<ul>
-<li>「初始标记」会标记 GCroots「直接关联」的对象以及「年轻代」指向「老年代」的对象</li>
-<li>「初始标记」这个过程是会发生 Stop The Word的。但这个阶段的速度算是很快的，因为没有「向下追溯」（只标记一层）</li>
-</ul>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/FqsTqd_20211229162246.png"></p>
-</li>
-<li><p>「并发标记」</p>
-<ul>
-<li>「并发标记」这个过程是不会停止用户线程的（不会发生 Stop The Word）。这一阶段主要是从 GC Roots向下「追溯」，标记所有可达的对象</li>
-<li>并发标记」在GC的角度而言，是比较耗费时间的（需要追溯）</li>
-</ul>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/cUUH7w_20211229162544.png"></p>
-</li>
-<li><p>「并发预处理」</p>
-<ul>
-<li>「并发预处理」这个阶段主要是：希望能减少下一个阶段「重新标记」所消耗的时间</li>
-<li>因为下一个阶段「重新标记」是需要Stop The World的，「并发标记」这个阶段由于用户线程是没有被挂起的，所以对象是有可能发生变化的</li>
-<li>可能有些对象，从新生代晋升到了老年代。可能有些对象，直接分配到了老年代（大对象）。可能老年代或者新生代的对象引用发生了变化</li>
-</ul>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/NeI2CU_20211229163018.png"></p>
-</li>
-<li><p>「重新标记」</p>
-<ul>
-<li>「重新标记」阶段会 Stop The Word，这个过程的停顿时间其实很大程度上取决于上面「并发预处理」阶段</li>
-<li>这是一个追赶的过程：边在标记存活对象，一边用户线程在执行产生垃圾）</li>
-</ul>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/o97JPO_20211229163156.png"></p>
-</li>
-<li><p>「并发清除」</p>
-<ul>
-<li>一边用户线程在执行，一边GC线程在回收不可达的对象</li>
-<li>这个过程，还是有可能用户线程在不断产生垃圾，但只能留到下一次GC进行处<br>理了，产生的这些垃圾被叫做“浮动垃圾”</li>
-<li>完了以后会重置CMS算法相关的内部数据，为下一次GC循环做准备</li>
-</ul>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/TJihOR_20211229163307.png"></p>
-</li>
-</ul>
-</li>
-</ul>
-<h2 id="为什么要扫年轻代？"><a href="#为什么要扫年轻代？" class="headerlink" title="为什么要扫年轻代？"></a>为什么要扫年轻代？</h2><ul>
-<li>CMS主要回收老年代的对象。年轻代有可能会指向老年代的对象，不扫就不知道是不是垃圾了</li>
-</ul>
-<h2 id="「并发预处理」问题解决"><a href="#「并发预处理」问题解决" class="headerlink" title="「并发预处理」问题解决"></a>「并发预处理」问题解决</h2><ul>
-<li>针对老年代的对象，其实还是可以借助类 card table的存储（将老年代对象发生变化所对应的卡页标记为 dirty）</li>
-<li>所以「并发预处理」这个阶段会扫描可能由于「并发标记」时导致老年代发生变化的对象，会再扫描一遍标记为diy的卡页</li>
-<li>对于新生代的对象，我们还是得遍历新生代来看看在「并发标记」过程中有没有对象引用了老年代.</li>
-<li>JVM里给我们提供了很多「参数」，有可能在这个过程中会触发一次minor GC（触发了 minor GC是意味着就可以更少地遍历新生代的对象）</li>
-</ul>
-<h2 id="相比G1，那你觉得CMS有什么缺点呢？"><a href="#相比G1，那你觉得CMS有什么缺点呢？" class="headerlink" title="相比G1，那你觉得CMS有什么缺点呢？"></a>相比G1，那你觉得CMS有什么缺点呢？</h2><ul>
-<li><p>1.空间需要预留：CMS垃圾收集器可以一边回收垃圾，一边处理用户线程，那需要在这个过程中保证有充足的内存空间供用户使用。</p>
-<ul>
-<li>如果CMS运行过程中预留的空间不够用了，会报错（ Concurrent Mode Failure），这时会启动 Serial Old垃圾收集器进行老年代的垃圾回收，会导致停顿的时间很长</li>
-</ul>
-</li>
-<li><p>2.内存碎片问题：CMS本质上是实现了「标记清除算法」的收集器（从过程就可以看得出），这会意味着会产生内存碎片</p>
-<ul>
-<li>由于碎片太多，又可能会导致内存空间不足所触发 full GC，CMS一般会在触发full GC这个过程对碎片进行整理</li>
-<li>整理涉及到「移动」&#x2F;「标记」，那这个过程肯定会 Stop The Word的，如果内存足够大（意味着可能装载的对象足够多），那这个过程卡顿也是需要一定的时间的。</li>
-</ul>
-</li>
-<li><p>使用CMS的弊端好像就是一个死循环</p>
-<ul>
-<li>1.内存碎片过多，导致空间利用率减低。</li>
-<li>2.空间本身就需要预留给用户线程使用，现在碎片内存又加剧了空间的问题，导致有可能垃圾收集器降级为 Serial old，卡顿时间更长</li>
-<li>3.要处理内存碎片的问题（整理），同样会卡顿</li>
-</ul>
-</li>
-</ul>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ul>
-<li><p>CMS把垃圾回收的过程给”细分”了，然后在某些阶段可以不停止用户线程，一边回收垃圾，一边处理请求，来减少每次垃圾回收时 Stop The Word的时间</p>
-</li>
-<li><p>中间也做了很多的优化（ dirty card标记、可能中途触发 minor gca等等，在我理解下，这些都提供了CMS的相关参数配置</p>
-</li>
-<li><p>CMS垃圾回收器设计目的：</p>
-<ul>
-<li>为了避免「老年代 GC」出现「长时间」的卡顿（Stop The World）</li>
-</ul>
-</li>
-<li><p>CMS垃圾回收器回收过程：</p>
-<ul>
-<li>初始标记、并发标记、并发预处理、重新标记和并发清除。初始标记以及重新标记这两个阶段会Stop The World</li>
-</ul>
-</li>
-<li><p>CMS垃圾回收器的弊端：</p>
-<ul>
-<li>会产生内存碎片&amp;&amp;需要空间预留：停顿时间是不可预知的</li>
-</ul>
-</li>
-</ul>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/KNqlDT_20211229164021.png"></p>
-
-      
-    </div>
-
-    
-    
-    
-
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>l
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/e93a2b49/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/lion.png">
-      <meta itemprop="name" content="swimminghao">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="swimminghao's blog">
-      <meta itemprop="description" content="swimminghao的学习博客">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | swimminghao's blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/e93a2b49/" class="post-title-link" itemprop="url">31、【对线面试官】G1垃圾收集器</a>
-        </h2>
-
-        <div class="post-meta-container">
-
-          
-
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-10 09:48:07" itemprop="dateModified" datetime="2022-03-10T09:48:07+08:00">2022-03-10</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="far fa-comment"></i>
-    </span>
-    <span class="post-meta-item-text">Waline：</span>
-  
-    <a title="waline" href="/posts/e93a2b49/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/e93a2b49/" data-xid="/posts/e93a2b49/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>3.2k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>3 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="31、【对线面试官】G1垃圾收集器"><a href="#31、【对线面试官】G1垃圾收集器" class="headerlink" title="31、【对线面试官】G1垃圾收集器"></a>31、【对线面试官】G1垃圾收集器</h1><h2 id="要不这次来聊聊G1垃圾收集器？"><a href="#要不这次来聊聊G1垃圾收集器？" class="headerlink" title="要不这次来聊聊G1垃圾收集器？"></a>要不这次来聊聊G1垃圾收集器？</h2><ul>
-<li><p>CMS垃圾收集器的升级</p>
-</li>
-<li><p>G1垃圾收集器可以给你设定一个你希望Stop The Word停顿时间，G1垃圾收集器会根据这个时间尽量满足你</p>
-<ul>
-<li><p>在前面我在介绍JM堆的时候，堆的内存分布是以「物理」空间进行隔离</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/qjMhU8_20211229164725.png"></p>
-</li>
-<li><p>在G1垃圾收集器的世界上，堆的划分不再是「物理」形式，而是以「逻辑」的形式进行划分</p>
-</li>
-<li><p>不过的「分代」概念在G1垃圾收集器的世界还是一样奏效的</p>
-</li>
-<li><p>比如说：新对象一般会分配到Eden区经过默认15次的 Minor GC新生代的对象如果还存活，会移交到老年代等等。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/SwXVef_20211229165004.png"></p>
-</li>
-<li><p>堆被划分了多个同等份的区域，在G1里每个区域叫做Region</p>
-</li>
-<li><p>G1中，还有一种叫 Humongous（大对象）区域，其实就是用来存储特别大的对象（大于 Region内存的一半）</p>
-</li>
-<li><p>一旦发现没有引用指向大对象，就可直接在年轻代的 Minor GC中被回收掉</p>
-</li>
-<li><p>之所以要将「堆空间」进行「细分」多个小的区域，是因为像以前的垃圾收集器都是对堆进行「物理」划分，如果堆空间（内存）大的时候，每次进行「垃圾回收」都需要对一整块大的区域进行回收，那收集的时间是不好控制的；而划分多个小区域之后，那对这些「小区域」回收就容易控制它的「收集时间」了</p>
-</li>
-</ul>
-</li>
-</ul>
-<h2 id="GC过程"><a href="#GC过程" class="headerlink" title="GC过程"></a>GC过程</h2><ul>
-<li><p>在G1收集器中，可以主要分为有Minor GC（ Young GC）和 Mixed GC，也有些特殊场景可能会发生 Full GC</p>
-<ul>
-<li><p>Minor GC</p>
-<ul>
-<li><p>G1的 Minor GC其实触发时机跟前面提到过的垃圾收集器都是一样的</p>
-</li>
-<li><p>等到Eden区满了之后，会触发 Minor GC。 Minor GCI同样也是会发生 Stop The World的</p>
-</li>
-<li><p>要补充说明的是：在G1的世界里，新生代和老年代所占堆的空间是没那么固定的（会动态根据「最大停顿时间」进行调整）</p>
-</li>
-<li><p>这块会给我们提供参数进行配置就好了</p>
-</li>
-<li><p>所以，动态地改变收集年轻代 Region的个数可以「控制」 Minor GCI的开销</p>
-</li>
-<li><p>Minor GC我认为可以简单分为为三个步骤：根扫描、更新&amp;&amp;处理RSet、复制对象</p>
-<p>1）第一步应该很好理解，因为这跟之前CMS是类似的，可以理解为初始标记的过程</p>
-<p>2）第二步就是处理RSet的信息并且扫描，将老年代对象持有年轻代对象的相关引用都加入到 GC Roots下，避免被回收掉</p>
-<p>​        涉及到「Rset」的概念</p>
-<p>​    （1）上ー次我们聊CMS回收过程的时候，同样讲到了 Minor GC，它是通过「卡表」（ cart table）来避免全表扫描老年代的对象</p>
-<p>​    （2）因为 Minor GC是回收年轻代的对象，但如果老年代有对象引用着年轻代，那这些被老年代引用的对象也不能回收掉</p>
-<p>​    （3）同样的，在G1也有这种问题（毕竟是Minor GC）。CMS是卡表，而G1解决「跨代引用」的问题的存储一般叫做RSet</p>
-<p>​    （4）只要记住，RSet这种存储在每个 Region都会有，它记录着「其他 Region引用了当前 Regiong的对象关系」</p>
-<p>​    <img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/FpUxzX_20211229170010.png"></p>
-<p>​    （5）对于年轻代的 Region，它的RSet只保存了来自老年代的引用（因为年轻代的没必要存储啊，自己都要做 Minor GC了</p>
-<p>​    （6）而对于老年代的 Region来说，它的RSet也只会保存老年代对它的引用（在G1垃圾收集器，老年代回收之前，都会先对年轻代进行回收，所以没必要保存年轻代的引用）</p>
-<p>3）第三步：把扫描之后存活的对象往「空的 Survivor区」或者老年代」存放，其他的Eden区进行清除</p>
-<p>​    （1）这里要提下的是，在G1还有另一个名词，叫做CSet</p>
-<p>​    （2）它的全称是 Collection Set，保存了一次GC中「将执行垃圾回收」的 Region。CSet中的所有存活对象都会被转移到别的可用 Region上</p>
-<p>​    （3）在 Minor GC的最后，会处理下软引用、弱引用、 JNI Weak等引用，结束收集</p>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>总结</p>
-<ul>
-<li><p>总结起来就是：扫描、处理跨 Region引用、收集至CSet、复制清除、处理引用</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/WZo9bF_20211229170433.png"></p>
-</li>
-</ul>
-</li>
-</ul>
-<h2 id="MixedGC过程"><a href="#MixedGC过程" class="headerlink" title="MixedGC过程"></a>MixedGC过程</h2><ul>
-<li>当堆空间的占用率达到一定阈值后会触发 Mixed GC（默认45%，由参数决定）</li>
-<li>Mixed GC会依赖「全局并发标记」统计后的 Region数据</li>
-<li>「全局并发标记」它的过程跟CMS非常类型，步骤大概是：初始标记（STW）、并发标记、最终标记（ST）以及清理（ST）<ul>
-<li>说明： Mixed GC它一定会回收年轻代，并会采集部分老年代的Region进行回收的，所以它是一个混合GC</li>
-<li>「初始标记」，<ul>
-<li>这个过程是「共用」了 Minor GC的 Stop The World（Mixed GC一定会发生 Minor GC），复用了「扫描 GC Roots的操作</li>
-<li>在这个过程中，老年代和新生代都会扫</li>
-<li>总的来说，「初始标记」这个过程还是比较快的，毕竟没有追溯遍历嘛</li>
-</ul>
-</li>
-<li>「并发标记」<ul>
-<li>这个阶段不会 Stop The World，GC线程与用户线程一起执行，GC线程负责收集各个 Region的存活对象信息</li>
-<li>从 GC Roots往下追溯，査找整个堆存活的对象，比较耗时</li>
-</ul>
-</li>
-<li>「重新标记」<ul>
-<li>跟CMS又一样，标记那些在「并发标记」阶段发生变化的对象</li>
-<li>CMS在「重新标记」阶段，应该会重新扫描所有的线程栈和整个年轻代作为root,G1不是<ul>
-<li>在G1中解決「并发标记」阶段导致引用变更的问题，使用的是SATB算法</li>
-<li>可以简单理解为：在GC开始的时候，它为存活的对象做了一次「快照」</li>
-<li>在「并发阶段」时，把每一次发生引用关系变化时旧的引用值给记下来</li>
-<li>然后在「重新标记」阶段只扫描着块「发生过变化」的引用，看有没有对象还是存活的，加入到「 GC Roots」上</li>
-<li>不过SATB算法有个小的问题，就是：如果在开始时，G1就认为它是活的，那就在此次GC中不会对它回收，即便可能在「并发阶段」上对象已经变为了垃圾。</li>
-<li>所以，G1也有可能会存在「浮动垃圾」</li>
-<li>但是总的来说，对于G1而言，问题不大（毕竟它不是追求一次把所有的垃圾都清除掉，而是注重 Stop The Worlde时间）</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>「清理」<ul>
-<li>这个阶段也是会 Stop The World的，主要清点和重置标记状态，会根据「停顿预模型」（其实就是设定的停顿时间），来决定本次GC回收多少 Region</li>
-<li>一般来说， Mixed GC会选定所有的年轻代 Region，部分「回收价值高」的老年代 Region（回收价值高其实就是垃圾多）进行采集</li>
-<li>最后 Mixed GC进行清除还是通过「拷贝」&#x2F;「复制」的方式去干的</li>
-<li>所以在G1中，一次回收未必是将所有的垃圾进行回收的，G1会依据停顿时间做出选择 Region数量</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h2 id="什么时候发生full-GC"><a href="#什么时候发生full-GC" class="headerlink" title="什么时候发生full GC"></a>什么时候发生full GC</h2><ul>
-<li>如果在 Mixed GC中无法跟上用户线程分配内存的速度，导致老年代填满无法继续进行 Mixed GC，就又会降级到 serial oldGC来收集整个 GC heap</li>
-<li>其实跟CMS是非常类似的都是因为空间不足</li>
-<li>不过uGC这个场景相较于CMS还是很少的，毕竟G1没有像CMS「内存碎片」这种问题</li>
-</ul>
-<h2 id="G1垃圾收集器特点："><a href="#G1垃圾收集器特点：" class="headerlink" title="G1垃圾收集器特点："></a><strong>G1垃圾收集器特点</strong>：</h2><ul>
-<li>从原来的「物理」分代，变成现在的「逻辑」分代，将堆内存「逻辑」划分为多个Region</li>
-<li>使用CSet来存储可回收Region的集合</li>
-<li>使用RSet来处理跨代引用的问题（注意：RSet不保留 年轻代相关的引用关系）</li>
-<li>G1可简单分为：Minor GC 和Mixed GC以及Full GC</li>
-<li>【Eden区满则触发】Minor GC 回收过程可简单分为：(STW) 扫描 GC Roots、更新&amp;&amp;处理Rset、复制清除</li>
-<li>全局并发标记的过程跟CMS过程差不多：初始标记（STW）、并发标记、最终标记（STW）以及清理（STW）</li>
-<li>【整堆空间占一定比例则触发】Mixed GC 依赖「全局并发标记」，得到CSet(可回收Region)，就进行「复制清除」</li>
-<li>使用SATB算法来处理「并发标记」阶段对象引用存在变更的问题</li>
-<li><strong>亮点&amp;&amp;重点</strong>：提供可停顿时间参数供用户设置（<strong>G1会尽量满足该停顿时间来调整 GC时回收Region的数量</strong>）</li>
-<li>R大描述G1原理的时候，他提到：从宏观的角度看G1，主要分为两块「<strong>全局并发标记</strong>」和「<strong>拷贝存活对象</strong>」</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>l
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://example.com/posts/b8eb8241/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2384,6 +1513,703 @@
 <p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/dQHEF8_20211230112436.png" alt="JIT常见优化"></p>
 </li>
 </ul>
+
+      
+    </div>
+
+    
+    
+    
+
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>l
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/561aa315/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lion.png">
+      <meta itemprop="name" content="swimminghao">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="swimminghao's blog">
+      <meta itemprop="description" content="swimminghao的学习博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | swimminghao's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/561aa315/" class="post-title-link" itemprop="url">38、【对线面试官】HTTP</a>
+        </h2>
+
+        <div class="post-meta-container">
+
+          
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-03-10 09:48:07" itemprop="dateModified" datetime="2022-03-10T09:48:07+08:00">2022-03-10</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/posts/561aa315/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/561aa315/" data-xid="/posts/561aa315/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>1.4k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>1 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="今天要不来聊聊HTTP吧"><a href="#今天要不来聊聊HTTP吧" class="headerlink" title="今天要不来聊聊HTTP吧"></a>今天要不来聊聊HTTP吧</h1><h2 id="今天要不来聊聊HTTP吧？"><a href="#今天要不来聊聊HTTP吧？" class="headerlink" title="今天要不来聊聊HTTP吧？"></a>今天要不来聊聊HTTP吧？</h2><ul>
+<li>HTTP「协议」是客户端和服务器「交互」的一种通迅的格式<ul>
+<li>所谓的「协议」实际上就是双方约定好的「格式」，让双方都能看得懂的东西而已</li>
+<li>所谓的交互实际上就是「请求」和「响应」</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/KF4FUG_20211230112604.png"></p>
+<h2 id="那你知道HTTP各个版本之间的区别吗？"><a href="#那你知道HTTP各个版本之间的区别吗？" class="headerlink" title="那你知道HTTP各个版本之间的区别吗？"></a>那你知道HTTP各个版本之间的区别吗？</h2><ul>
+<li>HTP1.0默认是短连接，每次与服务器交互，都需要新开一个连接</li>
+<li>HTTP1.1版本最主要的是「默认持久连接」。只要客户端服务端没有断开TCP连接，就一直保持连接，可以发送多次HTTP请求</li>
+<li>其次就是「断点续传」（ Chunked transfer-coding）。利用HTTP消息头使用分块传输编码，将实体主体分块进行传输</li>
+<li>HTTP&#x2F;2不再以文本的方式传输，采用「二进制分帧层」，对头部进行了「压缩」，支持「流控」，最主要就是HTTP&#x2F;2是支持「多路复用」的（通过单一的TCP连接「并行」发起多个的请求和响应消息）</li>
+<li>HTTP&#x2F;3跟前面版本最大的区别就是：HTTP1.x和HTTP&#x2F;2底层都是TCP，而HTTP&#x2F;3底层是UDP。使用HTTP&#x2F;3能够減少RTT「往返时延」（TCP三次握手，TLS握手）</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/8se2HT_20211230113041.png"></p>
+<h2 id="嗯，稍微打断下。我知道HTTP1-1版本有个管线化（-pipelining）理论，但默认是关闭的。管线化这个跟HTTP-x2F-2的「多路复用」是很类似的，它们有什么区别呀？"><a href="#嗯，稍微打断下。我知道HTTP1-1版本有个管线化（-pipelining）理论，但默认是关闭的。管线化这个跟HTTP-x2F-2的「多路复用」是很类似的，它们有什么区别呀？" class="headerlink" title="嗯，稍微打断下。我知道HTTP1.1版本有个管线化（ pipelining）理论，但默认是关闭的。管线化这个跟HTTP&#x2F;2的「多路复用」是很类似的，它们有什么区别呀？"></a>嗯，稍微打断下。我知道HTTP1.1版本有个管线化（ pipelining）理论，但默认是关闭的。管线化这个跟HTTP&#x2F;2的「多路复用」是很类似的，它们有什么区别呀？</h2><ul>
+<li><p>HTTP1.1提出的「管线化」只能「串行」（一个响应必须完全返回后，下个请求才会开始传输）</p>
+</li>
+<li><p>HTTP&#x2F;2多路复用则是利用「分帧」数据流，把HTTP协议分解为「互不依赖」的帧（为每个帧「标序」发送，接收回来的时候按序重组），进而可以「乱序」发送避免「一定程度上」的队首阻塞问题</p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/MC43LZ_20211230112912.png"></p>
+</li>
+<li><p>但是，无论是HTTP1.1还是HTTP&#x2F;2，respanel响应的「处理顺序」总是需要跟request请求顺序保持一致的。假如某个请求的 response响应慢了，还是同样会有阻塞的问题</p>
+</li>
+<li><p>这受限于HTTP底层的传输协议是TCP，没办法完全解決「线头阻塞」的问题</p>
+</li>
+</ul>
+<h2 id="那你了解HTPS的过程吗？"><a href="#那你了解HTPS的过程吗？" class="headerlink" title="那你了解HTPS的过程吗？"></a>那你了解HTPS的过程吗？</h2><ul>
+<li><p>对于HTTPS，我的理解下：就是「安全」的HTTP协议（客户端与服务端的传输链路中进行加密）</p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/pOPVGJ_20211230113132.png"></p>
+</li>
+<li><p>HTPS首先要解決的是：认证的问题</p>
+<ul>
+<li>客户端是需要确切地知道服务端是不是「真实」，所以在HTPS中会有一个角色：CA（公信机构）</li>
+<li>服务端在使用HTTPSI前，需要去认证的CA机构申请一份「数字证书」。数字证书里包含有证书持有者、证书有效期「服务器公钥」等信息</li>
+<li>CA机构也有自己的一份公私钥，在发布数字证书之前，会用自己的「私钥」对这份数字证书进行加密</li>
+<li>等到客户端请求服务器的时候，服务端返回证书给客户端。客户端用CA的公钥对证书解密（因为CA是公信机构，会内置到浏览器或操作系统中，所以客户端会有公钥）。这个时候，客户端会判断这个「证书是否可信有无被簒改」</li>
+<li>私钥加密，公钥解密我们叫做「数字签名」（这种方式可以查看有无被簒改）</li>
+<li>到这里，就解决了「认证」的问题，至少客户端能保证是在跟「真实的服务器」进行通信。</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/D1hA0I_20211230113315.png"></p>
+</li>
+<li><p>保密问题</p>
+<ul>
+<li>客户端与服务器的通讯内容在传输中不会泄露给第三方</li>
+<li>客户端从CA拿到数字证书后，就能拿到服务端的公钥</li>
+<li>客户端生成一个Key作为「对称加密」的秘钥，用服务端的「公钥加密」传给服务端</li>
+<li>服务端用自己的「私钥解密」客户端的数据，得到对称加密的秘钥</li>
+<li>之后客户端与服务端就可以使用「对称加密的秘钥」愉快地发送和接收消息</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/oU2mh1_20211230113435.png"></p>
+</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>l
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/d38e357c/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lion.png">
+      <meta itemprop="name" content="swimminghao">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="swimminghao's blog">
+      <meta itemprop="description" content="swimminghao的学习博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | swimminghao's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/d38e357c/" class="post-title-link" itemprop="url">3、【对线面试官】Java NIO</a>
+        </h2>
+
+        <div class="post-meta-container">
+
+          
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-03-10 09:48:07" itemprop="dateModified" datetime="2022-03-10T09:48:07+08:00">2022-03-10</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/posts/d38e357c/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/d38e357c/" data-xid="/posts/d38e357c/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>4.9k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>4 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="3、【对线面试官】Java-NIO"><a href="#3、【对线面试官】Java-NIO" class="headerlink" title="3、【对线面试官】Java NIO"></a>3、【对线面试官】Java NIO</h1><h2 id="这次咱们就来聊聊Java的NIO呗？你对NIO有多少了解？"><a href="#这次咱们就来聊聊Java的NIO呗？你对NIO有多少了解？" class="headerlink" title="这次咱们就来聊聊Java的NIO呗？你对NIO有多少了解？"></a>这次咱们就来聊聊Java的NIO呗？你对NIO有多少了解？</h2><ol>
+<li>嗯，我对Java NIO还是有一定的了解的，NIO是JDK1.4开始有的，其目的是为了提高速度。NIO翻译成no-blockingo或者newio都无所谓啦，反正都说得通</li>
+</ol>
+<h2 id="在真实项目中写过NIO相关"><a href="#在真实项目中写过NIO相关" class="headerlink" title="在真实项目中写过NIO相关"></a>在真实项目中写过NIO相关</h2><ol>
+<li>这块在我所负责的系统中，一般用不上N10，要不我跟你讲讲NIO相关的知识点呗？</li>
+</ol>
+<h2 id="可以吧，你先来讲讲NIO和传统IO有什么区别吧"><a href="#可以吧，你先来讲讲NIO和传统IO有什么区别吧" class="headerlink" title="可以吧，你先来讲讲NIO和传统IO有什么区别吧"></a>可以吧，你先来讲讲NIO和传统IO有什么区别吧</h2><ol>
+<li>传统IO是一次一个字节地处理数据，NIO是以块（缓冲区）的形式处理数据。最主要的是，NIO可以实现非阻塞，而传统IO只能是阻塞的。</li>
+<li>IO的实际场景是文件IO和网络IO，NIO 在网络IO场景下提升就尤其明显了。</li>
+<li>在Java NIO有三个核心部分组成。分别是Buffer（缓冲区）、Channel（管道）以及Selector（选择器）</li>
+<li>可以简单的理解为：Buffer是存储数据的地方，Channel是运输数据的载体，而Selector用于检查多个Channel的状态变更情况，</li>
+</ol>
+<h2 id="有写过相关的Demo代码吗？"><a href="#有写过相关的Demo代码吗？" class="headerlink" title="有写过相关的Demo代码吗？"></a>有写过相关的Demo代码吗？</h2><ol>
+<li><p>我曾经写过一个NIO Demo，面试官可以看看。</p>
+</li>
+<li><p>大概的实现就是：服务端接收图片后保存，能够通知客户端已经收到图片。而客户端发送图片给客户端，并接收服务端的响应</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//服务端</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">NoBlockServer</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException &#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 1.获取通道</span></span><br><span class="line">        <span class="type">ServerSocketChannel</span> <span class="variable">server</span> <span class="operator">=</span> ServerSocketChannel.open();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 2.切换成非阻塞模式</span></span><br><span class="line">        server.configureBlocking(<span class="literal">false</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 3. 绑定连接</span></span><br><span class="line">        server.bind(<span class="keyword">new</span> <span class="title class_">InetSocketAddress</span>(<span class="number">6666</span>));</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 4. 获取选择器</span></span><br><span class="line">        <span class="type">Selector</span> <span class="variable">selector</span> <span class="operator">=</span> Selector.open();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 4.1将通道注册到选择器上，指定接收“监听通道”事件</span></span><br><span class="line">        server.register(selector, SelectionKey.OP_ACCEPT);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 5. 轮训地获取选择器上已“就绪”的事件---&gt;只要select()&gt;0，说明已就绪</span></span><br><span class="line">        <span class="keyword">while</span> (selector.select() &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="comment">// 6. 获取当前选择器所有注册的“选择键”(已就绪的监听事件)</span></span><br><span class="line">            Iterator&lt;SelectionKey&gt; iterator = selector.selectedKeys().iterator();</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 7. 获取已“就绪”的事件，(不同的事件做不同的事)</span></span><br><span class="line">            <span class="keyword">while</span> (iterator.hasNext()) &#123;</span><br><span class="line"></span><br><span class="line">                <span class="type">SelectionKey</span> <span class="variable">selectionKey</span> <span class="operator">=</span> iterator.next();</span><br><span class="line"></span><br><span class="line">                <span class="comment">// 接收事件就绪</span></span><br><span class="line">                <span class="keyword">if</span> (selectionKey.isAcceptable()) &#123;</span><br><span class="line"></span><br><span class="line">                    <span class="comment">// 8. 获取客户端的链接</span></span><br><span class="line">                    <span class="type">SocketChannel</span> <span class="variable">client</span> <span class="operator">=</span> server.accept();</span><br><span class="line"></span><br><span class="line">                    <span class="comment">// 8.1 切换成非阻塞状态</span></span><br><span class="line">                    client.configureBlocking(<span class="literal">false</span>);</span><br><span class="line"></span><br><span class="line">                    <span class="comment">// 8.2 注册到选择器上--&gt;拿到客户端的连接为了读取通道的数据(监听读就绪事件)</span></span><br><span class="line">                    client.register(selector, SelectionKey.OP_READ);</span><br><span class="line"></span><br><span class="line">                &#125; <span class="keyword">else</span> <span class="keyword">if</span> (selectionKey.isReadable()) &#123; <span class="comment">// 读事件就绪</span></span><br><span class="line"></span><br><span class="line">                    <span class="comment">// 9. 获取当前选择器读就绪状态的通道</span></span><br><span class="line">                    <span class="type">SocketChannel</span> <span class="variable">client</span> <span class="operator">=</span> (SocketChannel) selectionKey.channel();</span><br><span class="line"></span><br><span class="line">                    <span class="comment">// 9.1读取数据</span></span><br><span class="line">                    <span class="type">ByteBuffer</span> <span class="variable">buffer</span> <span class="operator">=</span> ByteBuffer.allocate(<span class="number">1024</span>);</span><br><span class="line"></span><br><span class="line">                    <span class="comment">// 9.2得到文件通道，将客户端传递过来的图片写到本地项目下(写模式、没有则创建)</span></span><br><span class="line">                    <span class="type">FileChannel</span> <span class="variable">outChannel</span> <span class="operator">=</span> FileChannel.open(Paths.get(<span class="string">&quot;2.png&quot;</span>), StandardOpenOption.WRITE, StandardOpenOption.CREATE);</span><br><span class="line"></span><br><span class="line">                    <span class="keyword">while</span> (client.read(buffer) &gt; <span class="number">0</span>) &#123;</span><br><span class="line">                        <span class="comment">// 在读之前都要切换成读模式</span></span><br><span class="line">                        buffer.flip();</span><br><span class="line"></span><br><span class="line">                        outChannel.write(buffer);</span><br><span class="line"></span><br><span class="line">                        <span class="comment">// 读完切换成写模式，能让管道继续读取文件的数据</span></span><br><span class="line">                        buffer.clear();</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="comment">// 10. 取消选择键(已经处理过的事件，就应该取消掉了)</span></span><br><span class="line">                iterator.remove();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//客户端</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">NoBlockClient</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException &#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 1. 获取通道</span></span><br><span class="line">        <span class="type">SocketChannel</span> <span class="variable">socketChannel</span> <span class="operator">=</span> SocketChannel.open(<span class="keyword">new</span> <span class="title class_">InetSocketAddress</span>(<span class="string">&quot;127.0.0.1&quot;</span>, <span class="number">6666</span>));</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 1.1切换成非阻塞模式</span></span><br><span class="line">        socketChannel.configureBlocking(<span class="literal">false</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 1.2获取选择器</span></span><br><span class="line">        <span class="type">Selector</span> <span class="variable">selector</span> <span class="operator">=</span> Selector.open();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 1.3将通道注册到选择器中，获取服务端返回的数据</span></span><br><span class="line">        socketChannel.register(selector, SelectionKey.OP_READ);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 2. 发送一张图片给服务端吧</span></span><br><span class="line">        <span class="type">FileChannel</span> <span class="variable">fileChannel</span> <span class="operator">=</span> FileChannel.open(Paths.get(<span class="string">&quot;X:\\Users\\ozc\\Desktop\\面试造火箭\\1.png&quot;</span>), StandardOpenOption.READ);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 3.要使用NIO，有了Channel，就必然要有Buffer，Buffer是与数据打交道的呢</span></span><br><span class="line">        <span class="type">ByteBuffer</span> <span class="variable">buffer</span> <span class="operator">=</span> ByteBuffer.allocate(<span class="number">1024</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 4.读取本地文件(图片)，发送到服务器</span></span><br><span class="line">        <span class="keyword">while</span> (fileChannel.read(buffer) != -<span class="number">1</span>) &#123;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 在读之前都要切换成读模式</span></span><br><span class="line">            buffer.flip();</span><br><span class="line"></span><br><span class="line">            socketChannel.write(buffer);</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 读完切换成写模式，能让管道继续读取文件的数据</span></span><br><span class="line">            buffer.clear();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 5. 轮训地获取选择器上已“就绪”的事件---&gt;只要select()&gt;0，说明已就绪</span></span><br><span class="line">        <span class="keyword">while</span> (selector.select() &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="comment">// 6. 获取当前选择器所有注册的“选择键”(已就绪的监听事件)</span></span><br><span class="line">            Iterator&lt;SelectionKey&gt; iterator = selector.selectedKeys().iterator();</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 7. 获取已“就绪”的事件，(不同的事件做不同的事)</span></span><br><span class="line">            <span class="keyword">while</span> (iterator.hasNext()) &#123;</span><br><span class="line"></span><br><span class="line">                <span class="type">SelectionKey</span> <span class="variable">selectionKey</span> <span class="operator">=</span> iterator.next();</span><br><span class="line"></span><br><span class="line">                <span class="comment">// 8. 读事件就绪</span></span><br><span class="line">                <span class="keyword">if</span> (selectionKey.isReadable()) &#123;</span><br><span class="line"></span><br><span class="line">                    <span class="comment">// 8.1得到对应的通道</span></span><br><span class="line">                    <span class="type">SocketChannel</span> <span class="variable">channel</span> <span class="operator">=</span> (SocketChannel) selectionKey.channel();</span><br><span class="line"></span><br><span class="line">                    <span class="type">ByteBuffer</span> <span class="variable">responseBuffer</span> <span class="operator">=</span> ByteBuffer.allocate(<span class="number">1024</span>);</span><br><span class="line"></span><br><span class="line">                    <span class="comment">// 9. 知道服务端要返回响应的数据给客户端，客户端在这里接收</span></span><br><span class="line">                    <span class="type">int</span> <span class="variable">readBytes</span> <span class="operator">=</span> channel.read(responseBuffer);</span><br><span class="line"></span><br><span class="line">                    <span class="keyword">if</span> (readBytes &gt; <span class="number">0</span>) &#123;</span><br><span class="line">                        <span class="comment">// 切换读模式</span></span><br><span class="line">                        responseBuffer.flip();</span><br><span class="line">                        System.out.println(<span class="keyword">new</span> <span class="title class_">String</span>(responseBuffer.array(), <span class="number">0</span>, readBytes));</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                <span class="comment">// 10. 取消选择键(已经处理过的事件，就应该取消掉了)</span></span><br><span class="line">                iterator.remove();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="就考考相关的概念原理呗"><a href="#就考考相关的概念原理呗" class="headerlink" title="就考考相关的概念原理呗"></a>就考考相关的概念原理呗</h2><h3 id="你知道IO模型有几种吗"><a href="#你知道IO模型有几种吗" class="headerlink" title="你知道IO模型有几种吗"></a>你知道IO模型有几种吗</h3><ol>
+<li>在Unix下IO模型分别有：阻塞IO、非阻塞IO、IO复用、信号驱动以及异步I&#x2F;0。在开发中碰得最多的就是阻塞I0、非阻塞IO以及IO复用。</li>
+</ol>
+<h3 id="来重点讲讲-O复用模型吧"><a href="#来重点讲讲-O复用模型吧" class="headerlink" title="来重点讲讲|O复用模型吧"></a>来重点讲讲|O复用模型吧</h3><ol>
+<li>我就以Linux系统为例好了，我们都知道Linux对文件的操作实际上就是通过文件描述符（fd）</li>
+<li>1O复用模型指的就是：通过一个进程监听多个文件描述符，一旦某个文件描述符准备就绪，就去通知程序做相对应的处理</li>
+<li>这种以通知的方式，优势并不是对于单个连接能处理得更快，而是在于它能处理更多的连接。</li>
+<li>在Linux下IO复用模型用的函数有select&#x2F;poll和epoll</li>
+</ol>
+<h3 id="那你来讲讲这select和epll函数的区别呗？"><a href="#那你来讲讲这select和epll函数的区别呗？" class="headerlink" title="那你来讲讲这select和epll函数的区别呗？"></a>那你来讲讲这select和epll函数的区别呗？</h3><ul>
+<li><p>select</p>
+<ol>
+<li>select函数它支持最大的连接数是1024或 2048，因为在select函数下要传入fd_set参数，这个fd_set的大小要么1024或2048（其实就看操作系统的位数）</li>
+<li>fd_set就是bitmap的数据结构，可以简单理解为只要位为0，那说明还没数据到缓冲区，只要位为1，那说明数据已经到缓冲区。</li>
+<li>而select函数做的就是每次将fd_set遍历，判断标志位有没有发现变化，如果有变化则通知程序做中断处理。</li>
+</ol>
+</li>
+<li><p>epoll</p>
+<ol>
+<li>epoll是在Linux2.6内核正式提出，完善了select的一些缺点。</li>
+<li>它定义了epoll_event结构体来处理，不存在最大连接数的限制。</li>
+<li>并且它不像select函数每次把所有的文件描述符（fd）都遍历，简单理解就是epoll把就绪的文件描述符（fd）专门维护了一块空间，每次从就绪列表里边拿就好了，不再进行对所有文件描述符（fd）进行遍历。</li>
+</ol>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="嗯，了解了，另外你知道什么叫做零拷贝吗？"><a href="#嗯，了解了，另外你知道什么叫做零拷贝吗？" class="headerlink" title="嗯，了解了，另外你知道什么叫做零拷贝吗？"></a>嗯，了解了，另外你知道什么叫做零拷贝吗？</h3><ol>
+<li>知道的。我们以读操作为例，假设用户程序发起一次读请求。</li>
+<li>其实会调用read相关的「系统函数」，然后会从用户态切换到内核态，随后CPU会告诉DMA去磁盘把数据拷贝到内核空间。</li>
+<li>等到「内核缓冲区」真正有数据之后，CPU会把「内核缓存区」数据拷贝到「用户缓冲区」，最终用户程序才能获取到。</li>
+<li>稍微解释一下上面的意思~</li>
+<li>为了保证内核的安全，操作系统将虚拟空间划分为「用户空间」和「内核空间」，所以在读系统数据的时候会有状态切换</li>
+<li>因为应用程序不能直接去读取硬盘的数据。从上面描述可知读写需要依赖「内核缓冲区」</li>
+<li>一次读操作会让DMA拷贝（direct memory access 直接内存拷贝，不使用cpu）将磁盘数据拷贝到内核缓冲区，CPU将内核缓冲区数据拷贝到用户缓冲区。</li>
+<li>所谓的零拷贝就是将「CPU将内核缓冲区数据拷贝到用户缓冲区」这次CPU拷贝给省去，来提高效率和性能</li>
+<li>常见的零拷贝技术有mmap（内核缓冲区与用户缓冲区的共享） 、sendfile（系统底层函数支持）。</li>
+<li>零拷贝可以提高数据传输的性能，这块在Kafka等框架也有相关的实践。</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>l
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/986aa405/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lion.png">
+      <meta itemprop="name" content="swimminghao">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="swimminghao's blog">
+      <meta itemprop="description" content="swimminghao的学习博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | swimminghao's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/986aa405/" class="post-title-link" itemprop="url">4、【对线面试官】Java反射 & 动态代理.md</a>
+        </h2>
+
+        <div class="post-meta-container">
+
+          
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-03-14 11:30:20" itemprop="dateModified" datetime="2022-03-14T11:30:20+08:00">2022-03-14</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/posts/986aa405/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/986aa405/" data-xid="/posts/986aa405/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>1.9k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>2 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="4、【对线面试官】Java反射-amp-动态代理-md"><a href="#4、【对线面试官】Java反射-amp-动态代理-md" class="headerlink" title="4、【对线面试官】Java反射 &amp; 动态代理.md"></a>4、【对线面试官】Java反射 &amp; 动态代理.md</h1><h2 id="今天要不来聊聊Java反射？你对Java反射了解多少？"><a href="#今天要不来聊聊Java反射？你对Java反射了解多少？" class="headerlink" title="今天要不来聊聊Java反射？你对Java反射了解多少？"></a>今天要不来聊聊Java反射？你对Java反射了解多少？</h2><ol>
+<li>嗯，Java反射在JavaSE基础中还是很重要的。</li>
+<li>简单来说，反射就是Java可以给我们在运行时获取类的信息<br>在初学的时候可能看不懂、又或是学不太会反射，因为初学的时候往往给的例子都是用反射创建对象，用反射去获取对象上的方法&#x2F;属性什么的，感觉没多大用</li>
+<li>但毕竟我已经不是以前的我了，跟以前的看法就不一样了。</li>
+<li>理解反射重点就在于理解什么是「运行时」，为什么我们要在「运行时」获取类的信息</li>
+<li>在当时学注解的时候，我们可以发现注解的生命周期有三个枚举值（当时我还告诉过面试官你呢~）</li>
+<li>分别是SOURCE、CLASS和RUNTIME，其实一样的，RUNTIME就是对标着运行时</li>
+<li>我们都知道：我们在编译器写的代码是j ava文件，经过javac编译会变成.class文件，class文件会被JVM装载运行（这里就是真正运行着我们所写的代码（虽然是被编译过的），也就所谓的运行时。</li>
+</ol>
+<h2 id="嗯，你说了那么多，就讲述了什么是运行时，还是快点进入重点吧"><a href="#嗯，你说了那么多，就讲述了什么是运行时，还是快点进入重点吧" class="headerlink" title="嗯，你说了那么多，就讲述了什么是运行时，还是快点进入重点吧"></a>嗯，你说了那么多，就讲述了什么是运行时，还是快点进入重点吧</h2><ol>
+<li>在运行时获取类的信息，其实就是为了让我们所写的代码更具有「通用性」和「灵活性」</li>
+<li>要理解反射，需要抛开我们日常写的业务代码。以更高的维度或者说是抽象的思维去看待我们所写的“工具”</li>
+<li>所谓的“工具”：在单个系统使用叫做“Utils”、被多个系统使用打成jar包叫做“组件”、组件继续发展壮大就叫做“框架”</li>
+<li>一个好用的“工具”是需要兼容各种情况的。</li>
+<li>你肯定是不知道用该“工具“的用户传入的是什么对象，但你需要帮他们得到需要的结果。</li>
+<li>例如SpringMVC你在方法上写上对象，传入的参数就会帮你封装到对象上</li>
+<li>Mybatis可以让我们只写接口，不写实现类，就可以执行SQL</li>
+<li>你在类上加上@Component注解，Sprin g就帮你创建对象</li>
+<li>这些统统都有反射的身影：约定大于配置，配置大于硬编码。</li>
+<li>通过”约定“使用姿势，使用反射在运行时获取相应的信息（毕竟作为一个”工具“是真的不知道你是怎么用的），实现代码功能的「通用性」和「灵活性」</li>
+</ol>
+<h2 id="结合之前说的泛型，想问下：你应该知道泛型是会擦除的，那为什么反射能获取到泛型的信息呢？"><a href="#结合之前说的泛型，想问下：你应该知道泛型是会擦除的，那为什么反射能获取到泛型的信息呢？" class="headerlink" title="结合之前说的泛型，想问下：你应该知道泛型是会擦除的，那为什么反射能获取到泛型的信息呢？"></a>结合之前说的泛型，想问下：你应该知道泛型是会擦除的，那为什么反射能获取到泛型的信息呢？</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 抽象类，定义泛型&lt;T&gt;</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title class_">BaseDao</span>&lt;T&gt; &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">BaseDao</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="type">Class</span> <span class="variable">clazz</span> <span class="operator">=</span> <span class="built_in">this</span>.getClass();</span><br><span class="line">        <span class="type">ParameterizedType</span>  <span class="variable">pt</span> <span class="operator">=</span> (ParameterizedType) clazz.getGenericSuperclass(); </span><br><span class="line">        clazz = (Class) pt.getActualTypeArguments()[<span class="number">0</span>];</span><br><span class="line">        System.out.println(clazz);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 实现类</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">UserDao</span> <span class="keyword">extends</span> <span class="title class_">BaseDao</span>&lt;User&gt; &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        BaseDao&lt;User&gt; userDao = <span class="keyword">new</span> <span class="title class_">UserDao</span>();</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 执行结果输出</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">com</span>.entity.User</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>嗯，这个问题我在学习的时候也想过</li>
+<li>其实是这样的，可以理解为泛型擦除是有范围的，定义在类上的泛型信息是不会被擦除的。</li>
+<li>Java编译器仍在class文件以Signature 属性的方式保留了泛型信息</li>
+<li>Type作为顶级接口，Type下还有几种类型，比如TypeVariable、 ParameterizedT ype、 WildCardType、 GenericArrayType、以及Class。通过这些接口我们就可以在运行时获取泛型相关的信息。</li>
+</ol>
+<h2 id="你了解动态代理吗？"><a href="#你了解动态代理吗？" class="headerlink" title="你了解动态代理吗？"></a>你了解动态代理吗？</h2><ol>
+<li>嗯，了解的。动态代理其实就是代理模式的一种，代理模式是设计模式之一。</li>
+<li>代理模型有静态代理和动态代理。静态代理需要自己写代理类，实现对应的接口，比较麻烦。</li>
+<li>在Java中，动态代理常见的又有两种实现方式：JDK动态代理和CGLIB代理</li>
+<li>JDK动态代理其实就是运用了反射的机制，而CGLIB代理则用的是利用ASM框架，通过修改其字节码生成子类来处理。</li>
+<li>JDK动态代理会帮我们实现接口的方法，通过invokeHandler对所需要的方法进行增强。</li>
+<li>动态代理这一技术在实际或者框架原理中是非常常见的</li>
+<li>像上面所讲的Mybatis不用写实现类，只写接口就可以执行SQL，又或是SpringAOP等等好用的技术，实际上用的就是动态代理。</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>l
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/986aa405/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lion.png">
+      <meta itemprop="name" content="swimminghao">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="swimminghao's blog">
+      <meta itemprop="description" content="swimminghao的学习博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | swimminghao's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/986aa405/" class="post-title-link" itemprop="url">5、【对线面试官】多线程基础</a>
+        </h2>
+
+        <div class="post-meta-container">
+
+          
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-03-10 09:48:07" itemprop="dateModified" datetime="2022-03-10T09:48:07+08:00">2022-03-10</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/posts/986aa405/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/986aa405/" data-xid="/posts/986aa405/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>2.2k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>2 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="5、【对线面试官】多线程基础"><a href="#5、【对线面试官】多线程基础" class="headerlink" title="5、【对线面试官】多线程基础"></a>5、【对线面试官】多线程基础</h1><h2 id="首先你来讲讲进程和线程的区别吧？"><a href="#首先你来讲讲进程和线程的区别吧？" class="headerlink" title="首先你来讲讲进程和线程的区别吧？"></a>首先你来讲讲进程和线程的区别吧？</h2><ol>
+<li>进程是系统进行资源分配和调度的独立单位，每一个进程都有它自己的内存空间和系统资源</li>
+<li>进程实现多处理机环境下的进程调度，分派，切换时，都需要花费较大的时间和空间开销</li>
+<li>为了提高系统的执行效率，减少处理机的空转时间和调度切换的时间，以及便于系统管理，所以有了线程，线程取代了进程了调度的基本功能</li>
+<li>简单来说，进程作为资源分配的基本单位，线程作为资源调度的基本单位</li>
+</ol>
+<h2 id="那我们为什么要用多线程呢？你平时工作中用得多吗？"><a href="#那我们为什么要用多线程呢？你平时工作中用得多吗？" class="headerlink" title="那我们为什么要用多线程呢？你平时工作中用得多吗？"></a>那我们为什么要用多线程呢？你平时工作中用得多吗？</h2><ol>
+<li>使用多线程最主要的原因是提高系统的资源利用率。</li>
+<li>现在CPU基本都是多核的，如果你只用单线程，那就是只用到了一个核心，其他的核心就相当于空闲在那里了。</li>
+<li>在平时工作中多线程是随时都可见的。</li>
+<li>比如说，我们系统Web服务器用的是Tomcat，Tomcat处理每一个请求都会从线程连接池里边用一个线程去处理。</li>
+<li>又比如说，我们用连接数据库会用对应的连接池Druid&#x2F;C3P0&#x2F;DBCP等等</li>
+<li>等等这些都用了多线程的。</li>
+<li>上面这些框架已经帮我们屏蔽掉「手写」多线程的问题</li>
+</ol>
+<h3 id="嗯，了解，那你实际开发中有用过吗？"><a href="#嗯，了解，那你实际开发中有用过吗？" class="headerlink" title="嗯，了解，那你实际开发中有用过吗？"></a>嗯，了解，那你实际开发中有用过吗？</h3><ol>
+<li><p>当然有了，在我所负责的系统也会用到多线程的。</p>
+</li>
+<li><p>比如说，现在要跑一个定时任务，该任务的链路执行时间和过程都非常长，我这边就用一个线程池将该定时任务的请求进行处理。</p>
+</li>
+<li><p>这样做的好处就是可以及时返回结果给调用方，能够提高系统的吞吐量。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 请求直接交给线程池来处理</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">push</span><span class="params">(PushParam pushParam)</span> &#123;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    pushServiceThreadExecutor.submit(() -&gt; &#123;</span><br><span class="line">      handler(pushParam);</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">    logger.error(<span class="string">&quot;pushServiceThreadExecutor error, exception&#123;&#125;:&quot;</span>, e);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>还有就是我的系统中用了很多生产者与消费者模式，会用多个线程去消费队列的消息，来提高并发度</p>
+</li>
+</ol>
+<h2 id="你如果在项目中用到了多线程，那肯定得考虑线程安全的问题的吧"><a href="#你如果在项目中用到了多线程，那肯定得考虑线程安全的问题的吧" class="headerlink" title="你如果在项目中用到了多线程，那肯定得考虑线程安全的问题的吧"></a>你如果在项目中用到了多线程，那肯定得考虑线程安全的问题的吧</h2><ol>
+<li>在我的理解下，在Java世界里边，所谓线程安全就是多个线程去执行某类，这个类始终能表现出正确的行为，那么这个类就是线程安全的。</li>
+<li>比如我有一个count变量，在service方法不断的累加这个count变量。</li>
+<li>假设相同的条件下，count变量每次执行的结果都是相同，那我们就可以说是线程安全的干</li>
+<li>显然下面的代码肯定不是线程安全的</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">UnsafeCountingServlet</span> <span class="keyword">extends</span> <span class="title class_">GenericServlet</span> <span class="keyword">implements</span> <span class="title class_">Servlet</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">long</span> <span class="variable">count</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">long</span> <span class="title function_">getCount</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> count;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">service</span><span class="params">(ServletRequest servletRequest, ServletResponse servletResponse)</span> <span class="keyword">throws</span> ServletException, IOException &#123;</span><br><span class="line"></span><br><span class="line">        ++count;</span><br><span class="line">        <span class="comment">// To something else...</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="那你平时是怎么解决，或者怎么思考线程安全问题的呢？"><a href="#那你平时是怎么解决，或者怎么思考线程安全问题的呢？" class="headerlink" title="那你平时是怎么解决，或者怎么思考线程安全问题的呢？"></a>那你平时是怎么解决，或者怎么思考线程安全问题的呢？</h2><ol>
+<li>其实大部分时间我们在代码里边都没有显式去处理线程安全问题，因为这大部分都由框架所做了。</li>
+<li>正如上面提到的Tomcat、Druid、SpringMVC等等。</li>
+<li>很多时候，我们判断是否要处理线程安全问题，就看有没有多个线程同时访问一个共享变量。</li>
+<li>像SpringMVC这种，我们日常开发时，不涉及到操作同一个成员变量，那我们就很少需要考虑线程安全问题。</li>
+<li>我个人解决线程安全问题的思路有以下：<ul>
+<li>能不能保证操作的原子性，考虑atomi c包下的类够不够我们使用。</li>
+<li>能不能保证操作的可见性，考虑volatil e关键字够不够我们使用</li>
+<li>如果涉及到对线程的控制（比如一次能使用多少个线程，当前线程触发的条件是否依赖其他线程的结果），考虑CountDownLatch&#x2F;Semaphore等等。</li>
+<li>如果是集合，考虑java.util.concurrent 包下的集合类。</li>
+<li>如果synchronized无法满足，考虑lock 包下的类</li>
+</ul>
+</li>
+<li>总的来说，就是先判断有没有线程安全问题，如果存在则根据具体的情况去判断使用什么方式去处理线程安全的问题。</li>
+<li>虽然synchronized很牛逼，但无脑使用synchronized会影响我们程序的性能的。</li>
+</ol>
+<h2 id="死锁你了解吗？什么情况会造成死锁？要是你能给我讲清楚死锁，我就录取你了"><a href="#死锁你了解吗？什么情况会造成死锁？要是你能给我讲清楚死锁，我就录取你了" class="headerlink" title="死锁你了解吗？什么情况会造成死锁？要是你能给我讲清楚死锁，我就录取你了"></a>死锁你了解吗？什么情况会造成死锁？要是你能给我讲清楚死锁，我就录取你了</h2><ol>
+<li>要是你录取我，我就给你讲清楚死锁</li>
+<li>造成死锁的原因可以简单概括为：当前线程拥有其他线程需要的资源，当前线程等待其他线程已拥有的资源，都不放弃自己拥有的资源。</li>
+<li>避免死锁的方式一般有以下方案：<ul>
+<li>固定加锁的顺序，比如我们可以使用Hash值的大小来确定加锁的先后</li>
+<li>尽可能缩减加锁的范围，等到操作共享变量的时候才加锁。</li>
+<li>使用可释放的定时锁（一段时间申请不到锁的权限了，直接释放掉）</li>
+</ul>
+</li>
+</ol>
+<h2 id="价值体现"><a href="#价值体现" class="headerlink" title="价值体现"></a>价值体现</h2><p>嗯，其实我想问，就是我要是..去到贵公司是做什么内容？还有就是..</p>
 
       
     </div>
