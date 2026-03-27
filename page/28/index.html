@@ -276,6 +276,154 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/e215f7cb/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lion.png">
+      <meta itemprop="name" content="swimminghao">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="swimminghao's blog">
+      <meta itemprop="description" content="swimminghao的学习博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | swimminghao's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/e215f7cb/" class="post-title-link" itemprop="url">NAS上搭建SS客户端</a>
+        </h2>
+
+        <div class="post-meta-container">
+
+          
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-05-26 11:33:50" itemprop="dateModified" datetime="2022-05-26T11:33:50+08:00">2022-05-26</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">工具</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/posts/e215f7cb/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/e215f7cb/" data-xid="/posts/e215f7cb/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>2k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>2 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="群辉NAS上搭建SS客户端来连接远程并提供本地HTTP-x2F-Socks5代理"><a href="#群辉NAS上搭建SS客户端来连接远程并提供本地HTTP-x2F-Socks5代理" class="headerlink" title="群辉NAS上搭建SS客户端来连接远程并提供本地HTTP&#x2F;Socks5代理"></a>群辉NAS上搭建SS客户端来连接远程并提供本地HTTP&#x2F;Socks5代理</h1><p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/mxF2RW_20220217094542.png" alt="img"></p>
+<p><a target="_blank" rel="noopener" href="https://odcn.top/2018/10/24/854/%E7%BE%A4%E6%99%96ss%E5%90%8C%E6%AD%A5dropbox%E5%92%8Cgoogledrive/">主要参考了这片文章。</a></p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://odcn.top/2018/10/24/854/%E7%BE%A4%E6%99%96ss%E5%90%8C%E6%AD%A5dropbox%E5%92%8Cgoogledrive/">shadowsocks的Http代理桥接为SOCKS5代理，使群晖SS同步Dropbox和GoogleDrive</a></p>
+</blockquote>
+<iframe title="《shadowsocks的Http代理桥接为SOCKS5代理，使群晖SS同步Dropbox和GoogleDrive》—oD^Blog" class="wp-embedded-content" sandbox="allow-scripts" security="restricted" src="https://odcn.top/2018/10/24/854/%e7%be%a4%e6%99%96ss%e5%90%8c%e6%ad%a5dropbox%e5%92%8cgoogledrive/embed/#?secret=hiN7sQcs2t" data-secret="hiN7sQcs2t" width="600" height="338" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="box-sizing: border-box; margin: 0px; padding: 0px; border: 0px; max-width: 100%; position: absolute; clip: rect(1px, 1px, 1px, 1px);"></iframe>
+**Contents**  [hide](https://1024.ee/index.php/2020/04/06/群辉nas上搭建ss客户端来连接远程并提供本地http-socks5代理/#) 
+
+<p><a target="_blank" rel="noopener" href="https://1024.ee/index.php/2020/04/06/%E7%BE%A4%E8%BE%89nas%E4%B8%8A%E6%90%AD%E5%BB%BAss%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%9D%A5%E8%BF%9E%E6%8E%A5%E8%BF%9C%E7%A8%8B%E5%B9%B6%E6%8F%90%E4%BE%9B%E6%9C%AC%E5%9C%B0http-socks5%E4%BB%A3%E7%90%86/#xia_zaidocker_-_ss-privoxy">1 下载docker – ss-privoxy</a></p>
+<p><a target="_blank" rel="noopener" href="https://1024.ee/index.php/2020/04/06/%E7%BE%A4%E8%BE%89nas%E4%B8%8A%E6%90%AD%E5%BB%BAss%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%9D%A5%E8%BF%9E%E6%8E%A5%E8%BF%9C%E7%A8%8B%E5%B9%B6%E6%8F%90%E4%BE%9B%E6%9C%AC%E5%9C%B0http-socks5%E4%BB%A3%E7%90%86/#gao_ji_she_zhi">2 高级设置</a></p>
+<p><a target="_blank" rel="noopener" href="https://1024.ee/index.php/2020/04/06/%E7%BE%A4%E8%BE%89nas%E4%B8%8A%E6%90%AD%E5%BB%BAss%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%9D%A5%E8%BF%9E%E6%8E%A5%E8%BF%9C%E7%A8%8B%E5%B9%B6%E6%8F%90%E4%BE%9B%E6%9C%AC%E5%9C%B0http-socks5%E4%BB%A3%E7%90%86/#she_zhi_duan_kou">3 设置端口</a></p>
+<p><a target="_blank" rel="noopener" href="https://1024.ee/index.php/2020/04/06/%E7%BE%A4%E8%BE%89nas%E4%B8%8A%E6%90%AD%E5%BB%BAss%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%9D%A5%E8%BF%9E%E6%8E%A5%E8%BF%9C%E7%A8%8B%E5%B9%B6%E6%8F%90%E4%BE%9B%E6%9C%AC%E5%9C%B0http-socks5%E4%BB%A3%E7%90%86/#zui_hou_cha_yi_cha">4 最后查一查</a></p>
+<p><a target="_blank" rel="noopener" href="https://1024.ee/index.php/2020/04/06/%E7%BE%A4%E8%BE%89nas%E4%B8%8A%E6%90%AD%E5%BB%BAss%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%9D%A5%E8%BF%9E%E6%8E%A5%E8%BF%9C%E7%A8%8B%E5%B9%B6%E6%8F%90%E4%BE%9B%E6%9C%AC%E5%9C%B0http-socks5%E4%BB%A3%E7%90%86/#kai_qi_hou_cha_cha_ri_zhi_yi_qie_zheng_chang_ji_ke">5 开启后查查日志，一切正常即可</a></p>
+<p><a target="_blank" rel="noopener" href="https://1024.ee/index.php/2020/04/06/%E7%BE%A4%E8%BE%89nas%E4%B8%8A%E6%90%AD%E5%BB%BAss%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%9D%A5%E8%BF%9E%E6%8E%A5%E8%BF%9C%E7%A8%8B%E5%B9%B6%E6%8F%90%E4%BE%9B%E6%9C%AC%E5%9C%B0http-socks5%E4%BB%A3%E7%90%86/#qun_hui_zi_ji_de_shi_yong_kai_zhe_li_jiu_xing">6 群辉自己的使用，看这里就行。</a></p>
+<p><a target="_blank" rel="noopener" href="https://1024.ee/index.php/2020/04/06/%E7%BE%A4%E8%BE%89nas%E4%B8%8A%E6%90%AD%E5%BB%BAss%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%9D%A5%E8%BF%9E%E6%8E%A5%E8%BF%9C%E7%A8%8B%E5%B9%B6%E6%8F%90%E4%BE%9B%E6%9C%AC%E5%9C%B0http-socks5%E4%BB%A3%E7%90%86/#qun_hui_zi_ji_de_shi_yong_kai_zhe_li_jiu_xing">7指令</a></p>
+<h2 id="下载docker-–-ss-privoxy"><a href="#下载docker-–-ss-privoxy" class="headerlink" title="下载docker – ss-privoxy"></a>下载docker – ss-privoxy</h2><p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2NcHvz_20220217094617.png" alt="img"></p>
+<h2 id="高级设置"><a href="#高级设置" class="headerlink" title="高级设置"></a>高级设置</h2><p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/JTDf8S_20220217094637.png" alt="img">注意是<strong>文件</strong>，不是文件夹。而且，文件名就是<strong>config</strong>, 不是config.conf之类。</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#配置文件</span></span><br><span class="line"></span><br><span class="line">confdir /etc/privoxy</span><br><span class="line">logdir /var/log/privoxy</span><br><span class="line"></span><br><span class="line">actionsfile match-all.action <span class="comment"># Actions that are applied to all sites and maybe overruled later on.</span></span><br><span class="line">actionsfile default.action <span class="comment"># Main actions file</span></span><br><span class="line">actionsfile <span class="keyword">user</span>.action <span class="comment"># User customizations</span></span><br><span class="line"></span><br><span class="line">filterfile default.filter</span><br><span class="line">filterfile <span class="keyword">user</span>.filter <span class="comment"># User customizations</span></span><br><span class="line"></span><br><span class="line">logfile privoxy.log</span><br><span class="line"><span class="comment">#下面这行的意思是监听来自任意地址的8118访问</span></span><br><span class="line">listen-address :<span class="number">8118</span></span><br><span class="line">toggle <span class="number">1</span></span><br><span class="line"></span><br><span class="line">enable-remote-toggle <span class="number">0</span></span><br><span class="line">enable-remote-http-toggle <span class="number">0</span></span><br><span class="line">enable-edit-actions <span class="number">0</span></span><br><span class="line">enforce-blocks <span class="number">0</span></span><br><span class="line"></span><br><span class="line">buffer-limit <span class="number">4096</span></span><br><span class="line">enable-proxy-authentication-forwarding <span class="number">0</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#启用这段全局代理模式#####################################</span></span><br><span class="line"><span class="comment">##下面一行表示将所有网址转发给本地7070端口，也就是本地的SS客户端所开放的端口。</span></span><br><span class="line"><span class="comment">#forward-socks5 / 127.0.0.1:7070 .</span></span><br><span class="line"><span class="comment">#启动这段只有部分网址走代理###############################</span></span><br><span class="line">forward / .</span><br><span class="line"><span class="comment">#下面这一段表示需要走代理的规则</span></span><br><span class="line">forward-socks5 .dropbox*.com <span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">7070</span> .</span><br><span class="line">forward-socks5 .*google*.* <span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">7070</span> .</span><br><span class="line">forward-socks5 .*facebook*.* <span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">7070</span> .</span><br><span class="line">forward-socks5 .*twitter*.* <span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">7070</span> .</span><br><span class="line"><span class="comment">#forward-socks5 .*youtube*.* 127.0.0.1:7070 .</span></span><br><span class="line"><span class="comment">##########################################################</span></span><br><span class="line">forwarded-connect-retries <span class="number">0</span></span><br><span class="line"></span><br><span class="line">accept-intercepted-requests <span class="number">0</span></span><br><span class="line">allow-cgi-request-crunching <span class="number">0</span></span><br><span class="line">split-large-forms <span class="number">0</span></span><br><span class="line">keep-alive-timeout <span class="number">300</span></span><br><span class="line">tolerate-pipelining <span class="number">1</span></span><br><span class="line">default-server-timeout <span class="number">60</span></span><br><span class="line">socket-timeout <span class="number">300</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#配置文件结束</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="设置端口"><a href="#设置端口" class="headerlink" title="设置端口"></a>设置端口</h2><ul>
+<li>7070 For Socks5 – All Traffic</li>
+<li>8118 for Http&#x2F;Https – 部分域名翻墙，改conf文件即可</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/t5PYQv_20220217094721.png" alt="img"></p>
+<h2 id="最后查一查"><a href="#最后查一查" class="headerlink" title="最后查一查"></a>最后查一查</h2><p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/iwGoJB_20220217094740.png" alt="img"></p>
+<h2 id="开启后查查日志，一切正常即可"><a href="#开启后查查日志，一切正常即可" class="headerlink" title="开启后查查日志，一切正常即可"></a>开启后查查日志，一切正常即可</h2><p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/S5u8G1_20220217094809.png" alt="img"></p>
+<h2 id="群辉自己的使用，开这里就行。"><a href="#群辉自己的使用，开这里就行。" class="headerlink" title="群辉自己的使用，开这里就行。"></a>群辉自己的使用，开这里就行。</h2><p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/L0Nwl6_20220217094828.png" alt="img"></p>
+<h2 id="指令"><a href="#指令" class="headerlink" title="指令"></a>指令</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">docker run -d --restart=always \</span><br><span class="line">-i -t -e SERVER_ADDR=n24.boom.party \</span><br><span class="line">-e SERVER_PORT=12000 \</span><br><span class="line">-e PASSWORD=Uk92CS \</span><br><span class="line">-e METHOD=aes-256-cfb \</span><br><span class="line">-e PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin \</span><br><span class="line">-e TIME_OUT=300 \</span><br><span class="line">-p 7070:7070 \</span><br><span class="line">-p 8118:8118 \</span><br><span class="line">-v /share/CACHEDEV1_DATA/Container/etc/privoxy/config:/etc/privoxy/config \</span><br><span class="line">oldiy/ss-privoxy</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>l
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://example.com/posts/995671e7/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -624,191 +772,6 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/6e5dcbe0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/lion.png">
-      <meta itemprop="name" content="swimminghao">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="swimminghao's blog">
-      <meta itemprop="description" content="swimminghao的学习博客">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | swimminghao's blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/6e5dcbe0/" class="post-title-link" itemprop="url">回溯算法团灭排列组合子集问题</a>
-        </h2>
-
-        <div class="post-meta-container">
-
-          
-
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-10 11:51:52" itemprop="dateModified" datetime="2022-03-10T11:51:52+08:00">2022-03-10</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="far fa-comment"></i>
-    </span>
-    <span class="post-meta-item-text">Waline：</span>
-  
-    <a title="waline" href="/posts/6e5dcbe0/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/6e5dcbe0/" data-xid="/posts/6e5dcbe0/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>4.5k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>4 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="回溯算法团灭排列-x2F-组合-x2F-子集问题"><a href="#回溯算法团灭排列-x2F-组合-x2F-子集问题" class="headerlink" title="回溯算法团灭排列&#x2F;组合&#x2F;子集问题"></a>回溯算法团灭排列&#x2F;组合&#x2F;子集问题</h1><h2 id="回溯算法团灭排列-x2F-组合-x2F-子集问题-1"><a href="#回溯算法团灭排列-x2F-组合-x2F-子集问题-1" class="headerlink" title="回溯算法团灭排列&#x2F;组合&#x2F;子集问题"></a>回溯算法团灭排列&#x2F;组合&#x2F;子集问题</h2><h2 id="预计阅读时间：7-分钟"><a href="#预计阅读时间：7-分钟" class="headerlink" title="预计阅读时间：7 分钟"></a>预计阅读时间：7 分钟</h2><p>今天就来聊三道考察频率高，而且容易让人搞混的算法问题，分别是求子集（subset），求排列（permutation），求组合（combination）。这几个问题都可以用回溯算法解决。</p>
-<h3 id="一、子集"><a href="#一、子集" class="headerlink" title="一、子集"></a>一、子集</h3><p>问题很简单，输入一个<strong>不包含重复数字</strong>的数组，要求算法输出这些数字的所有子集。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; <span class="title function_">subsets</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums)</span>;</span><br></pre></td></tr></table></figure>
-
-<p>比如输入 <code>nums = [1,2,3]</code>，你的算法应输出 8 个子集，包含空集和本身，顺序可以不同：</p>
-<p>[ [],[1],[2],[3],[1,3],[2,3],[1,2],[1,2,3] ]</p>
-<p><strong>第一个解法是利用数学归纳的思想</strong>：假设我现在知道了规模更小的子问题的结果，如何推导出当前问题的结果呢？</p>
-<p>具体来说就是，现在让你求 <code>[1,2,3]</code> 的子集，如果你知道了 <code>[1,2]</code> 的子集，是否可以推导出 <code>[1,2,3]</code> 的子集呢？先把  <code>[1,2]</code> 的子集写出来瞅瞅：</p>
-<p>[ [],[1],[2],[1,2] ]</p>
-<p>你会发现这样一个规律：</p>
-<p>subset(<code>[1,2,3]</code>) - subset(<code>[1,2]</code>)</p>
-<p>&#x3D; [3],[1,3],[2,3],[1,2,3]</p>
-<p>而这个结果，就是把 sebset(<code>[1,2]</code>) 的结果中每个集合再添加上 3。</p>
-<p>换句话说，如果 <code>A = subset([1,2])</code> ，那么：</p>
-<p>subset(<code>[1,2,3]</code>)</p>
-<p>&#x3D; A + [A[i].add(3) for i &#x3D; 1..len(A)]</p>
-<p>这就是一个典型的递归结构嘛，<code>[1,2,3]</code> 的子集可以由 <code>[1,2]</code> 追加得出，<code>[1,2]</code> 的子集可以由 <code>[1]</code> 追加得出，base case 显然就是当输入集合为空集时，输出子集也就是一个空集。</p>
-<p>翻译成代码就很容易理解了：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; <span class="title function_">subsets</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums)</span> &#123;</span><br><span class="line">    <span class="comment">// base case，返回一个空集</span></span><br><span class="line">    <span class="keyword">if</span> (nums.empty()) <span class="keyword">return</span> &#123;&#123;&#125;&#125;;</span><br><span class="line">    <span class="comment">// 把最后一个元素拿出来</span></span><br><span class="line">    <span class="type">int</span> <span class="variable">n</span> <span class="operator">=</span> nums.back();</span><br><span class="line">    nums.pop_back();</span><br><span class="line">    <span class="comment">// 先递归算出前面元素的所有子集</span></span><br><span class="line">    vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; res = subsets(nums);</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> <span class="variable">size</span> <span class="operator">=</span> res.size();</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; size; i++) &#123;</span><br><span class="line">        <span class="comment">// 然后在之前的结果之上追加</span></span><br><span class="line">        res.push_back(res[i]);</span><br><span class="line">        res.back().push_back(n);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><strong>这个问题的时间复杂度计算比较容易坑人</strong>。我们之前说的计算递归算法时间复杂度的方法，是找到递归深度，然后乘以每次递归中迭代的次数。对于这个问题，递归深度显然是 N，但我们发现每次递归 for 循环的迭代次数取决于 <code>res</code> 的长度，并不是固定的。</p>
-<p>根据刚才的思路，<code>res</code> 的长度应该是每次递归都翻倍，所以说总的迭代次数应该是 2^N。或者不用这么麻烦，你想想一个大小为 N 的集合的子集总共有几个？2^N 个对吧，所以说至少要对 <code>res</code> 添加 2^N 次元素。</p>
-<p>那么算法的时间复杂度就是 O(2^N) 吗？还是不对，2^N 个子集是 <code>push_back</code> 添加进 <code>res</code> 的，所以要考虑 <code>push_back</code> 这个操作的效率：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; res = ...</span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; size; i++) &#123;</span><br><span class="line">    res.push_back(res[i]); <span class="comment">// O(N)</span></span><br><span class="line">    res.back().push_back(n); <span class="comment">// O(1)</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>因为 <code>res[i]</code> 也是一个数组呀，<code>push_back</code> 是把 <code>res[i]</code> copy 一份然后添加到数组的最后，所以一次操作的时间是 O(N)。</p>
-<p>综上，总的时间复杂度就是 O(N*2^N)，还是比较耗时的。</p>
-<p>空间复杂度的话，如果不计算储存返回结果所用的空间的，只需要 O(N) 的递归堆栈空间。如果计算 <code>res</code> 所需的空间，应该是 O(N*2^N)。</p>
-<p><strong>第二种通用方法就是回溯算法</strong>。旧文「回溯算法详解」写过回溯算法的模板：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">result = []</span><br><span class="line">def <span class="title function_">backtrack</span><span class="params">(路径, 选择列表)</span>:</span><br><span class="line">    <span class="keyword">if</span> 满足结束条件:</span><br><span class="line">        result.add(路径)</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    <span class="keyword">for</span> 选择 in 选择列表:</span><br><span class="line">        做选择</span><br><span class="line">        backtrack(路径, 选择列表)</span><br><span class="line">        撤销选择</span><br></pre></td></tr></table></figure>
-
-<p>只要改造回溯算法的模板就行了：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; res;</span><br><span class="line"></span><br><span class="line">vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; <span class="title function_">subsets</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums)</span> &#123;</span><br><span class="line">    <span class="comment">// 记录走过的路径</span></span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; track;</span><br><span class="line">    backtrack(nums, <span class="number">0</span>, track);</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> <span class="title function_">backtrack</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums, <span class="type">int</span> start, vector&lt;<span class="type">int</span>&gt;&amp; track)</span> &#123;</span><br><span class="line">    res.push_back(track);</span><br><span class="line">    <span class="comment">// 注意 i 从 start 开始递增</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> start; i &lt; nums.size(); i++) &#123;</span><br><span class="line">        <span class="comment">// 做选择</span></span><br><span class="line">        track.push_back(nums[i]);</span><br><span class="line">        <span class="comment">// 回溯</span></span><br><span class="line">        backtrack(nums, i + <span class="number">1</span>, track);</span><br><span class="line">        <span class="comment">// 撤销选择</span></span><br><span class="line">        track.pop_back();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>可以看见，对 <code>res</code> 的更新是一个<strong>前序遍历</strong>，也就是说，<code>res</code> 就是树上的所有节点：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/sULT7a_20210507182400.png" alt="图片"></p>
-<h3 id="二、组合"><a href="#二、组合" class="headerlink" title="二、组合"></a>二、组合</h3><p>输入两个数字 <code>n, k</code>，算法输出 <code>[1..n]</code> 中 k 个数字的所有组合。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; <span class="title function_">combine</span><span class="params">(<span class="type">int</span> n, <span class="type">int</span> k)</span>;</span><br></pre></td></tr></table></figure>
-
-<p>比如输入 <code>n = 4, k = 2</code>，输出如下结果，顺序无所谓，但是不能包含重复（按照组合的定义，<code>[1,2]</code> 和 <code>[2,1]</code> 也算重复）：</p>
-<p>[<br> [1,2],<br> [1,3],<br> [1,4],<br> [2,3],<br> [2,4],<br> [3,4]<br>]</p>
-<p>这就是典型的回溯算法，<code>k</code> 限制了树的高度，<code>n</code> 限制了树的宽度，直接套我们以前讲过的回溯算法模板框架就行了：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/y3DT6L_20210507182421.png" alt="图片"></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;vector&lt;<span class="type">int</span>&gt;&gt;res;</span><br><span class="line"></span><br><span class="line">vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; <span class="title function_">combine</span><span class="params">(<span class="type">int</span> n, <span class="type">int</span> k)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (k &lt;= <span class="number">0</span> || n &lt;= <span class="number">0</span>) <span class="keyword">return</span> res;</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; track;</span><br><span class="line">    backtrack(n, k, <span class="number">1</span>, track);</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> <span class="title function_">backtrack</span><span class="params">(<span class="type">int</span> n, <span class="type">int</span> k, <span class="type">int</span> start, vector&lt;<span class="type">int</span>&gt;&amp; track)</span> &#123;</span><br><span class="line">    <span class="comment">// 到达树的底部</span></span><br><span class="line">    <span class="keyword">if</span> (k == track.size()) &#123;</span><br><span class="line">        res.push_back(track);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 注意 i 从 start 开始递增</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> start; i &lt;= n; i++) &#123;</span><br><span class="line">        <span class="comment">// 做选择</span></span><br><span class="line">        track.push_back(i);</span><br><span class="line">        backtrack(n, k, i + <span class="number">1</span>, track);</span><br><span class="line">        <span class="comment">// 撤销选择</span></span><br><span class="line">        track.pop_back();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><code>backtrack</code> 函数和计算子集的差不多，<strong>区别在于，更新 <code>res</code> 的地方是树的底端</strong>。</p>
-<h3 id="三、排列"><a href="#三、排列" class="headerlink" title="三、排列"></a>三、排列</h3><p>输入一个不包含重复数字的数组 <code>nums</code>，返回这些数字的全部排列。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; <span class="title function_">permute</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums)</span>;</span><br></pre></td></tr></table></figure>
-
-<p>比如说输入数组 <code>[1,2,3]</code>，输出结果应该如下，顺序无所谓，不能有重复：</p>
-<p>[<br> [1,2,3],<br> [1,3,2],<br> [2,1,3],<br> [2,3,1],<br> [3,1,2],<br> [3,2,1]<br>]</p>
-<p><a target="_blank" rel="noopener" href="http://mp.weixin.qq.com/s?__biz=MzAxODQxMDM0Mw==&mid=2247484709&idx=1&sn=1c24a5c41a5a255000532e83f38f2ce4&chksm=9bd7fb2daca0723be888b30345e2c5e64649fc31a00b05c27a0843f349e2dd9363338d0dac61&scene=21#wechat_redirect">回溯算法详解</a> 中就是拿这个问题来解释回溯模板的。这里又列出这个问题，是将「排列」和「组合」这两个回溯算法的代码拿出来对比。</p>
-<p>首先画出回溯树来看一看：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/uRIb5X_20210507182434.png" alt="图片"></p>
-<p>我们当时使用 Java 代码写的解法：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">List&lt;List&lt;Integer&gt;&gt; res = <span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;();</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 主函数，输入一组不重复的数字，返回它们的全排列 */</span></span><br><span class="line">List&lt;List&lt;Integer&gt;&gt; <span class="title function_">permute</span><span class="params">(<span class="type">int</span>[] nums)</span> &#123;</span><br><span class="line">    <span class="comment">// 记录「路径」</span></span><br><span class="line">    LinkedList&lt;Integer&gt; track = <span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;();</span><br><span class="line">    backtrack(nums, track);</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> <span class="title function_">backtrack</span><span class="params">(<span class="type">int</span>[] nums, LinkedList&lt;Integer&gt; track)</span> &#123;</span><br><span class="line">    <span class="comment">// 触发结束条件</span></span><br><span class="line">    <span class="keyword">if</span> (track.size() == nums.length) &#123;</span><br><span class="line">        res.add(<span class="keyword">new</span> <span class="title class_">LinkedList</span>(track));</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; nums.length; i++) &#123;</span><br><span class="line">        <span class="comment">// 排除不合法的选择</span></span><br><span class="line">        <span class="keyword">if</span> (track.contains(nums[i]))</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        <span class="comment">// 做选择</span></span><br><span class="line">        track.add(nums[i]);</span><br><span class="line">        <span class="comment">// 进入下一层决策树</span></span><br><span class="line">        backtrack(nums, track);</span><br><span class="line">        <span class="comment">// 取消选择</span></span><br><span class="line">        track.removeLast();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>回溯模板依然没有变，但是根据排列问题和组合问题画出的树来看，排列问题的树比较对称，而组合问题的树越靠右节点越少。</p>
-<p>在代码中的体现就是，排列问题每次通过 <code>contains</code> 方法来排除在 <code>track</code> 中已经选择过的数字；而组合问题通过传入一个 <code>start</code> 参数，来排除 <code>start</code> 索引之前的数字。</p>
-<p><strong>以上，就是排列组合和子集三个问题的解法，总结一下</strong>：</p>
-<p>子集问题可以利用数学归纳思想，假设已知一个规模较小的问题的结果，思考如何推导出原问题的结果。也可以用回溯算法，要用 <code>start</code> 参数排除已选择的数字。</p>
-<p>组合问题利用的是回溯思想，结果可以表示成树结构，我们只要套用回溯算法模板即可，关键点在于要用一个 <code>start</code> 排除已经选择过的数字。</p>
-<p>排列问题是回溯思想，也可以表示成树结构套用算法模板，不同之处在于使用 <code>contains</code> 方法排除已经选择的数字，前文有详细分析，这里主要是和组合问题作对比。</p>
-<p>对于这三个问题，关键区别在于回溯树的结构，不妨多观察递归树的结构，很自然就可以理解代码的含义了。</p>
-
-      
-    </div>
-
-    
-    
-    
-
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>l
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://example.com/posts/e775a8f2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1018,7 +981,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/e215f7cb/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/6e5dcbe0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/lion.png">
@@ -1036,7 +999,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/e215f7cb/" class="post-title-link" itemprop="url">NAS上搭建SS客户端</a>
+          <a href="/posts/6e5dcbe0/" class="post-title-link" itemprop="url">回溯算法团灭排列组合子集问题</a>
         </h2>
 
         <div class="post-meta-container">
@@ -1057,7 +1020,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-05-26 11:33:50" itemprop="dateModified" datetime="2022-05-26T11:33:50+08:00">2022-05-26</time>
+      <time title="修改时间：2022-03-10 11:51:52" itemprop="dateModified" datetime="2022-03-10T11:51:52+08:00">2022-03-10</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -1065,7 +1028,7 @@
       </span>
       <span class="post-meta-item-text">分类于</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index"><span itemprop="name">工具</span></a>
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
         </span>
     </span>
 
@@ -1078,8 +1041,8 @@
     </span>
     <span class="post-meta-item-text">Waline：</span>
   
-    <a title="waline" href="/posts/e215f7cb/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/e215f7cb/" data-xid="/posts/e215f7cb/" itemprop="commentCount"></span>
+    <a title="waline" href="/posts/6e5dcbe0/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/6e5dcbe0/" data-xid="/posts/6e5dcbe0/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -1090,14 +1053,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>2k</span>
+      <span>4.5k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>2 分钟</span>
+      <span>4 分钟</span>
     </span>
 </div>
 
@@ -1108,34 +1071,71 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="群辉NAS上搭建SS客户端来连接远程并提供本地HTTP-x2F-Socks5代理"><a href="#群辉NAS上搭建SS客户端来连接远程并提供本地HTTP-x2F-Socks5代理" class="headerlink" title="群辉NAS上搭建SS客户端来连接远程并提供本地HTTP&#x2F;Socks5代理"></a>群辉NAS上搭建SS客户端来连接远程并提供本地HTTP&#x2F;Socks5代理</h1><p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/mxF2RW_20220217094542.png" alt="img"></p>
-<p><a target="_blank" rel="noopener" href="https://odcn.top/2018/10/24/854/%E7%BE%A4%E6%99%96ss%E5%90%8C%E6%AD%A5dropbox%E5%92%8Cgoogledrive/">主要参考了这片文章。</a></p>
-<blockquote>
-<p><a target="_blank" rel="noopener" href="https://odcn.top/2018/10/24/854/%E7%BE%A4%E6%99%96ss%E5%90%8C%E6%AD%A5dropbox%E5%92%8Cgoogledrive/">shadowsocks的Http代理桥接为SOCKS5代理，使群晖SS同步Dropbox和GoogleDrive</a></p>
-</blockquote>
-<iframe title="《shadowsocks的Http代理桥接为SOCKS5代理，使群晖SS同步Dropbox和GoogleDrive》—oD^Blog" class="wp-embedded-content" sandbox="allow-scripts" security="restricted" src="https://odcn.top/2018/10/24/854/%e7%be%a4%e6%99%96ss%e5%90%8c%e6%ad%a5dropbox%e5%92%8cgoogledrive/embed/#?secret=hiN7sQcs2t" data-secret="hiN7sQcs2t" width="600" height="338" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="box-sizing: border-box; margin: 0px; padding: 0px; border: 0px; max-width: 100%; position: absolute; clip: rect(1px, 1px, 1px, 1px);"></iframe>
-**Contents**  [hide](https://1024.ee/index.php/2020/04/06/群辉nas上搭建ss客户端来连接远程并提供本地http-socks5代理/#) 
+          <h1 id="回溯算法团灭排列-x2F-组合-x2F-子集问题"><a href="#回溯算法团灭排列-x2F-组合-x2F-子集问题" class="headerlink" title="回溯算法团灭排列&#x2F;组合&#x2F;子集问题"></a>回溯算法团灭排列&#x2F;组合&#x2F;子集问题</h1><h2 id="回溯算法团灭排列-x2F-组合-x2F-子集问题-1"><a href="#回溯算法团灭排列-x2F-组合-x2F-子集问题-1" class="headerlink" title="回溯算法团灭排列&#x2F;组合&#x2F;子集问题"></a>回溯算法团灭排列&#x2F;组合&#x2F;子集问题</h2><h2 id="预计阅读时间：7-分钟"><a href="#预计阅读时间：7-分钟" class="headerlink" title="预计阅读时间：7 分钟"></a>预计阅读时间：7 分钟</h2><p>今天就来聊三道考察频率高，而且容易让人搞混的算法问题，分别是求子集（subset），求排列（permutation），求组合（combination）。这几个问题都可以用回溯算法解决。</p>
+<h3 id="一、子集"><a href="#一、子集" class="headerlink" title="一、子集"></a>一、子集</h3><p>问题很简单，输入一个<strong>不包含重复数字</strong>的数组，要求算法输出这些数字的所有子集。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; <span class="title function_">subsets</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums)</span>;</span><br></pre></td></tr></table></figure>
 
-<p><a target="_blank" rel="noopener" href="https://1024.ee/index.php/2020/04/06/%E7%BE%A4%E8%BE%89nas%E4%B8%8A%E6%90%AD%E5%BB%BAss%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%9D%A5%E8%BF%9E%E6%8E%A5%E8%BF%9C%E7%A8%8B%E5%B9%B6%E6%8F%90%E4%BE%9B%E6%9C%AC%E5%9C%B0http-socks5%E4%BB%A3%E7%90%86/#xia_zaidocker_-_ss-privoxy">1 下载docker – ss-privoxy</a></p>
-<p><a target="_blank" rel="noopener" href="https://1024.ee/index.php/2020/04/06/%E7%BE%A4%E8%BE%89nas%E4%B8%8A%E6%90%AD%E5%BB%BAss%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%9D%A5%E8%BF%9E%E6%8E%A5%E8%BF%9C%E7%A8%8B%E5%B9%B6%E6%8F%90%E4%BE%9B%E6%9C%AC%E5%9C%B0http-socks5%E4%BB%A3%E7%90%86/#gao_ji_she_zhi">2 高级设置</a></p>
-<p><a target="_blank" rel="noopener" href="https://1024.ee/index.php/2020/04/06/%E7%BE%A4%E8%BE%89nas%E4%B8%8A%E6%90%AD%E5%BB%BAss%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%9D%A5%E8%BF%9E%E6%8E%A5%E8%BF%9C%E7%A8%8B%E5%B9%B6%E6%8F%90%E4%BE%9B%E6%9C%AC%E5%9C%B0http-socks5%E4%BB%A3%E7%90%86/#she_zhi_duan_kou">3 设置端口</a></p>
-<p><a target="_blank" rel="noopener" href="https://1024.ee/index.php/2020/04/06/%E7%BE%A4%E8%BE%89nas%E4%B8%8A%E6%90%AD%E5%BB%BAss%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%9D%A5%E8%BF%9E%E6%8E%A5%E8%BF%9C%E7%A8%8B%E5%B9%B6%E6%8F%90%E4%BE%9B%E6%9C%AC%E5%9C%B0http-socks5%E4%BB%A3%E7%90%86/#zui_hou_cha_yi_cha">4 最后查一查</a></p>
-<p><a target="_blank" rel="noopener" href="https://1024.ee/index.php/2020/04/06/%E7%BE%A4%E8%BE%89nas%E4%B8%8A%E6%90%AD%E5%BB%BAss%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%9D%A5%E8%BF%9E%E6%8E%A5%E8%BF%9C%E7%A8%8B%E5%B9%B6%E6%8F%90%E4%BE%9B%E6%9C%AC%E5%9C%B0http-socks5%E4%BB%A3%E7%90%86/#kai_qi_hou_cha_cha_ri_zhi_yi_qie_zheng_chang_ji_ke">5 开启后查查日志，一切正常即可</a></p>
-<p><a target="_blank" rel="noopener" href="https://1024.ee/index.php/2020/04/06/%E7%BE%A4%E8%BE%89nas%E4%B8%8A%E6%90%AD%E5%BB%BAss%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%9D%A5%E8%BF%9E%E6%8E%A5%E8%BF%9C%E7%A8%8B%E5%B9%B6%E6%8F%90%E4%BE%9B%E6%9C%AC%E5%9C%B0http-socks5%E4%BB%A3%E7%90%86/#qun_hui_zi_ji_de_shi_yong_kai_zhe_li_jiu_xing">6 群辉自己的使用，看这里就行。</a></p>
-<p><a target="_blank" rel="noopener" href="https://1024.ee/index.php/2020/04/06/%E7%BE%A4%E8%BE%89nas%E4%B8%8A%E6%90%AD%E5%BB%BAss%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%9D%A5%E8%BF%9E%E6%8E%A5%E8%BF%9C%E7%A8%8B%E5%B9%B6%E6%8F%90%E4%BE%9B%E6%9C%AC%E5%9C%B0http-socks5%E4%BB%A3%E7%90%86/#qun_hui_zi_ji_de_shi_yong_kai_zhe_li_jiu_xing">7指令</a></p>
-<h2 id="下载docker-–-ss-privoxy"><a href="#下载docker-–-ss-privoxy" class="headerlink" title="下载docker – ss-privoxy"></a>下载docker – ss-privoxy</h2><p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2NcHvz_20220217094617.png" alt="img"></p>
-<h2 id="高级设置"><a href="#高级设置" class="headerlink" title="高级设置"></a>高级设置</h2><p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/JTDf8S_20220217094637.png" alt="img">注意是<strong>文件</strong>，不是文件夹。而且，文件名就是<strong>config</strong>, 不是config.conf之类。</p>
-<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#配置文件</span></span><br><span class="line"></span><br><span class="line">confdir /etc/privoxy</span><br><span class="line">logdir /var/log/privoxy</span><br><span class="line"></span><br><span class="line">actionsfile match-all.action <span class="comment"># Actions that are applied to all sites and maybe overruled later on.</span></span><br><span class="line">actionsfile default.action <span class="comment"># Main actions file</span></span><br><span class="line">actionsfile <span class="keyword">user</span>.action <span class="comment"># User customizations</span></span><br><span class="line"></span><br><span class="line">filterfile default.filter</span><br><span class="line">filterfile <span class="keyword">user</span>.filter <span class="comment"># User customizations</span></span><br><span class="line"></span><br><span class="line">logfile privoxy.log</span><br><span class="line"><span class="comment">#下面这行的意思是监听来自任意地址的8118访问</span></span><br><span class="line">listen-address :<span class="number">8118</span></span><br><span class="line">toggle <span class="number">1</span></span><br><span class="line"></span><br><span class="line">enable-remote-toggle <span class="number">0</span></span><br><span class="line">enable-remote-http-toggle <span class="number">0</span></span><br><span class="line">enable-edit-actions <span class="number">0</span></span><br><span class="line">enforce-blocks <span class="number">0</span></span><br><span class="line"></span><br><span class="line">buffer-limit <span class="number">4096</span></span><br><span class="line">enable-proxy-authentication-forwarding <span class="number">0</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#启用这段全局代理模式#####################################</span></span><br><span class="line"><span class="comment">##下面一行表示将所有网址转发给本地7070端口，也就是本地的SS客户端所开放的端口。</span></span><br><span class="line"><span class="comment">#forward-socks5 / 127.0.0.1:7070 .</span></span><br><span class="line"><span class="comment">#启动这段只有部分网址走代理###############################</span></span><br><span class="line">forward / .</span><br><span class="line"><span class="comment">#下面这一段表示需要走代理的规则</span></span><br><span class="line">forward-socks5 .dropbox*.com <span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">7070</span> .</span><br><span class="line">forward-socks5 .*google*.* <span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">7070</span> .</span><br><span class="line">forward-socks5 .*facebook*.* <span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">7070</span> .</span><br><span class="line">forward-socks5 .*twitter*.* <span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">7070</span> .</span><br><span class="line"><span class="comment">#forward-socks5 .*youtube*.* 127.0.0.1:7070 .</span></span><br><span class="line"><span class="comment">##########################################################</span></span><br><span class="line">forwarded-connect-retries <span class="number">0</span></span><br><span class="line"></span><br><span class="line">accept-intercepted-requests <span class="number">0</span></span><br><span class="line">allow-cgi-request-crunching <span class="number">0</span></span><br><span class="line">split-large-forms <span class="number">0</span></span><br><span class="line">keep-alive-timeout <span class="number">300</span></span><br><span class="line">tolerate-pipelining <span class="number">1</span></span><br><span class="line">default-server-timeout <span class="number">60</span></span><br><span class="line">socket-timeout <span class="number">300</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#配置文件结束</span></span><br></pre></td></tr></table></figure>
+<p>比如输入 <code>nums = [1,2,3]</code>，你的算法应输出 8 个子集，包含空集和本身，顺序可以不同：</p>
+<p>[ [],[1],[2],[3],[1,3],[2,3],[1,2],[1,2,3] ]</p>
+<p><strong>第一个解法是利用数学归纳的思想</strong>：假设我现在知道了规模更小的子问题的结果，如何推导出当前问题的结果呢？</p>
+<p>具体来说就是，现在让你求 <code>[1,2,3]</code> 的子集，如果你知道了 <code>[1,2]</code> 的子集，是否可以推导出 <code>[1,2,3]</code> 的子集呢？先把  <code>[1,2]</code> 的子集写出来瞅瞅：</p>
+<p>[ [],[1],[2],[1,2] ]</p>
+<p>你会发现这样一个规律：</p>
+<p>subset(<code>[1,2,3]</code>) - subset(<code>[1,2]</code>)</p>
+<p>&#x3D; [3],[1,3],[2,3],[1,2,3]</p>
+<p>而这个结果，就是把 sebset(<code>[1,2]</code>) 的结果中每个集合再添加上 3。</p>
+<p>换句话说，如果 <code>A = subset([1,2])</code> ，那么：</p>
+<p>subset(<code>[1,2,3]</code>)</p>
+<p>&#x3D; A + [A[i].add(3) for i &#x3D; 1..len(A)]</p>
+<p>这就是一个典型的递归结构嘛，<code>[1,2,3]</code> 的子集可以由 <code>[1,2]</code> 追加得出，<code>[1,2]</code> 的子集可以由 <code>[1]</code> 追加得出，base case 显然就是当输入集合为空集时，输出子集也就是一个空集。</p>
+<p>翻译成代码就很容易理解了：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; <span class="title function_">subsets</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums)</span> &#123;</span><br><span class="line">    <span class="comment">// base case，返回一个空集</span></span><br><span class="line">    <span class="keyword">if</span> (nums.empty()) <span class="keyword">return</span> &#123;&#123;&#125;&#125;;</span><br><span class="line">    <span class="comment">// 把最后一个元素拿出来</span></span><br><span class="line">    <span class="type">int</span> <span class="variable">n</span> <span class="operator">=</span> nums.back();</span><br><span class="line">    nums.pop_back();</span><br><span class="line">    <span class="comment">// 先递归算出前面元素的所有子集</span></span><br><span class="line">    vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; res = subsets(nums);</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> <span class="variable">size</span> <span class="operator">=</span> res.size();</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; size; i++) &#123;</span><br><span class="line">        <span class="comment">// 然后在之前的结果之上追加</span></span><br><span class="line">        res.push_back(res[i]);</span><br><span class="line">        res.back().push_back(n);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h2 id="设置端口"><a href="#设置端口" class="headerlink" title="设置端口"></a>设置端口</h2><ul>
-<li>7070 For Socks5 – All Traffic</li>
-<li>8118 for Http&#x2F;Https – 部分域名翻墙，改conf文件即可</li>
-</ul>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/t5PYQv_20220217094721.png" alt="img"></p>
-<h2 id="最后查一查"><a href="#最后查一查" class="headerlink" title="最后查一查"></a>最后查一查</h2><p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/iwGoJB_20220217094740.png" alt="img"></p>
-<h2 id="开启后查查日志，一切正常即可"><a href="#开启后查查日志，一切正常即可" class="headerlink" title="开启后查查日志，一切正常即可"></a>开启后查查日志，一切正常即可</h2><p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/S5u8G1_20220217094809.png" alt="img"></p>
-<h2 id="群辉自己的使用，开这里就行。"><a href="#群辉自己的使用，开这里就行。" class="headerlink" title="群辉自己的使用，开这里就行。"></a>群辉自己的使用，开这里就行。</h2><p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/L0Nwl6_20220217094828.png" alt="img"></p>
-<h2 id="指令"><a href="#指令" class="headerlink" title="指令"></a>指令</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">docker run -d --restart=always \</span><br><span class="line">-i -t -e SERVER_ADDR=n24.boom.party \</span><br><span class="line">-e SERVER_PORT=12000 \</span><br><span class="line">-e PASSWORD=Uk92CS \</span><br><span class="line">-e METHOD=aes-256-cfb \</span><br><span class="line">-e PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin \</span><br><span class="line">-e TIME_OUT=300 \</span><br><span class="line">-p 7070:7070 \</span><br><span class="line">-p 8118:8118 \</span><br><span class="line">-v /share/CACHEDEV1_DATA/Container/etc/privoxy/config:/etc/privoxy/config \</span><br><span class="line">oldiy/ss-privoxy</span><br></pre></td></tr></table></figure>
+<p><strong>这个问题的时间复杂度计算比较容易坑人</strong>。我们之前说的计算递归算法时间复杂度的方法，是找到递归深度，然后乘以每次递归中迭代的次数。对于这个问题，递归深度显然是 N，但我们发现每次递归 for 循环的迭代次数取决于 <code>res</code> 的长度，并不是固定的。</p>
+<p>根据刚才的思路，<code>res</code> 的长度应该是每次递归都翻倍，所以说总的迭代次数应该是 2^N。或者不用这么麻烦，你想想一个大小为 N 的集合的子集总共有几个？2^N 个对吧，所以说至少要对 <code>res</code> 添加 2^N 次元素。</p>
+<p>那么算法的时间复杂度就是 O(2^N) 吗？还是不对，2^N 个子集是 <code>push_back</code> 添加进 <code>res</code> 的，所以要考虑 <code>push_back</code> 这个操作的效率：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; res = ...</span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; size; i++) &#123;</span><br><span class="line">    res.push_back(res[i]); <span class="comment">// O(N)</span></span><br><span class="line">    res.back().push_back(n); <span class="comment">// O(1)</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>因为 <code>res[i]</code> 也是一个数组呀，<code>push_back</code> 是把 <code>res[i]</code> copy 一份然后添加到数组的最后，所以一次操作的时间是 O(N)。</p>
+<p>综上，总的时间复杂度就是 O(N*2^N)，还是比较耗时的。</p>
+<p>空间复杂度的话，如果不计算储存返回结果所用的空间的，只需要 O(N) 的递归堆栈空间。如果计算 <code>res</code> 所需的空间，应该是 O(N*2^N)。</p>
+<p><strong>第二种通用方法就是回溯算法</strong>。旧文「回溯算法详解」写过回溯算法的模板：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">result = []</span><br><span class="line">def <span class="title function_">backtrack</span><span class="params">(路径, 选择列表)</span>:</span><br><span class="line">    <span class="keyword">if</span> 满足结束条件:</span><br><span class="line">        result.add(路径)</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    <span class="keyword">for</span> 选择 in 选择列表:</span><br><span class="line">        做选择</span><br><span class="line">        backtrack(路径, 选择列表)</span><br><span class="line">        撤销选择</span><br></pre></td></tr></table></figure>
+
+<p>只要改造回溯算法的模板就行了：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; res;</span><br><span class="line"></span><br><span class="line">vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; <span class="title function_">subsets</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums)</span> &#123;</span><br><span class="line">    <span class="comment">// 记录走过的路径</span></span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; track;</span><br><span class="line">    backtrack(nums, <span class="number">0</span>, track);</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> <span class="title function_">backtrack</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums, <span class="type">int</span> start, vector&lt;<span class="type">int</span>&gt;&amp; track)</span> &#123;</span><br><span class="line">    res.push_back(track);</span><br><span class="line">    <span class="comment">// 注意 i 从 start 开始递增</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> start; i &lt; nums.size(); i++) &#123;</span><br><span class="line">        <span class="comment">// 做选择</span></span><br><span class="line">        track.push_back(nums[i]);</span><br><span class="line">        <span class="comment">// 回溯</span></span><br><span class="line">        backtrack(nums, i + <span class="number">1</span>, track);</span><br><span class="line">        <span class="comment">// 撤销选择</span></span><br><span class="line">        track.pop_back();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>可以看见，对 <code>res</code> 的更新是一个<strong>前序遍历</strong>，也就是说，<code>res</code> 就是树上的所有节点：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/sULT7a_20210507182400.png" alt="图片"></p>
+<h3 id="二、组合"><a href="#二、组合" class="headerlink" title="二、组合"></a>二、组合</h3><p>输入两个数字 <code>n, k</code>，算法输出 <code>[1..n]</code> 中 k 个数字的所有组合。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; <span class="title function_">combine</span><span class="params">(<span class="type">int</span> n, <span class="type">int</span> k)</span>;</span><br></pre></td></tr></table></figure>
+
+<p>比如输入 <code>n = 4, k = 2</code>，输出如下结果，顺序无所谓，但是不能包含重复（按照组合的定义，<code>[1,2]</code> 和 <code>[2,1]</code> 也算重复）：</p>
+<p>[<br> [1,2],<br> [1,3],<br> [1,4],<br> [2,3],<br> [2,4],<br> [3,4]<br>]</p>
+<p>这就是典型的回溯算法，<code>k</code> 限制了树的高度，<code>n</code> 限制了树的宽度，直接套我们以前讲过的回溯算法模板框架就行了：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/y3DT6L_20210507182421.png" alt="图片"></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;vector&lt;<span class="type">int</span>&gt;&gt;res;</span><br><span class="line"></span><br><span class="line">vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; <span class="title function_">combine</span><span class="params">(<span class="type">int</span> n, <span class="type">int</span> k)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (k &lt;= <span class="number">0</span> || n &lt;= <span class="number">0</span>) <span class="keyword">return</span> res;</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; track;</span><br><span class="line">    backtrack(n, k, <span class="number">1</span>, track);</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> <span class="title function_">backtrack</span><span class="params">(<span class="type">int</span> n, <span class="type">int</span> k, <span class="type">int</span> start, vector&lt;<span class="type">int</span>&gt;&amp; track)</span> &#123;</span><br><span class="line">    <span class="comment">// 到达树的底部</span></span><br><span class="line">    <span class="keyword">if</span> (k == track.size()) &#123;</span><br><span class="line">        res.push_back(track);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 注意 i 从 start 开始递增</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> start; i &lt;= n; i++) &#123;</span><br><span class="line">        <span class="comment">// 做选择</span></span><br><span class="line">        track.push_back(i);</span><br><span class="line">        backtrack(n, k, i + <span class="number">1</span>, track);</span><br><span class="line">        <span class="comment">// 撤销选择</span></span><br><span class="line">        track.pop_back();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>backtrack</code> 函数和计算子集的差不多，<strong>区别在于，更新 <code>res</code> 的地方是树的底端</strong>。</p>
+<h3 id="三、排列"><a href="#三、排列" class="headerlink" title="三、排列"></a>三、排列</h3><p>输入一个不包含重复数字的数组 <code>nums</code>，返回这些数字的全部排列。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; <span class="title function_">permute</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums)</span>;</span><br></pre></td></tr></table></figure>
+
+<p>比如说输入数组 <code>[1,2,3]</code>，输出结果应该如下，顺序无所谓，不能有重复：</p>
+<p>[<br> [1,2,3],<br> [1,3,2],<br> [2,1,3],<br> [2,3,1],<br> [3,1,2],<br> [3,2,1]<br>]</p>
+<p><a target="_blank" rel="noopener" href="http://mp.weixin.qq.com/s?__biz=MzAxODQxMDM0Mw==&mid=2247484709&idx=1&sn=1c24a5c41a5a255000532e83f38f2ce4&chksm=9bd7fb2daca0723be888b30345e2c5e64649fc31a00b05c27a0843f349e2dd9363338d0dac61&scene=21#wechat_redirect">回溯算法详解</a> 中就是拿这个问题来解释回溯模板的。这里又列出这个问题，是将「排列」和「组合」这两个回溯算法的代码拿出来对比。</p>
+<p>首先画出回溯树来看一看：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/uRIb5X_20210507182434.png" alt="图片"></p>
+<p>我们当时使用 Java 代码写的解法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">List&lt;List&lt;Integer&gt;&gt; res = <span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;();</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 主函数，输入一组不重复的数字，返回它们的全排列 */</span></span><br><span class="line">List&lt;List&lt;Integer&gt;&gt; <span class="title function_">permute</span><span class="params">(<span class="type">int</span>[] nums)</span> &#123;</span><br><span class="line">    <span class="comment">// 记录「路径」</span></span><br><span class="line">    LinkedList&lt;Integer&gt; track = <span class="keyword">new</span> <span class="title class_">LinkedList</span>&lt;&gt;();</span><br><span class="line">    backtrack(nums, track);</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> <span class="title function_">backtrack</span><span class="params">(<span class="type">int</span>[] nums, LinkedList&lt;Integer&gt; track)</span> &#123;</span><br><span class="line">    <span class="comment">// 触发结束条件</span></span><br><span class="line">    <span class="keyword">if</span> (track.size() == nums.length) &#123;</span><br><span class="line">        res.add(<span class="keyword">new</span> <span class="title class_">LinkedList</span>(track));</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; nums.length; i++) &#123;</span><br><span class="line">        <span class="comment">// 排除不合法的选择</span></span><br><span class="line">        <span class="keyword">if</span> (track.contains(nums[i]))</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        <span class="comment">// 做选择</span></span><br><span class="line">        track.add(nums[i]);</span><br><span class="line">        <span class="comment">// 进入下一层决策树</span></span><br><span class="line">        backtrack(nums, track);</span><br><span class="line">        <span class="comment">// 取消选择</span></span><br><span class="line">        track.removeLast();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>回溯模板依然没有变，但是根据排列问题和组合问题画出的树来看，排列问题的树比较对称，而组合问题的树越靠右节点越少。</p>
+<p>在代码中的体现就是，排列问题每次通过 <code>contains</code> 方法来排除在 <code>track</code> 中已经选择过的数字；而组合问题通过传入一个 <code>start</code> 参数，来排除 <code>start</code> 索引之前的数字。</p>
+<p><strong>以上，就是排列组合和子集三个问题的解法，总结一下</strong>：</p>
+<p>子集问题可以利用数学归纳思想，假设已知一个规模较小的问题的结果，思考如何推导出原问题的结果。也可以用回溯算法，要用 <code>start</code> 参数排除已选择的数字。</p>
+<p>组合问题利用的是回溯思想，结果可以表示成树结构，我们只要套用回溯算法模板即可，关键点在于要用一个 <code>start</code> 排除已经选择过的数字。</p>
+<p>排列问题是回溯思想，也可以表示成树结构套用算法模板，不同之处在于使用 <code>contains</code> 方法排除已经选择的数字，前文有详细分析，这里主要是和组合问题作对比。</p>
+<p>对于这三个问题，关键区别在于回溯树的结构，不妨多观察递归树的结构，很自然就可以理解代码的含义了。</p>
+
       
     </div>
 
@@ -1686,161 +1686,6 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/196710be/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/lion.png">
-      <meta itemprop="name" content="swimminghao">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="swimminghao's blog">
-      <meta itemprop="description" content="swimminghao的学习博客">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | swimminghao's blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/196710be/" class="post-title-link" itemprop="url">快慢指针的一些证明</a>
-        </h2>
-
-        <div class="post-meta-container">
-
-          
-
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-10 11:51:52" itemprop="dateModified" datetime="2022-03-10T11:51:52+08:00">2022-03-10</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="far fa-comment"></i>
-    </span>
-    <span class="post-meta-item-text">Waline：</span>
-  
-    <a title="waline" href="/posts/196710be/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/196710be/" data-xid="/posts/196710be/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>1.3k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>1 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="快慢指针在链表中的一些证明"><a href="#快慢指针在链表中的一些证明" class="headerlink" title="快慢指针在链表中的一些证明"></a>快慢指针在链表中的一些证明</h1><p>目录</p>
-<h3 id="一、一定会相遇的证明"><a href="#一、一定会相遇的证明" class="headerlink" title="一、一定会相遇的证明"></a>一、一定会相遇的证明</h3><h3 id="二、环长度"><a href="#二、环长度" class="headerlink" title="二、环长度"></a>二、环长度</h3><h3 id="三、连接点"><a href="#三、连接点" class="headerlink" title="三、连接点"></a>三、连接点</h3><h3 id="四、带环链表总长度"><a href="#四、带环链表总长度" class="headerlink" title="四、带环链表总长度"></a>四、带环链表总长度</h3><h3 id="五、例题"><a href="#五、例题" class="headerlink" title="五、例题"></a>五、例题</h3><h2 id="一、一定会相遇的证明-1"><a href="#一、一定会相遇的证明-1" class="headerlink" title="一、一定会相遇的证明"></a>一、一定会相遇的证明</h2><h4 id="证明1"><a href="#证明1" class="headerlink" title="证明1"></a>证明1</h4><p>1、如果链表没有环，那么快指针比慢指针先到达尾部（null)。</p>
-<p>2、如果链表有环的话，因为快指针走的比慢指针快，所以在环中相遇的过程可以看作是快指针从环后边追赶慢指针的过程。</p>
-<p>用递归法证明，快慢指针一定会相遇：</p>
-<p>（1)快指针与慢指针之间差一步。此时继续往后走，慢指针前进一步，快指针前进两步，两者相遇。<br>（2)快指针与慢指针之间差两步。此时继续往后走，慢指针前进一步，快指针前进两步，两者之间相差一步，转化为第一种情况。<br>（3)快指针与慢指针之间差N步。此时继续往后走，慢指针前进一步，快指针前进两步，两者之间相差(N+1-2)即N-1步。重复这个过程，直到快指针和慢指针相遇。</p>
-<p>因此，此题得证。所以快指针必然与慢指针相遇。</p>
-<h4 id="证明2"><a href="#证明2" class="headerlink" title="证明2"></a>证明2</h4><p>如果链表存在环，快慢指针就一定能相遇。设快指针每次移动q步，慢指针每次移动s步，环的长度为n，环之前的链表长度为m，如下图所示</p>
-<p><img src="https://pic2.zhimg.com/50/da087f6034204e3713f69f94542c99e1_hd.jpg?source=1940ef5c" alt="img"><img src="https://pic2.zhimg.com/80/da087f6034204e3713f69f94542c99e1_720w.jpg?source=1940ef5c" alt="img"></p>
-<p>假设慢指针第一次到达环时移动了x次，位置为a，此时快指针也移动了x次，位置为b，</p>
-<p>则此时快慢指针相遇的等式为<img src="https://www.zhihu.com/equation?tex=(b+q*y)mod(n)+=+(a+s*y)mod(n)" alt="[公式]">，</p>
-<p>也即<img src="https://www.zhihu.com/equation?tex=((b-a)++(q-s)*y)mod(n)+=+0+" alt="[公式]">（1）成立，</p>
-<p>又：</p>
-<p><img src="https://www.zhihu.com/equation?tex=b=(q*x+-+m)mod(n)" alt="[公式]">（2），</p>
-<p><img src="https://www.zhihu.com/equation?tex=a=(s*x-m)mod(n)" alt="[公式]">（3），</p>
-<p>由（1）（2）（3）可得出<img src="https://www.zhihu.com/equation?tex=(q-s)(x+y)mod(n)=0" alt="[公式]">成立，显而易见（q(x+y)-s(x+y) &#x3D;&#x3D; n *k(k&#x3D;1,2,3,…)），x+y是n的整数倍的时候，该式一定成立。</p>
-<p>————————————————找环的起点分割线——————————————<br>假设快指针每次移动2步，慢指针每次移动1步，则根据上述证明可知，<img src="https://www.zhihu.com/equation?tex=x=m" alt="[公式]">，<img src="https://www.zhihu.com/equation?tex=a=0" alt="[公式]">，相遇的位置在y处；求环的起点，就是求m的大小，此时令一指针p1从头结点出发，每次移动1步，令一指针q1从相遇处出发，每次移动1步，则p1与q1再次相遇的地方就是环的起点处，因为此时两个指针均移动m步，由<img src="https://www.zhihu.com/equation?tex=(y+m)mod(n)=0" alt="[公式]">可知，相遇</p>
-<p><strong>推导：慢指针进入环后，快指针最多多绕一个圈。</strong></p>
-<p><strong>快指针F先进环，慢指针S后进。</strong></p>
-<p><strong>假设慢指针进环那一刻快指针差m步能追上（0&lt;&#x3D; m &lt; Length环），根据上边结论，两个指针走m次就会相遇了。</strong></p>
-<p><strong>因为m &lt; Length环，所以快指针在慢指针进环那一刻最多比慢指针多绕一个圈</strong>。</p>
-<h2 id="二、环长度-1"><a href="#二、环长度-1" class="headerlink" title="二、环长度"></a>二、环长度</h2><p>快指针和慢指针第一次相遇时的节点pq（碰撞点），快指针和慢指针从该点开始继续往前走，再次碰撞时所用的操作数就是环的长度Length环。</p>
-<p>证明:由上边的推导可得，这里的m为Lengh环。</p>
-<h2 id="三、连接点-1"><a href="#三、连接点-1" class="headerlink" title="三、连接点"></a>三、连接点</h2><p><img src="https://images2015.cnblogs.com/blog/833392/201704/833392-20170409211030332-1528137014.png" alt="img"></p>
-<p>假设慢指针进入环中时，即连接点p，快指针（q）需要m步才能追上慢指针。</p>
-<p>p和q第一次相遇时，碰撞点在pq处。此时，p走到pq时用了m步。</p>
-<p> 假设head到p的距离为a，环长度为Length环，慢指针走了s步，则快指针走了2s步。</p>
-<p>从上图可知:</p>
-<p>s &#x3D; a + m</p>
-<p>2s &#x3D; a + m + n * Length环（n为快指针绕环的圈数）</p>
-<p>可得</p>
-<p>a &#x3D; n * Length环 - m</p>
-<p>也就是：若在头结点和相遇结点分别设一指针，同步(单步)前进，则最后一定相遇在环入口结点p。</p>
-<p>可根据这个结论来找到入口节点。</p>
-<h2 id="四、带环链表总长度-1"><a href="#四、带环链表总长度-1" class="headerlink" title="四、带环链表总长度"></a>四、带环链表总长度</h2><p>找到连接点p后，求head到p的长度，再加上环的长度，即为链表的总长。</p>
-
-      
-    </div>
-
-    
-    
-    
-
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>l
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://example.com/posts/50cab45/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2027,6 +1872,161 @@
 <p>这里和之前不一样，**要在收缩窗口完成后更新<code>res</code>**，因为窗口收缩的 while 条件是存在重复元素，换句话说收缩完成后一定保证窗口中没有重复嘛。</p>
 <h3 id="五、最后总结"><a href="#五、最后总结" class="headerlink" title="五、最后总结"></a>五、最后总结</h3><p><strong>建议背诵并默写这套框架，顺便背诵一下文章开头的那首诗。以后就再也不怕子串、子数组问题了。</strong></p>
 <p>我觉得吧，能够看到这的都是高手，要么就是在成为高手的路上。有了框架，任他窗口怎么滑，东哥这波车开得依然稳如老狗。</p>
+
+      
+    </div>
+
+    
+    
+    
+
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>l
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/196710be/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lion.png">
+      <meta itemprop="name" content="swimminghao">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="swimminghao's blog">
+      <meta itemprop="description" content="swimminghao的学习博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | swimminghao's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/196710be/" class="post-title-link" itemprop="url">快慢指针的一些证明</a>
+        </h2>
+
+        <div class="post-meta-container">
+
+          
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-03-10 11:51:52" itemprop="dateModified" datetime="2022-03-10T11:51:52+08:00">2022-03-10</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/posts/196710be/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/196710be/" data-xid="/posts/196710be/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>1.3k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>1 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="快慢指针在链表中的一些证明"><a href="#快慢指针在链表中的一些证明" class="headerlink" title="快慢指针在链表中的一些证明"></a>快慢指针在链表中的一些证明</h1><p>目录</p>
+<h3 id="一、一定会相遇的证明"><a href="#一、一定会相遇的证明" class="headerlink" title="一、一定会相遇的证明"></a>一、一定会相遇的证明</h3><h3 id="二、环长度"><a href="#二、环长度" class="headerlink" title="二、环长度"></a>二、环长度</h3><h3 id="三、连接点"><a href="#三、连接点" class="headerlink" title="三、连接点"></a>三、连接点</h3><h3 id="四、带环链表总长度"><a href="#四、带环链表总长度" class="headerlink" title="四、带环链表总长度"></a>四、带环链表总长度</h3><h3 id="五、例题"><a href="#五、例题" class="headerlink" title="五、例题"></a>五、例题</h3><h2 id="一、一定会相遇的证明-1"><a href="#一、一定会相遇的证明-1" class="headerlink" title="一、一定会相遇的证明"></a>一、一定会相遇的证明</h2><h4 id="证明1"><a href="#证明1" class="headerlink" title="证明1"></a>证明1</h4><p>1、如果链表没有环，那么快指针比慢指针先到达尾部（null)。</p>
+<p>2、如果链表有环的话，因为快指针走的比慢指针快，所以在环中相遇的过程可以看作是快指针从环后边追赶慢指针的过程。</p>
+<p>用递归法证明，快慢指针一定会相遇：</p>
+<p>（1)快指针与慢指针之间差一步。此时继续往后走，慢指针前进一步，快指针前进两步，两者相遇。<br>（2)快指针与慢指针之间差两步。此时继续往后走，慢指针前进一步，快指针前进两步，两者之间相差一步，转化为第一种情况。<br>（3)快指针与慢指针之间差N步。此时继续往后走，慢指针前进一步，快指针前进两步，两者之间相差(N+1-2)即N-1步。重复这个过程，直到快指针和慢指针相遇。</p>
+<p>因此，此题得证。所以快指针必然与慢指针相遇。</p>
+<h4 id="证明2"><a href="#证明2" class="headerlink" title="证明2"></a>证明2</h4><p>如果链表存在环，快慢指针就一定能相遇。设快指针每次移动q步，慢指针每次移动s步，环的长度为n，环之前的链表长度为m，如下图所示</p>
+<p><img src="https://pic2.zhimg.com/50/da087f6034204e3713f69f94542c99e1_hd.jpg?source=1940ef5c" alt="img"><img src="https://pic2.zhimg.com/80/da087f6034204e3713f69f94542c99e1_720w.jpg?source=1940ef5c" alt="img"></p>
+<p>假设慢指针第一次到达环时移动了x次，位置为a，此时快指针也移动了x次，位置为b，</p>
+<p>则此时快慢指针相遇的等式为<img src="https://www.zhihu.com/equation?tex=(b+q*y)mod(n)+=+(a+s*y)mod(n)" alt="[公式]">，</p>
+<p>也即<img src="https://www.zhihu.com/equation?tex=((b-a)++(q-s)*y)mod(n)+=+0+" alt="[公式]">（1）成立，</p>
+<p>又：</p>
+<p><img src="https://www.zhihu.com/equation?tex=b=(q*x+-+m)mod(n)" alt="[公式]">（2），</p>
+<p><img src="https://www.zhihu.com/equation?tex=a=(s*x-m)mod(n)" alt="[公式]">（3），</p>
+<p>由（1）（2）（3）可得出<img src="https://www.zhihu.com/equation?tex=(q-s)(x+y)mod(n)=0" alt="[公式]">成立，显而易见（q(x+y)-s(x+y) &#x3D;&#x3D; n *k(k&#x3D;1,2,3,…)），x+y是n的整数倍的时候，该式一定成立。</p>
+<p>————————————————找环的起点分割线——————————————<br>假设快指针每次移动2步，慢指针每次移动1步，则根据上述证明可知，<img src="https://www.zhihu.com/equation?tex=x=m" alt="[公式]">，<img src="https://www.zhihu.com/equation?tex=a=0" alt="[公式]">，相遇的位置在y处；求环的起点，就是求m的大小，此时令一指针p1从头结点出发，每次移动1步，令一指针q1从相遇处出发，每次移动1步，则p1与q1再次相遇的地方就是环的起点处，因为此时两个指针均移动m步，由<img src="https://www.zhihu.com/equation?tex=(y+m)mod(n)=0" alt="[公式]">可知，相遇</p>
+<p><strong>推导：慢指针进入环后，快指针最多多绕一个圈。</strong></p>
+<p><strong>快指针F先进环，慢指针S后进。</strong></p>
+<p><strong>假设慢指针进环那一刻快指针差m步能追上（0&lt;&#x3D; m &lt; Length环），根据上边结论，两个指针走m次就会相遇了。</strong></p>
+<p><strong>因为m &lt; Length环，所以快指针在慢指针进环那一刻最多比慢指针多绕一个圈</strong>。</p>
+<h2 id="二、环长度-1"><a href="#二、环长度-1" class="headerlink" title="二、环长度"></a>二、环长度</h2><p>快指针和慢指针第一次相遇时的节点pq（碰撞点），快指针和慢指针从该点开始继续往前走，再次碰撞时所用的操作数就是环的长度Length环。</p>
+<p>证明:由上边的推导可得，这里的m为Lengh环。</p>
+<h2 id="三、连接点-1"><a href="#三、连接点-1" class="headerlink" title="三、连接点"></a>三、连接点</h2><p><img src="https://images2015.cnblogs.com/blog/833392/201704/833392-20170409211030332-1528137014.png" alt="img"></p>
+<p>假设慢指针进入环中时，即连接点p，快指针（q）需要m步才能追上慢指针。</p>
+<p>p和q第一次相遇时，碰撞点在pq处。此时，p走到pq时用了m步。</p>
+<p> 假设head到p的距离为a，环长度为Length环，慢指针走了s步，则快指针走了2s步。</p>
+<p>从上图可知:</p>
+<p>s &#x3D; a + m</p>
+<p>2s &#x3D; a + m + n * Length环（n为快指针绕环的圈数）</p>
+<p>可得</p>
+<p>a &#x3D; n * Length环 - m</p>
+<p>也就是：若在头结点和相遇结点分别设一指针，同步(单步)前进，则最后一定相遇在环入口结点p。</p>
+<p>可根据这个结论来找到入口节点。</p>
+<h2 id="四、带环链表总长度-1"><a href="#四、带环链表总长度-1" class="headerlink" title="四、带环链表总长度"></a>四、带环链表总长度</h2><p>找到连接点p后，求head到p的长度，再加上环的长度，即为链表的总长。</p>
 
       
     </div>
