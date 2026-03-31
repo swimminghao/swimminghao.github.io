@@ -276,6 +276,178 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/b8eb8241/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lion.png">
+      <meta itemprop="name" content="swimminghao">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="swimminghao's blog">
+      <meta itemprop="description" content="swimminghao的学习博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | swimminghao's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/b8eb8241/" class="post-title-link" itemprop="url">32、【对线面试官】如何实现幂等和去重？</a>
+        </h2>
+
+        <div class="post-meta-container">
+
+          
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-03-10 09:48:07" itemprop="dateModified" datetime="2022-03-10T09:48:07+08:00">2022-03-10</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/posts/b8eb8241/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/b8eb8241/" data-xid="/posts/b8eb8241/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>1.6k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>1 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="如何实现去重和幂等"><a href="#如何实现去重和幂等" class="headerlink" title="如何实现去重和幂等"></a>如何实现去重和幂等</h1><h2 id="去重与幂等"><a href="#去重与幂等" class="headerlink" title="去重与幂等"></a>去重与幂等</h2><ul>
+<li>区别<ul>
+<li>「去重」是对请求或者消息在「一定时间内」进行去重「N次」</li>
+<li>「幂等」则是保证请求或消息在「任意时间内」进行处理，都需要保证它的结果是一致</li>
+</ul>
+</li>
+<li>以项目举例，我维护的「消息管理平台」是有「去重」的功能的：「5分钟相同内容消息去重」「1小时内模板去重」「一天内渠道达到N次阈值去重」.</li>
+<li>再次强调下「幂等」和「去重」的本质：「唯一Key」+「存储」</li>
+</ul>
+<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><ul>
+<li>不同的业务场景，唯一Key是不一样的，由业务決定</li>
+<li>存储选择挺多的，比如「本地缓存」&#x2F;「 Redis」&#x2F;「 MYSQL」&#x2F;「 Hbase」等等，具体选取什么，也跟业务有关</li>
+<li>比如说，在「消息管理平台」这个场景下，我存储选择的「 Redis」（读写性能优越）， Redis也有「过期时间」方便解决「一定时间内」的问题</li>
+<li>而唯一Key，自然就是根据不同的业务构建不同的。</li>
+<li>比如说「5分钟相同内容消息去重」，我直接MD5请求参数作为唯一Key。「1小时模板去重」则是「模板ID+ userid」作为唯一Key，「ー天内渠道去重」则是「渠道ID+ userid」作为唯一Key.</li>
+</ul>
+<h2 id="提到了「去重」了，你听过布隆过滤器吗？"><a href="#提到了「去重」了，你听过布隆过滤器吗？" class="headerlink" title="提到了「去重」了，你听过布隆过滤器吗？"></a>提到了「去重」了，你听过布隆过滤器吗？</h2><ul>
+<li>布隆过滤器的底层数据结构可以理解为bitmap， bitmap也可以简单理解为是一个数组，元素只存储0和1，所以它占用的空间相对较小</li>
+<li>当一个元素要存入 bitmap时，其实是要去看存储到 bitmap的哪个位置，这时一般用的就是「哈希算法」，存进去的位置标记为1</li>
+<li>标记为1的位置表示存在，标记为0的位置标示不存在</li>
+<li>布隆过滤器是可以以较低的空间占用来判断元素是否存在进而用于去重，但是它也有对应的缺点</li>
+<li>只要使用哈希算法离不开「哈希冲突」，导致有存在「误判」的情况</li>
+<li>在布隆过滤器中，如果元素判定为存在，那该元素「未必」真实存在。如果元素判定为不存在，那就肯定是不存在</li>
+<li>这应该不用我多解释了吧？（结合「哈希算法」和「标记为1的位置表示存在，标记为0的位置表示不存在」这两者就能得出上面结论）</li>
+<li>布隆过滤器也不能「删除」元素（也是哈希算法的局限性，在布隆过滤器中是不能准确定位一个元素的）</li>
+<li>如果要用的话，布隆过滤器的实现可以直接上 guava已经实现好的，不过这个是单机的</li>
+<li>而分布式下的布隆过滤器，一般现在会用 Redis，但也不是每个公司都会部暑布隆过潓器的 Redis版（还是有局限，像我以前公司就没有）</li>
+<li>所以，目前我负责的项目都是没有用布隆过滤器的</li>
+</ul>
+<h2 id="去重开销大"><a href="#去重开销大" class="headerlink" title="去重开销大"></a>去重开销大</h2><ul>
+<li>如果「去重」开销比较大，可以考虑建立「多层过滤」的逻辑</li>
+<li>比如，先看看『本地缓存』能不能过滤一部分，剩下「强校验」交由『远程存储』（常见的 Redis或者DB）进行二次过滤</li>
+</ul>
+<h2 id="kafka场景"><a href="#kafka场景" class="headerlink" title="kafka场景"></a>kafka场景</h2><ul>
+<li>当时你说在处理订单时实现了 at least one+幂等</li>
+<li>幂等处理时：前置过滤使用的是 Redis，强一致校验时使用的是DB唯一索引，也是为了提高性能，唯一Key好像就是「订单编号+订单状态」</li>
+</ul>
+<h2 id="方案的场景适用"><a href="#方案的场景适用" class="headerlink" title="方案的场景适用"></a>方案的场景适用</h2><ol>
+<li>一般我们需要对数据强一致性校验，就直接上 MYSQL（DB），毕竟有事务的支持</li>
+<li>「本地缓存」如果业务适合，那可以作为一个「前置」判断</li>
+<li>Redis高性能读写，前置判断和后置均可</li>
+<li>而 Hbasel则一般用于庞大数据量的场景下（ Redis内存太贵，DB不够灵活也不适合单表存大量数据）</li>
+</ol>
+<h2 id="幂等"><a href="#幂等" class="headerlink" title="幂等"></a>幂等</h2><ul>
+<li>至于幂等，一般的方案下存储还是「Redis」和「数据库」</li>
+<li>最最最最常见的就是数据库「唯一索」来实现幂等（我所负责的好几个项目都是用这个）</li>
+<li>构建「唯一Key」是业务相关的事了（一般是用自己的业务ID进行拼接，生成一个有意义”的唯一Key</li>
+<li>当然，也有用「 Redis」和「 MYSQL」实现分布式锁来实现幂等的（：）</li>
+<li>但 Redis’分布式锁是不能完全保证安全的，而MNSL实现分布式锁（乐观锁和悲观锁），不过还是看业务吧，我是没用到过的</li>
+<li>网上有很多实现「幂等」的方案，本质上都是围绕着「存储」和「唯一Key」做了些变种，然后取了个名字</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>l
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://example.com/posts/63b182f/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -546,7 +718,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/b8eb8241/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/f4ff0293/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/lion.png">
@@ -564,7 +736,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/b8eb8241/" class="post-title-link" itemprop="url">32、【对线面试官】如何实现幂等和去重？</a>
+          <a href="/posts/f4ff0293/" class="post-title-link" itemprop="url">34、【对线面试官】Redis分片集群</a>
         </h2>
 
         <div class="post-meta-container">
@@ -606,8 +778,8 @@
     </span>
     <span class="post-meta-item-text">Waline：</span>
   
-    <a title="waline" href="/posts/b8eb8241/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/b8eb8241/" data-xid="/posts/b8eb8241/" itemprop="commentCount"></span>
+    <a title="waline" href="/posts/f4ff0293/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/f4ff0293/" data-xid="/posts/f4ff0293/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -618,14 +790,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>1.6k</span>
+      <span>3.6k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>1 分钟</span>
+      <span>3 分钟</span>
     </span>
 </div>
 
@@ -636,57 +808,122 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="如何实现去重和幂等"><a href="#如何实现去重和幂等" class="headerlink" title="如何实现去重和幂等"></a>如何实现去重和幂等</h1><h2 id="去重与幂等"><a href="#去重与幂等" class="headerlink" title="去重与幂等"></a>去重与幂等</h2><ul>
-<li>区别<ul>
-<li>「去重」是对请求或者消息在「一定时间内」进行去重「N次」</li>
-<li>「幂等」则是保证请求或消息在「任意时间内」进行处理，都需要保证它的结果是一致</li>
+          <h1 id="34、【对线面试官】Redis分片集群"><a href="#34、【对线面试官】Redis分片集群" class="headerlink" title="34、【对线面试官】Redis分片集群"></a>34、【对线面试官】Redis分片集群</h1><h2 id="要不接着上一次的话题呗？聊下Redis的分片集群，先聊Redis-Clusters好咯？"><a href="#要不接着上一次的话题呗？聊下Redis的分片集群，先聊Redis-Clusters好咯？" class="headerlink" title="要不接着上一次的话题呗？聊下Redis的分片集群，先聊Redis Clusters好咯？"></a>要不接着上一次的话题呗？聊下Redis的分片集群，先聊Redis Clusters好咯？</h2><ul>
+<li><p>基础</p>
+<ul>
+<li><p>在前面聊Redisl的时候，提到的Redis都是「单实例」存储所有的数据</p>
+</li>
+<li><p>1.主从模式下实现读写分离的架构，可以让多个从服务器承载「读流量」，但面对「写流量」时，始终是只有主服务器在抗。</p>
+</li>
+<li><p>2.「纵向扩展」升级Redis服务器硬件能力，但升级至一定程度下，就不划算了。</p>
+</li>
+<li><p>纵向扩展意味着「大内存」，Redis：持久化时的”成本”会加大（Redis做RDB持久化，是全量的，fork子进程时有可能由于使用内存过大，导致主线程阻塞时间过长）</p>
+</li>
+<li><p>所以，「单实例」是有瓶颈的这里的。单实例我指的是：某台Redis服务器存储着某业务的所有数据</p>
+</li>
+<li><p>「纵向扩展」不行，就「横向扩展」呗。</p>
+</li>
+<li><p>用多个Redis实例来组成一个集群，按照一定的规则把数据「分发」到不同的Redis实例上。当集群所有的Redis实例的数据加起来，那这份数据就是全的</p>
+</li>
+<li><p>其实就是「分布式」的概念（：只不过，在Redis.里，好像叫「分片集群」的人比较多？</p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/UjVuJE_20211230101518.png"></p>
+</li>
+<li><p>从前面就得知了，要「分布式存储」，就肯定避免不了对数据进行「分发」（也是路由的意思）</p>
+</li>
+<li><p>从Redis Clusteri讲起吧，它的「路由」是做在客户端的（SDK已经集成了路由转发的功能）</p>
+</li>
+<li><p>Redis Cluster）对数据的分发的逻辑中，涉及到「哈希槽」（Hash Solt）的概念</p>
+</li>
+<li><p>Redis Cluster默认一个集群有16384个哈希槽，这些哈希槽会分配到不同的Redis实例中</p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/wG6xGm_20211230101625.png"></p>
+</li>
+<li><p>至于怎么「瓜分」，可以直接均分，也可以「手动」设置每个Redis实例的哈希槽，全由我们来决定</p>
+</li>
+<li><p>重要的是，我们要把这16384个都得瓜分完，不能有剩余！</p>
+</li>
+<li><p>当客户端有数据进行写入的时候，首先会对key按照CRC16算法计算出16bit的值（可以理解为就是做hash），然后得到的值对16384进行取模</p>
+</li>
+<li><p>取模之后，自然就得到其中一个哈希槽，然后就可以将数据插入到分配至该哈希槽的Redis实例中</p>
+</li>
 </ul>
 </li>
-<li>以项目举例，我维护的「消息管理平台」是有「去重」的功能的：「5分钟相同内容消息去重」「1小时内模板去重」「一天内渠道达到N次阈值去重」.</li>
-<li>再次强调下「幂等」和「去重」的本质：「唯一Key」+「存储」</li>
 </ul>
-<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><ul>
-<li>不同的业务场景，唯一Key是不一样的，由业务決定</li>
-<li>存储选择挺多的，比如「本地缓存」&#x2F;「 Redis」&#x2F;「 MYSQL」&#x2F;「 Hbase」等等，具体选取什么，也跟业务有关</li>
-<li>比如说，在「消息管理平台」这个场景下，我存储选择的「 Redis」（读写性能优越）， Redis也有「过期时间」方便解决「一定时间内」的问题</li>
-<li>而唯一Key，自然就是根据不同的业务构建不同的。</li>
-<li>比如说「5分钟相同内容消息去重」，我直接MD5请求参数作为唯一Key。「1小时模板去重」则是「模板ID+ userid」作为唯一Key，「ー天内渠道去重」则是「渠道ID+ userid」作为唯一Key.</li>
+<h2 id="那问题就来了，现在客户端通过hash算法算出了哈希槽的位置，那客户端怎么知道这个哈希槽在哪台Redis实例上呢？"><a href="#那问题就来了，现在客户端通过hash算法算出了哈希槽的位置，那客户端怎么知道这个哈希槽在哪台Redis实例上呢？" class="headerlink" title="那问题就来了，现在客户端通过hash算法算出了哈希槽的位置，那客户端怎么知道这个哈希槽在哪台Redis实例上呢？"></a>那问题就来了，现在客户端通过hash算法算出了哈希槽的位置，那客户端怎么知道这个哈希槽在哪台Redis实例上呢？</h2><ul>
+<li>是这样的，在集群的中每个Redis实例都会向其他实例「传播」自己所负责的哈希槽有哪些。这样一来，每台Redis实例就可以记录着「所有哈希槽与实例」的关系了</li>
+<li>有了这个映射关系以后，客户端也会「缓存」一份到自己的本地上，那自然客户端就知道去哪个Redis实例上操作</li>
 </ul>
-<h2 id="提到了「去重」了，你听过布隆过滤器吗？"><a href="#提到了「去重」了，你听过布隆过滤器吗？" class="headerlink" title="提到了「去重」了，你听过布隆过滤器吗？"></a>提到了「去重」了，你听过布隆过滤器吗？</h2><ul>
-<li>布隆过滤器的底层数据结构可以理解为bitmap， bitmap也可以简单理解为是一个数组，元素只存储0和1，所以它占用的空间相对较小</li>
-<li>当一个元素要存入 bitmap时，其实是要去看存储到 bitmap的哪个位置，这时一般用的就是「哈希算法」，存进去的位置标记为1</li>
-<li>标记为1的位置表示存在，标记为0的位置标示不存在</li>
-<li>布隆过滤器是可以以较低的空间占用来判断元素是否存在进而用于去重，但是它也有对应的缺点</li>
-<li>只要使用哈希算法离不开「哈希冲突」，导致有存在「误判」的情况</li>
-<li>在布隆过滤器中，如果元素判定为存在，那该元素「未必」真实存在。如果元素判定为不存在，那就肯定是不存在</li>
-<li>这应该不用我多解释了吧？（结合「哈希算法」和「标记为1的位置表示存在，标记为0的位置表示不存在」这两者就能得出上面结论）</li>
-<li>布隆过滤器也不能「删除」元素（也是哈希算法的局限性，在布隆过滤器中是不能准确定位一个元素的）</li>
-<li>如果要用的话，布隆过滤器的实现可以直接上 guava已经实现好的，不过这个是单机的</li>
-<li>而分布式下的布隆过滤器，一般现在会用 Redis，但也不是每个公司都会部暑布隆过潓器的 Redis版（还是有局限，像我以前公司就没有）</li>
-<li>所以，目前我负责的项目都是没有用布隆过滤器的</li>
+<h2 id="那我又有问题了，在集群里也可以新增画者删除Redis：实例啊，这个怎么整？（扩容、缩容很常见的操作）"><a href="#那我又有问题了，在集群里也可以新增画者删除Redis：实例啊，这个怎么整？（扩容、缩容很常见的操作）" class="headerlink" title="那我又有问题了，在集群里也可以新增画者删除Redis：实例啊，这个怎么整？（扩容、缩容很常见的操作）"></a>那我又有问题了，在集群里也可以新增画者删除Redis：实例啊，这个怎么整？（扩容、缩容很常见的操作）</h2><ul>
+<li>当集群删除或者新增Redis实例时，那总会有某Redis实例所负责的哈希槽关系会发生变化</li>
+<li>发生变化的信息会通过消息发送至整个集群中，所有的Redis实例都会知道该变化，然后更新自己所保存的映射关系</li>
+<li>但这时候，客户端其实是不感知的</li>
+<li>所以，当客户端请求时某Key时，还是会请求到「原来」的Redis实例上。</li>
+<li>而原来的Redis实例会返回「noved」命令，告诉客户端应该要去新的Redis：实例上去请求啦</li>
+<li>客户端接收到「moved」命令之后，就知道去新的Redis实例请求了，并且更新客户端自身「哈希槽与实例之间的映射关系」</li>
+<li>总结起来就是：数据迁移完毕后被响应，客户端会收到「moved」命令，并且会更新本地缓存</li>
+<li>那数据还没完全迁移完呢？</li>
+<li>如果数据还没完全迁移完，那这时候会返回客户端「ask」命令。也是让客户端去请求新的Redis实例，但客户端这时候不会更新本地缓存</li>
 </ul>
-<h2 id="去重开销大"><a href="#去重开销大" class="headerlink" title="去重开销大"></a>去重开销大</h2><ul>
-<li>如果「去重」开销比较大，可以考虑建立「多层过滤」的逻辑</li>
-<li>比如，先看看『本地缓存』能不能过滤一部分，剩下「强校验」交由『远程存储』（常见的 Redis或者DB）进行二次过滤</li>
+<h2 id="那你知道为什么哈希槽是16384个吗？"><a href="#那你知道为什么哈希槽是16384个吗？" class="headerlink" title="那你知道为什么哈希槽是16384个吗？"></a>那你知道为什么哈希槽是16384个吗？</h2><ul>
+<li>嗯，这个。是这样的，Redis：实例之间「通讯」会相互交换「槽信息」，那如果槽过多（意味着网络包会变大），网络包变大，那是不是就意味着会「过度占用」网络的带宽</li>
+<li>另外一块是，Redis作者认为集群在一般情况下是不会超过1000个实例</li>
+<li>那就取了16384个，即可以将数据合理打散至Redis：集群中的不同实例，又不会在交换数据时导致带宽占用过多</li>
 </ul>
-<h2 id="kafka场景"><a href="#kafka场景" class="headerlink" title="kafka场景"></a>kafka场景</h2><ul>
-<li>当时你说在处理订单时实现了 at least one+幂等</li>
-<li>幂等处理时：前置过滤使用的是 Redis，强一致校验时使用的是DB唯一索引，也是为了提高性能，唯一Key好像就是「订单编号+订单状态」</li>
+<h2 id="那你知道为什么对数据进行分区在Redis中用的是「哈希槽」这种方式吗？而不是一致性哈希算法"><a href="#那你知道为什么对数据进行分区在Redis中用的是「哈希槽」这种方式吗？而不是一致性哈希算法" class="headerlink" title="那你知道为什么对数据进行分区在Redis中用的是「哈希槽」这种方式吗？而不是一致性哈希算法"></a>那你知道为什么对数据进行分区在Redis中用的是「哈希槽」这种方式吗？而不是一致性哈希算法</h2><ul>
+<li>在我理解下，一致性哈希算法就是有个「哈希环」，当客户端请求时，会对Key进行hash，确定在哈希环上的位置，然后顺时针往后找，找到的第一个节点</li>
+<li>一致性哈希算法比「传统固定取模」的好处就是：如果集群中需要新增或删除某实例，只会影响一小部分的数据</li>
+<li>但如果在集群中新增或者删除实例，在一致性哈希算法下，就得知道是「哪一部分数据」受到影响了，需要进行对受影响的数据进行迁移</li>
+<li>而哈希槽的方式，我们通过上面已经可以发现：在集群中的每个实例都能拿到槽位相关的信息（去中心化）</li>
+<li>当客户端对key进行hash运算之后，如果发现请求的实例没有相关的数据，实例会返回「重定向」命令告诉客户端应该去哪儿请求</li>
+<li>集群的扩容、缩容都是以「哈希槽」作为基本单位进行操作，总的来说就是「实现」会更加简单（简洁，高效，有弹性）</li>
+<li>过程大概就是把部分槽进行重新分配，然后迁移槽中的数据即可，不会影响到集群中某个实例的所有数据。</li>
 </ul>
-<h2 id="方案的场景适用"><a href="#方案的场景适用" class="headerlink" title="方案的场景适用"></a>方案的场景适用</h2><ol>
-<li>一般我们需要对数据强一致性校验，就直接上 MYSQL（DB），毕竟有事务的支持</li>
-<li>「本地缓存」如果业务适合，那可以作为一个「前置」判断</li>
-<li>Redis高性能读写，前置判断和后置均可</li>
-<li>而 Hbasel则一般用于庞大数据量的场景下（ Redis内存太贵，DB不够灵活也不适合单表存大量数据）</li>
-</ol>
-<h2 id="幂等"><a href="#幂等" class="headerlink" title="幂等"></a>幂等</h2><ul>
-<li>至于幂等，一般的方案下存储还是「Redis」和「数据库」</li>
-<li>最最最最常见的就是数据库「唯一索」来实现幂等（我所负责的好几个项目都是用这个）</li>
-<li>构建「唯一Key」是业务相关的事了（一般是用自己的业务ID进行拼接，生成一个有意义”的唯一Key</li>
-<li>当然，也有用「 Redis」和「 MYSQL」实现分布式锁来实现幂等的（：）</li>
-<li>但 Redis’分布式锁是不能完全保证安全的，而MNSL实现分布式锁（乐观锁和悲观锁），不过还是看业务吧，我是没用到过的</li>
-<li>网上有很多实现「幂等」的方案，本质上都是围绕着「存储」和「唯一Key」做了些变种，然后取了个名字</li>
+<h2 id="那你了解「服务端路由」的大致原理吗？"><a href="#那你了解「服务端路由」的大致原理吗？" class="headerlink" title="那你了解「服务端路由」的大致原理吗？"></a>那你了解「服务端路由」的大致原理吗？</h2><ul>
+<li><p>嗯，服务端路由一般指的就是，有个代理层专门对接客户端的请求，然后再转发到Redis集群进行处理</p>
+</li>
+<li><p>上次最后面试的时候，也提到了，现在比较流行的是Codis</p>
+</li>
+<li><p>它与Redis Clusteri最大的区别就是，Redis Cluster是直连Redis实例的，而Codis则客户端直连Proxy，再由Proxy进行分发到不同的Redis实例进行处理</p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/5iNRXA_20211230102232.png"></p>
+</li>
+<li><p>在Codis对Key路由的方案跟Redis Cluster很类似，Codis初始化出1024个哈希槽，然后分配到不同的Redis服务器中</p>
+</li>
+<li><p>哈希槽与Redis实例的映射关系由Zookeeper进行存储和管理，Proxy会通过CodisDashBoard得到最新的映射关系，并缓存在本地上</p>
+</li>
 </ul>
+<h2 id="那如果我要扩容Codis-Redis实例的流程是怎么样的？"><a href="#那如果我要扩容Codis-Redis实例的流程是怎么样的？" class="headerlink" title="那如果我要扩容Codis Redis实例的流程是怎么样的？"></a>那如果我要扩容Codis Redis实例的流程是怎么样的？</h2><ul>
+<li>简单来说就是：把新的Redis：实例加入到集群中，然后把部分数据迁移到新的实例上</li>
+<li>大概的过程就是：<ul>
+<li>1.「原实例」某一个Solt的部分数据发送给「目标实例」</li>
+<li>2.「目标实例」收到数据后，给「原实例」返回ack</li>
+<li>3.「原实例」收到ack之后，在本地删除掉刚刚给「目标实例」的数据</li>
+<li>4.不断循环1、2、3步骤，直至整个solt迁移完毕</li>
+</ul>
+</li>
+<li>Codis和Redis Cluster迁移的步骤都差不多的</li>
+<li>不过Codis：是支持「异步迁移」的，针对上面的步骤2，「原实例」发送数据后，不等待「目标实例」返回ack，就可以继续接收客户端的请求</li>
+<li>未迁移完的数据标记为「只读」，就不会影响到数据的一致性</li>
+<li>如果对迁移中的数据存在「写操作」，那会让客户端进行「重试」，最后会写到「目标实例」上</li>
+<li>还有就是，针对bigkey，异步迁移采用了「拆分指令」的方式进行迁移，比如有个set元素有10000个，那「原实例」可能就发送10000条命令给「目标实例」，而不是一整个bigkey一次性迁移（因为大对象容易造成阻塞）</li>
+</ul>
+<h2 id="Redis-Cluster和Codis的总体区别"><a href="#Redis-Cluster和Codis的总体区别" class="headerlink" title="Redis Cluster和Codis的总体区别"></a>Redis Cluster和Codis的总体区别</h2><p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/EArvDs_20211230102555.png"></p>
+<h2 id="总结1"><a href="#总结1" class="headerlink" title="总结1"></a>总结1</h2><ul>
+<li>说白了就是，如果集群Redis实例存在变动，由于Redis实例之间会「通讯」</li>
+<li>所以等到客户端请求时，Redis实例总会知道客户端所要请求的数据在哪个Redis实例上</li>
+<li>如果已经迁移完毕了，那就返回「move」命令告诉客户端应该去找哪个Redis实例要数据，并且客户端应该更新自己的缓存（映射关系）</li>
+<li>如果正在迁移中，那就返回「ack」命令告诉客户端应该去找哪个Redis实例要数据</li>
+</ul>
+<h2 id="总结2"><a href="#总结2" class="headerlink" title="总结2"></a>总结2</h2><p><strong>分片集群诞生理由</strong>：写性能在高并发下会遇到瓶颈&amp;&amp;无法无限地纵向扩展（不划算）</p>
+<p><strong>分片集群</strong>：需要解决「数据路由」和「数据迁移」的问题</p>
+<p><strong>Redis Cluster数据路由</strong>：</p>
+<ul>
+<li>Redis Cluster默认一个集群有16384个哈希槽，哈希槽会被分配到Redis集群中的实例中</li>
+<li>Redis集群的实例会相互「通讯」，交互自己所负责哈希槽信息（最终每个实例都有完整的映射关系）</li>
+<li>当客户端请求时，使用CRC16算法算出Hash值并模以16384，自然就能得到哈希槽进而得到所对应的Redis实例位置</li>
+</ul>
+<p><strong>为什么16384个哈希槽</strong>：16384个既能让Redis实例分配到的数据相对均匀，又不会影响Redis实例之间交互槽信息产生严重的网络性能开销问题</p>
+<p><strong>Redis Cluster 为什么使用哈希槽，而非一致性哈希算法</strong>：哈希槽实现相对简单高效，每次扩缩容只需要动对应Solt（槽）的数据，一般不会动整个Redis实例</p>
+<p><strong>Codis数据路由</strong>：默认分配1024个哈希槽，映射相关信息会被保存至Zookeeper集群。Proxy会缓存一份至本地，Redis集群实例发生变化时，DashBoard更新Zookeeper和Proxy的映射信息</p>
+<p><strong>Redis Cluster和Codis数据迁移</strong>：Redis Cluster支持同步迁移，Codis支持同步迁移&amp;&amp;异步迁移</p>
 
       
     </div>
@@ -1061,243 +1298,6 @@
 <li>Spring有很多地方都用了「模板方法模式」，比如事务管理器（AbstractPlatformTransactionManager),getTransaction定义了框架，其中很多都由子类实现</li>
 <li>Spring的事件驱动模型用了「观察者模式」，具体实现就是ApplicationContextEvent、ApplicationListener</li>
 </ul>
-
-      
-    </div>
-
-    
-    
-    
-
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>l
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/f4ff0293/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/lion.png">
-      <meta itemprop="name" content="swimminghao">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="swimminghao's blog">
-      <meta itemprop="description" content="swimminghao的学习博客">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | swimminghao's blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/f4ff0293/" class="post-title-link" itemprop="url">34、【对线面试官】Redis分片集群</a>
-        </h2>
-
-        <div class="post-meta-container">
-
-          
-
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-10 09:48:07" itemprop="dateModified" datetime="2022-03-10T09:48:07+08:00">2022-03-10</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="far fa-comment"></i>
-    </span>
-    <span class="post-meta-item-text">Waline：</span>
-  
-    <a title="waline" href="/posts/f4ff0293/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/f4ff0293/" data-xid="/posts/f4ff0293/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>3.6k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>3 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="34、【对线面试官】Redis分片集群"><a href="#34、【对线面试官】Redis分片集群" class="headerlink" title="34、【对线面试官】Redis分片集群"></a>34、【对线面试官】Redis分片集群</h1><h2 id="要不接着上一次的话题呗？聊下Redis的分片集群，先聊Redis-Clusters好咯？"><a href="#要不接着上一次的话题呗？聊下Redis的分片集群，先聊Redis-Clusters好咯？" class="headerlink" title="要不接着上一次的话题呗？聊下Redis的分片集群，先聊Redis Clusters好咯？"></a>要不接着上一次的话题呗？聊下Redis的分片集群，先聊Redis Clusters好咯？</h2><ul>
-<li><p>基础</p>
-<ul>
-<li><p>在前面聊Redisl的时候，提到的Redis都是「单实例」存储所有的数据</p>
-</li>
-<li><p>1.主从模式下实现读写分离的架构，可以让多个从服务器承载「读流量」，但面对「写流量」时，始终是只有主服务器在抗。</p>
-</li>
-<li><p>2.「纵向扩展」升级Redis服务器硬件能力，但升级至一定程度下，就不划算了。</p>
-</li>
-<li><p>纵向扩展意味着「大内存」，Redis：持久化时的”成本”会加大（Redis做RDB持久化，是全量的，fork子进程时有可能由于使用内存过大，导致主线程阻塞时间过长）</p>
-</li>
-<li><p>所以，「单实例」是有瓶颈的这里的。单实例我指的是：某台Redis服务器存储着某业务的所有数据</p>
-</li>
-<li><p>「纵向扩展」不行，就「横向扩展」呗。</p>
-</li>
-<li><p>用多个Redis实例来组成一个集群，按照一定的规则把数据「分发」到不同的Redis实例上。当集群所有的Redis实例的数据加起来，那这份数据就是全的</p>
-</li>
-<li><p>其实就是「分布式」的概念（：只不过，在Redis.里，好像叫「分片集群」的人比较多？</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/UjVuJE_20211230101518.png"></p>
-</li>
-<li><p>从前面就得知了，要「分布式存储」，就肯定避免不了对数据进行「分发」（也是路由的意思）</p>
-</li>
-<li><p>从Redis Clusteri讲起吧，它的「路由」是做在客户端的（SDK已经集成了路由转发的功能）</p>
-</li>
-<li><p>Redis Cluster）对数据的分发的逻辑中，涉及到「哈希槽」（Hash Solt）的概念</p>
-</li>
-<li><p>Redis Cluster默认一个集群有16384个哈希槽，这些哈希槽会分配到不同的Redis实例中</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/wG6xGm_20211230101625.png"></p>
-</li>
-<li><p>至于怎么「瓜分」，可以直接均分，也可以「手动」设置每个Redis实例的哈希槽，全由我们来决定</p>
-</li>
-<li><p>重要的是，我们要把这16384个都得瓜分完，不能有剩余！</p>
-</li>
-<li><p>当客户端有数据进行写入的时候，首先会对key按照CRC16算法计算出16bit的值（可以理解为就是做hash），然后得到的值对16384进行取模</p>
-</li>
-<li><p>取模之后，自然就得到其中一个哈希槽，然后就可以将数据插入到分配至该哈希槽的Redis实例中</p>
-</li>
-</ul>
-</li>
-</ul>
-<h2 id="那问题就来了，现在客户端通过hash算法算出了哈希槽的位置，那客户端怎么知道这个哈希槽在哪台Redis实例上呢？"><a href="#那问题就来了，现在客户端通过hash算法算出了哈希槽的位置，那客户端怎么知道这个哈希槽在哪台Redis实例上呢？" class="headerlink" title="那问题就来了，现在客户端通过hash算法算出了哈希槽的位置，那客户端怎么知道这个哈希槽在哪台Redis实例上呢？"></a>那问题就来了，现在客户端通过hash算法算出了哈希槽的位置，那客户端怎么知道这个哈希槽在哪台Redis实例上呢？</h2><ul>
-<li>是这样的，在集群的中每个Redis实例都会向其他实例「传播」自己所负责的哈希槽有哪些。这样一来，每台Redis实例就可以记录着「所有哈希槽与实例」的关系了</li>
-<li>有了这个映射关系以后，客户端也会「缓存」一份到自己的本地上，那自然客户端就知道去哪个Redis实例上操作</li>
-</ul>
-<h2 id="那我又有问题了，在集群里也可以新增画者删除Redis：实例啊，这个怎么整？（扩容、缩容很常见的操作）"><a href="#那我又有问题了，在集群里也可以新增画者删除Redis：实例啊，这个怎么整？（扩容、缩容很常见的操作）" class="headerlink" title="那我又有问题了，在集群里也可以新增画者删除Redis：实例啊，这个怎么整？（扩容、缩容很常见的操作）"></a>那我又有问题了，在集群里也可以新增画者删除Redis：实例啊，这个怎么整？（扩容、缩容很常见的操作）</h2><ul>
-<li>当集群删除或者新增Redis实例时，那总会有某Redis实例所负责的哈希槽关系会发生变化</li>
-<li>发生变化的信息会通过消息发送至整个集群中，所有的Redis实例都会知道该变化，然后更新自己所保存的映射关系</li>
-<li>但这时候，客户端其实是不感知的</li>
-<li>所以，当客户端请求时某Key时，还是会请求到「原来」的Redis实例上。</li>
-<li>而原来的Redis实例会返回「noved」命令，告诉客户端应该要去新的Redis：实例上去请求啦</li>
-<li>客户端接收到「moved」命令之后，就知道去新的Redis实例请求了，并且更新客户端自身「哈希槽与实例之间的映射关系」</li>
-<li>总结起来就是：数据迁移完毕后被响应，客户端会收到「moved」命令，并且会更新本地缓存</li>
-<li>那数据还没完全迁移完呢？</li>
-<li>如果数据还没完全迁移完，那这时候会返回客户端「ask」命令。也是让客户端去请求新的Redis实例，但客户端这时候不会更新本地缓存</li>
-</ul>
-<h2 id="那你知道为什么哈希槽是16384个吗？"><a href="#那你知道为什么哈希槽是16384个吗？" class="headerlink" title="那你知道为什么哈希槽是16384个吗？"></a>那你知道为什么哈希槽是16384个吗？</h2><ul>
-<li>嗯，这个。是这样的，Redis：实例之间「通讯」会相互交换「槽信息」，那如果槽过多（意味着网络包会变大），网络包变大，那是不是就意味着会「过度占用」网络的带宽</li>
-<li>另外一块是，Redis作者认为集群在一般情况下是不会超过1000个实例</li>
-<li>那就取了16384个，即可以将数据合理打散至Redis：集群中的不同实例，又不会在交换数据时导致带宽占用过多</li>
-</ul>
-<h2 id="那你知道为什么对数据进行分区在Redis中用的是「哈希槽」这种方式吗？而不是一致性哈希算法"><a href="#那你知道为什么对数据进行分区在Redis中用的是「哈希槽」这种方式吗？而不是一致性哈希算法" class="headerlink" title="那你知道为什么对数据进行分区在Redis中用的是「哈希槽」这种方式吗？而不是一致性哈希算法"></a>那你知道为什么对数据进行分区在Redis中用的是「哈希槽」这种方式吗？而不是一致性哈希算法</h2><ul>
-<li>在我理解下，一致性哈希算法就是有个「哈希环」，当客户端请求时，会对Key进行hash，确定在哈希环上的位置，然后顺时针往后找，找到的第一个节点</li>
-<li>一致性哈希算法比「传统固定取模」的好处就是：如果集群中需要新增或删除某实例，只会影响一小部分的数据</li>
-<li>但如果在集群中新增或者删除实例，在一致性哈希算法下，就得知道是「哪一部分数据」受到影响了，需要进行对受影响的数据进行迁移</li>
-<li>而哈希槽的方式，我们通过上面已经可以发现：在集群中的每个实例都能拿到槽位相关的信息（去中心化）</li>
-<li>当客户端对key进行hash运算之后，如果发现请求的实例没有相关的数据，实例会返回「重定向」命令告诉客户端应该去哪儿请求</li>
-<li>集群的扩容、缩容都是以「哈希槽」作为基本单位进行操作，总的来说就是「实现」会更加简单（简洁，高效，有弹性）</li>
-<li>过程大概就是把部分槽进行重新分配，然后迁移槽中的数据即可，不会影响到集群中某个实例的所有数据。</li>
-</ul>
-<h2 id="那你了解「服务端路由」的大致原理吗？"><a href="#那你了解「服务端路由」的大致原理吗？" class="headerlink" title="那你了解「服务端路由」的大致原理吗？"></a>那你了解「服务端路由」的大致原理吗？</h2><ul>
-<li><p>嗯，服务端路由一般指的就是，有个代理层专门对接客户端的请求，然后再转发到Redis集群进行处理</p>
-</li>
-<li><p>上次最后面试的时候，也提到了，现在比较流行的是Codis</p>
-</li>
-<li><p>它与Redis Clusteri最大的区别就是，Redis Cluster是直连Redis实例的，而Codis则客户端直连Proxy，再由Proxy进行分发到不同的Redis实例进行处理</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/5iNRXA_20211230102232.png"></p>
-</li>
-<li><p>在Codis对Key路由的方案跟Redis Cluster很类似，Codis初始化出1024个哈希槽，然后分配到不同的Redis服务器中</p>
-</li>
-<li><p>哈希槽与Redis实例的映射关系由Zookeeper进行存储和管理，Proxy会通过CodisDashBoard得到最新的映射关系，并缓存在本地上</p>
-</li>
-</ul>
-<h2 id="那如果我要扩容Codis-Redis实例的流程是怎么样的？"><a href="#那如果我要扩容Codis-Redis实例的流程是怎么样的？" class="headerlink" title="那如果我要扩容Codis Redis实例的流程是怎么样的？"></a>那如果我要扩容Codis Redis实例的流程是怎么样的？</h2><ul>
-<li>简单来说就是：把新的Redis：实例加入到集群中，然后把部分数据迁移到新的实例上</li>
-<li>大概的过程就是：<ul>
-<li>1.「原实例」某一个Solt的部分数据发送给「目标实例」</li>
-<li>2.「目标实例」收到数据后，给「原实例」返回ack</li>
-<li>3.「原实例」收到ack之后，在本地删除掉刚刚给「目标实例」的数据</li>
-<li>4.不断循环1、2、3步骤，直至整个solt迁移完毕</li>
-</ul>
-</li>
-<li>Codis和Redis Cluster迁移的步骤都差不多的</li>
-<li>不过Codis：是支持「异步迁移」的，针对上面的步骤2，「原实例」发送数据后，不等待「目标实例」返回ack，就可以继续接收客户端的请求</li>
-<li>未迁移完的数据标记为「只读」，就不会影响到数据的一致性</li>
-<li>如果对迁移中的数据存在「写操作」，那会让客户端进行「重试」，最后会写到「目标实例」上</li>
-<li>还有就是，针对bigkey，异步迁移采用了「拆分指令」的方式进行迁移，比如有个set元素有10000个，那「原实例」可能就发送10000条命令给「目标实例」，而不是一整个bigkey一次性迁移（因为大对象容易造成阻塞）</li>
-</ul>
-<h2 id="Redis-Cluster和Codis的总体区别"><a href="#Redis-Cluster和Codis的总体区别" class="headerlink" title="Redis Cluster和Codis的总体区别"></a>Redis Cluster和Codis的总体区别</h2><p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/EArvDs_20211230102555.png"></p>
-<h2 id="总结1"><a href="#总结1" class="headerlink" title="总结1"></a>总结1</h2><ul>
-<li>说白了就是，如果集群Redis实例存在变动，由于Redis实例之间会「通讯」</li>
-<li>所以等到客户端请求时，Redis实例总会知道客户端所要请求的数据在哪个Redis实例上</li>
-<li>如果已经迁移完毕了，那就返回「move」命令告诉客户端应该去找哪个Redis实例要数据，并且客户端应该更新自己的缓存（映射关系）</li>
-<li>如果正在迁移中，那就返回「ack」命令告诉客户端应该去找哪个Redis实例要数据</li>
-</ul>
-<h2 id="总结2"><a href="#总结2" class="headerlink" title="总结2"></a>总结2</h2><p><strong>分片集群诞生理由</strong>：写性能在高并发下会遇到瓶颈&amp;&amp;无法无限地纵向扩展（不划算）</p>
-<p><strong>分片集群</strong>：需要解决「数据路由」和「数据迁移」的问题</p>
-<p><strong>Redis Cluster数据路由</strong>：</p>
-<ul>
-<li>Redis Cluster默认一个集群有16384个哈希槽，哈希槽会被分配到Redis集群中的实例中</li>
-<li>Redis集群的实例会相互「通讯」，交互自己所负责哈希槽信息（最终每个实例都有完整的映射关系）</li>
-<li>当客户端请求时，使用CRC16算法算出Hash值并模以16384，自然就能得到哈希槽进而得到所对应的Redis实例位置</li>
-</ul>
-<p><strong>为什么16384个哈希槽</strong>：16384个既能让Redis实例分配到的数据相对均匀，又不会影响Redis实例之间交互槽信息产生严重的网络性能开销问题</p>
-<p><strong>Redis Cluster 为什么使用哈希槽，而非一致性哈希算法</strong>：哈希槽实现相对简单高效，每次扩缩容只需要动对应Solt（槽）的数据，一般不会动整个Redis实例</p>
-<p><strong>Codis数据路由</strong>：默认分配1024个哈希槽，映射相关信息会被保存至Zookeeper集群。Proxy会缓存一份至本地，Redis集群实例发生变化时，DashBoard更新Zookeeper和Proxy的映射信息</p>
-<p><strong>Redis Cluster和Codis数据迁移</strong>：Redis Cluster支持同步迁移，Codis支持同步迁移&amp;&amp;异步迁移</p>
 
       
     </div>
@@ -1900,161 +1900,6 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/759e745e/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/lion.png">
-      <meta itemprop="name" content="swimminghao">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="swimminghao's blog">
-      <meta itemprop="description" content="swimminghao的学习博客">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | swimminghao's blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/759e745e/" class="post-title-link" itemprop="url">6、【对线面试官】CAS</a>
-        </h2>
-
-        <div class="post-meta-container">
-
-          
-
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-10 09:48:07" itemprop="dateModified" datetime="2022-03-10T09:48:07+08:00">2022-03-10</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="far fa-comment"></i>
-    </span>
-    <span class="post-meta-item-text">Waline：</span>
-  
-    <a title="waline" href="/posts/759e745e/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/759e745e/" data-xid="/posts/759e745e/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>1k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>1 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="6、【对线面试官】CAS"><a href="#6、【对线面试官】CAS" class="headerlink" title="6、【对线面试官】CAS"></a>6、【对线面试官】CAS</h1><h2 id="今天我们来聊聊CAS吧？你对CAS了解多少？"><a href="#今天我们来聊聊CAS吧？你对CAS了解多少？" class="headerlink" title="今天我们来聊聊CAS吧？你对CAS了解多少？"></a>今天我们来聊聊CAS吧？你对CAS了解多少？</h2><ol>
-<li>CAS的全称为compare and swap，比较并交换</li>
-<li>虽然翻译过来是「比较并交换」，但它是一个原子性的操作，对应到CPU指令为cmpxchg</li>
-<li>cpu指令你都知道？-&gt;这没什么，都是背的。</li>
-<li>回到CAS上吧，CAS的操作其实非常简单。</li>
-<li>CAS有三个操作数：当前值A、内存值V、要修改的新值B</li>
-<li>假设当前值A跟内存值V相等，那就将内存值V改成B</li>
-<li>假设当前值A跟内存值V不相等，要么就重试，要么就放弃更新</li>
-<li>将当前值与内存值进行对比，判断是否有被修改过，这就是CAS的核心</li>
-</ol>
-<h2 id="确实，那为什么要用CAS呢？"><a href="#确实，那为什么要用CAS呢？" class="headerlink" title="确实，那为什么要用CAS呢？"></a>确实，那为什么要用CAS呢？</h2><ol>
-<li>嗯，要讲到CAS就不得不说synchronized锁了，它是Java锁..然后..</li>
-<li>ok，其实就是synchronized锁每次只会让一个线程去操作共享资源</li>
-<li>而CAS相当于没有加锁，多个线程都可以直接操作共享资源，在实际去修改的时候才去判断能否修改成功</li>
-<li>在很多的情况下会synchronized锁要高效很多</li>
-<li>比如，对一个值进行累加，就没必要使用synchronized锁，使用juc包下的Atomic类就足以。</li>
-</ol>
-<h2 id="了解，那你知道CAS会有什么缺点吗？"><a href="#了解，那你知道CAS会有什么缺点吗？" class="headerlink" title="了解，那你知道CAS会有什么缺点吗？"></a>了解，那你知道CAS会有什么缺点吗？</h2><ol>
-<li>CAS有个缺点就是会带来ABA的问题</li>
-<li>从CAS更新的时候，我们可以发现它只比对当前值和内存值是否相等，这会带来个问题，下面我举例说明下：</li>
-<li>假设线程A读到当前值是10，可能线程B把值修改为100，然后线程C又把值修改为10。</li>
-<li>等到线程A拿到执行权时，因为当前值和内存值是一致的，线程A是可以修改的！</li>
-<li>站在线程A的角度来说，这个值是从未被修改的（：</li>
-<li>这是不合理的，因为我们从上帝的角度来看，这个变量已经被线程B和线程C修改过了。</li>
-<li>这就是所谓的ABA问题</li>
-<li>要解决ABA的问题，Java也提供了AtomicStampedReference类供我们用，说白了就是加了个版本，比对的就是内存值+版本是否一致</li>
-</ol>
-<h2 id="阿里巴巴开发手册提及到推荐使用LongAdder对象，比AtomicLong性能更好（减少乐观锁的重试次数）"><a href="#阿里巴巴开发手册提及到推荐使用LongAdder对象，比AtomicLong性能更好（减少乐观锁的重试次数）" class="headerlink" title="阿里巴巴开发手册提及到推荐使用LongAdder对象，比AtomicLong性能更好（减少乐观锁的重试次数）"></a>阿里巴巴开发手册提及到推荐使用LongAdder对象，比AtomicLong性能更好（减少乐观锁的重试次数）</h2><ol>
-<li>AtomicLong做累加的时候实际上就是多个线程操作同一个目标资源</li>
-<li>在高并发时，只有一个线程是执行成功的，其他的线程都会失败，不断自旋（重试），自旋会成为瓶颈</li>
-<li>而LongAdder的思想就是把要操作的目标资源「分散」到数组Cell中</li>
-<li>每个线程对自己的Cell变量的value进行原子操作，大大降低了失败的次数</li>
-<li>这就是为什么在高并发场景下，推荐使用LongAdder的原因</li>
-</ol>
-
-      
-    </div>
-
-    
-    
-    
-
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>l
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://example.com/posts/986aa405/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2182,6 +2027,161 @@
 <li>JDK动态代理会帮我们实现接口的方法，通过invokeHandler对所需要的方法进行增强。</li>
 <li>动态代理这一技术在实际或者框架原理中是非常常见的</li>
 <li>像上面所讲的Mybatis不用写实现类，只写接口就可以执行SQL，又或是SpringAOP等等好用的技术，实际上用的就是动态代理。</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>l
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/759e745e/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lion.png">
+      <meta itemprop="name" content="swimminghao">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="swimminghao's blog">
+      <meta itemprop="description" content="swimminghao的学习博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | swimminghao's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/759e745e/" class="post-title-link" itemprop="url">6、【对线面试官】CAS</a>
+        </h2>
+
+        <div class="post-meta-container">
+
+          
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-03-10 09:48:07" itemprop="dateModified" datetime="2022-03-10T09:48:07+08:00">2022-03-10</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/posts/759e745e/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/759e745e/" data-xid="/posts/759e745e/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>1k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>1 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="6、【对线面试官】CAS"><a href="#6、【对线面试官】CAS" class="headerlink" title="6、【对线面试官】CAS"></a>6、【对线面试官】CAS</h1><h2 id="今天我们来聊聊CAS吧？你对CAS了解多少？"><a href="#今天我们来聊聊CAS吧？你对CAS了解多少？" class="headerlink" title="今天我们来聊聊CAS吧？你对CAS了解多少？"></a>今天我们来聊聊CAS吧？你对CAS了解多少？</h2><ol>
+<li>CAS的全称为compare and swap，比较并交换</li>
+<li>虽然翻译过来是「比较并交换」，但它是一个原子性的操作，对应到CPU指令为cmpxchg</li>
+<li>cpu指令你都知道？-&gt;这没什么，都是背的。</li>
+<li>回到CAS上吧，CAS的操作其实非常简单。</li>
+<li>CAS有三个操作数：当前值A、内存值V、要修改的新值B</li>
+<li>假设当前值A跟内存值V相等，那就将内存值V改成B</li>
+<li>假设当前值A跟内存值V不相等，要么就重试，要么就放弃更新</li>
+<li>将当前值与内存值进行对比，判断是否有被修改过，这就是CAS的核心</li>
+</ol>
+<h2 id="确实，那为什么要用CAS呢？"><a href="#确实，那为什么要用CAS呢？" class="headerlink" title="确实，那为什么要用CAS呢？"></a>确实，那为什么要用CAS呢？</h2><ol>
+<li>嗯，要讲到CAS就不得不说synchronized锁了，它是Java锁..然后..</li>
+<li>ok，其实就是synchronized锁每次只会让一个线程去操作共享资源</li>
+<li>而CAS相当于没有加锁，多个线程都可以直接操作共享资源，在实际去修改的时候才去判断能否修改成功</li>
+<li>在很多的情况下会synchronized锁要高效很多</li>
+<li>比如，对一个值进行累加，就没必要使用synchronized锁，使用juc包下的Atomic类就足以。</li>
+</ol>
+<h2 id="了解，那你知道CAS会有什么缺点吗？"><a href="#了解，那你知道CAS会有什么缺点吗？" class="headerlink" title="了解，那你知道CAS会有什么缺点吗？"></a>了解，那你知道CAS会有什么缺点吗？</h2><ol>
+<li>CAS有个缺点就是会带来ABA的问题</li>
+<li>从CAS更新的时候，我们可以发现它只比对当前值和内存值是否相等，这会带来个问题，下面我举例说明下：</li>
+<li>假设线程A读到当前值是10，可能线程B把值修改为100，然后线程C又把值修改为10。</li>
+<li>等到线程A拿到执行权时，因为当前值和内存值是一致的，线程A是可以修改的！</li>
+<li>站在线程A的角度来说，这个值是从未被修改的（：</li>
+<li>这是不合理的，因为我们从上帝的角度来看，这个变量已经被线程B和线程C修改过了。</li>
+<li>这就是所谓的ABA问题</li>
+<li>要解决ABA的问题，Java也提供了AtomicStampedReference类供我们用，说白了就是加了个版本，比对的就是内存值+版本是否一致</li>
+</ol>
+<h2 id="阿里巴巴开发手册提及到推荐使用LongAdder对象，比AtomicLong性能更好（减少乐观锁的重试次数）"><a href="#阿里巴巴开发手册提及到推荐使用LongAdder对象，比AtomicLong性能更好（减少乐观锁的重试次数）" class="headerlink" title="阿里巴巴开发手册提及到推荐使用LongAdder对象，比AtomicLong性能更好（减少乐观锁的重试次数）"></a>阿里巴巴开发手册提及到推荐使用LongAdder对象，比AtomicLong性能更好（减少乐观锁的重试次数）</h2><ol>
+<li>AtomicLong做累加的时候实际上就是多个线程操作同一个目标资源</li>
+<li>在高并发时，只有一个线程是执行成功的，其他的线程都会失败，不断自旋（重试），自旋会成为瓶颈</li>
+<li>而LongAdder的思想就是把要操作的目标资源「分散」到数组Cell中</li>
+<li>每个线程对自己的Cell变量的value进行原子操作，大大降低了失败的次数</li>
+<li>这就是为什么在高并发场景下，推荐使用LongAdder的原因</li>
 </ol>
 
       
