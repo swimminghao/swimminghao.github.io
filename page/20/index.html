@@ -276,7 +276,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/4d79f088/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/c2bf7fb6/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/lion.png">
@@ -294,156 +294,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/4d79f088/" class="post-title-link" itemprop="url">面试官：说说你了解class文件吗？</a>
-        </h2>
-
-        <div class="post-meta-container">
-
-          
-
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-13 12:56:04" itemprop="dateModified" datetime="2022-03-13T12:56:04+08:00">2022-03-13</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="far fa-comment"></i>
-    </span>
-    <span class="post-meta-item-text">Waline：</span>
-  
-    <a title="waline" href="/posts/4d79f088/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/4d79f088/" data-xid="/posts/4d79f088/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>2.8k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>3 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="面试官：说说你了解class文件吗？"><a href="#面试官：说说你了解class文件吗？" class="headerlink" title="面试官：说说你了解class文件吗？"></a>面试官：说说你了解class文件吗？</h1><p><strong>本文思维导图：</strong></p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2rLXEs_20210507091957.png" alt="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/2rLXEs_20210507091957.png"></p>
-<h2 id="Class类文件结构"><a href="#Class类文件结构" class="headerlink" title="Class类文件结构"></a>Class类文件结构</h2><h2 id="为什么Java可以一次编译到处运行？JVM无关性"><a href="#为什么Java可以一次编译到处运行？JVM无关性" class="headerlink" title="为什么Java可以一次编译到处运行？JVM无关性"></a>为什么Java可以一次编译到处运行？JVM无关性</h2><p>与平台无关性是建立在操作系统上，虚拟机厂商提供了许多可以运行在各种不同平台的虚拟机，它们都可以载入和执行字节码，从而实现程序的“一次编写，到处运行”。</p>
-<p>各种不同平台的虚拟机与所有平台都统一使用的程序存储格式——字节码（Byte Code）是构成平台无关性的基石，也是语言无关性的基础。Java 虚拟机不和包括 Java 在内的任何语言绑定，它只与“Class 文件”这种特定的二进制文件格式所关联，Class 文件中包含了 Java 虚拟机指令集和符号表以及若干其他辅助信息。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/ZGOAdI_20210507092208.png" alt="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/ZGOAdI_20210507092208.png"></p>
-<h2 id="Class-类文件"><a href="#Class-类文件" class="headerlink" title="Class  类文件"></a>Class  类文件</h2><p>Java 技术能够一直保持非常好的向后兼容性，这点 Class 文件结构的稳定性功不可没。Java 已经发展到 14 版本，但是 class 文件结构的内容，绝大部分在JDK1.2 时代就已经定义好了。虽然 JDK1.2 的内容比较古老，但是 java 发展经历了十余个大版本，但是每次基本上知识在原有结构基础上新增内容、扩充功能，并未对定义的内容做修改。</p>
-<p>任何一个 Class 文件都对应着唯一一个类或接口的定义信息，但反过来说，Class 文件实际上它并不一定以磁盘文件的形式存在（比如可以动态生成、或者直接送入类加载器中）。</p>
-<p>Class 文件是一组以 8 位字节为基础单位的二进制流。</p>
-<h2 id="工具介绍"><a href="#工具介绍" class="headerlink" title="工具介绍"></a>工具介绍</h2><p>Sublime：查看 16 进制的编辑器<br>javap：javap 是 JDK 自带的反解析工具。它的作用是将 .class 字节码文件解析成可读的文件格式。<br>在使用 javap 时我一般会添加 -v 参数，尽量多打印一些信息。同时，我也会使用 -p 参数，打印一些私有的字段和方法。<br>jclasslib：如果你不太习惯使用命令行的操作，还可以使用 jclasslib，jclasslib 是一个图形化的工具，能够更加直观的查看字节码中的内容。它还分门别类的对类中的各个部分进行了整理，非常的人性化。同时，它还提供了 Idea 的插件，你可以从 plugins 中搜索到它。</p>
-<h2 id="Class-文件格式"><a href="#Class-文件格式" class="headerlink" title="Class  文件格式"></a>Class  文件格式</h2><p>从一个 Class 文件开始，整个 Class 文件的格式就是一个二进制的字节流。各个数据项目严格按照顺序紧凑地排列在 Class 文件之中，中间没有添加任何分隔符，这使得整个 Class 文件中存储的内容几乎全部是程序运行的必要数据，没有空隙存在。</p>
-<p>Class 文件格式采用一种类似于 C 语言结构体的伪结构来存储数据，这种伪结构中只有两种数据类型：无符号数和表。</p>
-<p>无符号数属于基本的数据类型，以 u1、u2、u4、u8 来分别代表 1 个字节（一个字节是由两位 16 进制数组成 （<strong>1个16进制数&#x3D;4个二进制数 8个二进制数&#x3D;一个字节</strong>））、2 个字节、4 个字节和 8 个字节的无符号数，无符号数可以用来描述数字、索引引用、数量值或者按照 UTF-8 编码构成字符串值。</p>
-<p>表是由多个无符号数或者其他表作为数据项构成的复合数据类型，所有表都习惯性地以“_info”结尾。表用于描述有层次关系的复合结构的数据，整个Class 文件本质上就是一张表。</p>
-<h2 id="Class-文件格式详解"><a href="#Class-文件格式详解" class="headerlink" title="Class  文件格式详解"></a>Class  文件格式详解</h2><p>Class 的结构不像 XML 等描述语言，由于它没有任何分隔符号，所以在其中的数据项，无论是顺序还是数量，都是被严格限定的，哪个字节代表什么含义，长度是多少，先后顺序如何，都不允许改变。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/mwHImZ_20210507115741.png" alt="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/mwHImZ_20210507115741.png"></p>
-<p>按顺序包括：</p>
-<h3 id="魔数与-Class-文件的版本"><a href="#魔数与-Class-文件的版本" class="headerlink" title="魔数与 Class  文件的版本"></a>魔数与 Class  文件的版本</h3><p>每个 Class 文件的头 4 个字节称为魔数（Magic Number），它的唯一作用是确定这个文件是否为一个能被虚拟机接受的 Class 文件。使用魔数而不是扩展名来进行识别主要是基于安全方面的考虑，因为文件扩展名可以随意地改动。文件格式的制定者可以自由地选择魔数值，只要这个魔数值还没有被广泛采用过同时又不会引起混淆即可。</p>
-<p>紧接着魔数的 4 个字节存储的是 Class 文件  的版本号：第 5 和第 6 个字节是次版本号（MinorVersion），第 7 和第 8 个字节是主版本号（Major Version）。</p>
-<p>Java 的版本号是从 45 开始的，JDK 1.1 之后的每个 JDK 大版本发布主版本号向上加 1 高版本的 JDK 能向下兼容以前版本的 Class 文件，但不能运行以后版本的 Class 文件，即使文件格式并未发生任何变化，虚拟机也必须拒绝执行超过其版本号的 Class 文件。<img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/1xvCIr_20210507115713.png" style = "width:20px height:1px" />代表 JDK1.8（16 进制的 34，换成 10 进制就是 52）</p>
-<h2 id="常量池"><a href="#常量池" class="headerlink" title="常量池"></a>常量池</h2><p>常量池中常量的数量是不固定的，所以在常量池的入口需要放置一项 u2 类型的数据，代表常量池容量计数值（constant_pool_count）。与 Java 中语言习惯不一样的是，这个容量计数是从 1 而不是 0 开始的</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/L7NUe4_20210507115859.png"></p>
-<p>常量池中主要存放两大类常量：字面量（Literal）和符号引用（Symbolic References）。<br>字面量比较接近于 Java 语言层面的常量概念，如文本字符串、声明为 final 的常量值等。<br>符号引用则属于编译原理方面的概念，包括了下面三类常量：类和接口的全限定名（Fully Qualified Name）、字段的名称和描述符（Descriptor）、方法的名称和描述符</p>
-<h3 id="访问标志"><a href="#访问标志" class="headerlink" title="访问标志"></a>访问标志</h3><p>用于识别一些类或者接口层次的访问信息，包括：这个 Class 是类还是接口；是否定义为 public 类型；是否定义为 abstract 类型；如果是类的话，是否被声明为 final 等</p>
-<h3 id="类索引、父类索引与接口索引集合"><a href="#类索引、父类索引与接口索引集合" class="headerlink" title="类索引、父类索引与接口索引集合"></a>类索引、父类索引与接口索引集合</h3><p>这三项数据来确定类的继承关系。类索引用于确定这个类的全限定名，父类索引用于确定这个类的父类的全限定名。由于 Java 语言不允许多重继承，所以父类索引只有一个，除了 java.lang.Object 之外，所有的 Java 类都有父类，因此除了java.lang.Object 外，所有 Java 类的父类索引都不为 0。接口索引集合就用来描述这个类实现了哪些接口，这些被实现的接口将按 implements 语句（如果这个类本身是一个接口，则应当是 extends 语句）后的接口顺序从左到右排列在接口索引集合中</p>
-<h3 id="字段表集合"><a href="#字段表集合" class="headerlink" title="字段表集合"></a>字段表集合</h3><p>描述接口或者类中声明的变量。字段（field）包括类级变量以及实例级变量。<br>而字段叫什么名字、字段被定义为什么数据类型，这些都是无法固定的，只能引用常量池中的常量来描述。字段表集合中不会列出从超类或者父接口中继承而来的字段，但有可能列出原本 Java 代码之中不存在的字段，譬如在内部类中为了保持对外部类的访问性，会自动添加指向外部类实例的字段。</p>
-<h3 id="方法表集合"><a href="#方法表集合" class="headerlink" title="方法表集合"></a>方法表集合</h3><p>描述了方法的定义，但是方法里的 Java 代码，经过编译器编译成字节码指令后，存放在属性表集合中的方法属性表集合中一个名为“Code”的属性里面。</p>
-<p>与字段表集合相类似的，如果父类方法在子类中没有被重写（Override），方法表集合中就不会出现来自父类的方法信息。但同样的，有可能会出现由编译器自动添加的方法，最典型的便是类构造器“＜clinit＞”方法和实例构造器“＜init＞”</p>
-<h3 id="属性表集合"><a href="#属性表集合" class="headerlink" title="属性表集合"></a>属性表集合</h3><p>存储 Class 文件、字段表、方法表都自己的属性表集合，以用于描述某些场景专有的信息。如方法的代码就存储在 Code 属性表中。</p>
-
-      
-    </div>
-
-    
-    
-    
-
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>l
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/31fa5cf/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/lion.png">
-      <meta itemprop="name" content="swimminghao">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="swimminghao's blog">
-      <meta itemprop="description" content="swimminghao的学习博客">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | swimminghao's blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/31fa5cf/" class="post-title-link" itemprop="url">12、【对线面试官】List</a>
+          <a href="/posts/c2bf7fb6/" class="post-title-link" itemprop="url">14、【对线面试官】SpringMVC</a>
         </h2>
 
         <div class="post-meta-container">
@@ -485,8 +336,8 @@
     </span>
     <span class="post-meta-item-text">Waline：</span>
   
-    <a title="waline" href="/posts/31fa5cf/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/31fa5cf/" data-xid="/posts/31fa5cf/" itemprop="commentCount"></span>
+    <a title="waline" href="/posts/c2bf7fb6/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/c2bf7fb6/" data-xid="/posts/c2bf7fb6/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -497,192 +348,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>2k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>2 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="12、【对线面试官】List"><a href="#12、【对线面试官】List" class="headerlink" title="12、【对线面试官】List"></a>12、【对线面试官】List</h1><h2 id="要不今天来讲讲Java的List吧，你对List了解多少？"><a href="#要不今天来讲讲Java的List吧，你对List了解多少？" class="headerlink" title="要不今天来讲讲Java的List吧，你对List了解多少？"></a>要不今天来讲讲Java的List吧，你对List了解多少？</h2><ol>
-<li>List在Java里边是一个接口，常见的实现类有ArrayList和LinkedList，在开发中用得最多的是ArrayList</li>
-<li>ArrayList的底层数据结构是数组，Linked List底层数据结构是链表。</li>
-</ol>
-<h2 id="那Java本身就有数组了，为什么要用ArrayList呢？"><a href="#那Java本身就有数组了，为什么要用ArrayList呢？" class="headerlink" title="那Java本身就有数组了，为什么要用ArrayList呢？"></a>那Java本身就有数组了，为什么要用ArrayList呢？</h2><ol>
-<li>原生的数组会有一个特点：你在使用的时候必须要为它创建大小，而ArrayList不用。</li>
-<li>在日常开发的时候，往往我们是不知道要给数组分配多大（不固定）</li>
-<li>如果数组的大小指定多了，内存浪费；如果数组大小指定少了，装不下。</li>
-<li>假设我们给定数组的大小是10，要往这个数组里边填充元素，我们只能添加10个元素。</li>
-<li>而ArrayList不一样，ArrayList我们在使用的时候可以往里边添加20个，30个，甚至更多的元素</li>
-<li>因为ArrayList是实现了动态扩容的<ol>
-<li>当我们new ArrayList（）的时候，默认会有一个空的Object数组，大小为0。</li>
-<li>当我们第一次add添加数据的时候，会给这个数组初始化一个大小，这个大小默认值为10</li>
-<li>使用ArrayList在每一次add的时候，它都会先去计算这个数组够不够空间</li>
-<li>如果空间是够的，那直接追加上去就好了。如果不够，那就得扩容</li>
-</ol>
-</li>
-</ol>
-<h2 id="那怎么扩容？一次扩多少？"><a href="#那怎么扩容？一次扩多少？" class="headerlink" title="那怎么扩容？一次扩多少？"></a>那怎么扩容？一次扩多少？</h2><ol>
-<li>在源码里边，有个grow方法，每一次扩原来的1.5倍。比如说，初始化的值是10嘛。</li>
-<li>现在我第11个元素要进来了，发现这个数组的空间不够了，所以会扩到15</li>
-<li>空间扩完容之后，会调用arraycopy来对数组进行拷贝</li>
-</ol>
-<h2 id="我又想问问，为什么你在前面提到，在日常开发中用得最多的是ArrayList呢？"><a href="#我又想问问，为什么你在前面提到，在日常开发中用得最多的是ArrayList呢？" class="headerlink" title="我又想问问，为什么你在前面提到，在日常开发中用得最多的是ArrayList呢？"></a>我又想问问，为什么你在前面提到，在日常开发中用得最多的是ArrayList呢？</h2><ol>
-<li>是由底层的数据结构来决定的，在日常开发中，遍历的需求比增删要多，即便是增删也是往往在List的尾部添加就OK了。</li>
-<li>像在尾部添加元素，ArrayList的时间复杂度也就O（1）</li>
-<li>另外的是，ArrayList的增删底层调用的copyOf（）被优化过</li>
-<li>现代CPU对内存可以块操作，ArrayList的增删一点儿也不会比LinkedList慢</li>
-</ol>
-<h2 id="了解，Vector你知道这个吗？"><a href="#了解，Vector你知道这个吗？" class="headerlink" title="了解，Vector你知道这个吗？"></a>了解，Vector你知道这个吗？</h2><ol>
-<li>嗯，Vector是底层结构是数组，一般现在我们已经很少用了。</li>
-<li>相对于ArrayList，它是线程安全的，在扩容的时候它是直接扩容两倍的</li>
-<li>比如现在有10个元素，要扩容的时候，就会将数组的大小增长到20</li>
-</ol>
-<h2 id="嗯，那如果我们不用Vector，线程安全的List还有什么？"><a href="#嗯，那如果我们不用Vector，线程安全的List还有什么？" class="headerlink" title="嗯，那如果我们不用Vector，线程安全的List还有什么？"></a>嗯，那如果我们不用Vector，线程安全的List还有什么？</h2><ol>
-<li>首先，我们也可以用Collections来将ArayList来包装一下，变成线程安全。&#96;</li>
-<li>在java.util.concurrent包下还有一个类，叫做CopyOnWriteArrayList</li>
-<li>要讲CopyOnWriteArrayList之前，我还是想说说copy-on-write这个意思，下面我会简称为cow</li>
-<li>比如说在Linux中，我们知道所有的进程都是init进程fork出来的</li>
-<li>除了进程号之外，fork出来的子进程，默认跟父进程是一模一样的。</li>
-<li>当使用了cow机制；子进程在被fork之后exec之前，两个进程用的是相同的内存空间的</li>
-<li>这意味着子进程的代码段、数据段、堆栈都是指向父进程的物理空间</li>
-<li>当父子进程中有更改的行为发生时，再为子进程分配相应物理空间。</li>
-<li>这样做的好处就是，等到真正发生修改的时候，才去分配资源，可以减少分配或者复制大量资源时带来的瞬间延时。</li>
-<li>简单来说，就可以理解为我们的懒加载，或者说单例模式的懒汉式。等真正用到的时候再分配</li>
-<li>在文件系统中，其实也有cow的机制。</li>
-<li>文件系统的cow就是在修改数据的时候，不会直接在原来的数据位置上进行操作，而是重新找个位置修改。</li>
-<li>比如说：要修改数据块A的内容，先把A读出来，写到B块里面去。</li>
-<li>如果这时候断电了，原来A的内容还在。这样做的好处就是可以保证数据的完整性，瞬间挂掉了容易恢复。</li>
-</ol>
-<h2 id="你还是回到CopyOnWriteArrayList上吧；你说的cow机制我了解了"><a href="#你还是回到CopyOnWriteArrayList上吧；你说的cow机制我了解了" class="headerlink" title="你还是回到CopyOnWriteArrayList上吧；你说的cow机制我了解了"></a>你还是回到CopyOnWriteArrayList上吧；你说的cow机制我了解了</h2><ol>
-<li>额。CopyOnWriteArrayList是一个线程安全的List，底层是通过复制数组的方式来实现的。</li>
-<li>要不我来简单说说它的add（）方法的实现吧</li>
-<li>在add（）方法的实现里，首先他会加lock锁锁住然后会复制出一个新的数组，往新的数组里边add真正的元素最后把 array的指向改变为新的数组</li>
-<li>get（）方法又或是size（）方法只是获取array所指向的数组的元素或者大小</li>
-<li>可以发现的是， CopyOnWriteArrayList</li>
-<li>跟文件系统的COW机制是很像的</li>
-</ol>
-<h2 id="那你能说说CopyOnWriteArrayList有什么缺点吗？"><a href="#那你能说说CopyOnWriteArrayList有什么缺点吗？" class="headerlink" title="那你能说说CopyOnWriteArrayList有什么缺点吗？"></a>那你能说说CopyOnWriteArrayList有什么缺点吗？</h2><ol>
-<li>很显然， CopyOnWriteArrayList是很耗费内存的，每次set（）add（）都会复制一个数组出来</li>
-<li>另外就是 Copy On WriteArrayList只能保证数据的最终一致性，不能保证数据的实时一致性。</li>
-<li>假设两个线程，线程A去读 CopyOnWri取 teArrayList的数据，还没读完</li>
-<li>现在线程B把这个List给清空了，线程A此时还是可以把剩余的数据给读出来。</li>
-</ol>
-
-      
-    </div>
-
-    
-    
-    
-
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>l
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/58f7b356/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/lion.png">
-      <meta itemprop="name" content="swimminghao">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="swimminghao's blog">
-      <meta itemprop="description" content="swimminghao的学习博客">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | swimminghao's blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/58f7b356/" class="post-title-link" itemprop="url">11、【对线面试官】CountDownLatch和CyclicBarrier</a>
-        </h2>
-
-        <div class="post-meta-container">
-
-          
-
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-10 09:48:07" itemprop="dateModified" datetime="2022-03-10T09:48:07+08:00">2022-03-10</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="far fa-comment"></i>
-    </span>
-    <span class="post-meta-item-text">Waline：</span>
-  
-    <a title="waline" href="/posts/58f7b356/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/58f7b356/" data-xid="/posts/58f7b356/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>1.6k</span>
+      <span>1.4k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -700,199 +366,60 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="11、【对线面试官】CountDownLatch和CyclicBarrier"><a href="#11、【对线面试官】CountDownLatch和CyclicBarrier" class="headerlink" title="11、【对线面试官】CountDownLatch和CyclicBarrier"></a>11、【对线面试官】CountDownLatch和CyclicBarrier</h1><h2 id="我现在有个场景：现在我有50个任务，这50个任务在完成之后，才能执行下一个「函数」，要是你，你怎么设计？"><a href="#我现在有个场景：现在我有50个任务，这50个任务在完成之后，才能执行下一个「函数」，要是你，你怎么设计？" class="headerlink" title="我现在有个场景：现在我有50个任务，这50个任务在完成之后，才能执行下一个「函数」，要是你，你怎么设计？"></a>我现在有个场景：现在我有50个任务，这50个任务在完成之后，才能执行下一个「函数」，要是你，你怎么设计？</h2><ol>
-<li>可以用JDK给我们提供的线程工具类，CountDownLatch和CyclicBarrier都可以完成这个需求。</li>
-<li>这两个类都可以等到线程完成之后，才去执行某些操作</li>
+          <h1 id="14、【对线面试官】SpringMVC"><a href="#14、【对线面试官】SpringMVC" class="headerlink" title="14、【对线面试官】SpringMVC"></a>14、【对线面试官】SpringMVC</h1><h2 id="今天要不来聊聊SpringMVC吧？"><a href="#今天要不来聊聊SpringMVC吧？" class="headerlink" title="今天要不来聊聊SpringMVC吧？"></a>今天要不来聊聊SpringMVC吧？</h2><ol>
+<li>我先简单说下我对SpringMVC的理解哈</li>
+<li>SpringMVC我觉得它是对Servlet的封装，屏蔽掉Servlet很多的细节卫</li>
+<li>接下来我举几个例子</li>
+<li>可能我们刚学Servlet的时候，要获取参数需要不断的getParameter</li>
+<li>现在只要在SpringMVC方法定义对应的J avaBean，只要属性名与参数名一致，SpringMVC就可以帮我们实现「将参数封装到JavaBean」上了</li>
+<li>又比如，以前使用Servlet 「上传文件」，需要处理各种细节，写一大堆处理的逻辑（还得导入对应的jar）</li>
+<li>现在一个在SpringMVC的方法上定义出MultipartFile接口，又可以屏蔽掉上传文件的细节了。</li>
+<li>例子还有很多，我就不赘述了。</li>
 </ol>
-<h2 id="那既然都能实现的话？那CountDownLatch和CyclicBarrier有什么什么区别呢？"><a href="#那既然都能实现的话？那CountDownLatch和CyclicBarrier有什么什么区别呢？" class="headerlink" title="那既然都能实现的话？那CountDownLatch和CyclicBarrier有什么什么区别呢？"></a>那既然都能实现的话？那CountDownLatch和CyclicBarrier有什么什么区别呢？</h2><ul>
-<li>主要的区别就是CountDownLatch用完了，就结束了，没法复用。而CyclicBarrier不一样，它可以复用。</li>
-<li>比如说，你得给我解释：CountDownLatch和CyclicBarrier都是线程同步的工具类<br>od</li>
-<li>CountDownLatch允许一个或多个线程一直等待，直到这些线程完成它们的操作</li>
-<li>而CyclicBarrier不一样，它往往是当线程到达某状态后，暂停下来等待其他线程等到所有线程均到达以后，才继续执行</li>
-<li>可以发现这两者的等待主体是不一样的。</li>
-<li>CountDownLatch调用await（）通常是主线程&#x2F;调用线程，而CyclicBarrier调用await（）是在任务线程调用的</li>
-<li>所以，CyclicBarrier中的阻塞的是任务的线程，而主线程是不受影响的</li>
-<li>简单叙述完这些基本概念后，可以特意抛出这两个类都是基于AQS实现的</li>
-<li>countDownLatch<ol>
-<li>前面提到了CountDownLatch也是基于AQS实现的，它的实现机制很简单</li>
-<li>当我们在构建CountDownLatch对象时，传入的值其实就会赋值给AQS的关键变量state</li>
-<li>执行countDown方法时，其实就是利用CAS将state-1<br>执行await方法时，其实就是判断state是否为0，不为0则加入到队列中，将该线程阻塞掉（除了头结点）</li>
-<li>因为头节点会一直自旋等待state为0，当state为0时，头节点把剩余的在队列中阻塞的节点也一并唤醒</li>
-</ol>
-</li>
-<li>CycllicBarrier<ol>
-<li>从源码不难发现的是，它没有像CountDo wnLatch和ReentrantLock使用AQS的stat e变量，而CyclicBarrier是直接借助ReentrantLock加上Condition等待唤醒的功能进而实现的</li>
-<li>在构建CyclicBarrier时，传入的值会赋值给CyclicBarrier内部维护count变量，也会赋值给parties变量（这是可以复用的关键）</li>
-<li>每次调用await时，会将count-1，操作count值是直接使用ReentrantLock来保证线程安全性</li>
-<li>如果count不为0，则添加则condition队列中</li>
-<li>如果count等于0时，则把节点从condition队列添加至AQS的队列中进行全部唤醒，并且将parties的值重新赋值为count的值（实现复用）</li>
-</ol>
-</li>
-</ul>
-<h2 id="那如果是这样的话，那我多次用CountDownLatch不也可以解决问题吗？"><a href="#那如果是这样的话，那我多次用CountDownLatch不也可以解决问题吗？" class="headerlink" title="那如果是这样的话，那我多次用CountDownLatch不也可以解决问题吗？"></a>那如果是这样的话，那我多次用CountDownLatch不也可以解决问题吗？</h2><ol>
-<li>是这样的，我提出了个场景，它确实很像可以用CountDownLatch和CyclicBarrier解决</li>
-<li>但是，作为面试者的你可以尝试向我获取更多的信息</li>
-<li>我可没说一个任务就用一个线程处理哦</li>
-<li>放一步讲，即便我是想考察CountDownLatch和CyclicBarrier的知识，但是过程也是很重要的。我会看你在这个过程中思考的以及沟通</li>
-</ol>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ol>
-<li>CountDownlatch基于AQS实现，会将构造CountDownLatch的入参传递至state，countDown（）就是在利用CAS将state减- 1，await（）实际就是让头节点一直在等待s tate为0时，释放所有等待的线程</li>
-<li>而CyclicBarrier则利用ReentrantLock和Condition，自身维护了count和parties变量。每次调用await将count-1，并将线程加入到condition队列上。等到count为0时，则将condition队列的节点移交至AQS队列，并全部释放。</li>
-<li></li>
-</ol>
-
-      
-    </div>
-
-    
-    
-    
-
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>l
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/2d4446ad/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/lion.png">
-      <meta itemprop="name" content="swimminghao">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="swimminghao's blog">
-      <meta itemprop="description" content="swimminghao的学习博客">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | swimminghao's blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/2d4446ad/" class="post-title-link" itemprop="url">10、【对线面试官】TreadLocal</a>
-        </h2>
-
-        <div class="post-meta-container">
-
-          
-
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-10 09:48:07" itemprop="dateModified" datetime="2022-03-10T09:48:07+08:00">2022-03-10</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="far fa-comment"></i>
-    </span>
-    <span class="post-meta-item-text">Waline：</span>
-  
-    <a title="waline" href="/posts/2d4446ad/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/2d4446ad/" data-xid="/posts/2d4446ad/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>982</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>1 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="10、【对线面试官】TreadLocal"><a href="#10、【对线面试官】TreadLocal" class="headerlink" title="10、【对线面试官】TreadLocal"></a>10、【对线面试官】TreadLocal</h1><h2 id="今天要不来聊聊ThreadLocal吧？"><a href="#今天要不来聊聊ThreadLocal吧？" class="headerlink" title="今天要不来聊聊ThreadLocal吧？"></a>今天要不来聊聊ThreadLocal吧？</h2><ol>
-<li>我个人对ThreadLocal理解就是</li>
-<li>它能够提供了线程的局部变量让每个线程都可以通过set&#x2F;get来对这个局部变量进行操作</li>
-<li>不会和其他线程的局部变量进行冲突，实现了线程的数据隔离</li>
-</ol>
-<h2 id="你在工作中有用到过ThreadLocal吗？"><a href="#你在工作中有用到过ThreadLocal吗？" class="headerlink" title="你在工作中有用到过ThreadLocal吗？"></a>你在工作中有用到过ThreadLocal吗？</h2><ol>
-<li>这块是真不多，不过还是有一处的。就是我们项目有个的DateUtils工具类</li>
-<li>这个工具类主要是对时间进行格式化</li>
-<li>格式化&#x2F;转化的实现是用的SimpleDateFormat</li>
-<li>但众所周知SimpleDateFormat不是线程安全的 ，所以我们就用ThreadLocal来让每个线程装载着自己的SimpleDateFormat对象</li>
-<li>以达到在格式化时间时，线程安全的目的</li>
-<li>在方法上创建SimpleDateFormat对象也没问题，但每调用一次就创建一次有点不优雅</li>
-<li>在工作中ThreadLocal的应用场景确实不多，但要不我给你讲讲Spring是怎么用的？</li>
-</ol>
-<h2 id="spring中的应用"><a href="#spring中的应用" class="headerlink" title="spring中的应用"></a>spring中的应用</h2><ol>
-<li>Spring提供了事务相关的操作，而我们知道事务是得保证一组操作同时成功或失败的</li>
-<li>这意味着我们一次事务的所有操作需要在同一个数据库连接上</li>
-<li>但是在我们日常写代码的时候是不需要关注这点的</li>
-<li>Spring就是用的ThreadLocal来实现，Th readLocal存储的类型是一个Map</li>
-<li>Map中的key是DataSource，value是C onnection（为了应对多数据源的情况，所以是一个Map）</li>
-<li>用了ThreadLocal保证了同一个线程获取一个Connection对象，从而保证一次事务的所有操作需要在同一个数据库连接上</li>
-</ol>
-<h2 id="你知道ThreadLocal内存泄露这个知识点吗？"><a href="#你知道ThreadLocal内存泄露这个知识点吗？" class="headerlink" title="你知道ThreadLocal内存泄露这个知识点吗？"></a>你知道ThreadLocal内存泄露这个知识点吗？</h2><ol>
-<li>了解的，要不我先来讲讲ThreadLocal的原理？<ul>
-<li>ThreadLocal是一个壳子，真正的存储结构是ThreadLocal里有ThreadLocalMap这么个内部类</li>
-<li>而有趣的是，ThreadLocalMap的引用是在Thread上定义的</li>
-<li>ThreadLocal本身并不存储值，它只是作为key来让线程从ThreadLocalMap获取value</li>
-<li>所以，得出的结论就是ThreadLocalMap该结构本身就在Thread下定义，而ThreadLocal只是作为key，存储set到ThreadLocalMap的变量当然是线程私有的咯</li>
+<h2 id="既然你说SpringMVC是对Servlet的封装，你了解SpringMVC请求处理的流程吗？"><a href="#既然你说SpringMVC是对Servlet的封装，你了解SpringMVC请求处理的流程吗？" class="headerlink" title="既然你说SpringMVC是对Servlet的封装，你了解SpringMVC请求处理的流程吗？"></a>既然你说SpringMVC是对Servlet的封装，你了解SpringMVC请求处理的流程吗？</h2><ol>
+<li>总体流程大概是这样的<ul>
+<li>首先有个统一处理请求的入口</li>
+<li>随后根据请求路径找到对应的映射器</li>
+<li>找到处理请求的适配器</li>
+<li>4）：拦截器前置处理</li>
+<li>5）：真实处理请求（也就是调用真正的代码）</li>
+<li>6）：视图解析器处理</li>
+<li>7）：拦截器后置处理</li>
 </ul>
 </li>
 </ol>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/NxSnnq_20211029171330.png"></p>
+<h2 id="嗯，了解，可以再稍微深入点吗？"><a href="#嗯，了解，可以再稍微深入点吗？" class="headerlink" title="嗯，了解，可以再稍微深入点吗？"></a>嗯，了解，可以再稍微深入点吗？</h2><ol>
+<li>统一的处理入口，对应SpringMVC下的源码是在DispatcherServlet下实现的</li>
+<li>该对象在初始化就会把映射器、适配器、视图解析器、异常处理器、文件处理器等等给初始化掉</li>
+<li>至于会初始化哪些具体实例，看下DispatcherServlet.properties就知道了，都配置在那了</li>
+<li>所有的请求其实都会被doService方法处理，里边最主要就是调用doDispatch方法</li>
+<li>通过doDispatch方法我们就可以看到整个SpringMVC处理的流程</li>
+<li>查找映射器的时候实际就是找到「最佳匹配」的路径，具体方法实现我记得好像是在lookupHandlerMethod方法上</li>
+<li>从源码可以看到「查找映射器」实际返回的是HandlerExecutionChain，里边有映射器Handler+拦截器List</li>
+<li>前面提到的拦截器前置处理和后置处理就是用的HandlerExecutionChain中的拦截器List</li>
+<li>获取得到HandlerExecutionChain后，就会去获取适配器，一般我们获取得到的就是RequestMappingHandlerAdapter</li>
+<li>在代码里边可以看到的是，经常用到的@ResponseBody和@Requestbody的解析器</li>
+<li>就会在初始化的时候加到参数解析器List中</li>
+<li>得到适配器之后，就会执行拦截器前置处理</li>
+<li>拦截器前置处理执行完后，就会调用适配器对象实例的hanlde方法执行真正的代码逻辑处理</li>
+<li>核心的处理逻辑在invokeAndHandle方法中，会获取得到请求的参数并调用，处理返回值</li>
+<li>参数的封装以及处理会被适配器的参数解析器进行处理，具体的处理逻辑取决于HttpMessageConverter的实例对象</li>
+</ol>
+<h2 id="嗯，了解了。要不你再压缩下关键的信息"><a href="#嗯，了解了。要不你再压缩下关键的信息" class="headerlink" title="嗯，了解了。要不你再压缩下关键的信息"></a>嗯，了解了。要不你再压缩下关键的信息</h2><ol>
+<li><p>DispatcherServlet （入口）</p>
+</li>
+<li><p>DispatcherServlet.properties（会初始化的对象）</p>
+</li>
+<li><p>HandlerMapping （映射器，</p>
+</li>
+<li><p>HandlerExecutionChain（映射器最终实例+拦截器List）</p>
+</li>
+<li><p>HttpRequestHandlerAdapter（适配器</p>
+</li>
+<li><p>HttpMessageConverter（数据转换</p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/ERUrGo_20211029183808.png"></p>
+</li>
+</ol>
 
       
     </div>
@@ -1273,181 +800,6 @@
 <li>Spring实例化一个bean的时候，是分两步进行的，首先实例化目标bean，然后为其注入属性。</li>
 </ul>
 <p>结合这两点，也就是说，Spring在实例化一个bean的时候，是首先递归的实例化其所依赖的所有bean，直到某个bean没有依赖其他bean，此时就会将该实例返回，然后反递归的将获取到的bean设置为各个上层bean的属性的。</p>
-</li>
-</ol>
-
-      
-    </div>
-
-    
-    
-    
-
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>l
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/c2bf7fb6/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/lion.png">
-      <meta itemprop="name" content="swimminghao">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="swimminghao's blog">
-      <meta itemprop="description" content="swimminghao的学习博客">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | swimminghao's blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/c2bf7fb6/" class="post-title-link" itemprop="url">14、【对线面试官】SpringMVC</a>
-        </h2>
-
-        <div class="post-meta-container">
-
-          
-
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-10 09:48:07" itemprop="dateModified" datetime="2022-03-10T09:48:07+08:00">2022-03-10</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="far fa-comment"></i>
-    </span>
-    <span class="post-meta-item-text">Waline：</span>
-  
-    <a title="waline" href="/posts/c2bf7fb6/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/c2bf7fb6/" data-xid="/posts/c2bf7fb6/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>1.4k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>1 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="14、【对线面试官】SpringMVC"><a href="#14、【对线面试官】SpringMVC" class="headerlink" title="14、【对线面试官】SpringMVC"></a>14、【对线面试官】SpringMVC</h1><h2 id="今天要不来聊聊SpringMVC吧？"><a href="#今天要不来聊聊SpringMVC吧？" class="headerlink" title="今天要不来聊聊SpringMVC吧？"></a>今天要不来聊聊SpringMVC吧？</h2><ol>
-<li>我先简单说下我对SpringMVC的理解哈</li>
-<li>SpringMVC我觉得它是对Servlet的封装，屏蔽掉Servlet很多的细节卫</li>
-<li>接下来我举几个例子</li>
-<li>可能我们刚学Servlet的时候，要获取参数需要不断的getParameter</li>
-<li>现在只要在SpringMVC方法定义对应的J avaBean，只要属性名与参数名一致，SpringMVC就可以帮我们实现「将参数封装到JavaBean」上了</li>
-<li>又比如，以前使用Servlet 「上传文件」，需要处理各种细节，写一大堆处理的逻辑（还得导入对应的jar）</li>
-<li>现在一个在SpringMVC的方法上定义出MultipartFile接口，又可以屏蔽掉上传文件的细节了。</li>
-<li>例子还有很多，我就不赘述了。</li>
-</ol>
-<h2 id="既然你说SpringMVC是对Servlet的封装，你了解SpringMVC请求处理的流程吗？"><a href="#既然你说SpringMVC是对Servlet的封装，你了解SpringMVC请求处理的流程吗？" class="headerlink" title="既然你说SpringMVC是对Servlet的封装，你了解SpringMVC请求处理的流程吗？"></a>既然你说SpringMVC是对Servlet的封装，你了解SpringMVC请求处理的流程吗？</h2><ol>
-<li>总体流程大概是这样的<ul>
-<li>首先有个统一处理请求的入口</li>
-<li>随后根据请求路径找到对应的映射器</li>
-<li>找到处理请求的适配器</li>
-<li>4）：拦截器前置处理</li>
-<li>5）：真实处理请求（也就是调用真正的代码）</li>
-<li>6）：视图解析器处理</li>
-<li>7）：拦截器后置处理</li>
-</ul>
-</li>
-</ol>
-<h2 id="嗯，了解，可以再稍微深入点吗？"><a href="#嗯，了解，可以再稍微深入点吗？" class="headerlink" title="嗯，了解，可以再稍微深入点吗？"></a>嗯，了解，可以再稍微深入点吗？</h2><ol>
-<li>统一的处理入口，对应SpringMVC下的源码是在DispatcherServlet下实现的</li>
-<li>该对象在初始化就会把映射器、适配器、视图解析器、异常处理器、文件处理器等等给初始化掉</li>
-<li>至于会初始化哪些具体实例，看下DispatcherServlet.properties就知道了，都配置在那了</li>
-<li>所有的请求其实都会被doService方法处理，里边最主要就是调用doDispatch方法</li>
-<li>通过doDispatch方法我们就可以看到整个SpringMVC处理的流程</li>
-<li>查找映射器的时候实际就是找到「最佳匹配」的路径，具体方法实现我记得好像是在lookupHandlerMethod方法上</li>
-<li>从源码可以看到「查找映射器」实际返回的是HandlerExecutionChain，里边有映射器Handler+拦截器List</li>
-<li>前面提到的拦截器前置处理和后置处理就是用的HandlerExecutionChain中的拦截器List</li>
-<li>获取得到HandlerExecutionChain后，就会去获取适配器，一般我们获取得到的就是RequestMappingHandlerAdapter</li>
-<li>在代码里边可以看到的是，经常用到的@ResponseBody和@Requestbody的解析器</li>
-<li>就会在初始化的时候加到参数解析器List中</li>
-<li>得到适配器之后，就会执行拦截器前置处理</li>
-<li>拦截器前置处理执行完后，就会调用适配器对象实例的hanlde方法执行真正的代码逻辑处理</li>
-<li>核心的处理逻辑在invokeAndHandle方法中，会获取得到请求的参数并调用，处理返回值</li>
-<li>参数的封装以及处理会被适配器的参数解析器进行处理，具体的处理逻辑取决于HttpMessageConverter的实例对象</li>
-</ol>
-<h2 id="嗯，了解了。要不你再压缩下关键的信息"><a href="#嗯，了解了。要不你再压缩下关键的信息" class="headerlink" title="嗯，了解了。要不你再压缩下关键的信息"></a>嗯，了解了。要不你再压缩下关键的信息</h2><ol>
-<li><p>DispatcherServlet （入口）</p>
-</li>
-<li><p>DispatcherServlet.properties（会初始化的对象）</p>
-</li>
-<li><p>HandlerMapping （映射器，</p>
-</li>
-<li><p>HandlerExecutionChain（映射器最终实例+拦截器List）</p>
-</li>
-<li><p>HttpRequestHandlerAdapter（适配器</p>
-</li>
-<li><p>HttpMessageConverter（数据转换</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/ERUrGo_20211029183808.png"></p>
 </li>
 </ol>
 
@@ -2026,6 +1378,785 @@
 <li>Redis的官网啊，看了这么多技术官网，我觉得Redis的官网弄得是真不错</li>
 <li>《Redis设计与实现》这本书也挺不错的</li>
 </ol>
+
+      
+    </div>
+
+    
+    
+    
+
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>l
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/49c930c7/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lion.png">
+      <meta itemprop="name" content="swimminghao">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="swimminghao's blog">
+      <meta itemprop="description" content="swimminghao的学习博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | swimminghao's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/49c930c7/" class="post-title-link" itemprop="url">19、【对线面试官】kafka基础</a>
+        </h2>
+
+        <div class="post-meta-container">
+
+          
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-03-10 09:48:07" itemprop="dateModified" datetime="2022-03-10T09:48:07+08:00">2022-03-10</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/posts/49c930c7/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/49c930c7/" data-xid="/posts/49c930c7/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>1.7k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>2 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="19、【对线面试官】kafka基础"><a href="#19、【对线面试官】kafka基础" class="headerlink" title="19、【对线面试官】kafka基础"></a>19、【对线面试官】kafka基础</h1><h2 id="今天要不来聊聊消息队列吧？我看你项目不少地方都写到Kafka了-你简单说明下你使用Kafka的场景吧"><a href="#今天要不来聊聊消息队列吧？我看你项目不少地方都写到Kafka了-你简单说明下你使用Kafka的场景吧" class="headerlink" title="今天要不来聊聊消息队列吧？我看你项目不少地方都写到Kafka了.你简单说明下你使用Kafka的场景吧"></a>今天要不来聊聊消息队列吧？我看你项目不少地方都写到Kafka了.你简单说明下你使用Kafka的场景吧</h2><ol>
+<li><p>使用消息队列的目的总的来说可以有三种情况：解耦、异步和削峰</p>
+</li>
+<li><p>比如举我项目的例子吧，我现在维护一个消息管理平台系统，对外提供发送接口给各个业务方调用</p>
+</li>
+<li><p>他们调用接口之后，实际上『不是同步』下发了消息。</p>
+</li>
+<li><p>在接口处理层只是把该条消息放到了消息队列上，随后就直接返回结果给接口调用者了。</p>
+</li>
+<li><p>这样的好处就是：</p>
+<p>1）接口的吞吐量会大幅度提高（因为未做真正实际调用，接口RT会非常低）【异步】</p>
+<p>2）即便有大批量的消息调用接口都不会让系统受到影响（流量由消息队列承载）【削峰】</p>
+</li>
+</ol>
+<h2 id="有点抽象，再举个实际案例？"><a href="#有点抽象，再举个实际案例？" class="headerlink" title="有点抽象，再举个实际案例？"></a>有点抽象，再举个实际案例？</h2><ol>
+<li><p>又比如说，我这边还有个项目是广告订单归因工程，主要做的事情就是得到订单数据，给各个业务广告计算对应的佣金。</p>
+</li>
+<li><p>订单的数据是从消息队列里取出的</p>
+</li>
+<li><p>这样设计的好处就是：</p>
+<p>1）交易团队的同学只要把订单消息写到消息队列，该订单数据的Topic由各个业务方自行消费使用【解耦】【异步】</p>
+<p>2）即便下单QPS猛增，对下游业务无太大的感知（因为下游业务只消费消息队列的数据，不会直接影响到机器性能）【削峰】</p>
+</li>
+</ol>
+<h2 id="那我想问下，你觉得为什么消息队列能削峰？或者换个问法，为什么Kafka能承载这么大的QPS？"><a href="#那我想问下，你觉得为什么消息队列能削峰？或者换个问法，为什么Kafka能承载这么大的QPS？" class="headerlink" title="那我想问下，你觉得为什么消息队列能削峰？或者换个问法，为什么Kafka能承载这么大的QPS？"></a>那我想问下，你觉得为什么消息队列能削峰？或者换个问法，为什么Kafka能承载这么大的QPS？</h2><ol>
+<li><p>消息队列「最核心的功能就是把生产的数据存储起来，然后给各个业务把数据再读取出来。</p>
+</li>
+<li><p>跟我们处理请求时不一样，我们在业务处理时可能会调别人的接口，可能会需要去查数据库…等等等一系列的操作才行</p>
+</li>
+<li><p>这些业务操作都是非常耗时的，像Kafka在「存储」和「读取」这个过程中又做了很多的优化</p>
+</li>
+<li><p>举几个例子，比如说：</p>
+<p>1）我们往一个Topic发送消息或者读取消息时，实际内部是多个Partition在处理【并行】</p>
+<p>2）在存储消息时，Kafka内部是顺序写磁盘的，并且利用了操作系统的缓冲区来提高性能【append+cache】</p>
+<p>3）在读写数据中也减少CPU拷贝的次数【零拷贝】</p>
+</li>
+</ol>
+<h2 id="嗯，你既然提到减少CPU拷贝的次数，可以给我说下这项技术吗？"><a href="#嗯，你既然提到减少CPU拷贝的次数，可以给我说下这项技术吗？" class="headerlink" title="嗯，你既然提到减少CPU拷贝的次数，可以给我说下这项技术吗？"></a>嗯，你既然提到减少CPU拷贝的次数，可以给我说下这项技术吗？</h2><ol>
+<li><p>嗯，可以的，其实就是零拷贝技术。</p>
+</li>
+<li><p>比如我们正常调用read函数时，会发生以下的步骤（以读磁盘的数据为例）：</p>
+<p>1）DMA把磁盘数据拷贝到读内核缓存区</p>
+<p>2）CPU把读内核缓冲区的数据拷贝到用户空间</p>
+</li>
+<li><p>正常调用write函数时，会发生以下的步骤（数据写到网卡为例）：</p>
+<p>1）CPU把用户空间的数据拷贝到Socket内核缓存区</p>
+<p>2）DMA把Socket内核缓冲区的数据拷贝到网卡</p>
+</li>
+<li><p>可以发现完成「一次读写」需要2次DMA拷贝，2次CPU拷贝。</p>
+</li>
+<li><p>而DMA拷贝是省不了的，所谓的零拷贝技术就是把CPU的拷贝给省掉</p>
+</li>
+<li><p>并且为了避免用户进程直接操作内核，保证内核安全，应用程序在调用系统函数时，会发生上下文切换（上述的过程一共会发生4次）</p>
+</li>
+<li><p>目前零拷贝技术主要有：mmap和sendfile</p>
+</li>
+<li><p>比如说：mmap是将读缓冲区的地址和用户空间的地址进行映射，实现读内核缓冲区和应用缓冲区共享</p>
+</li>
+<li><p>从而减少了从读缓冲区到用户缓冲区的一次CPU拷贝</p>
+</li>
+<li><p>使用mmap的后一次读写就可以简化为：、</p>
+<p>一、DMA把硬盘数据拷贝到读内核缓冲</p>
+<p>二、CPU把读内核缓存区拷贝至Socket内核缓冲区。</p>
+<p>三、DMA把Socket内核缓冲区拷贝至网</p>
+</li>
+<li><p>由于读内核缓冲区与用户空间做了映射，所以会省了一次CPU拷贝</p>
+</li>
+<li><p>而sendfile+DMA Scatter&#x2F;Gather！则是把读内核缓存区的文件描述符&#x2F;长度信息发到Socket内核缓冲区，实现CPU零拷贝</p>
+</li>
+<li><p>使用sendfile+DMA Scatter&#x2F;Gather一次读写就可以简化为：</p>
+<p>1）DMA把硬盘数据拷贝至读内核缓冲区</p>
+<p>2）CPU把读缓冲区的文件描述符和长度信息发到Socket缓冲区。</p>
+<p>3）DMA根据文件描述符和数据长度从读内核缓冲区把数据拷贝至网卡</p>
+</li>
+<li><p>回到kafka上吧</p>
+</li>
+<li><p>从Producer-》Broker，Kafka是把网卡的数据持久化硬盘，用的是mmap（从2次<br>CPU拷贝减至1次） </p>
+</li>
+<li><p>从Broker-》Consumer，Kafka是从硬盘的数据发送至网卡，用的是sendFile（实<br>现CPU零拷贝）</p>
+</li>
+</ol>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>Kafka能这么快的原因就是实现了并行、充分利用操作系统cache、顺序写和零拷贝</p>
+
+      
+    </div>
+
+    
+    
+    
+
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>l
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/c5b7e17d/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lion.png">
+      <meta itemprop="name" content="swimminghao">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="swimminghao's blog">
+      <meta itemprop="description" content="swimminghao的学习博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | swimminghao's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/c5b7e17d/" class="post-title-link" itemprop="url">20、【对线面试官】使用kafka会考虑什么问题</a>
+        </h2>
+
+        <div class="post-meta-container">
+
+          
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-03-10 09:48:07" itemprop="dateModified" datetime="2022-03-10T09:48:07+08:00">2022-03-10</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/posts/c5b7e17d/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/c5b7e17d/" data-xid="/posts/c5b7e17d/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>1.8k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>2 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="20、【对线面试官】使用kafka会考虑什么问题"><a href="#20、【对线面试官】使用kafka会考虑什么问题" class="headerlink" title="20、【对线面试官】使用kafka会考虑什么问题"></a>20、【对线面试官】使用kafka会考虑什么问题</h1><h2 id="你提到了你这边会从交易的消息报获取到订单的数据，然后做业务的处理；也提到了你用的是Kafka，我想问下，Kafka会丢数据吗？"><a href="#你提到了你这边会从交易的消息报获取到订单的数据，然后做业务的处理；也提到了你用的是Kafka，我想问下，Kafka会丢数据吗？" class="headerlink" title="你提到了你这边会从交易的消息报获取到订单的数据，然后做业务的处理；也提到了你用的是Kafka，我想问下，Kafka会丢数据吗？"></a>你提到了你这边会从交易的消息报获取到订单的数据，然后做业务的处理；也提到了你用的是Kafka，我想问下，Kafka会丢数据吗？</h2><ol>
+<li><p>嗯，使用Kafkal时，有可能会有以下场景会丢消息</p>
+</li>
+<li><p>比如说，我们用Producer发消息至Broke的时候，就有可能会丢消息</p>
+</li>
+<li><p>如果你不想丢消息，那在发送消息的时候，需要选择带有callBack的api进行发送</p>
+</li>
+<li><p>其实就意味着，如果你发送成功了，会回调告诉你已经发送成功了。如果失败了，那收到回调之后自己在业务上做重试就好了。</p>
+</li>
+<li><p>等到把消息发送到Brokerl以后，也有可能丢消息</p>
+</li>
+<li><p>一般我们的线上环境都是集群环境下嘛，但可能你发送的消息后broker就挂了，这时挂掉的broker还没来得及把数据同步给别的broker，数据就自然就丢了</p>
+</li>
+<li><p>发送到Broker之后，也不能保证数据就一定不丢了，毕竟Broker会把数据存储到磁盘之前，走的是操作系统缓存</p>
+</li>
+<li><p>也就是异步刷盘这个过程还有可能导致数据会丢</p>
+</li>
+<li><p>嗯，到这里其实我已经说了三个场景了，分别是：producer-》broker，broker-》broker之间同步，以及broker-》磁盘</p>
+</li>
+<li><p>要解决上面所讲的问题也比较简单，这块也没什么好说的…</p>
+</li>
+<li><p>不想丢数据，那就使用带有callback的api设置acks、retries、factor等等些参数来保证Producer发送的消息不会丢就好啦。</p>
+</li>
+</ol>
+<h2 id="一般来说，还是client消费broker丢消息的场景比较多；那你们在消费数据的时候是怎么保证数据的可靠性的呢？"><a href="#一般来说，还是client消费broker丢消息的场景比较多；那你们在消费数据的时候是怎么保证数据的可靠性的呢？" class="headerlink" title="一般来说，还是client消费broker丢消息的场景比较多；那你们在消费数据的时候是怎么保证数据的可靠性的呢？"></a>一般来说，还是client消费broker丢消息的场景比较多；那你们在消费数据的时候是怎么保证数据的可靠性的呢？</h2><ol>
+<li><p>首先，要想client端消费数据不能丢，肯定是不能使用autoCommit的，所以必须是手动提交的。</p>
+</li>
+<li><p>我们这边是这样实现的：</p>
+<p>一、从Kafka拉取消息、（一次批量拉取500条，这里主要看配置）<br>二、为每条拉取的消息分配一个msgld（递增）<br>三、将msgld存入内存队列（sortSet）中<br>四、使用Map存储msgld.与msg（有offset相关的信息）的映射关系</p>
+<p>五、当业务处理完消息后，ack时，获取当前处理的消息nsgld，然后从sortSet删除该msgld（此时代表已经处理过了）<br>六、接着与sortSet队列的首部第一个ld比较（其实就是最小的msgld），如果当前msgld&lt;&#x3D;sort Set第一个ID，则提交当前offset</p>
+<p>七、系统即便挂了，在下次重启时就会从sortSet队首的消息开始拉取，实现至少处理一次语义<br>八、会有少量的消息重复，但只要下游做好幂等就OK了</p>
+</li>
+</ol>
+<h2 id="嗯，你也提到了幂等，你们是怎么实现幂等性的呢？"><a href="#嗯，你也提到了幂等，你们是怎么实现幂等性的呢？" class="headerlink" title="嗯，你也提到了幂等，你们是怎么实现幂等性的呢？"></a>嗯，你也提到了幂等，你们是怎么实现幂等性的呢？</h2><ol>
+<li>嗯，还是以处理订单消息为例好了。</li>
+<li>幂等Key我们由订单编号+订单状态所组成（一笔订单的状态只会处理一次）</li>
+<li>在处理之前，我们首先会去查Redis：是否存在该Key，如果存在，则说明我们已经处理过了，直接丢掉</li>
+<li>如果Redis没处理过，则继续往下处理，最终的逻辑是将处理过的数据插入到业务DB上，再到最后把幂等Key插入到Redis上</li>
+<li>显然，单纯通过Redis是无法保证幂等的</li>
+<li>所以，Redis其实只是一个「前置」处理，最终的幂等性是依赖数据库的唯一Key来保证的（唯一Key实际上也是订单编号+状态）</li>
+<li>而插入DB是依赖事务的，所以是没问题的</li>
+<li>总的来说，就是通过Redis做前置处理，DB唯一索引做最终保证来实现幂等性的</li>
+</ol>
+<h2 id="你们那边遇到过顺序消费的问题吗？"><a href="#你们那边遇到过顺序消费的问题吗？" class="headerlink" title="你们那边遇到过顺序消费的问题吗？"></a>你们那边遇到过顺序消费的问题吗？</h2><ol>
+<li><p>嗯，也是有的，我举个例子</p>
+</li>
+<li><p>订单的状态比如有支付、确认收货、完成等等，而订单下还有计费、退款的消息报</p>
+</li>
+<li><p>理论上来说，支付的消息报肯定要比退款消息报先到嘛，但程序处理的过程中可不一定的嘛</p>
+</li>
+<li><p>所以在这边也是有消费顺序的问题（先处理了支付，才能退款啊）</p>
+</li>
+<li><p>但在广告场景下不是「强顺序」的，只要保证最终一致性就好了。</p>
+</li>
+<li><p>所以我们这边处理「乱序」消息的实现是这样的：</p>
+<p>1）宽表：将每一个订单状态，单独分出一个或多个独立的字段。消息来时只更新对应的字段就好，消息只会存在短暂的状态不一致问题，但是状态最终是一致的</p>
+<p>2）消息补偿机制：另一个进行消费相同topicl的数据，消息落盘，延迟处理。将消息与DB进行对比，如果发现数据不一致，再重新发送消息至主进程处理</p>
+<p>3）还有部分场景，可能我们只需要把相同userld&#x2F;orderld.发送到相同的partition（因为一个partition由一个Consumer消费），又能解决大部分消费顺序的问题了呢。</p>
+</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>l
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/ace2edeb/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lion.png">
+      <meta itemprop="name" content="swimminghao">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="swimminghao's blog">
+      <meta itemprop="description" content="swimminghao的学习博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | swimminghao's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/ace2edeb/" class="post-title-link" itemprop="url">21、【对线面试官】Mysql索引</a>
+        </h2>
+
+        <div class="post-meta-container">
+
+          
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-03-10 09:48:07" itemprop="dateModified" datetime="2022-03-10T09:48:07+08:00">2022-03-10</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/posts/ace2edeb/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/ace2edeb/" data-xid="/posts/ace2edeb/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>1.8k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>2 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="21、【对线面试官】Mysql索引"><a href="#21、【对线面试官】Mysql索引" class="headerlink" title="21、【对线面试官】Mysql索引"></a>21、【对线面试官】Mysql索引</h1><h2 id="我看你简历上写了MySQL，对MySQL-InnoDB引擎的索引了解吗？"><a href="#我看你简历上写了MySQL，对MySQL-InnoDB引擎的索引了解吗？" class="headerlink" title="我看你简历上写了MySQL，对MySQL InnoDB引擎的索引了解吗？"></a>我看你简历上写了MySQL，对MySQL InnoDB引擎的索引了解吗？</h2><ol>
+<li>嗯啊，使用索引可以加快查询速度，其实上就是将无序的数据变成有序（有序就能加快检索速度）</li>
+<li>在InnoDB引擎中，索引的底层数据结构是**<code>B+树</code>**</li>
+</ol>
+<h2 id="那为什么不使用红黑树或者B树呢？"><a href="#那为什么不使用红黑树或者B树呢？" class="headerlink" title="那为什么不使用红黑树或者B树呢？"></a>那为什么不使用红黑树或者B树呢？</h2><ol>
+<li><p>MySQL的数据是存储在硬盘的，在查询时一般是不能「一次性」把全部数据加载到内存中</p>
+</li>
+<li><p>红黑树是「二叉查找树」的变种，一个Node节点只能存储一个Key和一个Value</p>
+</li>
+<li><p>B和B+树跟红黑树不一样，它们算是「多路搜索树」，相较于「二叉搜索树」而言，一个Node节点可以存储的信息会更多，「多路搜索树」的高度会比「二叉搜索树」更低。</p>
+</li>
+<li><p>了解了区别之后，其实就很容易发现，在数据不能一次加载至内存的场景下，数据需要被检索出来</p>
+</li>
+<li><p>选择B或B+树的理由就很充分了（一个Node节点存储信息更多（相较于二叉搜索树），树的高度更低，树的高度影响检索的速度）</p>
+</li>
+<li><p>B+树相对于B树而言，它又有两种特性。</p>
+<p>1）B+树非叶子节点不存储数据，在相同的数据量下，B+树更加矮壮。（这个应该不用多解释了，数据都存储在叶子节点上，非叶子节点的存储能存储更多的索引，所以整棵树就更加矮壮）</p>
+<p>2）B+树叶子节点之间组成一个链表，方便于遍历查询（遍历操作在MySQL中比较常见）</p>
+</li>
+<li><p>我稍微解释一下吧，你可以脑补下画面</p>
+</li>
+<li><p>我们在MySQL InnoDB引擎下，每创建一个索引，相当于生成了一颗B+树。</p>
+</li>
+<li><p>如果该索引是「聚集（聚簇）索引」，那当前B+树的叶子节点存储着「主键和当前行的数据」</p>
+</li>
+<li><p>如果该索引是「非聚簇索引小」，那当前B+树的叶子节点存储着「主键和当前索引列值」</p>
+</li>
+<li><p>比如写了一句sql：select*from user where id&gt;&#x3D;10，那只要定位到id为10的记录，然后在叶子节点之间通过遍历链表（叶子节点组成的链表），即可找到往后的记录了。</p>
+</li>
+<li><p>由于B树是会在非叶子节点也存储数据，要遍历的时候可能就得跨层检索，相对麻烦些。</p>
+</li>
+<li><p>基于树的层级以及业务使用场景的特性，所以MySQL选择了B+树作为索引的底层数据结构。</p>
+</li>
+<li><p>对于哈希结构，其实InnoDB引擎是「自适应」哈希索引的（hash索引的创建由lnnoDB存储引擎自动优化创建，我们是干预不了）</p>
+</li>
+</ol>
+<h2 id="你知道什么是回表吗？"><a href="#你知道什么是回表吗？" class="headerlink" title="你知道什么是回表吗？"></a>你知道什么是回表吗？</h2><ol>
+<li>所谓的回表其实就是，当我们使用非聚簇索引查询数据时，检索出来的数据可能包含其他列</li>
+<li>但走的索引树叶子节点只能查到当前列值以及主键ID，所以需要根据主键ID再去查一遍数据，得到SQL所需的列</li>
+<li>举个例子，我这边建了给订单号ID建了个索引，但我的SQL是：select orderld，orderName from orderdetail where orderld &#x3D; 123</li>
+<li>SQL走订单ID索引，但在订单ID的索引树的叶子节点只有orderld和ld，而我们还想检索出orderName，所以MySQL会拿到ID再去查出orderName给我们返回，这种操作就叫回表</li>
+</ol>
+<h2 id="如何避免回表"><a href="#如何避免回表" class="headerlink" title="如何避免回表"></a>如何避免回表</h2><ol>
+<li>想要避免回表，可以使用覆盖索引</li>
+<li>所谓的覆盖索引，实际上就是你想要查出的列刚好在叶子节点上都存在，比如我建了orderld和orderName.联合索引l，刚好我需要查询也是orderld和orderName，这些数据都存在索引树的叶子节点上，就不需要回表操作了。</li>
+</ol>
+<h2 id="既然你也提到了联合索引，我想问下你了解最左匹配原则吗"><a href="#既然你也提到了联合索引，我想问下你了解最左匹配原则吗" class="headerlink" title="既然你也提到了联合索引，我想问下你了解最左匹配原则吗"></a>既然你也提到了联合索引，我想问下你了解最左匹配原则吗</h2><ol>
+<li>嗯，要说明这个概念，还是举例子比较容易</li>
+<li>如有索引（a，b，c，d），查询条件a&#x3D;1and b&#x3D;2 and c&gt;3 and d&#x3D;4，则会在每个节点依次命中a、b、c，无法命中d</li>
+<li>先匹配最左边的，索引只能用于查找key是否存在（相等），遇到范围查询（&gt;、&lt;、between、like左匹配）等就不能进一步匹配了，后续退化为线性查找</li>
+<li>这就是最左匹配原则</li>
+</ol>
+<h2 id="嗯嗯，我还想问下你们主键是怎么生成的？"><a href="#嗯嗯，我还想问下你们主键是怎么生成的？" class="headerlink" title="嗯嗯，我还想问下你们主键是怎么生成的？"></a>嗯嗯，我还想问下你们主键是怎么生成的？</h2><p>主键就自增的</p>
+<h2 id="那假设我不用MySQL自增的主键，你觉得会有什么问题呢？"><a href="#那假设我不用MySQL自增的主键，你觉得会有什么问题呢？" class="headerlink" title="那假设我不用MySQL自增的主键，你觉得会有什么问题呢？"></a>那假设我不用MySQL自增的主键，你觉得会有什么问题呢？</h2><ol>
+<li>首先主键得保证它的唯一性和空间尽可能短吧，这两块是需要考虑的。</li>
+<li>另外，由于索引的特性（有序），如果生成像uuid类似的主键，那插入的的性能是比自增的要差的</li>
+<li>因为生成的uuid，在插入时有可能需要移动磁盘块（比如，块内的空间在当前时刻已经存储满了，但新生成的uuid需要插入已满的块内，就需要移动块的数据）</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>l
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/3e598844/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lion.png">
+      <meta itemprop="name" content="swimminghao">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="swimminghao's blog">
+      <meta itemprop="description" content="swimminghao的学习博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | swimminghao's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/3e598844/" class="post-title-link" itemprop="url">23、【对线面试官】Mysql调优</a>
+        </h2>
+
+        <div class="post-meta-container">
+
+          
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-03-10 09:48:07" itemprop="dateModified" datetime="2022-03-10T09:48:07+08:00">2022-03-10</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/posts/3e598844/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/3e598844/" data-xid="/posts/3e598844/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>3.1k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>3 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="23、【对线面试官】Mysql调优"><a href="#23、【对线面试官】Mysql调优" class="headerlink" title="23、【对线面试官】Mysql调优"></a>23、【对线面试官】Mysql调优</h1><h2 id="要不你来讲讲你们对MySQL是怎么调优的？"><a href="#要不你来讲讲你们对MySQL是怎么调优的？" class="headerlink" title="要不你来讲讲你们对MySQL是怎么调优的？"></a>要不你来讲讲你们对MySQL是怎么调优的？</h2><ul>
+<li>哇，这命题很大阿…我认为，对于开发者而言，对MySQL的调优重点一般是在「开发规范」、「数据库索引」又或者说解决线上慢查询上。</li>
+<li>而对于MySQL内部的参数调优，由专业的DBA来搞。</li>
+</ul>
+<h2 id="那你来聊聊你们平时开发的规范和索引这块，平时是怎么样的吧。"><a href="#那你来聊聊你们平时开发的规范和索引这块，平时是怎么样的吧。" class="headerlink" title="那你来聊聊你们平时开发的规范和索引这块，平时是怎么样的吧。"></a>那你来聊聊你们平时开发的规范和索引这块，平时是怎么样的吧。</h2><ul>
+<li><p>嗯，首先，我们在生产环境下，创建数据库表，都是在工单系统下完成的（那就自然需要DBA审批）</p>
+</li>
+<li><p>如果在创建表时检测到没有创建索引，那就会直接提示warning</p>
+</li>
+<li><p>理论上来说，如果表有一定的数据量，那就应该要创建对应的索引</p>
+</li>
+<li><p>从数据库查询数据需要注意的地方还是蛮多的，其中很多都是平时积累来的比如说：</p>
+<ul>
+<li>1.是否能使用「覆盖索引」，减少「回表」所消耗的时间。意味着，我们在select的时候，一定要指明对应的列，而不是select</li>
+<li>2.考虑是否组建「联合索引小」，如果组建「联合索引小」，尽量将区分度最高的放在最左边，并且需要考虑「最左匹配原则」</li>
+<li>3.对索引进行函数操作或者表达式计算会导致索引失效</li>
+<li>4.利用子查询优化超多分页场景。比如limit offset，n在MySQL是获取offset+n的记录，再返回n条。而利用子查询则是查出n条，通过ID检索对应的记录出来，提高查询效率。</li>
+<li>5.通过explain命令来查看SQL的执行计划，看看自己写的SQL是否走了索引，走了什么索引。通过show profile来查看SQL对系统资源的损耗情况（不过一般还是比较少用到的）</li>
+<li>6.在开启事务后，在事务内尽可能只操作数据库，并有意识地减少锁的持有时间（比如在事务内需要插入&amp;&amp;修改数据，那可以先插入后修改。因为修改是更新操作，会加行锁。如果先更新，那并发下可能会导致多个事务的请求等待行锁释放）</li>
+</ul>
+</li>
+</ul>
+<h2 id="嗯，你提到了事务，之前也讲过了事务的隔离级别嘛，那你线上用的是什么隔离级别？"><a href="#嗯，你提到了事务，之前也讲过了事务的隔离级别嘛，那你线上用的是什么隔离级别？" class="headerlink" title="嗯，你提到了事务，之前也讲过了事务的隔离级别嘛，那你线上用的是什么隔离级别？"></a>嗯，你提到了事务，之前也讲过了事务的隔离级别嘛，那你线上用的是什么隔离级别？</h2><ul>
+<li>嗯，我们这边用的是Read Commit（读已提交），MySQL默认用的是Repeatable read（可重复读）</li>
+<li>选用什么隔离级别，主要看应用场景嘛，因为隔离级别越低，事务并发性能越高。</li>
+<li>（一般互联网公司都选择Read Commit作为主要的隔离级别）</li>
+<li>像Repeatable read（可重复读）隔离级别，就有可能因为「间隙锁」导致的死锁问题。</li>
+<li>但，MySQL默认的隔离级别为Repeatable read。很大一部分原因是在最开始的时候，MySQL的binlog没有row模式，在read commit隔离级别下会存在「主从数据不一致」的问题</li>
+<li>binlog记录了数据库表结构和表数据「变更」，比如update&#x2F;delete&#x2F;insert&#x2F;truncate&#x2F;create。在MySQL中，主从同步实际上就是应用了binlog：来实现的</li>
+<li>有了该历史原因，所以MySQL就将默认的隔离级别设置为Repeatable read</li>
+</ul>
+<h2 id="了解了，那我顺便想问下，你们遇到过类似的问题吗：即便走对了索引，线上查询还是慢。"><a href="#了解了，那我顺便想问下，你们遇到过类似的问题吗：即便走对了索引，线上查询还是慢。" class="headerlink" title="了解了，那我顺便想问下，你们遇到过类似的问题吗：即便走对了索引，线上查询还是慢。"></a>了解了，那我顺便想问下，你们遇到过类似的问题吗：即便走对了索引，线上查询还是慢。</h2><ul>
+<li>如果走对了索引，但查询还是慢，那一般来说就是表的数据量实在是太大了。</li>
+<li>首先，考虑能不能把「旧的数据」给”删掉”，对于我们公司而言，我们都会把数据同步到Hive，说明已经离线存储了一份了。</li>
+<li>那如果「旧的数据」已经没有查询的业务了，那最简单的办法肯定是”删掉”部分数据咯。数据量降低了，那自然，检索速度就快了…</li>
+<li>但，只有极少部分业务可以删掉数据</li>
+<li>随后，就考虑另一种情况，能不能在查询数据库之前，直接走一层缓存（Redis)。<ul>
+<li>而走缓存的话，又要看业务能不能忍受读取的「非真正实时」的数据（毕竟Redis和MySQL的数据一致性需要保证），如果查询条件相对复杂且多变的话（涉及各种group by和sum），那走缓存也不是一种好的办法，维护起来就不方便了…</li>
+<li>再看看是不是有「字符串」检索的场景导致查询低效，如果是的话，可以考虑把表的数据导入至Elasticsearch类的搜索引擎，后续的线上查询就直接走Elasticsearch了。</li>
+<li>MySQL-&gt;Elasticsearch需要有对应的同步程序（一般就是监听MySQL的binlog，解析binlog.后导入到Elasticsearch）</li>
+<li>如果还不是的话，那考虑要不要根据查询条件的维度，做相对应的聚合表，线上的请求就查询聚合表的数据，不走原表。<ul>
+<li>比如，用户下单后，有一份订单明细，而订单明细表的量级太大。但在产品侧（前台）透出的查询功能是以「天」维度来展示的，那就可以将每个用户的每天数据聚合起来，在聚合表就是一个用户一天只有一条汇总后的数据。</li>
+<li>查询走聚合后的表，那速度肯定杠杠的（聚合后的表数据量肯定比原始表要少很多）</li>
+<li>思路大致的就是「以空间换时间」，相同的数据换别的地方也存储一份，提高查询效率</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="那我还想问下，除了读之外，写性能同样有瓶颈，怎么办？"><a href="#那我还想问下，除了读之外，写性能同样有瓶颈，怎么办？" class="headerlink" title="那我还想问下，除了读之外，写性能同样有瓶颈，怎么办？"></a>那我还想问下，除了读之外，写性能同样有瓶颈，怎么办？</h2><ul>
+<li>如果在MySQL读写都有瓶颈，那首先看下目前MySQL的架构是怎么样的。</li>
+<li>如果是单库的，那是不是可以考虑升级至主从架构，实现读写分离。<ul>
+<li>简单理解就是：主库接收写请求，从库接收读请求。从库的数据由主库发送的binlog进而更新，实现主从数据一致（在一般场景下，主从的数据是通过异步来保证最终一致性的）</li>
+</ul>
+</li>
+<li>如果在主从架构下，读写仍存在瓶颈，那就要考虑是否要分库分表了<ul>
+<li>至少在我前公司的架构下，业务是区分的。流量有流量数据库，广告有广告的数据库，商品有商品的数据库</li>
+<li>所以，我这里讲的分库分表的含义是：在原来的某个库的某个表进而拆分。<ul>
+<li>比如，现在我有一张业务订单表，这张订单表在广告库中，假定这张业务订单表已经有1亿数据量了，现在我要分库分表<ul>
+<li>那就会将这张表的数据分至多个广告库以及多张表中</li>
+<li>分库分表的最明显的好处就是把请求进行均摊（本来单个库单个表有一亿的数据，那假设我分开8个库，那每个库1200+W的数据量，每个库下分8张表，那每张表就150W的数据量）。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="你们是以什么来作为分库分表键的？"><a href="#你们是以什么来作为分库分表键的？" class="headerlink" title="你们是以什么来作为分库分表键的？"></a>你们是以什么来作为分库分表键的？</h2><ul>
+<li>按照我们这边的经验，一般来说是按照userld的（因为按照用户的维度查询比较多），如果要按照其他的维度进行查询，那还是参照上面的的思路（以空间换时间）。</li>
+</ul>
+<h2 id="那分库分表后的D是怎么生成的？"><a href="#那分库分表后的D是怎么生成的？" class="headerlink" title="那分库分表后的D是怎么生成的？"></a>那分库分表后的D是怎么生成的？</h2><ul>
+<li>这就涉及到分布式D生成的方式了，思路有很多。有借助MySQL自增的，有借助Redis自增的，有基于「雪花算法」自增的</li>
+<li>具体使用哪种方式，那就看公司的技术栈了，一般使用Redis和基于「雪花算法」实现用得比较多。</li>
+<li>至于为什么强调自增（还是跟索引是有序有关，前面已经讲过了，你应该还记得）</li>
+</ul>
+<h2 id="嗯，那如果我要分库分表了，迁移的过程是怎么样的呢"><a href="#嗯，那如果我要分库分表了，迁移的过程是怎么样的呢" class="headerlink" title="嗯，那如果我要分库分表了，迁移的过程是怎么样的呢"></a>嗯，那如果我要分库分表了，迁移的过程是怎么样的呢</h2><ul>
+<li>我们一般采取「双写」的方式来进行迁移，大致步骤就是：<ul>
+<li>1.增量的消息各自往新表和旧表写一份</li>
+<li>2.将旧表的数据迁移至新库</li>
+<li>3.迟早新表的数据都会追得上旧表（在某个节点上数据是同步的）</li>
+<li>4.校验新表和老表的数据是否正常（主要看能不能对得上）</li>
+<li>5.开启双读（一部分流量走新表，一部分流量走老表），相当于灰度上线的过程</li>
+<li>6.读流量全部切新表，停止老表的写入</li>
+</ul>
+</li>
+<li>另外，提前准备回滚机制，临时切换失败能恢复正常业务以及有修数据的相关程序。</li>
+</ul>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ul>
+<li>数据库表存在一定数据量，就需要有对应的索引</li>
+<li>发现慢查询时，检查是否走对索引，是否能用更好的索引进行优化查询速度，查看使用索引的姿势有没有问题</li>
+<li>当索引解决不了慢查询时，一般由于业务表的数据量太大导致，利用空间换时间的思想（NOSQL、聚合、冗余…)</li>
+<li>当读写性能均遇到瓶颈时，先考虑能否升级数据库架构即可解决问题，若不能则需要考虑分库分表</li>
+<li>分库分表虽然能解决掉读写瓶颈，但同时会带来各种问题，需要提前调研解决方案和踩坑</li>
+</ul>
 
       
     </div>

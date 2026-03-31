@@ -276,7 +276,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/de82442a/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/53bfd3b2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/lion.png">
@@ -294,7 +294,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/de82442a/" class="post-title-link" itemprop="url">linux命令which,whereis,locate,find的区别</a>
+          <a href="/posts/53bfd3b2/" class="post-title-link" itemprop="url">git远程分支</a>
         </h2>
 
         <div class="post-meta-container">
@@ -336,8 +336,8 @@
     </span>
     <span class="post-meta-item-text">Waline：</span>
   
-    <a title="waline" href="/posts/de82442a/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/de82442a/" data-xid="/posts/de82442a/" itemprop="commentCount"></span>
+    <a title="waline" href="/posts/53bfd3b2/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/53bfd3b2/" data-xid="/posts/53bfd3b2/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -348,14 +348,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>2.4k</span>
+      <span>1.3k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>2 分钟</span>
+      <span>1 分钟</span>
     </span>
 </div>
 
@@ -366,42 +366,21 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="linux命令which-whereis-locate-find的区别"><a href="#linux命令which-whereis-locate-find的区别" class="headerlink" title="linux命令which,whereis,locate,find的区别"></a>linux命令which,whereis,locate,find的区别</h1><ol>
-<li><strong>which</strong>：常用于查找可直接执行的命令。只能查找可执行文件，该命令基本只在$PATH路径中搜索，查找范围最小，查找速度快。默认只返回第一个匹配的文件路径，通过选项 <em>-a</em> 可以返回所有匹配结果。</li>
-<li><strong>whereis</strong>：不只可以查找命令，其他文件类型都可以（man中说只能查命令、源文件和man文件，实际测试可以查大多数文件）。在$PATH路径基础上增加了一些系统目录的查找，查找范围比which稍大，查找速度快。可以通过 <em>-b</em> 选项，限定只搜索二进制文件。</li>
-<li><strong>locate</strong>：超快速查找任意文件。它会从linux内置的索引数据库查找文件的路径，索引速度超快。刚刚新建的文件可能需要一定时间才能加入该索引数据库，可以通过执行updatedb命令来强制更新一次索引，这样确保不会遗漏文件。该命令通常会返回大量匹配项，可以使用 <em>-r</em> 选项通过正则表达式来精确匹配。</li>
-<li><strong>find</strong>：直接搜索整个文件目录，默认直接从根目录开始搜索，建议在以上命令都无法解决问题时才用它，功能最强大但速度超慢。除非你指定一个很小的搜索范围。通过 <em>-name</em> 选项指定要查找的文件名，支持通配符。</li>
-</ol>
-<p><strong>下面通过一个实际的例子来测试和体会几个命令的差异：</strong></p>
-<p>先通过which找到ls命令的位置</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tarena@tedu:/$ <span class="built_in">which</span> <span class="built_in">ls</span></span><br><span class="line">/bin/ls</span><br></pre></td></tr></table></figure>
+          <h1 id="从远程仓库获取最新代码合并到本地分支"><a href="#从远程仓库获取最新代码合并到本地分支" class="headerlink" title="从远程仓库获取最新代码合并到本地分支"></a>从远程仓库获取最新代码合并到本地分支</h1><p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/ApJp5Nk24a0_20201209094424.jpg" alt="ApJp5Nk24a0"></p>
+<p>这里共展示两类三种方式。</p>
+<h2 id="1-git-pull：获取最新代码到本地，并自动合并到当前分支"><a href="#1-git-pull：获取最新代码到本地，并自动合并到当前分支" class="headerlink" title="1.git pull：获取最新代码到本地，并自动合并到当前分支"></a>1.git pull：获取最新代码到本地，并自动合并到当前分支</h2><p>命令展示</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">//查询当前远程的版本</span><br><span class="line"><span class="meta">$ </span><span class="language-bash">git remote -v</span></span><br><span class="line">//直接拉取并合并最新代码</span><br><span class="line"><span class="meta">$ </span><span class="language-bash">git pull origin master [示例1：拉取远端origin/master分支并合并到当前分支]</span></span><br><span class="line"><span class="meta">$ </span><span class="language-bash">git pull origin dev [示例2：拉取远端origin/dev分支并合并到当前分支]12345</span></span><br></pre></td></tr></table></figure>
 
-<p>把ls复制到主目录，并把名称修改为newls</p>
-<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tarena@tedu:/$ cp /bin/ls ~/newls</span><br><span class="line">tarena@tedu:/$ cd ~</span><br></pre></td></tr></table></figure>
+<p>分析：不推荐这种方式，因为是直接合并，无法提前处理冲突。</p>
+<h2 id="2-git-fetch-merge-获取最新代码到本地，然后手动合并分支"><a href="#2-git-fetch-merge-获取最新代码到本地，然后手动合并分支" class="headerlink" title="2.git fetch + merge: 获取最新代码到本地，然后手动合并分支"></a>2.git fetch + merge: 获取最新代码到本地，然后手动合并分支</h2><h3 id="2-1-额外建立本地分支"><a href="#2-1-额外建立本地分支" class="headerlink" title="2.1.额外建立本地分支"></a>2.1.额外建立本地分支</h3><p>代码展示</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">//查看当前远程的版本</span><br><span class="line"><span class="meta">$ </span><span class="language-bash">git remote -v</span> </span><br><span class="line">//获取最新代码到本地临时分支(本地当前分支为[branch]，获取的远端的分支为[origin/branch])</span><br><span class="line"><span class="meta">$ </span><span class="language-bash">git fetch origin master:master1  [示例1：在本地建立master1分支，并下载远端的origin/master分支到master1分支中]</span></span><br><span class="line"><span class="meta">$ </span><span class="language-bash">git fetch origin dev:dev1[示例1：在本地建立dev1分支，并下载远端的origin/dev分支到dev1分支中]</span></span><br><span class="line">//查看版本差异</span><br><span class="line"><span class="meta">$ </span><span class="language-bash">git diff master1 [示例1：查看本地master1分支与当前分支的版本差异]</span></span><br><span class="line"><span class="meta">$ </span><span class="language-bash">git diff dev1    [示例2：查看本地dev1分支与当前分支的版本差异]</span></span><br><span class="line">//合并最新分支到本地分支</span><br><span class="line"><span class="meta">$ </span><span class="language-bash">git merge master1    [示例1：合并本地分支master1到当前分支]</span></span><br><span class="line"><span class="meta">$ </span><span class="language-bash">git merge dev1   [示例2：合并本地分支dev1到当前分支]</span></span><br><span class="line">//删除本地临时分支</span><br><span class="line"><span class="meta">$ </span><span class="language-bash">git branch -D master1    [示例1：删除本地分支master1]</span></span><br><span class="line"><span class="meta">$ </span><span class="language-bash">git branch -D dev1 [示例1：删除本地分支dev1]1234567891011121314</span></span><br></pre></td></tr></table></figure>
 
-<p>尝试用which和whereis命令查找newls，由于主目录不在$PATH中（除非你恰巧之前你恰巧把～加入$PATH了），所以都无法找到</p>
-<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">tarena@tedu:~$ whereis newls</span><br><span class="line">newls:</span><br><span class="line">tarena@tedu:~$ which newls</span><br><span class="line">tarena@tedu:~$ </span><br></pre></td></tr></table></figure>
+<p>备注：不推荐这种方式，还需要额外对临时分支进行处理。</p>
+<h3 id="2-2-不额外建立本地分支"><a href="#2-2-不额外建立本地分支" class="headerlink" title="2.2.不额外建立本地分支"></a>2.2.不额外建立本地分支</h3><p>代码展示</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">//查询当前远程的版本</span><br><span class="line"><span class="meta">$ </span><span class="language-bash">git remote -v</span></span><br><span class="line">//获取最新代码到本地(本地当前分支为[branch]，获取的远端的分支为[origin/branch])</span><br><span class="line"><span class="meta">$ </span><span class="language-bash">git fetch origin master  [示例1：获取远端的origin/master分支]</span></span><br><span class="line"><span class="meta">$ </span><span class="language-bash">git fetch origin dev [示例2：获取远端的origin/dev分支]</span></span><br><span class="line">//查看版本差异</span><br><span class="line"><span class="meta">$ </span><span class="language-bash">git <span class="built_in">log</span> -p master..origin/master [示例1：查看本地master与远端origin/master的版本差异]</span></span><br><span class="line"><span class="meta">$ </span><span class="language-bash">git <span class="built_in">log</span> -p dev..origin/dev   [示例2：查看本地dev与远端origin/dev的版本差异]</span></span><br><span class="line">//合并最新代码到本地分支</span><br><span class="line"><span class="meta">$ </span><span class="language-bash">git merge origin/master  [示例1：合并远端分支origin/master到当前分支]</span></span><br><span class="line"><span class="meta">$ </span><span class="language-bash">git merge origin/dev [示例2：合并远端分支origin/dev到当前分支]1234567891011</span></span><br></pre></td></tr></table></figure>
 
-<p>执行以下export命令，把～加入$PATH，然后我们cd到根目录，再次尝试查找newls，发现已经可以找到了</p>
-<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">tarena@tedu:~$ export PATH=$PATH:~</span><br><span class="line">tarena@tedu:~$ echo $PATH</span><br><span class="line">/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin:/home/tarena</span><br><span class="line">tarena@tedu:~$ cd /</span><br><span class="line">tarena@tedu:/$ which newls</span><br><span class="line">/home/tarena/newls</span><br><span class="line">tarena@tedu:/$ whereis newls</span><br><span class="line">newls: /home/tarena/newls</span><br></pre></td></tr></table></figure>
+<p>备注：推荐这种方</p>
 
-<p>我们再cd到～，然后取消newls的可执行权限</p>
-<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tarena@tedu:/$ cd ~</span><br><span class="line">tarena@tedu:~$ chmod u-x newls</span><br></pre></td></tr></table></figure>
-
-<p>然后我们再次尝试使用which和whereis查找newls，我们发现whereis可以找到，而which找不到newls。因为which只能用来查找可执行文件，whereis没有该限制。</p>
-<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">tarena@tedu:~$ cd /</span><br><span class="line">tarena@tedu:/$ whereis newls</span><br><span class="line">newls: /home/tarena/newls</span><br><span class="line">tarena@tedu:/$ which newls</span><br></pre></td></tr></table></figure>
-
-<p>这时我们再把newls改名为ls，然后我们尝试用locate命令找出系统中存在的两个ls文件，我们发现会找到大量不是我们要的文件（此处已省略了很多），但这些文件路径中确实包含ls。</p>
-<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">tarena@tedu:~$ cd ~</span><br><span class="line">tarena@tedu:~$ mv newls ls</span><br><span class="line">/bin/false</span><br><span class="line">/bin/ls</span><br><span class="line">/bin/lsblk</span><br><span class="line">/bin/lsmod</span><br><span class="line">/bin/ntfsls</span><br><span class="line">/boot/grub/i386-pc/cbls.mod</span><br><span class="line">/boot/grub/i386-pc/command.lst</span><br><span class="line">/boot/grub/i386-pc/crypto.lst</span><br><span class="line">/boot/grub/i386-pc/fs.lst</span><br><span class="line">/boot/grub/i386-pc/ls.mod</span><br><span class="line">/boot/grub/i386-pc/lsacpi.mod</span><br><span class="line">/boot/grub/i386-pc/lsapm.mod</span><br><span class="line">/boot/grub/i386-pc/lsmmap.mod</span><br><span class="line">/boot/grub/i386-pc/lspci.mod</span><br><span class="line">/boot/grub/i386-pc/moddep.lst</span><br><span class="line">/boot/grub/i386-pc/partmap.lst</span><br><span class="line">/boot/grub/i386-pc/parttool.lst</span><br><span class="line">/boot/grub/i386-pc/terminal.lst</span><br><span class="line">/boot/grub/i386-pc/video.lst</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
-
-<p>我们尝试用正则表达式缩小匹配范围</p>
-<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">tarena@tedu:~$ locate -r &#x27;\bls$&#x27;</span><br><span class="line">/bin/ls</span><br><span class="line">/usr/bin/gvfs-ls</span><br><span class="line">/usr/lib/klibc/bin/ls</span><br><span class="line">/usr/share/bash-completion/completions/gvfs-ls</span><br></pre></td></tr></table></figure>
-
-<p>我们发现只找到了一个ls，另外一个可能因为系统还没有纳入索引数据库，所以没有找到，我们执行updatedb命令，强制更新一下系统索引，然后再执行一遍locate试试，发现现在可以找到了</p>
-<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">tarena@tedu:~$ sudo updatedb</span><br><span class="line">/bin/ls</span><br><span class="line">/home/tarena/ls</span><br><span class="line">/usr/bin/gvfs-ls</span><br><span class="line">/usr/lib/klibc/bin/ls</span><br><span class="line">/usr/share/bash-completion/completions/gvfs-ls</span><br></pre></td></tr></table></figure>
-
-<p>find命令全盘查找太慢，所以限制下查找路径，也是同样可以找到</p>
-<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">tarena@tedu:~$ <span class="keyword">find</span> ~ <span class="regexp">/bin/</span> -name ls</span><br><span class="line"><span class="regexp">/home/</span>tarena/ls</span><br><span class="line"><span class="regexp">/bin/</span>ls</span><br></pre></td></tr></table></figure>
       
     </div>
 
@@ -1378,6 +1357,139 @@ footer {
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/7f59c40c/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lion.png">
+      <meta itemprop="name" content="swimminghao">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="swimminghao's blog">
+      <meta itemprop="description" content="swimminghao的学习博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | swimminghao's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/7f59c40c/" class="post-title-link" itemprop="url">流程图</a>
+        </h2>
+
+        <div class="post-meta-container">
+
+          
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-03-11 11:12:36" itemprop="dateModified" datetime="2022-03-11T11:12:36+08:00">2022-03-11</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/posts/7f59c40c/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/7f59c40c/" data-xid="/posts/7f59c40c/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>436</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>1 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">graph TD;</span><br><span class="line">    A--&gt;B;</span><br><span class="line">    A--&gt;C;</span><br><span class="line">    B--&gt;D;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">graph LR</span><br><span class="line">A[方形] --&gt;B(圆角)</span><br><span class="line">    B --&gt; C&#123;条件a&#125;</span><br><span class="line">    C --&gt;|a=1| D[结果1]</span><br><span class="line">    C --&gt;|a=2| E[结果2]</span><br><span class="line">    F[横向流程图]</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">graph TD</span><br><span class="line">A[方形] --&gt;B(圆角)</span><br><span class="line">    B --&gt; C&#123;条件a&#125;</span><br><span class="line">    C --&gt;|a=1| D[结果1]</span><br><span class="line">    C --&gt;|a=2| E[结果2]</span><br><span class="line">    F[竖向流程图]</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">st=&gt;start: 开始框</span><br><span class="line">op=&gt;operation: 处理框</span><br><span class="line">cond=&gt;condition: 判断框(是或否?)</span><br><span class="line">sub1=&gt;subroutine: 子流程</span><br><span class="line">io=&gt;inputoutput: 输入输出框</span><br><span class="line">e=&gt;end: 结束框</span><br><span class="line">st-&gt;op-&gt;cond</span><br><span class="line">cond(yes)-&gt;io-&gt;e</span><br><span class="line">cond(no)-&gt;sub1(right)-&gt;op</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+      
+    </div>
+
+    
+    
+    
+
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>l
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://example.com/posts/625ce9d3/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2183,7 +2295,7 @@ footer {
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/7f59c40c/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/f8e34911/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/lion.png">
@@ -2201,7 +2313,7 @@ footer {
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/7f59c40c/" class="post-title-link" itemprop="url">流程图</a>
+          <a href="/posts/f8e34911/" class="post-title-link" itemprop="url">精度问题</a>
         </h2>
 
         <div class="post-meta-container">
@@ -2243,8 +2355,8 @@ footer {
     </span>
     <span class="post-meta-item-text">Waline：</span>
   
-    <a title="waline" href="/posts/7f59c40c/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/7f59c40c/" data-xid="/posts/7f59c40c/" itemprop="commentCount"></span>
+    <a title="waline" href="/posts/f8e34911/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/f8e34911/" data-xid="/posts/f8e34911/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -2255,14 +2367,14 @@ footer {
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>436</span>
+      <span>2.5k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>1 分钟</span>
+      <span>2 分钟</span>
     </span>
 </div>
 
@@ -2273,18 +2385,107 @@ footer {
     
     
     <div class="post-body" itemprop="articleBody">
-          <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">graph TD;</span><br><span class="line">    A--&gt;B;</span><br><span class="line">    A--&gt;C;</span><br><span class="line">    B--&gt;D;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">graph LR</span><br><span class="line">A[方形] --&gt;B(圆角)</span><br><span class="line">    B --&gt; C&#123;条件a&#125;</span><br><span class="line">    C --&gt;|a=1| D[结果1]</span><br><span class="line">    C --&gt;|a=2| E[结果2]</span><br><span class="line">    F[横向流程图]</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">graph TD</span><br><span class="line">A[方形] --&gt;B(圆角)</span><br><span class="line">    B --&gt; C&#123;条件a&#125;</span><br><span class="line">    C --&gt;|a=1| D[结果1]</span><br><span class="line">    C --&gt;|a=2| E[结果2]</span><br><span class="line">    F[竖向流程图]</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">st=&gt;start: 开始框</span><br><span class="line">op=&gt;operation: 处理框</span><br><span class="line">cond=&gt;condition: 判断框(是或否?)</span><br><span class="line">sub1=&gt;subroutine: 子流程</span><br><span class="line">io=&gt;inputoutput: 输入输出框</span><br><span class="line">e=&gt;end: 结束框</span><br><span class="line">st-&gt;op-&gt;cond</span><br><span class="line">cond(yes)-&gt;io-&gt;e</span><br><span class="line">cond(no)-&gt;sub1(right)-&gt;op</span><br></pre></td></tr></table></figure>
-
-
-
-
-
+          <h1 id="Java中float和double中溢值问题和浮点数的储存问题"><a href="#Java中float和double中溢值问题和浮点数的储存问题" class="headerlink" title="Java中float和double中溢值问题和浮点数的储存问题"></a>Java中float和double中溢值问题和浮点数的储存问题</h1><p><img src="https://pic2.zhimg.com/v2-7ccba9dfc4e14a87fb480f8b89f7062c_1440w.jpg?source=172ae18b" alt="Java中float和double中溢值问题和浮点数的储存问题"></p>
+<p>记录一下初学Java出现的问题。</p>
+<p>以为之前是从Python起步的，最初了解到Java的数据类型有float和double这两个东西，就尝试相加这两个</p>
+<p><img src="https://pic3.zhimg.com/80/v2-58d94b038de5826bd6b794c8728b81ea_720w.jpg" alt="img"></p>
+<p>这里返回的结果：32.45000076293945</p>
+<p>这个返回值看的我一脸懵</p>
+<p>要理解这个问题要先知道浮点数在计算机中是以什么形式储存的</p>
+<p>首先要知道计算机能懂的只有0和1</p>
+<p>每一个0和1都占一个位 bit (比特)(Binary Digits)：存放一位<a href="https://link.zhihu.com/?target=https://baike.baidu.com/item/%E4%BA%8C%E8%BF%9B%E5%88%B6">二进制</a>数，最小的存储单位。</p>
+<p>所以，<strong>整数部分：</strong></p>
+<p>22 &#x2F; 2 &#x3D; 11 余<strong>0</strong></p>
+<p>11 &#x2F; 2 &#x3D; 5 余<strong>1</strong></p>
+<p>5 &#x2F; 2 &#x3D; 2 余<strong>1</strong></p>
+<p>2 &#x2F; 2 &#x3D; 1 余<strong>0</strong></p>
+<p>1 &#x2F; 2 &#x3D; 0 余<strong>1</strong></p>
+<p><strong>22的二进制转换就是10110</strong></p>
+<p><strong>小数部分：</strong></p>
+<p>0.45 * 2 &#x3D; 0.9 0</p>
+<p>0.9 * 2 &#x3D; 1.8 1</p>
+<p>0.8 * 2 &#x3D; 1.6 1</p>
+<p>0.6 * 2 &#x3D; 1.2 1</p>
+<p>0.2 * 2 &#x3D; 0.4 0</p>
+<p>0.4 * 2 &#x3D; 0.8 0</p>
+<p>0.8 * 2 &#x3D; 1.6 1</p>
+<p>0.6 * 2 &#x3D; 1.2 1</p>
+<p>0.2 * 2 &#x3D; 0.4 0</p>
+<p>……</p>
+<p>我们可以发现0.45转化成二进制的时候是无限循环的</p>
+<p>二进制转换完成，<strong>22.45 –&gt; 10110.011100110……</strong></p>
+<p>得到这个二进制浮点数之后，计算机是怎么把他表示为没有小数点的字符呢？</p>
+<p>就要用到小学学过的<strong>科学记数法</strong>：</p>
+<p>10110.011100110可以写为</p>
+<p>1.0110011100110 <img src="https://www.zhihu.com/equation?tex=%5Ctimes" alt="[公式]"> <img src="https://www.zhihu.com/equation?tex=2%5E%7B4%7D" alt="[公式]"></p>
+<p>过程中我们发现，小数的转换有可能会产生无限循环的情况，想要做的最精确的记录22.45，计算机需要无限大的空间来记录</p>
+<p>那么<strong>IEEE754标准</strong>就规定：</p>
+<p><strong>32位单精度</strong>（java中的<strong>float</strong>），使用32位（bit）来存储</p>
+<p><strong>64位双精度</strong>（<strong>double</strong>）， 使用64位储存</p>
+<p>那采用什么样的格式呢</p>
+<p>|S| Exp | Fraction |</p>
+<p>+-+——–+———————–+</p>
+<p><strong>S</strong>：符号位（正0负1）</p>
+<p><strong>EXP</strong>：指数位</p>
+<p><strong>Fraction</strong>：有效数字</p>
+<p><img src="https://pic4.zhimg.com/80/v2-75dac8cba2a0c6f341a23f320ef80eeb_720w.jpg" alt="img"></p>
+<p>单精度(<strong>float</strong>)就是</p>
+<p>|1(bit)| 8(bit) | 23(bit) |</p>
+<p>+-+——–+———————–+</p>
+<p>双精度(<strong>double</strong>)</p>
+<p>|1(bit)| 11(bit) | 52(bit) |</p>
+<p>+-+——–+———————–+</p>
+<p>以22.45为例：</p>
+<p>1.0110011100110 <img src="https://www.zhihu.com/equation?tex=%5Ctimes" alt="[公式]"><img src="https://www.zhihu.com/equation?tex=2%5E%7B4%7D" alt="[公式]">(二进制科学记数)</p>
+<p><strong>S</strong> &#x3D; <strong>0</strong></p>
+<p><strong>EXP</strong> &#x3D; 4+127 &#x3D;131 –&gt; <strong>10000011</strong></p>
+<p>这里为什么是131而不是直接的4呢？</p>
+<p>0000 0000八个位来表示指数，最大值就是1111 1111 –&gt; 十进制就是 255</p>
+<p>指数会有正负数两种情况，所以分两半，255 &#x2F; 2 &#x3D; 127.5</p>
+<p>0~127用于负数</p>
+<p>127~255用于正数</p>
+<p>127相当于一个指数是0，所以表示正指数就 + 同理 -</p>
+<p><strong>Fraction</strong> &#x3D; 0110011100110(这里只有13(bit))</p>
+<p>&#x3D; <strong>01100111001100110011010</strong>(接着算了10(bit)补齐23(bit))</p>
+<p>所以22.45在计算机里就是 <strong>S</strong>+<strong>EXP</strong>+<strong>Fraction &#x3D; 01000001101100111001100110011010</strong></p>
+<p>同理<strong>双精度（double）</strong>有64位来记录</p>
+<p><img src="https://pic2.zhimg.com/80/v2-7578d5eb4ea4b7ccd4a6ad8b3041026d_720w.jpg" alt="img"></p>
+<p>System.<em>out</em>.println(Integer.<em>toBinaryString</em>(Float.<em>floatToIntBits</em>(x)));</p>
+<p>这行代码可以查看22.45的二进位表达</p>
+<p><img src="https://pic4.zhimg.com/80/v2-37d1b25e2fcb6f6744a15d16ce403347_720w.jpg" alt="img"></p>
+<p>为什么没有0，因为01 跟1是一样的，所以0就不会显示了</p>
+<p><strong>这是-22.45</strong></p>
+<p><img src="https://pic3.zhimg.com/80/v2-2f0ea9b5de4996dfe41721c33fec509a_720w.jpg" alt="img"></p>
+<p>&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;</p>
+<p>了解了IEEE二进位浮点数，知道了float和double记录的浮点<strong>精确度</strong>不一样我们再看一下问题。</p>
+<p><img src="https://pic3.zhimg.com/80/v2-09cf00e6b2661928de9a33d34cc584ea_720w.jpg" alt="img"></p>
+<p>从输出的结果看 32.45000076293945 是一个double类型，精确的表示了小数点后14位</p>
+<p><strong>所以float + double 是从float赋值到double</strong></p>
+<p><img src="https://pic2.zhimg.com/80/v2-ac85c685344dcc6c42ab80c54c98e3fd_720w.jpg" alt="img"></p>
+<p>输出结果：22.450000762939453</p>
+<p>可是如果float(单精度)赋值到double(双精度)出现精度丢失可以理解，但是会什么会溢值呢？</p>
+<p>我们可以从二进制推回十进制来看一看</p>
+<p>0 | 10000011 | 01100111001100110011010</p>
+<p>正| 指数&#x3D;4 |有效数字</p>
+<p>1.01100111001100110011010 <img src="https://www.zhihu.com/equation?tex=%5Ctimes" alt="[公式]"><img src="https://www.zhihu.com/equation?tex=2%5E%7B4%7D" alt="[公式]"> &#x3D; 10110.<strong>0111001100110011010</strong></p>
+<p>后面这个<strong>0.0111001100110011010</strong>表示小数位</p>
+<p>我们可以通过把<strong>0.0111001100110011010</strong>换成十进制来看看</p>
+<p>小数的二进制到十进制的方法是</p>
+<p>从小数点后依次乘以2的负一次方，2的负二次方，2的负三次方等</p>
+<p>0.0111001100110011010</p>
+<p><img src="https://www.zhihu.com/equation?tex=0%5Ctimes+2%5E%7B-1%7D+++1%5Ctimes+2%5E%7B-2%7D+++1%5Ctimes+2%5E%7B-3%7D+..." alt="[公式]"></p>
+<p>可以直接用python一算</p>
+<p><img src="https://pic4.zhimg.com/80/v2-a0e98538e9455550d26ca6aabfaccf87_720w.jpg" alt="img"></p>
+<p>同这个结果，我们可以看出，由于<strong>float单精度只能选取 无限循环的二进制小数的23位</strong></p>
+<p><strong>导致了十进制浮点数在存储时的不够精准</strong></p>
+<p><strong>当我们把已经储存好的32二进制格式转换成64位时</strong></p>
+<p><img src="https://pic2.zhimg.com/80/v2-4ab767461ea0bd9250e47357d4c81531_720w.jpg" alt="img"></p>
+<p>输出结果：</p>
+<p><img src="https://pic4.zhimg.com/80/v2-6561f67dbd731bf7ad0e8fc8f58bb573_720w.jpg" alt="img"></p>
+<p><strong>可以看出Java并没有重新计算小数点后的更多位， 而是用0来补位</strong></p>
+<p>所以转换成double后，之前<strong>float没有精确到的位数就会显示出来。</strong></p>
+<p>要解决这个问题就需要使用java.math中提供的API类BigDecimal</p>
+<p>注：（BigDecimal用String 或Integer 初始化，double初始化会有舍入精度问题）</p>
 
       
     </div>
@@ -2670,228 +2871,6 @@ if (runStateLessThan(c, STOP)) &#123;
 <p>源码十分精巧，部分代码写的相当简练，但包含了很深的关于状态定义、任务生产、任务消费、超时控制、同步控制、空闲线程销毁、新增线程等一系列特性的实现逻辑，每一步的动作都值得进一步思考。</p>
 <p>如果让自己去实现一遍这样的线程池，该如何去实现呢？</p>
 <p>最后附上向ThreadPoolExecutor submit任务的执行流程图~</p>
-
-      
-    </div>
-
-    
-    
-    
-
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>l
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/f8e34911/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/lion.png">
-      <meta itemprop="name" content="swimminghao">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="swimminghao's blog">
-      <meta itemprop="description" content="swimminghao的学习博客">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | swimminghao's blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/f8e34911/" class="post-title-link" itemprop="url">精度问题</a>
-        </h2>
-
-        <div class="post-meta-container">
-
-          
-
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-11 11:12:36" itemprop="dateModified" datetime="2022-03-11T11:12:36+08:00">2022-03-11</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="far fa-comment"></i>
-    </span>
-    <span class="post-meta-item-text">Waline：</span>
-  
-    <a title="waline" href="/posts/f8e34911/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/f8e34911/" data-xid="/posts/f8e34911/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>2.5k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>2 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="Java中float和double中溢值问题和浮点数的储存问题"><a href="#Java中float和double中溢值问题和浮点数的储存问题" class="headerlink" title="Java中float和double中溢值问题和浮点数的储存问题"></a>Java中float和double中溢值问题和浮点数的储存问题</h1><p><img src="https://pic2.zhimg.com/v2-7ccba9dfc4e14a87fb480f8b89f7062c_1440w.jpg?source=172ae18b" alt="Java中float和double中溢值问题和浮点数的储存问题"></p>
-<p>记录一下初学Java出现的问题。</p>
-<p>以为之前是从Python起步的，最初了解到Java的数据类型有float和double这两个东西，就尝试相加这两个</p>
-<p><img src="https://pic3.zhimg.com/80/v2-58d94b038de5826bd6b794c8728b81ea_720w.jpg" alt="img"></p>
-<p>这里返回的结果：32.45000076293945</p>
-<p>这个返回值看的我一脸懵</p>
-<p>要理解这个问题要先知道浮点数在计算机中是以什么形式储存的</p>
-<p>首先要知道计算机能懂的只有0和1</p>
-<p>每一个0和1都占一个位 bit (比特)(Binary Digits)：存放一位<a href="https://link.zhihu.com/?target=https://baike.baidu.com/item/%E4%BA%8C%E8%BF%9B%E5%88%B6">二进制</a>数，最小的存储单位。</p>
-<p>所以，<strong>整数部分：</strong></p>
-<p>22 &#x2F; 2 &#x3D; 11 余<strong>0</strong></p>
-<p>11 &#x2F; 2 &#x3D; 5 余<strong>1</strong></p>
-<p>5 &#x2F; 2 &#x3D; 2 余<strong>1</strong></p>
-<p>2 &#x2F; 2 &#x3D; 1 余<strong>0</strong></p>
-<p>1 &#x2F; 2 &#x3D; 0 余<strong>1</strong></p>
-<p><strong>22的二进制转换就是10110</strong></p>
-<p><strong>小数部分：</strong></p>
-<p>0.45 * 2 &#x3D; 0.9 0</p>
-<p>0.9 * 2 &#x3D; 1.8 1</p>
-<p>0.8 * 2 &#x3D; 1.6 1</p>
-<p>0.6 * 2 &#x3D; 1.2 1</p>
-<p>0.2 * 2 &#x3D; 0.4 0</p>
-<p>0.4 * 2 &#x3D; 0.8 0</p>
-<p>0.8 * 2 &#x3D; 1.6 1</p>
-<p>0.6 * 2 &#x3D; 1.2 1</p>
-<p>0.2 * 2 &#x3D; 0.4 0</p>
-<p>……</p>
-<p>我们可以发现0.45转化成二进制的时候是无限循环的</p>
-<p>二进制转换完成，<strong>22.45 –&gt; 10110.011100110……</strong></p>
-<p>得到这个二进制浮点数之后，计算机是怎么把他表示为没有小数点的字符呢？</p>
-<p>就要用到小学学过的<strong>科学记数法</strong>：</p>
-<p>10110.011100110可以写为</p>
-<p>1.0110011100110 <img src="https://www.zhihu.com/equation?tex=%5Ctimes" alt="[公式]"> <img src="https://www.zhihu.com/equation?tex=2%5E%7B4%7D" alt="[公式]"></p>
-<p>过程中我们发现，小数的转换有可能会产生无限循环的情况，想要做的最精确的记录22.45，计算机需要无限大的空间来记录</p>
-<p>那么<strong>IEEE754标准</strong>就规定：</p>
-<p><strong>32位单精度</strong>（java中的<strong>float</strong>），使用32位（bit）来存储</p>
-<p><strong>64位双精度</strong>（<strong>double</strong>）， 使用64位储存</p>
-<p>那采用什么样的格式呢</p>
-<p>|S| Exp | Fraction |</p>
-<p>+-+——–+———————–+</p>
-<p><strong>S</strong>：符号位（正0负1）</p>
-<p><strong>EXP</strong>：指数位</p>
-<p><strong>Fraction</strong>：有效数字</p>
-<p><img src="https://pic4.zhimg.com/80/v2-75dac8cba2a0c6f341a23f320ef80eeb_720w.jpg" alt="img"></p>
-<p>单精度(<strong>float</strong>)就是</p>
-<p>|1(bit)| 8(bit) | 23(bit) |</p>
-<p>+-+——–+———————–+</p>
-<p>双精度(<strong>double</strong>)</p>
-<p>|1(bit)| 11(bit) | 52(bit) |</p>
-<p>+-+——–+———————–+</p>
-<p>以22.45为例：</p>
-<p>1.0110011100110 <img src="https://www.zhihu.com/equation?tex=%5Ctimes" alt="[公式]"><img src="https://www.zhihu.com/equation?tex=2%5E%7B4%7D" alt="[公式]">(二进制科学记数)</p>
-<p><strong>S</strong> &#x3D; <strong>0</strong></p>
-<p><strong>EXP</strong> &#x3D; 4+127 &#x3D;131 –&gt; <strong>10000011</strong></p>
-<p>这里为什么是131而不是直接的4呢？</p>
-<p>0000 0000八个位来表示指数，最大值就是1111 1111 –&gt; 十进制就是 255</p>
-<p>指数会有正负数两种情况，所以分两半，255 &#x2F; 2 &#x3D; 127.5</p>
-<p>0~127用于负数</p>
-<p>127~255用于正数</p>
-<p>127相当于一个指数是0，所以表示正指数就 + 同理 -</p>
-<p><strong>Fraction</strong> &#x3D; 0110011100110(这里只有13(bit))</p>
-<p>&#x3D; <strong>01100111001100110011010</strong>(接着算了10(bit)补齐23(bit))</p>
-<p>所以22.45在计算机里就是 <strong>S</strong>+<strong>EXP</strong>+<strong>Fraction &#x3D; 01000001101100111001100110011010</strong></p>
-<p>同理<strong>双精度（double）</strong>有64位来记录</p>
-<p><img src="https://pic2.zhimg.com/80/v2-7578d5eb4ea4b7ccd4a6ad8b3041026d_720w.jpg" alt="img"></p>
-<p>System.<em>out</em>.println(Integer.<em>toBinaryString</em>(Float.<em>floatToIntBits</em>(x)));</p>
-<p>这行代码可以查看22.45的二进位表达</p>
-<p><img src="https://pic4.zhimg.com/80/v2-37d1b25e2fcb6f6744a15d16ce403347_720w.jpg" alt="img"></p>
-<p>为什么没有0，因为01 跟1是一样的，所以0就不会显示了</p>
-<p><strong>这是-22.45</strong></p>
-<p><img src="https://pic3.zhimg.com/80/v2-2f0ea9b5de4996dfe41721c33fec509a_720w.jpg" alt="img"></p>
-<p>&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;</p>
-<p>了解了IEEE二进位浮点数，知道了float和double记录的浮点<strong>精确度</strong>不一样我们再看一下问题。</p>
-<p><img src="https://pic3.zhimg.com/80/v2-09cf00e6b2661928de9a33d34cc584ea_720w.jpg" alt="img"></p>
-<p>从输出的结果看 32.45000076293945 是一个double类型，精确的表示了小数点后14位</p>
-<p><strong>所以float + double 是从float赋值到double</strong></p>
-<p><img src="https://pic2.zhimg.com/80/v2-ac85c685344dcc6c42ab80c54c98e3fd_720w.jpg" alt="img"></p>
-<p>输出结果：22.450000762939453</p>
-<p>可是如果float(单精度)赋值到double(双精度)出现精度丢失可以理解，但是会什么会溢值呢？</p>
-<p>我们可以从二进制推回十进制来看一看</p>
-<p>0 | 10000011 | 01100111001100110011010</p>
-<p>正| 指数&#x3D;4 |有效数字</p>
-<p>1.01100111001100110011010 <img src="https://www.zhihu.com/equation?tex=%5Ctimes" alt="[公式]"><img src="https://www.zhihu.com/equation?tex=2%5E%7B4%7D" alt="[公式]"> &#x3D; 10110.<strong>0111001100110011010</strong></p>
-<p>后面这个<strong>0.0111001100110011010</strong>表示小数位</p>
-<p>我们可以通过把<strong>0.0111001100110011010</strong>换成十进制来看看</p>
-<p>小数的二进制到十进制的方法是</p>
-<p>从小数点后依次乘以2的负一次方，2的负二次方，2的负三次方等</p>
-<p>0.0111001100110011010</p>
-<p><img src="https://www.zhihu.com/equation?tex=0%5Ctimes+2%5E%7B-1%7D+++1%5Ctimes+2%5E%7B-2%7D+++1%5Ctimes+2%5E%7B-3%7D+..." alt="[公式]"></p>
-<p>可以直接用python一算</p>
-<p><img src="https://pic4.zhimg.com/80/v2-a0e98538e9455550d26ca6aabfaccf87_720w.jpg" alt="img"></p>
-<p>同这个结果，我们可以看出，由于<strong>float单精度只能选取 无限循环的二进制小数的23位</strong></p>
-<p><strong>导致了十进制浮点数在存储时的不够精准</strong></p>
-<p><strong>当我们把已经储存好的32二进制格式转换成64位时</strong></p>
-<p><img src="https://pic2.zhimg.com/80/v2-4ab767461ea0bd9250e47357d4c81531_720w.jpg" alt="img"></p>
-<p>输出结果：</p>
-<p><img src="https://pic4.zhimg.com/80/v2-6561f67dbd731bf7ad0e8fc8f58bb573_720w.jpg" alt="img"></p>
-<p><strong>可以看出Java并没有重新计算小数点后的更多位， 而是用0来补位</strong></p>
-<p>所以转换成double后，之前<strong>float没有精确到的位数就会显示出来。</strong></p>
-<p>要解决这个问题就需要使用java.math中提供的API类BigDecimal</p>
-<p>注：（BigDecimal用String 或Integer 初始化，double初始化会有舍入精度问题）</p>
 
       
     </div>
