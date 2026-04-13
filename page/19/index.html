@@ -683,6 +683,238 @@ public void onApplicationEvent(ApplicationEvent applicationEvent) &#123;
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/86d8e3c1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lion.png">
+      <meta itemprop="name" content="swimminghao">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="swimminghao's blog">
+      <meta itemprop="description" content="swimminghao的学习博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | swimminghao's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/86d8e3c1/" class="post-title-link" itemprop="url">java内存模型1</a>
+        </h2>
+
+        <div class="post-meta-container">
+
+          
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2026-04-03 22:35:13" itemprop="dateModified" datetime="2026-04-03T22:35:13+08:00">2026-04-03</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/posts/86d8e3c1/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/86d8e3c1/" data-xid="/posts/86d8e3c1/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>3.4k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>3 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="java内存模型1"><a href="#java内存模型1" class="headerlink" title="java内存模型1"></a>java内存模型1</h1><h2 id="一、为什么有java内存模型？"><a href="#一、为什么有java内存模型？" class="headerlink" title="一、为什么有java内存模型？"></a>一、为什么有java内存模型？</h2><ul>
+<li><p>背景</p>
+<ol>
+<li>现有计算机往往是多核的，每个核心下会有高速缓存。高速缓存的诞生是由于「CPU 与内存（主存）的速度存在差异」，L1 和 L2 缓存一般是「每个核心独占」一份的。</li>
+<li>为了让 CPU 提高运算效率，处理器可能会对输入的代码进行「乱序执行」，也就是所谓的「指令重排序」。</li>
+<li>一次对数值的修改操作往往是非原子性的（比如计实际上在计算机执行时就会分成多个指令）</li>
+</ol>
+<p>即：可见性、有序性、原子性</p>
+</li>
+<li><p>单线程不存在以上问题</p>
+<ol>
+<li>在永远单线程下，上面所讲的均不会存在什么问题，因为单线程意味着无并发。并且在单线程下，编译器&#x2F;runtime&#x2F;处理器都必须遵守as-if-serial语义，遵守as-if-serial意味着它们不会对「数据依赖关系的操作」做重排序。</li>
+<li>CPU为了效率，有了高速缓存、有了指令重排序等等，整块架构都变得复杂了。我们写的程序肯定也想要「充分」利用CPU的资源啊！于是乎，我们使用起了多线程</li>
+</ol>
+</li>
+<li><p>多线程线程安全问题</p>
+<ol>
+<li>缓存数据不一致：多个线程同时修改「共享变量」，CPU核心下的高速缓存是「不共享」的，那多个cache与内存之间的数据同步该怎么做？</li>
+<li>CPU指令重排序在多线程下会导致代码在非预期下执行，最终会导致结果存在错误的情况。</li>
+</ol>
+</li>
+<li><p>缓存不一致问题</p>
+<ol>
+<li>使用「总线锁」：某个核心在修改数据的过程中，其他核心均无法修改内存中的数据。（类似于独占内存的概念，只要有CPU在修改，那别的CPU就得等待当前CPU释放）</li>
+<li>缓存一致性协议（MESI协议，其实协议有很多，只是举个大家都可能见过的）。MESI拆开英文是（Modified（修改状态）、Exclusive（独占状态）、Share（共享状态）、Invalid（无效状态））</li>
+</ol>
+<p><strong>缓存一致性协议</strong>我认为可以理解为「缓存锁」，它针对的是「缓存行」（CacheIine）进行”加锁”，所谓「缓存行」其实就是高速缓存存储的最小单位。<strong>MESI协议的原理</strong>大概就是：当每个CPU读取共享变量之前，会先识别数据的「对象状态」（是修改、还是共享、还是独占、还是无效）。<strong>如果是独占</strong>，说明当前CPU将要得到的变量数据是最新的，没有被其他CPU所同时读取。<strong>如果是共享</strong>，说明当前CPU将要得到的变量数据还是最新的，有其他的CPU在同时读取，但还没被修改。<strong>如果是修改</strong>，说明当前CPU正在修改该变量的值，同时会向其他CPU发送该数据状态为invalid（无效）的通知，得到其他CPU响应后（其他CPU将数据状态从共享（share）变成invalid（无效）），会当前CPU将高速缓存的数据写到主存，并把自己的状态从modify（修改）变成exclusive （独占）。<strong>如果是无效</strong>，说明当前数据是被改过了，需 要从主存重新读取最新的数据。</p>
+<p><strong>其实MESI协议做的就是判断「对象状态」，根据「对象状态」做不同的策略</strong>。</p>
+<p><strong>关键就在于某个CPU在对数据进行修改时，需要「同步」通知其他CPU，表示这个数据被我修改了，你们不能用了。</strong><br><strong>比较于「总线锁」，MESI协议的”锁粒度”更小了，性能那肯定会更高咯</strong></p>
+</li>
+<li><p>cpu还有优化</p>
+<ol>
+<li>优化思路就是从「同步」变成「异步」。<br>在修改时会「同步」告诉其他CPU，而现在则把最新修改的值写到「store buffe r」中，并通知其他CPU记得要改状态，随后CPU就直接返回干其他事了。等到收到其它CPU发过来的响应消息，再将数据更新到高速缓存中。其他CPU接收到invalid（无效）通知时，也会把接收到的消息放入「invalid queue」中，只要写到「invalid queue」就会直接返回告诉修改数据的CPU已经将状态置为「invalid」</li>
+</ol>
+</li>
+</ul>
+<h2 id="二、什么是java内存模型"><a href="#二、什么是java内存模型" class="headerlink" title="二、什么是java内存模型"></a>二、什么是java内存模型</h2><ol>
+<li>由于不同CPU架构的缓存体系不一样、缓存一致性协议不一样、重排序的策略不一样、所提供的内存屏障指令也有差异，为了简化Java开发人员的工作。Java封装了一套规范，这套规范就是「Java 内存模型」</li>
+<li>再详细地说，「Java内存模型」希望屏蔽各种硬件和操作系统的访问差异，保证了Java程序在各种平台下对内存的访问都能得到一致效果。</li>
+<li>目的是解决多线程存在的原子性、可见性（缓存一致性）以及有序性问题。</li>
+</ol>
+<p><strong>java内存模型它是一种规范，java虚拟机会实现这种规范</strong></p>
+<h2 id="三、java内存模型的内容"><a href="#三、java内存模型的内容" class="headerlink" title="三、java内存模型的内容"></a>三、java内存模型的内容</h2><ol>
+<li><p>java内存模型的抽象结构</p>
+<p><strong>定义：</strong></p>
+<ul>
+<li><p>java内存模型定义了：java线程对内存数据进行交互的规范。</p>
+</li>
+<li><p>线程之间的「共享变量」存储在「主内存」中，每个线程都有自己私有的「本地内存」，「本地内存」存储了该线程以读&#x2F;写共享变量的副本。</p>
+</li>
+<li><p>本地内存是Java内存模型的抽象概念，并不是真实存在的。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/image-20210922142656426_20210922142656.png"></p>
+</li>
+</ul>
+<p><strong>规定：</strong></p>
+<ul>
+<li>Java内存模型规定了：线程对变量的所有操作都必须在「本地内存」进行，「不能直接读写主内存」的变量</li>
+<li>Java内存模型定义了8种操作来完成「变量如何从主内存到本地内存，以及变量如何从本地内存到主内存」，分别是read&#x2F;load&#x2F;use&#x2F;assign&#x2F;store&#x2F;write&#x2F;lock&#x2F;unlock操作</li>
+<li>看着8个操作很多，对变量的一次读写就涵盖了这些操作了，我再画个图给你讲讲</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/WH3VEu_20210922143253.png"></p>
+</li>
+<li><p>happen-beforeguize</p>
+<ul>
+<li><p>按我的理解下，happen-before实际上也是一套「规则」。Java内存模型定义了这套规则，目的是为了阐述「操作之间」的内存「可见性」。</p>
+</li>
+<li><p>从上次讲述「指令重排」就提到了，在CPU和编译器层面上都有指令重排的问题。</p>
+<p>指令重排虽然是能提高运行的效率，但在并发编程中，我们在兼顾「效率」的前提下，还希望「程序结果」能由我们掌控的。<br>说白了就是：在某些重要的场景下，这一组操作都不能进行重排序，「前面一个操作的结果对后续操作必须是可见的」</p>
+</li>
+<li><p>于是，Java内存模型 happen-就提出了-b efore这套规则，规则总共有8条：比如传递性、 volatile变量规则、程序顺序规则、监视器锁的规则（具体看规则的含义就好了，这块不难）</p>
+</li>
+<li><p>只要记住，有了 happen-before-这些规则。我们写的代码只要在这些规则下，前一个操作的结果对后续操作是可见的，是不会发生重排序的。</p>
+</li>
+</ul>
+</li>
+<li><p>对volatile内存语义的探讨</p>
+</li>
+</ol>
+<ul>
+<li><p>嗯，volatile是Java的一个关键字<br>为什么讲Java内存模型往往就会讲到volatile这个关键字呢，我觉得主要是它的特性：可见性和有序性（禁止重排序</p>
+</li>
+<li><p>Java内存模型这个规范，很大程度下就是为了解决可见性和有序性的问题。</p>
+</li>
+<li><p>Java内存模型为了实现volatile有序性和可见性，定义了4种内存屏障的「规范」，分别是LoadLoad&#x2F;LoadStore&#x2F;StoreLoad&#x2F;StoreStore</p>
+</li>
+<li><p>回到volatile上，说白了，就是在volatile「前后」加上「内存屏障」，使得编译器和CPU无法进行重排序，致使有序，并且写volatile变量对其他线程可见。</p>
+</li>
+<li><p>Java内存模型定义了规范，那Java虚拟机就得实现啊，是不是？</p>
+<ul>
+<li>之前看过Hotspot虚拟机的实现，在「汇编」层面上实际是通过Lock前缀指令来实现的，而不是各种fence指令（主要原因就是简便。因为大部分平台都支持lock指令，而fence指令是x86平台的）。</li>
+<li>lock指令能保证：禁止CPU和编译器的重排序（保证了有序性）、保证CPU写核心的指令可以立即生效且其他核心的缓存数据失效（保证了可见性）</li>
+</ul>
+</li>
+<li><p>volatile和MESI协议有啥关系？</p>
+<ul>
+<li><p>没啥关系：Java内存模型关注的是编程语言层面上，它是高维度的抽象。</p>
+</li>
+<li><p>MESI是CPU缓存一致性协议，不同的CPU架构都不一样，可能有的CPU压根就没用MESI协议..</p>
+</li>
+<li><p>只不过MESI名声大，大家就都拿他来举例子了。</p>
+</li>
+<li><p>MESI可能只是在「特定的场景下」为实现volatile的可见性&#x2F;有序性而使用到的一部分罢了</p>
+</li>
+<li><p>为了让Java程序员屏蔽上面这些底层知识，快速地入门使用volatile变量</p>
+</li>
+<li><p>Java内存模型的happen-before规则中就有对volatile变量规则的定义：<br>这条规则的内容其实就是：对一个volatil e变量的写操作相对于后续对这个volatile变量的读操作可见</p>
+<p>它通过happen-before规则来规定：只要变量声明了volatile关键字，写后再读，读必须可见写的值。（可见性、有序性）</p>
+</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>l
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://example.com/posts/211da837/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -998,238 +1230,6 @@ public void onApplicationEvent(ApplicationEvent applicationEvent) &#123;
 <li>[4] <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Pooling_(resource_management)">维基百科Pooling(Resource Management)</a></li>
 <li>[5] <a target="_blank" rel="noopener" href="http://www.ideabuffer.cn/2017/04/04/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3Java%E7%BA%BF%E7%A8%8B%E6%B1%A0%EF%BC%9AThreadPoolExecutor/">深入理解Java线程池：ThreadPoolExecutor</a></li>
 <li>[6]《Java并发编程实践》</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>l
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/86d8e3c1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/lion.png">
-      <meta itemprop="name" content="swimminghao">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="swimminghao's blog">
-      <meta itemprop="description" content="swimminghao的学习博客">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | swimminghao's blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/86d8e3c1/" class="post-title-link" itemprop="url">java内存模型1</a>
-        </h2>
-
-        <div class="post-meta-container">
-
-          
-
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2026-04-03 22:35:13" itemprop="dateModified" datetime="2026-04-03T22:35:13+08:00">2026-04-03</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="far fa-comment"></i>
-    </span>
-    <span class="post-meta-item-text">Waline：</span>
-  
-    <a title="waline" href="/posts/86d8e3c1/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/86d8e3c1/" data-xid="/posts/86d8e3c1/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>3.4k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>3 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="java内存模型1"><a href="#java内存模型1" class="headerlink" title="java内存模型1"></a>java内存模型1</h1><h2 id="一、为什么有java内存模型？"><a href="#一、为什么有java内存模型？" class="headerlink" title="一、为什么有java内存模型？"></a>一、为什么有java内存模型？</h2><ul>
-<li><p>背景</p>
-<ol>
-<li>现有计算机往往是多核的，每个核心下会有高速缓存。高速缓存的诞生是由于「CPU 与内存（主存）的速度存在差异」，L1 和 L2 缓存一般是「每个核心独占」一份的。</li>
-<li>为了让 CPU 提高运算效率，处理器可能会对输入的代码进行「乱序执行」，也就是所谓的「指令重排序」。</li>
-<li>一次对数值的修改操作往往是非原子性的（比如计实际上在计算机执行时就会分成多个指令）</li>
-</ol>
-<p>即：可见性、有序性、原子性</p>
-</li>
-<li><p>单线程不存在以上问题</p>
-<ol>
-<li>在永远单线程下，上面所讲的均不会存在什么问题，因为单线程意味着无并发。并且在单线程下，编译器&#x2F;runtime&#x2F;处理器都必须遵守as-if-serial语义，遵守as-if-serial意味着它们不会对「数据依赖关系的操作」做重排序。</li>
-<li>CPU为了效率，有了高速缓存、有了指令重排序等等，整块架构都变得复杂了。我们写的程序肯定也想要「充分」利用CPU的资源啊！于是乎，我们使用起了多线程</li>
-</ol>
-</li>
-<li><p>多线程线程安全问题</p>
-<ol>
-<li>缓存数据不一致：多个线程同时修改「共享变量」，CPU核心下的高速缓存是「不共享」的，那多个cache与内存之间的数据同步该怎么做？</li>
-<li>CPU指令重排序在多线程下会导致代码在非预期下执行，最终会导致结果存在错误的情况。</li>
-</ol>
-</li>
-<li><p>缓存不一致问题</p>
-<ol>
-<li>使用「总线锁」：某个核心在修改数据的过程中，其他核心均无法修改内存中的数据。（类似于独占内存的概念，只要有CPU在修改，那别的CPU就得等待当前CPU释放）</li>
-<li>缓存一致性协议（MESI协议，其实协议有很多，只是举个大家都可能见过的）。MESI拆开英文是（Modified（修改状态）、Exclusive（独占状态）、Share（共享状态）、Invalid（无效状态））</li>
-</ol>
-<p><strong>缓存一致性协议</strong>我认为可以理解为「缓存锁」，它针对的是「缓存行」（CacheIine）进行”加锁”，所谓「缓存行」其实就是高速缓存存储的最小单位。<strong>MESI协议的原理</strong>大概就是：当每个CPU读取共享变量之前，会先识别数据的「对象状态」（是修改、还是共享、还是独占、还是无效）。<strong>如果是独占</strong>，说明当前CPU将要得到的变量数据是最新的，没有被其他CPU所同时读取。<strong>如果是共享</strong>，说明当前CPU将要得到的变量数据还是最新的，有其他的CPU在同时读取，但还没被修改。<strong>如果是修改</strong>，说明当前CPU正在修改该变量的值，同时会向其他CPU发送该数据状态为invalid（无效）的通知，得到其他CPU响应后（其他CPU将数据状态从共享（share）变成invalid（无效）），会当前CPU将高速缓存的数据写到主存，并把自己的状态从modify（修改）变成exclusive （独占）。<strong>如果是无效</strong>，说明当前数据是被改过了，需 要从主存重新读取最新的数据。</p>
-<p><strong>其实MESI协议做的就是判断「对象状态」，根据「对象状态」做不同的策略</strong>。</p>
-<p><strong>关键就在于某个CPU在对数据进行修改时，需要「同步」通知其他CPU，表示这个数据被我修改了，你们不能用了。</strong><br><strong>比较于「总线锁」，MESI协议的”锁粒度”更小了，性能那肯定会更高咯</strong></p>
-</li>
-<li><p>cpu还有优化</p>
-<ol>
-<li>优化思路就是从「同步」变成「异步」。<br>在修改时会「同步」告诉其他CPU，而现在则把最新修改的值写到「store buffe r」中，并通知其他CPU记得要改状态，随后CPU就直接返回干其他事了。等到收到其它CPU发过来的响应消息，再将数据更新到高速缓存中。其他CPU接收到invalid（无效）通知时，也会把接收到的消息放入「invalid queue」中，只要写到「invalid queue」就会直接返回告诉修改数据的CPU已经将状态置为「invalid」</li>
-</ol>
-</li>
-</ul>
-<h2 id="二、什么是java内存模型"><a href="#二、什么是java内存模型" class="headerlink" title="二、什么是java内存模型"></a>二、什么是java内存模型</h2><ol>
-<li>由于不同CPU架构的缓存体系不一样、缓存一致性协议不一样、重排序的策略不一样、所提供的内存屏障指令也有差异，为了简化Java开发人员的工作。Java封装了一套规范，这套规范就是「Java 内存模型」</li>
-<li>再详细地说，「Java内存模型」希望屏蔽各种硬件和操作系统的访问差异，保证了Java程序在各种平台下对内存的访问都能得到一致效果。</li>
-<li>目的是解决多线程存在的原子性、可见性（缓存一致性）以及有序性问题。</li>
-</ol>
-<p><strong>java内存模型它是一种规范，java虚拟机会实现这种规范</strong></p>
-<h2 id="三、java内存模型的内容"><a href="#三、java内存模型的内容" class="headerlink" title="三、java内存模型的内容"></a>三、java内存模型的内容</h2><ol>
-<li><p>java内存模型的抽象结构</p>
-<p><strong>定义：</strong></p>
-<ul>
-<li><p>java内存模型定义了：java线程对内存数据进行交互的规范。</p>
-</li>
-<li><p>线程之间的「共享变量」存储在「主内存」中，每个线程都有自己私有的「本地内存」，「本地内存」存储了该线程以读&#x2F;写共享变量的副本。</p>
-</li>
-<li><p>本地内存是Java内存模型的抽象概念，并不是真实存在的。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/image-20210922142656426_20210922142656.png"></p>
-</li>
-</ul>
-<p><strong>规定：</strong></p>
-<ul>
-<li>Java内存模型规定了：线程对变量的所有操作都必须在「本地内存」进行，「不能直接读写主内存」的变量</li>
-<li>Java内存模型定义了8种操作来完成「变量如何从主内存到本地内存，以及变量如何从本地内存到主内存」，分别是read&#x2F;load&#x2F;use&#x2F;assign&#x2F;store&#x2F;write&#x2F;lock&#x2F;unlock操作</li>
-<li>看着8个操作很多，对变量的一次读写就涵盖了这些操作了，我再画个图给你讲讲</li>
-</ul>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/WH3VEu_20210922143253.png"></p>
-</li>
-<li><p>happen-beforeguize</p>
-<ul>
-<li><p>按我的理解下，happen-before实际上也是一套「规则」。Java内存模型定义了这套规则，目的是为了阐述「操作之间」的内存「可见性」。</p>
-</li>
-<li><p>从上次讲述「指令重排」就提到了，在CPU和编译器层面上都有指令重排的问题。</p>
-<p>指令重排虽然是能提高运行的效率，但在并发编程中，我们在兼顾「效率」的前提下，还希望「程序结果」能由我们掌控的。<br>说白了就是：在某些重要的场景下，这一组操作都不能进行重排序，「前面一个操作的结果对后续操作必须是可见的」</p>
-</li>
-<li><p>于是，Java内存模型 happen-就提出了-b efore这套规则，规则总共有8条：比如传递性、 volatile变量规则、程序顺序规则、监视器锁的规则（具体看规则的含义就好了，这块不难）</p>
-</li>
-<li><p>只要记住，有了 happen-before-这些规则。我们写的代码只要在这些规则下，前一个操作的结果对后续操作是可见的，是不会发生重排序的。</p>
-</li>
-</ul>
-</li>
-<li><p>对volatile内存语义的探讨</p>
-</li>
-</ol>
-<ul>
-<li><p>嗯，volatile是Java的一个关键字<br>为什么讲Java内存模型往往就会讲到volatile这个关键字呢，我觉得主要是它的特性：可见性和有序性（禁止重排序</p>
-</li>
-<li><p>Java内存模型这个规范，很大程度下就是为了解决可见性和有序性的问题。</p>
-</li>
-<li><p>Java内存模型为了实现volatile有序性和可见性，定义了4种内存屏障的「规范」，分别是LoadLoad&#x2F;LoadStore&#x2F;StoreLoad&#x2F;StoreStore</p>
-</li>
-<li><p>回到volatile上，说白了，就是在volatile「前后」加上「内存屏障」，使得编译器和CPU无法进行重排序，致使有序，并且写volatile变量对其他线程可见。</p>
-</li>
-<li><p>Java内存模型定义了规范，那Java虚拟机就得实现啊，是不是？</p>
-<ul>
-<li>之前看过Hotspot虚拟机的实现，在「汇编」层面上实际是通过Lock前缀指令来实现的，而不是各种fence指令（主要原因就是简便。因为大部分平台都支持lock指令，而fence指令是x86平台的）。</li>
-<li>lock指令能保证：禁止CPU和编译器的重排序（保证了有序性）、保证CPU写核心的指令可以立即生效且其他核心的缓存数据失效（保证了可见性）</li>
-</ul>
-</li>
-<li><p>volatile和MESI协议有啥关系？</p>
-<ul>
-<li><p>没啥关系：Java内存模型关注的是编程语言层面上，它是高维度的抽象。</p>
-</li>
-<li><p>MESI是CPU缓存一致性协议，不同的CPU架构都不一样，可能有的CPU压根就没用MESI协议..</p>
-</li>
-<li><p>只不过MESI名声大，大家就都拿他来举例子了。</p>
-</li>
-<li><p>MESI可能只是在「特定的场景下」为实现volatile的可见性&#x2F;有序性而使用到的一部分罢了</p>
-</li>
-<li><p>为了让Java程序员屏蔽上面这些底层知识，快速地入门使用volatile变量</p>
-</li>
-<li><p>Java内存模型的happen-before规则中就有对volatile变量规则的定义：<br>这条规则的内容其实就是：对一个volatil e变量的写操作相对于后续对这个volatile变量的读操作可见</p>
-<p>它通过happen-before规则来规定：只要变量声明了volatile关键字，写后再读，读必须可见写的值。（可见性、有序性）</p>
-</li>
-</ul>
-</li>
 </ul>
 
       
@@ -1774,175 +1774,6 @@ public void onApplicationEvent(ApplicationEvent applicationEvent) &#123;
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/8537f75f/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/lion.png">
-      <meta itemprop="name" content="swimminghao">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="swimminghao's blog">
-      <meta itemprop="description" content="swimminghao的学习博客">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | swimminghao's blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/8537f75f/" class="post-title-link" itemprop="url">双亲委派机制</a>
-        </h2>
-
-        <div class="post-meta-container">
-
-          
-
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2026-04-03 22:35:13" itemprop="dateModified" datetime="2026-04-03T22:35:13+08:00">2026-04-03</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="far fa-comment"></i>
-    </span>
-    <span class="post-meta-item-text">Waline：</span>
-  
-    <a title="waline" href="/posts/8537f75f/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/8537f75f/" data-xid="/posts/8537f75f/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>1.8k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>2 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="双亲委派机制"><a href="#双亲委派机制" class="headerlink" title="双亲委派机制"></a>双亲委派机制</h1><h2 id="一、双亲委派机制"><a href="#一、双亲委派机制" class="headerlink" title="一、双亲委派机制"></a>一、双亲委派机制</h2><ol>
-<li><p>class文件是通过类加载器加载到jvm中的</p>
-</li>
-<li><p>为了防止内存中存在多份同样的字节码，使用了双亲委派机制（不会自己加载类，而是把请求委托给父加载器去完成，依次向上）</p>
-</li>
-<li><p>jdk本地方法类一般有根加载器（BootStrap Loader） 装载，jdk内部实现的扩展类一般由扩展加载器（ExtClassLoader），程序中的类文件则有系统加载器（AppClassLoader）装载</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/W7CetM_20210922105555.png"></p>
-</li>
-</ol>
-<h2 id="二、如何打破双亲委派机制"><a href="#二、如何打破双亲委派机制" class="headerlink" title="二、如何打破双亲委派机制"></a>二、如何打破双亲委派机制</h2><ol>
-<li>只要我加载类的时候，不是从AppClassLoader→ExtClassLoader→BootStrap Loader这个顺序找，那就是打破了。</li>
-<li>因为加载class核心的方法在LoaderClass类的loadClass()方法上（双亲委派机制的核心实现上）</li>
-<li>只要我自定义个ClassLoader，重写loadClass方法（不依照往上开始寻找类加载器），那就算是打破双亲委派机制了。</li>
-</ol>
-<h2 id="三、破坏双亲委派机制的场景"><a href="#三、破坏双亲委派机制的场景" class="headerlink" title="三、破坏双亲委派机制的场景"></a>三、破坏双亲委派机制的场景</h2><ol>
-<li>tomcat：初学部署项目时，我们是把war包放到tomcat的webapp下，意味着tomcat可以运行多个web应用程序</li>
-<li>那假设我现在有2个web应用程序，都有一个类，叫做User，并且它们的类全限定名都一样，比如：都是com.xxxxx.User。但是它们的具体实现是不一样的</li>
-<li>那么tomcat是如何保证它们不会冲突的呢？</li>
-<li>答案就是：tomcat给每个web应用创建了一个类加载器实例（WebAppClassLoader），该加载器重写了loadClass方法，优先加载当前应用目录下的类，如果当前找不到，才一层一层往上找。这样就做到了web应用层级的隔离。</li>
-</ol>
-<h2 id="四、tomcat还有别的类加载器吗"><a href="#四、tomcat还有别的类加载器吗" class="headerlink" title="四、tomcat还有别的类加载器吗"></a>四、tomcat还有别的类加载器吗</h2><ol>
-<li><p>并不是web应用下的所有依赖都是需要隔离的，比如redis就是可以web应用之间共享的</p>
-</li>
-<li><p>因为如果版本相同，没必要每个web应用都独自加载一份</p>
-</li>
-<li><p>做法很简单，tomcat就在WebAppClassLoader上加了个父类加载器（SharedClassLoader），如果WebAppClassLoader自身没有加载到某个类，那就委托ShaerClassLoader去加载。（无非就是把需要应用程序之间需要共享的类放到一个共享目录下,SharedClassLoader）读共享目录的类就好了</p>
-</li>
-<li><p>为了隔离web应用与tomcat本身的类，又有类加载器（CatalinaClassLoader）来装载tomcat本身的依赖</p>
-</li>
-<li><p>如果tomcat本身的类的依赖和web应用还需要共享，那么还有类加载器（CommonClassLoader）来装载进而达到共享</p>
-</li>
-<li><p>各个类加载器的加载目录可以到tomcat的catalina.properties配置文件上查看</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/5TeCHY_20210922111755.png"></p>
-</li>
-</ol>
-<h2 id="五、jdbc"><a href="#五、jdbc" class="headerlink" title="五、jdbc"></a>五、jdbc</h2><ol>
-<li>有没有破坏双亲委派机制，见仁见智</li>
-<li>jdbc定义类接口，具体实现类由各个厂商进行实现（比如Mysql）</li>
-<li>类加载有个规则：如果一个类由类加载器A加载，那么这个类的依赖类也是有相同的类加载器加载</li>
-<li>我们用jdbc的时候，是使用DriverManager进而获取Connection，DriverManager在java.sql包下，显然是有BootStrap类加载器进行装载</li>
-<li>当我们使用DriverManager.getConnection()时，得到的是一定是厂商实现的类</li>
-<li>但BootStrap 加载器显然不可以加载各个厂商实现的类，这些实现类又没在java包中，怎么可能加载到呢</li>
-<li>DriverManager的解决方案是：在DriverManager初始化时，得到上下文加载器，去获取Connection时，是使用上下文加载器去加载Connection的，而这里的线程上下文加载器实际上还是（AppClassLoader）</li>
-<li>在获取Connection的时候，还是先找到ExtClassLoader和B o o t S t ra p C la s sLoader，只不过这两加载器肯定是加载不到的，最终会有AppClassLoader进行加载</li>
-<li>那这种情况，有的人觉得破坏了双亲委派机制，因为本来明明应该是有BootStrapClassLoader进行加载的，结果你来了一手线程上下文加载器，改掉了类加载器</li>
-<li>有的人觉得没破坏双亲委派机制，只是改成了由线程上下文加载器进行类加载，但是还是遵守依次往上找父类加载，都找不到时才由自身加载。认为原则上没有改变。</li>
-<li>我觉得这不重要，重要的是弄懂底层原理</li>
-</ol>
-
-      
-    </div>
-
-    
-    
-    
-
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>l
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://example.com/posts/cad299ae/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2390,6 +2221,175 @@ public void onApplicationEvent(ApplicationEvent applicationEvent) &#123;
 <h3 id="集群"><a href="#集群" class="headerlink" title="集群"></a><strong>集群</strong></h3><p>相同的服务部署多份，避免单点故障。</p>
 <h3 id="超时和重试机制"><a href="#超时和重试机制" class="headerlink" title="超时和重试机制"></a><strong>超时和重试机制</strong></h3><p><strong>一旦用户的请求超过某个时间得不到响应就结束此次请求并抛出异常。</strong> 如果不进行超时设置可能会导致请求响应速度慢，甚至导致请求堆积进而让系统无法在处理请求。</p>
 <p>另外，重试的次数一般设为 3 次，再多次的重试没有好处，反而会加重服务器压力（部分场景使用失败重试机制会不太适合）。</p>
+
+      
+    </div>
+
+    
+    
+    
+
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>l
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/8537f75f/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lion.png">
+      <meta itemprop="name" content="swimminghao">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="swimminghao's blog">
+      <meta itemprop="description" content="swimminghao的学习博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | swimminghao's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/8537f75f/" class="post-title-link" itemprop="url">双亲委派机制</a>
+        </h2>
+
+        <div class="post-meta-container">
+
+          
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2026-04-03 22:35:13" itemprop="dateModified" datetime="2026-04-03T22:35:13+08:00">2026-04-03</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/posts/8537f75f/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/8537f75f/" data-xid="/posts/8537f75f/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>1.8k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>2 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="双亲委派机制"><a href="#双亲委派机制" class="headerlink" title="双亲委派机制"></a>双亲委派机制</h1><h2 id="一、双亲委派机制"><a href="#一、双亲委派机制" class="headerlink" title="一、双亲委派机制"></a>一、双亲委派机制</h2><ol>
+<li><p>class文件是通过类加载器加载到jvm中的</p>
+</li>
+<li><p>为了防止内存中存在多份同样的字节码，使用了双亲委派机制（不会自己加载类，而是把请求委托给父加载器去完成，依次向上）</p>
+</li>
+<li><p>jdk本地方法类一般有根加载器（BootStrap Loader） 装载，jdk内部实现的扩展类一般由扩展加载器（ExtClassLoader），程序中的类文件则有系统加载器（AppClassLoader）装载</p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/W7CetM_20210922105555.png"></p>
+</li>
+</ol>
+<h2 id="二、如何打破双亲委派机制"><a href="#二、如何打破双亲委派机制" class="headerlink" title="二、如何打破双亲委派机制"></a>二、如何打破双亲委派机制</h2><ol>
+<li>只要我加载类的时候，不是从AppClassLoader→ExtClassLoader→BootStrap Loader这个顺序找，那就是打破了。</li>
+<li>因为加载class核心的方法在LoaderClass类的loadClass()方法上（双亲委派机制的核心实现上）</li>
+<li>只要我自定义个ClassLoader，重写loadClass方法（不依照往上开始寻找类加载器），那就算是打破双亲委派机制了。</li>
+</ol>
+<h2 id="三、破坏双亲委派机制的场景"><a href="#三、破坏双亲委派机制的场景" class="headerlink" title="三、破坏双亲委派机制的场景"></a>三、破坏双亲委派机制的场景</h2><ol>
+<li>tomcat：初学部署项目时，我们是把war包放到tomcat的webapp下，意味着tomcat可以运行多个web应用程序</li>
+<li>那假设我现在有2个web应用程序，都有一个类，叫做User，并且它们的类全限定名都一样，比如：都是com.xxxxx.User。但是它们的具体实现是不一样的</li>
+<li>那么tomcat是如何保证它们不会冲突的呢？</li>
+<li>答案就是：tomcat给每个web应用创建了一个类加载器实例（WebAppClassLoader），该加载器重写了loadClass方法，优先加载当前应用目录下的类，如果当前找不到，才一层一层往上找。这样就做到了web应用层级的隔离。</li>
+</ol>
+<h2 id="四、tomcat还有别的类加载器吗"><a href="#四、tomcat还有别的类加载器吗" class="headerlink" title="四、tomcat还有别的类加载器吗"></a>四、tomcat还有别的类加载器吗</h2><ol>
+<li><p>并不是web应用下的所有依赖都是需要隔离的，比如redis就是可以web应用之间共享的</p>
+</li>
+<li><p>因为如果版本相同，没必要每个web应用都独自加载一份</p>
+</li>
+<li><p>做法很简单，tomcat就在WebAppClassLoader上加了个父类加载器（SharedClassLoader），如果WebAppClassLoader自身没有加载到某个类，那就委托ShaerClassLoader去加载。（无非就是把需要应用程序之间需要共享的类放到一个共享目录下,SharedClassLoader）读共享目录的类就好了</p>
+</li>
+<li><p>为了隔离web应用与tomcat本身的类，又有类加载器（CatalinaClassLoader）来装载tomcat本身的依赖</p>
+</li>
+<li><p>如果tomcat本身的类的依赖和web应用还需要共享，那么还有类加载器（CommonClassLoader）来装载进而达到共享</p>
+</li>
+<li><p>各个类加载器的加载目录可以到tomcat的catalina.properties配置文件上查看</p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/5TeCHY_20210922111755.png"></p>
+</li>
+</ol>
+<h2 id="五、jdbc"><a href="#五、jdbc" class="headerlink" title="五、jdbc"></a>五、jdbc</h2><ol>
+<li>有没有破坏双亲委派机制，见仁见智</li>
+<li>jdbc定义类接口，具体实现类由各个厂商进行实现（比如Mysql）</li>
+<li>类加载有个规则：如果一个类由类加载器A加载，那么这个类的依赖类也是有相同的类加载器加载</li>
+<li>我们用jdbc的时候，是使用DriverManager进而获取Connection，DriverManager在java.sql包下，显然是有BootStrap类加载器进行装载</li>
+<li>当我们使用DriverManager.getConnection()时，得到的是一定是厂商实现的类</li>
+<li>但BootStrap 加载器显然不可以加载各个厂商实现的类，这些实现类又没在java包中，怎么可能加载到呢</li>
+<li>DriverManager的解决方案是：在DriverManager初始化时，得到上下文加载器，去获取Connection时，是使用上下文加载器去加载Connection的，而这里的线程上下文加载器实际上还是（AppClassLoader）</li>
+<li>在获取Connection的时候，还是先找到ExtClassLoader和B o o t S t ra p C la s sLoader，只不过这两加载器肯定是加载不到的，最终会有AppClassLoader进行加载</li>
+<li>那这种情况，有的人觉得破坏了双亲委派机制，因为本来明明应该是有BootStrapClassLoader进行加载的，结果你来了一手线程上下文加载器，改掉了类加载器</li>
+<li>有的人觉得没破坏双亲委派机制，只是改成了由线程上下文加载器进行类加载，但是还是遵守依次往上找父类加载，都找不到时才由自身加载。认为原则上没有改变。</li>
+<li>我觉得这不重要，重要的是弄懂底层原理</li>
+</ol>
 
       
     </div>
