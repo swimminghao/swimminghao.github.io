@@ -2385,6 +2385,228 @@ footer {
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/f8e34911/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lion.png">
+      <meta itemprop="name" content="swimminghao">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="swimminghao's blog">
+      <meta itemprop="description" content="swimminghao的学习博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | swimminghao's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/f8e34911/" class="post-title-link" itemprop="url">精度问题</a>
+        </h2>
+
+        <div class="post-meta-container">
+
+          
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2026-04-03 22:35:13" itemprop="dateModified" datetime="2026-04-03T22:35:13+08:00">2026-04-03</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/posts/f8e34911/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/f8e34911/" data-xid="/posts/f8e34911/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>2.5k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>2 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="Java中float和double中溢值问题和浮点数的储存问题"><a href="#Java中float和double中溢值问题和浮点数的储存问题" class="headerlink" title="Java中float和double中溢值问题和浮点数的储存问题"></a>Java中float和double中溢值问题和浮点数的储存问题</h1><p><img src="https://pic2.zhimg.com/v2-7ccba9dfc4e14a87fb480f8b89f7062c_1440w.jpg?source=172ae18b" alt="Java中float和double中溢值问题和浮点数的储存问题"></p>
+<p>记录一下初学Java出现的问题。</p>
+<p>以为之前是从Python起步的，最初了解到Java的数据类型有float和double这两个东西，就尝试相加这两个</p>
+<p><img src="https://pic3.zhimg.com/80/v2-58d94b038de5826bd6b794c8728b81ea_720w.jpg" alt="img"></p>
+<p>这里返回的结果：32.45000076293945</p>
+<p>这个返回值看的我一脸懵</p>
+<p>要理解这个问题要先知道浮点数在计算机中是以什么形式储存的</p>
+<p>首先要知道计算机能懂的只有0和1</p>
+<p>每一个0和1都占一个位 bit (比特)(Binary Digits)：存放一位<a href="https://link.zhihu.com/?target=https://baike.baidu.com/item/%E4%BA%8C%E8%BF%9B%E5%88%B6">二进制</a>数，最小的存储单位。</p>
+<p>所以，<strong>整数部分：</strong></p>
+<p>22 &#x2F; 2 &#x3D; 11 余<strong>0</strong></p>
+<p>11 &#x2F; 2 &#x3D; 5 余<strong>1</strong></p>
+<p>5 &#x2F; 2 &#x3D; 2 余<strong>1</strong></p>
+<p>2 &#x2F; 2 &#x3D; 1 余<strong>0</strong></p>
+<p>1 &#x2F; 2 &#x3D; 0 余<strong>1</strong></p>
+<p><strong>22的二进制转换就是10110</strong></p>
+<p><strong>小数部分：</strong></p>
+<p>0.45 * 2 &#x3D; 0.9 0</p>
+<p>0.9 * 2 &#x3D; 1.8 1</p>
+<p>0.8 * 2 &#x3D; 1.6 1</p>
+<p>0.6 * 2 &#x3D; 1.2 1</p>
+<p>0.2 * 2 &#x3D; 0.4 0</p>
+<p>0.4 * 2 &#x3D; 0.8 0</p>
+<p>0.8 * 2 &#x3D; 1.6 1</p>
+<p>0.6 * 2 &#x3D; 1.2 1</p>
+<p>0.2 * 2 &#x3D; 0.4 0</p>
+<p>……</p>
+<p>我们可以发现0.45转化成二进制的时候是无限循环的</p>
+<p>二进制转换完成，<strong>22.45 –&gt; 10110.011100110……</strong></p>
+<p>得到这个二进制浮点数之后，计算机是怎么把他表示为没有小数点的字符呢？</p>
+<p>就要用到小学学过的<strong>科学记数法</strong>：</p>
+<p>10110.011100110可以写为</p>
+<p>1.0110011100110 <img src="https://www.zhihu.com/equation?tex=%5Ctimes" alt="[公式]"> <img src="https://www.zhihu.com/equation?tex=2%5E%7B4%7D" alt="[公式]"></p>
+<p>过程中我们发现，小数的转换有可能会产生无限循环的情况，想要做的最精确的记录22.45，计算机需要无限大的空间来记录</p>
+<p>那么<strong>IEEE754标准</strong>就规定：</p>
+<p><strong>32位单精度</strong>（java中的<strong>float</strong>），使用32位（bit）来存储</p>
+<p><strong>64位双精度</strong>（<strong>double</strong>）， 使用64位储存</p>
+<p>那采用什么样的格式呢</p>
+<p>|S| Exp | Fraction |</p>
+<p>+-+——–+———————–+</p>
+<p><strong>S</strong>：符号位（正0负1）</p>
+<p><strong>EXP</strong>：指数位</p>
+<p><strong>Fraction</strong>：有效数字</p>
+<p><img src="https://pic4.zhimg.com/80/v2-75dac8cba2a0c6f341a23f320ef80eeb_720w.jpg" alt="img"></p>
+<p>单精度(<strong>float</strong>)就是</p>
+<p>|1(bit)| 8(bit) | 23(bit) |</p>
+<p>+-+——–+———————–+</p>
+<p>双精度(<strong>double</strong>)</p>
+<p>|1(bit)| 11(bit) | 52(bit) |</p>
+<p>+-+——–+———————–+</p>
+<p>以22.45为例：</p>
+<p>1.0110011100110 <img src="https://www.zhihu.com/equation?tex=%5Ctimes" alt="[公式]"><img src="https://www.zhihu.com/equation?tex=2%5E%7B4%7D" alt="[公式]">(二进制科学记数)</p>
+<p><strong>S</strong> &#x3D; <strong>0</strong></p>
+<p><strong>EXP</strong> &#x3D; 4+127 &#x3D;131 –&gt; <strong>10000011</strong></p>
+<p>这里为什么是131而不是直接的4呢？</p>
+<p>0000 0000八个位来表示指数，最大值就是1111 1111 –&gt; 十进制就是 255</p>
+<p>指数会有正负数两种情况，所以分两半，255 &#x2F; 2 &#x3D; 127.5</p>
+<p>0~127用于负数</p>
+<p>127~255用于正数</p>
+<p>127相当于一个指数是0，所以表示正指数就 + 同理 -</p>
+<p><strong>Fraction</strong> &#x3D; 0110011100110(这里只有13(bit))</p>
+<p>&#x3D; <strong>01100111001100110011010</strong>(接着算了10(bit)补齐23(bit))</p>
+<p>所以22.45在计算机里就是 <strong>S</strong>+<strong>EXP</strong>+<strong>Fraction &#x3D; 01000001101100111001100110011010</strong></p>
+<p>同理<strong>双精度（double）</strong>有64位来记录</p>
+<p><img src="https://pic2.zhimg.com/80/v2-7578d5eb4ea4b7ccd4a6ad8b3041026d_720w.jpg" alt="img"></p>
+<p>System.<em>out</em>.println(Integer.<em>toBinaryString</em>(Float.<em>floatToIntBits</em>(x)));</p>
+<p>这行代码可以查看22.45的二进位表达</p>
+<p><img src="https://pic4.zhimg.com/80/v2-37d1b25e2fcb6f6744a15d16ce403347_720w.jpg" alt="img"></p>
+<p>为什么没有0，因为01 跟1是一样的，所以0就不会显示了</p>
+<p><strong>这是-22.45</strong></p>
+<p><img src="https://pic3.zhimg.com/80/v2-2f0ea9b5de4996dfe41721c33fec509a_720w.jpg" alt="img"></p>
+<p>&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;</p>
+<p>了解了IEEE二进位浮点数，知道了float和double记录的浮点<strong>精确度</strong>不一样我们再看一下问题。</p>
+<p><img src="https://pic3.zhimg.com/80/v2-09cf00e6b2661928de9a33d34cc584ea_720w.jpg" alt="img"></p>
+<p>从输出的结果看 32.45000076293945 是一个double类型，精确的表示了小数点后14位</p>
+<p><strong>所以float + double 是从float赋值到double</strong></p>
+<p><img src="https://pic2.zhimg.com/80/v2-ac85c685344dcc6c42ab80c54c98e3fd_720w.jpg" alt="img"></p>
+<p>输出结果：22.450000762939453</p>
+<p>可是如果float(单精度)赋值到double(双精度)出现精度丢失可以理解，但是会什么会溢值呢？</p>
+<p>我们可以从二进制推回十进制来看一看</p>
+<p>0 | 10000011 | 01100111001100110011010</p>
+<p>正| 指数&#x3D;4 |有效数字</p>
+<p>1.01100111001100110011010 <img src="https://www.zhihu.com/equation?tex=%5Ctimes" alt="[公式]"><img src="https://www.zhihu.com/equation?tex=2%5E%7B4%7D" alt="[公式]"> &#x3D; 10110.<strong>0111001100110011010</strong></p>
+<p>后面这个<strong>0.0111001100110011010</strong>表示小数位</p>
+<p>我们可以通过把<strong>0.0111001100110011010</strong>换成十进制来看看</p>
+<p>小数的二进制到十进制的方法是</p>
+<p>从小数点后依次乘以2的负一次方，2的负二次方，2的负三次方等</p>
+<p>0.0111001100110011010</p>
+<p><img src="https://www.zhihu.com/equation?tex=0%5Ctimes+2%5E%7B-1%7D+++1%5Ctimes+2%5E%7B-2%7D+++1%5Ctimes+2%5E%7B-3%7D+..." alt="[公式]"></p>
+<p>可以直接用python一算</p>
+<p><img src="https://pic4.zhimg.com/80/v2-a0e98538e9455550d26ca6aabfaccf87_720w.jpg" alt="img"></p>
+<p>同这个结果，我们可以看出，由于<strong>float单精度只能选取 无限循环的二进制小数的23位</strong></p>
+<p><strong>导致了十进制浮点数在存储时的不够精准</strong></p>
+<p><strong>当我们把已经储存好的32二进制格式转换成64位时</strong></p>
+<p><img src="https://pic2.zhimg.com/80/v2-4ab767461ea0bd9250e47357d4c81531_720w.jpg" alt="img"></p>
+<p>输出结果：</p>
+<p><img src="https://pic4.zhimg.com/80/v2-6561f67dbd731bf7ad0e8fc8f58bb573_720w.jpg" alt="img"></p>
+<p><strong>可以看出Java并没有重新计算小数点后的更多位， 而是用0来补位</strong></p>
+<p>所以转换成double后，之前<strong>float没有精确到的位数就会显示出来。</strong></p>
+<p>要解决这个问题就需要使用java.math中提供的API类BigDecimal</p>
+<p>注：（BigDecimal用String 或Integer 初始化，double初始化会有舍入精度问题）</p>
+
+      
+    </div>
+
+    
+    
+    
+
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>l
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://example.com/posts/de7c53fe/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2770,228 +2992,6 @@ if (runStateLessThan(c, STOP)) &#123;
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/f8e34911/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/lion.png">
-      <meta itemprop="name" content="swimminghao">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="swimminghao's blog">
-      <meta itemprop="description" content="swimminghao的学习博客">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | swimminghao's blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/f8e34911/" class="post-title-link" itemprop="url">精度问题</a>
-        </h2>
-
-        <div class="post-meta-container">
-
-          
-
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2026-04-03 22:35:13" itemprop="dateModified" datetime="2026-04-03T22:35:13+08:00">2026-04-03</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="far fa-comment"></i>
-    </span>
-    <span class="post-meta-item-text">Waline：</span>
-  
-    <a title="waline" href="/posts/f8e34911/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/f8e34911/" data-xid="/posts/f8e34911/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>2.5k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>2 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="Java中float和double中溢值问题和浮点数的储存问题"><a href="#Java中float和double中溢值问题和浮点数的储存问题" class="headerlink" title="Java中float和double中溢值问题和浮点数的储存问题"></a>Java中float和double中溢值问题和浮点数的储存问题</h1><p><img src="https://pic2.zhimg.com/v2-7ccba9dfc4e14a87fb480f8b89f7062c_1440w.jpg?source=172ae18b" alt="Java中float和double中溢值问题和浮点数的储存问题"></p>
-<p>记录一下初学Java出现的问题。</p>
-<p>以为之前是从Python起步的，最初了解到Java的数据类型有float和double这两个东西，就尝试相加这两个</p>
-<p><img src="https://pic3.zhimg.com/80/v2-58d94b038de5826bd6b794c8728b81ea_720w.jpg" alt="img"></p>
-<p>这里返回的结果：32.45000076293945</p>
-<p>这个返回值看的我一脸懵</p>
-<p>要理解这个问题要先知道浮点数在计算机中是以什么形式储存的</p>
-<p>首先要知道计算机能懂的只有0和1</p>
-<p>每一个0和1都占一个位 bit (比特)(Binary Digits)：存放一位<a href="https://link.zhihu.com/?target=https://baike.baidu.com/item/%E4%BA%8C%E8%BF%9B%E5%88%B6">二进制</a>数，最小的存储单位。</p>
-<p>所以，<strong>整数部分：</strong></p>
-<p>22 &#x2F; 2 &#x3D; 11 余<strong>0</strong></p>
-<p>11 &#x2F; 2 &#x3D; 5 余<strong>1</strong></p>
-<p>5 &#x2F; 2 &#x3D; 2 余<strong>1</strong></p>
-<p>2 &#x2F; 2 &#x3D; 1 余<strong>0</strong></p>
-<p>1 &#x2F; 2 &#x3D; 0 余<strong>1</strong></p>
-<p><strong>22的二进制转换就是10110</strong></p>
-<p><strong>小数部分：</strong></p>
-<p>0.45 * 2 &#x3D; 0.9 0</p>
-<p>0.9 * 2 &#x3D; 1.8 1</p>
-<p>0.8 * 2 &#x3D; 1.6 1</p>
-<p>0.6 * 2 &#x3D; 1.2 1</p>
-<p>0.2 * 2 &#x3D; 0.4 0</p>
-<p>0.4 * 2 &#x3D; 0.8 0</p>
-<p>0.8 * 2 &#x3D; 1.6 1</p>
-<p>0.6 * 2 &#x3D; 1.2 1</p>
-<p>0.2 * 2 &#x3D; 0.4 0</p>
-<p>……</p>
-<p>我们可以发现0.45转化成二进制的时候是无限循环的</p>
-<p>二进制转换完成，<strong>22.45 –&gt; 10110.011100110……</strong></p>
-<p>得到这个二进制浮点数之后，计算机是怎么把他表示为没有小数点的字符呢？</p>
-<p>就要用到小学学过的<strong>科学记数法</strong>：</p>
-<p>10110.011100110可以写为</p>
-<p>1.0110011100110 <img src="https://www.zhihu.com/equation?tex=%5Ctimes" alt="[公式]"> <img src="https://www.zhihu.com/equation?tex=2%5E%7B4%7D" alt="[公式]"></p>
-<p>过程中我们发现，小数的转换有可能会产生无限循环的情况，想要做的最精确的记录22.45，计算机需要无限大的空间来记录</p>
-<p>那么<strong>IEEE754标准</strong>就规定：</p>
-<p><strong>32位单精度</strong>（java中的<strong>float</strong>），使用32位（bit）来存储</p>
-<p><strong>64位双精度</strong>（<strong>double</strong>）， 使用64位储存</p>
-<p>那采用什么样的格式呢</p>
-<p>|S| Exp | Fraction |</p>
-<p>+-+——–+———————–+</p>
-<p><strong>S</strong>：符号位（正0负1）</p>
-<p><strong>EXP</strong>：指数位</p>
-<p><strong>Fraction</strong>：有效数字</p>
-<p><img src="https://pic4.zhimg.com/80/v2-75dac8cba2a0c6f341a23f320ef80eeb_720w.jpg" alt="img"></p>
-<p>单精度(<strong>float</strong>)就是</p>
-<p>|1(bit)| 8(bit) | 23(bit) |</p>
-<p>+-+——–+———————–+</p>
-<p>双精度(<strong>double</strong>)</p>
-<p>|1(bit)| 11(bit) | 52(bit) |</p>
-<p>+-+——–+———————–+</p>
-<p>以22.45为例：</p>
-<p>1.0110011100110 <img src="https://www.zhihu.com/equation?tex=%5Ctimes" alt="[公式]"><img src="https://www.zhihu.com/equation?tex=2%5E%7B4%7D" alt="[公式]">(二进制科学记数)</p>
-<p><strong>S</strong> &#x3D; <strong>0</strong></p>
-<p><strong>EXP</strong> &#x3D; 4+127 &#x3D;131 –&gt; <strong>10000011</strong></p>
-<p>这里为什么是131而不是直接的4呢？</p>
-<p>0000 0000八个位来表示指数，最大值就是1111 1111 –&gt; 十进制就是 255</p>
-<p>指数会有正负数两种情况，所以分两半，255 &#x2F; 2 &#x3D; 127.5</p>
-<p>0~127用于负数</p>
-<p>127~255用于正数</p>
-<p>127相当于一个指数是0，所以表示正指数就 + 同理 -</p>
-<p><strong>Fraction</strong> &#x3D; 0110011100110(这里只有13(bit))</p>
-<p>&#x3D; <strong>01100111001100110011010</strong>(接着算了10(bit)补齐23(bit))</p>
-<p>所以22.45在计算机里就是 <strong>S</strong>+<strong>EXP</strong>+<strong>Fraction &#x3D; 01000001101100111001100110011010</strong></p>
-<p>同理<strong>双精度（double）</strong>有64位来记录</p>
-<p><img src="https://pic2.zhimg.com/80/v2-7578d5eb4ea4b7ccd4a6ad8b3041026d_720w.jpg" alt="img"></p>
-<p>System.<em>out</em>.println(Integer.<em>toBinaryString</em>(Float.<em>floatToIntBits</em>(x)));</p>
-<p>这行代码可以查看22.45的二进位表达</p>
-<p><img src="https://pic4.zhimg.com/80/v2-37d1b25e2fcb6f6744a15d16ce403347_720w.jpg" alt="img"></p>
-<p>为什么没有0，因为01 跟1是一样的，所以0就不会显示了</p>
-<p><strong>这是-22.45</strong></p>
-<p><img src="https://pic3.zhimg.com/80/v2-2f0ea9b5de4996dfe41721c33fec509a_720w.jpg" alt="img"></p>
-<p>&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;</p>
-<p>了解了IEEE二进位浮点数，知道了float和double记录的浮点<strong>精确度</strong>不一样我们再看一下问题。</p>
-<p><img src="https://pic3.zhimg.com/80/v2-09cf00e6b2661928de9a33d34cc584ea_720w.jpg" alt="img"></p>
-<p>从输出的结果看 32.45000076293945 是一个double类型，精确的表示了小数点后14位</p>
-<p><strong>所以float + double 是从float赋值到double</strong></p>
-<p><img src="https://pic2.zhimg.com/80/v2-ac85c685344dcc6c42ab80c54c98e3fd_720w.jpg" alt="img"></p>
-<p>输出结果：22.450000762939453</p>
-<p>可是如果float(单精度)赋值到double(双精度)出现精度丢失可以理解，但是会什么会溢值呢？</p>
-<p>我们可以从二进制推回十进制来看一看</p>
-<p>0 | 10000011 | 01100111001100110011010</p>
-<p>正| 指数&#x3D;4 |有效数字</p>
-<p>1.01100111001100110011010 <img src="https://www.zhihu.com/equation?tex=%5Ctimes" alt="[公式]"><img src="https://www.zhihu.com/equation?tex=2%5E%7B4%7D" alt="[公式]"> &#x3D; 10110.<strong>0111001100110011010</strong></p>
-<p>后面这个<strong>0.0111001100110011010</strong>表示小数位</p>
-<p>我们可以通过把<strong>0.0111001100110011010</strong>换成十进制来看看</p>
-<p>小数的二进制到十进制的方法是</p>
-<p>从小数点后依次乘以2的负一次方，2的负二次方，2的负三次方等</p>
-<p>0.0111001100110011010</p>
-<p><img src="https://www.zhihu.com/equation?tex=0%5Ctimes+2%5E%7B-1%7D+++1%5Ctimes+2%5E%7B-2%7D+++1%5Ctimes+2%5E%7B-3%7D+..." alt="[公式]"></p>
-<p>可以直接用python一算</p>
-<p><img src="https://pic4.zhimg.com/80/v2-a0e98538e9455550d26ca6aabfaccf87_720w.jpg" alt="img"></p>
-<p>同这个结果，我们可以看出，由于<strong>float单精度只能选取 无限循环的二进制小数的23位</strong></p>
-<p><strong>导致了十进制浮点数在存储时的不够精准</strong></p>
-<p><strong>当我们把已经储存好的32二进制格式转换成64位时</strong></p>
-<p><img src="https://pic2.zhimg.com/80/v2-4ab767461ea0bd9250e47357d4c81531_720w.jpg" alt="img"></p>
-<p>输出结果：</p>
-<p><img src="https://pic4.zhimg.com/80/v2-6561f67dbd731bf7ad0e8fc8f58bb573_720w.jpg" alt="img"></p>
-<p><strong>可以看出Java并没有重新计算小数点后的更多位， 而是用0来补位</strong></p>
-<p>所以转换成double后，之前<strong>float没有精确到的位数就会显示出来。</strong></p>
-<p>要解决这个问题就需要使用java.math中提供的API类BigDecimal</p>
-<p>注：（BigDecimal用String 或Integer 初始化，double初始化会有舍入精度问题）</p>
-
-      
-    </div>
-
-    
-    
-    
-
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>l
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://example.com/posts/ca06b5a9/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -3288,7 +3288,7 @@ if (runStateLessThan(c, STOP)) &#123;
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/22472e9c/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/c77b99c1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/lion.png">
@@ -3306,7 +3306,7 @@ if (runStateLessThan(c, STOP)) &#123;
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/22472e9c/" class="post-title-link" itemprop="url">java 名词</a>
+          <a href="/posts/c77b99c1/" class="post-title-link" itemprop="url">使用java8实现List中对象属性的去重</a>
         </h2>
 
         <div class="post-meta-container">
@@ -3335,7 +3335,7 @@ if (runStateLessThan(c, STOP)) &#123;
       </span>
       <span class="post-meta-item-text">分类于</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+          <a href="/categories/%E8%AF%AD%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">语法</span></a>
         </span>
     </span>
 
@@ -3348,8 +3348,8 @@ if (runStateLessThan(c, STOP)) &#123;
     </span>
     <span class="post-meta-item-text">Waline：</span>
   
-    <a title="waline" href="/posts/22472e9c/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/22472e9c/" data-xid="/posts/22472e9c/" itemprop="commentCount"></span>
+    <a title="waline" href="/posts/c77b99c1/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/c77b99c1/" data-xid="/posts/c77b99c1/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -3360,14 +3360,14 @@ if (runStateLessThan(c, STOP)) &#123;
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>4.3k</span>
+      <span>2.2k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>4 分钟</span>
+      <span>2 分钟</span>
     </span>
 </div>
 
@@ -3378,80 +3378,23 @@ if (runStateLessThan(c, STOP)) &#123;
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="java-名词"><a href="#java-名词" class="headerlink" title="java 名词"></a>java 名词</h1><h2 id="“吃人”的那些Java名词：对象、引用、堆、栈️"><a href="#“吃人”的那些Java名词：对象、引用、堆、栈️" class="headerlink" title="“吃人”的那些Java名词：对象、引用、堆、栈️"></a>“吃人”的那些Java名词：对象、引用、堆、栈️</h2><p>经验都是慢慢积累的，天才不多｜ 第170篇</p>
-<p><img src="https://mmbiz.qpic.cn/mmbiz_jpg/z40lCFUAHpmSC3DSh9MC8QiaZiakWP0mHCnSvS20HavA8udLNlNaImXlzYmA6TlVIxe00l1BkfXKvJoAIQsVWaEg/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="图片"></p>
-<p>记得中学的课本上，有一篇名为《狂人日记》课文；那时候根本理解不了鲁迅写这篇文章要表达的中心思想，只觉得满篇的“<strong>吃人</strong>”令人心情压抑；老师在讲台上慷慨激昂的讲，大多数的同学同我一样，在课本面前“痴痴”的发呆。</p>
-<p>作为一个有着8年Java编程经验的IT老兵，说起来很惭愧，我被Java当中的四五个名词一直困扰着：<strong>对象、引用、堆、栈、堆栈</strong>（栈可同堆栈，因此是四个名词，也是五个名词）。每次我看到这几个名词，都隐隐约约觉得自己在被一只无形的大口慢慢地吞噬，只剩下满地的衣服碎屑（为什么不是骨头，因为骨头也好吃）。</p>
-<p>十几年后，再读《狂人日记》，恍然如梦：</p>
-<blockquote>
-<p>鲁迅先生以狂人的口吻，再现了动乱时期下中国人的精神状态，视角新颖，文笔细腻又不乏辛辣之味。<br>当时的中国，混乱成了主色调。以清廷和孔教为主的封建旧思想还在潜移默化地影响着人们的思想，与此同时以革命和新思潮为主的现代思想已经开始了对大众灵魂的洗涤和冲击。</p>
-</blockquote>
-<p>最近，和沉默王二技术交流群（120926808）的群友们交流后，Java中那四五个会吃人的名词：对象、引用、堆、栈、堆栈，似乎在脑海中也清晰了起来，尽管疑惑有时候仍然会在阴云密布时跑出来——正鉴于此，这篇文章恰好做一下归纳。</p>
-<h3 id="一、对象和引用"><a href="#一、对象和引用" class="headerlink" title="一、对象和引用"></a>一、对象和引用</h3><p><strong>在Java中，尽管一切都可以看做是对象，但计算机操作的并非对象本身，而是对象的引用。</strong> 这话乍眼一看，似懂非懂。究竟什么是对象，什么又是引用呢？</p>
-<p>先来看对象的定义：按照通俗的说法，<strong>每个对象都是某个类（class）的一个实例（instance）</strong>。那么，实例化的过程怎么描述呢？来看代码（类是String）：</p>
-<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> <span class="built_in">String</span>(<span class="string">&quot;我是对象张三&quot;</span>);</span><br><span class="line"><span class="keyword">new</span> <span class="built_in">String</span>(<span class="string">&quot;我是对象李四&quot;</span>);</span><br></pre></td></tr></table></figure>
-
-<p><strong>在Java中，实例化指的就是通过关键字“new”来创建对象的过程</strong>。以上代码在运行时就会创建两个对象——“我是对象张三”和”我是对象李四”；现在，该怎么操作他们呢？</p>
-<p>我们都去过公园，见过几个大爷，他们很有一番本领——个个都能把风筝飞得老高老高，徒留我们眼馋的份！风筝飞那么高，没办法直接用手拽着飞啊，全要靠一根长长的看不见的结实的绳子来牵引！操作Java对象也是这个理，得有一根绳——也就是接下来要介绍的“引用”（我们肉眼也常常看不见它）。</p>
-<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">String</span> zhangsan, lisi;</span><br><span class="line">zhangsan = <span class="keyword">new</span> <span class="built_in">String</span>(<span class="string">&quot;我是对象张三&quot;</span>);</span><br><span class="line">lisi = <span class="keyword">new</span> <span class="built_in">String</span>(<span class="string">&quot;我是对象李四&quot;</span>);</span><br></pre></td></tr></table></figure>
-
-<p>这三行代码该怎么理解呢？</p>
-<p>先来看第一行代码：<code>String zhangsan, lisi;</code>——声明了两个变量zhangsan和lisi，他们的类型为String。</p>
-<p>①、歧义：zhangsan和lisi此时被称为引用。</p>
-<p>你也许听过这样一句古文：“<strong>神之于形，犹利之于刀；未闻刀没而利存，岂容形亡而神在？</strong>”这是无神论者范缜（zhen）的名言，大致的意思就是：灵魂对于肉体来说，就像刀刃对于刀身；从没听说过刀身都没了刀刃还存在，那么怎么可能允许肉体死亡了而灵魂还在呢？</p>
-<p><strong>“引用”之于对象，就好比刀刃之于刀身，对象还没有创建，又怎么存在对象的“引用”呢？</strong></p>
-<p>如果zhangsan和lisi此时不能被称为“引用”，那么他们是什么呢？答案很简单，就是变量啊！（鄙人理解）</p>
-<p>②、误解：zhangsan和lisi此时的默认值为<code>null</code>。</p>
-<p>应该说zhangsan和lisi此时的值为<code>undefined</code>——借用JavaScript的关键字；也就是未定义；或者应该是一个新的关键字<code>uninitialized</code>——未初始化。但不管是<code>undefined</code>还是<code>uninitialized</code>，都与<code>null</code>不同。</p>
-<p>既然没有初始化，zhangsan和lisi此时就不能被使用。假如强行使用的话，编译器就会报错，提醒zhangsan和lisi还没有出生（初始化）；见下图。</p>
-<p><img src="https://mmbiz.qpic.cn/mmbiz_png/z40lCFUAHpmSC3DSh9MC8QiaZiakWP0mHCNHs3SgxauYqH7dfThPqpXLcy1XmBFqk8KS6V6V2N1xjWTy3QtZKgjQ/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="图片"></p>
-<p>如果把zhangsan和lisi初始化为<code>null</code>，编译器是认可的（见下图）；由此可见，zhangsan和lisi此时的默认值不为<code>null</code>。</p>
-<p><img src="https://mmbiz.qpic.cn/mmbiz_png/z40lCFUAHpmSC3DSh9MC8QiaZiakWP0mHCtBhECcmKL8DW8nGZ8pZWGOic829gaf3Ro8wqibHII0ldETvciaYHtKFKg/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="图片"></p>
-<p>再来看第二行代码：<code>zhangsan = new String(&quot;我是对象张三&quot;);</code>——创建“我是对象张三”的String类对象，并将其赋值给zhangsan这个变量。</p>
-<p>此时，zhangsan就是”我是对象张三”的引用；“&#x3D;”操作符赋予了zhangsan这样神圣的权利。</p>
-<p>第三行代码<code>lisi = new String(&quot;我是对象李四&quot;);</code>和第二行代码<code>zhangsan = new String(&quot;我是对象张三&quot;);</code>同理。</p>
-<p>现在，我可以下这样一个结论了——<strong>对象是通过<code>new</code>关键字创建的；引用是依赖于对象的；<code>=</code>操作符把对象赋值给了引用</strong>。</p>
-<p>我们再来看这样一段代码：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">String zhangsan, lisi;</span><br><span class="line">zhangsan = <span class="keyword">new</span> <span class="title class_">String</span>(<span class="string">&quot;我是对象张三&quot;</span>);</span><br><span class="line">lisi = <span class="keyword">new</span> <span class="title class_">String</span>(<span class="string">&quot;我是对象李四&quot;</span>);</span><br><span class="line">zhangsan = lisi;</span><br></pre></td></tr></table></figure>
-
-<p>当<code>zhangsan = lisi;</code>执行过后，zhangsan就不再是”我是对象张三”的引用了；zhangsan和lisi指向了同一个对象（”我是对象李四”）；因此，你知道<code>System.out.println(zhangsan == lisi);</code>打印的是<code>false</code>还是<code>true</code>了吗？</p>
-<h3 id="二、堆、栈、堆栈"><a href="#二、堆、栈、堆栈" class="headerlink" title="二、堆、栈、堆栈"></a>二、堆、栈、堆栈</h3><p>谁来告诉我，为什么有很多地方（书、博客等等）把栈叫做堆栈，把堆栈叫做栈？搞得我都头晕目眩了——绕着门柱估计转了80圈，不晕才怪！</p>
-<p>我查了一下金山词霸，结果如下：</p>
-<p><img src="https://mmbiz.qpic.cn/mmbiz_png/z40lCFUAHpmSC3DSh9MC8QiaZiakWP0mHCj8OO5nupmycuwht01HibVPgN2UysUiaic5CViaKzAsBBdhBAIeBHpAzx2g/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="图片"></p>
-<p>我的天呐，更晕了，有没有！怎么才能不晕呢？我这里有几招武功秘籍，你们尽管拿去一睹为快：</p>
-<p>1）以后再<strong>看到堆、栈、堆栈三个在一起打牌的时候，直接把“堆栈”踢出去</strong>；这仨人不适合在一起玩，因为堆和栈才是老相好；你“堆栈”来这插一脚算怎么回事；这世界上只存在“堆、栈”或者“堆栈”（标点符号很重要哦）。</p>
-<p>2）<strong>堆是在程序运行时在内存中申请的空间（可理解为动态的过程）；切记，不是在编译时</strong>；因此，Java中的对象就放在这里，这样做的好处就是：</p>
-<blockquote>
-<p>当需要一个对象时，只需要通过new关键字写一行代码即可，当执行这行代码时，会自动在内存的“堆”区分配空间——这样就很灵活。</p>
-</blockquote>
-<p>另外，需要记住，<strong>堆遵循“先进后出”的规则</strong>。就好像，一个和尚去挑了一担水，然后把一担水装缸里面，等到他口渴的时候他再用瓢舀出来喝。请放肆地打开你的脑洞脑补一下这个流程：缸底的水是先进去的，但后出来的。所以，我建议这位和尚在缸上贴个标签——保质期90天，过期饮用，后果自负！</p>
-<p>还是记不住，看下图：</p>
-<p><img src="https://mmbiz.qpic.cn/mmbiz_jpg/z40lCFUAHpmSC3DSh9MC8QiaZiakWP0mHCfOjwjLfkibbAfhjPM8rUFuFGFsEu6YY8DUAhYHPbDBGgBuHqfCxLACA/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="图片">不好意思，这是鼎，不是缸，将就一下哈</p>
-<p>3）栈，又名堆栈（简直了，完全不符合程序员的思维啊，我们陈许愿习惯说一就是一，说二就是二嘛），能够和处理器（CPU，也就是脑子）直接关联，因此访问速度更快；举个十分不恰当的例子哈——<strong>眼睛相对嘴巴是离脑子近的一方，因此，你可以一目十行，但绝对做不到一开口就读十行字，哪怕十个字也做不到</strong>。</p>
-<p>既然访问速度快，要好好利用啊！<strong>Java就把对象的引用放在栈里</strong>。为什么呢？因为引用的使用频率高吗？</p>
-<p>不是的，<strong>因为Java在编译程序时，必须明确的知道存储在栈里的东西的生命周期</strong>，否则就没法释放旧的内存来开辟新的内存空间存放引用——空间就那么大，前浪要把后浪拍死在沙滩上啊。</p>
-<p>现在清楚堆、栈和堆栈了吧？</p>
-<h3 id="三、特殊的“对象”"><a href="#三、特殊的“对象”" class="headerlink" title="三、特殊的“对象”"></a>三、特殊的“对象”</h3><p>先来看《Java编程思想》中的一段话：</p>
-<blockquote>
-<p>在程序设计中经常用到一系列类型，他们需要特殊对待。之所以特殊对待，是因为new将对象存储于“堆”中，故用new创建一个对象──特别小、简单的变量，往往不是很有效。因此，不用new来创建这类变量，而是创建一个并非是引用的变量，这个变量直接存储值，并置于栈中，因此更加高效。</p>
-</blockquote>
-<p>在Java中，这些基本类型有：boolean、char、byte、short、int、long、float、double和void；还有与之对应的包装器：Boolean、Character、Byte、Short、Integer、Long、Float、Double和Void；他们之间涉及到装箱和拆箱，我们有机会再聊。</p>
-<p>看两行简单的代码：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="variable">a</span> <span class="operator">=</span> <span class="number">3</span>;</span><br><span class="line"><span class="type">int</span> <span class="variable">b</span> <span class="operator">=</span> <span class="number">3</span>;</span><br></pre></td></tr></table></figure>
-
-<p>这两行代码在编译的时候是什么样子呢？</p>
-<p>编译器当然是先处理<code>int a = 3;</code>，不然还能跳过吗？编译器在处理<code>int a = 3;</code>时在栈中创建了一个变量为a的内存空间，然后查找有没有字面值为3的地址，没找到，就开辟一个存放3这个字面值的地址，然后将a指向3的地址。</p>
-<p>编译器忙完了<code>int a = 3;</code>，就来接着处理<code>int b = 3;</code>；在创建完b的变量后，由于栈中已经有3这个字面值，就将b直接指向3的地址；就不需要再开辟新的空间了。</p>
-<p>依据上面的概述，我们假设在定义完a与b的值后，再令a&#x3D;4，此时b是等于3呢，还是4呢？</p>
-<p>思考一下，再看答案哈。</p>
-<p>答案揭晓：当编译器遇到<code>a = 4;</code>时，它会重新搜索栈中是否有4的字面值，如果没有，重新开辟地址存放4的值；如果已经有了，则直接将a指向4这个地址；因此a值的改变不会影响到b的值哦。</p>
-<p>最后，留个作业吧，下面这段代码在运行时会输出什么呢？</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Test1</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String args[])</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">a</span> <span class="operator">=</span> <span class="number">1</span>;</span><br><span class="line">        <span class="type">int</span> <span class="variable">b</span> <span class="operator">=</span> <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">        a = <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line">        System.out.println(a);</span><br><span class="line">        System.out.println(b);</span><br><span class="line"></span><br><span class="line">        <span class="type">TT</span> <span class="variable">t</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">TT</span>(<span class="string">&quot;T&quot;</span>);</span><br><span class="line">        <span class="type">TT</span> <span class="variable">t1</span> <span class="operator">=</span> t;</span><br><span class="line">        t.setName(<span class="string">&quot;TT&quot;</span>);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        System.out.println(t.getName());</span><br><span class="line">        System.out.println(t1.getName());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">TT</span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">TT</span> <span class="params">(String name)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getName</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">this</span>.name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setName</span><span class="params">(String name1)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.name = name1;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-
-
+          <h1 id="使用java8实现List中对象属性的去重"><a href="#使用java8实现List中对象属性的去重" class="headerlink" title="使用java8实现List中对象属性的去重"></a>使用java8实现List中对象属性的去重</h1><p>今天在工作的时候遇到了一个问题，就是List的去重，不想用双重for，感觉太low，不想用for+Map，感觉应该有更好的方法，于是，google之。发现java8的stream流能完美解决这个问题。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">List&lt;BookInfoVo&gt; list</span><br></pre></td></tr></table></figure>
+<p>比如在 BookInfoVo 中有一个 recordId 属性,现在需要对此去重.</p>
+<p>怎么办呢?</p>
+<p>有两种方法:</p>
+<ul>
+<li>第一种: 不使用java8 的 Stream<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> List&lt;BookInfoVo&gt; <span class="title function_">removeDupliByRecordId</span><span class="params">(List&lt;BookInfoVo&gt; books)</span> &#123;</span><br><span class="line">	Set&lt;BookInfoVo&gt; bookSet = <span class="keyword">new</span> <span class="title class_">TreeSet</span>&lt;&gt;((o1, o2)-&gt;o1.getRecordId().compareTo(o2.getRecordId()));</span><br><span class="line">          personSet.addAll(books);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;BookInfoVo&gt;(bookSet);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+这也是大多数人第一想到的,借助 TreeSet 去重,其中 TreeSet 的其中一个构造函数接收一个排序的算法,同时这也会用到 TreeSet 的去重策略上.<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Constructs a new, empty tree set, sorted according to the specified</span></span><br><span class="line"><span class="comment">     * comparator.  All elements inserted into the set must be &lt;i&gt;mutually</span></span><br><span class="line"><span class="comment">     * comparable&lt;/i&gt; by the specified comparator: &#123;<span class="doctag">@code</span> comparator.compare(e1,</span></span><br><span class="line"><span class="comment">     * e2)&#125; must not throw a &#123;<span class="doctag">@code</span> ClassCastException&#125; for any elements</span></span><br><span class="line"><span class="comment">     * &#123;<span class="doctag">@code</span> e1&#125; and &#123;<span class="doctag">@code</span> e2&#125; in the set.  If the user attempts to add</span></span><br><span class="line"><span class="comment">     * an element to the set that violates this constraint, the</span></span><br><span class="line"><span class="comment">     * &#123;<span class="doctag">@code</span> add&#125; call will throw a &#123;<span class="doctag">@code</span> ClassCastException&#125;.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> comparator the comparator that will be used to order this set.</span></span><br><span class="line"><span class="comment">     *        If &#123;<span class="doctag">@code</span> null&#125;, the &#123;<span class="doctag">@linkplain</span> Comparable natural</span></span><br><span class="line"><span class="comment">     *        ordering&#125; of the elements will be used.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line"><span class="keyword">public</span> <span class="title function_">TreeSet</span><span class="params">(Comparator&lt;? <span class="built_in">super</span> E&gt; comparator)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>(<span class="keyword">new</span> <span class="title class_">TreeMap</span>&lt;&gt;(comparator));</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></li>
+<li>第二种: 炫酷的java8写法]<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*方法二:炫酷的java8写法*/</span></span><br><span class="line">ArrayList&lt;BookInfoVo&gt; distinctLiost = list.stream()</span><br><span class="line">                  .collect(</span><br><span class="line">                          Collectors.collectingAndThen(</span><br><span class="line">                                  Collectors.toCollection(() -&gt; <span class="keyword">new</span> <span class="title class_">TreeSet</span>&lt;&gt;(Comparator.comparingLong(BookInfoVo::getRecordId))), ArrayList::<span class="keyword">new</span>)</span><br><span class="line">                  );</span><br></pre></td></tr></table></figure>
+当然也可以根据多个属性去重<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ArrayList&lt;BookInfoVo&gt; distinctLiost = list.stream().collect(Collectors.collectingAndThen(</span><br><span class="line">  Collectors.toCollection(() -&gt; <span class="keyword">new</span> <span class="title class_">TreeSet</span>&lt;&gt;(Comparator.comparing(o -&gt; o.getName() + <span class="string">&quot;;&quot;</span> + o.getAuthor()))), ArrayList::<span class="keyword">new</span>)</span><br></pre></td></tr></table></figure>
+如果没有第一种方法做铺垫,我们很可能一脸懵逼.</li>
+</ul>
+<p>其实理解起来也不难:</p>
+<p>关键在于Collectors.collectingAndThen( Collectors.toCollection(() -&gt; new TreeSet&lt;&gt;(Comparator.comparingLong(BookInfoVo::getRecordId))), ArrayList::new)的理解,</p>
+<p>collectingAndThen 这个方法的意思是: 将收集的结果转换为另一种类型: collectingAndThen,</p>
+<p>因此上面的方法可以理解为,把 new TreeSet&lt;&gt;(Comparator.comparingLong(BookInfoVo::getRecordId))这个set转换为 ArrayList,这个结合第一种方法不难理解.</p>
+<p>可以看到java8这种写法真是炫酷又强大!!!</p>
 
       
     </div>
