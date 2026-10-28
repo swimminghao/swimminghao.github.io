@@ -276,7 +276,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/5a56f011/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/9544a93a/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/lion.png">
@@ -294,7 +294,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/5a56f011/" class="post-title-link" itemprop="url">2、【对线面试官】今天来聊聊Java泛型</a>
+          <a href="/posts/9544a93a/" class="post-title-link" itemprop="url">29、【对线面试官】垃圾回收机制</a>
         </h2>
 
         <div class="post-meta-container">
@@ -336,8 +336,8 @@
     </span>
     <span class="post-meta-item-text">Waline：</span>
   
-    <a title="waline" href="/posts/5a56f011/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/5a56f011/" data-xid="/posts/5a56f011/" itemprop="commentCount"></span>
+    <a title="waline" href="/posts/9544a93a/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/9544a93a/" data-xid="/posts/9544a93a/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -348,14 +348,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>2.5k</span>
+      <span>2.8k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>2 分钟</span>
+      <span>3 分钟</span>
     </span>
 </div>
 
@@ -366,42 +366,124 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>#2、【对线面试官】今天来聊聊Java泛型</p>
-<h2 id="泛型了解"><a href="#泛型了解" class="headerlink" title="泛型了解"></a>泛型了解</h2><ol>
-<li>在Java中的泛型简单来说就是：在创建对象或调用方法的时候才明确下具体的类型</li>
-<li>使用泛型的好处就是代码更加简洁（不再需要强制转换），程序更加健壮（在编译期间没有警告，在运行期就不会出现ClassCastException异常）</li>
-</ol>
-<h2 id="工作中用得多吗"><a href="#工作中用得多吗" class="headerlink" title="工作中用得多吗"></a>工作中用得多吗</h2><ol>
-<li>在操作集合的时候，还是很多的，毕竟方便啊。List lists &#x3D; new ArrayList&lt;&gt;();lists.add （”面试造火箭”）；</li>
-<li>如果是其他场景的话，那就是在写「基础组件」的时候了。</li>
-</ol>
-<h2 id="你是怎么写的"><a href="#你是怎么写的" class="headerlink" title="你是怎么写的"></a>你是怎么写的</h2><ol>
-<li><p>再明确一下泛型就是「在创建对象或调用方法的时候才明确下具体的类型」</p>
+          <h1 id="29、【对线面试官】垃圾回收机制"><a href="#29、【对线面试官】垃圾回收机制" class="headerlink" title="29、【对线面试官】垃圾回收机制"></a>29、【对线面试官】垃圾回收机制</h1><h2 id="聊聊Java的垃圾回收机制"><a href="#聊聊Java的垃圾回收机制" class="headerlink" title="聊聊Java的垃圾回收机制?"></a>聊聊Java的垃圾回收机制?</h2><p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/Xm317A_20211229152833.png"></p>
+<ul>
+<li>我们使用Java的时候，会创建很多对象，但我们未曾「手动」将这些对象进行清除,而如果用C++语言的时候，用完是需要自己free（释放）掉的</li>
+<li>写Java的时候不用自己手动释放”垃圾”呢？原因很简单，JVM帮我们做了（自动回收垃圾）</li>
+<li>垃圾的定义：只要对象不再被使用了，那我们就认为该对象就是垃圾，对象所占用的空间就可以被回收·</li>
+</ul>
+<h2 id="是怎么判断对象不再被使用的呢？"><a href="#是怎么判断对象不再被使用的呢？" class="headerlink" title="是怎么判断对象不再被使用的呢？"></a>是怎么判断对象不再被使用的呢？</h2><ul>
+<li><p>常用的算法有两个「引用计数法」和「可达性分析法」</p>
+<ul>
+<li><p>引用计数法思路很简单：当对象被引用则+1，但对象引用失败则-1。当计数器为0时，说明对象不再被引用，可以被可回收</p>
 </li>
-<li><p>而组件为了做到足够的通用性，是不知道「用户」传入什么类型参数进来的所以在这种情况下用泛型就是很好的实践。</p>
+<li><p>缺点就是：如果对象存在循环依赖，那就无法定位该对象，是否应该被回收（A依赖B，B依赖A）</p>
 </li>
-<li><p>这块可以参考SpringData JPA的JpaRepository写法。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">JpaRepository</span>&lt;T, ID&gt; <span class="keyword">extends</span> <span class="title class_">PagingAndSortingRepository</span>&lt;T, ID&gt;, QueryByExampleExecutor&lt;T&gt; &#123;</span><br><span class="line"></span><br><span class="line"> List&lt;T&gt; <span class="title function_">findAll</span><span class="params">()</span>;</span><br><span class="line"></span><br><span class="line"> List&lt;T&gt; <span class="title function_">findAll</span><span class="params">(Sort sort)</span>;</span><br><span class="line"></span><br><span class="line"> List&lt;T&gt; <span class="title function_">findAllById</span><span class="params">(Iterable&lt;ID&gt; ids)</span>;</span><br><span class="line"></span><br><span class="line"> &lt;S <span class="keyword">extends</span> <span class="title class_">T</span>&gt; List&lt;S&gt; <span class="title function_">saveAll</span><span class="params">(Iterable&lt;S&gt; entities)</span>;</span><br><span class="line"></span><br><span class="line"> <span class="keyword">void</span> <span class="title function_">flush</span><span class="params">()</span>;</span><br><span class="line"></span><br><span class="line"> &lt;S <span class="keyword">extends</span> <span class="title class_">T</span>&gt; S <span class="title function_">saveAndFlush</span><span class="params">(S entity)</span>;</span><br><span class="line"></span><br><span class="line"> <span class="keyword">void</span> <span class="title function_">deleteInBatch</span><span class="params">(Iterable&lt;T&gt; entities)</span>;</span><br><span class="line"></span><br><span class="line"> <span class="keyword">void</span> <span class="title function_">deleteAllInBatch</span><span class="params">()</span>;</span><br><span class="line"></span><br><span class="line"> T <span class="title function_">getOne</span><span class="params">(ID id)</span>;</span><br><span class="line"></span><br><span class="line"> <span class="meta">@Override</span></span><br><span class="line"> &lt;S <span class="keyword">extends</span> <span class="title class_">T</span>&gt; List&lt;S&gt; <span class="title function_">findAll</span><span class="params">(Example&lt;S&gt; example)</span>;</span><br><span class="line"></span><br><span class="line"> <span class="meta">@Override</span></span><br><span class="line"> &lt;S <span class="keyword">extends</span> <span class="title class_">T</span>&gt; List&lt;S&gt; <span class="title function_">findAll</span><span class="params">(Example&lt;S&gt; example, Sort sort)</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<li><p>是可达性分析法：它从「GC Roots」开始向下搜索，当对象到「GC Roots」都没有任何引用相连时，说明对象是不可用的，可以被回收</p>
+<ul>
+<li><p>「 GC Roots」是一组必须「活跃」的引用</p>
 </li>
-<li><p>要写组件，还是离不开Java反射机制（能够从运行时获取信息），所以一般组件是泛型+反射来实现的。</p>
+<li><p>从「 GC Root」出发，程序通过直接引用或者间接引用，能够找到可能正在被使用的对象</p>
+<ul>
+<li>比如：JVM内存结构中的虚拟机栈，虚拟机栈里的栈帧，栈帧中的局部变量，局部变量就存储着引用。</li>
+<li>那如果栈帧位于虚拟机栈的栈顶，是不是说明这个栈帧是活跃的（换言之，是线程正在被调用的）</li>
+<li>既然是线程正在调用的，那栈帧里的指向「堆」的对象引用，就一定是「活跃」的引用</li>
+<li>所以，当前活跃的栈帧指向堆里的对象引用就可以是「 GC Roots」</li>
+</ul>
 </li>
-<li><p>回到我所讲的组件吧，背景是这样的：我这边有个需求，需要根据某些字段进行聚合。</p>
+<li><p>当然了，能作为「 GC Roots」也不单单只有上面那一块</p>
+<ul>
+<li>比如类的静态变量引用是「 GC Roots」，被「Java本地方法」所引用的对象也是「 GC Roots」等等</li>
+</ul>
 </li>
-<li><p>换到SQL其实就是select sum（column 1),sum(column2) from table group by fie ld1,field2</p>
+<li><p>「 GC Roots」是一组必须「活跃」的「引用」，只要跟「GC Roots」没有直接或者间接引用相连，那就是垃圾。JVM用的就是「可达性分析算法」来判断对象是否为垃圾</p>
 </li>
-<li><p>需要sum和group by的列肯定是由业务方自己传入，而SQL的表其实就是我们的POJO（传入的字段也肯定是POJO的属性）</p>
+</ul>
 </li>
-<li><p>单个业务实际可以在参数上写死POJO，但为了做得更加通用，我把入参设置为泛型</p>
+</ul>
 </li>
-<li><p>拿到参数后，通过反射获取其字段具体的值，做累加就好了。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 传入 需要group by 和 sum 的字段名</span></span><br><span class="line"><span class="keyword">public</span> <span class="title function_">cacheMap</span><span class="params">(List&lt;String&gt; groupByKeys, List&lt;String&gt; sumValues)</span> &#123;</span><br><span class="line">  <span class="built_in">this</span>.groupByKeys = groupByKeys;</span><br><span class="line">  <span class="built_in">this</span>.sumValues = sumValues;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">excute</span><span class="params">(T e)</span> &#123;</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// 从pojo 取出需要group by 的字段 list</span></span><br><span class="line">  List&lt;Object&gt; key = buildPrimaryKey(e);</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// primaryMap 是存储结果的Map</span></span><br><span class="line">  <span class="type">T</span> <span class="variable">value</span> <span class="operator">=</span> primaryMap.get(key);</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// 如果从存储结果找到有相应记录</span></span><br><span class="line">  <span class="keyword">if</span> (value != <span class="literal">null</span>) &#123;</span><br><span class="line">    <span class="keyword">for</span> (String elem : sumValues) &#123;</span><br><span class="line">      <span class="comment">// 反射获取对应的字段，做累加处理</span></span><br><span class="line">      <span class="type">Field</span> <span class="variable">field</span> <span class="operator">=</span> getDeclaredField(elem, e);</span><br><span class="line">      <span class="keyword">if</span> (field.get(e) <span class="keyword">instanceof</span> Integer) &#123;</span><br><span class="line">        field.set(value, (Integer) field.get(e) + (Integer) field.get(value));</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span> (field.get(e) <span class="keyword">instanceof</span> Long) &#123;</span><br><span class="line">        field.set(value, (Long) field.get(e) + (Long) field.get(value));</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">RuntimeException</span>(<span class="string">&quot;类型异常,请处理异常&quot;</span>);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 处理时间记录</span></span><br><span class="line">    <span class="type">Field</span> <span class="variable">field</span> <span class="operator">=</span> getDeclaredField(<span class="string">&quot;updated&quot;</span>, value);</span><br><span class="line">    <span class="keyword">if</span> (<span class="literal">null</span> != field) &#123;</span><br><span class="line">      field.set(value, DateTimeUtils.getCurrentTime());</span><br><span class="line">    &#125;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="comment">// group by 字段 第一次进来</span></span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      primaryMap.put(key, Tclone(e));</span><br><span class="line">      createdMap.put(key, DateTimeUtils.getCurrentTime());</span><br><span class="line">    &#125;<span class="keyword">catch</span> (Exception ex) &#123;</span><br><span class="line">      log.info(<span class="string">&quot;first put value error &#123;&#125;&quot;</span> , e);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</ul>
+<h2 id="标记完，怎么删除的（垃圾回收算法）"><a href="#标记完，怎么删除的（垃圾回收算法）" class="headerlink" title="标记完，怎么删除的（垃圾回收算法）"></a>标记完，怎么删除的（垃圾回收算法）</h2><ul>
+<li>标记清除<ul>
+<li>缺点：直接清除会有「内存碎片」的问题：可能我有10M的空余内存，但程序申请9M内存空间却申请不下来（10M的内存空间是垃圾清除后的，不连续的）</li>
+</ul>
 </li>
-<li><p>理解了泛型的作用之后，再去审视自己代码时，就可以判断是否需要用到泛型了。</p>
+<li>标记复制<ul>
+<li>「标记」存活的对象「复制」到另一块空间，复制完了之后，直接把原有的整块空间给干掉！这样就没有内存碎片的问题了</li>
+<li>缺点：内存利用率低，得有一块新的区域给我复制（移动）过去</li>
+</ul>
 </li>
-</ol>
-<h2 id="价值体现"><a href="#价值体现" class="headerlink" title="价值体现"></a>价值体现</h2><ol>
-<li>主要是在平时工作中，写代码的时候会多想想，遇到能用到的地方会优化下代码</li>
-</ol>
+<li>标记整理<ul>
+<li>当前区域内进行移动，存活对象一到一边，垃圾移到一边，再统一删除，就不会有内存碎片了</li>
+</ul>
+</li>
+</ul>
+<h2 id="老年代、年轻代"><a href="#老年代、年轻代" class="headerlink" title="老年代、年轻代"></a>老年代、年轻代</h2><ul>
+<li>大部分对象的生命周期都很短，而只有少部分对象可能会存活很长时间</li>
+<li>回收垃圾的时候，程序是有短暂的时间不能正常继续运作啊。（JVM在回收的时候，用户线程不能继续分配修改引用），为了使「 stop the word」持续的时间尽可能短以及提高并发式GC所能应付的内存分配速率</li>
+<li>所以很多的垃圾收集器上都会在「物理」或者「逻辑」上，把这两类对象进行区分<ul>
+<li>死得快的对象所占的区域叫做「年轻代」，活得久的对象所占的区域叫做「老年代」</li>
+<li>但也不是所有的「垃圾收集器」都会有，只不过我们现在线上用的可能都是JDK8，JDK8及以下所使用到的垃圾收集器都是有「分代」概念的</li>
+</ul>
+</li>
+</ul>
+<h2 id="垃圾收集器"><a href="#垃圾收集器" class="headerlink" title="垃圾收集器"></a>垃圾收集器</h2><ul>
+<li><p>垃圾回收的过程，其实就对应着几种「垃圾回收算法」分别是</p>
+<ul>
+<li>标记清除算法、标记复制算法和标记整理算法【「标记」「复制」「整理」】</li>
+</ul>
+</li>
+<li><p>「年轻代」的垃圾收集器有： Seria、Parallel Scavenge、 Pardew</p>
+<ul>
+<li>年轻代的垃圾回收器使用的都是「标记复制算法」</li>
+<li>所以在「堆内存」划分中，将年轻代划分出 Survivor区（ Survivor From和 ourvor To），目的就是为了有一块完整的内存空间供垃圾回收器进行拷贝（移动）</li>
+<li>新对象则放入Eden区</li>
+<li>堆内存大小默认比例：</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/6qtuUz_20211229160130.png"></p>
+</li>
+<li><p>「老年代」的垃圾收集器有： Serial Old、 Parallel Old、CMS</p>
+</li>
+<li><p>Serial是单线程的， Parallel是多线程。这些垃圾收集器实际上就是「实现了」垃圾回收算法（标记复制、标记整理以及标记清除算法）</p>
+</li>
+<li><p>CMS是「JDK8之前」是比较新的垃圾收集器，它的特点是能够尽可能减少「stop the word」时间。在垃圾回收时让用户线程和GC线程能够并发执行」</p>
+</li>
+</ul>
+<h2 id="新创建的对象一般是在「新生代」嘛，那在什么时候会到「老年代」中呢？"><a href="#新创建的对象一般是在「新生代」嘛，那在什么时候会到「老年代」中呢？" class="headerlink" title="新创建的对象一般是在「新生代」嘛，那在什么时候会到「老年代」中呢？"></a>新创建的对象一般是在「新生代」嘛，那在什么时候会到「老年代」中呢？</h2><ul>
+<li>两种情况<ul>
+<li>如果对象太大了，就会直接进入老年代（对象创建时就很大 或者 Survivor区没办法存下该对象）</li>
+<li>如果对象太老了，那就会晋升至老年代（每发生一次 Monor GC，存活的对象年龄+1，达到默认值15则晋升老年代）或者（动态对象年龄判定可以进入老年代）</li>
+</ul>
+</li>
+</ul>
+<h2 id="那-Monor-GC什么时候会触发呢？"><a href="#那-Monor-GC什么时候会触发呢？" class="headerlink" title="那 Monor GC什么时候会触发呢？"></a>那 Monor GC什么时候会触发呢？</h2><ul>
+<li>当Eden区空间不足时，就会触发 Monor GC</li>
+</ul>
+<h2 id="那在「年轻代」GC的时候，从-GC-Roots出发，那不也会扫描到「老年代」的对象吗？那那那-不就相当于全堆扫描吗？那这分代还有意义吗？"><a href="#那在「年轻代」GC的时候，从-GC-Roots出发，那不也会扫描到「老年代」的对象吗？那那那-不就相当于全堆扫描吗？那这分代还有意义吗？" class="headerlink" title="那在「年轻代」GC的时候，从 GC Roots出发，那不也会扫描到「老年代」的对象吗？那那那.不就相当于全堆扫描吗？那这分代还有意义吗？"></a>那在「年轻代」GC的时候，从 GC Roots出发，那不也会扫描到「老年代」的对象吗？那那那.不就相当于全堆扫描吗？那这分代还有意义吗？</h2><ul>
+<li><p>JVM解决方案</p>
+<ul>
+<li>Hotspot虚拟机「老的GC」（G1以下）是要求整个GC堆在连续的地址空间上</li>
+<li>所以会有一条分界线（一侧是老年代，另一侧是年轻代），所以可以通过「地址」就可以判断对象在哪个分代上、</li>
+<li>当做 Monor GCI的时候，从 GC Roots出发，如果发现「老年代」的对象，那就不往下走了（ Monor GC对老年代的区域毫无兴趣）</li>
+</ul>
+</li>
+</ul>
+<h2 id="但又有个问题，那如果「年轻代」的对象被「老年代」引用了呢？（老年代对象持有年轻代对象的引用），那时候肯定是不能回收掉「年轻代」的对象的？"><a href="#但又有个问题，那如果「年轻代」的对象被「老年代」引用了呢？（老年代对象持有年轻代对象的引用），那时候肯定是不能回收掉「年轻代」的对象的？" class="headerlink" title="但又有个问题，那如果「年轻代」的对象被「老年代」引用了呢？（老年代对象持有年轻代对象的引用），那时候肯定是不能回收掉「年轻代」的对象的？"></a>但又有个问题，那如果「年轻代」的对象被「老年代」引用了呢？（老年代对象持有年轻代对象的引用），那时候肯定是不能回收掉「年轻代」的对象的？</h2><ul>
+<li>解决方案<ul>
+<li>Hotspot虚拟机下有「 card table」（卡表）来避免全局扫描「老年代」对象</li>
+<li>「堆内存」的每一小块区域形成「卡页」，卡表实际上就是卡页的集合。当判断一个卡页中有存在对象的跨代引用时，将这个页标记为「脏页」</li>
+<li>那知道了「卡表」之后，就很好办了。每次 Monor GC的时候只需要去「卡表找到「脏页」，找到后加入至 GC Root，而不用去遍历整个「老年代」的对象了。</li>
+</ul>
+</li>
+</ul>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p><strong>什么是垃圾</strong>：只要对象不再被使用，那即是垃圾</p>
+<p><strong>如何判断为垃圾</strong>：可达性分析算法和引用计算算法，JVM使用的是可达性分析算法</p>
+<p><strong>什么是GC Roots</strong>：GC Roots是一组必须活跃的引用，跟GC Roots无关联的引用即是垃圾，可被回收</p>
+<p><strong>常见的垃圾回收算法</strong>：标记清除、标记复制、标记整理</p>
+<p><strong>为什么需要分代</strong>：大部分对象都死得早，只有少部分对象会存活很长时间。在堆内存上都会在物理或逻辑上进行分代，为了使「stop the word」持续的时间尽可能短以及提高并发式GC所能应付的内存分配速率。</p>
+<p><strong>Minor GC</strong>：当Eden区满了则触发，从GC Roots往下遍历，年轻代GC不关心老年代对象</p>
+<p><strong>什么是card table</strong>【卡表】：空间换时间（类似bitmap），能够避免扫描老年代的所有对象，进而顺利进行Minor GC （案例：老年代对象持有年轻代对象引用）</p>
+<p><strong>堆内存占比</strong>：年轻代占堆内存1&#x2F;3，老年代占堆内存2&#x2F;3。Eden区占年轻代8&#x2F;10，Survivor区占年轻代2&#x2F;10（其中From 和To 各站1&#x2F;10)</p>
 
       
     </div>
@@ -1080,6 +1162,243 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/f4ff0293/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lion.png">
+      <meta itemprop="name" content="swimminghao">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="swimminghao's blog">
+      <meta itemprop="description" content="swimminghao的学习博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | swimminghao's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/f4ff0293/" class="post-title-link" itemprop="url">34、【对线面试官】Redis分片集群</a>
+        </h2>
+
+        <div class="post-meta-container">
+
+          
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2026-10-28 20:15:59" itemprop="dateModified" datetime="2026-10-28T20:15:59+08:00">2026-10-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/posts/f4ff0293/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/f4ff0293/" data-xid="/posts/f4ff0293/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>3.6k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>3 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="34、【对线面试官】Redis分片集群"><a href="#34、【对线面试官】Redis分片集群" class="headerlink" title="34、【对线面试官】Redis分片集群"></a>34、【对线面试官】Redis分片集群</h1><h2 id="要不接着上一次的话题呗？聊下Redis的分片集群，先聊Redis-Clusters好咯？"><a href="#要不接着上一次的话题呗？聊下Redis的分片集群，先聊Redis-Clusters好咯？" class="headerlink" title="要不接着上一次的话题呗？聊下Redis的分片集群，先聊Redis Clusters好咯？"></a>要不接着上一次的话题呗？聊下Redis的分片集群，先聊Redis Clusters好咯？</h2><ul>
+<li><p>基础</p>
+<ul>
+<li><p>在前面聊Redisl的时候，提到的Redis都是「单实例」存储所有的数据</p>
+</li>
+<li><p>1.主从模式下实现读写分离的架构，可以让多个从服务器承载「读流量」，但面对「写流量」时，始终是只有主服务器在抗。</p>
+</li>
+<li><p>2.「纵向扩展」升级Redis服务器硬件能力，但升级至一定程度下，就不划算了。</p>
+</li>
+<li><p>纵向扩展意味着「大内存」，Redis：持久化时的”成本”会加大（Redis做RDB持久化，是全量的，fork子进程时有可能由于使用内存过大，导致主线程阻塞时间过长）</p>
+</li>
+<li><p>所以，「单实例」是有瓶颈的这里的。单实例我指的是：某台Redis服务器存储着某业务的所有数据</p>
+</li>
+<li><p>「纵向扩展」不行，就「横向扩展」呗。</p>
+</li>
+<li><p>用多个Redis实例来组成一个集群，按照一定的规则把数据「分发」到不同的Redis实例上。当集群所有的Redis实例的数据加起来，那这份数据就是全的</p>
+</li>
+<li><p>其实就是「分布式」的概念（：只不过，在Redis.里，好像叫「分片集群」的人比较多？</p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/UjVuJE_20211230101518.png"></p>
+</li>
+<li><p>从前面就得知了，要「分布式存储」，就肯定避免不了对数据进行「分发」（也是路由的意思）</p>
+</li>
+<li><p>从Redis Clusteri讲起吧，它的「路由」是做在客户端的（SDK已经集成了路由转发的功能）</p>
+</li>
+<li><p>Redis Cluster）对数据的分发的逻辑中，涉及到「哈希槽」（Hash Solt）的概念</p>
+</li>
+<li><p>Redis Cluster默认一个集群有16384个哈希槽，这些哈希槽会分配到不同的Redis实例中</p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/wG6xGm_20211230101625.png"></p>
+</li>
+<li><p>至于怎么「瓜分」，可以直接均分，也可以「手动」设置每个Redis实例的哈希槽，全由我们来决定</p>
+</li>
+<li><p>重要的是，我们要把这16384个都得瓜分完，不能有剩余！</p>
+</li>
+<li><p>当客户端有数据进行写入的时候，首先会对key按照CRC16算法计算出16bit的值（可以理解为就是做hash），然后得到的值对16384进行取模</p>
+</li>
+<li><p>取模之后，自然就得到其中一个哈希槽，然后就可以将数据插入到分配至该哈希槽的Redis实例中</p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="那问题就来了，现在客户端通过hash算法算出了哈希槽的位置，那客户端怎么知道这个哈希槽在哪台Redis实例上呢？"><a href="#那问题就来了，现在客户端通过hash算法算出了哈希槽的位置，那客户端怎么知道这个哈希槽在哪台Redis实例上呢？" class="headerlink" title="那问题就来了，现在客户端通过hash算法算出了哈希槽的位置，那客户端怎么知道这个哈希槽在哪台Redis实例上呢？"></a>那问题就来了，现在客户端通过hash算法算出了哈希槽的位置，那客户端怎么知道这个哈希槽在哪台Redis实例上呢？</h2><ul>
+<li>是这样的，在集群的中每个Redis实例都会向其他实例「传播」自己所负责的哈希槽有哪些。这样一来，每台Redis实例就可以记录着「所有哈希槽与实例」的关系了</li>
+<li>有了这个映射关系以后，客户端也会「缓存」一份到自己的本地上，那自然客户端就知道去哪个Redis实例上操作</li>
+</ul>
+<h2 id="那我又有问题了，在集群里也可以新增画者删除Redis：实例啊，这个怎么整？（扩容、缩容很常见的操作）"><a href="#那我又有问题了，在集群里也可以新增画者删除Redis：实例啊，这个怎么整？（扩容、缩容很常见的操作）" class="headerlink" title="那我又有问题了，在集群里也可以新增画者删除Redis：实例啊，这个怎么整？（扩容、缩容很常见的操作）"></a>那我又有问题了，在集群里也可以新增画者删除Redis：实例啊，这个怎么整？（扩容、缩容很常见的操作）</h2><ul>
+<li>当集群删除或者新增Redis实例时，那总会有某Redis实例所负责的哈希槽关系会发生变化</li>
+<li>发生变化的信息会通过消息发送至整个集群中，所有的Redis实例都会知道该变化，然后更新自己所保存的映射关系</li>
+<li>但这时候，客户端其实是不感知的</li>
+<li>所以，当客户端请求时某Key时，还是会请求到「原来」的Redis实例上。</li>
+<li>而原来的Redis实例会返回「noved」命令，告诉客户端应该要去新的Redis：实例上去请求啦</li>
+<li>客户端接收到「moved」命令之后，就知道去新的Redis实例请求了，并且更新客户端自身「哈希槽与实例之间的映射关系」</li>
+<li>总结起来就是：数据迁移完毕后被响应，客户端会收到「moved」命令，并且会更新本地缓存</li>
+<li>那数据还没完全迁移完呢？</li>
+<li>如果数据还没完全迁移完，那这时候会返回客户端「ask」命令。也是让客户端去请求新的Redis实例，但客户端这时候不会更新本地缓存</li>
+</ul>
+<h2 id="那你知道为什么哈希槽是16384个吗？"><a href="#那你知道为什么哈希槽是16384个吗？" class="headerlink" title="那你知道为什么哈希槽是16384个吗？"></a>那你知道为什么哈希槽是16384个吗？</h2><ul>
+<li>嗯，这个。是这样的，Redis：实例之间「通讯」会相互交换「槽信息」，那如果槽过多（意味着网络包会变大），网络包变大，那是不是就意味着会「过度占用」网络的带宽</li>
+<li>另外一块是，Redis作者认为集群在一般情况下是不会超过1000个实例</li>
+<li>那就取了16384个，即可以将数据合理打散至Redis：集群中的不同实例，又不会在交换数据时导致带宽占用过多</li>
+</ul>
+<h2 id="那你知道为什么对数据进行分区在Redis中用的是「哈希槽」这种方式吗？而不是一致性哈希算法"><a href="#那你知道为什么对数据进行分区在Redis中用的是「哈希槽」这种方式吗？而不是一致性哈希算法" class="headerlink" title="那你知道为什么对数据进行分区在Redis中用的是「哈希槽」这种方式吗？而不是一致性哈希算法"></a>那你知道为什么对数据进行分区在Redis中用的是「哈希槽」这种方式吗？而不是一致性哈希算法</h2><ul>
+<li>在我理解下，一致性哈希算法就是有个「哈希环」，当客户端请求时，会对Key进行hash，确定在哈希环上的位置，然后顺时针往后找，找到的第一个节点</li>
+<li>一致性哈希算法比「传统固定取模」的好处就是：如果集群中需要新增或删除某实例，只会影响一小部分的数据</li>
+<li>但如果在集群中新增或者删除实例，在一致性哈希算法下，就得知道是「哪一部分数据」受到影响了，需要进行对受影响的数据进行迁移</li>
+<li>而哈希槽的方式，我们通过上面已经可以发现：在集群中的每个实例都能拿到槽位相关的信息（去中心化）</li>
+<li>当客户端对key进行hash运算之后，如果发现请求的实例没有相关的数据，实例会返回「重定向」命令告诉客户端应该去哪儿请求</li>
+<li>集群的扩容、缩容都是以「哈希槽」作为基本单位进行操作，总的来说就是「实现」会更加简单（简洁，高效，有弹性）</li>
+<li>过程大概就是把部分槽进行重新分配，然后迁移槽中的数据即可，不会影响到集群中某个实例的所有数据。</li>
+</ul>
+<h2 id="那你了解「服务端路由」的大致原理吗？"><a href="#那你了解「服务端路由」的大致原理吗？" class="headerlink" title="那你了解「服务端路由」的大致原理吗？"></a>那你了解「服务端路由」的大致原理吗？</h2><ul>
+<li><p>嗯，服务端路由一般指的就是，有个代理层专门对接客户端的请求，然后再转发到Redis集群进行处理</p>
+</li>
+<li><p>上次最后面试的时候，也提到了，现在比较流行的是Codis</p>
+</li>
+<li><p>它与Redis Clusteri最大的区别就是，Redis Cluster是直连Redis实例的，而Codis则客户端直连Proxy，再由Proxy进行分发到不同的Redis实例进行处理</p>
+<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/5iNRXA_20211230102232.png"></p>
+</li>
+<li><p>在Codis对Key路由的方案跟Redis Cluster很类似，Codis初始化出1024个哈希槽，然后分配到不同的Redis服务器中</p>
+</li>
+<li><p>哈希槽与Redis实例的映射关系由Zookeeper进行存储和管理，Proxy会通过CodisDashBoard得到最新的映射关系，并缓存在本地上</p>
+</li>
+</ul>
+<h2 id="那如果我要扩容Codis-Redis实例的流程是怎么样的？"><a href="#那如果我要扩容Codis-Redis实例的流程是怎么样的？" class="headerlink" title="那如果我要扩容Codis Redis实例的流程是怎么样的？"></a>那如果我要扩容Codis Redis实例的流程是怎么样的？</h2><ul>
+<li>简单来说就是：把新的Redis：实例加入到集群中，然后把部分数据迁移到新的实例上</li>
+<li>大概的过程就是：<ul>
+<li>1.「原实例」某一个Solt的部分数据发送给「目标实例」</li>
+<li>2.「目标实例」收到数据后，给「原实例」返回ack</li>
+<li>3.「原实例」收到ack之后，在本地删除掉刚刚给「目标实例」的数据</li>
+<li>4.不断循环1、2、3步骤，直至整个solt迁移完毕</li>
+</ul>
+</li>
+<li>Codis和Redis Cluster迁移的步骤都差不多的</li>
+<li>不过Codis：是支持「异步迁移」的，针对上面的步骤2，「原实例」发送数据后，不等待「目标实例」返回ack，就可以继续接收客户端的请求</li>
+<li>未迁移完的数据标记为「只读」，就不会影响到数据的一致性</li>
+<li>如果对迁移中的数据存在「写操作」，那会让客户端进行「重试」，最后会写到「目标实例」上</li>
+<li>还有就是，针对bigkey，异步迁移采用了「拆分指令」的方式进行迁移，比如有个set元素有10000个，那「原实例」可能就发送10000条命令给「目标实例」，而不是一整个bigkey一次性迁移（因为大对象容易造成阻塞）</li>
+</ul>
+<h2 id="Redis-Cluster和Codis的总体区别"><a href="#Redis-Cluster和Codis的总体区别" class="headerlink" title="Redis Cluster和Codis的总体区别"></a>Redis Cluster和Codis的总体区别</h2><p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/EArvDs_20211230102555.png"></p>
+<h2 id="总结1"><a href="#总结1" class="headerlink" title="总结1"></a>总结1</h2><ul>
+<li>说白了就是，如果集群Redis实例存在变动，由于Redis实例之间会「通讯」</li>
+<li>所以等到客户端请求时，Redis实例总会知道客户端所要请求的数据在哪个Redis实例上</li>
+<li>如果已经迁移完毕了，那就返回「move」命令告诉客户端应该去找哪个Redis实例要数据，并且客户端应该更新自己的缓存（映射关系）</li>
+<li>如果正在迁移中，那就返回「ack」命令告诉客户端应该去找哪个Redis实例要数据</li>
+</ul>
+<h2 id="总结2"><a href="#总结2" class="headerlink" title="总结2"></a>总结2</h2><p><strong>分片集群诞生理由</strong>：写性能在高并发下会遇到瓶颈&amp;&amp;无法无限地纵向扩展（不划算）</p>
+<p><strong>分片集群</strong>：需要解决「数据路由」和「数据迁移」的问题</p>
+<p><strong>Redis Cluster数据路由</strong>：</p>
+<ul>
+<li>Redis Cluster默认一个集群有16384个哈希槽，哈希槽会被分配到Redis集群中的实例中</li>
+<li>Redis集群的实例会相互「通讯」，交互自己所负责哈希槽信息（最终每个实例都有完整的映射关系）</li>
+<li>当客户端请求时，使用CRC16算法算出Hash值并模以16384，自然就能得到哈希槽进而得到所对应的Redis实例位置</li>
+</ul>
+<p><strong>为什么16384个哈希槽</strong>：16384个既能让Redis实例分配到的数据相对均匀，又不会影响Redis实例之间交互槽信息产生严重的网络性能开销问题</p>
+<p><strong>Redis Cluster 为什么使用哈希槽，而非一致性哈希算法</strong>：哈希槽实现相对简单高效，每次扩缩容只需要动对应Solt（槽）的数据，一般不会动整个Redis实例</p>
+<p><strong>Codis数据路由</strong>：默认分配1024个哈希槽，映射相关信息会被保存至Zookeeper集群。Proxy会缓存一份至本地，Redis集群实例发生变化时，DashBoard更新Zookeeper和Proxy的映射信息</p>
+<p><strong>Redis Cluster和Codis数据迁移</strong>：Redis Cluster支持同步迁移，Codis支持同步迁移&amp;&amp;异步迁移</p>
+
+      
+    </div>
+
+    
+    
+    
+
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>l
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://example.com/posts/63b182f/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1319,243 +1638,6 @@
 <ul>
 <li>Redis的主从复制和故障转移阶段都有可能发生数据丢失问题（通过配置尽可能避免）</li>
 </ul>
-
-      
-    </div>
-
-    
-    
-    
-
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>l
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/f4ff0293/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/lion.png">
-      <meta itemprop="name" content="swimminghao">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="swimminghao's blog">
-      <meta itemprop="description" content="swimminghao的学习博客">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | swimminghao's blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/f4ff0293/" class="post-title-link" itemprop="url">34、【对线面试官】Redis分片集群</a>
-        </h2>
-
-        <div class="post-meta-container">
-
-          
-
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2026-10-28 20:15:59" itemprop="dateModified" datetime="2026-10-28T20:15:59+08:00">2026-10-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="far fa-comment"></i>
-    </span>
-    <span class="post-meta-item-text">Waline：</span>
-  
-    <a title="waline" href="/posts/f4ff0293/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/f4ff0293/" data-xid="/posts/f4ff0293/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>3.6k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>3 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="34、【对线面试官】Redis分片集群"><a href="#34、【对线面试官】Redis分片集群" class="headerlink" title="34、【对线面试官】Redis分片集群"></a>34、【对线面试官】Redis分片集群</h1><h2 id="要不接着上一次的话题呗？聊下Redis的分片集群，先聊Redis-Clusters好咯？"><a href="#要不接着上一次的话题呗？聊下Redis的分片集群，先聊Redis-Clusters好咯？" class="headerlink" title="要不接着上一次的话题呗？聊下Redis的分片集群，先聊Redis Clusters好咯？"></a>要不接着上一次的话题呗？聊下Redis的分片集群，先聊Redis Clusters好咯？</h2><ul>
-<li><p>基础</p>
-<ul>
-<li><p>在前面聊Redisl的时候，提到的Redis都是「单实例」存储所有的数据</p>
-</li>
-<li><p>1.主从模式下实现读写分离的架构，可以让多个从服务器承载「读流量」，但面对「写流量」时，始终是只有主服务器在抗。</p>
-</li>
-<li><p>2.「纵向扩展」升级Redis服务器硬件能力，但升级至一定程度下，就不划算了。</p>
-</li>
-<li><p>纵向扩展意味着「大内存」，Redis：持久化时的”成本”会加大（Redis做RDB持久化，是全量的，fork子进程时有可能由于使用内存过大，导致主线程阻塞时间过长）</p>
-</li>
-<li><p>所以，「单实例」是有瓶颈的这里的。单实例我指的是：某台Redis服务器存储着某业务的所有数据</p>
-</li>
-<li><p>「纵向扩展」不行，就「横向扩展」呗。</p>
-</li>
-<li><p>用多个Redis实例来组成一个集群，按照一定的规则把数据「分发」到不同的Redis实例上。当集群所有的Redis实例的数据加起来，那这份数据就是全的</p>
-</li>
-<li><p>其实就是「分布式」的概念（：只不过，在Redis.里，好像叫「分片集群」的人比较多？</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/UjVuJE_20211230101518.png"></p>
-</li>
-<li><p>从前面就得知了，要「分布式存储」，就肯定避免不了对数据进行「分发」（也是路由的意思）</p>
-</li>
-<li><p>从Redis Clusteri讲起吧，它的「路由」是做在客户端的（SDK已经集成了路由转发的功能）</p>
-</li>
-<li><p>Redis Cluster）对数据的分发的逻辑中，涉及到「哈希槽」（Hash Solt）的概念</p>
-</li>
-<li><p>Redis Cluster默认一个集群有16384个哈希槽，这些哈希槽会分配到不同的Redis实例中</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/wG6xGm_20211230101625.png"></p>
-</li>
-<li><p>至于怎么「瓜分」，可以直接均分，也可以「手动」设置每个Redis实例的哈希槽，全由我们来决定</p>
-</li>
-<li><p>重要的是，我们要把这16384个都得瓜分完，不能有剩余！</p>
-</li>
-<li><p>当客户端有数据进行写入的时候，首先会对key按照CRC16算法计算出16bit的值（可以理解为就是做hash），然后得到的值对16384进行取模</p>
-</li>
-<li><p>取模之后，自然就得到其中一个哈希槽，然后就可以将数据插入到分配至该哈希槽的Redis实例中</p>
-</li>
-</ul>
-</li>
-</ul>
-<h2 id="那问题就来了，现在客户端通过hash算法算出了哈希槽的位置，那客户端怎么知道这个哈希槽在哪台Redis实例上呢？"><a href="#那问题就来了，现在客户端通过hash算法算出了哈希槽的位置，那客户端怎么知道这个哈希槽在哪台Redis实例上呢？" class="headerlink" title="那问题就来了，现在客户端通过hash算法算出了哈希槽的位置，那客户端怎么知道这个哈希槽在哪台Redis实例上呢？"></a>那问题就来了，现在客户端通过hash算法算出了哈希槽的位置，那客户端怎么知道这个哈希槽在哪台Redis实例上呢？</h2><ul>
-<li>是这样的，在集群的中每个Redis实例都会向其他实例「传播」自己所负责的哈希槽有哪些。这样一来，每台Redis实例就可以记录着「所有哈希槽与实例」的关系了</li>
-<li>有了这个映射关系以后，客户端也会「缓存」一份到自己的本地上，那自然客户端就知道去哪个Redis实例上操作</li>
-</ul>
-<h2 id="那我又有问题了，在集群里也可以新增画者删除Redis：实例啊，这个怎么整？（扩容、缩容很常见的操作）"><a href="#那我又有问题了，在集群里也可以新增画者删除Redis：实例啊，这个怎么整？（扩容、缩容很常见的操作）" class="headerlink" title="那我又有问题了，在集群里也可以新增画者删除Redis：实例啊，这个怎么整？（扩容、缩容很常见的操作）"></a>那我又有问题了，在集群里也可以新增画者删除Redis：实例啊，这个怎么整？（扩容、缩容很常见的操作）</h2><ul>
-<li>当集群删除或者新增Redis实例时，那总会有某Redis实例所负责的哈希槽关系会发生变化</li>
-<li>发生变化的信息会通过消息发送至整个集群中，所有的Redis实例都会知道该变化，然后更新自己所保存的映射关系</li>
-<li>但这时候，客户端其实是不感知的</li>
-<li>所以，当客户端请求时某Key时，还是会请求到「原来」的Redis实例上。</li>
-<li>而原来的Redis实例会返回「noved」命令，告诉客户端应该要去新的Redis：实例上去请求啦</li>
-<li>客户端接收到「moved」命令之后，就知道去新的Redis实例请求了，并且更新客户端自身「哈希槽与实例之间的映射关系」</li>
-<li>总结起来就是：数据迁移完毕后被响应，客户端会收到「moved」命令，并且会更新本地缓存</li>
-<li>那数据还没完全迁移完呢？</li>
-<li>如果数据还没完全迁移完，那这时候会返回客户端「ask」命令。也是让客户端去请求新的Redis实例，但客户端这时候不会更新本地缓存</li>
-</ul>
-<h2 id="那你知道为什么哈希槽是16384个吗？"><a href="#那你知道为什么哈希槽是16384个吗？" class="headerlink" title="那你知道为什么哈希槽是16384个吗？"></a>那你知道为什么哈希槽是16384个吗？</h2><ul>
-<li>嗯，这个。是这样的，Redis：实例之间「通讯」会相互交换「槽信息」，那如果槽过多（意味着网络包会变大），网络包变大，那是不是就意味着会「过度占用」网络的带宽</li>
-<li>另外一块是，Redis作者认为集群在一般情况下是不会超过1000个实例</li>
-<li>那就取了16384个，即可以将数据合理打散至Redis：集群中的不同实例，又不会在交换数据时导致带宽占用过多</li>
-</ul>
-<h2 id="那你知道为什么对数据进行分区在Redis中用的是「哈希槽」这种方式吗？而不是一致性哈希算法"><a href="#那你知道为什么对数据进行分区在Redis中用的是「哈希槽」这种方式吗？而不是一致性哈希算法" class="headerlink" title="那你知道为什么对数据进行分区在Redis中用的是「哈希槽」这种方式吗？而不是一致性哈希算法"></a>那你知道为什么对数据进行分区在Redis中用的是「哈希槽」这种方式吗？而不是一致性哈希算法</h2><ul>
-<li>在我理解下，一致性哈希算法就是有个「哈希环」，当客户端请求时，会对Key进行hash，确定在哈希环上的位置，然后顺时针往后找，找到的第一个节点</li>
-<li>一致性哈希算法比「传统固定取模」的好处就是：如果集群中需要新增或删除某实例，只会影响一小部分的数据</li>
-<li>但如果在集群中新增或者删除实例，在一致性哈希算法下，就得知道是「哪一部分数据」受到影响了，需要进行对受影响的数据进行迁移</li>
-<li>而哈希槽的方式，我们通过上面已经可以发现：在集群中的每个实例都能拿到槽位相关的信息（去中心化）</li>
-<li>当客户端对key进行hash运算之后，如果发现请求的实例没有相关的数据，实例会返回「重定向」命令告诉客户端应该去哪儿请求</li>
-<li>集群的扩容、缩容都是以「哈希槽」作为基本单位进行操作，总的来说就是「实现」会更加简单（简洁，高效，有弹性）</li>
-<li>过程大概就是把部分槽进行重新分配，然后迁移槽中的数据即可，不会影响到集群中某个实例的所有数据。</li>
-</ul>
-<h2 id="那你了解「服务端路由」的大致原理吗？"><a href="#那你了解「服务端路由」的大致原理吗？" class="headerlink" title="那你了解「服务端路由」的大致原理吗？"></a>那你了解「服务端路由」的大致原理吗？</h2><ul>
-<li><p>嗯，服务端路由一般指的就是，有个代理层专门对接客户端的请求，然后再转发到Redis集群进行处理</p>
-</li>
-<li><p>上次最后面试的时候，也提到了，现在比较流行的是Codis</p>
-</li>
-<li><p>它与Redis Clusteri最大的区别就是，Redis Cluster是直连Redis实例的，而Codis则客户端直连Proxy，再由Proxy进行分发到不同的Redis实例进行处理</p>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/5iNRXA_20211230102232.png"></p>
-</li>
-<li><p>在Codis对Key路由的方案跟Redis Cluster很类似，Codis初始化出1024个哈希槽，然后分配到不同的Redis服务器中</p>
-</li>
-<li><p>哈希槽与Redis实例的映射关系由Zookeeper进行存储和管理，Proxy会通过CodisDashBoard得到最新的映射关系，并缓存在本地上</p>
-</li>
-</ul>
-<h2 id="那如果我要扩容Codis-Redis实例的流程是怎么样的？"><a href="#那如果我要扩容Codis-Redis实例的流程是怎么样的？" class="headerlink" title="那如果我要扩容Codis Redis实例的流程是怎么样的？"></a>那如果我要扩容Codis Redis实例的流程是怎么样的？</h2><ul>
-<li>简单来说就是：把新的Redis：实例加入到集群中，然后把部分数据迁移到新的实例上</li>
-<li>大概的过程就是：<ul>
-<li>1.「原实例」某一个Solt的部分数据发送给「目标实例」</li>
-<li>2.「目标实例」收到数据后，给「原实例」返回ack</li>
-<li>3.「原实例」收到ack之后，在本地删除掉刚刚给「目标实例」的数据</li>
-<li>4.不断循环1、2、3步骤，直至整个solt迁移完毕</li>
-</ul>
-</li>
-<li>Codis和Redis Cluster迁移的步骤都差不多的</li>
-<li>不过Codis：是支持「异步迁移」的，针对上面的步骤2，「原实例」发送数据后，不等待「目标实例」返回ack，就可以继续接收客户端的请求</li>
-<li>未迁移完的数据标记为「只读」，就不会影响到数据的一致性</li>
-<li>如果对迁移中的数据存在「写操作」，那会让客户端进行「重试」，最后会写到「目标实例」上</li>
-<li>还有就是，针对bigkey，异步迁移采用了「拆分指令」的方式进行迁移，比如有个set元素有10000个，那「原实例」可能就发送10000条命令给「目标实例」，而不是一整个bigkey一次性迁移（因为大对象容易造成阻塞）</li>
-</ul>
-<h2 id="Redis-Cluster和Codis的总体区别"><a href="#Redis-Cluster和Codis的总体区别" class="headerlink" title="Redis Cluster和Codis的总体区别"></a>Redis Cluster和Codis的总体区别</h2><p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/EArvDs_20211230102555.png"></p>
-<h2 id="总结1"><a href="#总结1" class="headerlink" title="总结1"></a>总结1</h2><ul>
-<li>说白了就是，如果集群Redis实例存在变动，由于Redis实例之间会「通讯」</li>
-<li>所以等到客户端请求时，Redis实例总会知道客户端所要请求的数据在哪个Redis实例上</li>
-<li>如果已经迁移完毕了，那就返回「move」命令告诉客户端应该去找哪个Redis实例要数据，并且客户端应该更新自己的缓存（映射关系）</li>
-<li>如果正在迁移中，那就返回「ack」命令告诉客户端应该去找哪个Redis实例要数据</li>
-</ul>
-<h2 id="总结2"><a href="#总结2" class="headerlink" title="总结2"></a>总结2</h2><p><strong>分片集群诞生理由</strong>：写性能在高并发下会遇到瓶颈&amp;&amp;无法无限地纵向扩展（不划算）</p>
-<p><strong>分片集群</strong>：需要解决「数据路由」和「数据迁移」的问题</p>
-<p><strong>Redis Cluster数据路由</strong>：</p>
-<ul>
-<li>Redis Cluster默认一个集群有16384个哈希槽，哈希槽会被分配到Redis集群中的实例中</li>
-<li>Redis集群的实例会相互「通讯」，交互自己所负责哈希槽信息（最终每个实例都有完整的映射关系）</li>
-<li>当客户端请求时，使用CRC16算法算出Hash值并模以16384，自然就能得到哈希槽进而得到所对应的Redis实例位置</li>
-</ul>
-<p><strong>为什么16384个哈希槽</strong>：16384个既能让Redis实例分配到的数据相对均匀，又不会影响Redis实例之间交互槽信息产生严重的网络性能开销问题</p>
-<p><strong>Redis Cluster 为什么使用哈希槽，而非一致性哈希算法</strong>：哈希槽实现相对简单高效，每次扩缩容只需要动对应Solt（槽）的数据，一般不会动整个Redis实例</p>
-<p><strong>Codis数据路由</strong>：默认分配1024个哈希槽，映射相关信息会被保存至Zookeeper集群。Proxy会缓存一份至本地，Redis集群实例发生变化时，DashBoard更新Zookeeper和Proxy的映射信息</p>
-<p><strong>Redis Cluster和Codis数据迁移</strong>：Redis Cluster支持同步迁移，Codis支持同步迁移&amp;&amp;异步迁移</p>
 
       
     </div>

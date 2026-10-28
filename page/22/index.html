@@ -457,6 +457,185 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/ace2edeb/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/lion.png">
+      <meta itemprop="name" content="swimminghao">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="swimminghao's blog">
+      <meta itemprop="description" content="swimminghao的学习博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | swimminghao's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/ace2edeb/" class="post-title-link" itemprop="url">21、【对线面试官】Mysql索引</a>
+        </h2>
+
+        <div class="post-meta-container">
+
+          
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2026-10-28 20:15:59" itemprop="dateModified" datetime="2026-10-28T20:15:59+08:00">2026-10-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/posts/ace2edeb/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/ace2edeb/" data-xid="/posts/ace2edeb/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>1.8k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>2 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="21、【对线面试官】Mysql索引"><a href="#21、【对线面试官】Mysql索引" class="headerlink" title="21、【对线面试官】Mysql索引"></a>21、【对线面试官】Mysql索引</h1><h2 id="我看你简历上写了MySQL，对MySQL-InnoDB引擎的索引了解吗？"><a href="#我看你简历上写了MySQL，对MySQL-InnoDB引擎的索引了解吗？" class="headerlink" title="我看你简历上写了MySQL，对MySQL InnoDB引擎的索引了解吗？"></a>我看你简历上写了MySQL，对MySQL InnoDB引擎的索引了解吗？</h2><ol>
+<li>嗯啊，使用索引可以加快查询速度，其实上就是将无序的数据变成有序（有序就能加快检索速度）</li>
+<li>在InnoDB引擎中，索引的底层数据结构是**<code>B+树</code>**</li>
+</ol>
+<h2 id="那为什么不使用红黑树或者B树呢？"><a href="#那为什么不使用红黑树或者B树呢？" class="headerlink" title="那为什么不使用红黑树或者B树呢？"></a>那为什么不使用红黑树或者B树呢？</h2><ol>
+<li><p>MySQL的数据是存储在硬盘的，在查询时一般是不能「一次性」把全部数据加载到内存中</p>
+</li>
+<li><p>红黑树是「二叉查找树」的变种，一个Node节点只能存储一个Key和一个Value</p>
+</li>
+<li><p>B和B+树跟红黑树不一样，它们算是「多路搜索树」，相较于「二叉搜索树」而言，一个Node节点可以存储的信息会更多，「多路搜索树」的高度会比「二叉搜索树」更低。</p>
+</li>
+<li><p>了解了区别之后，其实就很容易发现，在数据不能一次加载至内存的场景下，数据需要被检索出来</p>
+</li>
+<li><p>选择B或B+树的理由就很充分了（一个Node节点存储信息更多（相较于二叉搜索树），树的高度更低，树的高度影响检索的速度）</p>
+</li>
+<li><p>B+树相对于B树而言，它又有两种特性。</p>
+<p>1）B+树非叶子节点不存储数据，在相同的数据量下，B+树更加矮壮。（这个应该不用多解释了，数据都存储在叶子节点上，非叶子节点的存储能存储更多的索引，所以整棵树就更加矮壮）</p>
+<p>2）B+树叶子节点之间组成一个链表，方便于遍历查询（遍历操作在MySQL中比较常见）</p>
+</li>
+<li><p>我稍微解释一下吧，你可以脑补下画面</p>
+</li>
+<li><p>我们在MySQL InnoDB引擎下，每创建一个索引，相当于生成了一颗B+树。</p>
+</li>
+<li><p>如果该索引是「聚集（聚簇）索引」，那当前B+树的叶子节点存储着「主键和当前行的数据」</p>
+</li>
+<li><p>如果该索引是「非聚簇索引小」，那当前B+树的叶子节点存储着「主键和当前索引列值」</p>
+</li>
+<li><p>比如写了一句sql：select*from user where id&gt;&#x3D;10，那只要定位到id为10的记录，然后在叶子节点之间通过遍历链表（叶子节点组成的链表），即可找到往后的记录了。</p>
+</li>
+<li><p>由于B树是会在非叶子节点也存储数据，要遍历的时候可能就得跨层检索，相对麻烦些。</p>
+</li>
+<li><p>基于树的层级以及业务使用场景的特性，所以MySQL选择了B+树作为索引的底层数据结构。</p>
+</li>
+<li><p>对于哈希结构，其实InnoDB引擎是「自适应」哈希索引的（hash索引的创建由lnnoDB存储引擎自动优化创建，我们是干预不了）</p>
+</li>
+</ol>
+<h2 id="你知道什么是回表吗？"><a href="#你知道什么是回表吗？" class="headerlink" title="你知道什么是回表吗？"></a>你知道什么是回表吗？</h2><ol>
+<li>所谓的回表其实就是，当我们使用非聚簇索引查询数据时，检索出来的数据可能包含其他列</li>
+<li>但走的索引树叶子节点只能查到当前列值以及主键ID，所以需要根据主键ID再去查一遍数据，得到SQL所需的列</li>
+<li>举个例子，我这边建了给订单号ID建了个索引，但我的SQL是：select orderld，orderName from orderdetail where orderld &#x3D; 123</li>
+<li>SQL走订单ID索引，但在订单ID的索引树的叶子节点只有orderld和ld，而我们还想检索出orderName，所以MySQL会拿到ID再去查出orderName给我们返回，这种操作就叫回表</li>
+</ol>
+<h2 id="如何避免回表"><a href="#如何避免回表" class="headerlink" title="如何避免回表"></a>如何避免回表</h2><ol>
+<li>想要避免回表，可以使用覆盖索引</li>
+<li>所谓的覆盖索引，实际上就是你想要查出的列刚好在叶子节点上都存在，比如我建了orderld和orderName.联合索引l，刚好我需要查询也是orderld和orderName，这些数据都存在索引树的叶子节点上，就不需要回表操作了。</li>
+</ol>
+<h2 id="既然你也提到了联合索引，我想问下你了解最左匹配原则吗"><a href="#既然你也提到了联合索引，我想问下你了解最左匹配原则吗" class="headerlink" title="既然你也提到了联合索引，我想问下你了解最左匹配原则吗"></a>既然你也提到了联合索引，我想问下你了解最左匹配原则吗</h2><ol>
+<li>嗯，要说明这个概念，还是举例子比较容易</li>
+<li>如有索引（a，b，c，d），查询条件a&#x3D;1and b&#x3D;2 and c&gt;3 and d&#x3D;4，则会在每个节点依次命中a、b、c，无法命中d</li>
+<li>先匹配最左边的，索引只能用于查找key是否存在（相等），遇到范围查询（&gt;、&lt;、between、like左匹配）等就不能进一步匹配了，后续退化为线性查找</li>
+<li>这就是最左匹配原则</li>
+</ol>
+<h2 id="嗯嗯，我还想问下你们主键是怎么生成的？"><a href="#嗯嗯，我还想问下你们主键是怎么生成的？" class="headerlink" title="嗯嗯，我还想问下你们主键是怎么生成的？"></a>嗯嗯，我还想问下你们主键是怎么生成的？</h2><p>主键就自增的</p>
+<h2 id="那假设我不用MySQL自增的主键，你觉得会有什么问题呢？"><a href="#那假设我不用MySQL自增的主键，你觉得会有什么问题呢？" class="headerlink" title="那假设我不用MySQL自增的主键，你觉得会有什么问题呢？"></a>那假设我不用MySQL自增的主键，你觉得会有什么问题呢？</h2><ol>
+<li>首先主键得保证它的唯一性和空间尽可能短吧，这两块是需要考虑的。</li>
+<li>另外，由于索引的特性（有序），如果生成像uuid类似的主键，那插入的的性能是比自增的要差的</li>
+<li>因为生成的uuid，在插入时有可能需要移动磁盘块（比如，块内的空间在当前时刻已经存储满了，但新生成的uuid需要插入已满的块内，就需要移动块的数据）</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>l
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://example.com/posts/b4eb9a6c/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -640,185 +819,6 @@
 <li><p>MVCC原理即通过read view 以及undo log来实现</p>
 </li>
 </ul>
-
-      
-    </div>
-
-    
-    
-    
-
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>l
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/ace2edeb/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/lion.png">
-      <meta itemprop="name" content="swimminghao">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="swimminghao's blog">
-      <meta itemprop="description" content="swimminghao的学习博客">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | swimminghao's blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/ace2edeb/" class="post-title-link" itemprop="url">21、【对线面试官】Mysql索引</a>
-        </h2>
-
-        <div class="post-meta-container">
-
-          
-
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-02-28 19:57:47" itemprop="dateCreated datePublished" datetime="2022-02-28T19:57:47+08:00">2022-02-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2026-10-28 20:15:59" itemprop="dateModified" datetime="2026-10-28T20:15:59+08:00">2026-10-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="far fa-comment"></i>
-    </span>
-    <span class="post-meta-item-text">Waline：</span>
-  
-    <a title="waline" href="/posts/ace2edeb/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/ace2edeb/" data-xid="/posts/ace2edeb/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>1.8k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>2 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="21、【对线面试官】Mysql索引"><a href="#21、【对线面试官】Mysql索引" class="headerlink" title="21、【对线面试官】Mysql索引"></a>21、【对线面试官】Mysql索引</h1><h2 id="我看你简历上写了MySQL，对MySQL-InnoDB引擎的索引了解吗？"><a href="#我看你简历上写了MySQL，对MySQL-InnoDB引擎的索引了解吗？" class="headerlink" title="我看你简历上写了MySQL，对MySQL InnoDB引擎的索引了解吗？"></a>我看你简历上写了MySQL，对MySQL InnoDB引擎的索引了解吗？</h2><ol>
-<li>嗯啊，使用索引可以加快查询速度，其实上就是将无序的数据变成有序（有序就能加快检索速度）</li>
-<li>在InnoDB引擎中，索引的底层数据结构是**<code>B+树</code>**</li>
-</ol>
-<h2 id="那为什么不使用红黑树或者B树呢？"><a href="#那为什么不使用红黑树或者B树呢？" class="headerlink" title="那为什么不使用红黑树或者B树呢？"></a>那为什么不使用红黑树或者B树呢？</h2><ol>
-<li><p>MySQL的数据是存储在硬盘的，在查询时一般是不能「一次性」把全部数据加载到内存中</p>
-</li>
-<li><p>红黑树是「二叉查找树」的变种，一个Node节点只能存储一个Key和一个Value</p>
-</li>
-<li><p>B和B+树跟红黑树不一样，它们算是「多路搜索树」，相较于「二叉搜索树」而言，一个Node节点可以存储的信息会更多，「多路搜索树」的高度会比「二叉搜索树」更低。</p>
-</li>
-<li><p>了解了区别之后，其实就很容易发现，在数据不能一次加载至内存的场景下，数据需要被检索出来</p>
-</li>
-<li><p>选择B或B+树的理由就很充分了（一个Node节点存储信息更多（相较于二叉搜索树），树的高度更低，树的高度影响检索的速度）</p>
-</li>
-<li><p>B+树相对于B树而言，它又有两种特性。</p>
-<p>1）B+树非叶子节点不存储数据，在相同的数据量下，B+树更加矮壮。（这个应该不用多解释了，数据都存储在叶子节点上，非叶子节点的存储能存储更多的索引，所以整棵树就更加矮壮）</p>
-<p>2）B+树叶子节点之间组成一个链表，方便于遍历查询（遍历操作在MySQL中比较常见）</p>
-</li>
-<li><p>我稍微解释一下吧，你可以脑补下画面</p>
-</li>
-<li><p>我们在MySQL InnoDB引擎下，每创建一个索引，相当于生成了一颗B+树。</p>
-</li>
-<li><p>如果该索引是「聚集（聚簇）索引」，那当前B+树的叶子节点存储着「主键和当前行的数据」</p>
-</li>
-<li><p>如果该索引是「非聚簇索引小」，那当前B+树的叶子节点存储着「主键和当前索引列值」</p>
-</li>
-<li><p>比如写了一句sql：select*from user where id&gt;&#x3D;10，那只要定位到id为10的记录，然后在叶子节点之间通过遍历链表（叶子节点组成的链表），即可找到往后的记录了。</p>
-</li>
-<li><p>由于B树是会在非叶子节点也存储数据，要遍历的时候可能就得跨层检索，相对麻烦些。</p>
-</li>
-<li><p>基于树的层级以及业务使用场景的特性，所以MySQL选择了B+树作为索引的底层数据结构。</p>
-</li>
-<li><p>对于哈希结构，其实InnoDB引擎是「自适应」哈希索引的（hash索引的创建由lnnoDB存储引擎自动优化创建，我们是干预不了）</p>
-</li>
-</ol>
-<h2 id="你知道什么是回表吗？"><a href="#你知道什么是回表吗？" class="headerlink" title="你知道什么是回表吗？"></a>你知道什么是回表吗？</h2><ol>
-<li>所谓的回表其实就是，当我们使用非聚簇索引查询数据时，检索出来的数据可能包含其他列</li>
-<li>但走的索引树叶子节点只能查到当前列值以及主键ID，所以需要根据主键ID再去查一遍数据，得到SQL所需的列</li>
-<li>举个例子，我这边建了给订单号ID建了个索引，但我的SQL是：select orderld，orderName from orderdetail where orderld &#x3D; 123</li>
-<li>SQL走订单ID索引，但在订单ID的索引树的叶子节点只有orderld和ld，而我们还想检索出orderName，所以MySQL会拿到ID再去查出orderName给我们返回，这种操作就叫回表</li>
-</ol>
-<h2 id="如何避免回表"><a href="#如何避免回表" class="headerlink" title="如何避免回表"></a>如何避免回表</h2><ol>
-<li>想要避免回表，可以使用覆盖索引</li>
-<li>所谓的覆盖索引，实际上就是你想要查出的列刚好在叶子节点上都存在，比如我建了orderld和orderName.联合索引l，刚好我需要查询也是orderld和orderName，这些数据都存在索引树的叶子节点上，就不需要回表操作了。</li>
-</ol>
-<h2 id="既然你也提到了联合索引，我想问下你了解最左匹配原则吗"><a href="#既然你也提到了联合索引，我想问下你了解最左匹配原则吗" class="headerlink" title="既然你也提到了联合索引，我想问下你了解最左匹配原则吗"></a>既然你也提到了联合索引，我想问下你了解最左匹配原则吗</h2><ol>
-<li>嗯，要说明这个概念，还是举例子比较容易</li>
-<li>如有索引（a，b，c，d），查询条件a&#x3D;1and b&#x3D;2 and c&gt;3 and d&#x3D;4，则会在每个节点依次命中a、b、c，无法命中d</li>
-<li>先匹配最左边的，索引只能用于查找key是否存在（相等），遇到范围查询（&gt;、&lt;、between、like左匹配）等就不能进一步匹配了，后续退化为线性查找</li>
-<li>这就是最左匹配原则</li>
-</ol>
-<h2 id="嗯嗯，我还想问下你们主键是怎么生成的？"><a href="#嗯嗯，我还想问下你们主键是怎么生成的？" class="headerlink" title="嗯嗯，我还想问下你们主键是怎么生成的？"></a>嗯嗯，我还想问下你们主键是怎么生成的？</h2><p>主键就自增的</p>
-<h2 id="那假设我不用MySQL自增的主键，你觉得会有什么问题呢？"><a href="#那假设我不用MySQL自增的主键，你觉得会有什么问题呢？" class="headerlink" title="那假设我不用MySQL自增的主键，你觉得会有什么问题呢？"></a>那假设我不用MySQL自增的主键，你觉得会有什么问题呢？</h2><ol>
-<li>首先主键得保证它的唯一性和空间尽可能短吧，这两块是需要考虑的。</li>
-<li>另外，由于索引的特性（有序），如果生成像uuid类似的主键，那插入的的性能是比自增的要差的</li>
-<li>因为生成的uuid，在插入时有可能需要移动磁盘块（比如，块内的空间在当前时刻已经存储满了，但新生成的uuid需要插入已满的块内，就需要移动块的数据）</li>
-</ol>
 
       
     </div>
@@ -2057,7 +2057,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/posts/9544a93a/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/5a56f011/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/lion.png">
@@ -2075,7 +2075,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/9544a93a/" class="post-title-link" itemprop="url">29、【对线面试官】垃圾回收机制</a>
+          <a href="/posts/5a56f011/" class="post-title-link" itemprop="url">2、【对线面试官】今天来聊聊Java泛型</a>
         </h2>
 
         <div class="post-meta-container">
@@ -2117,8 +2117,8 @@
     </span>
     <span class="post-meta-item-text">Waline：</span>
   
-    <a title="waline" href="/posts/9544a93a/#waline-comments" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" id="/posts/9544a93a/" data-xid="/posts/9544a93a/" itemprop="commentCount"></span>
+    <a title="waline" href="/posts/5a56f011/#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/posts/5a56f011/" data-xid="/posts/5a56f011/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -2129,14 +2129,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>2.8k</span>
+      <span>2.5k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>3 分钟</span>
+      <span>2 分钟</span>
     </span>
 </div>
 
@@ -2147,124 +2147,42 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="29、【对线面试官】垃圾回收机制"><a href="#29、【对线面试官】垃圾回收机制" class="headerlink" title="29、【对线面试官】垃圾回收机制"></a>29、【对线面试官】垃圾回收机制</h1><h2 id="聊聊Java的垃圾回收机制"><a href="#聊聊Java的垃圾回收机制" class="headerlink" title="聊聊Java的垃圾回收机制?"></a>聊聊Java的垃圾回收机制?</h2><p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/Xm317A_20211229152833.png"></p>
-<ul>
-<li>我们使用Java的时候，会创建很多对象，但我们未曾「手动」将这些对象进行清除,而如果用C++语言的时候，用完是需要自己free（释放）掉的</li>
-<li>写Java的时候不用自己手动释放”垃圾”呢？原因很简单，JVM帮我们做了（自动回收垃圾）</li>
-<li>垃圾的定义：只要对象不再被使用了，那我们就认为该对象就是垃圾，对象所占用的空间就可以被回收·</li>
-</ul>
-<h2 id="是怎么判断对象不再被使用的呢？"><a href="#是怎么判断对象不再被使用的呢？" class="headerlink" title="是怎么判断对象不再被使用的呢？"></a>是怎么判断对象不再被使用的呢？</h2><ul>
-<li><p>常用的算法有两个「引用计数法」和「可达性分析法」</p>
-<ul>
-<li><p>引用计数法思路很简单：当对象被引用则+1，但对象引用失败则-1。当计数器为0时，说明对象不再被引用，可以被可回收</p>
+          <p>#2、【对线面试官】今天来聊聊Java泛型</p>
+<h2 id="泛型了解"><a href="#泛型了解" class="headerlink" title="泛型了解"></a>泛型了解</h2><ol>
+<li>在Java中的泛型简单来说就是：在创建对象或调用方法的时候才明确下具体的类型</li>
+<li>使用泛型的好处就是代码更加简洁（不再需要强制转换），程序更加健壮（在编译期间没有警告，在运行期就不会出现ClassCastException异常）</li>
+</ol>
+<h2 id="工作中用得多吗"><a href="#工作中用得多吗" class="headerlink" title="工作中用得多吗"></a>工作中用得多吗</h2><ol>
+<li>在操作集合的时候，还是很多的，毕竟方便啊。List lists &#x3D; new ArrayList&lt;&gt;();lists.add （”面试造火箭”）；</li>
+<li>如果是其他场景的话，那就是在写「基础组件」的时候了。</li>
+</ol>
+<h2 id="你是怎么写的"><a href="#你是怎么写的" class="headerlink" title="你是怎么写的"></a>你是怎么写的</h2><ol>
+<li><p>再明确一下泛型就是「在创建对象或调用方法的时候才明确下具体的类型」</p>
 </li>
-<li><p>缺点就是：如果对象存在循环依赖，那就无法定位该对象，是否应该被回收（A依赖B，B依赖A）</p>
+<li><p>而组件为了做到足够的通用性，是不知道「用户」传入什么类型参数进来的所以在这种情况下用泛型就是很好的实践。</p>
 </li>
-<li><p>是可达性分析法：它从「GC Roots」开始向下搜索，当对象到「GC Roots」都没有任何引用相连时，说明对象是不可用的，可以被回收</p>
-<ul>
-<li><p>「 GC Roots」是一组必须「活跃」的引用</p>
+<li><p>这块可以参考SpringData JPA的JpaRepository写法。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">JpaRepository</span>&lt;T, ID&gt; <span class="keyword">extends</span> <span class="title class_">PagingAndSortingRepository</span>&lt;T, ID&gt;, QueryByExampleExecutor&lt;T&gt; &#123;</span><br><span class="line"></span><br><span class="line"> List&lt;T&gt; <span class="title function_">findAll</span><span class="params">()</span>;</span><br><span class="line"></span><br><span class="line"> List&lt;T&gt; <span class="title function_">findAll</span><span class="params">(Sort sort)</span>;</span><br><span class="line"></span><br><span class="line"> List&lt;T&gt; <span class="title function_">findAllById</span><span class="params">(Iterable&lt;ID&gt; ids)</span>;</span><br><span class="line"></span><br><span class="line"> &lt;S <span class="keyword">extends</span> <span class="title class_">T</span>&gt; List&lt;S&gt; <span class="title function_">saveAll</span><span class="params">(Iterable&lt;S&gt; entities)</span>;</span><br><span class="line"></span><br><span class="line"> <span class="keyword">void</span> <span class="title function_">flush</span><span class="params">()</span>;</span><br><span class="line"></span><br><span class="line"> &lt;S <span class="keyword">extends</span> <span class="title class_">T</span>&gt; S <span class="title function_">saveAndFlush</span><span class="params">(S entity)</span>;</span><br><span class="line"></span><br><span class="line"> <span class="keyword">void</span> <span class="title function_">deleteInBatch</span><span class="params">(Iterable&lt;T&gt; entities)</span>;</span><br><span class="line"></span><br><span class="line"> <span class="keyword">void</span> <span class="title function_">deleteAllInBatch</span><span class="params">()</span>;</span><br><span class="line"></span><br><span class="line"> T <span class="title function_">getOne</span><span class="params">(ID id)</span>;</span><br><span class="line"></span><br><span class="line"> <span class="meta">@Override</span></span><br><span class="line"> &lt;S <span class="keyword">extends</span> <span class="title class_">T</span>&gt; List&lt;S&gt; <span class="title function_">findAll</span><span class="params">(Example&lt;S&gt; example)</span>;</span><br><span class="line"></span><br><span class="line"> <span class="meta">@Override</span></span><br><span class="line"> &lt;S <span class="keyword">extends</span> <span class="title class_">T</span>&gt; List&lt;S&gt; <span class="title function_">findAll</span><span class="params">(Example&lt;S&gt; example, Sort sort)</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>从「 GC Root」出发，程序通过直接引用或者间接引用，能够找到可能正在被使用的对象</p>
-<ul>
-<li>比如：JVM内存结构中的虚拟机栈，虚拟机栈里的栈帧，栈帧中的局部变量，局部变量就存储着引用。</li>
-<li>那如果栈帧位于虚拟机栈的栈顶，是不是说明这个栈帧是活跃的（换言之，是线程正在被调用的）</li>
-<li>既然是线程正在调用的，那栈帧里的指向「堆」的对象引用，就一定是「活跃」的引用</li>
-<li>所以，当前活跃的栈帧指向堆里的对象引用就可以是「 GC Roots」</li>
-</ul>
+<li><p>要写组件，还是离不开Java反射机制（能够从运行时获取信息），所以一般组件是泛型+反射来实现的。</p>
 </li>
-<li><p>当然了，能作为「 GC Roots」也不单单只有上面那一块</p>
-<ul>
-<li>比如类的静态变量引用是「 GC Roots」，被「Java本地方法」所引用的对象也是「 GC Roots」等等</li>
-</ul>
+<li><p>回到我所讲的组件吧，背景是这样的：我这边有个需求，需要根据某些字段进行聚合。</p>
 </li>
-<li><p>「 GC Roots」是一组必须「活跃」的「引用」，只要跟「GC Roots」没有直接或者间接引用相连，那就是垃圾。JVM用的就是「可达性分析算法」来判断对象是否为垃圾</p>
+<li><p>换到SQL其实就是select sum（column 1),sum(column2) from table group by fie ld1,field2</p>
 </li>
-</ul>
+<li><p>需要sum和group by的列肯定是由业务方自己传入，而SQL的表其实就是我们的POJO（传入的字段也肯定是POJO的属性）</p>
 </li>
-</ul>
+<li><p>单个业务实际可以在参数上写死POJO，但为了做得更加通用，我把入参设置为泛型</p>
 </li>
-</ul>
-<h2 id="标记完，怎么删除的（垃圾回收算法）"><a href="#标记完，怎么删除的（垃圾回收算法）" class="headerlink" title="标记完，怎么删除的（垃圾回收算法）"></a>标记完，怎么删除的（垃圾回收算法）</h2><ul>
-<li>标记清除<ul>
-<li>缺点：直接清除会有「内存碎片」的问题：可能我有10M的空余内存，但程序申请9M内存空间却申请不下来（10M的内存空间是垃圾清除后的，不连续的）</li>
-</ul>
+<li><p>拿到参数后，通过反射获取其字段具体的值，做累加就好了。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 传入 需要group by 和 sum 的字段名</span></span><br><span class="line"><span class="keyword">public</span> <span class="title function_">cacheMap</span><span class="params">(List&lt;String&gt; groupByKeys, List&lt;String&gt; sumValues)</span> &#123;</span><br><span class="line">  <span class="built_in">this</span>.groupByKeys = groupByKeys;</span><br><span class="line">  <span class="built_in">this</span>.sumValues = sumValues;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">excute</span><span class="params">(T e)</span> &#123;</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// 从pojo 取出需要group by 的字段 list</span></span><br><span class="line">  List&lt;Object&gt; key = buildPrimaryKey(e);</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// primaryMap 是存储结果的Map</span></span><br><span class="line">  <span class="type">T</span> <span class="variable">value</span> <span class="operator">=</span> primaryMap.get(key);</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// 如果从存储结果找到有相应记录</span></span><br><span class="line">  <span class="keyword">if</span> (value != <span class="literal">null</span>) &#123;</span><br><span class="line">    <span class="keyword">for</span> (String elem : sumValues) &#123;</span><br><span class="line">      <span class="comment">// 反射获取对应的字段，做累加处理</span></span><br><span class="line">      <span class="type">Field</span> <span class="variable">field</span> <span class="operator">=</span> getDeclaredField(elem, e);</span><br><span class="line">      <span class="keyword">if</span> (field.get(e) <span class="keyword">instanceof</span> Integer) &#123;</span><br><span class="line">        field.set(value, (Integer) field.get(e) + (Integer) field.get(value));</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span> (field.get(e) <span class="keyword">instanceof</span> Long) &#123;</span><br><span class="line">        field.set(value, (Long) field.get(e) + (Long) field.get(value));</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">RuntimeException</span>(<span class="string">&quot;类型异常,请处理异常&quot;</span>);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 处理时间记录</span></span><br><span class="line">    <span class="type">Field</span> <span class="variable">field</span> <span class="operator">=</span> getDeclaredField(<span class="string">&quot;updated&quot;</span>, value);</span><br><span class="line">    <span class="keyword">if</span> (<span class="literal">null</span> != field) &#123;</span><br><span class="line">      field.set(value, DateTimeUtils.getCurrentTime());</span><br><span class="line">    &#125;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="comment">// group by 字段 第一次进来</span></span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      primaryMap.put(key, Tclone(e));</span><br><span class="line">      createdMap.put(key, DateTimeUtils.getCurrentTime());</span><br><span class="line">    &#125;<span class="keyword">catch</span> (Exception ex) &#123;</span><br><span class="line">      log.info(<span class="string">&quot;first put value error &#123;&#125;&quot;</span> , e);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
-<li>标记复制<ul>
-<li>「标记」存活的对象「复制」到另一块空间，复制完了之后，直接把原有的整块空间给干掉！这样就没有内存碎片的问题了</li>
-<li>缺点：内存利用率低，得有一块新的区域给我复制（移动）过去</li>
-</ul>
+<li><p>理解了泛型的作用之后，再去审视自己代码时，就可以判断是否需要用到泛型了。</p>
 </li>
-<li>标记整理<ul>
-<li>当前区域内进行移动，存活对象一到一边，垃圾移到一边，再统一删除，就不会有内存碎片了</li>
-</ul>
-</li>
-</ul>
-<h2 id="老年代、年轻代"><a href="#老年代、年轻代" class="headerlink" title="老年代、年轻代"></a>老年代、年轻代</h2><ul>
-<li>大部分对象的生命周期都很短，而只有少部分对象可能会存活很长时间</li>
-<li>回收垃圾的时候，程序是有短暂的时间不能正常继续运作啊。（JVM在回收的时候，用户线程不能继续分配修改引用），为了使「 stop the word」持续的时间尽可能短以及提高并发式GC所能应付的内存分配速率</li>
-<li>所以很多的垃圾收集器上都会在「物理」或者「逻辑」上，把这两类对象进行区分<ul>
-<li>死得快的对象所占的区域叫做「年轻代」，活得久的对象所占的区域叫做「老年代」</li>
-<li>但也不是所有的「垃圾收集器」都会有，只不过我们现在线上用的可能都是JDK8，JDK8及以下所使用到的垃圾收集器都是有「分代」概念的</li>
-</ul>
-</li>
-</ul>
-<h2 id="垃圾收集器"><a href="#垃圾收集器" class="headerlink" title="垃圾收集器"></a>垃圾收集器</h2><ul>
-<li><p>垃圾回收的过程，其实就对应着几种「垃圾回收算法」分别是</p>
-<ul>
-<li>标记清除算法、标记复制算法和标记整理算法【「标记」「复制」「整理」】</li>
-</ul>
-</li>
-<li><p>「年轻代」的垃圾收集器有： Seria、Parallel Scavenge、 Pardew</p>
-<ul>
-<li>年轻代的垃圾回收器使用的都是「标记复制算法」</li>
-<li>所以在「堆内存」划分中，将年轻代划分出 Survivor区（ Survivor From和 ourvor To），目的就是为了有一块完整的内存空间供垃圾回收器进行拷贝（移动）</li>
-<li>新对象则放入Eden区</li>
-<li>堆内存大小默认比例：</li>
-</ul>
-<p><img src="https://cdn.jsdelivr.net/gh/swimminghao/picture@main/img/6qtuUz_20211229160130.png"></p>
-</li>
-<li><p>「老年代」的垃圾收集器有： Serial Old、 Parallel Old、CMS</p>
-</li>
-<li><p>Serial是单线程的， Parallel是多线程。这些垃圾收集器实际上就是「实现了」垃圾回收算法（标记复制、标记整理以及标记清除算法）</p>
-</li>
-<li><p>CMS是「JDK8之前」是比较新的垃圾收集器，它的特点是能够尽可能减少「stop the word」时间。在垃圾回收时让用户线程和GC线程能够并发执行」</p>
-</li>
-</ul>
-<h2 id="新创建的对象一般是在「新生代」嘛，那在什么时候会到「老年代」中呢？"><a href="#新创建的对象一般是在「新生代」嘛，那在什么时候会到「老年代」中呢？" class="headerlink" title="新创建的对象一般是在「新生代」嘛，那在什么时候会到「老年代」中呢？"></a>新创建的对象一般是在「新生代」嘛，那在什么时候会到「老年代」中呢？</h2><ul>
-<li>两种情况<ul>
-<li>如果对象太大了，就会直接进入老年代（对象创建时就很大 或者 Survivor区没办法存下该对象）</li>
-<li>如果对象太老了，那就会晋升至老年代（每发生一次 Monor GC，存活的对象年龄+1，达到默认值15则晋升老年代）或者（动态对象年龄判定可以进入老年代）</li>
-</ul>
-</li>
-</ul>
-<h2 id="那-Monor-GC什么时候会触发呢？"><a href="#那-Monor-GC什么时候会触发呢？" class="headerlink" title="那 Monor GC什么时候会触发呢？"></a>那 Monor GC什么时候会触发呢？</h2><ul>
-<li>当Eden区空间不足时，就会触发 Monor GC</li>
-</ul>
-<h2 id="那在「年轻代」GC的时候，从-GC-Roots出发，那不也会扫描到「老年代」的对象吗？那那那-不就相当于全堆扫描吗？那这分代还有意义吗？"><a href="#那在「年轻代」GC的时候，从-GC-Roots出发，那不也会扫描到「老年代」的对象吗？那那那-不就相当于全堆扫描吗？那这分代还有意义吗？" class="headerlink" title="那在「年轻代」GC的时候，从 GC Roots出发，那不也会扫描到「老年代」的对象吗？那那那.不就相当于全堆扫描吗？那这分代还有意义吗？"></a>那在「年轻代」GC的时候，从 GC Roots出发，那不也会扫描到「老年代」的对象吗？那那那.不就相当于全堆扫描吗？那这分代还有意义吗？</h2><ul>
-<li><p>JVM解决方案</p>
-<ul>
-<li>Hotspot虚拟机「老的GC」（G1以下）是要求整个GC堆在连续的地址空间上</li>
-<li>所以会有一条分界线（一侧是老年代，另一侧是年轻代），所以可以通过「地址」就可以判断对象在哪个分代上、</li>
-<li>当做 Monor GCI的时候，从 GC Roots出发，如果发现「老年代」的对象，那就不往下走了（ Monor GC对老年代的区域毫无兴趣）</li>
-</ul>
-</li>
-</ul>
-<h2 id="但又有个问题，那如果「年轻代」的对象被「老年代」引用了呢？（老年代对象持有年轻代对象的引用），那时候肯定是不能回收掉「年轻代」的对象的？"><a href="#但又有个问题，那如果「年轻代」的对象被「老年代」引用了呢？（老年代对象持有年轻代对象的引用），那时候肯定是不能回收掉「年轻代」的对象的？" class="headerlink" title="但又有个问题，那如果「年轻代」的对象被「老年代」引用了呢？（老年代对象持有年轻代对象的引用），那时候肯定是不能回收掉「年轻代」的对象的？"></a>但又有个问题，那如果「年轻代」的对象被「老年代」引用了呢？（老年代对象持有年轻代对象的引用），那时候肯定是不能回收掉「年轻代」的对象的？</h2><ul>
-<li>解决方案<ul>
-<li>Hotspot虚拟机下有「 card table」（卡表）来避免全局扫描「老年代」对象</li>
-<li>「堆内存」的每一小块区域形成「卡页」，卡表实际上就是卡页的集合。当判断一个卡页中有存在对象的跨代引用时，将这个页标记为「脏页」</li>
-<li>那知道了「卡表」之后，就很好办了。每次 Monor GC的时候只需要去「卡表找到「脏页」，找到后加入至 GC Root，而不用去遍历整个「老年代」的对象了。</li>
-</ul>
-</li>
-</ul>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p><strong>什么是垃圾</strong>：只要对象不再被使用，那即是垃圾</p>
-<p><strong>如何判断为垃圾</strong>：可达性分析算法和引用计算算法，JVM使用的是可达性分析算法</p>
-<p><strong>什么是GC Roots</strong>：GC Roots是一组必须活跃的引用，跟GC Roots无关联的引用即是垃圾，可被回收</p>
-<p><strong>常见的垃圾回收算法</strong>：标记清除、标记复制、标记整理</p>
-<p><strong>为什么需要分代</strong>：大部分对象都死得早，只有少部分对象会存活很长时间。在堆内存上都会在物理或逻辑上进行分代，为了使「stop the word」持续的时间尽可能短以及提高并发式GC所能应付的内存分配速率。</p>
-<p><strong>Minor GC</strong>：当Eden区满了则触发，从GC Roots往下遍历，年轻代GC不关心老年代对象</p>
-<p><strong>什么是card table</strong>【卡表】：空间换时间（类似bitmap），能够避免扫描老年代的所有对象，进而顺利进行Minor GC （案例：老年代对象持有年轻代对象引用）</p>
-<p><strong>堆内存占比</strong>：年轻代占堆内存1&#x2F;3，老年代占堆内存2&#x2F;3。Eden区占年轻代8&#x2F;10，Survivor区占年轻代2&#x2F;10（其中From 和To 各站1&#x2F;10)</p>
+</ol>
+<h2 id="价值体现"><a href="#价值体现" class="headerlink" title="价值体现"></a>价值体现</h2><ol>
+<li>主要是在平时工作中，写代码的时候会多想想，遇到能用到的地方会优化下代码</li>
+</ol>
 
       
     </div>
